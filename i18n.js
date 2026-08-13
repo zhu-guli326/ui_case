@@ -60,7 +60,7 @@
       { href: "./library.html", key: "nav.library" },
       { href: "./brands.html", key: "nav.brands" },
       { href: "./launcher.html", key: "nav.launcher" },
-      { href: "https://github.com/zhu-guli326/ui_case", label: "GitHub", external: true, stars: true },
+      { href: "https://github.com/zhu-guli326/image2_UI_skill", label: "GitHub", external: true, stars: true },
       { href: "https://x.com/JGuli49724", label: "X", external: true, ariaLabel: "在 X 查看 JGuli49724 的主页" },
       { href: "https://www.xiaohongshu.com/user/profile/57b3456c82ec3947f79496e9", label: "小红书", external: true },
       { href: "./learn.html", key: "nav.learn" },
@@ -103,7 +103,7 @@
     if (githubStarsRequested) return;
     githubStarsRequested = true;
     try {
-      const response = await fetch("https://api.github.com/repos/zhu-guli326/ui_case", {
+      const response = await fetch("https://api.github.com/repos/zhu-guli326/image2_UI_skill", {
         headers: { Accept: "application/vnd.github+json" },
         cache: "no-store",
       });

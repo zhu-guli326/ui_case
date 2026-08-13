@@ -88,8 +88,8 @@ const cardPreviewImages = Object.freeze({
   notebook: "./demo/marble-note/screenshots/library-preview-reference-v2.png"
 });
 
-const githubApiUrl = "https://api.github.com/repos/zhu-guli326/ui_case";
-const githubStarsFallbackUrl = "https://img.shields.io/github/stars/zhu-guli326/ui_case.json";
+const githubApiUrl = "https://api.github.com/repos/zhu-guli326/image2_UI_skill";
+const githubStarsFallbackUrl = "https://img.shields.io/github/stars/zhu-guli326/image2_UI_skill.json";
 const gallery = document.querySelector("#demoGallery");
 const searchInput = document.querySelector("#styleSearch");
 const categoryNav = document.querySelector("#categoryNav");
