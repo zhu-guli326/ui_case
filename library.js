@@ -686,6 +686,11 @@ function updateGitHubStars(count) {
 }
 
 async function loadGitHubStars() {
+  if (window.location.hostname.endsWith("github.io")) {
+    githubStars.textContent = "--";
+    githubStarsNav.textContent = "--";
+    return;
+  }
   try {
     const response = await fetch(githubApiUrl, {
       headers: { Accept: "application/vnd.github+json" },
