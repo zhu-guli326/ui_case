@@ -5,6 +5,7 @@ build/
 .image2-ui/
 tmp/
 /screenshots/
+demo/*/screenshots/
 demo/*/.image2-ui/
 demo/*/node_modules/
 demo/*/dist/

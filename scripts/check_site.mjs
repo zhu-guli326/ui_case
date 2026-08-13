@@ -2,6 +2,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -9,6 +10,7 @@ const requiredEntries = ["index.html", "library.html", "brands.html", "launcher.
 const sourceReferenceFiles = ["library.js", "launcher.js", "launcher.html", "vocabulary-data.js"];
 const forbiddenDirectoryNames = ["node_modules", "dist", ".image2-ui", "tmp"];
 const failures = [];
+const trackedFiles = new Set(execFileSync("git", ["ls-files", "-z"], { cwd: root, encoding: "utf8" }).split("\0").filter(Boolean));
 
 for (const entry of requiredEntries) requirePath(entry, `missing required site entry: ${entry}`);
 
@@ -73,6 +75,7 @@ function requireLocalReference(value, label) {
   if (/^(?:https?:|data:)/.test(value)) return;
   const clean = value.split(/[?#]/)[0].replace(/^\.\//, "");
   requirePath(clean, `${label} points to missing file: ${value}`);
+  if (!trackedFiles.has(clean)) failures.push(`${label} points to an untracked file: ${value}`);
   checkedMediaReferences += 1;
 }
 
