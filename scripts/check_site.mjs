@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const requiredEntries = ["index.html", "library.html", "brands.html", "launcher.html", "catalog/index.js"];
+const sourceReferenceFiles = ["library.js", "launcher.js", "launcher.html", "vocabulary-data.js"];
 const forbiddenDirectoryNames = ["node_modules", "dist", ".image2-ui", "tmp"];
 const failures = [];
 
@@ -36,6 +37,13 @@ for (const item of catalog.styleGuides) {
     for (const brandId of item.brandProfileIds) {
       if (!brandIds.has(brandId)) failures.push(`${item.id} references missing brand profile ${brandId}`);
     }
+  }
+}
+
+for (const sourceFile of sourceReferenceFiles) {
+  const source = fs.readFileSync(path.join(root, sourceFile), "utf8");
+  for (const match of source.matchAll(/["'](\.\/[^"']+\.(?:png|jpe?g|gif|webp|mp4|html)(?:[?#][^"']*)?)["']/gi)) {
+    requireLocalReference(match[1], sourceFile);
   }
 }
 
