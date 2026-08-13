@@ -27,6 +27,15 @@ http://127.0.0.1:4183/
 - `screenshots/artmuse-desktop.png`
 - `screenshots/artmuse-mobile.png`
 
+## Render the library video
+
+```bash
+node demo/artmuse-ios/render-video.mjs
+```
+
+The renderer records the three-screen interaction at a `390x844` CSS viewport
+and writes a full-frame `780x1688` H.264 video to the case-library asset path.
+
 ## Validate
 
 ```powershell
@@ -35,6 +44,4 @@ powershell -ExecutionPolicy Bypass -File demo/artmuse-ios/validate.ps1
 
 ## Asset Notes
 
-All artwork thumbnails are local SVG assets under `assets/` so the demo can run without remote image loading.
-
-This demo does not claim real image2 generation. The artwork visuals are local code/SVG placeholders and should be replaced with true image2 assets when an image2 entrypoint is available.
+The featured night painting and exhibition-card illustrations are local PNG assets generated through YouToken Image. UI text, controls, arrows, device chrome, and status symbols remain code-rendered. Supporting artwork thumbnails remain local SVG assets so the demo runs without remote image loading.

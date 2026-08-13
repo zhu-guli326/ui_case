@@ -25,7 +25,7 @@ function showView(name) {
     view.classList.toggle("is-active", active);
   });
   tabbar.hidden = name === "welcome";
-  document.querySelector(".home-indicator").hidden = name === "welcome";
+  document.querySelector(".home-indicator").hidden = false;
   if (name !== "welcome") {
     document.querySelectorAll(".tab").forEach((tab) => {
       const active = tab.dataset.tab === name;
@@ -46,5 +46,5 @@ document.querySelectorAll("[data-add]").forEach((button) => button.addEventListe
 }));
 
 const initialView = previewParams.get("view");
-if (["home", "menu", "member"].includes(initialView)) showView(initialView);
+showView(["home", "menu", "member"].includes(initialView) ? initialView : "welcome");
 window.scrollTo(0, 0);

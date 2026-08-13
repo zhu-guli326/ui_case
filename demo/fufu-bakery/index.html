@@ -20,6 +20,10 @@
       <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></symbol>
       <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M4 6h16v4a2 2 0 0 0 0 4v4H4v-4a2 2 0 0 0 0-4V6Z"/><path d="M12 7.5v2M12 12v2M12 16.5v.1"/></symbol>
       <symbol id="i-location" viewBox="0 0 24 24"><path d="M19 10c0 5-7 10-7 10S5 15 5 10a7 7 0 0 1 14 0Z"/><circle cx="12" cy="10" r="2.2"/></symbol>
+      <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M5 8h12v7a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5V8Z"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 4c0 1 1 1.3 1 2.3M12 4c0 1 1 1.3 1 2.3"/></symbol>
+      <symbol id="i-gift" viewBox="0 0 24 24"><path d="M4 10h16v10H4zM3 7h18v4H3zM12 7v13"/><path d="M12 7H8.8A2.3 2.3 0 1 1 11 4.1L12 7Zm0 0h3.2A2.3 2.3 0 1 0 13 4.1L12 7Z"/></symbol>
+      <symbol id="i-bread" viewBox="0 0 24 24"><path d="M4.5 17.5c-1.7-3.1-.2-7.4 3-9.1 1.8-1 3.2-.9 4.5-.1 1.3-.8 2.7-.9 4.5.1 3.2 1.7 4.7 6 3 9.1-3.8 1.5-11.2 1.5-15 0Z"/><path d="m8.5 10 1.2 2.3M12 9.3l1.1 2.4M15.5 10l.8 2"/></symbol>
+      <symbol id="i-croissant" viewBox="0 0 24 24"><path d="M4.3 9.2c.5 5.8 3.5 9.2 7.7 9.2s7.2-3.4 7.7-9.2c-1.9 1.5-3.5 2.2-5.2 2.4-.7-2.7-4.3-2.7-5 0-1.7-.2-3.3-.9-5.2-2.4Z"/><path d="M9.5 11.6c.4 2.6 1.2 4.7 2.5 6.8M14.5 11.6c-.4 2.6-1.2 4.7-2.5 6.8"/></symbol>
       <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
     </svg>
     <main class="stage">
@@ -40,43 +44,42 @@
 
           <section class="app-view welcome-view is-active" data-view="welcome" aria-label="FuFu Bakery welcome screen">
             <div class="welcome-brand" aria-label="FuFu Bakery"><span>FuFu</span><span>Bakery</span></div>
-            <p class="opening">OPENING</p>
-            <p class="welcome-subtitle">Coffee, bread, and a small<br>happy pause.</p>
+            <p class="welcome-subtitle"><span aria-hidden="true">&#9825;</span> Delicious! Tasty!</p>
             <div class="welcome-visual"><img src="./assets/fufu-baker.png" alt="Hand-drawn dog baker holding a baguette"></div>
-            <p class="welcome-note">Baked fresh every day<br>with a big, fluffy smile.</p>
-            <button class="primary-button" type="button" data-go="home"><span>Enter the bakery</span><svg aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+            <p class="welcome-note">Coffee, bread, and a small happy pause.</p>
+            <button class="primary-button" type="button" data-go="home"><span>Let's go inside</span><svg aria-hidden="true"><use href="#i-arrow"></use></svg></button>
           </section>
 
           <section class="app-view home-view" data-view="home" aria-label="FuFu Bakery shop home" hidden>
-            <header class="app-head"><div><p>Good morning</p><h2>FuFu Bakery</h2></div><button class="icon-button" type="button" aria-label="Open basket" data-toast="Your basket is ready for something warm"><svg><use href="#i-bag"></use></svg></button></header>
-            <button class="hero-card" type="button" data-go="menu" aria-label="Open today's warm bakes"><div><span>Fresh from the oven</span><strong>Warm<br>and fluffy.</strong><small>See today's bakes</small></div><img src="./assets/fufu-baker.png" alt="Dog baker with bread"></button>
+            <header class="app-head"><div><p>Hello, welcome to</p><h2>FuFu Bakery <span aria-hidden="true">&#9825;</span></h2></div><button class="icon-button" type="button" aria-label="Open basket" data-toast="Your basket is ready for something warm"><svg><use href="#i-bag"></use></svg></button></header>
+            <button class="hero-card" type="button" data-go="menu" aria-label="Open today's warm bakes"><div><span>Fresh from the oven</span><strong>Warm &amp;<br>fluffy today.</strong><small>See today's bakes</small></div><img src="./assets/fufu-baker.png" alt="Dog baker holding a baguette"></button>
             <section class="quick-actions" aria-label="Bakery actions">
               <button type="button" data-go="menu"><span class="quick-icon"><svg><use href="#i-cake"></use></svg></span><b>Order</b><small>Pick a bake</small></button>
               <button type="button" data-toast="Table booking opens at 9:00"><span class="quick-icon"><svg><use href="#i-store"></use></svg></span><b>Dine in</b><small>Reserve a seat</small></button>
-              <button type="button" data-go="member"><span class="quick-icon"><svg><use href="#i-ticket"></use></svg></span><b>Member</b><small>Little perks</small></button>
+              <button type="button" data-go="member"><span class="quick-icon"><svg><use href="#i-coffee"></use></svg></span><b>Treats</b><small>Little perks</small></button>
+              <button type="button" data-toast="The tiny shop opens after breakfast"><span class="quick-icon"><svg><use href="#i-bag"></use></svg></span><b>Tiny shop</b><small>Goods to keep</small></button>
             </section>
-            <section class="weekly-bake"><div><p>This week's favorite</p><h3>Sea salt<br>butter roll</h3><button type="button" data-toast="Butter roll added to your basket">Add to basket</button></div><span class="roll-doodle" aria-hidden="true">&#9783;</span></section>
             <p class="feedback" id="feedback" role="status">The oven is warm.</p>
           </section>
 
           <section class="app-view menu-view" data-view="menu" aria-label="FuFu Bakery order menu" hidden>
             <header class="view-head"><button class="icon-button" type="button" aria-label="Back to bakery home" data-go="home"><svg><use href="#i-arrow"></use></svg></button><div><p>Fresh today</p><h2>Choose a bake</h2></div><button class="icon-button" type="button" aria-label="Open basket" data-toast="Your basket is empty"><svg><use href="#i-bag"></use></svg></button></header>
             <section class="menu-list" aria-label="Bakery menu">
-              <button class="menu-item" type="button" data-add="Butter roll"><span class="menu-visual bun">&#9783;</span><span><b>Butter roll</b><small>Soft, warm, sea salt</small></span><strong>$3.50</strong></button>
-              <button class="menu-item" type="button" data-add="Milk loaf"><span class="menu-visual loaf">&#8764;</span><span><b>Milk loaf</b><small>Pull-apart and tender</small></span><strong>$5.00</strong></button>
-              <button class="menu-item" type="button" data-add="Morning croissant"><span class="menu-visual croissant">&#9694;</span><span><b>Morning croissant</b><small>Buttery, layered, crisp</small></span><strong>$3.80</strong></button>
+              <button class="menu-item" type="button" data-add="Butter roll"><span class="menu-visual"><svg><use href="#i-bread"></use></svg></span><span><b>Butter roll</b><small>Soft, warm, sea salt</small></span><strong>$3.50</strong></button>
+              <button class="menu-item" type="button" data-add="Milk loaf"><span class="menu-visual"><svg><use href="#i-bread"></use></svg></span><span><b>Milk loaf</b><small>Pull-apart and tender</small></span><strong>$5.00</strong></button>
+              <button class="menu-item" type="button" data-add="Morning croissant"><span class="menu-visual"><svg><use href="#i-croissant"></use></svg></span><span><b>Morning croissant</b><small>Buttery, layered, crisp</small></span><strong>$3.80</strong></button>
             </section>
             <button class="checkout-button" type="button" data-toast="Your bakery order is saved for pickup">Save for pickup <svg aria-hidden="true"><use href="#i-bag"></use></svg></button>
           </section>
 
           <section class="app-view member-view" data-view="member" aria-label="FuFu Bakery member page" hidden>
-            <header class="view-head"><button class="icon-button" type="button" aria-label="Back to bakery home" data-go="home"><svg><use href="#i-arrow"></use></svg></button><div><p>FuFu friends</p><h2>Member card</h2></div><button class="icon-button" type="button" aria-label="Membership settings" data-toast="Member settings"><svg><use href="#i-more"></use></svg></button></header>
-            <section class="member-card"><img src="./assets/fufu-baker.png" alt="FuFu dog baker membership illustration"><div><small>FLUFFY CLUB</small><strong>Yuki's card</strong><span>3 stamps until a free roll</span></div><b>03</b></section>
-            <section class="stamp-row" aria-label="Three of six bakery stamps"><span class="is-stamped">&#10003;</span><span class="is-stamped">&#10003;</span><span class="is-stamped">&#10003;</span><span></span><span></span><span></span></section>
-            <section class="perk-panel"><p>Your little treats</p><button type="button" data-toast="Birthday latte perk saved"><svg><use href="#i-ticket"></use></svg><span><b>Birthday latte</b><small>One free drink in your birthday month</small></span></button><button type="button" data-toast="Nearest FuFu Bakery: 12 minutes away"><svg><use href="#i-location"></use></svg><span><b>Nearest bakery</b><small>Greenwich Street, 12 min away</small></span></button></section>
+            <header class="member-head"><button class="icon-button" type="button" aria-label="Back to bakery home" data-go="home"><svg><use href="#i-arrow"></use></svg></button><div><p>Little rewards</p><h2>FuFu Friends <span aria-hidden="true">&#9825;</span></h2></div><button class="icon-button" type="button" aria-label="Membership settings" data-toast="Member settings"><svg><use href="#i-more"></use></svg></button></header>
+            <figure class="member-illustration"><img src="./assets/fufu-friends-lineup.png" alt="Three hand-drawn dog bakers whisking, mixing dough and holding bread"></figure>
+            <section class="member-stamps"><div><h3>Member stamps</h3><small>Three more for a free roll</small></div><div class="stamp-row" aria-label="Three of six bakery stamps"><span class="is-stamped">1</span><span class="is-stamped">2</span><span class="is-stamped">3</span><span>4</span><span>5</span><span>6</span></div></section>
+            <section class="perk-panel"><p>Happy perks <span aria-hidden="true">&#9825;</span></p><div class="perk-grid"><button type="button" data-toast="Birthday treat saved"><svg><use href="#i-gift"></use></svg><span><b>Birthday treat</b><small>A little gift on your day</small></span></button><button type="button" data-toast="Free drink progress saved"><svg><use href="#i-coffee"></use></svg><span><b>Free drink</b><small>Buy nine, get one free</small></span></button></div></section>
           </section>
 
-          <nav class="tabbar" aria-label="Primary navigation">
+          <nav class="tabbar" aria-label="Primary navigation" hidden>
             <button class="tab is-active" type="button" data-tab="home" aria-current="page"><svg><use href="#i-store"></use></svg><span>Home</span></button>
             <button class="tab" type="button" data-tab="menu"><svg><use href="#i-grid"></use></svg><span>Menu</span></button>
             <button class="tab" type="button" data-tab="member"><svg><use href="#i-user"></use></svg><span>Member</span></button>

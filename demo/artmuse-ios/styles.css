@@ -300,6 +300,22 @@ svg {
   overflow: hidden;
 }
 
+.hero-card > div:first-child {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-artwork {
+  position: absolute;
+  top: 3px;
+  right: -4px;
+  width: 176px;
+  height: 176px;
+  object-fit: contain;
+  opacity: 0.72;
+  pointer-events: none;
+}
+
 .hero-card span,
 .hero-card p,
 .exhibit-card p,
@@ -565,10 +581,34 @@ svg {
   cursor: pointer;
 }
 
-.line-art {
+.line-art,
+.exhibit-artwork {
   position: absolute;
   opacity: 0.9;
   pointer-events: none;
+}
+
+.exhibit-artwork {
+  top: 4px;
+  right: 2px;
+  width: 158px;
+  height: 158px;
+  object-fit: contain;
+  opacity: 0.58;
+}
+
+.flower-artwork {
+  top: 1px;
+  right: 3px;
+  width: 150px;
+  height: 170px;
+}
+
+.column-artwork {
+  top: -1px;
+  right: 3px;
+  width: 154px;
+  height: 174px;
 }
 
 .portrait-one {
@@ -816,9 +856,11 @@ button,
 
 .visit-grid button:hover { box-shadow: inset 0 0 0 2px rgba(75, 50, 35, 0.18); }
 .art-tile img,
-.exhibit-card .line-art { transition: transform var(--motion-duration-base) var(--motion-ease-emphasized); }
+.exhibit-card .line-art,
+.exhibit-card .exhibit-artwork { transition: transform var(--motion-duration-base) var(--motion-ease-emphasized); }
 .art-tile:hover img,
-.exhibit-card:hover .line-art { transform: scale(1.025); }
+.exhibit-card:hover .line-art,
+.exhibit-card:hover .exhibit-artwork { transform: scale(1.025); }
 
 .icon-btn:active,
 .plain-btn:active,
@@ -893,6 +935,7 @@ button,
 
   .art-tile:hover img,
   .exhibit-card:hover .line-art,
+  .exhibit-card:hover .exhibit-artwork,
   .icon-btn:active,
   .plain-btn:active,
   .arrow-link:active,

@@ -1,0 +1,14 @@
+{
+  "asset": "fufu-friends-lineup.png",
+  "channel": "youtoken-gpt-image-2",
+  "source": "youtoken-image-api",
+  "operation": "image edit",
+  "reference": "fufu-line-effect-board.png",
+  "generatedAt": "2026-08-13T09:52:19Z",
+  "purpose": "Original blue hand-drawn trio of dog bakers for the member screen.",
+  "constraints": [
+    "No readable text",
+    "No logo or watermark",
+    "No UI controls, status bar, or navigation glyphs"
+  ]
+}
