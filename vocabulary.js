@@ -1,5 +1,7 @@
 import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries, vocabularyById } from "./vocabulary-data.js";
 
+document.querySelectorAll(".reference-link").forEach((link) => link.remove());
+
 const STORAGE_KEY = "image2-ui-vocabulary-favorites";
 const i18n = window.image2I18n;
 let currentLanguage = i18n?.language || "zh";
