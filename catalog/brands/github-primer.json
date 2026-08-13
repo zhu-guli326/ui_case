@@ -1,0 +1,6 @@
+{
+  "id": "github-primer", "name": "GitHub Primer", "organization": "GitHub", "sourceType": "public-guideline", "sourceStatus": "基于公开设计规范", "sourceUrl": "https://primer.style/", "reviewedAt": "2026-08-13", "platforms": ["web", "react"],
+  "description": "GitHub 的设计系统，面向开发者工具、代码协作与高密度产品界面。", "componentReferenceIds": ["primer-button", "primer-dialog", "primer-data-table"],
+  "disclaimer": "本资料基于 GitHub Primer 公开文档整理，与 GitHub 无隶属或背书关系；名称与标识归其各自权利人所有。",
+  "locales": { "en": { "sourceStatus": "Based on public design guidelines", "description": "GitHub's design system for developer tools, code collaboration, and dense product interfaces.", "disclaimer": "Compiled from public Primer documentation with no affiliation or endorsement. Names and marks belong to their respective owners." } }
+}

@@ -28,7 +28,31 @@
     "motion": "页面切换、分类、收藏和加入计划都用短促明确的状态反馈。",
     "avoid": "把插画做成整页不可编辑截图，或在高彩背景上继续叠加大量渐变与装饰。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "High-color illustrated recipes",
+      "reference": "A pale-pink board, fluorescent yellow-green phone UI, and tomato-red chef illustration feel like a lively kitchen picture book",
+      "prompt": "High-color illustrated recipe-app visual reference: a pale-pink presentation board; fluorescent yellow-green and light-pink phone interfaces; and collage-like accents in tomato red, apricot orange, pale violet, and sky blue. Draw a chef mixing batter and kitchen utensils using thick black outlines and flat color blocks. Keep the illustration free of text, logos, system status bars, buttons, navigation, and UI glyphs. Render all headings, recipe names, nutrition facts, buttons, labels, status bars, and bottom navigation in code.",
+      "summary": "A tomato-red chef illustration and fluorescent yellow-green welcome screen open the recipe experience, then soft pink, apricot, and violet connect browsing with detail.",
+      "bestFor": "Recipes, children's meals, cooking classes, lifestyle content",
+      "tags": [
+        "Chef illustration",
+        "High-color blocks",
+        "Relaxed recipes"
+      ],
+      "palette": "Pale pink / Fluorescent yellow-green / Tomato red / Apricot orange / Pale violet",
+      "layout": "Illustrated welcome + Recipe list + Meal detail",
+      "recipe": {
+        "principle": "Let illustration provide appetite and warmth while real copy and controls remain clear, tappable, and editable.",
+        "image": "Use one text-free, thick-line chef illustration on welcome; recipe cards use flat food graphics from the same palette to prevent style drift.",
+        "type": "Keep headings large, bold, and direct, with italic red words for rhythm; use compact sans serif for explanation and actions.",
+        "components": "9:16 iOS frame, chef hero, category labels, recipe cards, nutrition data, favorites, and bottom navigation.",
+        "motion": "Use short, explicit state feedback for page changes, categories, favorites, and adding to a plan.",
+        "avoid": "Do not turn the illustration into an uneditable full-page screenshot or layer excessive gradients and decoration over the high-color background."
+      }
+    }
+  },
+  "styleProfileIds": [
     "soft-lifestyle"
   ]
 }

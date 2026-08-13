@@ -1,11 +1,3 @@
-const vocabDetails = {
-  页头: { english: "Header / App Bar", detail: "页头位于页面最上方。这里用品牌标志和个人入口告诉用户“我在哪”，也提供常用操作。" },
-  标题区: { english: "Value Proposition", detail: "标题区先给出核心价值，再用短说明告诉用户这个页面能帮他完成什么。" },
-  主视觉: { english: "Hero Visual", detail: "主视觉用核心照片或插画快速传达主题，不读文字也能大致理解页面内容。" },
-  主按钮: { english: "Primary CTA", detail: "主按钮代表页面最希望用户执行的动作，应该使用清楚、直接的行动文案。" },
-  底部导航: { english: "Bottom Navigation", detail: "底部导航固定放置几个主要页面入口，让用户能在核心功能之间快速切换。" }
-};
-
 const caseStudies = {
   fufu: {
     reference: "./demo/fufu-bakery/assets/reference-overview.png",
@@ -42,20 +34,6 @@ const caseStudies = {
   }
 };
 
-const tokenPresets = {
-  image2: { color: "#b8f36b", font: "system", radius: 14, space: 8 },
-  signal: { color: "#91d8ee", font: "mono", radius: 4, space: 6 },
-  editorial: { color: "#ff9f8f", font: "serif", radius: 0, space: 12 },
-  friendly: { color: "#f3cf55", font: "rounded", radius: 24, space: 10 }
-};
-
-const fontStacks = {
-  system: 'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-  rounded: 'ui-rounded, "Arial Rounded MT Bold", ui-sans-serif, sans-serif',
-  mono: 'ui-monospace, "SFMono-Regular", Menlo, monospace',
-  serif: 'Georgia, "Times New Roman", serif'
-};
-
 function copyText(text, statusElement, message) {
   const fallback = () => {
     const textarea = document.createElement("textarea");
@@ -79,6 +57,76 @@ const quickPrompt = document.querySelector("#quickPrompt");
 document.querySelector("#copyQuickPrompt")?.addEventListener("click", () => {
   copyText(quickPrompt.textContent.trim(), document.querySelector("#copyStatus"), "Prompt 已复制，可以和参考图一起发送。" );
   window.image2Analytics?.track("beginner_prompt_copy", { source: "quick_start" });
+});
+
+const fufuThemes = {
+  morning: { mood: "GOOD MORNING", title: "早晨黄：温暖、醒目，适合主行动", text: "这是 CSS 在改变视觉语气。接着点击购买，让 JavaScript 改变会员状态。" },
+  picnic: { mood: "PICNIC DAY", title: "野餐绿：清新、放松，像一次户外小憩", text: "同样的结构换一组颜色，就会形成不同气氛；功能仍然保持不变。" },
+  berry: { mood: "BERRY HOUR", title: "莓果粉：甜美、亲近，更像一份小礼物", text: "颜色影响感受，清楚的按钮文案和反馈则决定操作是否容易理解。" }
+};
+
+const fufuShop = document.querySelector("#fufuShop");
+const fufuStampCount = document.querySelector("#fufuStampCount");
+const fufuStamps = [...document.querySelectorAll("#fufuStamps span")];
+const fufuBuyButton = document.querySelector("#fufuBuyButton");
+const fufuResetButton = document.querySelector("#fufuResetButton");
+const fufuStatus = document.querySelector("#fufuStatus");
+let fufuStampTotal = 0;
+let fufuCheerTimer;
+
+document.querySelectorAll("[data-fufu-theme]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const theme = fufuThemes[button.dataset.fufuTheme];
+    document.querySelectorAll("[data-fufu-theme]").forEach((item) => {
+      const selected = item === button;
+      item.classList.toggle("is-active", selected);
+      item.setAttribute("aria-pressed", String(selected));
+    });
+    fufuShop.dataset.theme = button.dataset.fufuTheme;
+    document.querySelector("#fufuShopMood").textContent = theme.mood;
+    document.querySelector("#fufuLessonTitle").textContent = theme.title;
+    document.querySelector("#fufuLessonText").textContent = theme.text;
+  });
+});
+
+function renderFufuStamps() {
+  fufuStampCount.textContent = String(fufuStampTotal);
+  fufuStamps.forEach((stamp, index) => stamp.classList.toggle("is-stamped", index < fufuStampTotal));
+  document.querySelector("#fufuStamps").setAttribute("aria-label", `已收集 ${fufuStampTotal} 枚，共 4 枚印章`);
+  document.querySelector("#fufuRewardText").textContent = fufuStampTotal === 4 ? "集满了，可以兑换一枚免费的海盐黄油卷。" : `再买 ${4 - fufuStampTotal} 个，就能兑换免费面包。`;
+}
+
+fufuBuyButton?.addEventListener("click", () => {
+  if (fufuStampTotal >= 4) return;
+  fufuStampTotal += 1;
+  renderFufuStamps();
+  fufuShop.classList.remove("is-stamping");
+  requestAnimationFrame(() => {
+    window.clearTimeout(fufuCheerTimer);
+    fufuShop.classList.add("is-stamping");
+    fufuCheerTimer = window.setTimeout(() => fufuShop.classList.remove("is-stamping"), 300);
+  });
+  if (fufuStampTotal === 4) {
+    fufuBuyButton.disabled = true;
+    fufuBuyButton.textContent = "已集满 4 枚印章";
+    fufuResetButton.classList.remove("is-hidden");
+    fufuResetButton.setAttribute("aria-hidden", "false");
+    fufuResetButton.tabIndex = 0;
+    fufuStatus.textContent = "集满了！FuFu 请你吃一个免费的海盐黄油卷。";
+  } else {
+    fufuStatus.textContent = `卖出一个面包，获得第 ${fufuStampTotal} 枚印章。`;
+  }
+});
+
+fufuResetButton?.addEventListener("click", () => {
+  fufuStampTotal = 0;
+  renderFufuStamps();
+  fufuBuyButton.disabled = false;
+  fufuBuyButton.textContent = "买一个面包，收集印章";
+  fufuResetButton.classList.add("is-hidden");
+  fufuResetButton.setAttribute("aria-hidden", "true");
+  fufuResetButton.tabIndex = -1;
+  fufuStatus.textContent = "会员卡已经清空，烤箱仍然热着。";
 });
 
 const casePanel = document.querySelector("#casePanel");
@@ -121,87 +169,6 @@ document.querySelector("#copyCasePrompt")?.addEventListener("click", () => {
   copyText(caseStudies[activeCase].prompt, document.querySelector("#caseCopyStatus"), "同款结构 Prompt 已复制。" );
   window.image2Analytics?.track("beginner_prompt_copy", { source: "case_study", case: activeCase });
 });
-
-const vocabDetail = document.querySelector("#vocabDetail");
-const vocabName = document.querySelector("#vocabName");
-const vocabEnglish = document.querySelector("#vocabEnglish");
-document.querySelectorAll("[data-vocab]").forEach((button) => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll("[data-vocab]").forEach((item) => {
-      const selected = item.dataset.vocab === button.dataset.vocab;
-      item.classList.toggle("is-selected", selected);
-      item.setAttribute("aria-pressed", String(selected));
-    });
-    const item = vocabDetails[button.dataset.vocab];
-    vocabName.textContent = button.dataset.vocab;
-    vocabEnglish.textContent = item.english;
-    vocabDetail.textContent = item.detail;
-  });
-});
-
-const brandPreset = document.querySelector("#brandPreset");
-const brandColor = document.querySelector("#brandColor");
-const brandColorValue = document.querySelector("#brandColorValue");
-const displayFont = document.querySelector("#displayFont");
-const cardRadius = document.querySelector("#cardRadius");
-const radiusValue = document.querySelector("#radiusValue");
-const spaceUnit = document.querySelector("#spaceUnit");
-const spacingValue = document.querySelector("#spacingValue");
-const brandPreview = document.querySelector("#brandPreview");
-const tokenStatus = document.querySelector("#tokenStatus");
-
-function currentTokens() {
-  return {
-    "--brand-primary": brandColor.value,
-    "--font-display": displayFont.value,
-    "--card-radius": `${cardRadius.value}px`,
-    "--space-unit": `${spaceUnit.value}px`
-  };
-}
-
-function tokensAsCss() {
-  const tokens = currentTokens();
-  return `:root {\n${Object.entries(tokens).map(([name, value]) => `  ${name}: ${name === "--font-display" ? `"${value}"` : value};`).join("\n")}\n}`;
-}
-
-function renderTokens() {
-  brandColorValue.textContent = brandColor.value.toLowerCase();
-  radiusValue.textContent = `${cardRadius.value}px`;
-  spacingValue.textContent = `${spaceUnit.value}px`;
-  brandPreview.style.setProperty("--preview-primary", brandColor.value);
-  brandPreview.style.setProperty("--preview-font", fontStacks[displayFont.value]);
-  brandPreview.style.setProperty("--preview-radius", `${cardRadius.value}px`);
-  brandPreview.style.setProperty("--preview-space", `${spaceUnit.value}px`);
-}
-
-function applyPreset(name) {
-  const preset = tokenPresets[name] || tokenPresets.image2;
-  brandColor.value = preset.color;
-  displayFont.value = preset.font;
-  cardRadius.value = preset.radius;
-  spaceUnit.value = preset.space;
-  renderTokens();
-}
-
-brandPreset?.addEventListener("change", () => { applyPreset(brandPreset.value); tokenStatus.textContent = "品牌规范已应用到预览。"; });
-[brandColor, displayFont, cardRadius, spaceUnit].forEach((control) => control?.addEventListener("input", () => { brandPreset.value = "image2"; renderTokens(); tokenStatus.textContent = ""; }));
-document.querySelector("#resetTokens")?.addEventListener("click", () => { brandPreset.value = "image2"; applyPreset("image2"); tokenStatus.textContent = "已恢复默认规范。"; });
-document.querySelector("#copyTokens")?.addEventListener("click", () => copyText(tokensAsCss(), tokenStatus, "Design Tokens 已复制。"));
-document.querySelector("#saveBrand")?.addEventListener("click", () => {
-  localStorage.setItem("image2-custom-brand-tokens", JSON.stringify(currentTokens()));
-  tokenStatus.textContent = "自定义品牌已保存在此浏览器。";
-});
-
-try {
-  const savedTokens = JSON.parse(localStorage.getItem("image2-custom-brand-tokens"));
-  if (savedTokens) {
-    brandColor.value = savedTokens["--brand-primary"] || brandColor.value;
-    displayFont.value = savedTokens["--font-display"] || displayFont.value;
-    cardRadius.value = Number.parseInt(savedTokens["--card-radius"], 10) || cardRadius.value;
-    spaceUnit.value = Number.parseInt(savedTokens["--space-unit"], 10) || spaceUnit.value;
-  }
-} catch {}
-renderTokens();
 
 const learningMapLinks = [...document.querySelectorAll("[data-learn-section]")];
 const learningSections = learningMapLinks.map((link) => document.querySelector(`#${link.dataset.learnSection}`)).filter(Boolean);

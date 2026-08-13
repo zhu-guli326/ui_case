@@ -6,7 +6,17 @@ import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const requiredEntries = ["index.html", "library.html", "brands.html", "launcher.html", "catalog/index.js"];
+const requiredEntries = [
+  "index.html",
+  "library.html",
+  "brands.html",
+  "launcher.html",
+  "learn.html",
+  "skills.html",
+  "vocabulary.html",
+  "lab/index.html",
+  "catalog/index.js"
+];
 const sourceReferenceFiles = ["library.js", "launcher.js", "launcher.html", "vocabulary-data.js"];
 const forbiddenDirectoryNames = ["node_modules", "dist", ".image2-ui", "tmp"];
 const failures = [];
@@ -14,7 +24,7 @@ const trackedFiles = new Set(execFileSync("git", ["ls-files", "-z"], { cwd: root
 
 for (const entry of requiredEntries) requirePath(entry, `missing required site entry: ${entry}`);
 
-let catalog = { styleGuides: [], brandProfiles: [] };
+let catalog = { styleGuides: [], styleProfiles: [], brandProfiles: [], componentReferences: [] };
 let checkedMediaReferences = 0;
 try {
   catalog = await import(`${new URL("../catalog/index.js", import.meta.url).href}?check=${Date.now()}`);
@@ -23,9 +33,12 @@ try {
 }
 
 if (catalog.styleGuides.length !== 23) failures.push(`expected 23 cases, found ${catalog.styleGuides.length}`);
-if (catalog.brandProfiles.length < 1) failures.push("expected at least one brand profile");
+if (catalog.styleProfiles.length < 1) failures.push("expected at least one style profile");
+if (catalog.brandProfiles.length < 1) failures.push("expected at least one design-system profile");
+if (catalog.componentReferences.length < 1) failures.push("expected at least one component reference");
 
 const brandIds = new Set(catalog.brandProfiles.map((brand) => brand.id));
+const styleProfileIds = new Set(catalog.styleProfiles.map((profile) => profile.id));
 const caseIds = new Set();
 for (const item of catalog.styleGuides) {
   if (!item.id || caseIds.has(item.id)) failures.push(`invalid or duplicate case id: ${item.id || "(missing)"}`);
@@ -33,12 +46,18 @@ for (const item of catalog.styleGuides) {
   for (const key of ["referenceImage", "poster", "previewImage", "video", "liveDemo"]) {
     if (item[key]) requireLocalReference(item[key], `${item.id}.${key}`);
   }
-  if (!Array.isArray(item.brandProfileIds) || item.brandProfileIds.length === 0) {
-    failures.push(`${item.id} has no brandProfileIds`);
+  if (!Array.isArray(item.styleProfileIds) || item.styleProfileIds.length === 0) {
+    failures.push(`${item.id} has no styleProfileIds`);
   } else {
-    for (const brandId of item.brandProfileIds) {
-      if (!brandIds.has(brandId)) failures.push(`${item.id} references missing brand profile ${brandId}`);
+    for (const profileId of item.styleProfileIds) {
+      if (!styleProfileIds.has(profileId)) failures.push(`${item.id} references missing style profile ${profileId}`);
     }
+  }
+}
+
+for (const component of catalog.componentReferences) {
+  if (!brandIds.has(component.brandProfileId)) {
+    failures.push(`${component.id} references missing design-system profile ${component.brandProfileId}`);
   }
 }
 
@@ -67,7 +86,9 @@ if (failures.length) {
 console.log(JSON.stringify({
   status: "pass",
   cases: catalog.styleGuides.length,
+  styles: catalog.styleProfiles.length,
   brands: catalog.brandProfiles.length,
+  components: catalog.componentReferences.length,
   checkedMediaReferences
 }, null, 2));
 

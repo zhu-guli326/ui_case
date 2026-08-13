@@ -27,7 +27,31 @@
     "motion": "轮播、导航、情绪选择和保存使用 180-220ms 状态变化，并支持 reduced-motion。",
     "avoid": "直接从原参考图拆 UI、把角色做成 CSS 近似、在图片中保留功能文字，或把所有内容堆进圆角卡片。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Gentle reflection and mood check-in",
+      "reference": "A three-screen mood product on a deep-indigo grid board, using paper cards, editorial serif, and a pale-violet 3D character to structure a quiet inner conversation",
+      "prompt": "Mood-reflection app visual reference: first generate and review a complete three-screen SOFTLY composition from the reference, then use that generated composition as the basis for UI decomposition. Combine a deep-indigo grid board, pearl-white and warm-ivory pages, a pale-violet character, butter-yellow paper cards, and small mint details. Use separate text-free image2 bitmaps for the character and avatar. Render all questions, buttons, status bars, carousel arrows, labels, waveforms, completion rings, and bottom navigation in code; do not generate text, logos, watermarks, phones, or UI glyphs inside images.",
+      "summary": "Establish the relationship among welcome, reflection carousel, and mood check-in in a complete composition first, then recombine the original character with genuinely tappable paper-card interfaces.",
+      "bestFor": "Mood tracking, mental wellness, reflection journals, student support",
+      "tags": [
+        "Three-screen composition",
+        "Paper-card carousel",
+        "Pale-violet character"
+      ],
+      "palette": "Deep indigo / Ivory white / Pale violet / Butter yellow / Mint",
+      "layout": "Welcome + Reflection carousel + Mood check-in",
+      "recipe": {
+        "principle": "Each screen advances one gentle action only: enter, answer, or name the feeling.",
+        "image": "Derive the transparent 3D character and Mara avatar from the approved composition, keep them text- and UI-free, and connect them as separate local assets.",
+        "type": "Serif questions carry the emotional focus while body copy, labels, and actions retain a clear system sans-serif hierarchy.",
+        "components": "390×844 iOS frame, floating paper cards, reflection carousel, search, favorites, four-item navigation, mood waveform, and completion state.",
+        "motion": "Use 180–220ms state changes for carousel, navigation, mood selection, and save, with reduced-motion support.",
+        "avoid": "Do not decompose UI directly from the original reference, imitate the character in CSS, retain functional copy inside images, or put all content into rounded cards."
+      }
+    }
+  },
+  "styleProfileIds": [
     "soft-lifestyle"
   ]
 }

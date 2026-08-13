@@ -28,7 +28,31 @@
     "motion": "页面切换和播放键只保留即时按压反馈。",
     "avoid": "密集图表、暗色科技感、复杂奖励系统和图片里的 UI 文本。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Hand-drawn mood dashboard",
+      "reference": "Characters with thick black outlines, bright color blocks, and a lively rhythm for wellness data",
+      "prompt": "Hand-drawn mood-and-sleep app visual reference: a white phone interface on a pale-cyan background, with lemon yellow, orange, peach pink, and bright green forming collage-like metric cards. Character illustrations carry emotion without embedding text, controls, or status icons in the image. Render every button, date, playback control, and system status bar in code.",
+      "summary": "Energetic hand-drawn characters and four clearly colored metric cards make mood and sleep tracking feel like a relaxed daily poster.",
+      "bestFor": "Mood tracking, sleep habits, activity support, family wellness",
+      "tags": [
+        "Hand-drawn character",
+        "Saturated color blocks",
+        "Lightweight dashboard"
+      ],
+      "palette": "Mint cyan / Lemon yellow / Orange / Peach pink / Bright green",
+      "layout": "Greeting header + Four metrics + Date selection + Playlist",
+      "recipe": {
+        "principle": "Keep data within four at-a-glance blocks and use character to make wellness reminders feel human.",
+        "image": "Place hand-drawn characters only on metric cards and playback covers, preserving thick lines and high-contrast color.",
+        "type": "Headings are bold, short, and direct; card labels sit on the secondary level.",
+        "components": "Four colored metric cards, date pills, a mood playlist, and lightweight feedback.",
+        "motion": "Use immediate press feedback only for page changes and the play control.",
+        "avoid": "Avoid dense charts, dark technical styling, complex reward systems, and UI text inside images."
+      }
+    }
+  },
+  "styleProfileIds": [
     "soft-lifestyle"
   ]
 }

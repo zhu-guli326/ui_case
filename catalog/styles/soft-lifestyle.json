@@ -1,0 +1,69 @@
+{
+  "id": "soft-lifestyle",
+  "name": "柔和生活方式",
+  "sourceType": "style-reference",
+  "sourceStatus": "风格参考",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["web", "ios"],
+  "industry": ["生活方式", "内容", "健康"],
+  "styles": ["亲和", "柔和", "极简"],
+  "completeness": "基础规范",
+  "foundations": {
+    "colors": { "paper": "#FFFDF8", "ink": "#282421", "accent": "#6D9D8B", "warm": "#E9C9A5" },
+    "typography": { "display": "人文无衬线或开源衬线替代", "body": "系统无衬线", "scale": "34 / 24 / 16 / 14" },
+    "spacing": "4px 基线，20px 移动端边距，40px 内容节奏",
+    "radius": "10px 图片和轻量内容组",
+    "elevation": "非常轻的柔阴影，仅用于浮层",
+    "grid": "单列阅读优先，桌面最大行宽 72ch",
+    "motion": "200ms 温和转场，不依赖动画理解内容"
+  },
+  "components": {
+    "button": "圆角主操作配清晰文字，次操作保持线性",
+    "card": "信息有限的独立项目，避免卡片套卡片",
+    "navigation": "移动端优先，当前页有文字和颜色双重提示",
+    "form": "单题一步，保留明确帮助文案",
+    "dialog": "轻量短流程，关闭和返回始终可见"
+  },
+  "visualLanguage": {
+    "photography": "自然光、真诚日常场景、无文字无 logo",
+    "illustration": "少量角色或手绘质感承载情绪，不承担操作",
+    "iconography": "统一、克制的代码图标"
+  },
+  "contentVoice": "温和但不含糊，用具体下一步取代空泛鼓励。",
+  "accessibility": "保持可读对比度；动效提供 reduced-motion；触摸目标不低于 44px。",
+  "dos": ["一次推进一个清楚动作", "让情绪性图片和真实文案分层"],
+  "donts": ["不要以品牌名或商标生成图片", "不要让柔色降低关键文字的可读性"],
+  "locales": {
+    "en": {
+      "name": "Gentle Lifestyle",
+      "sourceStatus": "Style reference",
+      "industry": ["Lifestyle", "Content", "Wellness"],
+      "styles": ["Friendly", "Gentle", "Minimal"],
+      "completeness": "Foundation guidelines",
+      "foundations": {
+        "typography": { "display": "Humanist sans serif or an open-source serif alternative", "body": "System sans serif", "scale": "34 / 24 / 16 / 14" },
+        "spacing": "4px baseline, 20px mobile margin, 40px content rhythm",
+        "radius": "10px for images and lightweight content groups",
+        "elevation": "A very soft shadow used only for overlays",
+        "grid": "Single-column reading first, with a 72ch maximum desktop line length",
+        "motion": "200ms gentle transitions; understanding never depends on animation"
+      },
+      "components": {
+        "button": "Rounded primary actions with clear copy; secondary actions remain linear",
+        "card": "A bounded item with limited information; avoid cards nested inside cards",
+        "navigation": "Mobile-first, with both text and color indicating the current page",
+        "form": "One question per step with explicit helper copy",
+        "dialog": "Short, lightweight flows where close and back remain visible"
+      },
+      "visualLanguage": {
+        "photography": "Natural light and sincere everyday scenes, with no text or logos",
+        "illustration": "A few characters or hand-drawn textures carry emotion but never actions",
+        "iconography": "A consistent, restrained set of coded icons"
+      },
+      "contentVoice": "Gentle but unambiguous, replacing vague encouragement with one concrete next step.",
+      "accessibility": "Maintain readable contrast, provide reduced motion, and keep touch targets at least 44px.",
+      "dos": ["Advance one clear action at a time", "Keep emotional imagery separate from real copy"],
+      "donts": ["Do not generate images from brand names or trademarks", "Do not let soft colors reduce the readability of critical copy"]
+    }
+  }
+}

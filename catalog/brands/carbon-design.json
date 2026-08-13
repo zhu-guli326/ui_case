@@ -1,0 +1,6 @@
+{
+  "id": "carbon-design", "name": "IBM Carbon Design System", "organization": "IBM", "sourceType": "public-guideline", "sourceStatus": "基于公开设计规范", "sourceUrl": "https://carbondesignsystem.com/", "reviewedAt": "2026-08-13", "platforms": ["web", "react", "angular", "vue"],
+  "description": "IBM 的开源企业产品设计系统，覆盖复杂数据、表单、导航与无障碍规范。", "componentReferenceIds": ["carbon-button", "carbon-data-table", "carbon-modal"],
+  "disclaimer": "本资料基于 Carbon 公开文档整理，与 IBM 无隶属或背书关系；名称与标识归其各自权利人所有。",
+  "locales": { "en": { "sourceStatus": "Based on public design guidelines", "description": "IBM's open-source enterprise design system for complex data, forms, navigation, and accessibility.", "disclaimer": "Compiled from public Carbon documentation with no affiliation or endorsement. Names and marks belong to their respective owners." } }
+}

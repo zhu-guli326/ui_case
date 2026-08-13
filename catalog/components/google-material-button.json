@@ -1,0 +1,32 @@
+{
+  "id": "material-3-button",
+  "name": "Button",
+  "brandProfileId": "google-material-3",
+  "sourceType": "public-guideline",
+  "sourceStatus": "基于公开设计规范",
+  "sourceUrl": "https://m3.material.io/components/buttons/overview",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["android", "web"],
+  "category": "action",
+  "summary": "用于触发明确操作，按强调程度分为 filled、tonal、outlined 和 text 变体。",
+  "anatomy": ["container", "label", "optional leading or trailing icon"],
+  "states": ["enabled", "hovered", "focused", "pressed", "disabled"],
+  "behavior": ["保持单一主要操作", "标签使用动词并说明结果"],
+  "accessibility": ["提供可见文本标签", "保持足够触达尺寸", "焦点态必须可见"],
+  "tokens": { "shape": "md.sys.shape.corner.full", "minHeight": "40dp", "labelStyle": "md.sys.typescale.label-large" },
+  "do": ["按层级选择变体", "在同一组操作中保持变体逻辑一致"],
+  "dont": ["不要用颜色代替标签", "不要把多个 filled button 放在同一层级"],
+  "locales": {
+    "en": {
+      "sourceStatus": "Based on public design guidelines",
+      "category": "Action",
+      "summary": "Triggers an explicit action with filled, tonal, outlined, and text variants expressing different levels of emphasis.",
+      "anatomy": ["Container", "Label", "Optional leading or trailing icon"],
+      "states": ["Enabled", "Hovered", "Focused", "Pressed", "Disabled"],
+      "behavior": ["Maintain one primary action", "Use a verb in the label and describe the result"],
+      "accessibility": ["Provide a visible text label", "Maintain a sufficient target size", "Keep focus visibly apparent"],
+      "do": ["Choose variants according to hierarchy", "Keep variant logic consistent within an action group"],
+      "dont": ["Do not replace labels with color", "Do not place several filled buttons at the same hierarchy level"]
+    }
+  }
+}

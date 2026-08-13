@@ -28,7 +28,31 @@
     "motion": "打开任务与完成动作需要清晰的状态转换，庆祝保持短暂而不过量。",
     "avoid": "任务列表、连续天数、成就和统计图同时争抢注意力。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Illustrated habit building",
+      "reference": "A friendly character, gentle reminders, and one next step make habit building feel pressure-free",
+      "prompt": "Illustrated habit-building app visual reference: a pale-mint and warm-white background, with a green character and light-blue water glass creating a sense of companionship. Highlight only one next action per screen. Keep dates, habit lists, and completion states clear and restrained; render all copy, buttons, navigation, and icons in code. Avoid dense data dashboards, complex gradients, commercial reward walls, and faux-handwritten UI copy.",
+      "summary": "A charming companion character turns each daily habit into one gentle, concrete step and offers a small, sincere celebration on completion.",
+      "bestFor": "Habit building, wellness reminders, family tasks, lightweight self-management",
+      "tags": [
+        "Companion character",
+        "Gentle motivation",
+        "One next step"
+      ],
+      "palette": "Mint green / Warm white / Pale blue / Soft yellow / Charcoal",
+      "layout": "Date rail + Encouragement hero + Habit list + Completion state",
+      "recipe": {
+        "principle": "Do not confront people with a wall of tasks; make the next small action feel easy enough to begin.",
+        "image": "Character art provides emotion and companionship only; never bake copy or state into the image.",
+        "type": "Prioritize the greeting and next action, with supporting guidance on the secondary level.",
+        "components": "Date rail, encouragement card, habit list, task detail, completion celebration, bottom tabs, and brief feedback.",
+        "motion": "Opening a task and completing it require explicit state changes; keep celebration brief and restrained.",
+        "avoid": "Do not let the task list, streak count, achievements, and charts all compete for attention."
+      }
+    }
+  },
+  "styleProfileIds": [
     "soft-lifestyle"
   ]
 }

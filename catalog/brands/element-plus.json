@@ -1,0 +1,3 @@
+{
+  "id":"element-plus","name":"Element Plus","organization":"Element Plus","sourceType":"public-guideline","sourceStatus":"基于公开设计规范","sourceUrl":"https://element-plus.org/","reviewedAt":"2026-08-13","platforms":["web","vue"],"description":"Vue 3 生态中广泛使用的桌面端组件库，覆盖企业后台、表单和数据展示。","componentReferenceIds":["element-plus-button","element-plus-table","element-plus-dialog"],"disclaimer":"本资料基于 Element Plus 公开文档整理，与该项目无隶属或背书关系；名称与标识归其各自权利人所有。","locales":{"en":{"sourceStatus":"Based on public design guidelines","description":"A widely used Vue 3 desktop component library for enterprise apps, forms, and data display.","disclaimer":"Compiled from public Element Plus documentation with no affiliation or endorsement. Names and marks belong to their respective owners."}}
+}

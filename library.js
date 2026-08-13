@@ -1,6 +1,6 @@
 import { getLibraryPreviewDevice, getLibraryPreviewDisplayDevice, libraryPreviewAssetVersion } from "./library-preview-config.mjs";
-import { searchGuides } from "./library-search.mjs";
-import { styleGuides, brandProfiles } from "./catalog/index.js";
+import { searchGuides } from "./library-search.mjs?v=20260813-search-v5";
+import { styleGuides, styleProfiles } from "./catalog/index.js";
 
 const previewImageSets = Object.freeze({
   museum: [
@@ -84,8 +84,12 @@ const previewImageSets = Object.freeze({
   ]
 });
 
-const githubApiUrl = "https://api.github.com/repos/zhu-guli326/image2_UI_skill";
-const githubStarsFallbackUrl = "https://img.shields.io/github/stars/zhu-guli326/image2_UI_skill.json";
+const cardPreviewImages = Object.freeze({
+  notebook: "./demo/marble-note/screenshots/library-preview-reference-v2.png"
+});
+
+const githubApiUrl = "https://api.github.com/repos/zhu-guli326/ui_case";
+const githubStarsFallbackUrl = "https://img.shields.io/github/stars/zhu-guli326/ui_case.json";
 const gallery = document.querySelector("#demoGallery");
 const searchInput = document.querySelector("#styleSearch");
 const categoryNav = document.querySelector("#categoryNav");
@@ -93,11 +97,9 @@ const catalogHeading = document.querySelector("#catalogHeading");
 const resultCount = document.querySelector("#resultCount");
 const emptyState = document.querySelector("#emptyState");
 const githubStars = document.querySelector("#githubStars");
-const githubStarsNav = document.querySelector("#githubStarsNav");
-const styleDialog = document.querySelector("#styleDialog");
-const styleDialogContent = document.querySelector("#styleDialogContent");
 const previewDialog = document.querySelector("#previewDialog");
 const previewDialogTitle = document.querySelector("#previewDialogTitle");
+const previewDialogDetails = document.querySelector("#previewDialogDetails");
 const previewDialogImage = document.querySelector("#previewDialogImage");
 const previewImageNavigation = document.querySelector("#previewImageNavigation");
 const previewImagePrevious = document.querySelector("#previewImagePrevious");
@@ -109,7 +111,8 @@ const previewDialogDemo = document.querySelector("#previewDialogDemo");
 const previewCursor = document.querySelector("#previewCursor");
 const previewMediaFrame = document.querySelector("#previewMediaFrame");
 const previewModeSwitch = document.querySelector("#previewModeSwitch");
-const previewDialogReference = document.querySelector("#previewDialogReference");
+const previewDialogCopy = document.querySelector("#previewDialogCopy");
+const previewDialogComponents = document.querySelector("#previewDialogComponents");
 const previewDialogOpenLive = document.querySelector("#previewDialogOpenLive");
 const previewMediaStatus = document.querySelector("#previewMediaStatus");
 const previewMediaStatusText = document.querySelector("#previewMediaStatusText");
@@ -123,22 +126,49 @@ let previewLoadTimer = 0;
 let activePreviewMode = null;
 let activePreviewImages = [];
 let activePreviewImageIndex = 0;
+let activeInfoPanelId = "";
 const track = (name, properties) => window.image2Analytics?.track(name, properties);
+// Keep the opening catalog row aligned with the visual reference while leaving
+// category and search results in their data-defined order.
+const featuredCaseOrder = Object.freeze(["museum", "news", "notebook"]);
 
-const previewModeLabels = {
-  image: "效果图",
-  video: "Demo 视频",
-  live: "可点击 Demo"
+const libraryCopy = Object.freeze({
+  zh: {
+    modes: { image: "效果图", video: "Demo 视频", live: "可点击 Demo" },
+    categories: { all: "全部案例", culture: "文化内容", commerce: "零售电商", editorial: "新闻阅读", travel: "旅行体验", creative: "创意工具", wellness: "健康陪伴" },
+    title: "image2 UI 风格案例库", description: "image2 UI 风格案例库。", skip: "跳到案例列表", sidebarLabel: "案例类型", localDemo: "本地演示", realCases: (count) => `${count} 个真实 UI 案例`, allSkills: "全部浏览", guides: [["使用指南", "从选择到交付"], ["项目原理", "Image2 UI"]], author: "作者动态", profile: "查看主页",
+    heroTitle: "界面风格案例库", heroIntro: "从已有的真实 App 演示中提炼画面、排版与交互方向。选择一个案例，复制它的风格配置，再开始做下一张界面。", heroAuthor: "作者主页", cases: "案例", styles: "风格", search: "搜索案例名称、使用场景或风格...", featured: "精选案例", searchResults: "搜索结果", startVisual: "从画面开始", searchTitle: "匹配的界面方向", count: (count) => `${count} 个案例`, empty: "没有找到匹配的案例。",
+    imagePreview: "效果图预览", video: "视频", clickable: "可点击", details: "查看要点", copyConfig: "复制配置", localReference: "本地参考图", styleKeywords: "风格关键词", brands: "适用风格档案", openDetails: "查看案例详情", openPreview: "打开预览", unavailable: "效果图不可用",
+    previous: "上一张效果图", next: "下一张效果图", loadDemo: "正在加载可点击 Demo...", timeout: "Demo 加载超时，请重试或在新窗口打开。", failed: "Demo 加载失败，请重试或使用下方链接在新窗口打开。", openLive: "新窗口打开可点击 Demo", retry: "重试", previewTitle: "案例预览", previewType: "预览方式",
+    facts: ["画面色彩", "页面节奏", "参考方向", "适用场景"], recipe: ["图片", "排版", "组件"], brandProfiles: "适用风格档案", componentLibrary: "另选品牌组件", copyFull: "复制图片与提示词配置", viewImage: "查看效果图", playVideo: "播放 Demo 视频", openDemo: "打开可点击 Demo", copied: "已复制", generated: "已生成",
+  },
+  en: {
+    modes: { image: "Screens", video: "Demo video", live: "Interactive demo" },
+    categories: { all: "All cases", culture: "Culture", commerce: "Commerce", editorial: "Editorial", travel: "Travel", creative: "Creative tools", wellness: "Wellness" },
+    title: "image2 UI Style Library", description: "A visual style library of image2 UI cases.", skip: "Skip to case list", sidebarLabel: "Case types", localDemo: "Local demos", realCases: (count) => `${count} real UI cases`, allSkills: "Browse all", guides: [["How to use", "From selection to delivery"], ["Principles", "Image2 UI"]], author: "Creator", profile: "View profile",
+    heroTitle: "Interface style library", heroIntro: "Explore visual, typographic, and interaction directions drawn from working app demos. Choose a case, copy its style configuration, and start your next interface.", heroAuthor: "Creator profiles", cases: "Cases", styles: "Styles", search: "Search by case, use case, or visual style...", featured: "Featured cases", searchResults: "Search results", startVisual: "Start with the visual", searchTitle: "Matching interface directions", count: (count) => `${count} cases`, empty: "No matching cases found.",
+    imagePreview: "Screen preview", video: "Video", clickable: "Interactive", details: "View notes", copyConfig: "Copy config", localReference: "Local reference", styleKeywords: "Style keywords", brands: "Compatible style profiles", openDetails: "View case details", openPreview: "Open preview", unavailable: "Screen unavailable",
+    previous: "Previous screen", next: "Next screen", loadDemo: "Loading interactive demo...", timeout: "The demo timed out. Retry or open it in a new window.", failed: "The demo failed to load. Retry or use the link below to open it in a new window.", openLive: "Open interactive demo in a new window", retry: "Retry", previewTitle: "Case preview", previewType: "Preview type",
+    facts: ["Palette", "Page rhythm", "Reference direction", "Best for"], recipe: ["Image", "Typography", "Components"], brandProfiles: "Compatible style profiles", componentLibrary: "Choose brand components", copyFull: "Copy image and prompt config", viewImage: "View screens", playVideo: "Play demo video", openDemo: "Open interactive demo", copied: "Copied", generated: "Generated",
+  },
+});
+
+const currentCopy = () => libraryCopy[window.image2I18n?.language === "en" ? "en" : "zh"];
+const localizeRecord = (record) => {
+  if (window.image2I18n?.language !== "en" || !record?.locales?.en) return record;
+  return { ...record, ...record.locales.en, recipe: { ...record.recipe, ...record.locales.en.recipe }, foundations: { ...record.foundations, ...record.locales.en.foundations }, components: { ...record.components, ...record.locales.en.components }, visualLanguage: { ...record.visualLanguage, ...record.locales.en.visualLanguage } };
 };
+const previewModeLabels = new Proxy({}, { get: (_, key) => currentCopy().modes[key] });
 
 function updateCatalogCounts() {
+  const copy = currentCopy();
   const counts = {};
   for (const guide of styleGuides) counts[guide.category] = (counts[guide.category] || 0) + 1;
   categoryNav.querySelector('[data-filter="all"] b').textContent = styleGuides.length;
   categoryNav.querySelectorAll("[data-filter]:not([data-filter=all])").forEach((item) => { item.querySelector("b").textContent = counts[item.dataset.filter] || 0; });
   document.querySelector(".stats-panel span:first-child strong").textContent = styleGuides.length;
   document.querySelector(".stats-panel span:nth-child(2) strong").textContent = styleGuides.length;
-  document.querySelector(".sidebar-note strong").textContent = `${styleGuides.length} 个真实 UI 案例`;
+  document.querySelector(".sidebar-note strong").textContent = copy.realCases(styleGuides.length);
 }
 
 function getPreviewDevice(guide, mode) {
@@ -154,6 +184,11 @@ function getCardPoster(guide) {
   return guide.previewImage || guide.poster;
 }
 
+function getReferenceMatchedCardPoster(guide) {
+  const matchedPreview = cardPreviewImages[guide.id];
+  return matchedPreview ? `${matchedPreview}?v=${libraryPreviewAssetVersion}` : getCardPoster(guide);
+}
+
 function getPreviewPoster(guide) {
   if (guide.previewImage) return guide.previewImage;
   if (guide.liveDemo) return getCardPoster(guide);
@@ -166,13 +201,15 @@ function withPreviewVersion(src) {
 }
 
 function getPreviewImages(guide) {
+  guide = localizeRecord(guide);
   const images = previewImageSets[guide.id];
   if (images?.length) return images.map((image) => ({
     ...image,
-    alt: image.alt || `${guide.style} · ${image.label}`,
+    label: window.image2I18n?.language === "en" ? currentCopy().modes.image : image.label,
+    alt: image.alt || `${guide.style}: ${image.label}`,
     src: withPreviewVersion(image.src)
   }));
-  return [{ src: getPreviewPoster(guide), label: "效果图", alt: `${guide.style} 手机效果图` }];
+  return [{ src: getPreviewPoster(guide), label: currentCopy().modes.image, alt: window.image2I18n?.language === "en" ? `${guide.style} mobile screen` : `${guide.style} 手机效果图` }];
 }
 
 function showPreviewImage(index) {
@@ -184,14 +221,14 @@ function showPreviewImage(index) {
   previewImageLabel.textContent = image.label;
   previewImageCount.textContent = `${activePreviewImageIndex + 1} / ${activePreviewImages.length}`;
   previewImageNavigation.hidden = activePreviewImages.length < 2 || activePreviewMode !== "image";
-  previewImagePrevious.setAttribute("aria-label", `上一张效果图，当前为${image.label}`);
-  previewImageNext.setAttribute("aria-label", `下一张效果图，当前为${image.label}`);
+  previewImagePrevious.setAttribute("aria-label", `${currentCopy().previous}: ${image.label}`);
+  previewImageNext.setAttribute("aria-label", `${currentCopy().next}: ${image.label}`);
 }
 
 function showPreviewImageError(image, guide) {
   image.hidden = true;
   previewMediaStatus.hidden = false;
-  previewMediaStatusText.textContent = `${guide.name} 效果图不可用，请切换到可点击 Demo。`;
+  previewMediaStatusText.textContent = window.image2I18n?.language === "en" ? `${guide.name} screens are unavailable. Switch to the interactive demo.` : `${guide.name} 效果图不可用，请切换到可点击 Demo。`;
   previewMediaRetry.hidden = true;
   previewMediaStatus.classList.add("is-error");
 }
@@ -233,6 +270,24 @@ const previewFrameObserver = new ResizeObserver(updateEmbeddedPreviewScale);
 previewFrameObserver.observe(previewMediaFrame);
 
 function buildStyleMode(guide) {
+  guide = localizeRecord(guide);
+  if (window.image2I18n?.language === "en") return [
+    `Style configuration: ${guide.name} / ${guide.style}`,
+    `Reference direction: ${guide.reference}`,
+    `Best for: ${guide.bestFor}`,
+    "",
+    "Default visual reference (local image)",
+    `Reference path: ${guide.referenceImage}`,
+    "Usage: treat this local image as the image reference. Preserve its composition, whitespace, color, and information density first.",
+    `Image prompt: ${guide.prompt}`,
+    "",
+    `Core principle: ${guide.recipe.principle}`,
+    `Image: ${guide.recipe.image}`,
+    `Typography: ${guide.recipe.type}`,
+    `Components: ${guide.recipe.components}`,
+    `Motion: ${guide.recipe.motion}`,
+    `Avoid: ${guide.recipe.avoid}`
+  ].join("\n");
   return [
     `设计风格配置：${guide.name} / ${guide.style}`,
     `参考方向：${guide.reference}`,
@@ -252,14 +307,14 @@ function buildStyleMode(guide) {
   ].join("\n");
 }
 
-function getBrandProfiles(guide) {
-  return (guide.brandProfileIds || []).map((id) => brandProfiles.find((brand) => brand.id === id)).filter(Boolean);
+function getStyleProfiles(guide) {
+  return (guide.styleProfileIds || []).map((id) => styleProfiles.find((profile) => profile.id === id)).filter(Boolean).map(localizeRecord);
 }
 
-function buildBrandPrompt(brand) {
+function buildStylePrompt(brand) {
   const colors = Object.entries(brand.foundations.colors).map(([name, value]) => `${name} ${value}`).join("; ");
   return [
-    `品牌规范：${brand.name}（${brand.sourceStatus}）`,
+    `风格档案：${brand.name}（${brand.sourceStatus}）`,
     `平台：${brand.platforms.join(" / ")}`,
     `色彩：${colors}`,
     `字体：${brand.foundations.typography.display}；${brand.foundations.typography.body}`,
@@ -271,10 +326,10 @@ function buildBrandPrompt(brand) {
   ].join("\n");
 }
 
-function buildBrandTokens(brand) {
+function buildStyleTokens(brand) {
   const { colors, typography, spacing, radius, elevation, grid, motion } = brand.foundations;
   return JSON.stringify({
-    brandProfileId: brand.id,
+    styleProfileId: brand.id,
     sourceStatus: brand.sourceStatus,
     color: colors,
     typography,
@@ -288,47 +343,58 @@ function buildBrandTokens(brand) {
 }
 
 function getFilteredGuides() {
-  return searchGuides(styleGuides, searchInput.value).filter((guide) => {
-    const matchesTag = !activeTag || guide.tags.some((tag) => normalizeTag(tag) === normalizeTag(activeTag));
+  const guides = searchGuides(styleGuides, searchInput.value).filter((guide) => {
+    const localized = localizeRecord(guide);
+    const tags = [...(guide.tags || []), ...(localized.tags || [])];
+    const matchesTag = !activeTag || tags.some((tag) => normalizeTag(tag) === normalizeTag(activeTag));
     return (activeCategory === "all" || guide.category === activeCategory) && matchesTag;
   });
+  if (activeCategory !== "all" || activeTag || searchInput.value.trim()) return guides;
+  const rank = new Map(featuredCaseOrder.map((id, index) => [id, index]));
+  return [...guides].sort((a, b) => (rank.get(a.id) ?? featuredCaseOrder.length) - (rank.get(b.id) ?? featuredCaseOrder.length));
 }
 
 function updateCatalogHeadingVisibility() {
-  catalogHeading.hidden = activeCategory !== "all" || Boolean(activeTag);
+  catalogHeading.hidden = activeCategory !== "all" || Boolean(activeTag) || Boolean(searchInput.value.trim());
 }
 
 function renderDemoGallery() {
   updateCatalogHeadingVisibility();
+  const copy = currentCopy();
   const guides = getFilteredGuides();
-  gallery.innerHTML = guides.map((guide) => {
+  const isSearch = Boolean(searchInput.value.trim());
+  document.querySelector(".catalog-bar .kicker").textContent = isSearch ? copy.searchResults : copy.featured;
+  document.querySelector("#catalogTitle").textContent = isSearch ? copy.searchTitle : copy.startVisual;
+  gallery.innerHTML = guides.map((sourceGuide) => {
+    const guide = localizeRecord(sourceGuide);
     const mediaMode = guide.video ? "video" : "image";
     const openMode = guide.defaultPreviewMode || mediaMode;
     const openLabel = previewModeLabels[openMode];
     const poster = getCardPoster(guide);
+    const referenceMatchedPoster = cardPreviewImages[guide.id] ? getReferenceMatchedCardPoster(guide) : poster;
     const previewActionButtons = [
-      guide.video ? `<button class="style-details-button" type="button" data-preview-id="${guide.id}" data-preview-mode="video">视频</button>` : "",
-      guide.liveDemo ? `<button class="style-details-button" type="button" data-preview-id="${guide.id}" data-preview-mode="live">可点击</button>` : ""
+      guide.video ? `<button class="style-details-button" type="button" data-preview-id="${guide.id}" data-preview-mode="video">${copy.video}</button>` : "",
+      guide.liveDemo ? `<button class="style-details-button" type="button" data-preview-id="${guide.id}" data-preview-mode="live">${copy.clickable}</button>` : ""
     ].join("");
     return `
     <article class="demo-card" data-case-id="${guide.id}">
       <div class="demo-card-preview" style="--preview: ${guide.preview}">
-        <div class="phone-preview-media"><img src="${poster}" alt="${guide.style} 手机界面缩略图" decoding="async"><span class="media-hint">效果图预览</span></div>
-        <button class="preview-open-button" type="button" data-preview-id="${guide.id}" data-preview-mode="${openMode}" aria-label="打开 ${guide.style} ${openLabel}"><span>${openLabel}</span></button>
+        <div class="phone-preview-media${cardPreviewImages[guide.id] ? " is-effect-image" : ""}"><img src="${referenceMatchedPoster}" alt="${window.image2I18n?.language === "en" ? `${guide.style} mobile interface thumbnail` : `${guide.style} 手机界面缩略图`}" decoding="async"><span class="media-hint">${copy.imagePreview}</span></div>
+        <button class="preview-open-button" type="button" data-preview-id="${guide.id}" data-preview-mode="${openMode}" aria-label="${copy.openPreview}: ${guide.style}, ${openLabel}"><span>${openLabel}</span></button>
       </div>
       <div class="demo-card-body">
-        <button class="demo-card-details-hitarea" type="button" data-style-details="${guide.id}" aria-label="查看 ${guide.style} 案例详情"></button>
+        <button class="demo-card-details-hitarea" type="button" data-style-details="${guide.id}" aria-label="${copy.openDetails}: ${guide.style}"></button>
         <div class="demo-card-meta"><span>${guide.name}</span><span>${guide.bestFor}</span></div>
         <h3>${guide.style}</h3>
         <p class="demo-card-summary">${guide.summary}</p>
-        <div class="style-tags" aria-label="风格关键词">${guide.tags.map((tag) => `<a class="style-tag${normalizeTag(tag) === normalizeTag(activeTag) ? " is-active" : ""}" href="./library.html?tag=${encodeURIComponent(tag)}" data-tag="${tag}" aria-pressed="${normalizeTag(tag) === normalizeTag(activeTag)}">${tag}</a>`).join("")}</div>
-        <div class="brand-links" aria-label="适用品牌规范">${getBrandProfiles(guide).map((brand) => `<a href="./brands.html?brand=${encodeURIComponent(brand.id)}">${brand.name}</a>`).join("")}</div>
-        <div class="demo-card-footer"><small title="本地参考图：${guide.referenceImage}">本地参考图 · ${guide.reference}</small><div class="demo-card-actions">${previewActionButtons}<button class="style-details-button" type="button" data-style-details="${guide.id}">查看要点</button><button class="copy-style-button" type="button" data-copy-style="${guide.id}" title="复制图片与提示词配置">复制配置</button></div></div>
+        <div class="style-tags" aria-label="${copy.styleKeywords}">${guide.tags.map((tag, index) => { const stableTag = sourceGuide.tags[index] || tag; return `<a class="style-tag${normalizeTag(stableTag) === normalizeTag(activeTag) ? " is-active" : ""}" href="./library.html?tag=${encodeURIComponent(stableTag)}" data-tag="${stableTag}" aria-pressed="${normalizeTag(stableTag) === normalizeTag(activeTag)}">${tag}</a>`; }).join("")}</div>
+        <div class="brand-links" aria-label="${copy.brands}">${getStyleProfiles(sourceGuide).map((profile) => `<span>${profile.name}</span>`).join("")}</div>
+        <div class="demo-card-footer"><small title="${copy.localReference}: ${guide.referenceImage}">${copy.localReference}: ${guide.reference}</small><div class="demo-card-actions">${previewActionButtons}<button class="style-details-button" type="button" data-style-details="${guide.id}">${copy.details}</button><button class="copy-style-button" type="button" data-copy-style="${guide.id}" title="${copy.copyFull}">${copy.copyConfig}</button></div></div>
       </div>
     </article>
   `;
   }).join("");
-  resultCount.textContent = `${guides.length} 个案例`;
+  resultCount.textContent = copy.count(guides.length);
   emptyState.hidden = guides.length !== 0;
   gallery.querySelectorAll(".phone-preview-media img").forEach((image) => image.addEventListener("error", () => {
     const media = image.closest(".phone-preview-media");
@@ -336,7 +402,7 @@ function renderDemoGallery() {
     image.remove();
   }, { once: true }));
   gallery.querySelectorAll("[data-copy-style]").forEach((button) => button.addEventListener("click", () => copyStyleMode(button)));
-  gallery.querySelectorAll("[data-style-details]").forEach((button) => button.addEventListener("click", () => openStyleDetails(button.dataset.styleDetails)));
+  gallery.querySelectorAll("[data-style-details]").forEach((button) => button.addEventListener("click", () => openPreview(button.dataset.styleDetails)));
   gallery.querySelectorAll("[data-preview-id]").forEach((button) => button.addEventListener("click", () => openPreview(button.dataset.previewId, button.dataset.previewMode)));
   gallery.querySelectorAll("[data-tag]").forEach((link) => link.addEventListener("click", (event) => {
     event.preventDefault();
@@ -347,7 +413,7 @@ function renderDemoGallery() {
 }
 
 function setPreviewMode(mode, shouldTrack = true) {
-  const guide = activePreviewGuide;
+  const guide = localizeRecord(activePreviewGuide);
   if (!guide) return;
   const modes = getPreviewModes(guide);
   const nextMode = modes.includes(mode) ? mode : (guide.video ? "video" : "image");
@@ -397,14 +463,14 @@ function setPreviewMode(mode, shouldTrack = true) {
   } else {
     previewDialogVideo.pause();
     window.clearTimeout(previewLoadTimer);
-    previewMediaStatusText.textContent = "正在加载可点击 Demo...";
+    previewMediaStatusText.textContent = currentCopy().loadDemo;
     previewMediaStatus.classList.remove("is-error");
     previewDialogDemo.title = `${guide.style} 可点击 Demo`;
     previewDialogDemo.src = getEmbeddedDemoUrl(guide);
     previewLoadTimer = window.setTimeout(() => {
       if (!activePreviewGuide || previewDialogDemo.hidden) return;
       previewMediaStatus.hidden = false;
-      previewMediaStatusText.textContent = "Demo 加载超时，请重试或在新窗口打开。";
+      previewMediaStatusText.textContent = currentCopy().timeout;
       previewMediaRetry.hidden = false;
       previewMediaStatus.classList.add("is-error");
     }, 8000);
@@ -415,24 +481,45 @@ function setPreviewMode(mode, shouldTrack = true) {
 }
 
 function openPreview(id, mode = "auto") {
-  const guide = styleGuides.find((item) => item.id === id);
-  if (!guide) return;
-  activePreviewGuide = guide;
+  const sourceGuide = styleGuides.find((item) => item.id === id);
+  if (!sourceGuide) return;
+  const guide = localizeRecord(sourceGuide);
+  const copy = currentCopy();
+  activePreviewGuide = sourceGuide;
   activePreviewImages = getPreviewImages(guide);
   activePreviewImageIndex = 0;
   const modes = getPreviewModes(guide);
   const initialMode = mode === "auto" ? (guide.defaultPreviewMode || (guide.video ? "video" : (guide.liveDemo ? "live" : "image"))) : (modes.includes(mode) ? mode : modes[0]);
 
-  previewDialogTitle.textContent = `${guide.name} · ${guide.style}`;
-  previewDialogReference.textContent = guide.reference;
+  previewDialogTitle.textContent = `${guide.name} / ${guide.style}`;
+  const applicableStyles = getStyleProfiles(sourceGuide);
+  previewDialogDetails.innerHTML = `
+    <p class="preview-dialog-summary">${guide.summary}</p>
+    <dl class="preview-dialog-facts">
+      <div><dt>${copy.facts[0]}</dt><dd>${guide.palette}</dd></div>
+      <div><dt>${copy.facts[1]}</dt><dd>${guide.layout}</dd></div>
+      <div><dt>${copy.facts[2]}</dt><dd>${guide.reference}</dd></div>
+      <div><dt>${copy.facts[3]}</dt><dd>${guide.bestFor}</dd></div>
+    </dl>
+    <p class="preview-dialog-principle">${guide.recipe.principle}</p>
+    <div class="preview-dialog-recipe">
+      <p><strong>${copy.recipe[0]}:</strong> ${guide.recipe.image}</p>
+      <p><strong>${copy.recipe[1]}:</strong> ${guide.recipe.type}</p>
+      <p><strong>${copy.recipe[2]}:</strong> ${guide.recipe.components}</p>
+    </div>
+    <div class="preview-dialog-profiles"><strong>${copy.brandProfiles}</strong><div>${applicableStyles.map((profile) => `<span>${profile.name}</span>`).join("")}</div></div>`;
+  previewDialogCopy.dataset.copyStyle = guide.id;
+  previewDialogCopy.textContent = copy.copyFull;
+  previewDialogComponents.textContent = copy.componentLibrary;
   previewMediaFrame.style.setProperty("--preview-media-bg", guide.preview);
   previewDialogOpenLive.hidden = !guide.liveDemo;
   if (guide.liveDemo) previewDialogOpenLive.href = guide.liveDemo;
+  previewDialogOpenLive.textContent = currentCopy().openLive;
   previewModeSwitch.innerHTML = modes.map((item) => `<button type="button" data-preview-view="${item}" aria-pressed="false">${previewModeLabels[item]}</button>`).join("");
   previewModeSwitch.hidden = modes.length < 2;
   previewModeSwitch.querySelectorAll("button").forEach((button) => button.addEventListener("click", () => setPreviewMode(button.dataset.previewView)));
 
-  previewDialog.showModal();
+  if (!previewDialog.open) previewDialog.showModal();
   setPreviewMode(initialMode, false);
   track(initialMode === "live" ? "live_demo_open" : "demo_preview_open", { caseId: guide.id, caseName: guide.name, mode: initialMode });
 }
@@ -466,80 +553,45 @@ const infoPanels = {
   }
 };
 
+const infoPanelsEnglish = {
+  guide: {
+    eyebrow: "IMAGE2 UI / GUIDE",
+    title: "How to use it",
+    intro: "Start from a real reference and connect style selection, image assets, and a clickable interface in one reusable workflow.",
+    steps: [
+      ["Choose a case", "Compare screens and demo videos in the library, then open the closest visual direction."],
+      ["Copy the configuration", "The copy action includes the local reference path, image prompt, typography, and component principles."],
+      ["Split the implementation", "Keep copy, buttons, navigation, state, and ordinary icons in code. Use image assets for photos, illustration, texture, and products."],
+      ["Connect local assets", "Save generated or selected images in the project and connect them to the matching visual slots."],
+      ["Verify delivery", "Open the local preview and check click paths, image loading, mobile layout, and reduced motion."]
+    ],
+    callout: "Do not start with 'make it more premium.' Choose a case and copy its configuration so the direction is concrete."
+  },
+  principles: {
+    eyebrow: "IMAGE2 UI / PRINCIPLES",
+    title: "Principles",
+    intro: "Image2 UI does not flatten a screenshot into one image. It recombines editable, interactive UI with real visual assets.",
+    steps: [
+      ["Code owns interface", "Render real copy, buttons, inputs, navigation, status bars, filters, and ordinary icons in code."],
+      ["Images own visual material", "Use real local assets for photography, products, people, illustration, texture, backgrounds, and thumbnails."],
+      ["Prompts stay traceable", "Each style keeps its local reference path and prompt so the next project does not restart from vague adjectives."],
+      ["Structure before decoration", "Name regions such as top app bar, card grid, filter chips, and detail dialog before styling them."],
+      ["Output must work", "The deliverable is a page that opens, responds, can be edited, and supports another iteration, not a static screenshot."]
+    ],
+    callout: "Images must not carry readable copy, navigation, or functional icons. Keeping those in code preserves clarity, accessibility, and editability."
+  }
+};
+
 function openInfoPanel(id) {
-  const panel = infoPanels[id];
+  activeInfoPanelId = id;
+  const panel = (window.image2I18n?.language === "en" ? infoPanelsEnglish : infoPanels)[id];
   if (!panel) return;
   infoDialogContent.innerHTML = `<p class="kicker">${panel.eyebrow}</p><h2 id="infoDialogTitle">${panel.title}</h2><p>${panel.intro}</p><ol class="info-steps">${panel.steps.map((step, index) => `<li><b>0${index + 1}</b><div><strong>${step[0]}</strong><span>${step[1]}</span></div></li>`).join("")}</ol><p class="info-callout">${panel.callout}</p>`;
-  infoDialog.showModal();
+  if (!infoDialog.open) infoDialog.showModal();
   track("info_panel_open", { panel: id });
 }
 
-function openStyleDetails(id) {
-  const guide = styleGuides.find((item) => item.id === id);
-  if (!guide) return;
-  styleDialogContent.style.setProperty("--dialog-preview", guide.preview);
-  const applicableBrands = getBrandProfiles(guide);
-  styleDialogContent.innerHTML = `
-    <div class="dialog-visual"><img src="${guide.referenceImage}" alt="${guide.style} 本地视觉参考图"></div>
-    <div class="dialog-copy">
-      <p class="kicker">${guide.name} / STYLE PROFILE</p>
-      <h2 id="styleDialogTitle">${guide.style}</h2>
-      <p class="dialog-intro">${guide.summary}</p>
-      <dl class="dialog-facts">
-        <div><dt>画面色彩</dt><dd>${guide.palette}</dd></div>
-        <div><dt>页面节奏</dt><dd>${guide.layout}</dd></div>
-        <div><dt>参考方向</dt><dd>${guide.reference}</dd></div>
-        <div><dt>适用场景</dt><dd>${guide.bestFor}</dd></div>
-      </dl>
-      <p class="dialog-principle">${guide.recipe.principle}</p>
-      <div class="dialog-recipe">
-        <p><strong>图片：</strong>${guide.recipe.image}</p>
-        <p><strong>排版：</strong>${guide.recipe.type}</p>
-        <p><strong>组件：</strong>${guide.recipe.components}</p>
-      </div>
-      <div class="dialog-brand-profiles"><strong>适用品牌规范</strong><div>${applicableBrands.map((brand) => `<a href="./brands.html?brand=${encodeURIComponent(brand.id)}">${brand.name}</a>`).join("")}</div></div>
-      <div class="dialog-actions"><button class="dialog-copy-button" type="button" data-copy-style="${guide.id}">复制图片与提示词配置</button>${applicableBrands[0] ? `<button class="dialog-copy-button dialog-brand-action" type="button" data-copy-brand="${applicableBrands[0].id}" data-case-id="${guide.id}">应用此品牌规范</button><button class="dialog-demo-link dialog-brand-action" type="button" data-copy-brand-prompt="${applicableBrands[0].id}">复制品牌 Prompt</button><button class="dialog-demo-link dialog-brand-action" type="button" data-download-brand-tokens="${applicableBrands[0].id}">生成 Design Tokens</button>` : ""}<button class="dialog-demo-link" type="button" data-preview-id="${guide.id}" data-preview-mode="image">查看效果图</button>${guide.video ? `<button class="dialog-demo-link" type="button" data-preview-id="${guide.id}" data-preview-mode="video">播放 Demo 视频</button>` : ""}${guide.liveDemo ? `<button class="dialog-demo-link" type="button" data-preview-id="${guide.id}" data-preview-mode="live">打开可点击 Demo</button>` : ""}</div>
-    </div>`;
-  styleDialogContent.querySelector("[data-copy-style]").addEventListener("click", (event) => copyStyleMode(event.currentTarget));
-  styleDialogContent.querySelectorAll("[data-copy-brand]").forEach((button) => button.addEventListener("click", () => copyBrandApplication(button)));
-  styleDialogContent.querySelectorAll("[data-copy-brand-prompt]").forEach((button) => button.addEventListener("click", () => copyBrandPrompt(button)));
-  styleDialogContent.querySelectorAll("[data-download-brand-tokens]").forEach((button) => button.addEventListener("click", () => downloadBrandTokens(button)));
-  styleDialogContent.querySelectorAll("[data-preview-id]").forEach((button) => button.addEventListener("click", (event) => {
-    styleDialog.close();
-    openPreview(event.currentTarget.dataset.previewId, event.currentTarget.dataset.previewMode);
-  }));
-  styleDialog.showModal();
-  track("style_detail_open", { caseId: guide.id, caseName: guide.name });
-}
-
-window.image2BrandCatalog = { brandProfiles, buildBrandPrompt, buildBrandTokens };
-
-async function copyBrandApplication(button) {
-  const brand = brandProfiles.find((item) => item.id === button.dataset.copyBrand);
-  const guide = styleGuides.find((item) => item.id === button.dataset.caseId);
-  if (!brand || !guide) return;
-  const text = [`应用品牌规范：${brand.name}`, `案例结构：${guide.name} / ${guide.style}`, "", buildBrandPrompt(brand), "", "输出 artifacts/brand-profile.json、artifacts/brand-tokens.json 和 artifacts/brand-compliance.md，并验证品牌规范未改变案例交互结构。"].join("\n");
-  await copyTextWithFeedback(text, button, "已复制品牌应用指令");
-}
-
-async function copyBrandPrompt(button) {
-  const brand = brandProfiles.find((item) => item.id === button.dataset.copyBrandPrompt);
-  if (brand) await copyTextWithFeedback(buildBrandPrompt(brand), button, "品牌 Prompt 已复制");
-}
-
-function downloadBrandTokens(button) {
-  const brand = brandProfiles.find((item) => item.id === button.dataset.downloadBrandTokens);
-  if (!brand) return;
-  const blob = new Blob([`${buildBrandTokens(brand)}\n`], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `${brand.id}-brand-tokens.json`;
-  link.click();
-  URL.revokeObjectURL(url);
-  button.textContent = "已生成";
-  window.setTimeout(() => { button.textContent = "生成 Design Tokens"; }, 1500);
-}
+window.image2StyleCatalog = { styleProfiles, buildStylePrompt, buildStyleTokens };
 
 async function copyTextWithFeedback(text, button, feedback) {
   const label = button.textContent;
@@ -552,8 +604,8 @@ async function copyStyleMode(button) {
   const guide = styleGuides.find((item) => item.id === button.dataset.copyStyle);
   if (!guide) return;
   const label = button.textContent;
-  try { await navigator.clipboard.writeText(buildStyleMode(guide)); button.textContent = "已复制"; track("style_copy", { caseId: guide.id, caseName: guide.name }); }
-  catch { fallbackCopy(buildStyleMode(guide)); button.textContent = "已复制"; track("style_copy", { caseId: guide.id, caseName: guide.name, method: "fallback" }); }
+  try { await navigator.clipboard.writeText(buildStyleMode(guide)); button.textContent = currentCopy().copied; track("style_copy", { caseId: guide.id, caseName: guide.name }); }
+  catch { fallbackCopy(buildStyleMode(guide)); button.textContent = currentCopy().copied; track("style_copy", { caseId: guide.id, caseName: guide.name, method: "fallback" }); }
   window.setTimeout(() => { button.textContent = label; }, 1500);
 }
 
@@ -658,15 +710,18 @@ previewDialogDemo.addEventListener("load", () => {
 previewDialogDemo.addEventListener("error", () => {
   window.clearTimeout(previewLoadTimer);
   previewMediaStatus.hidden = false;
-  previewMediaStatusText.textContent = "Demo 加载失败，请重试或使用下方链接在新窗口打开。";
+  previewMediaStatusText.textContent = currentCopy().failed;
   previewMediaRetry.hidden = false;
   previewMediaStatus.classList.add("is-error");
 });
 previewMediaRetry.addEventListener("click", () => {
   if (activePreviewGuide) setPreviewMode("live", false);
 });
+previewDialogCopy.addEventListener("click", () => {
+  if (activePreviewGuide) copyStyleMode(previewDialogCopy);
+});
 
-[styleDialog, previewDialog, infoDialog].forEach((dialog) => dialog.addEventListener("click", (event) => {
+[previewDialog, infoDialog].forEach((dialog) => dialog.addEventListener("click", (event) => {
   if (event.target === dialog) dialog.close();
 }));
 
@@ -679,18 +734,59 @@ window.addEventListener("popstate", () => {
 
 function updateGitHubStars(count) {
   if (!Number.isFinite(count)) return false;
-  const stars = new Intl.NumberFormat("zh-CN").format(count);
+  const stars = new Intl.NumberFormat(window.image2I18n?.language === "en" ? "en" : "zh-CN").format(count);
   githubStars.textContent = stars;
-  githubStarsNav.textContent = stars;
+  document.querySelectorAll(".site-nav-stars").forEach((element) => { element.textContent = stars; });
   return true;
 }
 
+function applyLibraryLanguage() {
+  const copy = currentCopy();
+  document.title = copy.title;
+  document.querySelector('meta[name="description"]')?.setAttribute("content", copy.description);
+  document.documentElement.style.setProperty("--unavailable-label", `"${copy.unavailable}"`);
+  document.querySelector(".skip-link").textContent = copy.skip;
+  document.querySelector(".sidebar").setAttribute("aria-label", copy.sidebarLabel);
+  document.querySelector(".sidebar-label").textContent = copy.sidebarLabel;
+  categoryNav.querySelectorAll("[data-filter]").forEach((button) => { button.querySelector("span").textContent = copy.categories[button.dataset.filter]; });
+  document.querySelector(".sidebar-skills-heading a").textContent = copy.allSkills;
+  document.querySelectorAll(".sidebar-resources button").forEach((button, index) => {
+    button.querySelector("span").textContent = copy.guides[index][0];
+    button.querySelector("small").textContent = copy.guides[index][1];
+  });
+  document.querySelector(".sidebar-social p").textContent = copy.author;
+  const socialProfile = document.querySelector(".sidebar-social a:last-child small");
+  if (socialProfile) socialProfile.textContent = copy.profile;
+  document.querySelector(".sidebar-note span").textContent = copy.localDemo;
+  document.querySelector("#pageTitle").textContent = copy.heroTitle;
+  document.querySelector(".catalog-heading .intro").textContent = copy.heroIntro;
+  const heroAuthor = document.querySelector(".hero-social > span");
+  if (heroAuthor) heroAuthor.textContent = copy.heroAuthor;
+  document.querySelector(".stats-panel span:first-child small").textContent = copy.cases;
+  document.querySelector(".stats-panel span:nth-child(2) small").textContent = copy.styles;
+  searchInput.placeholder = copy.search;
+  document.querySelector(".search-section").setAttribute("aria-label", copy.search);
+  document.querySelector(".catalog-bar .kicker").textContent = copy.featured;
+  document.querySelector("#catalogTitle").textContent = copy.startVisual;
+  emptyState.textContent = copy.empty;
+  previewDialogTitle.textContent = copy.previewTitle;
+  previewModeSwitch.setAttribute("aria-label", copy.previewType);
+  previewImagePrevious.setAttribute("aria-label", copy.previous);
+  previewImagePrevious.title = copy.previous;
+  previewImageNext.setAttribute("aria-label", copy.next);
+  previewImageNext.title = copy.next;
+  previewMediaRetry.textContent = copy.retry;
+  previewDialogOpenLive.textContent = copy.openLive;
+  document.querySelectorAll(".dialog-close").forEach((button) => button.setAttribute("aria-label", window.image2I18n?.language === "en" ? "Close dialog" : "关闭弹窗"));
+  updateCatalogCounts();
+  renderDemoGallery();
+  if (infoDialog.open && activeInfoPanelId) openInfoPanel(activeInfoPanelId);
+  if (previewDialog.open && activePreviewGuide) openPreview(activePreviewGuide.id, activePreviewMode || "auto");
+}
+
+window.image2I18n?.registerPage(applyLibraryLanguage);
+
 async function loadGitHubStars() {
-  if (window.location.hostname.endsWith("github.io")) {
-    githubStars.textContent = "--";
-    githubStarsNav.textContent = "--";
-    return;
-  }
   try {
     const response = await fetch(githubApiUrl, {
       headers: { Accept: "application/vnd.github+json" },
@@ -705,7 +801,7 @@ async function loadGitHubStars() {
       if (!updateGitHubStars(Number((await response.json()).value))) throw new Error("Missing fallback star count");
     } catch {
       githubStars.textContent = "--";
-      githubStarsNav.textContent = "--";
+      document.querySelectorAll(".site-nav-stars").forEach((element) => { element.textContent = "--"; });
     }
   }
 }

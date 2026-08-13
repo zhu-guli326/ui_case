@@ -27,7 +27,31 @@
     "motion": "心情和标签以短按压反馈，页面间切换立即落位，避免干扰阅读。",
     "avoid": "把数据图、连续打卡、社区流和多层设置同时塞进日记首页。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Misty-field reflection journal",
+      "reference": "Misty blue grassland, translucent layers, and serif headings feel like a morning nature journal meant to be read slowly",
+      "prompt": "Reflect meditation-journal app visual reference: a mist-blue sky, pale-sage grassland, and soft-white paper, with morning haze and a natural path in the photographic hero and editorial serif character in headings. Images provide environment and texture only. Render all copy, status bars, mood buttons, back controls, labels, and bottom navigation in code. Do not generate text, logos, watermarks, UI glyphs, system status bars, arrows, menus, buttons, or imitation UI.",
+      "summary": "A morning field photograph sits within a serif-led journal rhythm, connecting moods, short notes, and article detail with minimal interference.",
+      "bestFor": "Journals, meditation, mood tracking, slow-living content, reading products",
+      "tags": [
+        "Misty-field photography",
+        "Editorial serif",
+        "Quiet reflection"
+      ],
+      "palette": "Mist blue / Sage / Soft white / Olive green",
+      "layout": "Quote home + Mood row + Journal card + Article detail",
+      "recipe": {
+        "principle": "Keep quiet reading and recording on one single-column path with every action light but visible.",
+        "image": "Reuse one text-free misty-field photograph across the hero, cards, and detail to preserve stable light and mood.",
+        "type": "Serif type carries quotes, article titles, and reading rhythm; controls and body copy use a clear system sans serif.",
+        "components": "9:16 iOS frame, four tappable moods, journal entry, article detail, editable new reflection, and bottom tabs.",
+        "motion": "Use brief press feedback for moods and labels, and settle page changes immediately to avoid interrupting reading.",
+        "avoid": "Do not combine data charts, streaks, community feeds, and layered settings on the journal home screen."
+      }
+    }
+  },
+  "styleProfileIds": [
     "soft-lifestyle"
   ]
 }

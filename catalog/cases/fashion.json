@@ -27,7 +27,31 @@
     "motion": "滑动、收藏和下一张转换要细腻。",
     "avoid": "商品卡塞满价格、折扣和标签。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Editorial fashion commerce",
+      "reference": "The whitespace rhythm of a fashion lookbook paired with a lightweight browsing and favorites flow",
+      "prompt": "Editorial fashion-commerce app visual reference: a large portrait or single-product hero, soft pink tones, generous whitespace, and restrained small copy, like a designer fashion lookbook. Make the product the visual focus and keep actions lightweight. Avoid crowded price labels, complex collage layouts, and frequent motion.",
+      "summary": "Large portrait imagery, pink-toned whitespace, and restrained copy make the commerce interface feel like an editorial lookbook first.",
+      "bestFor": "Fashion, beauty, lifestyle, designer brands",
+      "tags": [
+        "Editorial lookbook",
+        "Portrait hero",
+        "Lightweight shopping"
+      ],
+      "palette": "Mist pink / Cream white / Dark chocolate",
+      "layout": "Immersive hero image + Lightweight product list",
+      "recipe": {
+        "principle": "Let the product lead the composition and reveal controls only when they are needed.",
+        "image": "Use one large portrait or single-product image with consistent light and background treatment.",
+        "type": "Give headings an editorial character while keeping body copy small and light.",
+        "components": "Softly rounded photo containers, a lightweight favorite control, and one accent color.",
+        "motion": "Keep swiping, favoriting, and next-image transitions refined and subtle.",
+        "avoid": "Do not fill product cards with prices, discounts, and labels."
+      }
+    }
+  },
+  "styleProfileIds": [
     "editorial-commerce"
   ]
 }

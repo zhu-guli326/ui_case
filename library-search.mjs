@@ -14,6 +14,12 @@ const FIELD_WEIGHTS = Object.freeze({
   recipe: 2,
 });
 
+const SEARCH_STOPWORDS = new Set([
+  "app", "apps", "ui", "ux", "demo", "style", "case", "cases", "example", "examples",
+  "a", "an", "and", "do", "for", "from", "in", "of", "on", "or", "the", "to", "with",
+  "案例", "应用", "界面", "页面", "风格", "设计案例",
+]);
+
 // Search terms are deliberately curated. They describe user intent without
 // making every commerce or wellness case match every broad category word.
 const TERM_GROUPS = [
@@ -49,20 +55,21 @@ const CATEGORY_LABELS = Object.freeze({
 // specific product description. Keep them attached to a case so they remain
 // explainable and easy to extend as the library grows.
 const GUIDE_ALIASES = Object.freeze({
-  fashion: ["女装", "女装购物", "女装电商", "women's fashion", "fashion shopping"],
-  "still-form": ["女装", "女装购物", "服装设计", "衣服", "穿搭", "clothing store", "apparel", "fashion clothing"],
-  fufu: ["咖啡店", "咖啡馆", "coffee shop", "cafe", "baking"],
+  fashion: ["女装", "女装购物", "女装电商", "女装商城", "女士服装", "women's fashion", "fashion shopping"],
+  "still-form": ["女装", "女装购物", "女装电商", "女装商城", "服装设计", "衣服", "穿搭", "clothing store", "apparel", "fashion clothing"],
+  fufu: ["线条手绘", "手绘线条", "可爱手绘", "可爱线稿", "手绘 app", "狗狗烘焙", "烘焙会员", "咖啡店", "咖啡馆", "coffee shop", "cafe", "baking", "hand drawn bakery", "cute line art"],
   organique: ["健康餐", "营养餐", "meal plan", "healthy food"],
   cleanbite: ["食品扫描", "营养扫描", "food scanner", "ingredient scanner"],
   "plate-play": ["烹饪", "厨房", "cooking", "recipe"],
   fithub: ["健身", "训练", "workout", "fitness"],
   "volt-route": ["电动车充电", "新能源充电", "ev charging", "electric car"],
-  moe: ["习惯追踪", "习惯打卡", "habit tracker", "routine tracker"],
+  moe: ["习惯追踪", "习惯打卡", "待办", "每日任务", "habit tracker", "routine tracker", "todo", "to do", "daily tasks"],
   "relay-music": ["音乐播放器", "音乐流媒体", "music player", "music streaming", "now playing"],
   museum: ["博物馆", "美术馆导览", "museum guide", "gallery guide"],
-  notebook: ["创意工作台", "笔记工具", "creative workspace", "note taking"],
+  notebook: ["创意工作台", "笔记工具", "任务规划", "creative workspace", "note taking", "todo", "to do", "task planning"],
   loy: ["情绪仪表盘", "睡眠记录", "mood tracker", "sleep tracker"],
   "softly-reflections": ["情绪反思", "心理签到", "reflection journal", "mood check-in"],
+  mimo: ["待办", "任务日程", "todo", "to do", "task schedule"],
 });
 
 const ALIAS_PHRASE_INDEX = new Map();
@@ -99,6 +106,18 @@ function tokenizeSearchText(value) {
   return normalizeSearchText(value).match(/[a-z0-9]+|[\u3400-\u9fff]+/g) || [];
 }
 
+function queryTokens(value) {
+  return tokenizeSearchText(value).flatMap((token) => {
+    if (SEARCH_STOPWORDS.has(token)) return [];
+    for (const stopword of SEARCH_STOPWORDS) {
+      if (/^[\u3400-\u9fff]+$/.test(stopword) && token.endsWith(stopword) && token.length > stopword.length) {
+        return [token.slice(0, -stopword.length)];
+      }
+    }
+    return [token];
+  });
+}
+
 function flattenValues(value) {
   if (value == null) return [];
   if (Array.isArray(value)) return value.flatMap(flattenValues);
@@ -106,22 +125,26 @@ function flattenValues(value) {
   return [String(value)];
 }
 
+function localizedValues(guide, key) {
+  return [guide[key], ...Object.values(guide.locales || {}).map((locale) => locale?.[key])];
+}
+
 function fieldValues(guide) {
-  const recipe = flattenValues(guide.recipe).join(" ");
+  const recipe = flattenValues(localizedValues(guide, "recipe")).join(" ");
   const categoryLabels = CATEGORY_LABELS[guide.category] || [];
   return {
     id: guide.id,
     aliases: GUIDE_ALIASES[guide.id] || [],
-    name: guide.name,
-    style: guide.style,
-    tags: guide.tags,
-    bestFor: guide.bestFor,
-    layout: guide.layout,
-    reference: guide.reference,
-    summary: guide.summary,
-    palette: guide.palette,
+    name: localizedValues(guide, "name"),
+    style: localizedValues(guide, "style"),
+    tags: localizedValues(guide, "tags"),
+    bestFor: localizedValues(guide, "bestFor"),
+    layout: localizedValues(guide, "layout"),
+    reference: localizedValues(guide, "reference"),
+    summary: localizedValues(guide, "summary"),
+    palette: localizedValues(guide, "palette"),
     category: [guide.category, ...categoryLabels],
-    prompt: guide.prompt,
+    prompt: localizedValues(guide, "prompt"),
     recipe,
   };
 }
@@ -189,7 +212,10 @@ function matchTerm(document, term) {
     const compactVariant = compactSearchText(variant);
     if (!compactVariant) continue;
     for (const field of document.fields) {
-      if (field.compact.includes(compactVariant)) {
+      const isShortLatin = /^[a-z0-9]+$/.test(compactVariant) && compactVariant.length < 4;
+      const exactTokenHit = isShortLatin && field.tokens.includes(compactVariant);
+      const substringHit = !isShortLatin && field.compact.includes(compactVariant);
+      if (exactTokenHit || substringHit) {
         const score = FIELD_WEIGHTS[field.key] * (compactVariant === field.compact ? 1.35 : 1);
         if (!best || score > best.score) best = { score, exact: true };
       } else if (fuzzyLatinMatch(compactVariant, field)) {
@@ -203,14 +229,17 @@ function matchTerm(document, term) {
 
 function scoreGuide(document, query) {
   const normalizedQuery = normalizeSearchText(query);
-  const tokens = tokenizeSearchText(normalizedQuery);
+  const aliasPhraseGuides = ALIAS_PHRASE_INDEX.get(compactSearchText(normalizedQuery));
+  const tokens = queryTokens(normalizedQuery);
+  if (aliasPhraseGuides?.includes(document.guide.id) && !tokens.length) return { score: 80, exactMatches: 1 };
   if (!tokens.length) return null;
 
-  const phraseHit = phraseVariants(normalizedQuery).some((variant) => document.compact.includes(variant));
-  const aliasPhraseGuides = ALIAS_PHRASE_INDEX.get(compactSearchText(normalizedQuery));
+  const variants = phraseVariants(normalizedQuery);
+  const phraseHit = variants.some((variant) => document.compact.includes(variant));
+  const exactFieldPhraseHit = variants.some((variant) => document.fields.some((field) => field.compact === variant));
   if (aliasPhraseGuides?.length && !aliasPhraseGuides.includes(document.guide.id)) return null;
   const matches = tokens.map((token) => matchTerm(document, token));
-  const meaningfulPhraseHit = phraseHit && (tokens.length === 1 || matches.every((match) => match?.exact));
+  const meaningfulPhraseHit = exactFieldPhraseHit || (phraseHit && (tokens.length === 1 || matches.every((match) => match?.exact)));
   if (!meaningfulPhraseHit && matches.some((match) => !match)) return null;
 
   const score = matches.reduce((total, match) => total + (match?.score || 0), 0) + (meaningfulPhraseHit ? 42 : 0);

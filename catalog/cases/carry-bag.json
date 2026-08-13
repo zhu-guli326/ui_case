@@ -27,7 +27,31 @@
     "motion": "商品、色彩、tab、下单和导航切换都有即时且可见的反馈。",
     "avoid": "把折扣贴纸、复杂筛选、长规格表和高饱和颜色同时堆到一个商品屏。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "High-visibility backpack commerce",
+      "reference": "Three backpack-commerce phones on an icy blue-gray board, linking outdoor photography, a minimal shelf, and leather product details with one vivid green accent",
+      "prompt": "Backpack-commerce app visual reference: three black 9:16 iPhones arranged on an icy blue-gray desktop. Use one text-free glacier backpack photograph and one text-free warm-brown leather backpack studio photograph as separate image2 bitmaps; reserve fluorescent green for explicit action buttons. Render all brand copy, status bars, prices, product details, buttons, tabs, bottom navigation, arrows, and icons in code. Do not generate text, logos, watermarks, phones, or UI glyphs inside the images.",
+      "summary": "An outdoor hero, a clean product shelf, and a leather-item detail screen create a clickable backpack-shopping path where vivid green is reserved for the next action.",
+      "bestFor": "Outdoor products, bag retail, lifestyle brands, premium commerce",
+      "tags": [
+        "Outdoor products",
+        "Vivid green actions",
+        "Minimal shelf"
+      ],
+      "palette": "Icy blue-gray / Cloud white / Fluorescent green / Deep ink",
+      "layout": "Outdoor hero + Product shelf + Product detail",
+      "recipe": {
+        "principle": "Separate product photography from purchase actions: images provide material character while the coded interface supports reading and decisions.",
+        "image": "Use separate text-free generated images for the outdoor and studio backpacks; keep backgrounds, buttons, prices, and interactive controls in code.",
+        "type": "Serif headings provide a premium retail tone, while prices, labels, and navigation use compact sans serif for fast scanning.",
+        "components": "9:16 iOS frame, product tabs, two levels of product cards, product detail, color selection, purchase action, and tappable bottom navigation.",
+        "motion": "Provide immediate, visible feedback for product, color, tab, purchase, and navigation changes.",
+        "avoid": "Do not combine discount stickers, complex filters, long specification tables, and highly saturated colors on one product screen."
+      }
+    }
+  },
+  "styleProfileIds": [
     "editorial-commerce"
   ]
 }

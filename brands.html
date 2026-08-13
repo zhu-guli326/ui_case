@@ -4,70 +4,78 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="Image2 UI 品牌规范库：组合案例结构与品牌设计约束。">
-  <title>品牌规范库 · Image2 UI</title>
-  <link rel="stylesheet" href="./brands.css?v=20260813-brand-v2">
-  <script src="./brands.js?v=20260813-brand-v2" defer></script>
+  <meta name="description" content="浏览 19 套行业常用设计系统，并在独立实验室中预览和比较。">
+  <title>设计系统目录 · Image2 UI</title>
+  <script>
+    if (window.location.protocol === "file:") {
+      const target = `http://127.0.0.1:4173/brands.html${window.location.search}${window.location.hash}`;
+      const reveal = () => { const message = document.querySelector("#runtimeMessage"); if (message) message.hidden = false; };
+      const probe = new Image();
+      probe.onload = () => window.location.replace(target);
+      probe.onerror = () => document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", reveal, { once: true }) : reveal();
+      probe.src = `http://127.0.0.1:4173/assets/readme/hero.png?probe=${Date.now()}`;
+    }
+  </script>
+  <link rel="stylesheet" href="./brands.css?v=20260813-catalog-refine">
+  <link rel="stylesheet" href="./i18n.css">
+  <link rel="stylesheet" href="./site-nav.css">
+  <script src="./i18n.js"></script>
+  <script type="module" src="./brands.js?v=20260813-catalog-refine"></script>
 </head>
 <body>
-  <a class="skip-link" href="#brandDetail">跳到品牌规范详情</a>
+  <a class="skip-link" href="#systemCardGrid">跳到设计系统列表</a>
   <header class="topbar">
     <a class="brand" href="./library.html" aria-label="打开 Image2 UI 案例库"><span class="brand-mark" aria-hidden="true"><i></i></span><span>IMAGE2 UI</span></a>
-    <nav class="topnav" aria-label="主导航">
-      <a href="./library.html">案例库</a>
-      <a aria-current="page" href="./brands.html">品牌规范</a>
-      <a href="./skills.html">设计 Skill</a>
-      <a href="./vocabulary.html">UI 词典</a>
-    </nav>
+    <nav class="topnav" data-site-nav aria-label="主导航"></nav>
   </header>
 
-  <main class="workspace">
-    <aside class="catalog-panel" aria-labelledby="brandCatalogTitle">
-      <header class="catalog-header">
-        <p class="eyebrow">BRAND PROFILES</p>
-        <h1 id="brandCatalogTitle">品牌规范库</h1>
-        <p>为案例结构增加可追溯的色彩、字体、组件与视觉约束。</p>
-      </header>
-      <form class="filters" id="brandFilters">
-        <label><span>平台</span><select name="platform"><option value="">全部平台</option><option value="ios">iOS</option><option value="android">Android</option><option value="web">Web</option></select></label>
-        <label><span>行业</span><select name="industry"><option value="">全部行业</option></select></label>
-        <label><span>风格</span><select name="style"><option value="">全部风格</option></select></label>
-        <label><span>完整度</span><select name="completeness"><option value="">全部完整度</option><option>基础规范</option><option>组件规范</option><option>完整系统</option></select></label>
-      </form>
-      <p class="result-count" id="brandResultCount" aria-live="polite">3 个品牌规范</p>
-      <div class="brand-list" id="brandList">
-        <button class="brand-row is-active" type="button" aria-pressed="true" disabled>
-          <span class="brand-row-head"><strong>极简科技</strong><span class="status-badge">风格参考</span></span>
-          <p>功能主义 / 极简 · 组件规范</p>
-          <span class="swatches" aria-label="色彩预览"><i style="--swatch:#F4F6F4"></i><i style="--swatch:#151716"></i><i style="--swatch:#C8FF3D"></i><i style="--swatch:#168143"></i></span>
-        </button>
-      </div>
-      <div class="empty-state" id="brandEmpty" hidden>
-        <strong>没有匹配的品牌规范</strong>
-        <p>当前筛选组合过窄。清除筛选后可以查看全部规范。</p>
-        <button type="button" id="clearBrandFilters">清除筛选</button>
-      </div>
-    </aside>
+  <nav class="mode-nav" aria-label="设计系统页面">
+    <a href="./brands.html" aria-current="page">系统目录</a>
+    <a href="./lab/?system=tdesign&amp;view=compare&amp;template=account-settings&amp;theme=minimal-tech&amp;device=desktop&amp;appearance=light">预览实验室</a>
+  </nav>
 
-    <article class="detail-panel" id="brandDetail" tabindex="-1" aria-live="polite">
-      <header class="detail-header fallback-detail">
-        <div>
-          <p class="eyebrow">MINIMAL-TECH</p>
-          <div class="detail-title-line"><h2>极简科技</h2><span class="status-badge">风格参考</span></div>
-          <p class="detail-summary">直接、可扫描，以任务和状态为中心。</p>
-          <div class="metadata"><span class="meta-chip">WEB / IOS / ANDROID</span><span class="meta-chip">科技 / 工具 / 健康</span><span class="meta-chip">组件规范</span></div>
-          <p class="source-note">这是可组合的风格参考，不代表任何第三方品牌的官方规范。Logo、商业字体与专属素材仅在用户提供并确认授权后使用。</p>
-        </div>
-        <div class="detail-actions fallback-actions"><a class="action primary" href="./learn.html#playground">在品牌实验室试用</a><a class="action" href="./library.html">查看相关案例</a></div>
-      </header>
-      <div class="detail-grid fallback-grid">
-        <section class="spec-section full"><div class="section-heading"><h3>色彩系统</h3><span>FOUNDATIONS / COLORS</span></div><div class="color-system"><div class="color-swatch"><i style="--swatch:#F4F6F4"></i><strong>canvas</strong><code>#F4F6F4</code></div><div class="color-swatch"><i style="--swatch:#151716"></i><strong>ink</strong><code>#151716</code></div><div class="color-swatch"><i style="--swatch:#C8FF3D"></i><strong>accent</strong><code>#C8FF3D</code></div><div class="color-swatch"><i style="--swatch:#168143"></i><strong>signal</strong><code>#168143</code></div></div></section>
-        <section class="spec-section"><div class="section-heading"><h3>字体与信息层级</h3><span>TYPOGRAPHY</span></div><dl class="definition-list"><div><dt>标题字体</dt><dd>系统无衬线 700</dd></div><div><dt>正文字体</dt><dd>系统无衬线 400</dd></div><div><dt>字号层级</dt><dd>32 / 24 / 16 / 14</dd></div></dl></section>
-        <section class="spec-section"><div class="section-heading"><h3>间距与圆角</h3><span>LAYOUT TOKENS</span></div><dl class="definition-list"><div><dt>间距</dt><dd>4px 基线，16px 控件间距，32px 模块间距</dd></div><div><dt>圆角</dt><dd>6px 数据容器，22px 主操作</dd></div><div><dt>网格</dt><dd>12 列 Web，8pt 移动端节奏</dd></div></dl></section>
+  <main class="catalog-page">
+    <header class="catalog-intro">
+      <div class="catalog-title">
+        <h1>行业常用组件系统</h1>
+        <p>挑一套系统进入实验室，在同一页面蓝图中查看真实差异。</p>
       </div>
-      <noscript><p class="runtime-note">当前浏览器未启用 JavaScript。上方仍可阅读默认规范；启用后可筛选、复制 Prompt 和导出 Design Tokens。</p></noscript>
-    </article>
+      <label class="catalog-search">
+        <span class="visually-hidden">搜索设计系统</span>
+        <i aria-hidden="true"></i>
+        <input form="catalogFilters" name="query" type="search" placeholder="搜索系统、组件或用途" autocomplete="off">
+      </label>
+    </header>
+
+    <section class="catalog-controls" aria-label="目录筛选和统计">
+      <form class="catalog-filters" id="catalogFilters" aria-label="筛选行业组件系统">
+        <label><span>平台</span><select name="platform"><option value="">全部平台</option></select></label>
+        <label><span>组件类别</span><select name="category"><option value="">全部类别</option></select></label>
+      </form>
+      <p class="catalog-meta" aria-live="polite"><strong id="catalogSystemCount">19</strong> 套体系 <span aria-hidden="true">·</span> <strong id="catalogComponentCount">57</strong> 个组件参考</p>
+    </section>
+
+    <section aria-label="设计系统目录">
+      <div class="system-card-grid" id="systemCardGrid" tabindex="-1"></div>
+      <noscript><div class="runtime-message"><strong>目录需要通过本地服务器运行</strong><p>请打开 http://127.0.0.1:4173/brands.html 查看完整内容。</p></div></noscript>
+      <div class="runtime-message" id="runtimeMessage" hidden><strong>本地服务器未启动</strong><p>目录数据需要通过本地服务器加载。请在终端进入项目目录并运行 <code>python3 -m http.server 4173</code>，然后访问 http://127.0.0.1:4173/brands.html。</p></div>
+      <div class="catalog-empty" id="catalogEmpty" hidden>
+        <strong>没有匹配的设计系统</strong>
+        <p>换个关键词，或清除当前筛选。</p>
+        <button type="button">清除筛选</button>
+      </div>
+    </section>
+
+    <footer class="catalog-note">公开设计规范与组件文档索引，不代表官方合作或背书。</footer>
   </main>
+
+  <dialog class="reference-dialog" id="referenceDialog" aria-labelledby="referenceDialogTitle">
+    <form method="dialog" class="dialog-bar">
+      <div><span id="referenceDialogLabel">COMPONENT REFERENCE</span><h2 id="referenceDialogTitle">组件参考</h2></div>
+      <button type="submit" aria-label="关闭" title="关闭">×</button>
+    </form>
+    <div id="referenceDialogContent"></div>
+  </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 </body>
 </html>

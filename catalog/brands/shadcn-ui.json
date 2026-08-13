@@ -1,0 +1,14 @@
+{
+  "id": "shadcn-ui",
+  "name": "shadcn/ui",
+  "organization": "shadcn",
+  "sourceType": "public-guideline",
+  "sourceStatus": "基于公开设计规范",
+  "sourceUrl": "https://ui.shadcn.com/",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["web", "react"],
+  "description": "可复制进项目并由团队直接拥有源码的组件集合，常与 Tailwind CSS 和 Radix 配合使用。",
+  "componentReferenceIds": ["shadcn-ui-form", "shadcn-ui-command", "shadcn-ui-data-table"],
+  "disclaimer": "本资料基于 shadcn/ui 公开文档整理，与该项目无隶属或背书关系；名称与标识归其各自权利人所有。",
+  "locales": { "en": { "sourceStatus": "Based on public design guidelines", "description": "A component collection copied into and owned by the project, commonly used with Tailwind CSS and Radix.", "disclaimer": "Compiled from public shadcn/ui documentation with no affiliation or endorsement. Names and marks belong to their respective owners." } }
+}

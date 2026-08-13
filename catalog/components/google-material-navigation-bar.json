@@ -1,0 +1,32 @@
+{
+  "id": "material-3-navigation-bar",
+  "name": "Navigation bar",
+  "brandProfileId": "google-material-3",
+  "sourceType": "public-guideline",
+  "sourceStatus": "基于公开设计规范",
+  "sourceUrl": "https://m3.material.io/components/navigation-bar/overview",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["android", "web"],
+  "category": "navigation",
+  "summary": "移动端顶层目的地导航，使用图标、选中指示器和文字标签帮助定位。",
+  "anatomy": ["bar container", "destination", "icon", "active indicator", "label"],
+  "states": ["selected", "unselected", "pressed", "disabled"],
+  "behavior": ["提供 3-5 个同级目的地", "切换目的地不应丢失导航上下文"],
+  "accessibility": ["每个目的地有可访问名称", "选中态通过语义和视觉双重表达"],
+  "tokens": { "destinationCount": "3-5", "labelStyle": "md.sys.typescale.label-medium", "activeIndicator": "md.sys.color.secondary-container" },
+  "do": ["保持目的地稳定", "让当前目的地清楚可见"],
+  "dont": ["不要放入一次性操作", "不要用纯图标隐藏目的地含义"],
+  "locales": {
+    "en": {
+      "sourceStatus": "Based on public design guidelines",
+      "category": "Navigation",
+      "summary": "Mobile top-level destination navigation that uses icons, an active indicator, and text labels to preserve orientation.",
+      "anatomy": ["Bar container", "Destination", "Icon", "Active indicator", "Label"],
+      "states": ["Selected", "Unselected", "Pressed", "Disabled"],
+      "behavior": ["Provide three to five peer destinations", "Preserve navigation context when changing destinations"],
+      "accessibility": ["Give every destination an accessible name", "Express the selected state both semantically and visually"],
+      "do": ["Keep destinations stable", "Make the current destination clearly visible"],
+      "dont": ["Do not place one-off actions in the navigation bar", "Do not hide destination meaning behind icons alone"]
+    }
+  }
+}

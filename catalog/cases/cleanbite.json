@@ -27,7 +27,31 @@
     "motion": "套餐、开关、tab、收藏和双屏切换都使用短而明确的状态变化。",
     "avoid": "把促销、复杂营养表、彩色标签和大量健康建议同时堆在首屏。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Fluorescent food scanning",
+      "reference": "Two phones on a fluorescent lime board, separating membership choices and food nutrition into a high-contrast black-and-white hierarchy",
+      "prompt": "Food-scanning app visual reference: a fluorescent lime outer board, black iOS frames, white and pale-green pages, a black information panel, and a circular nutrition composition chart. Product images contain only realistic food packaging and an apple; render all prices, benefits, percentages, status bars, back, share, favorite, tabs, buttons, and chart labels in code. Do not generate new UI glyphs or interactive text inside images.",
+      "summary": "A membership screen and a nutrition-analysis screen create a clear food-scanning experience, using vivid green for choices and black for conclusions.",
+      "bestFor": "Food scanning, nutrition analysis, health subscriptions, ingredient-transparency tools",
+      "tags": [
+        "Fluorescent lime",
+        "Nutrition ring",
+        "Dual-phone display"
+      ],
+      "palette": "Lime green / Cloud white / Ink black / Apple green",
+      "layout": "Membership plan + Product hero + Nutrition analysis",
+      "recipe": {
+        "principle": "Show people what they gain first, then prove the value with one legible analysis result.",
+        "image": "Keep the food subject in a separate local image slot; control the nutrition ring, percentages, and actions entirely in code.",
+        "type": "Large pricing and product names establish scan order; benefits and explanatory copy remain compact and readable.",
+        "components": "Two iOS frames, plan selection, trial toggle, product visual, nutrition ring, analysis tabs, and favorite/share feedback.",
+        "motion": "Use short, explicit state changes for plans, toggles, tabs, favorites, and switching between screens.",
+        "avoid": "Do not pile promotions, complex nutrition tables, colored labels, and extensive health advice onto the first screen."
+      }
+    }
+  },
+  "styleProfileIds": [
     "minimal-tech"
   ]
 }

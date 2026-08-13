@@ -1,0 +1,14 @@
+{
+  "id": "mantine",
+  "name": "Mantine",
+  "organization": "Mantine",
+  "sourceType": "public-guideline",
+  "sourceStatus": "基于公开设计规范",
+  "sourceUrl": "https://mantine.dev/",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["web", "react"],
+  "description": "覆盖核心界面、Hooks、表单与日期能力的完整 React 组件库。",
+  "componentReferenceIds": ["mantine-date-picker", "mantine-combobox", "mantine-notifications"],
+  "disclaimer": "本资料基于 Mantine 公开文档整理，与 Mantine 无隶属或背书关系；名称与标识归其各自权利人所有。",
+  "locales": { "en": { "sourceStatus": "Based on public design guidelines", "description": "A comprehensive React library spanning core UI, hooks, forms, and date components.", "disclaimer": "Compiled from public Mantine documentation with no affiliation or endorsement. Names and marks belong to their respective owners." } }
+}

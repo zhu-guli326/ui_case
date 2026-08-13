@@ -29,7 +29,31 @@ export const styleGuides = [
       "motion": "标签按压、进入目的地和底部标签切换都提供短暂、直接的反馈。",
       "avoid": "在欢迎页塞进地图、筛选、评分、价格或成排的大卡片。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Lightweight travel planning",
+        "reference": "A pale apricot phone on a fluorescent yellow field, surrounded by circular travel labels scattered like stickers",
+        "prompt": "Lightweight travel-planning app visual reference: a fluorescent yellow outer background, a pale apricot 9:16 phone screen, and a slim black iOS device frame. Four small, colorful travel labels surround a text-free travel sticker while preserving open space for the centered heading. Render all copy, buttons, status bars, bottom navigation, and functional icons in code; do not generate text, logos, watermarks, UI glyphs, or pseudo-text.",
+        "summary": "Scattered travel labels and one gentle sticker help people begin with a destination and gradually shape their next trip.",
+        "bestFor": "Travel planning, city inspiration, weekend itineraries, lightweight collections",
+        "tags": [
+          "Sticker labels",
+          "Fluorescent yellow",
+          "Lightweight entry"
+        ],
+        "palette": "Fluorescent yellow / Pale apricot / Peach pink / Lake blue",
+        "layout": "Welcome screen + Destination list + Bottom navigation",
+        "recipe": {
+          "principle": "The opening screen should create a single impulse to leave; save itinerary details for the next screen.",
+          "image": "The travel sticker is the only bitmap mood element; labels and every other UI element remain crisp and interactive.",
+          "type": "Arrange the brand, heading, and supporting copy on one centered axis with short, airy text.",
+          "components": "9:16 iOS frame, tappable travel labels, destination list, primary action, and labeled bottom navigation.",
+          "motion": "Use brief, direct feedback for label presses, destination entry, and bottom-navigation changes.",
+          "avoid": "Do not crowd the welcome screen with maps, filters, ratings, prices, or rows of large cards."
+        }
+      }
+    },
+    "styleProfileIds": [
       "soft-lifestyle"
     ]
   },
@@ -62,7 +86,31 @@ export const styleGuides = [
       "motion": "商品、色彩、tab、下单和导航切换都有即时且可见的反馈。",
       "avoid": "把折扣贴纸、复杂筛选、长规格表和高饱和颜色同时堆到一个商品屏。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "High-visibility backpack commerce",
+        "reference": "Three backpack-commerce phones on an icy blue-gray board, linking outdoor photography, a minimal shelf, and leather product details with one vivid green accent",
+        "prompt": "Backpack-commerce app visual reference: three black 9:16 iPhones arranged on an icy blue-gray desktop. Use one text-free glacier backpack photograph and one text-free warm-brown leather backpack studio photograph as separate image2 bitmaps; reserve fluorescent green for explicit action buttons. Render all brand copy, status bars, prices, product details, buttons, tabs, bottom navigation, arrows, and icons in code. Do not generate text, logos, watermarks, phones, or UI glyphs inside the images.",
+        "summary": "An outdoor hero, a clean product shelf, and a leather-item detail screen create a clickable backpack-shopping path where vivid green is reserved for the next action.",
+        "bestFor": "Outdoor products, bag retail, lifestyle brands, premium commerce",
+        "tags": [
+          "Outdoor products",
+          "Vivid green actions",
+          "Minimal shelf"
+        ],
+        "palette": "Icy blue-gray / Cloud white / Fluorescent green / Deep ink",
+        "layout": "Outdoor hero + Product shelf + Product detail",
+        "recipe": {
+          "principle": "Separate product photography from purchase actions: images provide material character while the coded interface supports reading and decisions.",
+          "image": "Use separate text-free generated images for the outdoor and studio backpacks; keep backgrounds, buttons, prices, and interactive controls in code.",
+          "type": "Serif headings provide a premium retail tone, while prices, labels, and navigation use compact sans serif for fast scanning.",
+          "components": "9:16 iOS frame, product tabs, two levels of product cards, product detail, color selection, purchase action, and tappable bottom navigation.",
+          "motion": "Provide immediate, visible feedback for product, color, tab, purchase, and navigation changes.",
+          "avoid": "Do not combine discount stickers, complex filters, long specification tables, and highly saturated colors on one product screen."
+        }
+      }
+    },
+    "styleProfileIds": [
       "editorial-commerce"
     ]
   },
@@ -95,7 +143,31 @@ export const styleGuides = [
       "motion": "套餐、开关、tab、收藏和双屏切换都使用短而明确的状态变化。",
       "avoid": "把促销、复杂营养表、彩色标签和大量健康建议同时堆在首屏。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Fluorescent food scanning",
+        "reference": "Two phones on a fluorescent lime board, separating membership choices and food nutrition into a high-contrast black-and-white hierarchy",
+        "prompt": "Food-scanning app visual reference: a fluorescent lime outer board, black iOS frames, white and pale-green pages, a black information panel, and a circular nutrition composition chart. Product images contain only realistic food packaging and an apple; render all prices, benefits, percentages, status bars, back, share, favorite, tabs, buttons, and chart labels in code. Do not generate new UI glyphs or interactive text inside images.",
+        "summary": "A membership screen and a nutrition-analysis screen create a clear food-scanning experience, using vivid green for choices and black for conclusions.",
+        "bestFor": "Food scanning, nutrition analysis, health subscriptions, ingredient-transparency tools",
+        "tags": [
+          "Fluorescent lime",
+          "Nutrition ring",
+          "Dual-phone display"
+        ],
+        "palette": "Lime green / Cloud white / Ink black / Apple green",
+        "layout": "Membership plan + Product hero + Nutrition analysis",
+        "recipe": {
+          "principle": "Show people what they gain first, then prove the value with one legible analysis result.",
+          "image": "Keep the food subject in a separate local image slot; control the nutrition ring, percentages, and actions entirely in code.",
+          "type": "Large pricing and product names establish scan order; benefits and explanatory copy remain compact and readable.",
+          "components": "Two iOS frames, plan selection, trial toggle, product visual, nutrition ring, analysis tabs, and favorite/share feedback.",
+          "motion": "Use short, explicit state changes for plans, toggles, tabs, favorites, and switching between screens.",
+          "avoid": "Do not pile promotions, complex nutrition tables, colored labels, and extensive health advice onto the first screen."
+        }
+      }
+    },
+    "styleProfileIds": [
       "minimal-tech"
     ]
   },
@@ -128,7 +200,31 @@ export const styleGuides = [
       "motion": "滑动、收藏和下一张转换要细腻。",
       "avoid": "商品卡塞满价格、折扣和标签。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Editorial fashion commerce",
+        "reference": "The whitespace rhythm of a fashion lookbook paired with a lightweight browsing and favorites flow",
+        "prompt": "Editorial fashion-commerce app visual reference: a large portrait or single-product hero, soft pink tones, generous whitespace, and restrained small copy, like a designer fashion lookbook. Make the product the visual focus and keep actions lightweight. Avoid crowded price labels, complex collage layouts, and frequent motion.",
+        "summary": "Large portrait imagery, pink-toned whitespace, and restrained copy make the commerce interface feel like an editorial lookbook first.",
+        "bestFor": "Fashion, beauty, lifestyle, designer brands",
+        "tags": [
+          "Editorial lookbook",
+          "Portrait hero",
+          "Lightweight shopping"
+        ],
+        "palette": "Mist pink / Cream white / Dark chocolate",
+        "layout": "Immersive hero image + Lightweight product list",
+        "recipe": {
+          "principle": "Let the product lead the composition and reveal controls only when they are needed.",
+          "image": "Use one large portrait or single-product image with consistent light and background treatment.",
+          "type": "Give headings an editorial character while keeping body copy small and light.",
+          "components": "Softly rounded photo containers, a lightweight favorite control, and one accent color.",
+          "motion": "Keep swiping, favoriting, and next-image transitions refined and subtle.",
+          "avoid": "Do not fill product cards with prices, discounts, and labels."
+        }
+      }
+    },
+    "styleProfileIds": [
       "editorial-commerce"
     ]
   },
@@ -161,7 +257,31 @@ export const styleGuides = [
       "motion": "筛选、日期、目标和底部导航都用即时选中态与短反馈回应。",
       "avoid": "过多彩色统计卡、密集运动数据、生成图内 UI 文本和无法返回的多步流程。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Minimal workout planning",
+        "reference": "A white phone, fine black lines, pale-violet stat cards, and bold yellow actions form a minimal workout-management experience",
+        "prompt": "Minimal fitness-app visual reference: a white 390×844 modern iPhone canvas, large black sans-serif headings, fine-line icons, pale-violet and light-blue statistics cards, and a bright-yellow primary button. Use two separate text-free image2 portraits for the trainer and target-area athlete. Render all copy, status bars, dates, card numbers, buttons, labels, bottom navigation, arrows, and icons in code; do not generate text, logos, watermarks, phones, or UI glyphs inside images.",
+        "summary": "Course discovery, daily activity, and target-area screens connect the workout flow while black-and-white structure, muted data colors, and yellow next steps keep distinct roles.",
+        "bestFor": "Exercise training, fitness plans, habit check-ins, personal activity tracking",
+        "tags": [
+          "Minimal black and white",
+          "Activity stats",
+          "Workout guidance"
+        ],
+        "palette": "Cloud white / Ink black / Pale violet / Light blue / Energy yellow",
+        "layout": "Workout discovery + Activity stats + Target-area selection",
+        "recipe": {
+          "principle": "Break the day's workout decision into three short tasks: choose a class, read the status, and set a target.",
+          "image": "Use separate text-free generated portraits for the trainer and athlete; keep every action and data point in the code layer.",
+          "type": "Use large sans-serif headings and direct numbers; keep supporting labels short and anchored to a stable grid.",
+          "components": "19.5:9 iOS frame, course filters, tappable workout cards, activity metrics, date selection, target-area labels, and bottom navigation.",
+          "motion": "Respond to filters, dates, targets, and bottom navigation with immediate selected states and brief feedback.",
+          "avoid": "Avoid too many colored stat cards, dense exercise data, UI text embedded in generated images, and multi-step flows with no way back."
+        }
+      }
+    },
+    "styleProfileIds": [
       "minimal-tech"
     ]
   },
@@ -169,32 +289,57 @@ export const styleGuides = [
     "id": "fufu",
     "category": "commerce",
     "name": "FuFu Bakery",
-    "style": "手绘烘焙会员",
+    "style": "可爱线条手绘烘焙",
     "video": "./demo/fufu-bakery/fufu-bakery-demo.mp4",
     "liveDemo": "./demo/fufu-bakery/index.html",
     "poster": "./demo/fufu-bakery/mobile-preview.png",
     "preview": "#e9e4cc",
-    "reference": "黑色蜡笔线稿、狗狗烘焙师与纸白留白，像一张轻松的店内手写菜单",
+    "effectImage": "./demo/fufu-bakery/assets/fufu-line-effect-board.png",
+    "reference": "不规则黑色线稿、狗狗烘焙师与大片纸白，只用黄蓝两色留下像手帐一样轻松的烘焙节奏",
     "referenceImage": "./demo/fufu-bakery/assets/reference-overview.png",
-    "prompt": "手绘烘焙会员 App 视觉参考：暖纸白底，粗而不规则的黑色墨线，浅天蓝围裙和奶油黄面包作为少量色彩；狗狗烘焙师承担主要情绪，文字、价格、状态栏、图标、导航、按钮全由代码呈现；不生成文字、logo、水印、系统状态栏、箭头、菜单图标或伪 UI。",
-    "summary": "用一位会抱面包的狗狗烘焙师，把点单、门店和会员集点变成带手感的店内小纸条。",
+    "prompt": "可爱线条手绘烘焙 App 视觉参考：先生成并审查完整三屏效果图，再以该效果图作为 UI 拆分依据；暖纸白底、薄而不规则的黑色墨线、大片留白，奶油黄和粉蓝只作少量蜡笔点缀。狗狗烘焙师与三只蓝色线稿伙伴承担情绪，文字、价格、状态栏、按钮、菜单、印章与导航全由代码呈现；不生成文字、logo、水印、手机、系统状态栏、箭头、菜单图标或伪 UI。",
+    "summary": "以会抱面包的狗狗和一组蓝色线稿伙伴，把点单、门店和会员印章收进一张轻松、有笔触感的小纸条。",
     "bestFor": "烘焙、咖啡、生活方式零售、会员活动",
     "tags": [
-      "黑色线稿",
+      "不规则线条",
       "狗狗烘焙师",
-      "纸白留白"
+      "黄蓝蜡笔色"
     ],
     "palette": "纸白 / 浅天蓝 / 黄油黄 / 墨黑",
-    "layout": "欢迎页 + 门店首页 + 会员集点卡",
+    "layout": "欢迎页 + 四格门店首页 + 六枚会员印章",
     "recipe": {
-      "principle": "让角色和刚出炉的产品先传达温度，交易动作始终清楚而轻量。",
-      "image": "一张统一的手绘角色插画可在欢迎、门店与会员卡中复用，控制风格漂移。",
-      "type": "品牌名可大胆有趣，说明、价格和操作文字保持稳定清晰。",
-      "components": "手绘主视觉、三项快捷动作、当周烘焙卡、菜单列表和集点会员卡。",
-      "motion": "欢迎页进入、底部导航切换和加购提示给即时轻反馈。",
-      "avoid": "把促销、满减、长菜单和复杂积分统计同时堆入首屏。"
+      "principle": "让线条和角色先建立温度，把点单与会员动作收进稀疏、轻量的纸片结构。",
+      "image": "完整三屏效果图先锁住线条、留白与黄蓝比例；狗狗烘焙师和三狗伙伴作为独立无文字插画接入，避免手绘感在每屏漂移。",
+      "type": "标题可以松、歪、有手写节奏，说明、价格与操作必须稳定清晰。",
+      "components": "手绘主视觉、四格快捷入口、薄边菜单、六枚会员印章与双项小福利。",
+      "motion": "欢迎页进入、入口跳转、底部导航和加购提示提供短而直接的轻反馈。",
+      "avoid": "粗黑大字、厚阴影、满屏圆角卡片、过度彩色装饰，以及把促销和复杂积分统计堆进首页。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Cute hand-drawn line bakery",
+        "reference": "Uneven black linework, a dog baker, generous paper-white space, and just yellow-blue accents create a relaxed bakery rhythm like a small journal page",
+        "prompt": "Cute hand-drawn bakery app visual reference: first generate and review a complete three-screen effect image, then use that effect image as the basis for UI decomposition. Use a warm paper-white background, thin uneven black ink lines, generous whitespace, and tiny butter-yellow and powder-blue crayon accents. The dog baker and a blue line-art dog trio carry the mood while all copy, prices, status bars, buttons, menu controls, stamps, and navigation are rendered in code. Do not generate text, logos, watermarks, phones, system status bars, arrows, menu icons, or pseudo-UI.",
+        "summary": "A bread-holding dog and a blue line-art trio bring ordering, bakery discovery, and member stamps together as a tactile little paper note.",
+        "bestFor": "Bakeries, cafes, lifestyle retail, membership programs",
+        "tags": [
+          "Uneven linework",
+          "Dog baker",
+          "Yellow-blue crayon accents"
+        ],
+        "palette": "Paper white / Light sky blue / Butter yellow / Ink black",
+        "layout": "Welcome screen + Four-tile bakery home + Six member stamps",
+        "recipe": {
+          "principle": "Let linework and characters establish warmth first, then keep ordering and membership actions inside sparse, lightweight paper structures.",
+          "image": "Use the complete three-screen effect image to lock linework, whitespace, and yellow-blue balance; connect the dog baker and three-dog lineup as separate text-free illustrations so the handmade feeling stays consistent.",
+          "type": "Display copy can be loose, slightly tilted, and handwritten; descriptions, prices, and actions must remain stable and legible.",
+          "components": "Hand-drawn hero, four quick tiles, thin-border menu, six member stamps, and two small perks.",
+          "motion": "Give welcome entry, tile navigation, bottom navigation, and add-to-basket actions brief, direct feedback.",
+          "avoid": "Avoid oversized heavy-black display text, thick shadows, full-screen rounded cards, excessive color decoration, and an overloaded promotion or points dashboard."
+        }
+      }
+    },
+    "styleProfileIds": [
       "soft-lifestyle"
     ]
   },
@@ -227,7 +372,31 @@ export const styleGuides = [
       "motion": "日期切换、展开停留点和底部 sheet 都用短而明确的反馈。",
       "avoid": "地图、标签、交通信息和商家推荐同时抢占首屏。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Coastal itinerary planning",
+        "reference": "The calm hierarchy of a paper itinerary with lightweight route and weather information",
+        "prompt": "Coastal travel-itinerary app visual reference: a pale gray-white paper texture with deep teal and coral used sparingly for functional emphasis. Route photography has clear whitespace, and the timeline remains calm and legible. Arrange information around the rhythm of a day instead of using dense travel-platform cards and promotional labels.",
+        "summary": "Routes, times, and stops become an itinerary that can be read slowly instead of a travel home page packed with cards.",
+        "bestFor": "Travel planning, event schedules, wedding timelines, city walks",
+        "tags": [
+          "Paper itinerary",
+          "Timeline",
+          "Coastal palette"
+        ],
+        "palette": "Mist white / Deep teal / Coral red / Moss green",
+        "layout": "Date rail + Route hero + Timeline",
+        "recipe": {
+          "principle": "Let people feel the rhythm of the day before asking them to handle each specific action.",
+          "image": "One horizontal route photograph carries the atmosphere, using a clear crop and a small dark overlay.",
+          "type": "Dates, times, and places form a stable three-level reading order.",
+          "components": "Date segments, route card, vertical timeline, bottom navigation, and an add-stop bottom sheet.",
+          "motion": "Use short, explicit feedback for date changes, stop expansion, and the bottom sheet.",
+          "avoid": "Do not let maps, labels, transport details, and merchant recommendations compete on the first screen."
+        }
+      }
+    },
+    "styleProfileIds": [
       "soft-lifestyle"
     ]
   },
@@ -260,7 +429,31 @@ export const styleGuides = [
       "motion": "筛选、收藏和底部 tab 的状态变化轻而可感。",
       "avoid": "把目的地、榜单、评分、攻略和广告塞进同一个画面。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Open-landscape journal discovery",
+        "reference": "The expansive feeling of nature photography paired with short journal-like notes and a few discovery entry points",
+        "prompt": "Travel-journal discovery app visual reference: a photographic hero with cobalt water and a coral-red subject, short copy that reads like field notes, and restrained dark-blue UI chrome. Preserve the emotional force of one image; avoid grids of travel thumbnails, ratings, and commercial labels.",
+        "summary": "One breathable travel photograph opens discovery, while the remaining content reads like small findings jotted down along the way.",
+        "bestFor": "Travel inspiration, personal journals, photo collections, lifestyle content",
+        "tags": [
+          "Cobalt photography",
+          "Scene storytelling",
+          "Light discovery"
+        ],
+        "palette": "Cobalt blue / Coral red / Pale mist blue / Ink",
+        "layout": "Scene prompt + Search + Single hero image + Discovery list",
+        "recipe": {
+          "principle": "Establish the feeling of one place per screen and move interaction to the edges.",
+          "image": "Choose one distinct natural subject for the hero and reserve low-interference whitespace for copy.",
+          "type": "Lead with a question-style heading; reduce and defer location metadata.",
+          "components": "Personal status area, search field, filter chips, immersive hero, save action, and a short discovery list.",
+          "motion": "Keep state changes for filters, saves, and bottom tabs subtle but perceptible.",
+          "avoid": "Do not put destinations, rankings, ratings, guides, and advertising into one view."
+        }
+      }
+    },
+    "styleProfileIds": [
       "soft-lifestyle"
     ]
   },
@@ -294,7 +487,31 @@ export const styleGuides = [
       "motion": "页面切换和播放键只保留即时按压反馈。",
       "avoid": "密集图表、暗色科技感、复杂奖励系统和图片里的 UI 文本。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Hand-drawn mood dashboard",
+        "reference": "Characters with thick black outlines, bright color blocks, and a lively rhythm for wellness data",
+        "prompt": "Hand-drawn mood-and-sleep app visual reference: a white phone interface on a pale-cyan background, with lemon yellow, orange, peach pink, and bright green forming collage-like metric cards. Character illustrations carry emotion without embedding text, controls, or status icons in the image. Render every button, date, playback control, and system status bar in code.",
+        "summary": "Energetic hand-drawn characters and four clearly colored metric cards make mood and sleep tracking feel like a relaxed daily poster.",
+        "bestFor": "Mood tracking, sleep habits, activity support, family wellness",
+        "tags": [
+          "Hand-drawn character",
+          "Saturated color blocks",
+          "Lightweight dashboard"
+        ],
+        "palette": "Mint cyan / Lemon yellow / Orange / Peach pink / Bright green",
+        "layout": "Greeting header + Four metrics + Date selection + Playlist",
+        "recipe": {
+          "principle": "Keep data within four at-a-glance blocks and use character to make wellness reminders feel human.",
+          "image": "Place hand-drawn characters only on metric cards and playback covers, preserving thick lines and high-contrast color.",
+          "type": "Headings are bold, short, and direct; card labels sit on the secondary level.",
+          "components": "Four colored metric cards, date pills, a mood playlist, and lightweight feedback.",
+          "motion": "Use immediate press feedback only for page changes and the play control.",
+          "avoid": "Avoid dense charts, dark technical styling, complex reward systems, and UI text inside images."
+        }
+      }
+    },
+    "styleProfileIds": [
       "soft-lifestyle"
     ]
   },
@@ -327,7 +544,31 @@ export const styleGuides = [
       "motion": "拖动结束时卡片在 220ms 内吸附到最近项目，透视、透明度和尺度同步变化。",
       "avoid": "让每一张卡都同等突出，或将侧卡做成无法点击的纯装饰。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Perspective schedule cards",
+        "reference": "A schedule-card carousel in violet haze, with the current task centered and side tasks receding in perspective",
+        "prompt": "Wellness-schedule app visual reference: a soft lavender-to-deep-indigo background with the centered white task card largest and side cards reduced through perspective rotation, opacity, and scale. Prioritize a genuinely draggable card carousel. Render all copy, dates, status bars, navigation, buttons, and icons in code; use a separate text-free visual asset for the pill on the center card, and do not generate UI, logos, watermarks, or pseudo-text.",
+        "summary": "The day's tasks become a draggable perspective deck, always using one centered card to make the next step explicit.",
+        "bestFor": "Medication reminders, scheduling, rehabilitation plans, habit support",
+        "tags": [
+          "Perspective carousel",
+          "Centered focus",
+          "Gesture switching"
+        ],
+        "palette": "Lavender / Indigo / Mist white",
+        "layout": "Date selection + Perspective task deck + Bottom navigation",
+        "recipe": {
+          "principle": "The center card communicates only the current next step; side cards provide temporal context without competing for attention.",
+          "image": "The center task may use one text-free pill or themed-object illustration; keep every other UI element clear and interactive in code.",
+          "type": "Give time and task title strong contrast and whitespace on the center card, and retain only essential summaries on side cards.",
+          "components": "Snap carousel, tappable side-card regions, date pills, focus feedback, and bottom tabs.",
+          "motion": "After dragging, snap to the nearest item within 220ms while perspective, opacity, and scale change together.",
+          "avoid": "Do not give every card equal prominence or turn side cards into untappable decoration."
+        }
+      }
+    },
+    "styleProfileIds": [
       "soft-lifestyle"
     ]
   },
@@ -361,7 +602,31 @@ export const styleGuides = [
       "motion": "打开任务与完成动作需要清晰的状态转换，庆祝保持短暂而不过量。",
       "avoid": "任务列表、连续天数、成就和统计图同时争抢注意力。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Illustrated habit building",
+        "reference": "A friendly character, gentle reminders, and one next step make habit building feel pressure-free",
+        "prompt": "Illustrated habit-building app visual reference: a pale-mint and warm-white background, with a green character and light-blue water glass creating a sense of companionship. Highlight only one next action per screen. Keep dates, habit lists, and completion states clear and restrained; render all copy, buttons, navigation, and icons in code. Avoid dense data dashboards, complex gradients, commercial reward walls, and faux-handwritten UI copy.",
+        "summary": "A charming companion character turns each daily habit into one gentle, concrete step and offers a small, sincere celebration on completion.",
+        "bestFor": "Habit building, wellness reminders, family tasks, lightweight self-management",
+        "tags": [
+          "Companion character",
+          "Gentle motivation",
+          "One next step"
+        ],
+        "palette": "Mint green / Warm white / Pale blue / Soft yellow / Charcoal",
+        "layout": "Date rail + Encouragement hero + Habit list + Completion state",
+        "recipe": {
+          "principle": "Do not confront people with a wall of tasks; make the next small action feel easy enough to begin.",
+          "image": "Character art provides emotion and companionship only; never bake copy or state into the image.",
+          "type": "Prioritize the greeting and next action, with supporting guidance on the secondary level.",
+          "components": "Date rail, encouragement card, habit list, task detail, completion celebration, bottom tabs, and brief feedback.",
+          "motion": "Opening a task and completing it require explicit state changes; keep celebration brief and restrained.",
+          "avoid": "Do not let the task list, streak count, achievements, and charts all compete for attention."
+        }
+      }
+    },
+    "styleProfileIds": [
       "soft-lifestyle"
     ]
   },
@@ -394,7 +659,31 @@ export const styleGuides = [
       "motion": "滑块在 200ms 内落到选择项，确认后切到一张完整的祝贺屏。",
       "avoid": "把情绪量表、长期曲线、提醒设置和社区内容同时塞进签到首屏。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Soft-pink mood check-in",
+        "reference": "Clouds, a soft-pink character, and a clean mood slider turn the daily check-in into a lightweight conversation",
+        "prompt": "Soft-pink mood-check-in app visual reference: a white phone with generous whitespace, a pink three-dimensional round-face character, small mint and peach accents, soft white clouds, and fine curved lines. Render all headings, close controls, progress, sliders, arrows, status bars, and buttons in code; do not generate text, logos, watermarks, UI glyphs, or pseudo-text.",
+        "summary": "An expressive soft-pink character and a discrete mood slider let people complete one clear, quiet self-check-in within moments.",
+        "bestFor": "Mood tracking, mental wellness, daily reflection, children's support",
+        "tags": [
+          "Soft-pink character",
+          "Discrete slider",
+          "Lightweight check-in"
+        ],
+        "palette": "Soft pink / Mint / Peach / Cloud white / Ink black",
+        "layout": "Mood question + Character visual + Slider + Completion screen",
+        "recipe": {
+          "principle": "Ask one question at a time and finish immediately after the choice so tracking never becomes a form.",
+          "image": "The character illustration carries emotion while controls and copy stay clear and accessible in code.",
+          "type": "Keep the question large and direct, then echo the selected mood label beneath the slider.",
+          "components": "Close control, two-step progress, character hero, five-position slider, previous/next actions, and a celebration screen.",
+          "motion": "Snap the thumb to the selected value within 200ms, then move to a complete congratulations screen after confirmation.",
+          "avoid": "Do not combine mood scales, long-term charts, reminder settings, and community content on the check-in's first screen."
+        }
+      }
+    },
+    "styleProfileIds": [
       "soft-lifestyle"
     ]
   },
@@ -403,9 +692,9 @@ export const styleGuides = [
     "category": "culture",
     "name": "ArtMuse",
     "style": "当代美术馆导览",
-    "video": "./assets/cases/museum-app/museum-app-demo.mp4",
+    "video": "./assets/cases/museum-app/museum-app-demo.mp4?v=fullframe-1",
     "poster": "./assets/cases/museum-app/museum-app-preview.gif",
-    "previewImage": "./assets/cases/museum-app/library-preview-2x.png",
+    "previewImage": "./assets/cases/museum-app/library-preview-generated-v2-standard.png",
     "preview": "#dce3d6",
     "reference": "画廊导视与展览画册的安静秩序",
     "referenceImage": "./assets/style-references/artmuse-reference.png",
@@ -427,7 +716,31 @@ export const styleGuides = [
       "motion": "只在切换和选中态提供轻柔反馈。",
       "avoid": "高饱和主色、厚阴影、密集信息流。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Contemporary museum guide",
+        "reference": "The quiet order of gallery wayfinding and exhibition catalogs",
+        "prompt": "Contemporary museum-guide app visual reference: paper white, low-saturation label colors, fine lines, and extensive whitespace, like an exhibition catalog and gallery wayfinding system. Prioritize content, preserve white borders around images, and keep typography restrained and clear. Avoid highly saturated primary colors, heavy shadows, dense feeds, and complex decoration.",
+        "summary": "Paper white, muted label colors, fine lines, and generous whitespace let content be seen before the interface.",
+        "bestFor": "Exhibitions, cultural content, premium retail, brand stories",
+        "tags": [
+          "Curatorial whitespace",
+          "Fine-line structure",
+          "Muted palette"
+        ],
+        "palette": "Paper white / Sage green / Label brown",
+        "layout": "Single-column guide + Curated content cards",
+        "recipe": {
+          "principle": "Let content be viewed as if it were on a gallery wall instead of surrounding it with controls.",
+          "image": "Treat images as curated works: preserve a white border, crop sparingly, and avoid complex UI overlays.",
+          "type": "Use normal-weight headings with open line spacing; keep body copy small and clear.",
+          "components": "Fine-border cards, lightweight tabs, understated arrows, and restrained corner radii.",
+          "motion": "Provide gentle feedback only for switching and selected states.",
+          "avoid": "Avoid highly saturated primary colors, heavy shadows, and dense feeds."
+        }
+      }
+    },
+    "styleProfileIds": [
       "soft-lifestyle"
     ]
   },
@@ -438,7 +751,7 @@ export const styleGuides = [
     "style": "报刊感新闻阅读",
     "video": "./assets/cases/news-app/news-app-demo.mp4",
     "poster": "./assets/cases/news-app/news-app-preview.gif",
-    "previewImage": "./assets/cases/news-app/library-preview-2x.png",
+    "previewImage": "./assets/cases/news-app/library-preview-generated-v2-standard.png",
     "preview": "#e1e0d7",
     "reference": "传统报刊标题层级，结合移动端卡片式资讯浏览",
     "referenceImage": "./assets/style-references/today-reference.png",
@@ -460,7 +773,31 @@ export const styleGuides = [
       "motion": "保存、切换栏目和加载内容只给轻反馈。",
       "avoid": "每条新闻都用同等字号和强调色。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Newspaper-inspired news reading",
+        "reference": "Traditional newspaper headline hierarchy adapted to card-based mobile news browsing",
+        "prompt": "Newspaper-inspired news-reading app visual reference: traditional headline hierarchy, a soft paper color, and a clear rhythm between lead stories and lists, with news photography used as factual evidence. Keep information moderately dense and easy to scan. Avoid uniformly oversized type, intense gradients, and noisy decoration.",
+        "summary": "Serif display headlines, soft paper tones, and a clear news hierarchy make dense information still feel like reading.",
+        "bestFor": "News, research briefings, media content, professional intelligence",
+        "tags": [
+          "Newspaper typography",
+          "Tiered reading",
+          "Information density"
+        ],
+        "palette": "Newsprint white / Ink black / Soft section colors",
+        "layout": "Section grid + Tiered headlines",
+        "recipe": {
+          "principle": "Readers should scan the most important fact first, then decide whether to go deeper.",
+          "image": "Use news photography as evidence and maintain consistent crop ratios.",
+          "type": "Large headlines establish the reading rhythm; categories and timestamps recede.",
+          "components": "Prominent lead-story card, stable list rhythm, and a lightweight toolbar.",
+          "motion": "Use only light feedback for saving, changing sections, and loading content.",
+          "avoid": "Do not give every story the same type size and accent color."
+        }
+      }
+    },
+    "styleProfileIds": [
       "soft-lifestyle"
     ]
   },
@@ -493,7 +830,31 @@ export const styleGuides = [
       "motion": "页面切换和保存提示带有轻微纸张般的位移，但不影响阅读。",
       "avoid": "用 emoji 或伪图标承担搜索、返回、保存等功能操作。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Journal-like creative workspace",
+        "reference": "Hand-drawn lines, colorful stickers, and a real-paper rhythm make the workspace feel like a place to create",
+        "prompt": "Creative-notes app visual reference: a soft paper background, hand-drawn linework, candy-colored labels, and folder shapes while preserving a clear, readable information structure. Limit illustrative detail to covers and a few open areas instead of filling every card with emoji, gradients, and heavy shadows.",
+        "summary": "Notes, folders, and schedules share a tactile creative language while retaining clear task and content hierarchy.",
+        "bestFor": "Creative notes, student tools, family planning, lightweight project organization",
+        "tags": [
+          "Paper texture",
+          "Hand-drawn linework",
+          "Color labels"
+        ],
+        "palette": "Warm paper white / Mint green / Sky blue / Soft pink / Ink black",
+        "layout": "Welcome cover + Folder groups + Card-based notes workspace",
+        "recipe": {
+          "principle": "Decoration should invite people to stay while structure lets them begin recording immediately.",
+          "image": "Concentrate hand-drawn elements on covers or open areas and keep content cards flat and readable.",
+          "type": "Headings may carry a slight handwritten quality; body copy and forms must remain stable and clear.",
+          "components": "Folder chips, project folders, note cards, simplified editor, color labels, and view switching.",
+          "motion": "Page changes and save feedback may use a slight paper-like shift without disrupting reading.",
+          "avoid": "Do not use emoji or imitation icons for functional actions such as search, back, and save."
+        }
+      }
+    },
+    "styleProfileIds": [
       "soft-lifestyle"
     ]
   },
@@ -526,7 +887,31 @@ export const styleGuides = [
       "motion": "选餐、日期切换、菜单和确认仅以即时状态转换回应。",
       "avoid": "把营养明细、促销标语、长表单和多张商品卡同时塞进首屏。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Editorial organic meals",
+        "reference": "Editorial composition combining a dark presentation board, champagne-gold typography, and a cream meal-planning app",
+        "prompt": "Editorial organic-meal app visual reference: a deep-charcoal presentation background with oversized champagne-gold and olive-green type, plus a cream 9:16 iPhone screen organized by large serif meal titles and restrained sans-serif actions. Food photography is the only generated bitmap. Render all brand copy, status bars, menus, selections, dates, and confirmation actions in code; do not generate readable text, logos, watermarks, phone interfaces, or UI glyphs.",
+        "summary": "One realistic generated meal photograph and editorial typography turn meal choice, delivery scheduling, and confirmation into a calm, explicit path.",
+        "bestFor": "Organic meals, healthy delivery, nutrition subscriptions, lifestyle retail",
+        "tags": [
+          "Editorial typography",
+          "Food photography",
+          "Cream black and gold"
+        ],
+        "palette": "Charcoal / Champagne gold / Cream white / Olive green",
+        "layout": "Meal-choice hero + Delivery-day selection + Confirmation",
+        "recipe": {
+          "principle": "Use one meal hero to carry appetite and quality while every other action remains low-interference and readable at a glance.",
+          "image": "Place the realistic meal image on a pale-gray worktop and avoid baking copy, menus, or functional icons into the photograph.",
+          "type": "Use a high-contrast editorial serif for product names and a clear sans-serif rhythm for explanation and actions.",
+          "components": "9:16 iOS frame, meal hero, menu, delivery-day selection, plan confirmation, and brief feedback.",
+          "motion": "Respond to meal choice, date changes, menus, and confirmation with immediate state transitions only.",
+          "avoid": "Do not combine nutrition details, promotional slogans, long forms, and multiple product cards on the first screen."
+        }
+      }
+    },
+    "styleProfileIds": [
       "editorial-commerce"
     ]
   },
@@ -560,7 +945,31 @@ export const styleGuides = [
       "motion": "页面切换、分类、收藏和加入计划都用短促明确的状态反馈。",
       "avoid": "把插画做成整页不可编辑截图，或在高彩背景上继续叠加大量渐变与装饰。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "High-color illustrated recipes",
+        "reference": "A pale-pink board, fluorescent yellow-green phone UI, and tomato-red chef illustration feel like a lively kitchen picture book",
+        "prompt": "High-color illustrated recipe-app visual reference: a pale-pink presentation board; fluorescent yellow-green and light-pink phone interfaces; and collage-like accents in tomato red, apricot orange, pale violet, and sky blue. Draw a chef mixing batter and kitchen utensils using thick black outlines and flat color blocks. Keep the illustration free of text, logos, system status bars, buttons, navigation, and UI glyphs. Render all headings, recipe names, nutrition facts, buttons, labels, status bars, and bottom navigation in code.",
+        "summary": "A tomato-red chef illustration and fluorescent yellow-green welcome screen open the recipe experience, then soft pink, apricot, and violet connect browsing with detail.",
+        "bestFor": "Recipes, children's meals, cooking classes, lifestyle content",
+        "tags": [
+          "Chef illustration",
+          "High-color blocks",
+          "Relaxed recipes"
+        ],
+        "palette": "Pale pink / Fluorescent yellow-green / Tomato red / Apricot orange / Pale violet",
+        "layout": "Illustrated welcome + Recipe list + Meal detail",
+        "recipe": {
+          "principle": "Let illustration provide appetite and warmth while real copy and controls remain clear, tappable, and editable.",
+          "image": "Use one text-free, thick-line chef illustration on welcome; recipe cards use flat food graphics from the same palette to prevent style drift.",
+          "type": "Keep headings large, bold, and direct, with italic red words for rhythm; use compact sans serif for explanation and actions.",
+          "components": "9:16 iOS frame, chef hero, category labels, recipe cards, nutrition data, favorites, and bottom navigation.",
+          "motion": "Use short, explicit state feedback for page changes, categories, favorites, and adding to a plan.",
+          "avoid": "Do not turn the illustration into an uneditable full-page screenshot or layer excessive gradients and decoration over the high-color background."
+        }
+      }
+    },
+    "styleProfileIds": [
       "soft-lifestyle"
     ]
   },
@@ -593,7 +1002,31 @@ export const styleGuides = [
       "motion": "心情和标签以短按压反馈，页面间切换立即落位，避免干扰阅读。",
       "avoid": "把数据图、连续打卡、社区流和多层设置同时塞进日记首页。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Misty-field reflection journal",
+        "reference": "Misty blue grassland, translucent layers, and serif headings feel like a morning nature journal meant to be read slowly",
+        "prompt": "Reflect meditation-journal app visual reference: a mist-blue sky, pale-sage grassland, and soft-white paper, with morning haze and a natural path in the photographic hero and editorial serif character in headings. Images provide environment and texture only. Render all copy, status bars, mood buttons, back controls, labels, and bottom navigation in code. Do not generate text, logos, watermarks, UI glyphs, system status bars, arrows, menus, buttons, or imitation UI.",
+        "summary": "A morning field photograph sits within a serif-led journal rhythm, connecting moods, short notes, and article detail with minimal interference.",
+        "bestFor": "Journals, meditation, mood tracking, slow-living content, reading products",
+        "tags": [
+          "Misty-field photography",
+          "Editorial serif",
+          "Quiet reflection"
+        ],
+        "palette": "Mist blue / Sage / Soft white / Olive green",
+        "layout": "Quote home + Mood row + Journal card + Article detail",
+        "recipe": {
+          "principle": "Keep quiet reading and recording on one single-column path with every action light but visible.",
+          "image": "Reuse one text-free misty-field photograph across the hero, cards, and detail to preserve stable light and mood.",
+          "type": "Serif type carries quotes, article titles, and reading rhythm; controls and body copy use a clear system sans serif.",
+          "components": "9:16 iOS frame, four tappable moods, journal entry, article detail, editable new reflection, and bottom tabs.",
+          "motion": "Use brief press feedback for moods and labels, and settle page changes immediately to avoid interrupting reading.",
+          "avoid": "Do not combine data charts, streaks, community feeds, and layered settings on the journal home screen."
+        }
+      }
+    },
+    "styleProfileIds": [
       "soft-lifestyle"
     ]
   },
@@ -626,7 +1059,31 @@ export const styleGuides = [
       "motion": "播放、进度、收藏、切歌、艺人切换、现场层和导航都有即时状态反馈，并尊重 reduced-motion。",
       "avoid": "直接从原参考图跳到 UI 拆分、把生成效果图当最终不可交互截图，或把可读文字和播放控件烘焙进图片。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Editorial music discovery",
+        "reference": "A three-screen music product on a cool-gray board, using portrait photography, a cobalt player, and a dark discovery feed to establish hierarchy",
+        "prompt": "Editorial music-app visual reference: first generate and review a complete three-screen RELAY composition, then use that generated composition as the source for UI decomposition. Combine a cool-gray board, graphite-black content surfaces, a cobalt playback screen, silver portrait photography, and one coral accent block. Use separate text-free image2 bitmaps for portraits, albums, and live scenes. Render all real titles, status bars, progress, playback controls, lists, rankings, buttons, bottom navigation, and feedback in code; do not generate text, logos, watermarks, phones, or UI glyphs inside images.",
+        "summary": "Generate and approve the complete three-screen composition first, then decompose its portraits, albums, and live imagery into a genuinely playable, saveable, navigable music interface.",
+        "bestFor": "Music streaming, artist profiles, live content, editorial media",
+        "tags": [
+          "Three-screen composition",
+          "Cobalt player",
+          "Photography-led"
+        ],
+        "palette": "Cool gray / Graphite black / Cobalt blue / Silver white / Coral",
+        "layout": "Artist profile + Now Playing + Discover",
+        "recipe": {
+          "principle": "Use the full composition to establish relationships among the three screens, then let code carry every readable detail and playback state.",
+          "image": "Derive portrait, abstract album, and live-poster assets from the approved composition's visual system and store them as separate text-free resources.",
+          "type": "Artist and track names form strong headings while lists and metadata stay compact, stable, and scannable.",
+          "components": "390×844 iOS frame, artist page, player, discovery feed, mini player, live layer, and bottom navigation.",
+          "motion": "Provide immediate state feedback for play, progress, favorite, track changes, artist changes, the live layer, and navigation, while respecting reduced motion.",
+          "avoid": "Do not jump directly from the original reference to UI decomposition, treat the generated composition as a final noninteractive screenshot, or bake readable copy and playback controls into images."
+        }
+      }
+    },
+    "styleProfileIds": [
       "editorial-commerce"
     ]
   },
@@ -659,7 +1116,31 @@ export const styleGuides = [
       "motion": "扫描、开关、套餐和购买全部有即时状态变化，不添加装饰性长动效。",
       "avoid": "把局部资产单独当作完整案例配图，或把图表、营销卖点和多重按钮堆入同一屏。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Thermal network matching",
+        "reference": "Deep-teal and hot-orange gradients cover a minimal network interface, joining scanning, settings, and plans into one connection flow",
+        "prompt": "Signal Grid network-matching app visual reference: deep teal, warm gray, and hot orange form a continuous thermal-style background. Three complete black iPhones show network scanning, parameter settings, and plan selection, with the wireframe sphere present only inside the scan-screen phone. Render all real headings, status bars, menus, setting rows, toggles, plan tabs, prices, purchase actions, and bottom navigation in code.",
+        "summary": "A complete three-screen composition shows scan, setup, and plan decisions, with the wireframe network sphere returning inside the scan screen as its visual focus.",
+        "bestFor": "Network services, device connections, plan configuration, technology brands, data matching",
+        "tags": [
+          "Thermal gradient",
+          "Three-screen flow",
+          "Rigorous typography"
+        ],
+        "palette": "Deep teal / Hot orange / Warm gray / Signal white",
+        "layout": "Network scan + Parameter setup + Plan selection + Confirmation",
+        "recipe": {
+          "principle": "Keep content as clear as a table, then use one wireframe visual to give the connection process a memorable focus.",
+          "image": "Use the full three-screen generated composition for the case record; connect the wireframe sphere as a separate generated asset only inside the scan screen.",
+          "type": "Large headings are light and compact; parameters, labels, and prices use a smaller but explicit sans-serif hierarchy.",
+          "components": "9:16 iOS frame, network scan, setting rows and toggles, plan tabs, purchase confirmation, and bottom tabs.",
+          "motion": "Give scan, toggle, plan, and purchase actions immediate state changes without decorative long-form motion.",
+          "avoid": "Do not use a partial asset as the complete case visual or crowd one screen with charts, marketing claims, and multiple buttons."
+        }
+      }
+    },
+    "styleProfileIds": [
       "minimal-tech"
     ]
   },
@@ -692,7 +1173,31 @@ export const styleGuides = [
       "motion": "轮播、导航、情绪选择和保存使用 180-220ms 状态变化，并支持 reduced-motion。",
       "avoid": "直接从原参考图拆 UI、把角色做成 CSS 近似、在图片中保留功能文字，或把所有内容堆进圆角卡片。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Gentle reflection and mood check-in",
+        "reference": "A three-screen mood product on a deep-indigo grid board, using paper cards, editorial serif, and a pale-violet 3D character to structure a quiet inner conversation",
+        "prompt": "Mood-reflection app visual reference: first generate and review a complete three-screen SOFTLY composition from the reference, then use that generated composition as the basis for UI decomposition. Combine a deep-indigo grid board, pearl-white and warm-ivory pages, a pale-violet character, butter-yellow paper cards, and small mint details. Use separate text-free image2 bitmaps for the character and avatar. Render all questions, buttons, status bars, carousel arrows, labels, waveforms, completion rings, and bottom navigation in code; do not generate text, logos, watermarks, phones, or UI glyphs inside images.",
+        "summary": "Establish the relationship among welcome, reflection carousel, and mood check-in in a complete composition first, then recombine the original character with genuinely tappable paper-card interfaces.",
+        "bestFor": "Mood tracking, mental wellness, reflection journals, student support",
+        "tags": [
+          "Three-screen composition",
+          "Paper-card carousel",
+          "Pale-violet character"
+        ],
+        "palette": "Deep indigo / Ivory white / Pale violet / Butter yellow / Mint",
+        "layout": "Welcome + Reflection carousel + Mood check-in",
+        "recipe": {
+          "principle": "Each screen advances one gentle action only: enter, answer, or name the feeling.",
+          "image": "Derive the transparent 3D character and Mara avatar from the approved composition, keep them text- and UI-free, and connect them as separate local assets.",
+          "type": "Serif questions carry the emotional focus while body copy, labels, and actions retain a clear system sans-serif hierarchy.",
+          "components": "390×844 iOS frame, floating paper cards, reflection carousel, search, favorites, four-item navigation, mood waveform, and completion state.",
+          "motion": "Use 180–220ms state changes for carousel, navigation, mood selection, and save, with reduced-motion support.",
+          "avoid": "Do not decompose UI directly from the original reference, imitate the character in CSS, retain functional copy inside images, or put all content into rounded cards."
+        }
+      }
+    },
+    "styleProfileIds": [
       "soft-lifestyle"
     ]
   },
@@ -725,7 +1230,31 @@ export const styleGuides = [
       "motion": "入口、分类、收藏、颜色和加购都有即时可见反馈。",
       "avoid": "大面积折扣标识、图片中的文字 UI、复杂筛选栏和无法返回的商品详情。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Sustainable fashion commerce",
+        "reference": "A gray-green board, deep-brown neutrals, and large natural-fabric photography make sustainable fashion feel quiet and explicit",
+        "prompt": "Sustainable fashion-commerce app visual reference: a gray-green board and a white 9:16 iPhone, with natural brown, ivory, and dark chocolate creating a quiet apparel-editorial mood. Use separate text-free image2 fashion photographs for a linen shirt and recycled-wool scarf. Render all copy, prices, categories, favorites, buttons, status bars, back controls, and icons in code; do not generate text, logos, watermarks, phones, or UI glyphs inside images.",
+        "summary": "An immersive entry, collection listing, and product detail connect sustainable-fashion browsing while image texture and purchase actions remain clearly separated.",
+        "bestFor": "Apparel retail, lifestyle brands, sustainable products, editorial commerce",
+        "tags": [
+          "Natural fabric",
+          "Editorial products",
+          "Deep-brown actions"
+        ],
+        "palette": "Gray green / Ivory white / Dark chocolate / Linen brown",
+        "layout": "Brand entry + Category catalog + Product detail",
+        "recipe": {
+          "principle": "Let photography establish material texture while the coded interface handles price, category, favorite, and add-to-bag decisions.",
+          "image": "Use two text-free apparel photographs for collection hero, product cards, and detail, preserving consistent natural light and neutral color.",
+          "type": "Use clear sans-serif headings and a compact price hierarchy without overly promotional information.",
+          "components": "9:16 iOS frame, immersive entry, category tabs, product cards, favorites, color choice, back, and add to bag.",
+          "motion": "Provide immediate, visible feedback for entry, category, favorite, color, and add-to-bag actions.",
+          "avoid": "Avoid oversized discount marks, text UI inside images, complex filter bars, and product detail with no route back."
+        }
+      }
+    },
+    "styleProfileIds": [
       "editorial-commerce"
     ]
   },
@@ -758,12 +1287,36 @@ export const styleGuides = [
       "motion": "tab、暂停/继续和地点选择只提供明确、即时的状态反馈。",
       "avoid": "不要在首屏堆放车辆参数表、营销卖点、密集地图标签或拟真的假按钮。"
     },
-    "brandProfileIds": [
+    "locales": {
+      "en": {
+        "style": "Dark EV charging navigation",
+        "reference": "Three dark phones on a misty gray-green board, combining a silver vehicle, fluorescent charging status, and a night route into restrained high technology",
+        "prompt": "EV charging-navigation app visual reference: three deep-black iPhones arranged on a misty gray-green desktop, with a silver-gray rear-vehicle photograph and an unlabeled night-neighborhood map as two separate image2 bitmaps. Reserve fluorescent green for charge progress, routes, and selected states. Render all percentages, copy, status bars, map routes, location nodes, bottom navigation, and control icons in code; do not generate text, logos, watermarks, routes, pins, phones, or UI glyphs inside images.",
+        "summary": "Vehicle status, charge control, and the nearest fast-charge route share one dark dashboard where green appears only where action is needed.",
+        "bestFor": "Electric mobility, charging networks, vehicle management, urban navigation",
+        "tags": [
+          "Dark dashboard",
+          "EV photography",
+          "Route status"
+        ],
+        "palette": "Misty gray green / Charcoal / Silver gray / Charging green",
+        "layout": "Vehicle dashboard + Charging status + Route drawer",
+        "recipe": {
+          "principle": "Use vehicle photography and map texture as an environmental layer while numbers, choices, and actions remain high-contrast coded UI.",
+          "image": "Generate the vehicle and map separately without text; overlay routes, green nodes, and every UI element in code to preserve readability and interaction.",
+          "type": "Lead with the large charge number, then present metrics and route details in a smaller, clear hierarchy.",
+          "components": "9:16 iOS frame, charge percentage, vehicle-status card, route nodes, bottom navigation, pause control, and route drawer.",
+          "motion": "Use explicit, immediate state feedback only for tabs, pause/resume, and location selection.",
+          "avoid": "Do not crowd the first screen with vehicle specification tables, marketing claims, dense map labels, or realistic-looking fake buttons."
+        }
+      }
+    },
+    "styleProfileIds": [
       "minimal-tech"
     ]
   }
 ];
-export const brandProfiles = [
+export const styleProfiles = [
   {
     "id": "editorial-commerce",
     "name": "编辑型时尚",
@@ -824,7 +1377,58 @@ export const brandProfiles = [
     "donts": [
       "不要生成或仿制第三方品牌标识",
       "不要把折扣、角标和标签同时堆在主视觉上"
-    ]
+    ],
+    "locales": {
+      "en": {
+        "name": "Editorial Fashion",
+        "sourceStatus": "Style reference",
+        "industry": [
+          "Commerce",
+          "Lifestyle",
+          "Content"
+        ],
+        "styles": [
+          "Editorial",
+          "Minimal",
+          "Luxury"
+        ],
+        "completeness": "Complete system",
+        "foundations": {
+          "typography": {
+            "display": "Licensed serif or a high-contrast open-source alternative",
+            "body": "System sans serif",
+            "scale": "40 / 28 / 18 / 14"
+          },
+          "spacing": "4px baseline, 24px content padding, 48px section spacing",
+          "radius": "8px content containers; circles only for avatars and images",
+          "elevation": "No heavy shadows; use whitespace and fine boundaries for depth",
+          "grid": "12-column web grid, 4-column mobile grid",
+          "motion": "180ms fades, favorites, and scene transitions"
+        },
+        "components": {
+          "button": "Dark solid primary actions with short, explicit labels",
+          "card": "Image-first with a flat information area and no nested cards",
+          "navigation": "Low-interference text navigation with a fine line for the current state",
+          "form": "Fine underlines or pale borders; avoid highly saturated input fields",
+          "dialog": "White editorial detail surface with generous reading margins"
+        },
+        "visualLanguage": {
+          "photography": "Soft natural light, one subject, and safe areas for crops and copy; do not generate brand logos or text",
+          "illustration": "Restrained and material-led; never replace functional icons",
+          "iconography": "16–20px fine-line icons rendered in code"
+        },
+        "contentVoice": "Brief and sensorially specific, without stacked promotions or exaggerated discount language.",
+        "accessibility": "Body copy must reach at least 4.5:1 contrast; color cannot be the only state indicator.",
+        "dos": [
+          "Let products and photography carry the first visual impression",
+          "Place price and actions in a stable reading hierarchy"
+        ],
+        "donts": [
+          "Do not generate or imitate third-party brand marks",
+          "Do not stack discounts, badges, and labels on the hero"
+        ]
+      }
+    }
   },
   {
     "id": "minimal-tech",
@@ -886,7 +1490,57 @@ export const brandProfiles = [
     "donts": [
       "不要用位图承担导航或控制 glyph",
       "不要在单张卡片堆叠过多微型数据"
-    ]
+    ],
+    "locales": {
+      "en": {
+        "name": "Minimal Technology",
+        "sourceStatus": "Style reference",
+        "industry": [
+          "Technology",
+          "Tools",
+          "Wellness"
+        ],
+        "styles": [
+          "Functional",
+          "Minimal"
+        ],
+        "completeness": "Component guidelines",
+        "foundations": {
+          "typography": {
+            "display": "System sans serif 700",
+            "body": "System sans serif 400",
+            "scale": "32 / 24 / 16 / 14"
+          },
+          "spacing": "4px baseline, 16px control spacing, 32px module spacing",
+          "radius": "6px data containers, 22px primary actions",
+          "elevation": "One low-contrast border layer; no glassmorphism",
+          "grid": "12-column web grid, 8pt mobile rhythm",
+          "motion": "150ms state feedback that respects reduced motion"
+        },
+        "components": {
+          "button": "One high-contrast accent reserved for primary actions",
+          "card": "Flat information surface with a clear heading, value, and one status",
+          "navigation": "Icons and text have accessible names, with a visible selected state",
+          "form": "44px minimum target; errors never rely on red alone",
+          "dialog": "Clear action hierarchy with confirmation for destructive actions"
+        },
+        "visualLanguage": {
+          "photography": "Clean product and environment images with no text or trademarks, preserving room for data and explanation",
+          "illustration": "Used for empty states and explanation while avoiding imitation UI glyphs",
+          "iconography": "One coded icon library at 20–24px with 1.75–2px strokes"
+        },
+        "contentVoice": "Direct and scannable, centered on tasks and status.",
+        "accessibility": "Normal text reaches 4.5:1 contrast; every icon button has an aria-label; targets are at least 44px.",
+        "dos": [
+          "Reserve color for status and action",
+          "Let values and tasks be read before decoration"
+        ],
+        "donts": [
+          "Do not use bitmaps for navigation or control glyphs",
+          "Do not stack excessive micro-data in one card"
+        ]
+      }
+    }
   },
   {
     "id": "soft-lifestyle",
@@ -948,6 +1602,5328 @@ export const brandProfiles = [
     "donts": [
       "不要以品牌名或商标生成图片",
       "不要让柔色降低关键文字的可读性"
-    ]
+    ],
+    "locales": {
+      "en": {
+        "name": "Gentle Lifestyle",
+        "sourceStatus": "Style reference",
+        "industry": [
+          "Lifestyle",
+          "Content",
+          "Wellness"
+        ],
+        "styles": [
+          "Friendly",
+          "Gentle",
+          "Minimal"
+        ],
+        "completeness": "Foundation guidelines",
+        "foundations": {
+          "typography": {
+            "display": "Humanist sans serif or an open-source serif alternative",
+            "body": "System sans serif",
+            "scale": "34 / 24 / 16 / 14"
+          },
+          "spacing": "4px baseline, 20px mobile margin, 40px content rhythm",
+          "radius": "10px for images and lightweight content groups",
+          "elevation": "A very soft shadow used only for overlays",
+          "grid": "Single-column reading first, with a 72ch maximum desktop line length",
+          "motion": "200ms gentle transitions; understanding never depends on animation"
+        },
+        "components": {
+          "button": "Rounded primary actions with clear copy; secondary actions remain linear",
+          "card": "A bounded item with limited information; avoid cards nested inside cards",
+          "navigation": "Mobile-first, with both text and color indicating the current page",
+          "form": "One question per step with explicit helper copy",
+          "dialog": "Short, lightweight flows where close and back remain visible"
+        },
+        "visualLanguage": {
+          "photography": "Natural light and sincere everyday scenes, with no text or logos",
+          "illustration": "A few characters or hand-drawn textures carry emotion but never actions",
+          "iconography": "A consistent, restrained set of coded icons"
+        },
+        "contentVoice": "Gentle but unambiguous, replacing vague encouragement with one concrete next step.",
+        "accessibility": "Maintain readable contrast, provide reduced motion, and keep touch targets at least 44px.",
+        "dos": [
+          "Advance one clear action at a time",
+          "Keep emotional imagery separate from real copy"
+        ],
+        "donts": [
+          "Do not generate images from brand names or trademarks",
+          "Do not let soft colors reduce the readability of critical copy"
+        ]
+      }
+    }
+  }
+];
+export const brandProfiles = [
+  {
+    "id": "adobe-spectrum",
+    "name": "Adobe Spectrum",
+    "organization": "Adobe",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://spectrum.adobe.com/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "description": "Adobe 的跨产品设计系统，覆盖创意工具、复杂工作区与多主题体验。",
+    "componentReferenceIds": [
+      "spectrum-button",
+      "spectrum-dialog",
+      "spectrum-table"
+    ],
+    "disclaimer": "本资料基于 Adobe Spectrum 公开文档整理，与 Adobe 无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "Adobe's cross-product system for creative tools, complex workspaces, and multi-theme experiences.",
+        "disclaimer": "Compiled from public Spectrum documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  },
+  {
+    "id": "ant-design",
+    "name": "Ant Design",
+    "organization": "Ant Group",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://ant.design/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "description": "面向中后台和企业产品的 React 设计体系，擅长表格、表单与复杂业务流程。",
+    "componentReferenceIds": [
+      "ant-design-table",
+      "ant-design-form",
+      "ant-design-modal"
+    ],
+    "disclaimer": "本资料基于 Ant Design 公开文档整理，与 Ant Group 无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "A React design system for enterprise products, with strong tables, forms, and complex workflows.",
+        "disclaimer": "Compiled from public Ant Design documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  },
+  {
+    "id": "apple-hig",
+    "name": "Apple Human Interface Guidelines",
+    "organization": "Apple",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://developer.apple.com/design/human-interface-guidelines/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "ios",
+      "ipados",
+      "macos"
+    ],
+    "description": "Apple Human Interface Guidelines 的公开设计体系索引，用于聚合可追溯的组件参考。",
+    "componentReferenceIds": [
+      "apple-hig-button",
+      "apple-hig-tab-bar",
+      "apple-hig-text-field"
+    ],
+    "disclaimer": "本资料基于公开规范整理，与 Apple 无隶属或背书关系；Apple 及其产品名称为其各自权利人的标识。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "A public-design-system index of Apple Human Interface Guidelines, organized around traceable component references.",
+        "disclaimer": "This material is compiled from public guidelines and is not affiliated with or endorsed by Apple. Apple and its product names are marks of their respective owners."
+      }
+    }
+  },
+  {
+    "id": "arco-design",
+    "name": "Arco Design",
+    "organization": "ByteDance",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://arco.design/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "vue"
+    ],
+    "description": "字节跳动开源的企业级设计系统，提供 React、Vue 组件与设计资源。",
+    "componentReferenceIds": [
+      "arco-button",
+      "arco-table",
+      "arco-modal"
+    ],
+    "disclaimer": "本资料基于 Arco Design 公开文档整理，与字节跳动或 Arco Design 无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "ByteDance's open-source enterprise design system with React and Vue components and design resources.",
+        "disclaimer": "Compiled from public Arco Design documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  },
+  {
+    "id": "atlassian-design",
+    "name": "Atlassian Design System",
+    "organization": "Atlassian",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://atlassian.design/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "description": "面向协作与工作管理产品的设计系统，强调密集信息、任务流与可访问性。",
+    "componentReferenceIds": [
+      "atlassian-button",
+      "atlassian-modal-dialog",
+      "atlassian-dynamic-table"
+    ],
+    "disclaimer": "本资料基于 Atlassian Design System 公开文档整理，与 Atlassian 无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "A design system for collaboration and work-management products, emphasizing dense information, workflows, and accessibility.",
+        "disclaimer": "Compiled from public Atlassian documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  },
+  {
+    "id": "carbon-design",
+    "name": "IBM Carbon Design System",
+    "organization": "IBM",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://carbondesignsystem.com/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "angular",
+      "vue"
+    ],
+    "description": "IBM 的开源企业产品设计系统，覆盖复杂数据、表单、导航与无障碍规范。",
+    "componentReferenceIds": [
+      "carbon-button",
+      "carbon-data-table",
+      "carbon-modal"
+    ],
+    "disclaimer": "本资料基于 Carbon 公开文档整理，与 IBM 无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "IBM's open-source enterprise design system for complex data, forms, navigation, and accessibility.",
+        "disclaimer": "Compiled from public Carbon documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  },
+  {
+    "id": "chakra-ui",
+    "name": "Chakra UI",
+    "organization": "Chakra UI",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://chakra-ui.com/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "description": "以可访问性和可组合 API 为核心的 React 组件系统，适合快速构建可主题化产品。",
+    "componentReferenceIds": [
+      "chakra-ui-dialog",
+      "chakra-ui-button",
+      "chakra-ui-input"
+    ],
+    "disclaimer": "本资料基于 Chakra UI 公开文档整理，与 Chakra UI 无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "An accessible, composable React component system for rapidly building themeable products.",
+        "disclaimer": "Compiled from public Chakra UI documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  },
+  {
+    "id": "element-plus",
+    "name": "Element Plus",
+    "organization": "Element Plus",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://element-plus.org/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "vue"
+    ],
+    "description": "Vue 3 生态中广泛使用的桌面端组件库，覆盖企业后台、表单和数据展示。",
+    "componentReferenceIds": [
+      "element-plus-button",
+      "element-plus-table",
+      "element-plus-dialog"
+    ],
+    "disclaimer": "本资料基于 Element Plus 公开文档整理，与该项目无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "A widely used Vue 3 desktop component library for enterprise apps, forms, and data display.",
+        "disclaimer": "Compiled from public Element Plus documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  },
+  {
+    "id": "fluent-2",
+    "name": "Microsoft Fluent 2",
+    "organization": "Microsoft",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://fluent2.microsoft.design/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "windows",
+      "ios",
+      "android"
+    ],
+    "description": "Microsoft 的跨平台设计体系，用于生产力工具、企业应用与系统体验。",
+    "componentReferenceIds": [
+      "fluent-2-button",
+      "fluent-2-dialog",
+      "fluent-2-data-grid"
+    ],
+    "disclaimer": "本资料基于 Fluent 2 公开文档整理，与 Microsoft 无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "Microsoft's cross-platform system for productivity, enterprise applications, and system experiences.",
+        "disclaimer": "Compiled from public Fluent 2 documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  },
+  {
+    "id": "github-primer",
+    "name": "GitHub Primer",
+    "organization": "GitHub",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://primer.style/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "description": "GitHub 的设计系统，面向开发者工具、代码协作与高密度产品界面。",
+    "componentReferenceIds": [
+      "primer-button",
+      "primer-dialog",
+      "primer-data-table"
+    ],
+    "disclaimer": "本资料基于 GitHub Primer 公开文档整理，与 GitHub 无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "GitHub's design system for developer tools, code collaboration, and dense product interfaces.",
+        "disclaimer": "Compiled from public Primer documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  },
+  {
+    "id": "google-material-3",
+    "name": "Google Material Design 3",
+    "organization": "Google",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://m3.material.io/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "android",
+      "web"
+    ],
+    "description": "Material Design 3 的公开设计体系索引，用于聚合可追溯的组件参考。",
+    "componentReferenceIds": [
+      "material-3-button",
+      "material-3-navigation-bar",
+      "material-3-text-field"
+    ],
+    "disclaimer": "本资料基于公开规范整理，与 Google 无隶属或背书关系；Google 和 Material 为其各自权利人的标识。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "A public-design-system index of Material Design 3, organized around traceable component references.",
+        "disclaimer": "This material is compiled from public guidelines and is not affiliated with or endorsed by Google. Google and Material are marks of their respective owners."
+      }
+    }
+  },
+  {
+    "id": "headless-ui",
+    "name": "Headless UI",
+    "organization": "Tailwind Labs",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://headlessui.com/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "vue"
+    ],
+    "description": "完全无样式、可访问的交互组件，适合使用自有视觉系统的 React 与 Vue 产品。",
+    "componentReferenceIds": [
+      "headless-ui-menu",
+      "headless-ui-dialog",
+      "headless-ui-combobox"
+    ],
+    "disclaimer": "本资料基于 Headless UI 公开文档整理，与 Tailwind Labs 无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "Completely unstyled, accessible interactive components for React and Vue products with their own visual systems.",
+        "disclaimer": "Compiled from public Headless UI documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  },
+  {
+    "id": "mantine",
+    "name": "Mantine",
+    "organization": "Mantine",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://mantine.dev/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "description": "覆盖核心界面、Hooks、表单与日期能力的完整 React 组件库。",
+    "componentReferenceIds": [
+      "mantine-date-picker",
+      "mantine-combobox",
+      "mantine-notifications"
+    ],
+    "disclaimer": "本资料基于 Mantine 公开文档整理，与 Mantine 无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "A comprehensive React library spanning core UI, hooks, forms, and date components.",
+        "disclaimer": "Compiled from public Mantine documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  },
+  {
+    "id": "mui",
+    "name": "MUI",
+    "organization": "MUI",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://mui.com/material-ui/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "description": "成熟的 React 组件库，以 Material Design 为基础，覆盖应用界面、主题和数据展示。",
+    "componentReferenceIds": [
+      "mui-button",
+      "mui-data-grid",
+      "mui-autocomplete"
+    ],
+    "disclaimer": "本资料基于 MUI 公开文档整理，与 MUI 无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "A mature React component library based on Material Design, covering application UI, theming, and data display.",
+        "disclaimer": "Compiled from public MUI documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  },
+  {
+    "id": "radix-ui",
+    "name": "Radix Primitives",
+    "organization": "Radix UI",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://www.radix-ui.com/primitives",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "description": "无样式、可访问的底层 React 组件原语，为团队保留完整视觉控制权。",
+    "componentReferenceIds": [
+      "radix-ui-dialog",
+      "radix-ui-dropdown-menu",
+      "radix-ui-tabs"
+    ],
+    "disclaimer": "本资料基于 Radix UI 公开文档整理，与 Radix UI 无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "Unstyled, accessible React primitives that preserve complete visual control for product teams.",
+        "disclaimer": "Compiled from public Radix UI documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  },
+  {
+    "id": "semi-design",
+    "name": "Semi Design",
+    "organization": "ByteDance",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://semi.design/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "description": "抖音前端团队开源的企业级 React 设计系统，覆盖国际化、无障碍和复杂业务组件。",
+    "componentReferenceIds": [
+      "semi-button",
+      "semi-table",
+      "semi-modal"
+    ],
+    "disclaimer": "本资料基于 Semi Design 公开文档整理，与字节跳动或 Semi Design 无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "An open-source enterprise React design system from the Douyin frontend team, covering internationalization, accessibility, and complex business components.",
+        "disclaimer": "Compiled from public Semi Design documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  },
+  {
+    "id": "shadcn-ui",
+    "name": "shadcn/ui",
+    "organization": "shadcn",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://ui.shadcn.com/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "description": "可复制进项目并由团队直接拥有源码的组件集合，常与 Tailwind CSS 和 Radix 配合使用。",
+    "componentReferenceIds": [
+      "shadcn-ui-form",
+      "shadcn-ui-command",
+      "shadcn-ui-data-table"
+    ],
+    "disclaimer": "本资料基于 shadcn/ui 公开文档整理，与该项目无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "A component collection copied into and owned by the project, commonly used with Tailwind CSS and Radix.",
+        "disclaimer": "Compiled from public shadcn/ui documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  },
+  {
+    "id": "shopify-polaris",
+    "name": "Shopify Polaris",
+    "organization": "Shopify",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://polaris.shopify.com/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "description": "为电商管理、商家运营与交易任务设计的产品系统。",
+    "componentReferenceIds": [
+      "polaris-button",
+      "polaris-text-field",
+      "polaris-index-table"
+    ],
+    "disclaimer": "本资料基于 Shopify Polaris 公开文档整理，与 Shopify 无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "A product system for commerce administration, merchant operations, and transactional tasks.",
+        "disclaimer": "Compiled from public Shopify Polaris documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  },
+  {
+    "id": "tdesign",
+    "name": "TDesign",
+    "organization": "Tencent",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://tdesign.tencent.com/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "vue",
+      "mobile",
+      "miniprogram"
+    ],
+    "description": "腾讯开源的企业级设计体系，提供 Web、移动端和小程序组件库及配套设计资源。",
+    "componentReferenceIds": [
+      "tdesign-button",
+      "tdesign-table",
+      "tdesign-dialog"
+    ],
+    "disclaimer": "本资料基于 TDesign 公开文档整理，与腾讯或 TDesign 无隶属或背书关系；名称与标识归其各自权利人所有。",
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "description": "Tencent's open-source enterprise design system, with component libraries and design resources for web, mobile, and mini programs.",
+        "disclaimer": "Compiled from public TDesign documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+      }
+    }
+  }
+];
+export const componentReferences = [
+  {
+    "id": "ant-design-form",
+    "name": "Form",
+    "brandProfileId": "ant-design",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://ant.design/components/form",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "input",
+    "summary": "组织字段、校验、布局和提交状态。",
+    "anatomy": [
+      "form item",
+      "label",
+      "control",
+      "help",
+      "error"
+    ],
+    "states": [
+      "default",
+      "focused",
+      "validating",
+      "error",
+      "disabled"
+    ],
+    "behavior": [
+      "按任务分组字段",
+      "在提交前显示可修复错误"
+    ],
+    "accessibility": [
+      "关联 label 与错误说明",
+      "键盘顺序符合任务顺序"
+    ],
+    "tokens": {
+      "layout": "horizontal | vertical | inline",
+      "labelCol": "configurable",
+      "validateStatus": "success | warning | error"
+    },
+    "do": [
+      "保持字段分组稳定"
+    ],
+    "dont": [
+      "不要隐藏必填规则"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Input",
+        "summary": "Organizes fields, validation, layout, and submission states.",
+        "anatomy": [
+          "Form item",
+          "Label",
+          "Control",
+          "Help",
+          "Error"
+        ],
+        "states": [
+          "Default",
+          "Focused",
+          "Validating",
+          "Error",
+          "Disabled"
+        ],
+        "behavior": [
+          "Group fields by task",
+          "Show recoverable errors before submit"
+        ],
+        "accessibility": [
+          "Associate labels and errors",
+          "Keep keyboard order task-oriented"
+        ],
+        "do": [
+          "Keep field groups stable"
+        ],
+        "dont": [
+          "Do not hide required rules"
+        ]
+      }
+    }
+  },
+  {
+    "id": "ant-design-modal",
+    "name": "Modal",
+    "brandProfileId": "ant-design",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://ant.design/components/modal",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "overlay",
+    "summary": "承载需要用户聚焦完成的短流程或确认动作。",
+    "anatomy": [
+      "mask",
+      "title",
+      "content",
+      "footer",
+      "close"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "loading",
+      "confirming"
+    ],
+    "behavior": [
+      "短流程完成后返回上下文",
+      "危险动作明确写出后果"
+    ],
+    "accessibility": [
+      "聚焦陷阱保持在对话框内",
+      "提供标题与关闭名称"
+    ],
+    "tokens": {
+      "centered": "true",
+      "width": "configurable",
+      "footer": "actions"
+    },
+    "do": [
+      "保持内容短小"
+    ],
+    "dont": [
+      "不要嵌套多个 modal"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Overlay",
+        "summary": "Focuses users on a short workflow or confirmation action.",
+        "anatomy": [
+          "Mask",
+          "Title",
+          "Content",
+          "Footer",
+          "Close"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Loading",
+          "Confirming"
+        ],
+        "behavior": [
+          "Return to context after completion",
+          "State consequences for destructive actions"
+        ],
+        "accessibility": [
+          "Trap focus inside the dialog",
+          "Provide an accessible title and close name"
+        ],
+        "do": [
+          "Keep content short"
+        ],
+        "dont": [
+          "Do not nest multiple modals"
+        ]
+      }
+    }
+  },
+  {
+    "id": "ant-design-table",
+    "name": "Table",
+    "brandProfileId": "ant-design",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://ant.design/components/table",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "data",
+    "summary": "用于扫描、比较和操作结构化数据，支持排序、筛选、选择、固定列与分页。",
+    "anatomy": [
+      "table header",
+      "column header",
+      "data row",
+      "cell",
+      "selection control",
+      "pagination"
+    ],
+    "states": [
+      "default",
+      "hover",
+      "selected",
+      "sorted",
+      "loading",
+      "empty"
+    ],
+    "behavior": [
+      "把关键识别字段放在左侧",
+      "只为有明确比较价值的列启用排序"
+    ],
+    "accessibility": [
+      "表头与数据单元保持语义关联",
+      "交互列头可用键盘操作",
+      "选择状态同时提供语义和视觉反馈"
+    ],
+    "tokens": {
+      "size": "large | middle | small",
+      "layout": "auto | fixed",
+      "pagination": "configurable"
+    },
+    "do": [
+      "为密集数据提供清晰对齐与固定格式",
+      "为加载和空数据提供独立状态"
+    ],
+    "dont": [
+      "不要把每个单元格都变成操作入口",
+      "不要在窄屏强行保留全部列"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Data display",
+        "summary": "Scans, compares, and acts on structured data with sorting, filtering, selection, fixed columns, and pagination.",
+        "anatomy": [
+          "Table header",
+          "Column header",
+          "Data row",
+          "Cell",
+          "Selection control",
+          "Pagination"
+        ],
+        "states": [
+          "Default",
+          "Hover",
+          "Selected",
+          "Sorted",
+          "Loading",
+          "Empty"
+        ],
+        "behavior": [
+          "Place key identifying fields on the left",
+          "Enable sorting only where comparison is meaningful"
+        ],
+        "accessibility": [
+          "Preserve semantic associations between headers and cells",
+          "Make interactive headers keyboard operable",
+          "Express selection semantically and visually"
+        ],
+        "do": [
+          "Align dense data consistently",
+          "Provide distinct loading and empty states"
+        ],
+        "dont": [
+          "Do not turn every cell into an action",
+          "Do not force every column onto narrow screens"
+        ]
+      }
+    }
+  },
+  {
+    "id": "apple-hig-button",
+    "name": "Button",
+    "brandProfileId": "apple-hig",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://developer.apple.com/design/human-interface-guidelines/buttons",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "ios",
+      "ipados",
+      "macos"
+    ],
+    "category": "action",
+    "summary": "通过清晰的文本动作触发任务，强调可理解性、层级和平台适配。",
+    "anatomy": [
+      "label",
+      "optional symbol",
+      "hit region"
+    ],
+    "states": [
+      "enabled",
+      "highlighted",
+      "focused",
+      "disabled"
+    ],
+    "behavior": [
+      "使用熟悉且简短的动作词",
+      "危险操作需要清楚区分"
+    ],
+    "accessibility": [
+      "支持 Dynamic Type",
+      "保证触控目标足够大",
+      "VoiceOver 读出动作含义"
+    ],
+    "tokens": {
+      "textStyle": "headline",
+      "minHitArea": "44pt",
+      "emphasis": "tint or filled"
+    },
+    "do": [
+      "优先使用系统熟悉的动作语言",
+      "在上下文中保持动作层级"
+    ],
+    "dont": [
+      "不要把长句塞进按钮",
+      "不要用自定义图形替代标准动作含义"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Action",
+        "summary": "Triggers a task through a clear text action, emphasizing understandability, hierarchy, and platform conventions.",
+        "anatomy": [
+          "Label",
+          "Optional symbol",
+          "Hit region"
+        ],
+        "states": [
+          "Enabled",
+          "Highlighted",
+          "Focused",
+          "Disabled"
+        ],
+        "behavior": [
+          "Use familiar, concise action words",
+          "Clearly distinguish destructive actions"
+        ],
+        "accessibility": [
+          "Support Dynamic Type",
+          "Provide a sufficiently large touch target",
+          "Ensure VoiceOver announces the action's meaning"
+        ],
+        "do": [
+          "Prefer familiar system action language",
+          "Maintain action hierarchy within the surrounding context"
+        ],
+        "dont": [
+          "Do not place long sentences inside buttons",
+          "Do not replace standard action meaning with custom graphics"
+        ]
+      }
+    }
+  },
+  {
+    "id": "apple-hig-tab-bar",
+    "name": "Tab bar",
+    "brandProfileId": "apple-hig",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://developer.apple.com/design/human-interface-guidelines/tab-bars",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "ios",
+      "ipados"
+    ],
+    "category": "navigation",
+    "summary": "在应用主要区域之间切换，并持续显示当前选中区域。",
+    "anatomy": [
+      "bar",
+      "tab item",
+      "symbol",
+      "label",
+      "badge"
+    ],
+    "states": [
+      "selected",
+      "unselected",
+      "pressed",
+      "disabled"
+    ],
+    "behavior": [
+      "用于顶层区域，不用于临时操作",
+      "切换后保留各区域的导航状态"
+    ],
+    "accessibility": [
+      "每项有清晰标签",
+      "选中态可被辅助技术识别",
+      "支持 Dynamic Type"
+    ],
+    "tokens": {
+      "itemCount": "3-5",
+      "minHitArea": "44pt",
+      "labelStyle": "caption1"
+    },
+    "do": [
+      "让每个 tab 表示一个稳定目的地",
+      "用系统图标语义保持熟悉感"
+    ],
+    "dont": [
+      "不要放入频繁出现的动作",
+      "不要让标签依赖颜色才能理解"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Navigation",
+        "summary": "Switches among an app's primary areas while continuously showing which area is selected.",
+        "anatomy": [
+          "Bar",
+          "Tab item",
+          "Symbol",
+          "Label",
+          "Badge"
+        ],
+        "states": [
+          "Selected",
+          "Unselected",
+          "Pressed",
+          "Disabled"
+        ],
+        "behavior": [
+          "Use for top-level areas, not temporary actions",
+          "Preserve each area's navigation state after switching"
+        ],
+        "accessibility": [
+          "Give every item a clear label",
+          "Expose the selected state to assistive technology",
+          "Support Dynamic Type"
+        ],
+        "do": [
+          "Make each tab a stable destination",
+          "Use familiar system icon semantics"
+        ],
+        "dont": [
+          "Do not place frequent actions in the tab bar",
+          "Do not make labels depend on color for meaning"
+        ]
+      }
+    }
+  },
+  {
+    "id": "apple-hig-text-field",
+    "name": "Text field",
+    "brandProfileId": "apple-hig",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://developer.apple.com/design/human-interface-guidelines/text-fields",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "ios",
+      "ipados",
+      "macos"
+    ],
+    "category": "input",
+    "summary": "用于单行文本输入，遵循平台的键盘、焦点和可读性行为。",
+    "anatomy": [
+      "label",
+      "text value",
+      "placeholder",
+      "clear control",
+      "container"
+    ],
+    "states": [
+      "empty",
+      "editing",
+      "filled",
+      "disabled",
+      "invalid"
+    ],
+    "behavior": [
+      "根据内容类型选择合适键盘",
+      "编辑态保留清晰焦点与提交路径"
+    ],
+    "accessibility": [
+      "支持 Dynamic Type",
+      "提供可访问 label 和错误说明",
+      "触控目标不低于 44pt"
+    ],
+    "tokens": {
+      "minHitArea": "44pt",
+      "textStyle": "body",
+      "keyboard": "contextual"
+    },
+    "do": [
+      "让 placeholder 只提供示例或提示",
+      "在错误状态提供可操作的修复信息"
+    ],
+    "dont": [
+      "不要把 placeholder 当唯一标签",
+      "不要阻止辅助技术读取字段状态"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Input",
+        "summary": "Collects a single line of text while following platform behavior for keyboard, focus, and readability.",
+        "anatomy": [
+          "Label",
+          "Text value",
+          "Placeholder",
+          "Clear control",
+          "Container"
+        ],
+        "states": [
+          "Empty",
+          "Editing",
+          "Filled",
+          "Disabled",
+          "Invalid"
+        ],
+        "behavior": [
+          "Choose the appropriate keyboard for the content type",
+          "Keep focus and the submission path clear while editing"
+        ],
+        "accessibility": [
+          "Support Dynamic Type",
+          "Provide an accessible label and error explanation",
+          "Keep touch targets at least 44pt"
+        ],
+        "do": [
+          "Use placeholders only for examples or hints",
+          "Provide actionable recovery information for errors"
+        ],
+        "dont": [
+          "Do not use the placeholder as the only label",
+          "Do not prevent assistive technology from reading field state"
+        ]
+      }
+    }
+  },
+  {
+    "id": "arco-button",
+    "name": "Button",
+    "brandProfileId": "arco-design",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://arco.design/react/components/button",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "vue"
+    ],
+    "category": "action",
+    "summary": "企业产品中的主、次、虚线、文本与状态操作。",
+    "anatomy": [
+      "container",
+      "label",
+      "icon",
+      "loading"
+    ],
+    "states": [
+      "default",
+      "hover",
+      "active",
+      "loading",
+      "disabled",
+      "status"
+    ],
+    "behavior": [
+      "type 表达层级，status 表达结果语义",
+      "loading 防止重复提交"
+    ],
+    "accessibility": [
+      "文本明确",
+      "图标按钮提供名称"
+    ],
+    "tokens": {
+      "type": "primary | secondary | dashed | text",
+      "status": "warning | danger | success",
+      "shape": "square | round | circle"
+    },
+    "do": [
+      "把 status 留给明确语义"
+    ],
+    "dont": [
+      "不要堆叠多个主操作"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Action",
+        "summary": "Primary, secondary, dashed, text, and status actions for enterprise products.",
+        "anatomy": [
+          "Container",
+          "Label",
+          "Icon",
+          "Loading"
+        ],
+        "states": [
+          "Default",
+          "Hover",
+          "Active",
+          "Loading",
+          "Disabled",
+          "Status"
+        ],
+        "behavior": [
+          "Use type for hierarchy and status for outcome",
+          "Prevent duplicate submission while loading"
+        ],
+        "accessibility": [
+          "Use explicit text",
+          "Name icon buttons"
+        ],
+        "do": [
+          "Reserve status for real semantics"
+        ],
+        "dont": [
+          "Do not stack primary actions"
+        ]
+      }
+    }
+  },
+  {
+    "id": "arco-modal",
+    "name": "Modal",
+    "brandProfileId": "arco-design",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://arco.design/react/components/modal",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "vue"
+    ],
+    "category": "overlay",
+    "summary": "用于业务确认、结果反馈和短表单。",
+    "anatomy": [
+      "title",
+      "content",
+      "footer",
+      "close",
+      "mask"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "confirming",
+      "loading"
+    ],
+    "behavior": [
+      "确认函数可返回异步结果",
+      "完成后关闭并刷新上下文"
+    ],
+    "accessibility": [
+      "标题命名 modal",
+      "焦点进入并恢复"
+    ],
+    "tokens": {
+      "simple": "boolean",
+      "alignCenter": "boolean",
+      "maskClosable": "boolean"
+    },
+    "do": [
+      "让确认按钮说明结果"
+    ],
+    "dont": [
+      "不要默认允许危险操作点遮罩关闭"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Overlay",
+        "summary": "Handles business confirmation, result feedback, and short forms.",
+        "anatomy": [
+          "Title",
+          "Content",
+          "Footer",
+          "Close",
+          "Mask"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Confirming",
+          "Loading"
+        ],
+        "behavior": [
+          "Allow async confirmation",
+          "Close and refresh context after completion"
+        ],
+        "accessibility": [
+          "Name the modal with a title",
+          "Move and restore focus"
+        ],
+        "do": [
+          "Make confirmation labels describe outcomes"
+        ],
+        "dont": [
+          "Do not let dangerous tasks dismiss on mask click by default"
+        ]
+      }
+    }
+  },
+  {
+    "id": "arco-table",
+    "name": "Table",
+    "brandProfileId": "arco-design",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://arco.design/react/components/table",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "vue"
+    ],
+    "category": "data",
+    "summary": "面向后台产品的排序、筛选、展开、编辑与虚拟列表表格。",
+    "anatomy": [
+      "columns",
+      "header",
+      "row",
+      "cell",
+      "pagination"
+    ],
+    "states": [
+      "loading",
+      "empty",
+      "selected",
+      "expanded",
+      "sorted"
+    ],
+    "behavior": [
+      "列配置驱动格式与交互",
+      "大数据启用虚拟滚动"
+    ],
+    "accessibility": [
+      "表头和单元格关系明确",
+      "键盘可到达交互列"
+    ],
+    "tokens": {
+      "size": "mini | small | default | medium",
+      "border": "boolean",
+      "stripe": "boolean"
+    },
+    "do": [
+      "保持操作列宽度稳定"
+    ],
+    "dont": [
+      "不要让表格承担全部移动体验"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Data display",
+        "summary": "An admin table with sorting, filtering, expansion, editing, and virtualization.",
+        "anatomy": [
+          "Columns",
+          "Header",
+          "Row",
+          "Cell",
+          "Pagination"
+        ],
+        "states": [
+          "Loading",
+          "Empty",
+          "Selected",
+          "Expanded",
+          "Sorted"
+        ],
+        "behavior": [
+          "Drive formatting and interaction from columns",
+          "Use virtualization for large data"
+        ],
+        "accessibility": [
+          "Relate headers and cells",
+          "Make interactive columns keyboard reachable"
+        ],
+        "do": [
+          "Keep action column width stable"
+        ],
+        "dont": [
+          "Do not make tables the whole mobile experience"
+        ]
+      }
+    }
+  },
+  {
+    "id": "atlassian-button",
+    "name": "Button",
+    "brandProfileId": "atlassian-design",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://atlassian.design/components/button/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "action",
+    "summary": "用于工作管理产品中的主要、次要、细微和危险操作。",
+    "anatomy": [
+      "container",
+      "label",
+      "optional icon"
+    ],
+    "states": [
+      "default",
+      "hover",
+      "active",
+      "focus",
+      "disabled",
+      "loading"
+    ],
+    "behavior": [
+      "appearance 对应动作优先级",
+      "loading 时保持宽度稳定"
+    ],
+    "accessibility": [
+      "动作名称具体",
+      "焦点态可见"
+    ],
+    "tokens": {
+      "appearance": "primary | default | subtle | danger",
+      "spacing": "default | compact"
+    },
+    "do": [
+      "用动词说明结果"
+    ],
+    "dont": [
+      "不要用按钮做静态标签"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Action",
+        "summary": "Primary, secondary, subtle, and dangerous actions for work-management products.",
+        "anatomy": [
+          "Container",
+          "Label",
+          "Optional icon"
+        ],
+        "states": [
+          "Default",
+          "Hover",
+          "Active",
+          "Focus",
+          "Disabled",
+          "Loading"
+        ],
+        "behavior": [
+          "Map appearance to action priority",
+          "Keep width stable while loading"
+        ],
+        "accessibility": [
+          "Use specific action names",
+          "Keep focus visible"
+        ],
+        "do": [
+          "Describe outcomes with verbs"
+        ],
+        "dont": [
+          "Do not use buttons as static labels"
+        ]
+      }
+    }
+  },
+  {
+    "id": "atlassian-dynamic-table",
+    "name": "Dynamic table",
+    "brandProfileId": "atlassian-design",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://atlassian.design/components/dynamic-table/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "data",
+    "summary": "展示可排序、分页和加载的任务型数据。",
+    "anatomy": [
+      "caption",
+      "head",
+      "row",
+      "cell",
+      "pagination"
+    ],
+    "states": [
+      "loading",
+      "empty",
+      "sorted",
+      "highlighted",
+      "error"
+    ],
+    "behavior": [
+      "列头触发排序",
+      "分页状态保持可见"
+    ],
+    "accessibility": [
+      "caption 描述表格用途",
+      "sort direction 可读"
+    ],
+    "tokens": {
+      "rowsPerPage": "number",
+      "isLoading": "boolean",
+      "defaultSortKey": "string"
+    },
+    "do": [
+      "使用简短列名"
+    ],
+    "dont": [
+      "不要在单元格堆叠过多动作"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Data display",
+        "summary": "Displays sortable, paginated, and loading task-oriented data.",
+        "anatomy": [
+          "Caption",
+          "Head",
+          "Row",
+          "Cell",
+          "Pagination"
+        ],
+        "states": [
+          "Loading",
+          "Empty",
+          "Sorted",
+          "Highlighted",
+          "Error"
+        ],
+        "behavior": [
+          "Sort from column headers",
+          "Keep pagination state visible"
+        ],
+        "accessibility": [
+          "Describe purpose with a caption",
+          "Expose sort direction"
+        ],
+        "do": [
+          "Use short column names"
+        ],
+        "dont": [
+          "Do not stack many actions in cells"
+        ]
+      }
+    }
+  },
+  {
+    "id": "atlassian-modal-dialog",
+    "name": "Modal dialog",
+    "brandProfileId": "atlassian-design",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://atlassian.design/components/modal-dialog/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "overlay",
+    "summary": "用于需要立即注意的短任务、确认或表单。",
+    "anatomy": [
+      "header",
+      "title",
+      "body",
+      "footer",
+      "close"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "scrolling",
+      "loading"
+    ],
+    "behavior": [
+      "长内容保持 header/footer 固定",
+      "完成后返回原上下文"
+    ],
+    "accessibility": [
+      "聚焦进入并循环",
+      "标题提供 dialog 名称"
+    ],
+    "tokens": {
+      "width": "small | medium | large | x-large",
+      "scrollBehavior": "inside | outside"
+    },
+    "do": [
+      "保持单一目标"
+    ],
+    "dont": [
+      "不要在 modal 中打开 modal"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Overlay",
+        "summary": "A short task, confirmation, or form requiring immediate attention.",
+        "anatomy": [
+          "Header",
+          "Title",
+          "Body",
+          "Footer",
+          "Close"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Scrolling",
+          "Loading"
+        ],
+        "behavior": [
+          "Keep header and footer stable for long content",
+          "Return to the original context"
+        ],
+        "accessibility": [
+          "Move and cycle focus inside",
+          "Use the title as the dialog name"
+        ],
+        "do": [
+          "Keep one objective"
+        ],
+        "dont": [
+          "Do not open a modal from a modal"
+        ]
+      }
+    }
+  },
+  {
+    "id": "carbon-button",
+    "name": "Button",
+    "brandProfileId": "carbon-design",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://carbondesignsystem.com/components/button/usage/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "angular",
+      "vue"
+    ],
+    "category": "action",
+    "summary": "企业产品中的主要、次要、危险和轻量操作。",
+    "anatomy": [
+      "container",
+      "label",
+      "optional icon"
+    ],
+    "states": [
+      "enabled",
+      "hover",
+      "focus",
+      "active",
+      "disabled",
+      "danger"
+    ],
+    "behavior": [
+      "按任务重要性选择 kind",
+      "危险操作明确后果"
+    ],
+    "accessibility": [
+      "焦点态清晰",
+      "图标不替代动作名称"
+    ],
+    "tokens": {
+      "kind": "primary | secondary | tertiary | ghost | danger",
+      "size": "sm | md | lg | xl"
+    },
+    "do": [
+      "一个区域保留一个主操作"
+    ],
+    "dont": [
+      "不要用 disabled 解释权限"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Action",
+        "summary": "Primary, secondary, dangerous, and lightweight actions for enterprise products.",
+        "anatomy": [
+          "Container",
+          "Label",
+          "Optional icon"
+        ],
+        "states": [
+          "Enabled",
+          "Hover",
+          "Focus",
+          "Active",
+          "Disabled",
+          "Danger"
+        ],
+        "behavior": [
+          "Choose kind by task importance",
+          "State destructive consequences"
+        ],
+        "accessibility": [
+          "Keep focus clear",
+          "Do not replace action names with icons"
+        ],
+        "do": [
+          "Keep one primary action per region"
+        ],
+        "dont": [
+          "Do not use disabled state to explain permissions"
+        ]
+      }
+    }
+  },
+  {
+    "id": "carbon-data-table",
+    "name": "Data table",
+    "brandProfileId": "carbon-design",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://carbondesignsystem.com/components/data-table/usage/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "angular",
+      "vue"
+    ],
+    "category": "data",
+    "summary": "用于企业数据的比较、选择、展开、排序和批量操作。",
+    "anatomy": [
+      "title",
+      "toolbar",
+      "header",
+      "row",
+      "cell",
+      "pagination"
+    ],
+    "states": [
+      "loading",
+      "empty",
+      "selected",
+      "expanded",
+      "sorted"
+    ],
+    "behavior": [
+      "批量动作只在选择后出现",
+      "复杂行可展开查看详情"
+    ],
+    "accessibility": [
+      "保持原生表格语义",
+      "排序状态可读"
+    ],
+    "tokens": {
+      "size": "xs | sm | md | lg | xl",
+      "useZebraStyles": "boolean",
+      "stickyHeader": "boolean"
+    },
+    "do": [
+      "右对齐数值"
+    ],
+    "dont": [
+      "不要混合不相干的数据层级"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Data display",
+        "summary": "Compares, selects, expands, sorts, and performs bulk actions on enterprise data.",
+        "anatomy": [
+          "Title",
+          "Toolbar",
+          "Header",
+          "Row",
+          "Cell",
+          "Pagination"
+        ],
+        "states": [
+          "Loading",
+          "Empty",
+          "Selected",
+          "Expanded",
+          "Sorted"
+        ],
+        "behavior": [
+          "Show bulk actions after selection",
+          "Expand complex rows for details"
+        ],
+        "accessibility": [
+          "Preserve native table semantics",
+          "Expose sort state"
+        ],
+        "do": [
+          "Right-align numeric values"
+        ],
+        "dont": [
+          "Do not mix unrelated data levels"
+        ]
+      }
+    }
+  },
+  {
+    "id": "carbon-modal",
+    "name": "Modal",
+    "brandProfileId": "carbon-design",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://carbondesignsystem.com/components/modal/usage/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "angular",
+      "vue"
+    ],
+    "category": "overlay",
+    "summary": "要求用户在返回主流程前完成决定或短任务。",
+    "anatomy": [
+      "header",
+      "heading",
+      "body",
+      "footer",
+      "close"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "transactional",
+      "danger",
+      "loading"
+    ],
+    "behavior": [
+      "保持任务单一",
+      "主次动作固定在 footer"
+    ],
+    "accessibility": [
+      "聚焦在 modal 内循环",
+      "提供标题和关闭名称"
+    ],
+    "tokens": {
+      "size": "xs | sm | md | lg",
+      "danger": "boolean",
+      "passiveModal": "boolean"
+    },
+    "do": [
+      "使用清晰的结果型按钮文案"
+    ],
+    "dont": [
+      "不要用 modal 展示长文档"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Overlay",
+        "summary": "Requires a decision or short task before users return to the main flow.",
+        "anatomy": [
+          "Header",
+          "Heading",
+          "Body",
+          "Footer",
+          "Close"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Transactional",
+          "Danger",
+          "Loading"
+        ],
+        "behavior": [
+          "Keep one task",
+          "Keep primary and secondary actions in the footer"
+        ],
+        "accessibility": [
+          "Cycle focus inside the modal",
+          "Provide an accessible title and close name"
+        ],
+        "do": [
+          "Use outcome-oriented action labels"
+        ],
+        "dont": [
+          "Do not show long documents in a modal"
+        ]
+      }
+    }
+  },
+  {
+    "id": "chakra-ui-button",
+    "name": "Button",
+    "brandProfileId": "chakra-ui",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://chakra-ui.com/docs/components/button",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "action",
+    "summary": "可主题化的操作控件，支持变体、尺寸、加载与禁用状态。",
+    "anatomy": [
+      "button",
+      "label",
+      "optional icon"
+    ],
+    "states": [
+      "default",
+      "hover",
+      "active",
+      "loading",
+      "disabled"
+    ],
+    "behavior": [
+      "用 variant 表达层级",
+      "loading 时保留操作上下文"
+    ],
+    "accessibility": [
+      "支持键盘焦点",
+      "图标按钮提供名称"
+    ],
+    "tokens": {
+      "variant": "solid | outline | ghost",
+      "size": "sm | md | lg",
+      "colorPalette": "theme token"
+    },
+    "do": [
+      "复用主题令牌"
+    ],
+    "dont": [
+      "不要让颜色成为唯一语义"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Action",
+        "summary": "A themeable action control with variants, sizes, loading, and disabled states.",
+        "anatomy": [
+          "Button",
+          "Label",
+          "Optional icon"
+        ],
+        "states": [
+          "Default",
+          "Hover",
+          "Active",
+          "Loading",
+          "Disabled"
+        ],
+        "behavior": [
+          "Express hierarchy with variants",
+          "Preserve context while loading"
+        ],
+        "accessibility": [
+          "Support keyboard focus",
+          "Name icon-only buttons"
+        ],
+        "do": [
+          "Reuse theme tokens"
+        ],
+        "dont": [
+          "Do not make color the only meaning"
+        ]
+      }
+    }
+  },
+  {
+    "id": "chakra-ui-dialog",
+    "name": "Dialog",
+    "brandProfileId": "chakra-ui",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://chakra-ui.com/docs/components/dialog",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "overlay",
+    "summary": "支持焦点管理、关闭行为和可组合内容的对话框。",
+    "anatomy": [
+      "backdrop",
+      "positioner",
+      "content",
+      "title",
+      "close trigger"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "motion",
+      "non-dismissible"
+    ],
+    "behavior": [
+      "由 trigger 控制打开关闭",
+      "需要时阻止点击遮罩关闭"
+    ],
+    "accessibility": [
+      "焦点进入 dialog",
+      "标题和描述可关联"
+    ],
+    "tokens": {
+      "placement": "center | top",
+      "size": "xs | sm | md | lg",
+      "motionPreset": "scale | slide"
+    },
+    "do": [
+      "为长流程改用独立页面"
+    ],
+    "dont": [
+      "不要把 dialog 当导航"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Overlay",
+        "summary": "A composable dialog with focus management and explicit dismissal behavior.",
+        "anatomy": [
+          "Backdrop",
+          "Positioner",
+          "Content",
+          "Title",
+          "Close trigger"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Motion",
+          "Non-dismissible"
+        ],
+        "behavior": [
+          "Control open state from a trigger",
+          "Prevent backdrop dismissal when needed"
+        ],
+        "accessibility": [
+          "Move focus into the dialog",
+          "Associate title and description"
+        ],
+        "do": [
+          "Use a separate page for long workflows"
+        ],
+        "dont": [
+          "Do not use a dialog as navigation"
+        ]
+      }
+    }
+  },
+  {
+    "id": "chakra-ui-input",
+    "name": "Input",
+    "brandProfileId": "chakra-ui",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://chakra-ui.com/docs/components/input",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "input",
+    "summary": "以可访问字段语义承载单行文本输入。",
+    "anatomy": [
+      "label",
+      "input",
+      "helper text",
+      "error text"
+    ],
+    "states": [
+      "empty",
+      "filled",
+      "focus",
+      "invalid",
+      "disabled"
+    ],
+    "behavior": [
+      "通过 field 组合帮助与错误内容",
+      "根据类型提供合适输入模式"
+    ],
+    "accessibility": [
+      "label 与输入绑定",
+      "错误消息可被读屏获取"
+    ],
+    "tokens": {
+      "size": "sm | md | lg",
+      "variant": "outline | filled | flushed"
+    },
+    "do": [
+      "使用 Field 组合"
+    ],
+    "dont": [
+      "不要只依赖 placeholder"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Input",
+        "summary": "Carries single-line text input with accessible field semantics.",
+        "anatomy": [
+          "Label",
+          "Input",
+          "Helper text",
+          "Error text"
+        ],
+        "states": [
+          "Empty",
+          "Filled",
+          "Focus",
+          "Invalid",
+          "Disabled"
+        ],
+        "behavior": [
+          "Compose help and error content through a field",
+          "Use an appropriate input mode"
+        ],
+        "accessibility": [
+          "Bind label to input",
+          "Expose errors to screen readers"
+        ],
+        "do": [
+          "Use the Field composition"
+        ],
+        "dont": [
+          "Do not rely on placeholders alone"
+        ]
+      }
+    }
+  },
+  {
+    "id": "element-plus-button",
+    "name": "Button",
+    "brandProfileId": "element-plus",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://element-plus.org/en-US/component/button.html",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "vue"
+    ],
+    "category": "action",
+    "summary": "Vue 企业界面中的默认、主、成功、警告和危险操作。",
+    "anatomy": [
+      "container",
+      "label",
+      "icon",
+      "loading"
+    ],
+    "states": [
+      "default",
+      "hover",
+      "active",
+      "loading",
+      "disabled"
+    ],
+    "behavior": [
+      "type 表达语义层级",
+      "异步操作使用 loading"
+    ],
+    "accessibility": [
+      "标签描述动作",
+      "焦点状态可见"
+    ],
+    "tokens": {
+      "type": "primary | success | warning | danger | info",
+      "plain": "boolean",
+      "size": "large | default | small"
+    },
+    "do": [
+      "在一组中保留一个 primary"
+    ],
+    "dont": [
+      "不要只用颜色描述风险"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Action",
+        "summary": "Default, primary, success, warning, and dangerous actions in Vue enterprise interfaces.",
+        "anatomy": [
+          "Container",
+          "Label",
+          "Icon",
+          "Loading"
+        ],
+        "states": [
+          "Default",
+          "Hover",
+          "Active",
+          "Loading",
+          "Disabled"
+        ],
+        "behavior": [
+          "Use type for semantic hierarchy",
+          "Use loading for async work"
+        ],
+        "accessibility": [
+          "Describe the action in the label",
+          "Keep focus visible"
+        ],
+        "do": [
+          "Keep one primary in a group"
+        ],
+        "dont": [
+          "Do not express risk only with color"
+        ]
+      }
+    }
+  },
+  {
+    "id": "element-plus-dialog",
+    "name": "Dialog",
+    "brandProfileId": "element-plus",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://element-plus.org/en-US/component/dialog.html",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "vue"
+    ],
+    "category": "overlay",
+    "summary": "承载需要聚焦的确认、表单和短内容。",
+    "anatomy": [
+      "header",
+      "body",
+      "footer",
+      "close",
+      "overlay"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "loading",
+      "fullscreen"
+    ],
+    "behavior": [
+      "使用 v-model 管理打开状态",
+      "关闭前可执行校验"
+    ],
+    "accessibility": [
+      "提供标题语义",
+      "支持 Escape 和焦点管理"
+    ],
+    "tokens": {
+      "width": "string",
+      "fullscreen": "boolean",
+      "alignCenter": "boolean"
+    },
+    "do": [
+      "让 footer 操作明确"
+    ],
+    "dont": [
+      "不要用 dialog 展示复杂页面"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Overlay",
+        "summary": "Carries focused confirmations, forms, and short content.",
+        "anatomy": [
+          "Header",
+          "Body",
+          "Footer",
+          "Close",
+          "Overlay"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Loading",
+          "Fullscreen"
+        ],
+        "behavior": [
+          "Control open state with v-model",
+          "Validate before close when needed"
+        ],
+        "accessibility": [
+          "Provide title semantics",
+          "Support Escape and focus management"
+        ],
+        "do": [
+          "Make footer actions explicit"
+        ],
+        "dont": [
+          "Do not show a complex page in a dialog"
+        ]
+      }
+    }
+  },
+  {
+    "id": "element-plus-table",
+    "name": "Table",
+    "brandProfileId": "element-plus",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://element-plus.org/en-US/component/table.html",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "vue"
+    ],
+    "category": "data",
+    "summary": "支持选择、排序、筛选、树形与固定表头的数据表格。",
+    "anatomy": [
+      "column",
+      "header",
+      "row",
+      "cell",
+      "summary"
+    ],
+    "states": [
+      "loading",
+      "empty",
+      "selected",
+      "expanded",
+      "sorted"
+    ],
+    "behavior": [
+      "根据列定义对齐和格式化",
+      "大数据使用 virtualized table"
+    ],
+    "accessibility": [
+      "列头语义清晰",
+      "选择状态不只依赖颜色"
+    ],
+    "tokens": {
+      "height": "number | auto",
+      "stripe": "boolean",
+      "border": "boolean"
+    },
+    "do": [
+      "固定关键识别列"
+    ],
+    "dont": [
+      "不要让单元格内容无限换行"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Data display",
+        "summary": "A data table with selection, sorting, filtering, trees, and fixed headers.",
+        "anatomy": [
+          "Column",
+          "Header",
+          "Row",
+          "Cell",
+          "Summary"
+        ],
+        "states": [
+          "Loading",
+          "Empty",
+          "Selected",
+          "Expanded",
+          "Sorted"
+        ],
+        "behavior": [
+          "Align and format by column definition",
+          "Use virtualization for large data"
+        ],
+        "accessibility": [
+          "Keep column headers semantic",
+          "Do not rely on color for selection"
+        ],
+        "do": [
+          "Fix key identifying columns"
+        ],
+        "dont": [
+          "Do not let cell content wrap indefinitely"
+        ]
+      }
+    }
+  },
+  {
+    "id": "fluent-2-button",
+    "name": "Button",
+    "brandProfileId": "fluent-2",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://fluent2.microsoft.design/components/web/react/core/button/usage",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "windows"
+    ],
+    "category": "action",
+    "summary": "用于生产力界面的主要、次要、细微和图标操作。",
+    "anatomy": [
+      "container",
+      "label",
+      "optional icon"
+    ],
+    "states": [
+      "rest",
+      "hover",
+      "pressed",
+      "focus",
+      "disabled"
+    ],
+    "behavior": [
+      "appearance 表达动作层级",
+      "短标签优先"
+    ],
+    "accessibility": [
+      "键盘可触发",
+      "图标按钮有 accessible name"
+    ],
+    "tokens": {
+      "appearance": "primary | secondary | subtle | transparent",
+      "size": "small | medium | large"
+    },
+    "do": [
+      "与命令语义保持一致"
+    ],
+    "dont": [
+      "不要堆叠多个主按钮"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Action",
+        "summary": "Primary, secondary, subtle, and icon actions for productivity interfaces.",
+        "anatomy": [
+          "Container",
+          "Label",
+          "Optional icon"
+        ],
+        "states": [
+          "Rest",
+          "Hover",
+          "Pressed",
+          "Focus",
+          "Disabled"
+        ],
+        "behavior": [
+          "Use appearance to express hierarchy",
+          "Prefer short labels"
+        ],
+        "accessibility": [
+          "Support keyboard activation",
+          "Name icon-only buttons"
+        ],
+        "do": [
+          "Stay consistent with command semantics"
+        ],
+        "dont": [
+          "Do not stack multiple primary buttons"
+        ]
+      }
+    }
+  },
+  {
+    "id": "fluent-2-data-grid",
+    "name": "DataGrid",
+    "brandProfileId": "fluent-2",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://react.fluentui.dev/?path=/docs/components-datagrid--docs",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "data",
+    "summary": "支持排序、选择、键盘导航与列结构的企业数据网格。",
+    "anatomy": [
+      "header row",
+      "header cell",
+      "row",
+      "cell",
+      "selection"
+    ],
+    "states": [
+      "default",
+      "focused",
+      "selected",
+      "sorted",
+      "loading"
+    ],
+    "behavior": [
+      "键盘在网格内导航",
+      "行选择与操作保持反馈"
+    ],
+    "accessibility": [
+      "采用 grid 语义",
+      "焦点位置清晰"
+    ],
+    "tokens": {
+      "selectionMode": "single | multiselect",
+      "focusMode": "cell | row",
+      "sortable": "boolean"
+    },
+    "do": [
+      "为可操作列提供名称"
+    ],
+    "dont": [
+      "不要用网格模拟普通列表"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Data display",
+        "summary": "An enterprise data grid with sorting, selection, keyboard navigation, and columns.",
+        "anatomy": [
+          "Header row",
+          "Header cell",
+          "Row",
+          "Cell",
+          "Selection"
+        ],
+        "states": [
+          "Default",
+          "Focused",
+          "Selected",
+          "Sorted",
+          "Loading"
+        ],
+        "behavior": [
+          "Navigate the grid with keyboard",
+          "Keep row selection feedback visible"
+        ],
+        "accessibility": [
+          "Use grid semantics",
+          "Keep focus location clear"
+        ],
+        "do": [
+          "Name actionable columns"
+        ],
+        "dont": [
+          "Do not use a grid to imitate a simple list"
+        ]
+      }
+    }
+  },
+  {
+    "id": "fluent-2-dialog",
+    "name": "Dialog",
+    "brandProfileId": "fluent-2",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://fluent2.microsoft.design/components/web/react/core/dialog/usage",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "windows"
+    ],
+    "category": "overlay",
+    "summary": "在当前页面之上完成确认、输入或重要信息处理。",
+    "anatomy": [
+      "surface",
+      "title",
+      "body",
+      "actions",
+      "close"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "modal",
+      "non-modal",
+      "alert"
+    ],
+    "behavior": [
+      "打开时保存返回焦点",
+      "阻塞式内容保持最少"
+    ],
+    "accessibility": [
+      "title 与 dialog 关联",
+      "Escape 和 close 均可退出"
+    ],
+    "tokens": {
+      "modalType": "modal | non-modal | alert",
+      "surfaceMotion": "scale",
+      "actions": "end aligned"
+    },
+    "do": [
+      "把主要动作放在稳定位置"
+    ],
+    "dont": [
+      "不要连续弹出多个 dialog"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Overlay",
+        "summary": "Handles confirmation, input, or important information above the current page.",
+        "anatomy": [
+          "Surface",
+          "Title",
+          "Body",
+          "Actions",
+          "Close"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Modal",
+          "Non-modal",
+          "Alert"
+        ],
+        "behavior": [
+          "Preserve return focus on open",
+          "Keep blocking content minimal"
+        ],
+        "accessibility": [
+          "Associate title with dialog",
+          "Support Escape and close"
+        ],
+        "do": [
+          "Keep the primary action stable"
+        ],
+        "dont": [
+          "Do not open multiple dialogs in sequence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "material-3-button",
+    "name": "Button",
+    "brandProfileId": "google-material-3",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://m3.material.io/components/buttons/overview",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "android",
+      "web"
+    ],
+    "category": "action",
+    "summary": "用于触发明确操作，按强调程度分为 filled、tonal、outlined 和 text 变体。",
+    "anatomy": [
+      "container",
+      "label",
+      "optional leading or trailing icon"
+    ],
+    "states": [
+      "enabled",
+      "hovered",
+      "focused",
+      "pressed",
+      "disabled"
+    ],
+    "behavior": [
+      "保持单一主要操作",
+      "标签使用动词并说明结果"
+    ],
+    "accessibility": [
+      "提供可见文本标签",
+      "保持足够触达尺寸",
+      "焦点态必须可见"
+    ],
+    "tokens": {
+      "shape": "md.sys.shape.corner.full",
+      "minHeight": "40dp",
+      "labelStyle": "md.sys.typescale.label-large"
+    },
+    "do": [
+      "按层级选择变体",
+      "在同一组操作中保持变体逻辑一致"
+    ],
+    "dont": [
+      "不要用颜色代替标签",
+      "不要把多个 filled button 放在同一层级"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Action",
+        "summary": "Triggers an explicit action with filled, tonal, outlined, and text variants expressing different levels of emphasis.",
+        "anatomy": [
+          "Container",
+          "Label",
+          "Optional leading or trailing icon"
+        ],
+        "states": [
+          "Enabled",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Disabled"
+        ],
+        "behavior": [
+          "Maintain one primary action",
+          "Use a verb in the label and describe the result"
+        ],
+        "accessibility": [
+          "Provide a visible text label",
+          "Maintain a sufficient target size",
+          "Keep focus visibly apparent"
+        ],
+        "do": [
+          "Choose variants according to hierarchy",
+          "Keep variant logic consistent within an action group"
+        ],
+        "dont": [
+          "Do not replace labels with color",
+          "Do not place several filled buttons at the same hierarchy level"
+        ]
+      }
+    }
+  },
+  {
+    "id": "material-3-navigation-bar",
+    "name": "Navigation bar",
+    "brandProfileId": "google-material-3",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://m3.material.io/components/navigation-bar/overview",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "android",
+      "web"
+    ],
+    "category": "navigation",
+    "summary": "移动端顶层目的地导航，使用图标、选中指示器和文字标签帮助定位。",
+    "anatomy": [
+      "bar container",
+      "destination",
+      "icon",
+      "active indicator",
+      "label"
+    ],
+    "states": [
+      "selected",
+      "unselected",
+      "pressed",
+      "disabled"
+    ],
+    "behavior": [
+      "提供 3-5 个同级目的地",
+      "切换目的地不应丢失导航上下文"
+    ],
+    "accessibility": [
+      "每个目的地有可访问名称",
+      "选中态通过语义和视觉双重表达"
+    ],
+    "tokens": {
+      "destinationCount": "3-5",
+      "labelStyle": "md.sys.typescale.label-medium",
+      "activeIndicator": "md.sys.color.secondary-container"
+    },
+    "do": [
+      "保持目的地稳定",
+      "让当前目的地清楚可见"
+    ],
+    "dont": [
+      "不要放入一次性操作",
+      "不要用纯图标隐藏目的地含义"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Navigation",
+        "summary": "Mobile top-level destination navigation that uses icons, an active indicator, and text labels to preserve orientation.",
+        "anatomy": [
+          "Bar container",
+          "Destination",
+          "Icon",
+          "Active indicator",
+          "Label"
+        ],
+        "states": [
+          "Selected",
+          "Unselected",
+          "Pressed",
+          "Disabled"
+        ],
+        "behavior": [
+          "Provide three to five peer destinations",
+          "Preserve navigation context when changing destinations"
+        ],
+        "accessibility": [
+          "Give every destination an accessible name",
+          "Express the selected state both semantically and visually"
+        ],
+        "do": [
+          "Keep destinations stable",
+          "Make the current destination clearly visible"
+        ],
+        "dont": [
+          "Do not place one-off actions in the navigation bar",
+          "Do not hide destination meaning behind icons alone"
+        ]
+      }
+    }
+  },
+  {
+    "id": "material-3-text-field",
+    "name": "Text field",
+    "brandProfileId": "google-material-3",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://m3.material.io/components/text-fields/overview",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "android",
+      "web"
+    ],
+    "category": "input",
+    "summary": "用于采集短文本输入，支持 filled 和 outlined 两种容器样式。",
+    "anatomy": [
+      "label",
+      "input text",
+      "supporting text",
+      "leading or trailing icon",
+      "container"
+    ],
+    "states": [
+      "enabled",
+      "focused",
+      "hovered",
+      "error",
+      "disabled"
+    ],
+    "behavior": [
+      "聚焦时标签与输入内容保持清晰层级",
+      "错误信息靠近字段并说明修复方式"
+    ],
+    "accessibility": [
+      "关联 label 和 supporting text",
+      "错误不能只用颜色表达",
+      "键盘顺序符合表单顺序"
+    ],
+    "tokens": {
+      "shape": "md.sys.shape.corner.extra-small",
+      "labelStyle": "md.sys.typescale.body-large",
+      "supportingStyle": "md.sys.typescale.body-small"
+    },
+    "do": [
+      "使用具体帮助文案",
+      "为必填和格式要求提供上下文"
+    ],
+    "dont": [
+      "不要把 placeholder 当作唯一标签",
+      "不要用无意义的输入框装饰页面"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Input",
+        "summary": "Collects short text input using either a filled or outlined container style.",
+        "anatomy": [
+          "Label",
+          "Input text",
+          "Supporting text",
+          "Leading or trailing icon",
+          "Container"
+        ],
+        "states": [
+          "Enabled",
+          "Focused",
+          "Hovered",
+          "Error",
+          "Disabled"
+        ],
+        "behavior": [
+          "Maintain a clear hierarchy between label and input while focused",
+          "Place error information close to the field and explain how to recover"
+        ],
+        "accessibility": [
+          "Associate the label and supporting text",
+          "Never express errors through color alone",
+          "Keep keyboard order aligned with form order"
+        ],
+        "do": [
+          "Use specific helper copy",
+          "Provide context for required values and format constraints"
+        ],
+        "dont": [
+          "Do not use the placeholder as the only label",
+          "Do not decorate pages with meaningless input fields"
+        ]
+      }
+    }
+  },
+  {
+    "id": "headless-ui-combobox",
+    "name": "Combobox",
+    "brandProfileId": "headless-ui",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://headlessui.com/react/combobox",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "vue"
+    ],
+    "category": "input",
+    "summary": "无样式的可搜索选择组件，适合自定义视觉和数据源。",
+    "anatomy": [
+      "input",
+      "options",
+      "option",
+      "label",
+      "button"
+    ],
+    "states": [
+      "empty",
+      "open",
+      "active",
+      "selected",
+      "disabled"
+    ],
+    "behavior": [
+      "输入过滤选项",
+      "键盘确认和取消选择"
+    ],
+    "accessibility": [
+      "支持 active option 语义",
+      "label 与 input 关联"
+    ],
+    "tokens": {
+      "multiple": "boolean",
+      "virtual": "optional",
+      "by": "comparison key"
+    },
+    "do": [
+      "让选中状态在列表中持续可见"
+    ],
+    "dont": [
+      "不要只展示图形选中态"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Input",
+        "summary": "An unstyled searchable selection component for custom visuals and data sources.",
+        "anatomy": [
+          "Input",
+          "Options",
+          "Option",
+          "Label",
+          "Button"
+        ],
+        "states": [
+          "Empty",
+          "Open",
+          "Active",
+          "Selected",
+          "Disabled"
+        ],
+        "behavior": [
+          "Filter options as the user types",
+          "Confirm and cancel with keyboard"
+        ],
+        "accessibility": [
+          "Expose the active option",
+          "Associate label and input"
+        ],
+        "do": [
+          "Keep selection visible in the list"
+        ],
+        "dont": [
+          "Do not show selection only graphically"
+        ]
+      }
+    }
+  },
+  {
+    "id": "headless-ui-dialog",
+    "name": "Dialog",
+    "brandProfileId": "headless-ui",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://headlessui.com/react/dialog",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "vue"
+    ],
+    "category": "overlay",
+    "summary": "无样式的模态对话框，提供遮罩、焦点管理和关闭行为。",
+    "anatomy": [
+      "backdrop",
+      "panel",
+      "title",
+      "description",
+      "close"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "transitioning"
+    ],
+    "behavior": [
+      "点击遮罩可按配置关闭",
+      "通过 controlled state 管理"
+    ],
+    "accessibility": [
+      "标题和描述绑定",
+      "打开后焦点进入 panel"
+    ],
+    "tokens": {
+      "open": "boolean",
+      "onClose": "callback",
+      "transition": "boolean"
+    },
+    "do": [
+      "自定义视觉但保留语义"
+    ],
+    "dont": [
+      "不要移除 close path"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Overlay",
+        "summary": "An unstyled modal dialog with backdrop, focus management, and dismissal behavior.",
+        "anatomy": [
+          "Backdrop",
+          "Panel",
+          "Title",
+          "Description",
+          "Close"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Transitioning"
+        ],
+        "behavior": [
+          "Configure backdrop dismissal",
+          "Manage with controlled state"
+        ],
+        "accessibility": [
+          "Bind title and description",
+          "Move focus into the panel"
+        ],
+        "do": [
+          "Customize visuals while preserving semantics"
+        ],
+        "dont": [
+          "Do not remove the close path"
+        ]
+      }
+    }
+  },
+  {
+    "id": "headless-ui-menu",
+    "name": "Menu",
+    "brandProfileId": "headless-ui",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://headlessui.com/react/menu",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "vue"
+    ],
+    "category": "navigation",
+    "summary": "无样式的菜单按钮、项目和焦点管理组件。",
+    "anatomy": [
+      "button",
+      "items",
+      "item",
+      "section",
+      "heading"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "active",
+      "disabled"
+    ],
+    "behavior": [
+      "方向键移动项目",
+      "选择后关闭菜单"
+    ],
+    "accessibility": [
+      "遵循 menu 语义",
+      "焦点与 Escape 行为明确"
+    ],
+    "tokens": {
+      "anchor": "placement",
+      "disabled": "boolean",
+      "as": "element"
+    },
+    "do": [
+      "把菜单用于一组相关动作"
+    ],
+    "dont": [
+      "不要把它当作完整导航"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Navigation",
+        "summary": "Unstyled menu buttons, items, and focus management.",
+        "anatomy": [
+          "Button",
+          "Items",
+          "Item",
+          "Section",
+          "Heading"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Active",
+          "Disabled"
+        ],
+        "behavior": [
+          "Move with arrow keys",
+          "Close after selecting an item"
+        ],
+        "accessibility": [
+          "Follow menu semantics",
+          "Define focus and Escape behavior"
+        ],
+        "do": [
+          "Use a menu for related actions"
+        ],
+        "dont": [
+          "Do not use it as complete navigation"
+        ]
+      }
+    }
+  },
+  {
+    "id": "mantine-combobox",
+    "name": "Combobox",
+    "brandProfileId": "mantine",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://mantine.dev/core/combobox/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "input",
+    "summary": "支持搜索、选择、分组和键盘导航的组合输入。",
+    "anatomy": [
+      "target",
+      "input",
+      "dropdown",
+      "option",
+      "empty state"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "searching",
+      "selected",
+      "nothing found"
+    ],
+    "behavior": [
+      "输入过滤选项",
+      "上下键移动并回车确认"
+    ],
+    "accessibility": [
+      "暴露 active option",
+      "支持 Escape 关闭"
+    ],
+    "tokens": {
+      "width": "target width",
+      "offset": "configurable",
+      "withinPortal": "true | false"
+    },
+    "do": [
+      "提供无结果状态"
+    ],
+    "dont": [
+      "不要让选项依赖颜色"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Input",
+        "summary": "A searchable, selectable, grouped input with keyboard navigation.",
+        "anatomy": [
+          "Target",
+          "Input",
+          "Dropdown",
+          "Option",
+          "Empty state"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Searching",
+          "Selected",
+          "Nothing found"
+        ],
+        "behavior": [
+          "Filter options while typing",
+          "Move with arrows and confirm with Enter"
+        ],
+        "accessibility": [
+          "Expose the active option",
+          "Support Escape to close"
+        ],
+        "do": [
+          "Provide a no-results state"
+        ],
+        "dont": [
+          "Do not make options depend on color"
+        ]
+      }
+    }
+  },
+  {
+    "id": "mantine-date-picker",
+    "name": "Date picker",
+    "brandProfileId": "mantine",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://mantine.dev/dates/date-picker/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "date-time",
+    "summary": "选择单个日期、日期范围或月份。",
+    "anatomy": [
+      "input",
+      "calendar",
+      "month header",
+      "day grid",
+      "clear action"
+    ],
+    "states": [
+      "empty",
+      "open",
+      "selected",
+      "range",
+      "invalid",
+      "disabled"
+    ],
+    "behavior": [
+      "按键盘和指针选择日期",
+      "限制不可用日期并保留说明"
+    ],
+    "accessibility": [
+      "日期有可读名称",
+      "键盘可移动和确认"
+    ],
+    "tokens": {
+      "type": "default | multiple | range",
+      "locale": "configurable",
+      "minDate": "optional"
+    },
+    "do": [
+      "根据任务选择单选或范围"
+    ],
+    "dont": [
+      "不要要求用户记忆日期格式"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Date and time",
+        "summary": "Selects a single date, a range, or a month.",
+        "anatomy": [
+          "Input",
+          "Calendar",
+          "Month header",
+          "Day grid",
+          "Clear action"
+        ],
+        "states": [
+          "Empty",
+          "Open",
+          "Selected",
+          "Range",
+          "Invalid",
+          "Disabled"
+        ],
+        "behavior": [
+          "Select with keyboard or pointer",
+          "Explain unavailable dates"
+        ],
+        "accessibility": [
+          "Give dates readable names",
+          "Support keyboard navigation and confirmation"
+        ],
+        "do": [
+          "Choose single or range mode by task"
+        ],
+        "dont": [
+          "Do not require users to remember a date format"
+        ]
+      }
+    }
+  },
+  {
+    "id": "mantine-notifications",
+    "name": "Notifications",
+    "brandProfileId": "mantine",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://mantine.dev/x/notifications/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "feedback",
+    "summary": "在不打断当前任务的情况下提供短暂状态反馈。",
+    "anatomy": [
+      "container",
+      "title",
+      "message",
+      "close",
+      "icon"
+    ],
+    "states": [
+      "entering",
+      "visible",
+      "paused",
+      "exiting"
+    ],
+    "behavior": [
+      "按时间自动消失",
+      "必要时允许用户关闭或暂停"
+    ],
+    "accessibility": [
+      "消息可被辅助技术播报",
+      "不把关键错误只放在 toast"
+    ],
+    "tokens": {
+      "position": "top-right | bottom-right",
+      "autoClose": "duration",
+      "limit": "number"
+    },
+    "do": [
+      "让消息对应刚完成的操作"
+    ],
+    "dont": [
+      "不要用 notification 承载唯一错误解释"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Feedback",
+        "summary": "Provides brief status feedback without interrupting the current task.",
+        "anatomy": [
+          "Container",
+          "Title",
+          "Message",
+          "Close",
+          "Icon"
+        ],
+        "states": [
+          "Entering",
+          "Visible",
+          "Paused",
+          "Exiting"
+        ],
+        "behavior": [
+          "Dismiss automatically after a duration",
+          "Allow users to close or pause when needed"
+        ],
+        "accessibility": [
+          "Announce messages to assistive technology",
+          "Do not put critical error explanations only in a toast"
+        ],
+        "do": [
+          "Tie the message to the completed action"
+        ],
+        "dont": [
+          "Do not use a notification as the only error explanation"
+        ]
+      }
+    }
+  },
+  {
+    "id": "mui-autocomplete",
+    "name": "Autocomplete",
+    "brandProfileId": "mui",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://mui.com/material-ui/react-autocomplete/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "input",
+    "summary": "在输入过程中过滤并选择一个或多个建议项。",
+    "anatomy": [
+      "input",
+      "label",
+      "popup",
+      "option",
+      "loading state"
+    ],
+    "states": [
+      "empty",
+      "focused",
+      "open",
+      "selected",
+      "loading",
+      "disabled"
+    ],
+    "behavior": [
+      "输入过滤选项",
+      "支持自由输入或受限选择"
+    ],
+    "accessibility": [
+      "列表和选项有语义关系",
+      "键盘可完成选择"
+    ],
+    "tokens": {
+      "multiple": "true | false",
+      "freeSolo": "true | false",
+      "filterOptions": "function"
+    },
+    "do": [
+      "显示当前选择"
+    ],
+    "dont": [
+      "不要用模糊建议替代明确标签"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Input",
+        "summary": "Filters and selects one or more suggestions while the user types.",
+        "anatomy": [
+          "Input",
+          "Label",
+          "Popup",
+          "Option",
+          "Loading state"
+        ],
+        "states": [
+          "Empty",
+          "Focused",
+          "Open",
+          "Selected",
+          "Loading",
+          "Disabled"
+        ],
+        "behavior": [
+          "Filter options while typing",
+          "Support free input or constrained selection"
+        ],
+        "accessibility": [
+          "Relate listbox and options semantically",
+          "Complete selection with keyboard"
+        ],
+        "do": [
+          "Show the current selection"
+        ],
+        "dont": [
+          "Do not replace clear labels with fuzzy suggestions"
+        ]
+      }
+    }
+  },
+  {
+    "id": "mui-button",
+    "name": "Button",
+    "brandProfileId": "mui",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://mui.com/material-ui/react-button/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "action",
+    "summary": "Material UI 的按钮组件，支持 contained、outlined、text 和 loading 等变体。",
+    "anatomy": [
+      "container",
+      "label",
+      "optional start/end icon"
+    ],
+    "states": [
+      "enabled",
+      "hover",
+      "focus",
+      "loading",
+      "disabled"
+    ],
+    "behavior": [
+      "按重要性选择变体",
+      "loading 时阻止重复提交"
+    ],
+    "accessibility": [
+      "文本标签清晰",
+      "焦点状态可见"
+    ],
+    "tokens": {
+      "variant": "contained | outlined | text",
+      "size": "small | medium | large",
+      "color": "primary | secondary"
+    },
+    "do": [
+      "保持动作层级一致"
+    ],
+    "dont": [
+      "不要使用无标签图标按钮"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Action",
+        "summary": "Material UI buttons with contained, outlined, text, and loading variants.",
+        "anatomy": [
+          "Container",
+          "Label",
+          "Optional start/end icon"
+        ],
+        "states": [
+          "Enabled",
+          "Hover",
+          "Focus",
+          "Loading",
+          "Disabled"
+        ],
+        "behavior": [
+          "Choose a variant by importance",
+          "Prevent duplicate submits while loading"
+        ],
+        "accessibility": [
+          "Use clear labels",
+          "Keep focus visible"
+        ],
+        "do": [
+          "Keep action hierarchy consistent"
+        ],
+        "dont": [
+          "Do not use unlabeled icon buttons"
+        ]
+      }
+    }
+  },
+  {
+    "id": "mui-data-grid",
+    "name": "Data Grid",
+    "brandProfileId": "mui",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://mui.com/x/react-data-grid/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "data",
+    "summary": "处理排序、筛选、分页、编辑和虚拟滚动的结构化数据网格。",
+    "anatomy": [
+      "toolbar",
+      "column headers",
+      "rows",
+      "cells",
+      "pagination"
+    ],
+    "states": [
+      "loading",
+      "empty",
+      "selected",
+      "editing",
+      "error"
+    ],
+    "behavior": [
+      "排序和筛选保持可见反馈",
+      "编辑后提供保存与错误状态"
+    ],
+    "accessibility": [
+      "表头、行和单元格可被读屏理解",
+      "键盘可移动单元格"
+    ],
+    "tokens": {
+      "density": "compact | standard | comfortable",
+      "pagination": "client | server",
+      "rowHeight": "number"
+    },
+    "do": [
+      "在列多时提供密度控制"
+    ],
+    "dont": [
+      "不要隐藏正在编辑的错误"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Data display",
+        "summary": "Handles structured data with sorting, filtering, pagination, editing, and virtualization.",
+        "anatomy": [
+          "Toolbar",
+          "Column headers",
+          "Rows",
+          "Cells",
+          "Pagination"
+        ],
+        "states": [
+          "Loading",
+          "Empty",
+          "Selected",
+          "Editing",
+          "Error"
+        ],
+        "behavior": [
+          "Keep sort and filter feedback visible",
+          "Provide save and error states after edits"
+        ],
+        "accessibility": [
+          "Make headers, rows, and cells understandable to screen readers",
+          "Move between cells with the keyboard"
+        ],
+        "do": [
+          "Provide density control for many columns"
+        ],
+        "dont": [
+          "Do not hide errors in editing"
+        ]
+      }
+    }
+  },
+  {
+    "id": "polaris-button",
+    "name": "Button",
+    "brandProfileId": "shopify-polaris",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://polaris.shopify.com/components/actions/button",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "action",
+    "summary": "商家管理任务中的主要、次要、纯文本和危险操作。",
+    "anatomy": [
+      "container",
+      "label",
+      "optional icon"
+    ],
+    "states": [
+      "default",
+      "pressed",
+      "loading",
+      "disabled",
+      "critical"
+    ],
+    "behavior": [
+      "根据业务结果选择 tone",
+      "loading 时阻止重复操作"
+    ],
+    "accessibility": [
+      "按钮名称描述业务结果",
+      "触达和焦点足够明显"
+    ],
+    "tokens": {
+      "variant": "primary | secondary | tertiary | plain",
+      "tone": "critical | success"
+    },
+    "do": [
+      "让主操作对应当前任务"
+    ],
+    "dont": [
+      "不要把导航伪装成按钮"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Action",
+        "summary": "Primary, secondary, plain, and critical actions for merchant workflows.",
+        "anatomy": [
+          "Container",
+          "Label",
+          "Optional icon"
+        ],
+        "states": [
+          "Default",
+          "Pressed",
+          "Loading",
+          "Disabled",
+          "Critical"
+        ],
+        "behavior": [
+          "Choose tone by business outcome",
+          "Prevent duplicate actions while loading"
+        ],
+        "accessibility": [
+          "Name the business outcome",
+          "Keep target and focus visible"
+        ],
+        "do": [
+          "Match the primary action to the current task"
+        ],
+        "dont": [
+          "Do not disguise navigation as a button"
+        ]
+      }
+    }
+  },
+  {
+    "id": "polaris-index-table",
+    "name": "Index table",
+    "brandProfileId": "shopify-polaris",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://polaris.shopify.com/components/tables/index-table",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "data",
+    "summary": "用于订单、商品、客户等资源列表的浏览、选择和批量操作。",
+    "anatomy": [
+      "resource name",
+      "header",
+      "row",
+      "selection",
+      "bulk actions",
+      "pagination"
+    ],
+    "states": [
+      "loading",
+      "empty",
+      "selected",
+      "filtered",
+      "sorted"
+    ],
+    "behavior": [
+      "选择后显示批量操作",
+      "窄屏切换为 condensed 结构"
+    ],
+    "accessibility": [
+      "资源名称描述表格用途",
+      "选择数量可被播报"
+    ],
+    "tokens": {
+      "selectable": "boolean",
+      "condensed": "responsive",
+      "headings": "array"
+    },
+    "do": [
+      "把资源标识放在首列"
+    ],
+    "dont": [
+      "不要把不相关资源混在一个 index"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Data display",
+        "summary": "Browses, selects, and performs bulk actions on orders, products, customers, and other resources.",
+        "anatomy": [
+          "Resource name",
+          "Header",
+          "Row",
+          "Selection",
+          "Bulk actions",
+          "Pagination"
+        ],
+        "states": [
+          "Loading",
+          "Empty",
+          "Selected",
+          "Filtered",
+          "Sorted"
+        ],
+        "behavior": [
+          "Show bulk actions after selection",
+          "Use a condensed structure on narrow screens"
+        ],
+        "accessibility": [
+          "Name the resource set",
+          "Announce selection count"
+        ],
+        "do": [
+          "Put resource identity in the first column"
+        ],
+        "dont": [
+          "Do not mix unrelated resources in one index"
+        ]
+      }
+    }
+  },
+  {
+    "id": "polaris-text-field",
+    "name": "Text field",
+    "brandProfileId": "shopify-polaris",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://polaris.shopify.com/components/selection-and-input/text-field",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "input",
+    "summary": "采集商品、订单与商家设置中的文本或数字。",
+    "anatomy": [
+      "label",
+      "input",
+      "prefix/suffix",
+      "help text",
+      "error"
+    ],
+    "states": [
+      "empty",
+      "filled",
+      "focus",
+      "error",
+      "disabled",
+      "read-only"
+    ],
+    "behavior": [
+      "按值类型选择 inputMode",
+      "前后缀解释单位或币种"
+    ],
+    "accessibility": [
+      "标签持续可见",
+      "错误说明与字段关联"
+    ],
+    "tokens": {
+      "type": "text | number | email | currency",
+      "autoComplete": "string",
+      "multiline": "boolean"
+    },
+    "do": [
+      "明确格式和单位"
+    ],
+    "dont": [
+      "不要把 placeholder 当标签"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Input",
+        "summary": "Collects text or numbers for products, orders, and merchant settings.",
+        "anatomy": [
+          "Label",
+          "Input",
+          "Prefix/suffix",
+          "Help text",
+          "Error"
+        ],
+        "states": [
+          "Empty",
+          "Filled",
+          "Focus",
+          "Error",
+          "Disabled",
+          "Read-only"
+        ],
+        "behavior": [
+          "Choose inputMode by value type",
+          "Use affixes to explain units or currency"
+        ],
+        "accessibility": [
+          "Keep labels visible",
+          "Associate errors with fields"
+        ],
+        "do": [
+          "State formats and units"
+        ],
+        "dont": [
+          "Do not use a placeholder as a label"
+        ]
+      }
+    }
+  },
+  {
+    "id": "primer-button",
+    "name": "Button",
+    "brandProfileId": "github-primer",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://primer.style/product/components/button/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "action",
+    "summary": "开发者工具中的默认、主要、危险和不可见操作。",
+    "anatomy": [
+      "container",
+      "label",
+      "leading/trailing visual"
+    ],
+    "states": [
+      "default",
+      "hover",
+      "active",
+      "focus",
+      "disabled",
+      "loading"
+    ],
+    "behavior": [
+      "variant 表达后果",
+      "leading visual 辅助而不替代文字"
+    ],
+    "accessibility": [
+      "按钮文字具体",
+      "icon button 提供 aria-label"
+    ],
+    "tokens": {
+      "variant": "default | primary | danger | invisible",
+      "size": "small | medium | large"
+    },
+    "do": [
+      "危险动作使用 danger"
+    ],
+    "dont": [
+      "不要让多个 primary 竞争"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Action",
+        "summary": "Default, primary, dangerous, and invisible actions for developer tools.",
+        "anatomy": [
+          "Container",
+          "Label",
+          "Leading/trailing visual"
+        ],
+        "states": [
+          "Default",
+          "Hover",
+          "Active",
+          "Focus",
+          "Disabled",
+          "Loading"
+        ],
+        "behavior": [
+          "Use variant to express consequence",
+          "Use visuals to support, not replace, labels"
+        ],
+        "accessibility": [
+          "Use specific button text",
+          "Name icon buttons"
+        ],
+        "do": [
+          "Use danger for destructive actions"
+        ],
+        "dont": [
+          "Do not let multiple primary buttons compete"
+        ]
+      }
+    }
+  },
+  {
+    "id": "primer-data-table",
+    "name": "DataTable",
+    "brandProfileId": "github-primer",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://primer.style/product/components/data-table/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "data",
+    "summary": "展示仓库、议题和审查等高密度结构化信息。",
+    "anatomy": [
+      "caption",
+      "header",
+      "row",
+      "cell",
+      "actions"
+    ],
+    "states": [
+      "default",
+      "sorted",
+      "selected",
+      "loading",
+      "empty"
+    ],
+    "behavior": [
+      "列宽匹配内容类型",
+      "操作列保持克制"
+    ],
+    "accessibility": [
+      "caption 和 header 完整",
+      "排序按钮可键盘触发"
+    ],
+    "tokens": {
+      "cellPadding": "condensed | normal",
+      "numeric": "right aligned",
+      "stickyHeader": "optional"
+    },
+    "do": [
+      "用 monospace 展示代码标识"
+    ],
+    "dont": [
+      "不要把每列设成相同宽度"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Data display",
+        "summary": "Displays dense structured information for repositories, issues, and reviews.",
+        "anatomy": [
+          "Caption",
+          "Header",
+          "Row",
+          "Cell",
+          "Actions"
+        ],
+        "states": [
+          "Default",
+          "Sorted",
+          "Selected",
+          "Loading",
+          "Empty"
+        ],
+        "behavior": [
+          "Match column width to content type",
+          "Keep action columns restrained"
+        ],
+        "accessibility": [
+          "Provide caption and headers",
+          "Make sorting keyboard operable"
+        ],
+        "do": [
+          "Use monospace for code identifiers"
+        ],
+        "dont": [
+          "Do not make every column the same width"
+        ]
+      }
+    }
+  },
+  {
+    "id": "primer-dialog",
+    "name": "Dialog",
+    "brandProfileId": "github-primer",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://primer.style/product/components/dialog/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "overlay",
+    "summary": "在 GitHub 风格工作流中完成确认、配置与短表单。",
+    "anatomy": [
+      "header",
+      "title",
+      "body",
+      "footer",
+      "close"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "narrow",
+      "wide",
+      "danger"
+    ],
+    "behavior": [
+      "焦点在打开和关闭间正确恢复",
+      "滚动内容保持动作可见"
+    ],
+    "accessibility": [
+      "标题命名 dialog",
+      "关闭按钮有可访问名称"
+    ],
+    "tokens": {
+      "width": "small | medium | large | xlarge",
+      "position": "center | side"
+    },
+    "do": [
+      "在 footer 中保持动作顺序"
+    ],
+    "dont": [
+      "不要在 dialog 中进行长导航"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Overlay",
+        "summary": "Handles confirmations, settings, and short forms in GitHub-style workflows.",
+        "anatomy": [
+          "Header",
+          "Title",
+          "Body",
+          "Footer",
+          "Close"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Narrow",
+          "Wide",
+          "Danger"
+        ],
+        "behavior": [
+          "Restore focus correctly",
+          "Keep actions visible while content scrolls"
+        ],
+        "accessibility": [
+          "Name the dialog with a title",
+          "Give close an accessible name"
+        ],
+        "do": [
+          "Keep action order stable in the footer"
+        ],
+        "dont": [
+          "Do not perform long navigation in a dialog"
+        ]
+      }
+    }
+  },
+  {
+    "id": "radix-ui-dialog",
+    "name": "Dialog",
+    "brandProfileId": "radix-ui",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://www.radix-ui.com/primitives/docs/components/dialog",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "overlay",
+    "summary": "无样式但完整处理焦点、遮罩和描述关系的对话框原语。",
+    "anatomy": [
+      "trigger",
+      "overlay",
+      "content",
+      "title",
+      "description",
+      "close"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "modal",
+      "non-modal"
+    ],
+    "behavior": [
+      "打开时将焦点移入内容",
+      "关闭后恢复触发器焦点"
+    ],
+    "accessibility": [
+      "标题和描述必需可关联",
+      "遮罩外内容不可操作"
+    ],
+    "tokens": {
+      "modal": "boolean",
+      "onOpenChange": "callback",
+      "container": "portal"
+    },
+    "do": [
+      "为危险操作提供明确标题"
+    ],
+    "dont": [
+      "不要省略 close affordance"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Overlay",
+        "summary": "An unstyled dialog primitive that handles focus, overlay, and description relationships.",
+        "anatomy": [
+          "Trigger",
+          "Overlay",
+          "Content",
+          "Title",
+          "Description",
+          "Close"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Modal",
+          "Non-modal"
+        ],
+        "behavior": [
+          "Move focus into content on open",
+          "Restore trigger focus on close"
+        ],
+        "accessibility": [
+          "Associate title and description",
+          "Prevent interaction outside a modal"
+        ],
+        "do": [
+          "Give destructive actions a clear title"
+        ],
+        "dont": [
+          "Do not omit a close affordance"
+        ]
+      }
+    }
+  },
+  {
+    "id": "radix-ui-dropdown-menu",
+    "name": "Dropdown Menu",
+    "brandProfileId": "radix-ui",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://www.radix-ui.com/primitives/docs/components/dropdown-menu",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "navigation",
+    "summary": "无样式的分层操作菜单原语，提供键盘导航和焦点管理。",
+    "anatomy": [
+      "trigger",
+      "portal",
+      "content",
+      "item",
+      "group",
+      "separator"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "highlighted",
+      "disabled",
+      "checked"
+    ],
+    "behavior": [
+      "支持方向键移动",
+      "选择后关闭并返回触发器"
+    ],
+    "accessibility": [
+      "遵循 menu 语义",
+      "管理焦点与 Escape 关闭"
+    ],
+    "tokens": {
+      "sideOffset": "number",
+      "loop": "boolean",
+      "collisionPadding": "number"
+    },
+    "do": [
+      "使用短的操作标签"
+    ],
+    "dont": [
+      "不要把长期导航塞进菜单"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Navigation",
+        "summary": "An unstyled layered action menu primitive with keyboard navigation and focus management.",
+        "anatomy": [
+          "Trigger",
+          "Portal",
+          "Content",
+          "Item",
+          "Group",
+          "Separator"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Highlighted",
+          "Disabled",
+          "Checked"
+        ],
+        "behavior": [
+          "Move with arrow keys",
+          "Close after selection and return focus to trigger"
+        ],
+        "accessibility": [
+          "Follow menu semantics",
+          "Manage focus and Escape dismissal"
+        ],
+        "do": [
+          "Use short action labels"
+        ],
+        "dont": [
+          "Do not put persistent navigation in a menu"
+        ]
+      }
+    }
+  },
+  {
+    "id": "radix-ui-tabs",
+    "name": "Tabs",
+    "brandProfileId": "radix-ui",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://www.radix-ui.com/primitives/docs/components/tabs",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "navigation",
+    "summary": "在同一上下文中切换互斥内容面板。",
+    "anatomy": [
+      "root",
+      "list",
+      "trigger",
+      "indicator",
+      "content"
+    ],
+    "states": [
+      "active",
+      "inactive",
+      "focused",
+      "disabled"
+    ],
+    "behavior": [
+      "使用方向键切换 tab",
+      "保持活动面板与 tab 语义关联"
+    ],
+    "accessibility": [
+      "实现 tabs ARIA 模式",
+      "支持自动或手动激活"
+    ],
+    "tokens": {
+      "orientation": "horizontal | vertical",
+      "activationMode": "automatic | manual",
+      "loopFocus": "boolean"
+    },
+    "do": [
+      "保持 tab 标签短且平行"
+    ],
+    "dont": [
+      "不要把 tab 当作页面主导航"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Navigation",
+        "summary": "Switches between mutually exclusive content panels in one context.",
+        "anatomy": [
+          "Root",
+          "List",
+          "Trigger",
+          "Indicator",
+          "Content"
+        ],
+        "states": [
+          "Active",
+          "Inactive",
+          "Focused",
+          "Disabled"
+        ],
+        "behavior": [
+          "Switch tabs with arrow keys",
+          "Keep active panel semantically associated"
+        ],
+        "accessibility": [
+          "Implement the ARIA tabs pattern",
+          "Support automatic or manual activation"
+        ],
+        "do": [
+          "Keep labels short and parallel"
+        ],
+        "dont": [
+          "Do not use tabs as primary page navigation"
+        ]
+      }
+    }
+  },
+  {
+    "id": "semi-button",
+    "name": "Button",
+    "brandProfileId": "semi-design",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://semi.design/en-US/input/button",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "action",
+    "summary": "企业 React 产品中的主要、次要、警告、危险和轻量操作。",
+    "anatomy": [
+      "container",
+      "content",
+      "icon",
+      "loading"
+    ],
+    "states": [
+      "default",
+      "hover",
+      "active",
+      "loading",
+      "disabled"
+    ],
+    "behavior": [
+      "theme 和 type 共同表达层级",
+      "异步动作显示 loading"
+    ],
+    "accessibility": [
+      "文字说明操作结果",
+      "焦点态清晰"
+    ],
+    "tokens": {
+      "theme": "solid | borderless | light",
+      "type": "primary | secondary | tertiary | warning | danger",
+      "size": "small | default | large"
+    },
+    "do": [
+      "保持层级一致"
+    ],
+    "dont": [
+      "不要用按钮作为纯展示标签"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Action",
+        "summary": "Primary, secondary, warning, dangerous, and lightweight actions for enterprise React products.",
+        "anatomy": [
+          "Container",
+          "Content",
+          "Icon",
+          "Loading"
+        ],
+        "states": [
+          "Default",
+          "Hover",
+          "Active",
+          "Loading",
+          "Disabled"
+        ],
+        "behavior": [
+          "Express hierarchy with theme and type",
+          "Show loading for async actions"
+        ],
+        "accessibility": [
+          "Describe outcomes in text",
+          "Keep focus clear"
+        ],
+        "do": [
+          "Keep hierarchy consistent"
+        ],
+        "dont": [
+          "Do not use a button as a display-only label"
+        ]
+      }
+    }
+  },
+  {
+    "id": "semi-modal",
+    "name": "Modal",
+    "brandProfileId": "semi-design",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://semi.design/en-US/feedback/modal",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "overlay",
+    "summary": "用于确认、提示、业务表单和异步结果反馈。",
+    "anatomy": [
+      "title",
+      "content",
+      "footer",
+      "close",
+      "mask"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "confirming",
+      "loading",
+      "fullscreen"
+    ],
+    "behavior": [
+      "确认动作可异步完成",
+      "关闭后清理临时状态"
+    ],
+    "accessibility": [
+      "标题与 modal 关联",
+      "焦点进入并恢复"
+    ],
+    "tokens": {
+      "type": "info | success | warning | error",
+      "centered": "boolean",
+      "fullScreen": "boolean"
+    },
+    "do": [
+      "在内容中解释影响"
+    ],
+    "dont": [
+      "不要用 modal 代替普通通知"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Overlay",
+        "summary": "Handles confirmation, messaging, business forms, and async result feedback.",
+        "anatomy": [
+          "Title",
+          "Content",
+          "Footer",
+          "Close",
+          "Mask"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Confirming",
+          "Loading",
+          "Fullscreen"
+        ],
+        "behavior": [
+          "Complete confirmations asynchronously",
+          "Clear temporary state after close"
+        ],
+        "accessibility": [
+          "Associate title and modal",
+          "Move and restore focus"
+        ],
+        "do": [
+          "Explain impact in the content"
+        ],
+        "dont": [
+          "Do not use a modal for ordinary notifications"
+        ]
+      }
+    }
+  },
+  {
+    "id": "semi-table",
+    "name": "Table",
+    "brandProfileId": "semi-design",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://semi.design/en-US/show/table",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "data",
+    "summary": "支持固定列、树形、展开、选择、排序和虚拟化的业务表格。",
+    "anatomy": [
+      "header",
+      "column",
+      "row",
+      "cell",
+      "pagination"
+    ],
+    "states": [
+      "loading",
+      "empty",
+      "selected",
+      "expanded",
+      "sorted"
+    ],
+    "behavior": [
+      "列定义驱动排序和渲染",
+      "复杂行允许展开"
+    ],
+    "accessibility": [
+      "保持 table 语义",
+      "选择状态有文本或语义反馈"
+    ],
+    "tokens": {
+      "size": "small | default | middle",
+      "virtualized": "boolean",
+      "pagination": "object"
+    },
+    "do": [
+      "为操作列保持固定位置"
+    ],
+    "dont": [
+      "不要让横向滚动隐藏首列身份"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Data display",
+        "summary": "A business table with fixed columns, trees, expansion, selection, sorting, and virtualization.",
+        "anatomy": [
+          "Header",
+          "Column",
+          "Row",
+          "Cell",
+          "Pagination"
+        ],
+        "states": [
+          "Loading",
+          "Empty",
+          "Selected",
+          "Expanded",
+          "Sorted"
+        ],
+        "behavior": [
+          "Drive sorting and rendering from column definitions",
+          "Allow complex rows to expand"
+        ],
+        "accessibility": [
+          "Preserve table semantics",
+          "Give selection semantic or text feedback"
+        ],
+        "do": [
+          "Keep action columns stable"
+        ],
+        "dont": [
+          "Do not let horizontal scrolling hide row identity"
+        ]
+      }
+    }
+  },
+  {
+    "id": "shadcn-ui-command",
+    "name": "Command",
+    "brandProfileId": "shadcn-ui",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://ui.shadcn.com/docs/components/command",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "navigation",
+    "summary": "可组合的命令菜单与快速搜索界面。",
+    "anatomy": [
+      "dialog",
+      "input",
+      "list",
+      "group",
+      "item",
+      "empty"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "searching",
+      "highlighted",
+      "empty"
+    ],
+    "behavior": [
+      "输入实时过滤命令",
+      "使用快捷键打开并可 Escape 关闭"
+    ],
+    "accessibility": [
+      "命令项支持键盘操作",
+      "搜索结果变化可被感知"
+    ],
+    "tokens": {
+      "filter": "function",
+      "loop": "boolean",
+      "shortcut": "configurable"
+    },
+    "do": [
+      "按任务分组命令"
+    ],
+    "dont": [
+      "不要把所有设置堆入一个列表"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Navigation",
+        "summary": "A composable command menu and quick-search surface.",
+        "anatomy": [
+          "Dialog",
+          "Input",
+          "List",
+          "Group",
+          "Item",
+          "Empty"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Searching",
+          "Highlighted",
+          "Empty"
+        ],
+        "behavior": [
+          "Filter commands as the user types",
+          "Open with a shortcut and close with Escape"
+        ],
+        "accessibility": [
+          "Make command items keyboard operable",
+          "Expose changing results"
+        ],
+        "do": [
+          "Group commands by task"
+        ],
+        "dont": [
+          "Do not put every setting in one list"
+        ]
+      }
+    }
+  },
+  {
+    "id": "shadcn-ui-data-table",
+    "name": "Data table",
+    "brandProfileId": "shadcn-ui",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://ui.shadcn.com/docs/components/data-table",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "data",
+    "summary": "基于 TanStack Table 组合排序、筛选、分页和列可见性。",
+    "anatomy": [
+      "toolbar",
+      "header",
+      "row",
+      "cell",
+      "pagination",
+      "column menu"
+    ],
+    "states": [
+      "loading",
+      "empty",
+      "selected",
+      "sorted",
+      "filtered"
+    ],
+    "behavior": [
+      "状态由 URL 或本地状态保持",
+      "工具栏动作与数据集关联"
+    ],
+    "accessibility": [
+      "表头和单元格语义完整",
+      "批量选择提供数量反馈"
+    ],
+    "tokens": {
+      "sorting": "state",
+      "filtering": "state",
+      "pagination": "state"
+    },
+    "do": [
+      "为密集数据提供筛选入口"
+    ],
+    "dont": [
+      "不要把表格当作移动端唯一布局"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Data display",
+        "summary": "Composes sorting, filtering, pagination, and column visibility with TanStack Table.",
+        "anatomy": [
+          "Toolbar",
+          "Header",
+          "Row",
+          "Cell",
+          "Pagination",
+          "Column menu"
+        ],
+        "states": [
+          "Loading",
+          "Empty",
+          "Selected",
+          "Sorted",
+          "Filtered"
+        ],
+        "behavior": [
+          "Persist state in URL or local state",
+          "Tie toolbar actions to the data set"
+        ],
+        "accessibility": [
+          "Preserve header and cell semantics",
+          "Give bulk selection a count"
+        ],
+        "do": [
+          "Provide a filtering entry point"
+        ],
+        "dont": [
+          "Do not make the table the only mobile layout"
+        ]
+      }
+    }
+  },
+  {
+    "id": "shadcn-ui-form",
+    "name": "Form",
+    "brandProfileId": "shadcn-ui",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://ui.shadcn.com/docs/components/form",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "input",
+    "summary": "以 React Hook Form 与 Zod 组合字段、校验和错误信息。",
+    "anatomy": [
+      "field",
+      "label",
+      "control",
+      "description",
+      "message"
+    ],
+    "states": [
+      "default",
+      "focused",
+      "invalid",
+      "submitting",
+      "success"
+    ],
+    "behavior": [
+      "校验反馈靠近对应字段",
+      "提交中禁用重复动作"
+    ],
+    "accessibility": [
+      "字段标签与消息关联",
+      "错误消息具有稳定语义"
+    ],
+    "tokens": {
+      "validation": "zod or custom",
+      "layout": "stacked",
+      "control": "composable"
+    },
+    "do": [
+      "让错误信息给出下一步"
+    ],
+    "dont": [
+      "不要把 schema 错误直接暴露给用户"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Input",
+        "summary": "Composes fields, validation, and error messages with React Hook Form and Zod.",
+        "anatomy": [
+          "Field",
+          "Label",
+          "Control",
+          "Description",
+          "Message"
+        ],
+        "states": [
+          "Default",
+          "Focused",
+          "Invalid",
+          "Submitting",
+          "Success"
+        ],
+        "behavior": [
+          "Place validation feedback beside its field",
+          "Disable duplicate actions while submitting"
+        ],
+        "accessibility": [
+          "Associate labels and messages",
+          "Keep errors semantically stable"
+        ],
+        "do": [
+          "Give errors a next step"
+        ],
+        "dont": [
+          "Do not expose schema errors verbatim"
+        ]
+      }
+    }
+  },
+  {
+    "id": "spectrum-button",
+    "name": "Button",
+    "brandProfileId": "adobe-spectrum",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://spectrum.adobe.com/page/button/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "action",
+    "summary": "创意工具和工作区中的主要、次要、负向与静默操作。",
+    "anatomy": [
+      "container",
+      "label",
+      "optional icon"
+    ],
+    "states": [
+      "default",
+      "hover",
+      "down",
+      "focus",
+      "disabled",
+      "pending"
+    ],
+    "behavior": [
+      "style 和 treatment 表达层级",
+      "pending 时保留上下文"
+    ],
+    "accessibility": [
+      "支持键盘与焦点环",
+      "标签避免含糊"
+    ],
+    "tokens": {
+      "style": "accent | fill | outline",
+      "treatment": "negative | neutral | positive",
+      "size": "s | m | l | xl"
+    },
+    "do": [
+      "使用语义 treatment"
+    ],
+    "dont": [
+      "不要把 icon 当唯一动作说明"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Action",
+        "summary": "Primary, secondary, negative, and quiet actions for creative tools and workspaces.",
+        "anatomy": [
+          "Container",
+          "Label",
+          "Optional icon"
+        ],
+        "states": [
+          "Default",
+          "Hover",
+          "Down",
+          "Focus",
+          "Disabled",
+          "Pending"
+        ],
+        "behavior": [
+          "Express hierarchy with style and treatment",
+          "Preserve context while pending"
+        ],
+        "accessibility": [
+          "Support keyboard and focus ring",
+          "Avoid ambiguous labels"
+        ],
+        "do": [
+          "Use semantic treatments"
+        ],
+        "dont": [
+          "Do not use an icon as the only action explanation"
+        ]
+      }
+    }
+  },
+  {
+    "id": "spectrum-dialog",
+    "name": "Dialog",
+    "brandProfileId": "adobe-spectrum",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://spectrum.adobe.com/page/dialog/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "overlay",
+    "summary": "在复杂工作区上方承载聚焦信息、确认或配置。",
+    "anatomy": [
+      "heading",
+      "content",
+      "buttons",
+      "dismiss"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "modal",
+      "fullscreen",
+      "dismissible"
+    ],
+    "behavior": [
+      "根据内容复杂度选择尺寸",
+      "主要动作保持可预测位置"
+    ],
+    "accessibility": [
+      "标题和内容关系明确",
+      "聚焦顺序完整"
+    ],
+    "tokens": {
+      "type": "modal | popover | fullscreen",
+      "size": "s | m | l"
+    },
+    "do": [
+      "短任务使用 modal"
+    ],
+    "dont": [
+      "不要隐藏退出方式"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Overlay",
+        "summary": "Presents focused information, confirmation, or settings above complex workspaces.",
+        "anatomy": [
+          "Heading",
+          "Content",
+          "Buttons",
+          "Dismiss"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Modal",
+          "Fullscreen",
+          "Dismissible"
+        ],
+        "behavior": [
+          "Choose size by content complexity",
+          "Keep primary actions predictable"
+        ],
+        "accessibility": [
+          "Relate heading and content",
+          "Preserve a complete focus order"
+        ],
+        "do": [
+          "Use modal for short tasks"
+        ],
+        "dont": [
+          "Do not hide the exit path"
+        ]
+      }
+    }
+  },
+  {
+    "id": "spectrum-table",
+    "name": "Table",
+    "brandProfileId": "adobe-spectrum",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://spectrum.adobe.com/page/table/",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react"
+    ],
+    "category": "data",
+    "summary": "在创意与内容工作流中展示、选择和排序结构化资源。",
+    "anatomy": [
+      "header",
+      "row",
+      "cell",
+      "selection",
+      "sort",
+      "actions"
+    ],
+    "states": [
+      "default",
+      "hover",
+      "selected",
+      "sorted",
+      "loading",
+      "empty"
+    ],
+    "behavior": [
+      "列类型决定对齐方式",
+      "选择状态支持批量动作"
+    ],
+    "accessibility": [
+      "表格关系语义化",
+      "状态不只依赖色彩"
+    ],
+    "tokens": {
+      "density": "compact | spacious",
+      "selection": "single | multiple",
+      "overflow": "responsive"
+    },
+    "do": [
+      "保持资源缩略图尺寸稳定"
+    ],
+    "dont": [
+      "不要让行高随状态跳动"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Data display",
+        "summary": "Displays, selects, and sorts structured assets in creative and content workflows.",
+        "anatomy": [
+          "Header",
+          "Row",
+          "Cell",
+          "Selection",
+          "Sort",
+          "Actions"
+        ],
+        "states": [
+          "Default",
+          "Hover",
+          "Selected",
+          "Sorted",
+          "Loading",
+          "Empty"
+        ],
+        "behavior": [
+          "Align by column type",
+          "Support bulk actions after selection"
+        ],
+        "accessibility": [
+          "Express table relationships semantically",
+          "Do not rely on color for state"
+        ],
+        "do": [
+          "Keep asset thumbnail sizes stable"
+        ],
+        "dont": [
+          "Do not let row height shift with state"
+        ]
+      }
+    }
+  },
+  {
+    "id": "tdesign-button",
+    "name": "Button",
+    "brandProfileId": "tdesign",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://tdesign.tencent.com/react/components/button",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "vue"
+    ],
+    "category": "action",
+    "summary": "用于触发即时操作，通过主题、变体、尺寸、形状和状态表达动作层级。",
+    "anatomy": [
+      "container",
+      "label",
+      "optional icon",
+      "loading indicator"
+    ],
+    "states": [
+      "default",
+      "hover",
+      "active",
+      "focus",
+      "loading",
+      "disabled"
+    ],
+    "behavior": [
+      "一个操作区只保留一个最强主操作",
+      "异步提交时使用 loading 状态阻止重复触发"
+    ],
+    "accessibility": [
+      "使用明确的动作标签",
+      "仅图标按钮提供可访问名称",
+      "键盘焦点状态必须可见"
+    ],
+    "tokens": {
+      "theme": "default | primary | danger | warning | success",
+      "variant": "base | outline | dashed | text",
+      "size": "small | medium | large",
+      "shape": "rectangle | square | round | circle"
+    },
+    "do": [
+      "根据动作层级选择主题和变体",
+      "让按钮文字描述操作结果"
+    ],
+    "dont": [
+      "不要在同一区域堆叠多个主按钮",
+      "不要仅依赖颜色说明危险操作"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Action",
+        "summary": "Triggers immediate actions, expressing hierarchy through theme, variant, size, shape, and state.",
+        "anatomy": [
+          "Container",
+          "Label",
+          "Optional icon",
+          "Loading indicator"
+        ],
+        "states": [
+          "Default",
+          "Hover",
+          "Active",
+          "Focus",
+          "Loading",
+          "Disabled"
+        ],
+        "behavior": [
+          "Keep one strongest primary action in an action area",
+          "Use loading state during async submission to prevent duplicate triggers"
+        ],
+        "accessibility": [
+          "Use an explicit action label",
+          "Give icon-only buttons an accessible name",
+          "Keep keyboard focus visibly apparent"
+        ],
+        "do": [
+          "Choose theme and variant according to action hierarchy",
+          "Describe the action result in the label"
+        ],
+        "dont": [
+          "Do not stack several primary buttons in one area",
+          "Do not rely on color alone for dangerous actions"
+        ]
+      }
+    }
+  },
+  {
+    "id": "tdesign-dialog",
+    "name": "Dialog",
+    "brandProfileId": "tdesign",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://tdesign.tencent.com/react/components/dialog",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "vue"
+    ],
+    "category": "overlay",
+    "summary": "用于确认、信息提示与短流程输入。",
+    "anatomy": [
+      "header",
+      "body",
+      "footer",
+      "close",
+      "overlay"
+    ],
+    "states": [
+      "closed",
+      "open",
+      "confirming",
+      "loading"
+    ],
+    "behavior": [
+      "确认操作提供 loading 状态",
+      "完成后恢复原上下文"
+    ],
+    "accessibility": [
+      "焦点限制在 dialog 内",
+      "标题和关闭按钮可读"
+    ],
+    "tokens": {
+      "mode": "modal | modeless | full-screen",
+      "placement": "center | top"
+    },
+    "do": [
+      "危险操作写明后果"
+    ],
+    "dont": [
+      "不要嵌套 dialog"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Overlay",
+        "summary": "Handles confirmations, information, and short input workflows.",
+        "anatomy": [
+          "Header",
+          "Body",
+          "Footer",
+          "Close",
+          "Overlay"
+        ],
+        "states": [
+          "Closed",
+          "Open",
+          "Confirming",
+          "Loading"
+        ],
+        "behavior": [
+          "Show loading during confirmation",
+          "Restore the original context"
+        ],
+        "accessibility": [
+          "Trap focus inside the dialog",
+          "Name title and close button"
+        ],
+        "do": [
+          "State destructive consequences"
+        ],
+        "dont": [
+          "Do not nest dialogs"
+        ]
+      }
+    }
+  },
+  {
+    "id": "tdesign-table",
+    "name": "Table",
+    "brandProfileId": "tdesign",
+    "sourceType": "public-guideline",
+    "sourceStatus": "基于公开设计规范",
+    "sourceUrl": "https://tdesign.tencent.com/react/components/table",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "react",
+      "vue"
+    ],
+    "category": "data",
+    "summary": "支持排序、筛选、树形、固定列、编辑和虚拟滚动的企业表格。",
+    "anatomy": [
+      "header",
+      "row",
+      "cell",
+      "selection",
+      "pagination"
+    ],
+    "states": [
+      "loading",
+      "empty",
+      "selected",
+      "expanded",
+      "sorted"
+    ],
+    "behavior": [
+      "复杂数据使用固定列保持识别字段",
+      "批量操作只在选择后出现"
+    ],
+    "accessibility": [
+      "保持表头语义",
+      "选择和排序状态可读"
+    ],
+    "tokens": {
+      "size": "small | medium | large",
+      "rowKey": "required",
+      "layout": "auto | fixed"
+    },
+    "do": [
+      "为数据密度选择尺寸"
+    ],
+    "dont": [
+      "不要在窄屏保留所有列"
+    ],
+    "locales": {
+      "en": {
+        "sourceStatus": "Based on public design guidelines",
+        "category": "Data display",
+        "summary": "An enterprise table with sorting, filtering, trees, fixed columns, editing, and virtualization.",
+        "anatomy": [
+          "Header",
+          "Row",
+          "Cell",
+          "Selection",
+          "Pagination"
+        ],
+        "states": [
+          "Loading",
+          "Empty",
+          "Selected",
+          "Expanded",
+          "Sorted"
+        ],
+        "behavior": [
+          "Fix identifying columns in complex data",
+          "Show bulk actions after selection"
+        ],
+        "accessibility": [
+          "Preserve header semantics",
+          "Expose selection and sort state"
+        ],
+        "do": [
+          "Choose size by data density"
+        ],
+        "dont": [
+          "Do not keep every column on narrow screens"
+        ]
+      }
+    }
   }
 ];

@@ -27,7 +27,31 @@
     "motion": "筛选、日期、目标和底部导航都用即时选中态与短反馈回应。",
     "avoid": "过多彩色统计卡、密集运动数据、生成图内 UI 文本和无法返回的多步流程。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Minimal workout planning",
+      "reference": "A white phone, fine black lines, pale-violet stat cards, and bold yellow actions form a minimal workout-management experience",
+      "prompt": "Minimal fitness-app visual reference: a white 390×844 modern iPhone canvas, large black sans-serif headings, fine-line icons, pale-violet and light-blue statistics cards, and a bright-yellow primary button. Use two separate text-free image2 portraits for the trainer and target-area athlete. Render all copy, status bars, dates, card numbers, buttons, labels, bottom navigation, arrows, and icons in code; do not generate text, logos, watermarks, phones, or UI glyphs inside images.",
+      "summary": "Course discovery, daily activity, and target-area screens connect the workout flow while black-and-white structure, muted data colors, and yellow next steps keep distinct roles.",
+      "bestFor": "Exercise training, fitness plans, habit check-ins, personal activity tracking",
+      "tags": [
+        "Minimal black and white",
+        "Activity stats",
+        "Workout guidance"
+      ],
+      "palette": "Cloud white / Ink black / Pale violet / Light blue / Energy yellow",
+      "layout": "Workout discovery + Activity stats + Target-area selection",
+      "recipe": {
+        "principle": "Break the day's workout decision into three short tasks: choose a class, read the status, and set a target.",
+        "image": "Use separate text-free generated portraits for the trainer and athlete; keep every action and data point in the code layer.",
+        "type": "Use large sans-serif headings and direct numbers; keep supporting labels short and anchored to a stable grid.",
+        "components": "19.5:9 iOS frame, course filters, tappable workout cards, activity metrics, date selection, target-area labels, and bottom navigation.",
+        "motion": "Respond to filters, dates, targets, and bottom navigation with immediate selected states and brief feedback.",
+        "avoid": "Avoid too many colored stat cards, dense exercise data, UI text embedded in generated images, and multi-step flows with no way back."
+      }
+    }
+  },
+  "styleProfileIds": [
     "minimal-tech"
   ]
 }

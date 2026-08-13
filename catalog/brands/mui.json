@@ -1,0 +1,14 @@
+{
+  "id": "mui",
+  "name": "MUI",
+  "organization": "MUI",
+  "sourceType": "public-guideline",
+  "sourceStatus": "基于公开设计规范",
+  "sourceUrl": "https://mui.com/material-ui/",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["web", "react"],
+  "description": "成熟的 React 组件库，以 Material Design 为基础，覆盖应用界面、主题和数据展示。",
+  "componentReferenceIds": ["mui-button", "mui-data-grid", "mui-autocomplete"],
+  "disclaimer": "本资料基于 MUI 公开文档整理，与 MUI 无隶属或背书关系；名称与标识归其各自权利人所有。",
+  "locales": { "en": { "sourceStatus": "Based on public design guidelines", "description": "A mature React component library based on Material Design, covering application UI, theming, and data display.", "disclaimer": "Compiled from public MUI documentation with no affiliation or endorsement. Names and marks belong to their respective owners." } }
+}

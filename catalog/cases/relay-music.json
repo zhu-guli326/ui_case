@@ -27,7 +27,31 @@
     "motion": "播放、进度、收藏、切歌、艺人切换、现场层和导航都有即时状态反馈，并尊重 reduced-motion。",
     "avoid": "直接从原参考图跳到 UI 拆分、把生成效果图当最终不可交互截图，或把可读文字和播放控件烘焙进图片。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Editorial music discovery",
+      "reference": "A three-screen music product on a cool-gray board, using portrait photography, a cobalt player, and a dark discovery feed to establish hierarchy",
+      "prompt": "Editorial music-app visual reference: first generate and review a complete three-screen RELAY composition, then use that generated composition as the source for UI decomposition. Combine a cool-gray board, graphite-black content surfaces, a cobalt playback screen, silver portrait photography, and one coral accent block. Use separate text-free image2 bitmaps for portraits, albums, and live scenes. Render all real titles, status bars, progress, playback controls, lists, rankings, buttons, bottom navigation, and feedback in code; do not generate text, logos, watermarks, phones, or UI glyphs inside images.",
+      "summary": "Generate and approve the complete three-screen composition first, then decompose its portraits, albums, and live imagery into a genuinely playable, saveable, navigable music interface.",
+      "bestFor": "Music streaming, artist profiles, live content, editorial media",
+      "tags": [
+        "Three-screen composition",
+        "Cobalt player",
+        "Photography-led"
+      ],
+      "palette": "Cool gray / Graphite black / Cobalt blue / Silver white / Coral",
+      "layout": "Artist profile + Now Playing + Discover",
+      "recipe": {
+        "principle": "Use the full composition to establish relationships among the three screens, then let code carry every readable detail and playback state.",
+        "image": "Derive portrait, abstract album, and live-poster assets from the approved composition's visual system and store them as separate text-free resources.",
+        "type": "Artist and track names form strong headings while lists and metadata stay compact, stable, and scannable.",
+        "components": "390×844 iOS frame, artist page, player, discovery feed, mini player, live layer, and bottom navigation.",
+        "motion": "Provide immediate state feedback for play, progress, favorite, track changes, artist changes, the live layer, and navigation, while respecting reduced motion.",
+        "avoid": "Do not jump directly from the original reference to UI decomposition, treat the generated composition as a final noninteractive screenshot, or bake readable copy and playback controls into images."
+      }
+    }
+  },
+  "styleProfileIds": [
     "editorial-commerce"
   ]
 }

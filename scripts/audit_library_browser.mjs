@@ -169,10 +169,40 @@ try {
 
   await page.goto(targetUrl, { waitUntil: "networkidle" });
   const imagePreviewResults = [];
+  const previewLayoutResults = [];
   for (const id of caseIds) {
     await page.locator(`[data-case-id="${escapedAttribute(id)}"] .preview-open-button`).click();
     const dialog = page.locator("#previewDialog");
     await dialog.waitFor({ state: "visible" });
+    const layout = await dialog.evaluate((element) => {
+      const selectors = ["#previewDialogTitle", "#previewModeSwitch", "#previewDialogReference", "#previewDialogOpenLive"];
+      const boxes = selectors.map((selector) => {
+        const target = element.querySelector(selector);
+        const rect = target.getBoundingClientRect();
+        return {
+          selector,
+          text: target.textContent.trim(),
+          visible: getComputedStyle(target).display !== "none",
+          left: rect.left,
+          top: rect.top,
+          right: rect.right,
+          bottom: rect.bottom,
+        };
+      });
+      const overlaps = [];
+      for (let first = 0; first < boxes.length; first += 1) {
+        for (let second = first + 1; second < boxes.length; second += 1) {
+          const a = boxes[first];
+          const b = boxes[second];
+          if (a.visible && b.visible && a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top) {
+            overlaps.push([a.selector, b.selector]);
+          }
+        }
+      }
+      return { boxes, overlaps };
+    });
+    if (layout.overlaps.length) failures.push(`${id}: preview text overlaps ${layout.overlaps.map((pair) => pair.join(" with ")).join(", ")}`);
+    previewLayoutResults.push({ id, ...layout });
     const imageMode = dialog.locator('[data-preview-view="image"]');
     if (await imageMode.count()) await imageMode.click();
     const count = await page.locator("#previewImageCount").evaluate((element) => Number(element.textContent.split("/").at(-1)?.trim()) || 1);
@@ -252,6 +282,10 @@ try {
       total: imagePreviewResults.length,
       lowDensity: imagePreviewResults.filter((item) => item.density < 1.99).length,
       blank: imagePreviewResults.filter((item) => !item.painted).length,
+    },
+    previewLayouts: {
+      total: previewLayoutResults.length,
+      overlapping: previewLayoutResults.filter((item) => item.overlaps.length).length,
     },
     liveDemos: { total: liveResults.length, failed: liveResults.filter((item) => !item.hasEmbed).length },
     tags: { total: tagResults.length, failed: tagResults.filter((item) => item.tag !== item.expected || item.cards < 1 || !item.active).length },

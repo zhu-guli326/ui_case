@@ -1,0 +1,32 @@
+{
+  "id": "apple-hig-button",
+  "name": "Button",
+  "brandProfileId": "apple-hig",
+  "sourceType": "public-guideline",
+  "sourceStatus": "基于公开设计规范",
+  "sourceUrl": "https://developer.apple.com/design/human-interface-guidelines/buttons",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["ios", "ipados", "macos"],
+  "category": "action",
+  "summary": "通过清晰的文本动作触发任务，强调可理解性、层级和平台适配。",
+  "anatomy": ["label", "optional symbol", "hit region"],
+  "states": ["enabled", "highlighted", "focused", "disabled"],
+  "behavior": ["使用熟悉且简短的动作词", "危险操作需要清楚区分"],
+  "accessibility": ["支持 Dynamic Type", "保证触控目标足够大", "VoiceOver 读出动作含义"],
+  "tokens": { "textStyle": "headline", "minHitArea": "44pt", "emphasis": "tint or filled" },
+  "do": ["优先使用系统熟悉的动作语言", "在上下文中保持动作层级"],
+  "dont": ["不要把长句塞进按钮", "不要用自定义图形替代标准动作含义"],
+  "locales": {
+    "en": {
+      "sourceStatus": "Based on public design guidelines",
+      "category": "Action",
+      "summary": "Triggers a task through a clear text action, emphasizing understandability, hierarchy, and platform conventions.",
+      "anatomy": ["Label", "Optional symbol", "Hit region"],
+      "states": ["Enabled", "Highlighted", "Focused", "Disabled"],
+      "behavior": ["Use familiar, concise action words", "Clearly distinguish destructive actions"],
+      "accessibility": ["Support Dynamic Type", "Provide a sufficiently large touch target", "Ensure VoiceOver announces the action's meaning"],
+      "do": ["Prefer familiar system action language", "Maintain action hierarchy within the surrounding context"],
+      "dont": ["Do not place long sentences inside buttons", "Do not replace standard action meaning with custom graphics"]
+    }
+  }
+}

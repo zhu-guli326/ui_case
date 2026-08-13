@@ -1,0 +1,6 @@
+{
+  "id": "headless-ui", "name": "Headless UI", "organization": "Tailwind Labs", "sourceType": "public-guideline", "sourceStatus": "基于公开设计规范", "sourceUrl": "https://headlessui.com/", "reviewedAt": "2026-08-13", "platforms": ["web", "react", "vue"],
+  "description": "完全无样式、可访问的交互组件，适合使用自有视觉系统的 React 与 Vue 产品。", "componentReferenceIds": ["headless-ui-menu", "headless-ui-dialog", "headless-ui-combobox"],
+  "disclaimer": "本资料基于 Headless UI 公开文档整理，与 Tailwind Labs 无隶属或背书关系；名称与标识归其各自权利人所有。",
+  "locales": { "en": { "sourceStatus": "Based on public design guidelines", "description": "Completely unstyled, accessible interactive components for React and Vue products with their own visual systems.", "disclaimer": "Compiled from public Headless UI documentation with no affiliation or endorsement. Names and marks belong to their respective owners." } }
+}

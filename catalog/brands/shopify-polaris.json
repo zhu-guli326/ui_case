@@ -1,0 +1,6 @@
+{
+  "id": "shopify-polaris", "name": "Shopify Polaris", "organization": "Shopify", "sourceType": "public-guideline", "sourceStatus": "基于公开设计规范", "sourceUrl": "https://polaris.shopify.com/", "reviewedAt": "2026-08-13", "platforms": ["web", "react"],
+  "description": "为电商管理、商家运营与交易任务设计的产品系统。", "componentReferenceIds": ["polaris-button", "polaris-text-field", "polaris-index-table"],
+  "disclaimer": "本资料基于 Shopify Polaris 公开文档整理，与 Shopify 无隶属或背书关系；名称与标识归其各自权利人所有。",
+  "locales": { "en": { "sourceStatus": "Based on public design guidelines", "description": "A product system for commerce administration, merchant operations, and transactional tasks.", "disclaimer": "Compiled from public Shopify Polaris documentation with no affiliation or endorsement. Names and marks belong to their respective owners." } }
+}

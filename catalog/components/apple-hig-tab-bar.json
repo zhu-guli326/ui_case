@@ -1,0 +1,32 @@
+{
+  "id": "apple-hig-tab-bar",
+  "name": "Tab bar",
+  "brandProfileId": "apple-hig",
+  "sourceType": "public-guideline",
+  "sourceStatus": "基于公开设计规范",
+  "sourceUrl": "https://developer.apple.com/design/human-interface-guidelines/tab-bars",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["ios", "ipados"],
+  "category": "navigation",
+  "summary": "在应用主要区域之间切换，并持续显示当前选中区域。",
+  "anatomy": ["bar", "tab item", "symbol", "label", "badge"],
+  "states": ["selected", "unselected", "pressed", "disabled"],
+  "behavior": ["用于顶层区域，不用于临时操作", "切换后保留各区域的导航状态"],
+  "accessibility": ["每项有清晰标签", "选中态可被辅助技术识别", "支持 Dynamic Type"],
+  "tokens": { "itemCount": "3-5", "minHitArea": "44pt", "labelStyle": "caption1" },
+  "do": ["让每个 tab 表示一个稳定目的地", "用系统图标语义保持熟悉感"],
+  "dont": ["不要放入频繁出现的动作", "不要让标签依赖颜色才能理解"],
+  "locales": {
+    "en": {
+      "sourceStatus": "Based on public design guidelines",
+      "category": "Navigation",
+      "summary": "Switches among an app's primary areas while continuously showing which area is selected.",
+      "anatomy": ["Bar", "Tab item", "Symbol", "Label", "Badge"],
+      "states": ["Selected", "Unselected", "Pressed", "Disabled"],
+      "behavior": ["Use for top-level areas, not temporary actions", "Preserve each area's navigation state after switching"],
+      "accessibility": ["Give every item a clear label", "Expose the selected state to assistive technology", "Support Dynamic Type"],
+      "do": ["Make each tab a stable destination", "Use familiar system icon semantics"],
+      "dont": ["Do not place frequent actions in the tab bar", "Do not make labels depend on color for meaning"]
+    }
+  }
+}

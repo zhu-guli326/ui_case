@@ -27,7 +27,31 @@
     "motion": "入口、分类、收藏、颜色和加购都有即时可见反馈。",
     "avoid": "大面积折扣标识、图片中的文字 UI、复杂筛选栏和无法返回的商品详情。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Sustainable fashion commerce",
+      "reference": "A gray-green board, deep-brown neutrals, and large natural-fabric photography make sustainable fashion feel quiet and explicit",
+      "prompt": "Sustainable fashion-commerce app visual reference: a gray-green board and a white 9:16 iPhone, with natural brown, ivory, and dark chocolate creating a quiet apparel-editorial mood. Use separate text-free image2 fashion photographs for a linen shirt and recycled-wool scarf. Render all copy, prices, categories, favorites, buttons, status bars, back controls, and icons in code; do not generate text, logos, watermarks, phones, or UI glyphs inside images.",
+      "summary": "An immersive entry, collection listing, and product detail connect sustainable-fashion browsing while image texture and purchase actions remain clearly separated.",
+      "bestFor": "Apparel retail, lifestyle brands, sustainable products, editorial commerce",
+      "tags": [
+        "Natural fabric",
+        "Editorial products",
+        "Deep-brown actions"
+      ],
+      "palette": "Gray green / Ivory white / Dark chocolate / Linen brown",
+      "layout": "Brand entry + Category catalog + Product detail",
+      "recipe": {
+        "principle": "Let photography establish material texture while the coded interface handles price, category, favorite, and add-to-bag decisions.",
+        "image": "Use two text-free apparel photographs for collection hero, product cards, and detail, preserving consistent natural light and neutral color.",
+        "type": "Use clear sans-serif headings and a compact price hierarchy without overly promotional information.",
+        "components": "9:16 iOS frame, immersive entry, category tabs, product cards, favorites, color choice, back, and add to bag.",
+        "motion": "Provide immediate, visible feedback for entry, category, favorite, color, and add-to-bag actions.",
+        "avoid": "Avoid oversized discount marks, text UI inside images, complex filter bars, and product detail with no route back."
+      }
+    }
+  },
+  "styleProfileIds": [
     "editorial-commerce"
   ]
 }

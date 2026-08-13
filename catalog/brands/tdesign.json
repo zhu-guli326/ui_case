@@ -1,0 +1,20 @@
+{
+  "id": "tdesign",
+  "name": "TDesign",
+  "organization": "Tencent",
+  "sourceType": "public-guideline",
+  "sourceStatus": "基于公开设计规范",
+  "sourceUrl": "https://tdesign.tencent.com/",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["web", "react", "vue", "mobile", "miniprogram"],
+  "description": "腾讯开源的企业级设计体系，提供 Web、移动端和小程序组件库及配套设计资源。",
+  "componentReferenceIds": ["tdesign-button", "tdesign-table", "tdesign-dialog"],
+  "disclaimer": "本资料基于 TDesign 公开文档整理，与腾讯或 TDesign 无隶属或背书关系；名称与标识归其各自权利人所有。",
+  "locales": {
+    "en": {
+      "sourceStatus": "Based on public design guidelines",
+      "description": "Tencent's open-source enterprise design system, with component libraries and design resources for web, mobile, and mini programs.",
+      "disclaimer": "Compiled from public TDesign documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
+    }
+  }
+}

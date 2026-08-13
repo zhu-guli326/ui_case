@@ -1,0 +1,14 @@
+{
+  "id": "chakra-ui",
+  "name": "Chakra UI",
+  "organization": "Chakra UI",
+  "sourceType": "public-guideline",
+  "sourceStatus": "基于公开设计规范",
+  "sourceUrl": "https://chakra-ui.com/",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["web", "react"],
+  "description": "以可访问性和可组合 API 为核心的 React 组件系统，适合快速构建可主题化产品。",
+  "componentReferenceIds": ["chakra-ui-dialog", "chakra-ui-button", "chakra-ui-input"],
+  "disclaimer": "本资料基于 Chakra UI 公开文档整理，与 Chakra UI 无隶属或背书关系；名称与标识归其各自权利人所有。",
+  "locales": { "en": { "sourceStatus": "Based on public design guidelines", "description": "An accessible, composable React component system for rapidly building themeable products.", "disclaimer": "Compiled from public Chakra UI documentation with no affiliation or endorsement. Names and marks belong to their respective owners." } }
+}

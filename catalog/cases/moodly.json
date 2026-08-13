@@ -27,7 +27,31 @@
     "motion": "滑块在 200ms 内落到选择项，确认后切到一张完整的祝贺屏。",
     "avoid": "把情绪量表、长期曲线、提醒设置和社区内容同时塞进签到首屏。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Soft-pink mood check-in",
+      "reference": "Clouds, a soft-pink character, and a clean mood slider turn the daily check-in into a lightweight conversation",
+      "prompt": "Soft-pink mood-check-in app visual reference: a white phone with generous whitespace, a pink three-dimensional round-face character, small mint and peach accents, soft white clouds, and fine curved lines. Render all headings, close controls, progress, sliders, arrows, status bars, and buttons in code; do not generate text, logos, watermarks, UI glyphs, or pseudo-text.",
+      "summary": "An expressive soft-pink character and a discrete mood slider let people complete one clear, quiet self-check-in within moments.",
+      "bestFor": "Mood tracking, mental wellness, daily reflection, children's support",
+      "tags": [
+        "Soft-pink character",
+        "Discrete slider",
+        "Lightweight check-in"
+      ],
+      "palette": "Soft pink / Mint / Peach / Cloud white / Ink black",
+      "layout": "Mood question + Character visual + Slider + Completion screen",
+      "recipe": {
+        "principle": "Ask one question at a time and finish immediately after the choice so tracking never becomes a form.",
+        "image": "The character illustration carries emotion while controls and copy stay clear and accessible in code.",
+        "type": "Keep the question large and direct, then echo the selected mood label beneath the slider.",
+        "components": "Close control, two-step progress, character hero, five-position slider, previous/next actions, and a celebration screen.",
+        "motion": "Snap the thumb to the selected value within 200ms, then move to a complete congratulations screen after confirmation.",
+        "avoid": "Do not combine mood scales, long-term charts, reminder settings, and community content on the check-in's first screen."
+      }
+    }
+  },
+  "styleProfileIds": [
     "soft-lifestyle"
   ]
 }

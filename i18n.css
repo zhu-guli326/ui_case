@@ -1,0 +1,32 @@
+.global-language-switch {
+  display: inline-grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--line, #d8d8d2);
+  border-radius: 6px;
+  background: var(--surface, #fffefa);
+}
+
+.global-language-switch button {
+  min-width: 48px;
+  min-height: 30px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--line, #d8d8d2);
+  background: transparent;
+  color: var(--muted, #74746e);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.global-language-switch button:last-child { border-right: 0; }
+.global-language-switch button:hover,
+.global-language-switch button:focus-visible { color: var(--ink, #24231f); }
+.global-language-switch button[aria-pressed="true"] { background: var(--dark, #25231e); color: #fff; }
+
+@media (max-width: 620px) {
+  .global-language-switch button { min-width: 40px; padding-inline: 5px; font-size: 10px; }
+}

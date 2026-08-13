@@ -27,7 +27,31 @@
     "motion": "标签按压、进入目的地和底部标签切换都提供短暂、直接的反馈。",
     "avoid": "在欢迎页塞进地图、筛选、评分、价格或成排的大卡片。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Lightweight travel planning",
+      "reference": "A pale apricot phone on a fluorescent yellow field, surrounded by circular travel labels scattered like stickers",
+      "prompt": "Lightweight travel-planning app visual reference: a fluorescent yellow outer background, a pale apricot 9:16 phone screen, and a slim black iOS device frame. Four small, colorful travel labels surround a text-free travel sticker while preserving open space for the centered heading. Render all copy, buttons, status bars, bottom navigation, and functional icons in code; do not generate text, logos, watermarks, UI glyphs, or pseudo-text.",
+      "summary": "Scattered travel labels and one gentle sticker help people begin with a destination and gradually shape their next trip.",
+      "bestFor": "Travel planning, city inspiration, weekend itineraries, lightweight collections",
+      "tags": [
+        "Sticker labels",
+        "Fluorescent yellow",
+        "Lightweight entry"
+      ],
+      "palette": "Fluorescent yellow / Pale apricot / Peach pink / Lake blue",
+      "layout": "Welcome screen + Destination list + Bottom navigation",
+      "recipe": {
+        "principle": "The opening screen should create a single impulse to leave; save itinerary details for the next screen.",
+        "image": "The travel sticker is the only bitmap mood element; labels and every other UI element remain crisp and interactive.",
+        "type": "Arrange the brand, heading, and supporting copy on one centered axis with short, airy text.",
+        "components": "9:16 iOS frame, tappable travel labels, destination list, primary action, and labeled bottom navigation.",
+        "motion": "Use brief, direct feedback for label presses, destination entry, and bottom-navigation changes.",
+        "avoid": "Do not crowd the welcome screen with maps, filters, ratings, prices, or rows of large cards."
+      }
+    }
+  },
+  "styleProfileIds": [
     "soft-lifestyle"
   ]
 }

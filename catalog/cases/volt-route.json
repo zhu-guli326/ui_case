@@ -27,7 +27,31 @@
     "motion": "tab、暂停/继续和地点选择只提供明确、即时的状态反馈。",
     "avoid": "不要在首屏堆放车辆参数表、营销卖点、密集地图标签或拟真的假按钮。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Dark EV charging navigation",
+      "reference": "Three dark phones on a misty gray-green board, combining a silver vehicle, fluorescent charging status, and a night route into restrained high technology",
+      "prompt": "EV charging-navigation app visual reference: three deep-black iPhones arranged on a misty gray-green desktop, with a silver-gray rear-vehicle photograph and an unlabeled night-neighborhood map as two separate image2 bitmaps. Reserve fluorescent green for charge progress, routes, and selected states. Render all percentages, copy, status bars, map routes, location nodes, bottom navigation, and control icons in code; do not generate text, logos, watermarks, routes, pins, phones, or UI glyphs inside images.",
+      "summary": "Vehicle status, charge control, and the nearest fast-charge route share one dark dashboard where green appears only where action is needed.",
+      "bestFor": "Electric mobility, charging networks, vehicle management, urban navigation",
+      "tags": [
+        "Dark dashboard",
+        "EV photography",
+        "Route status"
+      ],
+      "palette": "Misty gray green / Charcoal / Silver gray / Charging green",
+      "layout": "Vehicle dashboard + Charging status + Route drawer",
+      "recipe": {
+        "principle": "Use vehicle photography and map texture as an environmental layer while numbers, choices, and actions remain high-contrast coded UI.",
+        "image": "Generate the vehicle and map separately without text; overlay routes, green nodes, and every UI element in code to preserve readability and interaction.",
+        "type": "Lead with the large charge number, then present metrics and route details in a smaller, clear hierarchy.",
+        "components": "9:16 iOS frame, charge percentage, vehicle-status card, route nodes, bottom navigation, pause control, and route drawer.",
+        "motion": "Use explicit, immediate state feedback only for tabs, pause/resume, and location selection.",
+        "avoid": "Do not crowd the first screen with vehicle specification tables, marketing claims, dense map labels, or realistic-looking fake buttons."
+      }
+    }
+  },
+  "styleProfileIds": [
     "minimal-tech"
   ]
 }

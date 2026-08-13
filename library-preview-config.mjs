@@ -1,4 +1,4 @@
-export const libraryPreviewAssetVersion = "20260813-multi-screen-v7";
+export const libraryPreviewAssetVersion = "20260813-source-layout-v8";
 
 export const standardPreviewDevice = Object.freeze({ width: 390, height: 844 });
 export const defaultPreviewDevice = standardPreviewDevice;

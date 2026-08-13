@@ -6,10 +6,13 @@
   <meta name="color-scheme" content="light">
   <meta name="description" content="image2 UI 风格案例库。">
   <title>image2 UI 风格案例库</title>
-  <link rel="stylesheet" href="./library.css?v=20260813-author-cleanup-v1">
+  <link rel="stylesheet" href="./library.css?v=20260813-unified-dialog-v8">
+  <link rel="stylesheet" href="./i18n.css">
+  <link rel="stylesheet" href="./site-nav.css">
+  <script src="./i18n.js"></script>
   <script src="./analytics.config.js"></script>
   <script src="./analytics.js" defer></script>
-  <script type="module" src="./library.js?v=20260813-author-cleanup-v1"></script>
+  <script type="module" src="./library.js?v=20260813-unified-dialog-v8"></script>
 </head>
 <body>
   <a class="skip-link" href="#demoGallery">跳到案例列表</a>
@@ -20,19 +23,7 @@
       <span>IMAGE2 UI</span>
       <small>STYLE LIBRARY</small>
     </a>
-    <nav class="topnav" aria-label="外部链接">
-      <a aria-current="page" href="./library.html">案例库</a>
-      <a href="./brands.html">品牌规范</a>
-      <a href="./launcher.html">可视化启动</a>
-      <a class="github-nav-link" href="https://github.com/zhu-guli326/image2_UI_skill" target="_blank" rel="noreferrer">
-        GitHub <span id="githubStarsNav">...</span>
-      </a>
-      <a class="social-nav-link" href="https://x.com/JGuli49724" target="_blank" rel="noopener noreferrer" aria-label="在 X 查看 JGuli49724 的主页">X</a>
-      <a class="social-nav-link" href="https://www.xiaohongshu.com/user/profile/57b3456c82ec3947f79496e9" target="_blank" rel="noopener noreferrer">小红书</a>
-      <a href="./learn.html">新手入门</a>
-      <a href="./skills.html">设计 Skill</a>
-      <a href="./vocabulary.html">UI 词典</a>
-    </nav>
+    <nav class="topnav" data-site-nav aria-label="主导航"></nav>
   </header>
 
   <div class="library-shell">
@@ -76,7 +67,7 @@
           <h1 id="pageTitle">界面风格案例库</h1>
           <p class="intro">从已有的真实 App 演示中提炼画面、排版与交互方向。选择一个案例，复制它的风格配置，再开始做下一张界面。</p>
         </div>
-        <a class="stats-panel" href="https://github.com/zhu-guli326/image2_UI_skill" target="_blank" rel="noreferrer" aria-label="打开 GitHub 项目">
+        <a class="stats-panel" href="https://github.com/zhu-guli326/ui_case" target="_blank" rel="noreferrer" aria-label="打开 GitHub 项目">
           <span><small>案例</small><strong>23</strong></span>
           <span><small>风格</small><strong>23</strong></span>
           <span><small>Stars</small><strong id="githubStars" aria-live="polite">...</strong></span>
@@ -105,20 +96,21 @@
     </main>
   </div>
 
-  <dialog class="style-dialog" id="styleDialog" aria-labelledby="styleDialogTitle">
-    <div class="style-dialog-shell">
-      <form method="dialog" class="dialog-close-form"><button class="dialog-close" type="submit" aria-label="关闭风格详情">&#215;</button></form>
-      <div class="style-dialog-content" id="styleDialogContent"></div>
-    </div>
-  </dialog>
-
   <dialog class="preview-dialog" id="previewDialog" aria-labelledby="previewDialogTitle">
     <form method="dialog" class="dialog-close-form"><button class="dialog-close" type="submit" aria-label="关闭预览">&#215;</button></form>
     <div class="preview-dialog-content">
-      <header class="preview-dialog-header">
-        <p id="previewDialogTitle">案例预览</p>
-        <div class="preview-mode-switch" id="previewModeSwitch" aria-label="预览方式"></div>
-      </header>
+      <div class="preview-dialog-info">
+        <header class="preview-dialog-header">
+          <p id="previewDialogTitle">案例预览</p>
+          <div class="preview-mode-switch" id="previewModeSwitch" aria-label="预览方式"></div>
+        </header>
+        <div class="preview-dialog-details" id="previewDialogDetails"></div>
+        <footer class="preview-dialog-footer">
+          <button class="dialog-copy-button" id="previewDialogCopy" type="button">复制图片与提示词配置</button>
+          <a id="previewDialogComponents" href="./brands.html">另选品牌组件</a>
+          <a id="previewDialogOpenLive" target="_blank" rel="noopener" hidden>新窗口打开可点击 Demo</a>
+        </footer>
+      </div>
       <div class="preview-media-frame" id="previewMediaFrame">
         <img id="previewDialogImage" alt="" hidden />
         <div class="preview-image-navigation" id="previewImageNavigation" aria-live="polite" hidden>
@@ -131,10 +123,6 @@
         <div class="preview-media-status" id="previewMediaStatus" role="status" aria-live="polite" hidden><span id="previewMediaStatusText"></span><button id="previewMediaRetry" type="button" hidden>重试</button></div>
         <span class="interaction-cursor preview-cursor" id="previewCursor" aria-hidden="true" hidden><i></i></span>
       </div>
-      <footer class="preview-dialog-footer">
-        <p id="previewDialogReference"></p>
-        <a id="previewDialogOpenLive" target="_blank" rel="noopener" hidden>新窗口打开可点击 Demo</a>
-      </footer>
     </div>
   </dialog>
 

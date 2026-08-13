@@ -1,0 +1,6 @@
+{
+  "id": "atlassian-design", "name": "Atlassian Design System", "organization": "Atlassian", "sourceType": "public-guideline", "sourceStatus": "基于公开设计规范", "sourceUrl": "https://atlassian.design/", "reviewedAt": "2026-08-13", "platforms": ["web", "react"],
+  "description": "面向协作与工作管理产品的设计系统，强调密集信息、任务流与可访问性。", "componentReferenceIds": ["atlassian-button", "atlassian-modal-dialog", "atlassian-dynamic-table"],
+  "disclaimer": "本资料基于 Atlassian Design System 公开文档整理，与 Atlassian 无隶属或背书关系；名称与标识归其各自权利人所有。",
+  "locales": { "en": { "sourceStatus": "Based on public design guidelines", "description": "A design system for collaboration and work-management products, emphasizing dense information, workflows, and accessibility.", "disclaimer": "Compiled from public Atlassian documentation with no affiliation or endorsement. Names and marks belong to their respective owners." } }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Style Profile",
+  "type": "object",
+  "required": ["id", "name", "sourceType", "sourceStatus", "reviewedAt", "platforms", "industry", "styles", "completeness", "foundations", "components", "visualLanguage", "contentVoice", "accessibility", "dos", "donts"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "name": { "type": "string" },
+    "sourceType": { "const": "style-reference" },
+    "sourceStatus": { "const": "风格参考" },
+    "reviewedAt": { "type": "string", "format": "date" },
+    "platforms": { "type": "array", "items": { "type": "string" } },
+    "industry": { "type": "array", "items": { "type": "string" } },
+    "styles": { "type": "array", "items": { "type": "string" } },
+    "completeness": { "type": "string" },
+    "foundations": { "type": "object" },
+    "components": { "type": "object" },
+    "visualLanguage": { "type": "object" },
+    "contentVoice": { "type": "string" },
+    "accessibility": { "type": "string" },
+    "dos": { "type": "array", "items": { "type": "string" } },
+    "donts": { "type": "array", "items": { "type": "string" } },
+    "locales": {
+      "type": "object",
+      "required": ["en"],
+      "properties": {
+        "en": {
+          "type": "object",
+          "required": ["name", "sourceStatus", "industry", "styles", "completeness", "foundations", "components", "visualLanguage", "contentVoice", "accessibility", "dos", "donts"]
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

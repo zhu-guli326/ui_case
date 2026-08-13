@@ -3,9 +3,9 @@
   "category": "culture",
   "name": "ArtMuse",
   "style": "当代美术馆导览",
-  "video": "./assets/cases/museum-app/museum-app-demo.mp4",
+  "video": "./assets/cases/museum-app/museum-app-demo.mp4?v=fullframe-1",
   "poster": "./assets/cases/museum-app/museum-app-preview.gif",
-  "previewImage": "./assets/cases/museum-app/library-preview-2x.png",
+  "previewImage": "./assets/cases/museum-app/library-preview-generated-v2-standard.png",
   "preview": "#dce3d6",
   "reference": "画廊导视与展览画册的安静秩序",
   "referenceImage": "./assets/style-references/artmuse-reference.png",
@@ -27,7 +27,31 @@
     "motion": "只在切换和选中态提供轻柔反馈。",
     "avoid": "高饱和主色、厚阴影、密集信息流。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Contemporary museum guide",
+      "reference": "The quiet order of gallery wayfinding and exhibition catalogs",
+      "prompt": "Contemporary museum-guide app visual reference: paper white, low-saturation label colors, fine lines, and extensive whitespace, like an exhibition catalog and gallery wayfinding system. Prioritize content, preserve white borders around images, and keep typography restrained and clear. Avoid highly saturated primary colors, heavy shadows, dense feeds, and complex decoration.",
+      "summary": "Paper white, muted label colors, fine lines, and generous whitespace let content be seen before the interface.",
+      "bestFor": "Exhibitions, cultural content, premium retail, brand stories",
+      "tags": [
+        "Curatorial whitespace",
+        "Fine-line structure",
+        "Muted palette"
+      ],
+      "palette": "Paper white / Sage green / Label brown",
+      "layout": "Single-column guide + Curated content cards",
+      "recipe": {
+        "principle": "Let content be viewed as if it were on a gallery wall instead of surrounding it with controls.",
+        "image": "Treat images as curated works: preserve a white border, crop sparingly, and avoid complex UI overlays.",
+        "type": "Use normal-weight headings with open line spacing; keep body copy small and clear.",
+        "components": "Fine-border cards, lightweight tabs, understated arrows, and restrained corner radii.",
+        "motion": "Provide gentle feedback only for switching and selected states.",
+        "avoid": "Avoid highly saturated primary colors, heavy shadows, and dense feeds."
+      }
+    }
+  },
+  "styleProfileIds": [
     "soft-lifestyle"
   ]
 }

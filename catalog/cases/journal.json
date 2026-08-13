@@ -27,7 +27,31 @@
     "motion": "筛选、收藏和底部 tab 的状态变化轻而可感。",
     "avoid": "把目的地、榜单、评分、攻略和广告塞进同一个画面。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Open-landscape journal discovery",
+      "reference": "The expansive feeling of nature photography paired with short journal-like notes and a few discovery entry points",
+      "prompt": "Travel-journal discovery app visual reference: a photographic hero with cobalt water and a coral-red subject, short copy that reads like field notes, and restrained dark-blue UI chrome. Preserve the emotional force of one image; avoid grids of travel thumbnails, ratings, and commercial labels.",
+      "summary": "One breathable travel photograph opens discovery, while the remaining content reads like small findings jotted down along the way.",
+      "bestFor": "Travel inspiration, personal journals, photo collections, lifestyle content",
+      "tags": [
+        "Cobalt photography",
+        "Scene storytelling",
+        "Light discovery"
+      ],
+      "palette": "Cobalt blue / Coral red / Pale mist blue / Ink",
+      "layout": "Scene prompt + Search + Single hero image + Discovery list",
+      "recipe": {
+        "principle": "Establish the feeling of one place per screen and move interaction to the edges.",
+        "image": "Choose one distinct natural subject for the hero and reserve low-interference whitespace for copy.",
+        "type": "Lead with a question-style heading; reduce and defer location metadata.",
+        "components": "Personal status area, search field, filter chips, immersive hero, save action, and a short discovery list.",
+        "motion": "Keep state changes for filters, saves, and bottom tabs subtle but perceptible.",
+        "avoid": "Do not put destinations, rankings, ratings, guides, and advertising into one view."
+      }
+    }
+  },
+  "styleProfileIds": [
     "soft-lifestyle"
   ]
 }

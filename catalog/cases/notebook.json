@@ -27,7 +27,31 @@
     "motion": "页面切换和保存提示带有轻微纸张般的位移，但不影响阅读。",
     "avoid": "用 emoji 或伪图标承担搜索、返回、保存等功能操作。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Journal-like creative workspace",
+      "reference": "Hand-drawn lines, colorful stickers, and a real-paper rhythm make the workspace feel like a place to create",
+      "prompt": "Creative-notes app visual reference: a soft paper background, hand-drawn linework, candy-colored labels, and folder shapes while preserving a clear, readable information structure. Limit illustrative detail to covers and a few open areas instead of filling every card with emoji, gradients, and heavy shadows.",
+      "summary": "Notes, folders, and schedules share a tactile creative language while retaining clear task and content hierarchy.",
+      "bestFor": "Creative notes, student tools, family planning, lightweight project organization",
+      "tags": [
+        "Paper texture",
+        "Hand-drawn linework",
+        "Color labels"
+      ],
+      "palette": "Warm paper white / Mint green / Sky blue / Soft pink / Ink black",
+      "layout": "Welcome cover + Folder groups + Card-based notes workspace",
+      "recipe": {
+        "principle": "Decoration should invite people to stay while structure lets them begin recording immediately.",
+        "image": "Concentrate hand-drawn elements on covers or open areas and keep content cards flat and readable.",
+        "type": "Headings may carry a slight handwritten quality; body copy and forms must remain stable and clear.",
+        "components": "Folder chips, project folders, note cards, simplified editor, color labels, and view switching.",
+        "motion": "Page changes and save feedback may use a slight paper-like shift without disrupting reading.",
+        "avoid": "Do not use emoji or imitation icons for functional actions such as search, back, and save."
+      }
+    }
+  },
+  "styleProfileIds": [
     "soft-lifestyle"
   ]
 }

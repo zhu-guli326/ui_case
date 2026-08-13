@@ -5,7 +5,7 @@
   "style": "报刊感新闻阅读",
   "video": "./assets/cases/news-app/news-app-demo.mp4",
   "poster": "./assets/cases/news-app/news-app-preview.gif",
-  "previewImage": "./assets/cases/news-app/library-preview-2x.png",
+  "previewImage": "./assets/cases/news-app/library-preview-generated-v2-standard.png",
   "preview": "#e1e0d7",
   "reference": "传统报刊标题层级，结合移动端卡片式资讯浏览",
   "referenceImage": "./assets/style-references/today-reference.png",
@@ -27,7 +27,31 @@
     "motion": "保存、切换栏目和加载内容只给轻反馈。",
     "avoid": "每条新闻都用同等字号和强调色。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Newspaper-inspired news reading",
+      "reference": "Traditional newspaper headline hierarchy adapted to card-based mobile news browsing",
+      "prompt": "Newspaper-inspired news-reading app visual reference: traditional headline hierarchy, a soft paper color, and a clear rhythm between lead stories and lists, with news photography used as factual evidence. Keep information moderately dense and easy to scan. Avoid uniformly oversized type, intense gradients, and noisy decoration.",
+      "summary": "Serif display headlines, soft paper tones, and a clear news hierarchy make dense information still feel like reading.",
+      "bestFor": "News, research briefings, media content, professional intelligence",
+      "tags": [
+        "Newspaper typography",
+        "Tiered reading",
+        "Information density"
+      ],
+      "palette": "Newsprint white / Ink black / Soft section colors",
+      "layout": "Section grid + Tiered headlines",
+      "recipe": {
+        "principle": "Readers should scan the most important fact first, then decide whether to go deeper.",
+        "image": "Use news photography as evidence and maintain consistent crop ratios.",
+        "type": "Large headlines establish the reading rhythm; categories and timestamps recede.",
+        "components": "Prominent lead-story card, stable list rhythm, and a lightweight toolbar.",
+        "motion": "Use only light feedback for saving, changing sections, and loading content.",
+        "avoid": "Do not give every story the same type size and accent color."
+      }
+    }
+  },
+  "styleProfileIds": [
     "soft-lifestyle"
   ]
 }

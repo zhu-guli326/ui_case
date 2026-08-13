@@ -7,6 +7,9 @@
   <meta name="description" content="不会前端，也能在 5 分钟内用 Image2 UI 把参考图变成可点击界面。">
   <title>5 分钟做出第一个可点击界面 · IMAGE2 UI</title>
   <link rel="stylesheet" href="./learn.css">
+  <link rel="stylesheet" href="./i18n.css">
+  <link rel="stylesheet" href="./site-nav.css">
+  <script src="./i18n.js"></script>
   <script src="./analytics.config.js"></script>
   <script src="./analytics.js" defer></script>
   <script src="./learn.js" defer></script>
@@ -19,23 +22,18 @@
       <span>IMAGE2 UI</span>
       <small>QUICK START</small>
     </a>
-    <nav aria-label="页面导航">
-      <a class="active" href="./learn.html">新手入门</a>
-      <a href="./library.html">案例库</a>
-      <a href="./brands.html">品牌规范</a>
-      <a href="./skills.html">设计 Skill</a>
-    </nav>
+    <nav data-site-nav aria-label="主导航"></nav>
   </header>
 
   <nav class="learning-map" aria-label="本页进度">
     <div class="learning-map-inner">
       <strong>你的进度</strong>
       <div class="learning-map-links">
-        <a class="is-current" href="#quick-start" data-learn-section="quick-start">快速开始</a>
+        <a class="is-current" href="#fufu-play" data-learn-section="fufu-play">FuFu 小店</a>
+        <a href="#quick-start" data-learn-section="quick-start">快速开始</a>
         <a href="#input-output" data-learn-section="input-output">输入与结果</a>
         <a href="#case-study" data-learn-section="case-study">案例拆解</a>
-        <a href="#ui-vocabulary" data-learn-section="ui-vocabulary">UI 词汇</a>
-        <a href="#playground" data-learn-section="playground">品牌实验室</a>
+        <a href="./vocabulary.html">图文词典</a>
         <a href="#three-parts" data-learn-section="three-parts">实现原理</a>
         <a href="#beginner-answers" data-learn-section="beginner-answers">常见问题</a>
         <a href="#start-making" data-learn-section="start-making">开始制作</a>
@@ -62,6 +60,59 @@
       </div>
     </section>
 
+    <section class="fufu-play" id="fufu-play" aria-labelledby="fufuPlayTitle">
+      <div class="fufu-play-copy">
+        <p class="eyebrow">PLAY FIRST / LEARN BY DOING</p>
+        <h2 id="fufuPlayTitle">先帮 FuFu 开张今天的小店</h2>
+        <p>选一种店铺气氛，再卖出面包收集印章。你会直接看到颜色、文案和状态怎样一起改变体验。</p>
+        <div class="fufu-theme-picker" role="group" aria-label="选择 FuFu Bakery 店铺气氛">
+          <button class="fufu-theme-button is-active" type="button" data-fufu-theme="morning" aria-pressed="true"><span class="theme-swatch theme-swatch-morning" aria-hidden="true"></span>早晨黄</button>
+          <button class="fufu-theme-button" type="button" data-fufu-theme="picnic" aria-pressed="false"><span class="theme-swatch theme-swatch-picnic" aria-hidden="true"></span>野餐绿</button>
+          <button class="fufu-theme-button" type="button" data-fufu-theme="berry" aria-pressed="false"><span class="theme-swatch theme-swatch-berry" aria-hidden="true"></span>莓果粉</button>
+        </div>
+        <div class="fufu-lesson" aria-live="polite">
+          <strong id="fufuLessonTitle">早晨黄：温暖、醒目，适合主行动</strong>
+          <span id="fufuLessonText">这是 CSS 在改变视觉语气。接着点击购买，让 JavaScript 改变会员状态。</span>
+        </div>
+      </div>
+
+      <div class="fufu-shop" id="fufuShop" data-theme="morning" aria-label="FuFu Bakery 手机样式互动预览">
+        <div class="fufu-phone-frame">
+          <div class="fufu-phone-screen">
+            <div class="fufu-phone-status" aria-hidden="true">
+              <strong>10:04</strong>
+              <span class="dynamic-island"></span>
+              <span class="phone-signals">⌁  ◒  ▱</span>
+            </div>
+            <div class="fufu-shop-head"><span>FU FU BAKERY</span><strong id="fufuShopMood">GOOD MORNING</strong></div>
+            <div class="fufu-shop-main">
+              <div class="fufu-product-copy">
+                <span>今日刚出炉</span>
+                <h3 id="fufuProductName">海盐黄油卷</h3>
+                <p id="fufuProductNote">松软、温热，最后撒一点海盐。</p>
+              </div>
+              <img src="./demo/fufu-bakery/assets/fufu-baker.png" alt="FuFu 狗狗烘焙师抱着法棍">
+            </div>
+            <div class="fufu-member-card">
+              <div class="fufu-member-head"><span>今日会员卡</span><strong><span id="fufuStampCount">0</span> / 4</strong></div>
+              <div class="fufu-stamps" id="fufuStamps" aria-label="已收集 0 枚，共 4 枚印章">
+                <span></span><span></span><span></span><span></span>
+              </div>
+              <p id="fufuRewardText">每买一个面包，就会多一枚印章。</p>
+            </div>
+            <button class="fufu-buy-button" id="fufuBuyButton" type="button">买一个面包，收集印章</button>
+            <button class="fufu-reset-button is-hidden" id="fufuResetButton" type="button" aria-hidden="true" tabindex="-1">再玩一次</button>
+            <p class="fufu-status" id="fufuStatus" role="status" aria-live="polite">烤箱已经热好了。</p>
+            <nav class="fufu-bottom-nav" aria-label="FuFu Bakery 示例底部导航">
+              <button class="is-active" type="button"><span>⌂</span>小店</button>
+              <button type="button"><span>▦</span>菜单</button>
+              <button type="button"><span>♡</span>会员</button>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="quick-start" id="quick-start" aria-labelledby="quickStartTitle">
       <div class="section-heading section-heading-wide">
         <p class="eyebrow">5 MINUTE QUICK START</p>
@@ -81,7 +132,7 @@
 并检查页面显示、图片加载和交互是否正常。</pre>
         <div class="prompt-actions">
           <button class="button button-primary" id="copyQuickPrompt" type="button">复制这段 Prompt</button>
-          <a class="button button-secondary" href="./demo/buddy-travel/index.html">查看生成结果示例</a>
+          <a class="button button-secondary" href="./demo/fufu-bakery/index.html">查看生成结果示例</a>
         </div>
         <p class="copy-status" id="copyStatus" aria-live="polite"></p>
       </div>
@@ -136,73 +187,6 @@
       </div>
     </section>
 
-    <section class="ui-vocabulary" id="ui-vocabulary" aria-labelledby="vocabularyTitle">
-      <div class="section-heading section-heading-wide">
-        <p class="eyebrow">NAME WHAT YOU SEE</p>
-        <h2 id="vocabularyTitle">会描述界面，就能给出更准确的要求</h2>
-        <p>点击图上的名称，认识常见 UI 部位和行业通用名称。你不需要背下来，能在沟通时指出它们就够了。</p>
-      </div>
-      <div class="vocab-layout">
-        <div class="screen-anatomy">
-          <div class="anatomy-phone" aria-label="标出 UI 部件名称的 Plate Play 食谱首页">
-            <img src="./demo/plate-play/mobile-preview.png" alt="Plate Play 食谱首页完整页面">
-            <button class="anatomy-marker marker-header is-selected" type="button" data-vocab="页头" aria-pressed="true" aria-controls="vocabDetail"><span>01</span><b>页头</b></button>
-            <button class="anatomy-marker marker-title" type="button" data-vocab="标题区" aria-pressed="false" aria-controls="vocabDetail"><span>02</span><b>标题区</b></button>
-            <button class="anatomy-marker marker-visual" type="button" data-vocab="主视觉" aria-pressed="false" aria-controls="vocabDetail"><span>03</span><b>主视觉</b></button>
-            <button class="anatomy-marker marker-action" type="button" data-vocab="主按钮" aria-pressed="false" aria-controls="vocabDetail"><span>04</span><b>主按钮</b></button>
-            <button class="anatomy-marker marker-navigation" type="button" data-vocab="底部导航" aria-pressed="false" aria-controls="vocabDetail"><span>05</span><b>底部导航</b></button>
-          </div>
-          <p class="anatomy-caption">图上的绿色标注都可以点击</p>
-        </div>
-        <div class="vocab-list">
-          <div class="vocab-question"><span>现在选中</span><strong id="vocabName">页头</strong><small id="vocabEnglish">Header / App Bar</small></div>
-          <p class="vocab-detail" id="vocabDetail">页头位于页面最上方。这里用品牌标志和个人入口告诉用户“我在哪”，也提供常用操作。</p>
-          <div class="vocab-choices" aria-label="选择要认识的页面部分">
-            <button class="vocab-item is-selected" type="button" data-vocab="页头" aria-pressed="true" aria-controls="vocabDetail"><b>01</b><span>页头</span><small>Header / App Bar</small></button>
-            <button class="vocab-item" type="button" data-vocab="标题区" aria-pressed="false" aria-controls="vocabDetail"><b>02</b><span>标题区</span><small>Value Proposition</small></button>
-            <button class="vocab-item" type="button" data-vocab="主视觉" aria-pressed="false" aria-controls="vocabDetail"><b>03</b><span>主视觉</span><small>Hero Visual</small></button>
-            <button class="vocab-item" type="button" data-vocab="主按钮" aria-pressed="false" aria-controls="vocabDetail"><b>04</b><span>主按钮</span><small>Primary CTA</small></button>
-            <button class="vocab-item" type="button" data-vocab="底部导航" aria-pressed="false" aria-controls="vocabDetail"><b>05</b><span>底部导航</span><small>Bottom Navigation</small></button>
-          </div>
-          <a class="vocab-deep-link" href="./vocabulary.html">打开完整图文 UI 词典 <span aria-hidden="true">↗</span></a>
-        </div>
-      </div>
-    </section>
-
-    <section class="playground" id="playground" aria-labelledby="playgroundTitle">
-      <div class="section-heading section-heading-wide">
-        <p class="eyebrow">BRAND DESIGN TOKEN LAB</p>
-        <h2 id="playgroundTitle">把同一个界面换成你的品牌语言</h2>
-        <p>调整主色、标题字体、卡片圆角和页面间距。右侧会实时预览，并生成可以直接交给 Image2 UI 的 Design Tokens。</p>
-      </div>
-      <div class="token-lab">
-        <form class="token-controls" id="tokenControls">
-          <label>选择品牌规范<select id="brandPreset"><option value="image2">Image2 UI 默认</option><option value="signal">Signal / 冷静科技</option><option value="editorial">Editorial / 高对比编辑</option><option value="friendly">Friendly / 亲和生活</option></select></label>
-          <label>品牌主色<span class="color-control"><input id="brandColor" type="color" value="#b8f36b"><output id="brandColorValue">#b8f36b</output></span></label>
-          <label>标题字体<select id="displayFont"><option value="system">System Sans</option><option value="rounded">Rounded Sans</option><option value="mono">Mono Display</option><option value="serif">Editorial Serif</option></select></label>
-          <label>卡片圆角 <output id="radiusValue">14px</output><input id="cardRadius" type="range" min="0" max="28" step="2" value="14"></label>
-          <label>页面间距 <output id="spacingValue">8px</output><input id="spaceUnit" type="range" min="4" max="16" step="2" value="8"></label>
-          <div class="token-actions">
-            <button class="button button-primary" id="copyTokens" type="button">复制 Design Tokens</button>
-            <button class="button button-secondary" id="saveBrand" type="button">保存自定义品牌</button>
-            <button class="text-button" id="resetTokens" type="button">恢复默认</button>
-          </div>
-          <p class="copy-status" id="tokenStatus" aria-live="polite"></p>
-        </form>
-        <div class="brand-preview" id="brandPreview">
-          <div class="preview-toolbar"><span>LIVE PREVIEW</span><i></i><i></i></div>
-          <div class="preview-content">
-            <span class="preview-kicker">YOUR NEXT PLACE</span>
-            <h3>从一张参考图开始</h3>
-            <p>让结构、资产和品牌规范一起变成可点击体验。</p>
-            <button type="button">开始探索</button>
-            <div class="preview-mini-grid"><span>结构清晰</span><span>风格一致</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="brand-library-link"><span>需要更完整的颜色、字体、组件和可访问性规范？</span><a href="./brands.html">打开品牌规范库 →</a></div>
-    </section>
-
     <section class="three-parts" id="three-parts" aria-labelledby="partsTitle">
       <div class="section-heading section-heading-wide">
         <p class="eyebrow">OPTIONAL / BEHIND THE SCENES</p>
@@ -242,14 +226,14 @@
       <div class="final-actions">
         <a class="button button-accent" href="#quick-start">开始制作第一个界面</a>
         <a class="button button-dark-outline" href="./library.html">打开案例库</a>
-        <a class="button button-dark-outline" href="./brands.html">选择品牌规范</a>
+        <a class="button button-dark-outline" href="./brands.html">打开设计系统实验室</a>
       </div>
     </section>
   </main>
 
   <footer class="learn-footer">
     <p><strong>IMAGE2 UI</strong> · 从参考图到经过检查的可点击 Demo</p>
-    <nav aria-label="页脚链接"><a href="./library.html">案例库</a><a href="./brands.html">品牌规范</a><a href="./skills.html">设计 Skill</a><a href="https://x.com/JGuli49724" target="_blank" rel="noopener noreferrer">X</a><a href="https://www.xiaohongshu.com/user/profile/57b3456c82ec3947f79496e9" target="_blank" rel="noopener noreferrer">小红书</a></nav>
+    <nav aria-label="页脚链接"><a href="./library.html">案例库</a><a href="./brands.html">设计系统</a><a href="./skills.html">设计 Skill</a><a href="https://x.com/JGuli49724" target="_blank" rel="noopener noreferrer">X</a><a href="https://www.xiaohongshu.com/user/profile/57b3456c82ec3947f79496e9" target="_blank" rel="noopener noreferrer">小红书</a></nav>
   </footer>
 </body>
 </html>

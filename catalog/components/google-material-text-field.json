@@ -1,0 +1,32 @@
+{
+  "id": "material-3-text-field",
+  "name": "Text field",
+  "brandProfileId": "google-material-3",
+  "sourceType": "public-guideline",
+  "sourceStatus": "基于公开设计规范",
+  "sourceUrl": "https://m3.material.io/components/text-fields/overview",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["android", "web"],
+  "category": "input",
+  "summary": "用于采集短文本输入，支持 filled 和 outlined 两种容器样式。",
+  "anatomy": ["label", "input text", "supporting text", "leading or trailing icon", "container"],
+  "states": ["enabled", "focused", "hovered", "error", "disabled"],
+  "behavior": ["聚焦时标签与输入内容保持清晰层级", "错误信息靠近字段并说明修复方式"],
+  "accessibility": ["关联 label 和 supporting text", "错误不能只用颜色表达", "键盘顺序符合表单顺序"],
+  "tokens": { "shape": "md.sys.shape.corner.extra-small", "labelStyle": "md.sys.typescale.body-large", "supportingStyle": "md.sys.typescale.body-small" },
+  "do": ["使用具体帮助文案", "为必填和格式要求提供上下文"],
+  "dont": ["不要把 placeholder 当作唯一标签", "不要用无意义的输入框装饰页面"],
+  "locales": {
+    "en": {
+      "sourceStatus": "Based on public design guidelines",
+      "category": "Input",
+      "summary": "Collects short text input using either a filled or outlined container style.",
+      "anatomy": ["Label", "Input text", "Supporting text", "Leading or trailing icon", "Container"],
+      "states": ["Enabled", "Focused", "Hovered", "Error", "Disabled"],
+      "behavior": ["Maintain a clear hierarchy between label and input while focused", "Place error information close to the field and explain how to recover"],
+      "accessibility": ["Associate the label and supporting text", "Never express errors through color alone", "Keep keyboard order aligned with form order"],
+      "do": ["Use specific helper copy", "Provide context for required values and format constraints"],
+      "dont": ["Do not use the placeholder as the only label", "Do not decorate pages with meaningless input fields"]
+    }
+  }
+}

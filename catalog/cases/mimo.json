@@ -27,7 +27,31 @@
     "motion": "拖动结束时卡片在 220ms 内吸附到最近项目，透视、透明度和尺度同步变化。",
     "avoid": "让每一张卡都同等突出，或将侧卡做成无法点击的纯装饰。"
   },
-  "brandProfileIds": [
+  "locales": {
+    "en": {
+      "style": "Perspective schedule cards",
+      "reference": "A schedule-card carousel in violet haze, with the current task centered and side tasks receding in perspective",
+      "prompt": "Wellness-schedule app visual reference: a soft lavender-to-deep-indigo background with the centered white task card largest and side cards reduced through perspective rotation, opacity, and scale. Prioritize a genuinely draggable card carousel. Render all copy, dates, status bars, navigation, buttons, and icons in code; use a separate text-free visual asset for the pill on the center card, and do not generate UI, logos, watermarks, or pseudo-text.",
+      "summary": "The day's tasks become a draggable perspective deck, always using one centered card to make the next step explicit.",
+      "bestFor": "Medication reminders, scheduling, rehabilitation plans, habit support",
+      "tags": [
+        "Perspective carousel",
+        "Centered focus",
+        "Gesture switching"
+      ],
+      "palette": "Lavender / Indigo / Mist white",
+      "layout": "Date selection + Perspective task deck + Bottom navigation",
+      "recipe": {
+        "principle": "The center card communicates only the current next step; side cards provide temporal context without competing for attention.",
+        "image": "The center task may use one text-free pill or themed-object illustration; keep every other UI element clear and interactive in code.",
+        "type": "Give time and task title strong contrast and whitespace on the center card, and retain only essential summaries on side cards.",
+        "components": "Snap carousel, tappable side-card regions, date pills, focus feedback, and bottom tabs.",
+        "motion": "After dragging, snap to the nearest item within 220ms while perspective, opacity, and scale change together.",
+        "avoid": "Do not give every card equal prominence or turn side cards into untappable decoration."
+      }
+    }
+  },
+  "styleProfileIds": [
     "soft-lifestyle"
   ]
 }
