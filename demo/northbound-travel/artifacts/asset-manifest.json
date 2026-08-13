@@ -1,0 +1,88 @@
+{
+  "styleId": "northbound-travel",
+  "designCanvas": {
+    "width": 390,
+    "height": 693,
+    "aspectRatio": "9:16"
+  },
+  "styleTokens": {
+    "palette": ["charcoal navy", "near black", "pure white", "Atlantic blue", "slate gray"],
+    "lighting": "soft overcast Nordic daylight with cool cinematic contrast",
+    "camera": "editorial travel photography, wide environmental framing",
+    "texture": "natural rock, sea mist, black sand, cold ocean water"
+  },
+  "assets": [
+    {
+      "id": "discover-black-sand-coast",
+      "uiLocation": "Discover destination card",
+      "type": "photo-slot",
+      "implementation": "image2",
+      "slotSize": "342x430",
+      "exportSize": "1024x1280",
+      "aspectRatio": "4:5",
+      "postProcess": ["crop", "compress-webp"],
+      "targetPath": "assets/discover-black-sand-coast.webp",
+      "prompt": "Editorial travel photograph of a remote Nordic black-sand coastline, low cliffs, cold surf and pale mist, vertical 4:5 composition, focal landscape centered with clean darker areas for code-rendered white UI text, cool Atlantic blue and charcoal palette, natural overcast light, no people, no buildings, no text, no logo, no watermark, no phone, no UI, no icons or controls."
+    },
+    {
+      "id": "journey-sea-cliffs-hero",
+      "uiLocation": "Journey full-screen hero",
+      "type": "hero-image",
+      "implementation": "image2",
+      "slotSize": "390x693",
+      "exportSize": "1024x1824",
+      "aspectRatio": "9:16",
+      "postProcess": ["mobile-crop", "compress-webp"],
+      "targetPath": "assets/journey-sea-cliffs-hero.webp",
+      "prompt": "Immersive vertical editorial travel photograph of monumental Nordic sea cliffs above a steel-blue ocean, glacial haze, soft cloud breaks and a winding coastal path, 9:16 composition with visual breathing room through the center for code-rendered headline and lower metadata, cool blue-gray cinematic grade, no people, no text, no logo, no watermark, no phone, no UI, no icons or controls."
+    },
+    {
+      "id": "route-lava-shelf",
+      "uiLocation": "Itinerary carousel slide 1",
+      "type": "photo-slot",
+      "implementation": "image2",
+      "slotSize": "326x210",
+      "exportSize": "1536x1024",
+      "aspectRatio": "3:2",
+      "postProcess": ["crop", "compress-webp"],
+      "targetPath": "assets/route-lava-shelf.webp",
+      "prompt": "Wide editorial travel photograph of wet volcanic rock shelves meeting a cold Nordic sea, subtle mist and pale cyan reflections, realistic natural texture, 3:2 landscape crop, no people, no text, no logo, no watermark, no UI or icons."
+    },
+    {
+      "id": "route-fjord-overlook",
+      "uiLocation": "Itinerary carousel slide 2 and Day 1 thumbnail",
+      "type": "photo-slot",
+      "implementation": "image2",
+      "slotSize": "326x210",
+      "exportSize": "1536x1024",
+      "aspectRatio": "3:2",
+      "postProcess": ["crop", "compress-webp"],
+      "targetPath": "assets/route-fjord-overlook.webp",
+      "prompt": "Wide editorial travel photograph from a high fjord overlook, dark rock foreground, cold blue water and distant snow-streaked ridges under overcast Nordic light, restrained cinematic contrast, 3:2 landscape crop, no people, no text, no logo, no watermark, no UI or icons."
+    },
+    {
+      "id": "route-coastal-cabin",
+      "uiLocation": "Itinerary carousel slide 3 and Day 2 thumbnail",
+      "type": "photo-slot",
+      "implementation": "image2",
+      "slotSize": "326x210",
+      "exportSize": "1536x1024",
+      "aspectRatio": "3:2",
+      "postProcess": ["crop", "compress-webp"],
+      "targetPath": "assets/route-coastal-cabin.webp",
+      "prompt": "Wide editorial travel photograph of one small dark timber cabin beside a windswept Nordic coastline, slate ocean, moss and low cloud, quiet premium travel mood, 3:2 landscape crop, no people, no signage, no text, no logo, no watermark, no UI or icons."
+    },
+    {
+      "id": "route-glacial-beach",
+      "uiLocation": "Day 3 thumbnail and optional saved card",
+      "type": "thumbnail",
+      "implementation": "image2",
+      "slotSize": "76x52",
+      "exportSize": "768x512",
+      "aspectRatio": "3:2",
+      "postProcess": ["crop", "compress-webp"],
+      "targetPath": "assets/route-glacial-beach.webp",
+      "prompt": "Editorial travel photograph of translucent ice fragments on a black Nordic beach at blue hour, subtle cold reflections, realistic texture, 3:2 landscape crop, no people, no text, no logo, no watermark, no UI or icons."
+    }
+  ]
+}

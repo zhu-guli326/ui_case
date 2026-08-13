@@ -1,0 +1,15 @@
+.DS_Store
+node_modules/
+dist/
+build/
+.image2-ui/
+tmp/
+screenshots/
+demo/*/.image2-ui/
+demo/*/node_modules/
+demo/*/dist/
+demo/*/screenshots/validate-*.png
+*.log
+coverage/
+scripts/__pycache__/
+**/*.pyc

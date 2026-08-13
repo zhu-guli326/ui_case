@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Pepper Market</title>
+  </head>
+  <body>
+    <main>
+      <section class="phone">
+        <div class="screen">
+          <i></i>
+          <header>19:27 <b>Pepper Market</b><span>◔ ◉</span></header>
+          <section class="view home">
+            <h1>Fresh for<br />your day.</h1>
+            <input placeholder="Search groceries" /><button
+              class="store"
+              data-view="menu"
+            >
+              🥕 <b>Pepper Store</b><small>Open until 11:30 PM</small> ›
+            </button>
+            <div class="cards">
+              <button data-view="menu">Hand<br />Soap <em>+</em></button
+              ><button data-view="menu">Fresh<br />Carrots <em>+</em></button>
+            </div>
+            <h2>Offers for you</h2>
+            <button class="offer" data-view="menu">
+              Weekly market picks ›
+            </button>
+          </section>
+          <section class="view menu" hidden>
+            <button class="round" data-view="home">‹</button>
+            <h1>Chicken<br />Burger <b>$14.35</b></h1>
+            <img src="assets/chicken-burger.png" />
+            <div class="sheet">
+              <p>Our popular burger</p>
+              <button>Cheese &amp; Chicken Burger <b>$12.55</b></button
+              ><button>Double Chicken Burger <b>$12.55</b></button
+              ><button class="add" data-view="track">Add to bag ›</button>
+            </div>
+          </section>
+          <section class="view track" hidden>
+            <button class="round" data-view="menu">‹</button>
+            <div class="map">
+              Delivery confirmed <b>14:26</b><span>● ┄ ┄ ┄ ◉</span>
+            </div>
+            <div class="track">
+              <h2>Delivery status</h2>
+              <p>Food's on the way</p>
+              <strong
+                >Order received · Headed to pickup ·
+                <em>Food's on the way</em></strong
+              ><button data-note="Tracking your order live.">
+                Track your order
+              </button>
+            </div>
+          </section>
+          <nav>
+            <button data-view="home">●<small>Home</small></button
+            ><button data-view="menu">□<small>Menu</small></button
+            ><button data-view="track">◉<small>Track</small></button>
+          </nav>
+          <output></output>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
