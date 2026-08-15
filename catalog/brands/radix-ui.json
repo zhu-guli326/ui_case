@@ -1,0 +1,14 @@
+{
+  "id": "radix-ui",
+  "name": "Radix Primitives",
+  "organization": "Radix UI",
+  "sourceType": "public-guideline",
+  "sourceStatus": "基于公开设计规范",
+  "sourceUrl": "https://www.radix-ui.com/primitives",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["web", "react"],
+  "description": "无样式、可访问的底层 React 组件原语，为团队保留完整视觉控制权。",
+  "componentReferenceIds": ["radix-ui-dialog", "radix-ui-dropdown-menu", "radix-ui-tabs"],
+  "disclaimer": "本资料基于 Radix UI 公开文档整理，与 Radix UI 无隶属或背书关系；名称与标识归其各自权利人所有。",
+  "locales": { "en": { "sourceStatus": "Based on public design guidelines", "description": "Unstyled, accessible React primitives that preserve complete visual control for product teams.", "disclaimer": "Compiled from public Radix UI documentation with no affiliation or endorsement. Names and marks belong to their respective owners." } }
+}

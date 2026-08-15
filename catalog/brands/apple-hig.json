@@ -1,0 +1,20 @@
+{
+  "id": "apple-hig",
+  "name": "Apple Human Interface Guidelines",
+  "organization": "Apple",
+  "sourceType": "public-guideline",
+  "sourceStatus": "基于公开设计规范",
+  "sourceUrl": "https://developer.apple.com/design/human-interface-guidelines/",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["ios", "ipados", "macos"],
+  "description": "Apple Human Interface Guidelines 的公开设计体系索引，用于聚合可追溯的组件参考。",
+  "componentReferenceIds": ["apple-hig-button", "apple-hig-tab-bar", "apple-hig-text-field"],
+  "disclaimer": "本资料基于公开规范整理，与 Apple 无隶属或背书关系；Apple 及其产品名称为其各自权利人的标识。",
+  "locales": {
+    "en": {
+      "sourceStatus": "Based on public design guidelines",
+      "description": "A public-design-system index of Apple Human Interface Guidelines, organized around traceable component references.",
+      "disclaimer": "This material is compiled from public guidelines and is not affiliated with or endorsed by Apple. Apple and its product names are marks of their respective owners."
+    }
+  }
+}

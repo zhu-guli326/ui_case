@@ -1,0 +1,57 @@
+{
+  "id": "fithub",
+  "category": "wellness",
+  "name": "FitHub",
+  "style": "极简训练规划",
+  "video": "./demo/fithub/fithub-demo.mp4",
+  "liveDemo": "./demo/fithub/index.html",
+  "poster": "./demo/fithub/mobile-preview.png",
+  "preview": "#d9d9d7",
+  "reference": "白色手机、黑色细线、淡紫统计卡和醒目黄操作构成极简训练管理体验",
+  "referenceImage": "./demo/fithub/assets/reference-overview.png",
+  "prompt": "极简健身 App 视觉参考：白色 390×844 现代 iPhone 画布、黑色无衬线大标题、细线图标、淡紫与浅蓝统计卡、亮黄主按钮；训练教练与目标部位运动员使用两张独立无文字 image2 人像摄影。所有文字、状态栏、日期、卡片数字、按钮、标签、底部导航、箭头和图标均由代码呈现；不在图片中生成文字、logo、水印、手机或 UI glyph。",
+  "summary": "以课程发现、每日活动和目标部位三屏串起训练流程，让黑白骨架、低饱和数据色和黄色下一步保持清晰分工。",
+  "bestFor": "运动训练、健身计划、习惯打卡、个人活动记录",
+  "tags": [
+    "极简黑白",
+    "活动统计",
+    "训练引导"
+  ],
+  "palette": "云白 / 墨黑 / 淡紫 / 浅蓝 / 活力黄",
+  "layout": "训练发现 + 活动统计 + 目标部位选择",
+  "recipe": {
+    "principle": "把一天的训练决策分成三件短事：选课程、读状态、定目标。",
+    "image": "训练人物和运动员肖像为独立无文字生成图，所有操作与数据都保留在代码层。",
+    "type": "标题使用大写无衬线和直接数字，辅助标签短且固定在稳定栅格中。",
+    "components": "19.5:9 iOS 机身、课程筛选、可点训练卡、活动指标、日期选择、目标部位标签和底部导航。",
+    "motion": "筛选、日期、目标和底部导航都用即时选中态与短反馈回应。",
+    "avoid": "过多彩色统计卡、密集运动数据、生成图内 UI 文本和无法返回的多步流程。"
+  },
+  "locales": {
+    "en": {
+      "style": "Minimal workout planning",
+      "reference": "A white phone, fine black lines, pale-violet stat cards, and bold yellow actions form a minimal workout-management experience",
+      "prompt": "Minimal fitness-app visual reference: a white 390×844 modern iPhone canvas, large black sans-serif headings, fine-line icons, pale-violet and light-blue statistics cards, and a bright-yellow primary button. Use two separate text-free image2 portraits for the trainer and target-area athlete. Render all copy, status bars, dates, card numbers, buttons, labels, bottom navigation, arrows, and icons in code; do not generate text, logos, watermarks, phones, or UI glyphs inside images.",
+      "summary": "Course discovery, daily activity, and target-area screens connect the workout flow while black-and-white structure, muted data colors, and yellow next steps keep distinct roles.",
+      "bestFor": "Exercise training, fitness plans, habit check-ins, personal activity tracking",
+      "tags": [
+        "Minimal black and white",
+        "Activity stats",
+        "Workout guidance"
+      ],
+      "palette": "Cloud white / Ink black / Pale violet / Light blue / Energy yellow",
+      "layout": "Workout discovery + Activity stats + Target-area selection",
+      "recipe": {
+        "principle": "Break the day's workout decision into three short tasks: choose a class, read the status, and set a target.",
+        "image": "Use separate text-free generated portraits for the trainer and athlete; keep every action and data point in the code layer.",
+        "type": "Use large sans-serif headings and direct numbers; keep supporting labels short and anchored to a stable grid.",
+        "components": "19.5:9 iOS frame, course filters, tappable workout cards, activity metrics, date selection, target-area labels, and bottom navigation.",
+        "motion": "Respond to filters, dates, targets, and bottom navigation with immediate selected states and brief feedback.",
+        "avoid": "Avoid too many colored stat cards, dense exercise data, UI text embedded in generated images, and multi-step flows with no way back."
+      }
+    }
+  },
+  "styleProfileIds": [
+    "minimal-tech"
+  ]
+}

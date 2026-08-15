@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="在单一工作区定义任务、选择案例并生成可执行的 IMAGE2 UI 指令。">
+  <title>任务工作区 · IMAGE2 UI</title>
+  <link rel="stylesheet" href="./launcher.css?v=20260815-font-preview">
+  <link rel="stylesheet" href="./i18n.css">
+  <link rel="stylesheet" href="./site-nav.css?v=20260815-ondesign">
+  <script src="./i18n.js?v=20260815-ondesign"></script>
+  <script src="./analytics.config.js"></script>
+  <script src="./analytics.js" defer></script>
+  <script type="module" src="./launcher.js?v=20260815-font-preview"></script>
+</head>
+<body class="launcher-workspace">
+  <image2-site-header data-site-header></image2-site-header>
+
+  <main class="launcher-shell">
+    <header class="page-heading">
+      <div>
+        <p class="page-kicker" id="pageKicker">单一任务工作区</p>
+        <h1 id="pageTitle">从零创建界面</h1>
+        <p id="pageIntro">先确定风格，再补充任务信息；案例、摘要和指令会始终保持同步。</p>
+      </div>
+    </header>
+
+    <section class="style-direction" aria-labelledby="styleTitle">
+      <div class="section-heading">
+        <div>
+          <h2 id="styleTitle">先选风格方向</h2>
+          <p id="styleIntro">风格会筛选案例，并自动应用匹配的密度与 Token 地基。</p>
+        </div>
+      </div>
+      <div class="style-card-grid" id="styleDirectionGrid" role="radiogroup" aria-label="风格方向"></div>
+    </section>
+
+    <section class="color-theme-section" aria-labelledby="colorThemeTitle">
+      <div class="section-heading">
+        <div>
+          <h2 id="colorThemeTitle">选择品牌规范</h2>
+          <p id="colorThemeIntro">色彩 Token 来自公开规范；选择后会同步对应设计系统，避免组件与颜色混用。</p>
+        </div>
+      </div>
+      <div class="color-theme-grid" id="colorThemeGrid" role="radiogroup" aria-label="品牌设计规范"></div>
+    </section>
+
+    <section class="mode-picker" aria-labelledby="modeTitle">
+      <div class="mode-picker-heading">
+        <h2 id="modeTitle">任务模式</h2>
+        <p id="modeIntro">切换模式不会覆盖其他模式的草稿。</p>
+      </div>
+      <div class="intent-nav mode-tabs" id="modeTabs" role="tablist" aria-label="任务模式">
+        <button type="button" role="tab" id="tab-create" aria-controls="intentForm" data-intent="create"><strong>从零创建</strong><small>从需求生成新页面</small></button>
+        <button type="button" role="tab" id="tab-rebuild" aria-controls="intentForm" data-intent="rebuild"><strong>参考图还原</strong><small>按案例或图片还原</small></button>
+        <button type="button" role="tab" id="tab-improve" aria-controls="intentForm" data-intent="improve"><strong>优化现有页面</strong><small>检查问题并改进</small></button>
+        <button type="button" role="tab" id="tab-explore" aria-controls="intentForm" data-intent="explore"><strong>探索现有项目</strong><small>理解代码与页面</small></button>
+        <button type="button" role="tab" id="tab-design-system" aria-controls="intentForm" data-intent="design-system"><strong>比较设计系统</strong><small>对比系统适配性</small></button>
+      </div>
+    </section>
+
+    <form class="launcher-grid" id="launcherForm" novalidate>
+      <div class="configuration-column">
+        <div class="intent-form" id="intentForm" role="tabpanel" aria-labelledby="tab-create" tabindex="0"></div>
+      </div>
+
+      <aside class="prompt-column" aria-labelledby="promptTitle">
+        <div class="prompt-panel">
+          <div class="prompt-heading">
+            <div><p id="promptKicker">CODEX 指令准备</p><h2 id="promptTitle">任务摘要</h2></div>
+            <span class="ready-state" id="readyState"><i></i><span>等待输入</span></span>
+          </div>
+
+          <ol class="summary-progress" id="summaryProgress" aria-label="任务进度"></ol>
+          <div class="missing-state" id="missingState" role="status" aria-live="polite"></div>
+          <dl class="task-summary" id="taskSummary"></dl>
+
+          <section class="prompt-preview" aria-labelledby="promptPreviewTitle">
+            <div class="prompt-preview-heading">
+              <div><h3 id="promptPreviewTitle">实时调用指令</h3><span id="promptEditState">随表单实时更新</span></div>
+              <button class="text-button" id="applyGeneratedPrompt" type="button" hidden>应用最新生成</button>
+            </div>
+            <p class="prompt-sync-notice" id="promptSyncNotice" hidden>表单内容已更新；你的手动修改仍保留。</p>
+            <textarea class="prompt-output" id="promptOutput" rows="13" aria-label="可编辑的完整调用指令" spellcheck="false"></textarea>
+          </section>
+
+          <div class="prompt-actions">
+            <span class="primary-action-wrap" id="generatePromptWrap">
+              <button class="generate-button" id="generatePrompt" type="button" aria-describedby="missingState" disabled>生成指令</button>
+            </span>
+            <button class="secondary-button" id="copyPrompt" type="button">复制指令</button>
+            <button class="secondary-button" id="savePreset" type="button">保存指令快照</button>
+          </div>
+        </div>
+      </aside>
+    </form>
+  </main>
+
+  <dialog class="case-picker" id="casePicker" aria-labelledby="casePickerTitle">
+    <div class="case-picker-shell">
+      <header class="case-picker-header">
+        <div><p>参考案例</p><h2 id="casePickerTitle">从案例库选择</h2></div>
+        <button class="icon-button" id="closeCasePicker" type="button" aria-label="关闭案例选择器" title="关闭">&times;</button>
+      </header>
+      <div class="case-picker-tools">
+        <label class="search-field"><span>搜索案例</span><input id="caseSearch" type="search" placeholder="名称、风格或标签" autocomplete="off"></label>
+        <div class="filter-group" id="caseStyleFilters" aria-label="按风格筛选"></div>
+        <div class="filter-group" id="caseCategoryFilters" aria-label="按类型筛选"></div>
+      </div>
+      <div class="case-grid" id="caseGrid"></div>
+      <div class="case-empty" id="caseEmpty" hidden>没有符合当前条件的案例。</div>
+    </div>
+  </dialog>
+
+  <button class="assistant-trigger" id="assistantToggle" type="button" aria-expanded="false" aria-controls="assistantPanel"><span aria-hidden="true">?</span><span>任务助手</span></button>
+  <aside class="assistant-panel" id="assistantPanel" aria-labelledby="assistantTitle" hidden>
+    <header><div><p>工作区助手</p><h2 id="assistantTitle">下一步建议</h2></div><button class="icon-button" id="assistantClose" type="button" aria-label="关闭任务助手" title="关闭">&times;</button></header>
+    <div class="assistant-content" id="assistantContent"></div>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

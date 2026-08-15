@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Brand Profile",
+  "type": "object",
+  "required": ["id", "name", "organization", "sourceType", "sourceStatus", "sourceUrl", "reviewedAt", "platforms", "description", "componentReferenceIds", "disclaimer"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "name": { "type": "string" },
+    "organization": { "type": "string" },
+    "sourceType": { "enum": ["brand-provided", "public-guideline", "custom-brand"] },
+    "sourceStatus": { "enum": ["品牌提供", "基于公开设计规范", "自定义品牌"] },
+    "sourceUrl": { "type": "string", "format": "uri" },
+    "reviewedAt": { "type": "string", "format": "date" },
+    "platforms": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string" } },
+    "description": { "type": "string" },
+    "componentReferenceIds": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z0-9-]+$" } },
+    "disclaimer": { "type": "string" },
+    "locales": {
+      "type": "object",
+      "properties": {
+        "en": {
+          "type": "object",
+          "required": ["sourceStatus", "description", "disclaimer"]
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

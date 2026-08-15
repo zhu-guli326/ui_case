@@ -1,0 +1,3 @@
+{
+  "id":"arco-design","name":"Arco Design","organization":"ByteDance","sourceType":"public-guideline","sourceStatus":"基于公开设计规范","sourceUrl":"https://arco.design/","reviewedAt":"2026-08-13","platforms":["web","react","vue"],"description":"字节跳动开源的企业级设计系统，提供 React、Vue 组件与设计资源。","componentReferenceIds":["arco-button","arco-table","arco-modal"],"disclaimer":"本资料基于 Arco Design 公开文档整理，与字节跳动或 Arco Design 无隶属或背书关系；名称与标识归其各自权利人所有。","locales":{"en":{"sourceStatus":"Based on public design guidelines","description":"ByteDance's open-source enterprise design system with React and Vue components and design resources.","disclaimer":"Compiled from public Arco Design documentation with no affiliation or endorsement. Names and marks belong to their respective owners."}}
+}

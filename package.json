@@ -1,0 +1,15 @@
+{
+  "name": "ui-case-gallery",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:catalog": "node scripts/build_catalog.mjs",
+    "serve": "node scripts/serve_site.mjs",
+    "test": "node --test",
+    "check": "node scripts/check_site.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

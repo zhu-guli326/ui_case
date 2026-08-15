@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="不会前端，也能在 5 分钟内用 Image2 UI 把参考图变成可点击界面。">
+  <title>5 分钟做出第一个可点击界面 · IMAGE2 UI</title>
+  <link rel="stylesheet" href="./learn.css">
+  <link rel="stylesheet" href="./i18n.css">
+  <link rel="stylesheet" href="./site-nav.css?v=20260815-ondesign">
+  <script src="./i18n.js?v=20260815-ondesign"></script>
+  <script src="./analytics.config.js"></script>
+  <script src="./analytics.js" defer></script>
+  <script src="./learn.js?v=20260815-flow" defer></script>
+</head>
+<body>
+  <div class="page-progress" aria-hidden="true"><span id="pageProgressBar"></span></div>
+  <image2-site-header data-site-header></image2-site-header>
+
+  <nav class="learning-map" aria-label="本页进度">
+    <div class="learning-map-inner">
+      <strong>你的进度</strong>
+      <div class="learning-map-links">
+        <a class="is-current" href="#fufu-play" data-learn-section="fufu-play">FuFu 小店</a>
+        <a href="#quick-start" data-learn-section="quick-start">快速开始</a>
+        <a href="#input-output" data-learn-section="input-output">输入与结果</a>
+        <a href="#case-study" data-learn-section="case-study">案例拆解</a>
+        <a href="./vocabulary.html">图文词典</a>
+        <a href="#three-parts" data-learn-section="three-parts">实现原理</a>
+        <a href="#beginner-answers" data-learn-section="beginner-answers">常见问题</a>
+        <a href="#start-making" data-learn-section="start-making">开始制作</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="learn-hero" aria-labelledby="heroTitle">
+      <div class="hero-copy">
+        <p class="eyebrow">FROM REFERENCE TO CLICKABLE DEMO</p>
+        <h1 id="heroTitle"><span class="hero-line">不会前端，也能把参考图</span><span class="hero-line hero-line-accent">变成可点击界面。</span></h1>
+        <p class="hero-intro">你只需要看懂页面由哪些部分组成。拆图、生成素材、编写代码和检查交互，可以交给 Image2 UI。</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#quick-start">用一张参考图开始</a>
+          <a class="button button-secondary" href="#case-study">先看案例拆解</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="从参考图到可点击 Demo 的过程示意">
+        <img src="./assets/readme/hero.png" alt="多张参考界面组成的 Image2 UI 案例拼贴">
+        <div class="visual-note visual-note-html"><b>01</b><span>上传参考图</span></div>
+        <div class="visual-note visual-note-css"><b>02</b><span>识别结构与资产</span></div>
+        <div class="visual-note visual-note-js"><b>03</b><span>获得可点击 Demo</span></div>
+      </div>
+    </section>
+
+    <section class="fufu-play" id="fufu-play" aria-labelledby="fufuPlayTitle">
+      <div class="fufu-play-copy">
+        <p class="eyebrow">PLAY FIRST / LEARN BY DOING</p>
+        <h2 id="fufuPlayTitle">先帮 FuFu 开张今天的小店</h2>
+        <p>选一种店铺气氛，再卖出面包收集印章。你会直接看到颜色、文案和状态怎样一起改变体验。</p>
+        <div class="fufu-theme-picker" role="group" aria-label="选择 FuFu Bakery 店铺气氛">
+          <button class="fufu-theme-button is-active" type="button" data-fufu-theme="morning" aria-pressed="true"><span class="theme-swatch theme-swatch-morning" aria-hidden="true"></span>早晨黄</button>
+          <button class="fufu-theme-button" type="button" data-fufu-theme="picnic" aria-pressed="false"><span class="theme-swatch theme-swatch-picnic" aria-hidden="true"></span>野餐绿</button>
+          <button class="fufu-theme-button" type="button" data-fufu-theme="berry" aria-pressed="false"><span class="theme-swatch theme-swatch-berry" aria-hidden="true"></span>莓果粉</button>
+        </div>
+        <div class="fufu-lesson" aria-live="polite">
+          <strong id="fufuLessonTitle">早晨黄：温暖、醒目，适合主行动</strong>
+          <span id="fufuLessonText">这是 CSS 在改变视觉语气。接着点击购买，让 JavaScript 改变会员状态。</span>
+        </div>
+      </div>
+
+      <div class="fufu-example">
+        <div class="fufu-example-toolbar">
+          <div class="fufu-view-switch" role="tablist" aria-label="切换效果与代码">
+            <button class="is-active" id="fufu-view-preview" type="button" role="tab" aria-selected="true" aria-controls="fufuPreviewPanel" data-fufu-view="preview">效果</button>
+            <button id="fufu-view-code" type="button" role="tab" aria-selected="false" aria-controls="fufuCodePanel" data-fufu-view="code">代码</button>
+          </div>
+          <span>实时示例</span>
+        </div>
+
+        <div class="fufu-preview-panel" id="fufuPreviewPanel" role="tabpanel" aria-labelledby="fufu-view-preview">
+          <div class="fufu-shop" id="fufuShop" data-theme="morning" aria-label="FuFu Bakery 手机样式互动预览">
+            <div class="fufu-phone-frame">
+          <div class="fufu-phone-screen">
+            <div class="fufu-phone-status" aria-hidden="true">
+              <strong>10:04</strong>
+              <span class="dynamic-island"></span>
+              <span class="phone-signals">⌁  ◒  ▱</span>
+            </div>
+            <div class="fufu-shop-head"><span>FU FU BAKERY</span><strong id="fufuShopMood">GOOD MORNING</strong></div>
+            <div class="fufu-shop-main">
+              <div class="fufu-product-copy">
+                <span>今日刚出炉</span>
+                <h3 id="fufuProductName">海盐黄油卷</h3>
+                <p id="fufuProductNote">松软、温热，最后撒一点海盐。</p>
+              </div>
+              <img src="./demo/fufu-bakery/assets/fufu-baker.png" alt="FuFu 狗狗烘焙师抱着法棍">
+            </div>
+            <div class="fufu-member-card">
+              <div class="fufu-member-head"><span>今日会员卡</span><strong><span id="fufuStampCount">0</span> / 4</strong></div>
+              <div class="fufu-stamps" id="fufuStamps" aria-label="已收集 0 枚，共 4 枚印章">
+                <span></span><span></span><span></span><span></span>
+              </div>
+              <p id="fufuRewardText">每买一个面包，就会多一枚印章。</p>
+            </div>
+            <button class="fufu-buy-button" id="fufuBuyButton" type="button">买一个面包，收集印章</button>
+            <button class="fufu-reset-button is-hidden" id="fufuResetButton" type="button" aria-hidden="true" tabindex="-1">再玩一次</button>
+            <p class="fufu-status" id="fufuStatus" role="status" aria-live="polite">烤箱已经热好了。</p>
+            <nav class="fufu-bottom-nav" aria-label="FuFu Bakery 示例底部导航">
+              <button class="is-active" type="button"><span>⌂</span>小店</button>
+              <button type="button"><span>▦</span>菜单</button>
+              <button type="button"><span>♡</span>会员</button>
+            </nav>
+          </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fufu-code-panel" id="fufuCodePanel" role="tabpanel" aria-labelledby="fufu-view-code" hidden>
+          <div class="fufu-code-head">
+            <div class="fufu-code-tabs" role="tablist" aria-label="选择代码类型">
+              <button class="is-active" type="button" role="tab" aria-selected="true" data-fufu-code="html">HTML</button>
+              <button type="button" role="tab" aria-selected="false" data-fufu-code="css">CSS</button>
+              <button type="button" role="tab" aria-selected="false" data-fufu-code="js">JavaScript</button>
+            </div>
+            <button class="fufu-copy-code" id="fufuCopyCode" type="button">复制代码</button>
+          </div>
+          <pre class="fufu-code-output" tabindex="0"><code id="fufuCodeOutput"></code></pre>
+          <p class="fufu-code-status" id="fufuCodeStatus" aria-live="polite">HTML 决定页面里有哪些内容。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="quick-start" id="quick-start" aria-labelledby="quickStartTitle">
+      <div class="section-heading section-heading-wide">
+        <p class="eyebrow">5 MINUTE QUICK START</p>
+        <h2 id="quickStartTitle">四步完成第一个界面</h2>
+        <p>准备一张参考图，把下面这句话连同图片发给 Codex。第一次不需要先学 HTML、CSS 或 JavaScript。</p>
+      </div>
+      <ol class="quick-steps">
+        <li><span>01</span><strong>上传参考图</strong><p>截图、设计稿或你喜欢的产品页面都可以。</p></li>
+        <li><span>02</span><strong>选风格规范</strong><p>沿用参考图，或指定案例风格与品牌规范。</p></li>
+        <li><span>03</span><strong>复制 Prompt</strong><p>明确页面数量、可点击范围和检查要求。</p></li>
+        <li><span>04</span><strong>体验 Demo</strong><p>打开结果，检查显示、图片与页面交互。</p></li>
+      </ol>
+      <div class="prompt-tool" aria-label="可复制的 Image2 UI Prompt">
+        <div class="prompt-tool-head"><span>直接使用这句话</span><span>IMAGE2-TO-UI.PROMPT</span></div>
+        <pre id="quickPrompt">使用 image-to-ui-skill，参考我上传的图片，
+拆分代码 UI 和图片资产，生成一个包含三个页面的可点击手机 Demo，
+并检查页面显示、图片加载和交互是否正常。</pre>
+        <div class="prompt-actions">
+          <button class="button button-primary" id="copyQuickPrompt" type="button">复制这段 Prompt</button>
+          <a class="button button-secondary" href="./demo/fufu-bakery/index.html">查看生成结果示例</a>
+        </div>
+        <p class="copy-status" id="copyStatus" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="input-output" id="input-output" aria-labelledby="inputOutputTitle">
+      <div class="section-heading section-heading-wide">
+        <p class="eyebrow">WHAT YOU GIVE / WHAT YOU GET</p>
+        <h2 id="inputOutputTitle">你提供方向，Skill 负责落地</h2>
+      </div>
+      <div class="io-flow">
+        <div class="io-column">
+          <span class="io-label">你的输入</span>
+          <h3>参考图 + 一句话要求</h3>
+          <ul><li>一张或多张参考图</li><li>想做几个页面</li><li>品牌、内容和交互要求</li></ul>
+        </div>
+        <div class="io-arrow" aria-hidden="true">→</div>
+        <div class="io-column io-output">
+          <span class="io-label">最终结果</span>
+          <h3>可打开、可点击、可继续修改</h3>
+          <ul><li>代码实现的 UI 与交互</li><li>单独生成和管理的图片资产</li><li>经过显示、加载与交互检查的 Demo</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-study" id="case-study" aria-labelledby="caseTitle">
+      <div class="section-heading section-heading-wide">
+        <p class="eyebrow">INPUT → DECISIONS → OUTPUT</p>
+        <h2 id="caseTitle">看 Skill 如何拆解一个案例</h2>
+        <p>切换案例，比较原始参考、拆解决策和最终可点击页面。这里关注的是工作流，不是要求你先会写代码。</p>
+      </div>
+      <div class="case-tabs" role="tablist" aria-label="选择教学案例">
+        <button class="case-tab is-selected" id="case-tab-fufu" type="button" role="tab" aria-selected="true" aria-controls="casePanel" tabindex="0" data-case="fufu">FuFu Bakery <small>手绘烘焙会员</small></button>
+        <button class="case-tab" id="case-tab-plate" type="button" role="tab" aria-selected="false" aria-controls="casePanel" tabindex="-1" data-case="plate">Plate Play <small>食谱插画</small></button>
+        <button class="case-tab" id="case-tab-relay" type="button" role="tab" aria-selected="false" aria-controls="casePanel" tabindex="-1" data-case="relay">RELAY <small>音乐发现</small></button>
+      </div>
+      <div class="case-board" id="casePanel" role="tabpanel" aria-labelledby="case-tab-fufu">
+        <div class="case-compare">
+          <figure><figcaption>原始参考图</figcaption><img id="caseReferenceImage" src="./demo/fufu-bakery/assets/reference-overview.png" alt="FuFu Bakery 原始参考图"></figure>
+          <figure><figcaption>最终可点击页面</figcaption><img id="caseImage" src="./demo/fufu-bakery/mobile-preview.png" alt="FuFu Bakery 手绘烘焙会员案例预览"></figure>
+        </div>
+        <div class="case-analysis">
+          <div class="analysis-block"><span class="analysis-label">识别出的页面结构</span><p id="caseStructure">欢迎页、烘焙首页、今日菜单和会员卡组成轻量门店流程。</p></div>
+          <div class="analysis-block"><span class="analysis-label">需要生成的图片资产</span><p id="caseAssets">狗狗烘焙师插画和烘焙氛围参考图。</p></div>
+          <div class="analysis-block"><span class="analysis-label">需要代码实现的控件</span><div class="implementation-tags" id="caseControls"><span>进入按钮</span><span>菜单切换</span><span>会员卡</span><span>底部导航</span></div></div>
+          <div class="case-actions">
+            <a class="button button-primary" id="caseDemoLink" href="./demo/fufu-bakery/index.html">体验 Demo</a>
+            <button class="button button-secondary" id="applyLearningCase" type="button">应用到当前项目</button>
+            <a class="button button-secondary" id="caseTaskLink" href="./launcher.html?intent=rebuild&source=library&case=fufu">用此案例开始任务</a>
+            <button class="button button-secondary" id="copyCasePrompt" type="button">复制同款结构 Prompt</button>
+          </div>
+          <p class="copy-status" id="caseCopyStatus" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="three-parts" id="three-parts" aria-labelledby="partsTitle">
+      <div class="section-heading section-heading-wide">
+        <p class="eyebrow">OPTIONAL / BEHIND THE SCENES</p>
+        <h2 id="partsTitle">想知道背后怎么实现？</h2>
+        <p>这些知识不是使用 Skill 的前置条件。等你想继续修改生成结果时，再展开了解前端三件套。</p>
+      </div>
+      <details class="frontend-details">
+        <summary>展开了解 HTML、CSS 和 JavaScript</summary>
+        <div class="parts-grid">
+          <article class="part-card part-html"><span class="part-label">01 / STRUCTURE</span><h3>HTML</h3><p>决定页面有什么：标题、段落、图片、按钮和页面结构。</p><small>关键词：内容、结构、语义</small></article>
+          <article class="part-card part-css"><span class="part-label">02 / STYLE</span><h3>CSS</h3><p>决定页面长什么样：颜色、字体、间距、布局和响应式。</p><small>关键词：外观、布局、适配</small></article>
+          <article class="part-card part-js"><span class="part-label">03 / BEHAVIOR</span><h3>JavaScript</h3><p>决定页面怎么回应：点击、切换、校验和动态状态。</p><small>关键词：交互、状态、反馈</small></article>
+        </div>
+      </details>
+    </section>
+
+    <section class="beginner-answers" id="beginner-answers" aria-labelledby="answersTitle">
+      <div class="section-heading section-heading-wide">
+        <p class="eyebrow">IMAGE2 UI / FAQ</p>
+        <h2 id="answersTitle">实际使用时最常遇到的问题</h2>
+      </div>
+      <div class="faq-list">
+        <details open><summary>完全不会写代码可以使用吗？</summary><p>可以。你负责提供参考图、目标和反馈；Skill 会拆解页面、实现代码、生成所需图片并检查结果。你只需要能打开 Demo 并说出哪里需要调整。</p></details>
+        <details><summary>每个页面都必须调用 Image2 吗？</summary><p>不需要。Image2 只用于更适合位图的插画、照片和复杂视觉资产。按钮、文字、导航、表单和大多数图标应由代码实现。</p></details>
+        <details><summary>效果图和可点击 Demo 有什么区别？</summary><p>效果图只展示某个静态画面；可点击 Demo 包含真实页面结构和交互，可以切换页面、点击按钮，并在不同屏幕尺寸下运行。</p></details>
+        <details><summary>可以应用自己的品牌规范吗？</summary><p>可以。提供 Logo、字体、颜色、间距和组件要求，或从品牌规范库选一套基础规则。对于商业字体和品牌资产，请同时说明你拥有使用权限。</p></details>
+        <details><summary>生成结果还能继续修改吗？</summary><p>可以。你可以直接用自然语言提出修改，例如“主按钮改成品牌绿、卡片圆角减小、保留当前交互”，也可以让 Skill 只重做指定页面。</p></details>
+        <details><summary>为什么有些内容必须由代码实现？</summary><p>文字、按钮和控件需要清晰、可访问且能响应交互。把它们画进图片会导致无法点击、难以修改，也无法适配不同屏幕。</p></details>
+      </div>
+      <details class="further-learning"><summary>进一步学习：前端与体验设计资料</summary><div><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website" target="_blank" rel="noreferrer">MDN：第一个网站 ↗</a><a href="https://web.dev/learn/" target="_blank" rel="noreferrer">web.dev：学习路径 ↗</a><a href="https://www.nngroup.com/articles/what-is-user-experience/" target="_blank" rel="noreferrer">NN/g：UI 与 UX ↗</a></div></details>
+    </section>
+
+    <section class="start-making" id="start-making" aria-labelledby="startMakingTitle">
+      <p class="eyebrow">YOUR FIRST DEMO</p>
+      <h2 id="startMakingTitle">现在，用一张你喜欢的参考图开始。</h2>
+      <p>五分钟后，你应该拿到一个可以打开、点击和继续修改的界面，而不是多学一门课。</p>
+      <div class="final-actions">
+        <a class="button button-accent" href="#quick-start">开始制作第一个界面</a>
+        <a class="button button-dark-outline" href="./library.html">打开案例库</a>
+        <a class="button button-dark-outline" href="./brands.html">打开设计系统实验室</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="learn-footer">
+    <p><strong>IMAGE2 UI</strong> · 从参考图到经过检查的可点击 Demo</p>
+    <nav aria-label="页脚链接"><a href="./library.html">案例库</a><a href="./brands.html">设计系统</a><a href="./skills.html">设计 Skill</a><a href="https://x.com/JGuli49724" target="_blank" rel="noopener noreferrer">X</a><a href="https://www.xiaohongshu.com/user/profile/57b3456c82ec3947f79496e9" target="_blank" rel="noopener noreferrer">小红书</a></nav>
+  </footer>
+</body>
+</html>

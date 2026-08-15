@@ -1,0 +1,32 @@
+{
+  "id": "tdesign-button",
+  "name": "Button",
+  "brandProfileId": "tdesign",
+  "sourceType": "public-guideline",
+  "sourceStatus": "基于公开设计规范",
+  "sourceUrl": "https://tdesign.tencent.com/react/components/button",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["web", "react", "vue"],
+  "category": "action",
+  "summary": "用于触发即时操作，通过主题、变体、尺寸、形状和状态表达动作层级。",
+  "anatomy": ["container", "label", "optional icon", "loading indicator"],
+  "states": ["default", "hover", "active", "focus", "loading", "disabled"],
+  "behavior": ["一个操作区只保留一个最强主操作", "异步提交时使用 loading 状态阻止重复触发"],
+  "accessibility": ["使用明确的动作标签", "仅图标按钮提供可访问名称", "键盘焦点状态必须可见"],
+  "tokens": { "theme": "default | primary | danger | warning | success", "variant": "base | outline | dashed | text", "size": "small | medium | large", "shape": "rectangle | square | round | circle" },
+  "do": ["根据动作层级选择主题和变体", "让按钮文字描述操作结果"],
+  "dont": ["不要在同一区域堆叠多个主按钮", "不要仅依赖颜色说明危险操作"],
+  "locales": {
+    "en": {
+      "sourceStatus": "Based on public design guidelines",
+      "category": "Action",
+      "summary": "Triggers immediate actions, expressing hierarchy through theme, variant, size, shape, and state.",
+      "anatomy": ["Container", "Label", "Optional icon", "Loading indicator"],
+      "states": ["Default", "Hover", "Active", "Focus", "Loading", "Disabled"],
+      "behavior": ["Keep one strongest primary action in an action area", "Use loading state during async submission to prevent duplicate triggers"],
+      "accessibility": ["Use an explicit action label", "Give icon-only buttons an accessible name", "Keep keyboard focus visibly apparent"],
+      "do": ["Choose theme and variant according to action hierarchy", "Describe the action result in the label"],
+      "dont": ["Do not stack several primary buttons in one area", "Do not rely on color alone for dangerous actions"]
+    }
+  }
+}

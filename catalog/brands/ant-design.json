@@ -1,0 +1,14 @@
+{
+  "id": "ant-design",
+  "name": "Ant Design",
+  "organization": "Ant Group",
+  "sourceType": "public-guideline",
+  "sourceStatus": "基于公开设计规范",
+  "sourceUrl": "https://ant.design/",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["web", "react"],
+  "description": "面向中后台和企业产品的 React 设计体系，擅长表格、表单与复杂业务流程。",
+  "componentReferenceIds": ["ant-design-table", "ant-design-form", "ant-design-modal"],
+  "disclaimer": "本资料基于 Ant Design 公开文档整理，与 Ant Group 无隶属或背书关系；名称与标识归其各自权利人所有。",
+  "locales": { "en": { "sourceStatus": "Based on public design guidelines", "description": "A React design system for enterprise products, with strong tables, forms, and complex workflows.", "disclaimer": "Compiled from public Ant Design documentation with no affiliation or endorsement. Names and marks belong to their respective owners." } }
+}

@@ -1,0 +1,42 @@
+{
+  "styleId": "bloom-rewards",
+  "designCanvas": {
+    "width": 390,
+    "height": 693,
+    "aspectRatio": "9:16"
+  },
+  "assets": [
+    {
+      "id": "meadow-daisy-board",
+      "type": "background-visual",
+      "uiLocation": "Two-phone presentation board",
+      "implementation": "image2",
+      "exportSize": "2048x1536",
+      "aspectRatio": "4:3",
+      "targetPath": "assets/meadow-daisy-board.webp",
+      "prompt": "Top-down photorealistic meadow background with dense clover, soft moss, fresh green grass and scattered small white daisies, bright natural morning light, tactile botanical detail, even composition suitable for placing two phone mockups, no people, no hands, no devices, no text, no logos, no watermark, no UI."
+    },
+    {
+      "id": "sprig-onboarding-scene",
+      "type": "illustration",
+      "uiLocation": "Onboarding main visual",
+      "implementation": "image2",
+      "exportSize": "1536x1536",
+      "aspectRatio": "1:1",
+      "targetPath": "assets/sprig-onboarding-scene.png",
+      "postProcess": ["remove-background", "transparent-png"],
+      "prompt": "Original friendly green leaf mascot named Sprig with expressive eyes, black rubber-hose arms and legs, lifting a large lavender upward arrow beside stacks of round yellow leaf tokens, bold imperfect black ink outlines, playful editorial cartoon, centered full-body composition on a perfectly flat solid magenta chroma-key background, no text, no logo, no watermark, no phone, no UI, no buttons or icons."
+    },
+    {
+      "id": "sprig-state-sheet",
+      "type": "illustration-sheet",
+      "uiLocation": "Success, empty, and streak states",
+      "implementation": "image2",
+      "exportSize": "2048x1024",
+      "aspectRatio": "2:1",
+      "targetPath": "assets/sprig-state-sheet.png",
+      "postProcess": ["slice", "remove-background", "transparent-png"],
+      "prompt": "Three-cell horizontal character asset sheet of the same original green leaf mascot Sprig with identical black rubber-hose illustration style: celebrating with confetti, calmly holding an empty basket, and running with a seven-day streak flame. Equal cells, consistent proportions, perfectly flat solid magenta chroma-key background, no text, no logos, no watermarks, no phone, no UI or controls."
+    }
+  ]
+}

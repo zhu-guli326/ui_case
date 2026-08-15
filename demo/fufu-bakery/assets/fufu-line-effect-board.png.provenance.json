@@ -1,0 +1,15 @@
+{
+  "asset": "fufu-line-effect-board.png",
+  "channel": "youtoken-gpt-image-2",
+  "source": "youtoken-image-api",
+  "operation": "image edit",
+  "reference": "reference-overview.png",
+  "generatedAt": "2026-08-13T09:46:32Z",
+  "reviewed": true,
+  "purpose": "Complete three-screen visual effect image generated and reviewed before UI decomposition.",
+  "constraints": [
+    "No readable text",
+    "No logo or watermark",
+    "No UI controls, status bar, or navigation glyphs"
+  ]
+}

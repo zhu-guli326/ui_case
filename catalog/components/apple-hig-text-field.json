@@ -1,0 +1,32 @@
+{
+  "id": "apple-hig-text-field",
+  "name": "Text field",
+  "brandProfileId": "apple-hig",
+  "sourceType": "public-guideline",
+  "sourceStatus": "基于公开设计规范",
+  "sourceUrl": "https://developer.apple.com/design/human-interface-guidelines/text-fields",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["ios", "ipados", "macos"],
+  "category": "input",
+  "summary": "用于单行文本输入，遵循平台的键盘、焦点和可读性行为。",
+  "anatomy": ["label", "text value", "placeholder", "clear control", "container"],
+  "states": ["empty", "editing", "filled", "disabled", "invalid"],
+  "behavior": ["根据内容类型选择合适键盘", "编辑态保留清晰焦点与提交路径"],
+  "accessibility": ["支持 Dynamic Type", "提供可访问 label 和错误说明", "触控目标不低于 44pt"],
+  "tokens": { "minHitArea": "44pt", "textStyle": "body", "keyboard": "contextual" },
+  "do": ["让 placeholder 只提供示例或提示", "在错误状态提供可操作的修复信息"],
+  "dont": ["不要把 placeholder 当唯一标签", "不要阻止辅助技术读取字段状态"],
+  "locales": {
+    "en": {
+      "sourceStatus": "Based on public design guidelines",
+      "category": "Input",
+      "summary": "Collects a single line of text while following platform behavior for keyboard, focus, and readability.",
+      "anatomy": ["Label", "Text value", "Placeholder", "Clear control", "Container"],
+      "states": ["Empty", "Editing", "Filled", "Disabled", "Invalid"],
+      "behavior": ["Choose the appropriate keyboard for the content type", "Keep focus and the submission path clear while editing"],
+      "accessibility": ["Support Dynamic Type", "Provide an accessible label and error explanation", "Keep touch targets at least 44pt"],
+      "do": ["Use placeholders only for examples or hints", "Provide actionable recovery information for errors"],
+      "dont": ["Do not use the placeholder as the only label", "Do not prevent assistive technology from reading field state"]
+    }
+  }
+}

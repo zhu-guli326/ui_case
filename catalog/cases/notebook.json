@@ -1,0 +1,57 @@
+{
+  "id": "notebook",
+  "category": "creative",
+  "name": "Marble Note",
+  "style": "手账式创意工作台",
+  "video": "./demo/marble-note/marble-note-demo.mp4",
+  "liveDemo": "./demo/marble-note/index.html",
+  "poster": "./demo/marble-note/screenshots/marble-note-mobile.png",
+  "preview": "#f0eac6",
+  "reference": "手绘线条、彩色贴纸和真实纸张节奏，让工作台更像创作空间",
+  "referenceImage": "./demo/marble-note/screenshots/marble-note-mobile.png",
+  "prompt": "创意笔记 App 视觉参考：柔和纸色底、手绘线稿、糖果色标签和文件夹形状，信息结构依然清楚可读；让插画性细节限定在封面与少量空白区域，不用每张卡片都铺满 emoji、渐变和厚重阴影。",
+  "summary": "把笔记、文件夹和日程放进一套有手感的创作语言，保留清晰的任务和内容层级。",
+  "bestFor": "创意笔记、学生工具、家庭规划、轻量项目整理",
+  "tags": [
+    "纸张手感",
+    "手绘线稿",
+    "彩色标签"
+  ],
+  "palette": "暖纸白 / 薄荷绿 / 天蓝 / 柔粉 / 墨黑",
+  "layout": "欢迎封面 + 文件夹分组 + 卡片式笔记工作台",
+  "recipe": {
+    "principle": "装饰让人愿意停留，结构让人马上能开始记录。",
+    "image": "手绘元素集中在封面或空白区域，内容卡保持平整易读。",
+    "type": "标题可以有一点手写气质，正文和表单必须稳定、清楚。",
+    "components": "文件夹 chip、项目文件夹、便签卡、简化编辑器、色彩标签和切换视图。",
+    "motion": "页面切换和保存提示带有轻微纸张般的位移，但不影响阅读。",
+    "avoid": "用 emoji 或伪图标承担搜索、返回、保存等功能操作。"
+  },
+  "locales": {
+    "en": {
+      "style": "Journal-like creative workspace",
+      "reference": "Hand-drawn lines, colorful stickers, and a real-paper rhythm make the workspace feel like a place to create",
+      "prompt": "Creative-notes app visual reference: a soft paper background, hand-drawn linework, candy-colored labels, and folder shapes while preserving a clear, readable information structure. Limit illustrative detail to covers and a few open areas instead of filling every card with emoji, gradients, and heavy shadows.",
+      "summary": "Notes, folders, and schedules share a tactile creative language while retaining clear task and content hierarchy.",
+      "bestFor": "Creative notes, student tools, family planning, lightweight project organization",
+      "tags": [
+        "Paper texture",
+        "Hand-drawn linework",
+        "Color labels"
+      ],
+      "palette": "Warm paper white / Mint green / Sky blue / Soft pink / Ink black",
+      "layout": "Welcome cover + Folder groups + Card-based notes workspace",
+      "recipe": {
+        "principle": "Decoration should invite people to stay while structure lets them begin recording immediately.",
+        "image": "Concentrate hand-drawn elements on covers or open areas and keep content cards flat and readable.",
+        "type": "Headings may carry a slight handwritten quality; body copy and forms must remain stable and clear.",
+        "components": "Folder chips, project folders, note cards, simplified editor, color labels, and view switching.",
+        "motion": "Page changes and save feedback may use a slight paper-like shift without disrupting reading.",
+        "avoid": "Do not use emoji or imitation icons for functional actions such as search, back, and save."
+      }
+    }
+  },
+  "styleProfileIds": [
+    "soft-lifestyle"
+  ]
+}

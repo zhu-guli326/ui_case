@@ -1,0 +1,65 @@
+{
+  "id": "museum",
+  "category": "culture",
+  "name": "ArtMuse",
+  "style": "当代美术馆导览",
+  "video": "./assets/cases/museum-app/museum-app-demo.mp4?v=artwork-2",
+  "poster": "./assets/cases/museum-app/video-frames/01-home.png",
+  "videoSequence": {
+    "duration": 8,
+    "frames": [
+      { "at": 0, "src": "./assets/cases/museum-app/video-frames/01-home.png", "label": "首页" },
+      { "at": 2.65, "src": "./assets/cases/museum-app/video-frames/02-exhibitions.png", "label": "展览列表" },
+      { "at": 5.3, "src": "./assets/cases/museum-app/video-frames/03-detail.png", "label": "展览详情" }
+    ]
+  },
+  "previewImage": "./assets/cases/museum-app/library-preview-generated-v2-standard.png",
+  "preview": "#dce3d6",
+  "reference": "画廊导视与展览画册的安静秩序",
+  "referenceImage": "./assets/style-references/artmuse-reference.png",
+  "prompt": "当代美术馆导览 App 视觉参考：纸张白、低饱和展签色、细线、大量留白，像展览画册和展墙导视；内容优先，图片保留白边，排版克制清晰；无高饱和主色、无厚重阴影、无密集信息流、无复杂装饰。",
+  "summary": "纸张白、低饱和展签色、细线和大量留白，让内容先于界面被看见。",
+  "bestFor": "展览、文化内容、精品零售、品牌故事",
+  "tags": [
+    "策展留白",
+    "细线结构",
+    "低饱和"
+  ],
+  "palette": "纸张白 / 鼠尾草绿 / 展签棕",
+  "layout": "单列导览 + 精选内容卡",
+  "recipe": {
+    "principle": "让内容像在展墙上被观看，而不是被一堆控件包围。",
+    "image": "图片当作被策展的作品：留出白边，少裁切，不叠加复杂 UI。",
+    "type": "标题用正常字重和宽松行距；正文小而清楚。",
+    "components": "细边框卡片、轻量 tab、低调箭头和节制的圆角。",
+    "motion": "只在切换和选中态提供轻柔反馈。",
+    "avoid": "高饱和主色、厚阴影、密集信息流。"
+  },
+  "locales": {
+    "en": {
+      "style": "Contemporary museum guide",
+      "reference": "The quiet order of gallery wayfinding and exhibition catalogs",
+      "prompt": "Contemporary museum-guide app visual reference: paper white, low-saturation label colors, fine lines, and extensive whitespace, like an exhibition catalog and gallery wayfinding system. Prioritize content, preserve white borders around images, and keep typography restrained and clear. Avoid highly saturated primary colors, heavy shadows, dense feeds, and complex decoration.",
+      "summary": "Paper white, muted label colors, fine lines, and generous whitespace let content be seen before the interface.",
+      "bestFor": "Exhibitions, cultural content, premium retail, brand stories",
+      "tags": [
+        "Curatorial whitespace",
+        "Fine-line structure",
+        "Muted palette"
+      ],
+      "palette": "Paper white / Sage green / Label brown",
+      "layout": "Single-column guide + Curated content cards",
+      "recipe": {
+        "principle": "Let content be viewed as if it were on a gallery wall instead of surrounding it with controls.",
+        "image": "Treat images as curated works: preserve a white border, crop sparingly, and avoid complex UI overlays.",
+        "type": "Use normal-weight headings with open line spacing; keep body copy small and clear.",
+        "components": "Fine-border cards, lightweight tabs, understated arrows, and restrained corner radii.",
+        "motion": "Provide gentle feedback only for switching and selected states.",
+        "avoid": "Avoid highly saturated primary colors, heavy shadows, and dense feeds."
+      }
+    }
+  },
+  "styleProfileIds": [
+    "soft-lifestyle"
+  ]
+}

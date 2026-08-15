@@ -1,0 +1,57 @@
+{
+  "id": "reflect",
+  "category": "wellness",
+  "name": "Reflect",
+  "style": "雾野反思日记",
+  "video": "./demo/reflect-journal/reflect-demo.mp4",
+  "liveDemo": "./demo/reflect-journal/index.html",
+  "poster": "./demo/reflect-journal/mobile-preview.png",
+  "preview": "#c7dbd7",
+  "reference": "雾蓝草地、半透明层次与衬线标题，像一本可以慢慢翻阅的晨间自然日记",
+  "referenceImage": "./demo/reflect-journal/assets/morning-stillness.png",
+  "prompt": "Reflect 冥想日记 App 视觉参考：雾蓝天空、浅鼠尾草草地与柔白纸张，摄影主视觉有清晨薄雾和自然路径，标题呈现编辑式衬线气质；图片只承担环境和质感，所有文字、状态栏、心情按钮、返回、标签与底部导航均由代码呈现；不生成文字、logo、水印、UI glyph、系统状态栏、箭头、菜单、按钮或伪 UI。",
+  "summary": "把清晨雾野的一张照片嵌进带衬线阅读节奏的日记，让心情、短记与文章详情保持低干扰地连在一起。",
+  "bestFor": "日记、冥想、情绪记录、慢生活内容、阅读产品",
+  "tags": [
+    "雾野摄影",
+    "编辑衬线",
+    "安静反思"
+  ],
+  "palette": "雾蓝 / 鼠尾草 / 柔白 / 橄榄绿",
+  "layout": "引语首页 + 心情行 + 日记卡 + 文章详情",
+  "recipe": {
+    "principle": "把一段安静的阅读与记录体验留在同一条单列路径里，所有操作轻量而可见。",
+    "image": "一张无文字的雾野照片在首屏、卡片和详情中复用，保持光线与情绪稳定。",
+    "type": "衬线只承担引语、文章标题和阅读节奏，控件与正文用清晰系统无衬线。",
+    "components": "iOS 9:16 机身、四项可点心情、日记入口、文章详情、可编辑新反思和底部 tab。",
+    "motion": "心情和标签以短按压反馈，页面间切换立即落位，避免干扰阅读。",
+    "avoid": "把数据图、连续打卡、社区流和多层设置同时塞进日记首页。"
+  },
+  "locales": {
+    "en": {
+      "style": "Misty-field reflection journal",
+      "reference": "Misty blue grassland, translucent layers, and serif headings feel like a morning nature journal meant to be read slowly",
+      "prompt": "Reflect meditation-journal app visual reference: a mist-blue sky, pale-sage grassland, and soft-white paper, with morning haze and a natural path in the photographic hero and editorial serif character in headings. Images provide environment and texture only. Render all copy, status bars, mood buttons, back controls, labels, and bottom navigation in code. Do not generate text, logos, watermarks, UI glyphs, system status bars, arrows, menus, buttons, or imitation UI.",
+      "summary": "A morning field photograph sits within a serif-led journal rhythm, connecting moods, short notes, and article detail with minimal interference.",
+      "bestFor": "Journals, meditation, mood tracking, slow-living content, reading products",
+      "tags": [
+        "Misty-field photography",
+        "Editorial serif",
+        "Quiet reflection"
+      ],
+      "palette": "Mist blue / Sage / Soft white / Olive green",
+      "layout": "Quote home + Mood row + Journal card + Article detail",
+      "recipe": {
+        "principle": "Keep quiet reading and recording on one single-column path with every action light but visible.",
+        "image": "Reuse one text-free misty-field photograph across the hero, cards, and detail to preserve stable light and mood.",
+        "type": "Serif type carries quotes, article titles, and reading rhythm; controls and body copy use a clear system sans serif.",
+        "components": "9:16 iOS frame, four tappable moods, journal entry, article detail, editable new reflection, and bottom tabs.",
+        "motion": "Use brief press feedback for moods and labels, and settle page changes immediately to avoid interrupting reading.",
+        "avoid": "Do not combine data charts, streaks, community feeds, and layered settings on the journal home screen."
+      }
+    }
+  },
+  "styleProfileIds": [
+    "soft-lifestyle"
+  ]
+}

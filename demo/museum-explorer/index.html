@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f7f3" />
+    <title>Museum of Contemporary Art</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="../iphone-frame.css" />
+  </head>
+  <body>
+    <div class="museum-device iphone-frame iphone-frame--flat">
+    <main class="app-shell" aria-label="Museum exhibition guide">
+      <aside class="rail" aria-label="Primary navigation">
+        <a class="wordmark" href="#discover" aria-label="Museum of Contemporary Art home">M<sup>CA</sup></a>
+        <nav class="rail-nav">
+          <a class="active" href="#discover">Discover</a>
+          <a href="#program">Program</a>
+          <a href="#visit">Visit</a>
+          <a href="#membership">Membership</a>
+        </nav>
+        <button class="profile-button" type="button" aria-label="Open member profile" data-message="Member profile preview">
+          <span>MS</span>
+          <small>Member</small>
+        </button>
+      </aside>
+
+      <section class="content" id="discover">
+        <header class="topbar">
+          <p>San Francisco, CA</p>
+          <div class="topbar-actions">
+            <button class="text-button" type="button" data-message="Your saved artworks are up to date">Saved <span aria-hidden="true">03</span></button>
+            <button class="ticket-button" type="button" data-message="Ticket selection preview">Get tickets</button>
+          </div>
+        </header>
+
+        <section class="intro" aria-labelledby="page-title">
+          <p class="eyebrow">OPEN THIS WEEK</p>
+          <h1 id="page-title">A different way<br />to spend Sunday.</h1>
+          <p class="lede">Three floors of contemporary art, slow conversations, and a little room to look twice.</p>
+        </section>
+
+        <section class="featured" aria-labelledby="featured-title">
+          <div class="featured-copy">
+            <p class="eyebrow">NOW SHOWING</p>
+            <h2 id="featured-title">Modern<br />Visions</h2>
+            <p>How artists reshaped the ordinary, 1900-1980.</p>
+            <dl>
+              <div><dt>On view</dt><dd>Mar 20 - Jul 28</dd></div>
+              <div><dt>Gallery</dt><dd>Level 2, East</dd></div>
+            </dl>
+            <button class="dark-button" type="button" data-open-detail="modern">Explore exhibition <span aria-hidden="true">&#8599;</span></button>
+          </div>
+          <div class="featured-art" aria-hidden="true">
+            <span class="sun"></span>
+            <img src="./assets/starry-night.svg" alt="" />
+            <span class="art-caption">No. 04 / Night studies</span>
+          </div>
+        </section>
+
+        <section class="program-section" id="program" aria-labelledby="program-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">PLAN YOUR VISIT</p>
+              <h2 id="program-title">On the calendar</h2>
+            </div>
+            <button class="text-button view-all" type="button" data-message="Full program preview">View all <span aria-hidden="true">&#8594;</span></button>
+          </div>
+
+          <div class="day-picker" role="tablist" aria-label="Program day">
+            <button class="active" type="button" role="tab" aria-selected="true" data-day="Today"><span>THU</span><b>20</b></button>
+            <button type="button" role="tab" aria-selected="false" data-day="Friday"><span>FRI</span><b>21</b></button>
+            <button type="button" role="tab" aria-selected="false" data-day="Saturday"><span>SAT</span><b>22</b></button>
+            <button type="button" role="tab" aria-selected="false" data-day="Sunday"><span>SUN</span><b>23</b></button>
+          </div>
+
+          <div class="program-list" aria-live="polite">
+            <article>
+              <time>11:00</time>
+              <div><h3>Curator walk-through</h3><p>Modern Visions · Gallery 2</p></div>
+              <button type="button" aria-label="Save Curator walk-through" data-save="Curator walk-through">Save</button>
+            </article>
+            <article>
+              <time>14:30</time>
+              <div><h3>Looking session: color</h3><p>Twenty minutes with a single work</p></div>
+              <button type="button" aria-label="Save Looking session: color" data-save="Looking session: color">Save</button>
+            </article>
+            <article>
+              <time>18:00</time>
+              <div><h3>Late gallery hours</h3><p>Members enter through the north court</p></div>
+              <button type="button" aria-label="Save Late gallery hours" data-save="Late gallery hours">Save</button>
+            </article>
+          </div>
+        </section>
+
+        <section class="works-section" aria-labelledby="works-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">FROM THE COLLECTION</p>
+              <h2 id="works-title">Look closer</h2>
+            </div>
+            <div class="filter-row" aria-label="Artwork filters">
+              <button class="filter active" type="button" data-filter="All" aria-pressed="true">All</button>
+              <button class="filter" type="button" data-filter="Painting" aria-pressed="false">Painting</button>
+              <button class="filter" type="button" data-filter="Portrait" aria-pressed="false">Portrait</button>
+            </div>
+          </div>
+
+          <div class="works-grid">
+            <button class="work-card tall" type="button" data-open-detail="starry" data-category="Painting">
+              <span class="art-image blue-art"><img src="./assets/starry-night.svg" alt="The Starry Night" /></span>
+              <span class="work-meta"><b>The Starry Night</b><small>Vincent van Gogh, 1889</small></span>
+            </button>
+            <button class="work-card" type="button" data-open-detail="memory" data-category="Painting">
+              <span class="art-image rose-art"><img src="./assets/memory.svg" alt="The Persistence of Memory" /></span>
+              <span class="work-meta"><b>The Persistence of Memory</b><small>Salvador Dali, 1931</small></span>
+            </button>
+            <button class="work-card" type="button" data-open-detail="pearl" data-category="Portrait">
+              <span class="art-image pearl-art"><img src="./assets/pearl.svg" alt="Girl with a Pearl Earring" /></span>
+              <span class="work-meta"><b>Girl with a Pearl Earring</b><small>Johannes Vermeer, c. 1665</small></span>
+            </button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <aside class="detail-panel" aria-labelledby="detail-title" aria-hidden="true">
+      <button class="close-button" type="button" aria-label="Close artwork detail">Close</button>
+      <div class="detail-art"><img src="./assets/starry-night.svg" alt="" /></div>
+      <div class="detail-copy">
+        <p class="eyebrow">COLLECTION HIGHLIGHT</p>
+        <h2 id="detail-title">The Starry Night</h2>
+        <p class="artist">Vincent van Gogh · 1889</p>
+        <p class="detail-description">A familiar scene made strange and luminous: movement, memory, and the sensation of looking after dark.</p>
+        <button class="dark-button" type="button" data-message="Audio guide queued">Listen to the guide <span aria-hidden="true">&#8594;</span></button>
+      </div>
+    </aside>
+    <div class="scrim" hidden></div>
+    <div class="toast" role="status" aria-live="polite"></div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>

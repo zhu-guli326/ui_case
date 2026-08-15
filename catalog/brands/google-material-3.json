@@ -1,0 +1,20 @@
+{
+  "id": "google-material-3",
+  "name": "Google Material Design 3",
+  "organization": "Google",
+  "sourceType": "public-guideline",
+  "sourceStatus": "基于公开设计规范",
+  "sourceUrl": "https://m3.material.io/",
+  "reviewedAt": "2026-08-13",
+  "platforms": ["android", "web"],
+  "description": "Material Design 3 的公开设计体系索引，用于聚合可追溯的组件参考。",
+  "componentReferenceIds": ["material-3-button", "material-3-navigation-bar", "material-3-text-field"],
+  "disclaimer": "本资料基于公开规范整理，与 Google 无隶属或背书关系；Google 和 Material 为其各自权利人的标识。",
+  "locales": {
+    "en": {
+      "sourceStatus": "Based on public design guidelines",
+      "description": "A public-design-system index of Material Design 3, organized around traceable component references.",
+      "disclaimer": "This material is compiled from public guidelines and is not affiliated with or endorsed by Google. Google and Material are marks of their respective owners."
+    }
+  }
+}

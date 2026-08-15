@@ -1,0 +1,6 @@
+{
+  "id": "adobe-spectrum", "name": "Adobe Spectrum", "organization": "Adobe", "sourceType": "public-guideline", "sourceStatus": "基于公开设计规范", "sourceUrl": "https://spectrum.adobe.com/", "reviewedAt": "2026-08-13", "platforms": ["web", "react"],
+  "description": "Adobe 的跨产品设计系统，覆盖创意工具、复杂工作区与多主题体验。", "componentReferenceIds": ["spectrum-button", "spectrum-dialog", "spectrum-table"],
+  "disclaimer": "本资料基于 Adobe Spectrum 公开文档整理，与 Adobe 无隶属或背书关系；名称与标识归其各自权利人所有。",
+  "locales": { "en": { "sourceStatus": "Based on public design guidelines", "description": "Adobe's cross-product system for creative tools, complex workspaces, and multi-theme experiences.", "disclaimer": "Compiled from public Spectrum documentation with no affiliation or endorsement. Names and marks belong to their respective owners." } }
+}

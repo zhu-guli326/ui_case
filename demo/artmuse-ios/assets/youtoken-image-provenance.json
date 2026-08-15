@@ -1,0 +1,31 @@
+{
+  "generatedAt": "2026-08-13",
+  "channel": "youtoken-gpt-image-2",
+  "model": "gpt-image-2",
+  "assets": [
+    {
+      "path": "starry-night-youtoken.png",
+      "purpose": "Featured artwork thumbnail and detail hero",
+      "requestId": "65651dc5-63e3-4acc-bb2a-fe31fd1ac800",
+      "promptSummary": "Painterly post-impressionist nocturnal landscape with cobalt sky, gold stars, cypress, hills, and village; no UI or text."
+    },
+    {
+      "path": "exhibition-modern-visions-youtoken.png",
+      "purpose": "Modern Visions exhibition card illustration",
+      "requestId": "f644796c-09a1-4133-950b-b4b71184cceb",
+      "promptSummary": "Transparent continuous-line portrait with warm taupe ink and pale lavender wash; no UI or text."
+    },
+    {
+      "path": "exhibition-impressionists-youtoken.png",
+      "purpose": "Impressionists exhibition card illustration",
+      "requestId": "54998b18-f34b-4186-acad-0cf502c430f5",
+      "promptSummary": "Transparent botanical study with warm taupe ink and pale sand wash; no UI or text."
+    },
+    {
+      "path": "exhibition-ancient-youtoken.png",
+      "purpose": "Ancient Civilizations exhibition card illustration",
+      "requestId": "85a461ad-6cc2-40d0-99e6-73d73fc7a59d",
+      "promptSummary": "Transparent classical column and arch study with warm taupe ink and pale sage wash; no UI or text."
+    }
+  ]
+}

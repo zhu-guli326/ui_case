@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="图文 UI 词典：用人话、真实案例和可复制提示词看懂界面结构。" data-i18n-attr="content:vocabulary.metaDescription">
+  <title data-i18n="vocabulary.pageTitle">图文 UI 词典 · IMAGE2 UI</title>
+  <link rel="stylesheet" href="./vocabulary.css?v=20260815-vocabulary-30">
+  <link rel="stylesheet" href="./i18n.css">
+  <link rel="stylesheet" href="./site-nav.css?v=20260815-ondesign">
+  <script src="./i18n.js?v=20260815-ondesign"></script>
+  <script type="module" src="./vocabulary.js?v=20260815-vocabulary-30"></script>
+</head>
+<body>
+  <a class="skip-link" href="#vocabularyResults" data-i18n="vocabulary.skipResults">跳到词条列表</a>
+  <image2-site-header data-site-header></image2-site-header>
+
+  <main>
+    <section class="vocab-hero" aria-labelledby="pageTitle" hidden>
+      <div class="hero-copy">
+        <p class="eyebrow">UI WORDS / FROM HUMAN REQUEST TO CODE</p>
+        <h1 id="pageTitle" data-i18n="vocabulary.heading">图文 UI 词典</h1>
+        <p class="hero-intro" data-i18n="vocabulary.intro">像看图鉴一样认识界面：先用大白话描述需求，再看它在屏幕上长什么样、由哪些部件组成，以及应该怎样交给 AI 实现。</p>
+        <div class="hero-meta"><span><strong id="entryCount">30</strong> <span data-i18n="vocabulary.keyTerms">个重点词条</span></span><span data-i18n="vocabulary.localExamples">代码组件预览</span><span data-i18n="vocabulary.copyablePrompts">可复制 Agent prompt</span></div>
+      </div>
+      <div class="hero-diagram" aria-label="从用户需求到界面实现的三步示意" data-i18n-attr="aria-label:vocabulary.diagramLabel">
+        <div class="diagram-step"><span>01</span><strong data-i18n="vocabulary.plainRequest">人话需求</strong><small data-i18n="vocabulary.plainRequestExample">“帮我加个按钮”</small></div>
+        <div class="diagram-arrow" aria-hidden="true">→</div>
+        <div class="diagram-step is-accent"><span>02</span><strong data-i18n="vocabulary.visualRole">视觉角色</strong><small>Button / CTA</small></div>
+        <div class="diagram-arrow" aria-hidden="true">→</div>
+        <div class="diagram-step"><span>03</span><strong data-i18n="vocabulary.implementationSplit">实现分工</strong><small>code-ui + external media</small></div>
+      </div>
+    </section>
+
+    <section class="vocab-toolbar" aria-label="词条搜索和筛选" data-i18n-attr="aria-label:vocabulary.searchAndFilter">
+      <label class="search-field" for="vocabularySearch">
+        <span class="search-icon" aria-hidden="true"></span>
+        <input id="vocabularySearch" type="search" autocomplete="off" aria-label="搜索 UI 词条" placeholder="搜索术语、英文名或你想说的话…" data-i18n-attr="aria-label:vocabulary.searchLabel,placeholder:vocabulary.searchPlaceholder">
+        <kbd aria-hidden="true">⌘ K</kbd>
+      </label>
+      <div class="category-chips" id="categoryChips" role="group" aria-label="按分类筛选" data-i18n-attr="aria-label:vocabulary.filterByCategory"></div>
+    </section>
+
+    <div class="vocab-layout">
+      <aside class="taxonomy" aria-label="词条目录" data-i18n-attr="aria-label:vocabulary.termDirectory">
+        <div class="taxonomy-heading"><span data-i18n="vocabulary.termDirectory">词条目录</span><span id="resultCount">30 条</span></div>
+        <nav id="taxonomyNav"></nav>
+        <div class="taxonomy-note"><strong data-i18n="vocabulary.termHelpTitle">看不懂一个词？</strong><p data-i18n="vocabulary.termHelpBody">先点开卡片看“你可能会说”，再对照组成结构和容易混淆。</p><a href="./reference.html?doc=ui-section-vocabulary"><span data-i18n="vocabulary.openGuide">打开规范长文</span> <span aria-hidden="true">↗</span></a></div>
+      </aside>
+
+      <section class="results-column" id="vocabularyResults" aria-labelledby="resultsTitle">
+        <div class="results-heading">
+          <div><p class="eyebrow">BROWSE BY ROLE</p><h2 id="resultsTitle" data-i18n="vocabulary.allTerms">所有词条</h2></div>
+          <label class="sort-control" for="sortSelect"><span data-i18n="vocabulary.sort">排序</span><select id="sortSelect" data-i18n-attr="aria-label:vocabulary.sort"><option value="recommended" data-i18n="vocabulary.sortRecommended">推荐顺序</option><option value="az" data-i18n="vocabulary.sortName">中文名称</option><option value="category" data-i18n="vocabulary.sortCategory">分类</option><option value="favorites" data-i18n="vocabulary.sortFavorites">我的收藏</option></select></label>
+        </div>
+        <p class="results-summary" id="resultsSummary" role="status" aria-live="polite" aria-atomic="true" data-i18n="vocabulary.resultsIntro">从页面基础开始，逐步看到控件、内容和反馈状态。</p>
+        <div class="entry-grid" id="entryGrid"></div>
+        <div class="empty-state" id="emptyState" hidden>
+          <span class="empty-mark" aria-hidden="true">?</span>
+          <h3 data-i18n="vocabulary.noMatches">暂时没有匹配的词条</h3>
+          <p data-i18n="vocabulary.noMatchesHint">试试更短的关键词，或清除当前分类筛选。</p>
+          <button class="secondary-button" id="clearSearch" type="button" data-i18n="vocabulary.clearFilters">清除筛选</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="vocab-footer"><p><strong data-i18n="vocabulary.fullGuide">完整规范：</strong><span data-i18n="vocabulary.fullGuideBody">保留了原来的 Markdown 版词典，适合复制到项目文档和 code review。</span></p><a href="./reference.html?doc=ui-section-vocabulary"><span data-i18n="vocabulary.readGuide">阅读规范版</span> <span aria-hidden="true">↗</span></a></footer>
+
+  <dialog class="term-dialog" id="termDialog" aria-labelledby="termDialogTitle">
+    <div class="term-dialog-shell">
+      <form method="dialog" class="dialog-close-form"><button class="icon-button dialog-close" type="submit" aria-label="关闭词条详情" title="关闭" data-i18n-attr="aria-label:vocabulary.closeDetails,title:common.close">×</button></form>
+      <div class="term-dialog-content" id="termDialogContent"></div>
+    </div>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

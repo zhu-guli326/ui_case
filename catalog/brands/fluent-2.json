@@ -1,0 +1,6 @@
+{
+  "id": "fluent-2", "name": "Microsoft Fluent 2", "organization": "Microsoft", "sourceType": "public-guideline", "sourceStatus": "基于公开设计规范", "sourceUrl": "https://fluent2.microsoft.design/", "reviewedAt": "2026-08-13", "platforms": ["web", "react", "windows", "ios", "android"],
+  "description": "Microsoft 的跨平台设计体系，用于生产力工具、企业应用与系统体验。", "componentReferenceIds": ["fluent-2-button", "fluent-2-dialog", "fluent-2-data-grid"],
+  "disclaimer": "本资料基于 Fluent 2 公开文档整理，与 Microsoft 无隶属或背书关系；名称与标识归其各自权利人所有。",
+  "locales": { "en": { "sourceStatus": "Based on public design guidelines", "description": "Microsoft's cross-platform system for productivity, enterprise applications, and system experiences.", "disclaimer": "Compiled from public Fluent 2 documentation with no affiliation or endorsement. Names and marks belong to their respective owners." } }
+}

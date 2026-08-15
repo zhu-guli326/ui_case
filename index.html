@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="选择一个页面，通过不同设计系统、品牌语言和视觉风格实时预览，并生成可编辑的 UI Demo。">
+  <title>Image2 UI · 从一个页面开始设计</title>
+  <link rel="stylesheet" href="./index.css?v=20260815">
+  <link rel="stylesheet" href="./site-nav.css?v=20260815-ondesign">
+  <link rel="stylesheet" href="./i18n.css">
+  <script src="./i18n.js?v=20260815-ondesign"></script>
+  <script src="./index.js" defer></script>
+</head>
+<body data-site-page="index.html">
+  <image2-site-header data-site-header></image2-site-header>
+  <main>
+    <section class="home-hero">
+      <p class="eyebrow">FROM REFERENCE TO EDITABLE UI</p>
+      <h1>选一个页面，<br><em>把设计选择变得可见。</em></h1>
+      <p class="hero-intro">通过不同设计系统、品牌语言和视觉风格实时预览同一个页面，然后生成可以点击、可以继续编辑的 UI Demo。</p>
+      <div class="start-grid">
+        <label class="start-card primary-start" for="referenceUpload"><span>01</span><div><strong>上传参考图</strong><p>从截图或灵感图片开始复刻</p></div><i>↑</i><input id="referenceUpload" type="file" accept="image/*" hidden></label>
+        <a class="start-card" href="./library.html"><span>02</span><div><strong>选择现成页面</strong><p>从真实案例与可点击 Demo 开始</p></div><i>→</i></a>
+        <a class="start-card" href="./brands.html?view=compare"><span>03</span><div><strong>比较设计系统</strong><p>让同一页面并排显示规范差异</p></div><i>⇄</i></a>
+      </div>
+    </section>
+
+    <section class="home-section project-section">
+      <header><div><p class="eyebrow">CONTINUE WORKING</p><h2>继续当前项目</h2></div><a href="./brands.html">打开实验室 ↗</a></header>
+      <div class="project-card">
+        <div class="project-preview"><div class="mini-nav"><i></i><span></span><span></span><b></b></div><div class="mini-content"><div><strong></strong><span></span></div><div class="mini-cards"><i></i><i></i><i></i></div><div class="mini-chart"></div></div></div>
+        <div class="project-copy"><span>当前设计项目</span><h3 id="currentProjectName">Atlas Dashboard</h3><p id="currentProjectPath">SaaS Dashboard / Ant Design / Linear / 极简科技 / Desktop</p><div><a href="./brands.html" id="currentProjectLink">继续设计</a><a href="./brands.html?view=compare">与其他系统对比</a></div></div>
+      </div>
+    </section>
+
+    <section class="home-section">
+      <header><div><p class="eyebrow">POPULAR STARTING POINTS</p><h2>热门页面起点</h2></div><a href="./library.html">查看全部案例 ↗</a></header>
+      <div class="popular-grid">
+        <a href="./brands.html?template=dashboard"><span>Dashboard</span><strong>指标、项目与团队进度</strong><i class="dashboard-art"><b></b><b></b><b></b></i></a>
+        <a href="./brands.html?template=commerce"><span>Commerce</span><strong>商品发现与购买路径</strong><i class="commerce-art"><b></b></i></a>
+        <a href="./brands.html?template=landing"><span>Landing page</span><strong>价值主张与产品转化</strong><i class="landing-art"><b></b><b></b></i></a>
+        <a href="./brands.html?template=social"><span>Social App</span><strong>内容动态与互动关系</strong><i class="social-art"><b></b><b></b><b></b></i></a>
+      </div>
+    </section>
+
+    <section class="home-section systems-section">
+      <header><div><p class="eyebrow">RECOMMENDED SYSTEMS</p><h2>按产品选择，不按名气选择</h2></div></header>
+      <div class="system-list">
+        <a href="./brands.html?system=ant"><b>Ant</b><span><strong>Ant Design</strong><small>企业后台与数据密集型 Web 产品</small></span><i>32 px</i></a>
+        <a href="./brands.html?system=material"><b>M3</b><span><strong>Material 3</strong><small>跨平台产品与清晰状态层级</small></span><i>48 px</i></a>
+        <a href="./brands.html?system=fluent"><b>F2</b><span><strong>Fluent 2</strong><small>生产力工具与微软生态体验</small></span><i>32 px</i></a>
+        <a href="./brands.html?system=apple"><b>HIG</b><span><strong>Apple HIG 风格实现</strong><small>内容优先的原生体验参考</small></span><i>44 px</i></a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

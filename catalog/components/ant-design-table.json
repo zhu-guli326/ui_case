@@ -1,0 +1,9 @@
+{
+  "id": "ant-design-table", "name": "Table", "brandProfileId": "ant-design", "sourceType": "public-guideline", "sourceStatus": "基于公开设计规范", "sourceUrl": "https://ant.design/components/table", "reviewedAt": "2026-08-13", "platforms": ["web", "react"], "category": "data",
+  "summary": "用于扫描、比较和操作结构化数据，支持排序、筛选、选择、固定列与分页。",
+  "anatomy": ["table header", "column header", "data row", "cell", "selection control", "pagination"], "states": ["default", "hover", "selected", "sorted", "loading", "empty"],
+  "behavior": ["把关键识别字段放在左侧", "只为有明确比较价值的列启用排序"], "accessibility": ["表头与数据单元保持语义关联", "交互列头可用键盘操作", "选择状态同时提供语义和视觉反馈"],
+  "tokens": { "size": "large | middle | small", "layout": "auto | fixed", "pagination": "configurable" },
+  "do": ["为密集数据提供清晰对齐与固定格式", "为加载和空数据提供独立状态"], "dont": ["不要把每个单元格都变成操作入口", "不要在窄屏强行保留全部列"],
+  "locales": { "en": { "sourceStatus": "Based on public design guidelines", "category": "Data display", "summary": "Scans, compares, and acts on structured data with sorting, filtering, selection, fixed columns, and pagination.", "anatomy": ["Table header", "Column header", "Data row", "Cell", "Selection control", "Pagination"], "states": ["Default", "Hover", "Selected", "Sorted", "Loading", "Empty"], "behavior": ["Place key identifying fields on the left", "Enable sorting only where comparison is meaningful"], "accessibility": ["Preserve semantic associations between headers and cells", "Make interactive headers keyboard operable", "Express selection semantically and visually"], "do": ["Align dense data consistently", "Provide distinct loading and empty states"], "dont": ["Do not turn every cell into an action", "Do not force every column onto narrow screens"] } }
+}

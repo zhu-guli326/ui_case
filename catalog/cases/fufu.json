@@ -1,0 +1,58 @@
+{
+  "id": "fufu",
+  "category": "commerce",
+  "name": "FuFu Bakery",
+  "style": "可爱线条手绘烘焙",
+  "video": "./demo/fufu-bakery/fufu-bakery-demo.mp4",
+  "liveDemo": "./demo/fufu-bakery/index.html",
+  "poster": "./demo/fufu-bakery/mobile-preview.png",
+  "preview": "#e9e4cc",
+  "effectImage": "./demo/fufu-bakery/assets/fufu-line-effect-board.png",
+  "reference": "不规则黑色线稿、狗狗烘焙师与大片纸白，只用黄蓝两色留下像手帐一样轻松的烘焙节奏",
+  "referenceImage": "./demo/fufu-bakery/assets/reference-overview.png",
+  "prompt": "可爱线条手绘烘焙 App 视觉参考：先生成并审查完整三屏效果图，再以该效果图作为 UI 拆分依据；暖纸白底、薄而不规则的黑色墨线、大片留白，奶油黄和粉蓝只作少量蜡笔点缀。狗狗烘焙师与三只蓝色线稿伙伴承担情绪，文字、价格、状态栏、按钮、菜单、印章与导航全由代码呈现；不生成文字、logo、水印、手机、系统状态栏、箭头、菜单图标或伪 UI。",
+  "summary": "以会抱面包的狗狗和一组蓝色线稿伙伴，把点单、门店和会员印章收进一张轻松、有笔触感的小纸条。",
+  "bestFor": "烘焙、咖啡、生活方式零售、会员活动",
+  "tags": [
+    "不规则线条",
+    "狗狗烘焙师",
+    "黄蓝蜡笔色"
+  ],
+  "palette": "纸白 / 浅天蓝 / 黄油黄 / 墨黑",
+  "layout": "欢迎页 + 四格门店首页 + 六枚会员印章",
+  "recipe": {
+    "principle": "让线条和角色先建立温度，把点单与会员动作收进稀疏、轻量的纸片结构。",
+    "image": "完整三屏效果图先锁住线条、留白与黄蓝比例；狗狗烘焙师和三狗伙伴作为独立无文字插画接入，避免手绘感在每屏漂移。",
+    "type": "标题可以松、歪、有手写节奏，说明、价格与操作必须稳定清晰。",
+    "components": "手绘主视觉、四格快捷入口、薄边菜单、六枚会员印章与双项小福利。",
+    "motion": "欢迎页进入、入口跳转、底部导航和加购提示提供短而直接的轻反馈。",
+    "avoid": "粗黑大字、厚阴影、满屏圆角卡片、过度彩色装饰，以及把促销和复杂积分统计堆进首页。"
+  },
+  "locales": {
+    "en": {
+      "style": "Cute hand-drawn line bakery",
+      "reference": "Uneven black linework, a dog baker, generous paper-white space, and just yellow-blue accents create a relaxed bakery rhythm like a small journal page",
+      "prompt": "Cute hand-drawn bakery app visual reference: first generate and review a complete three-screen effect image, then use that effect image as the basis for UI decomposition. Use a warm paper-white background, thin uneven black ink lines, generous whitespace, and tiny butter-yellow and powder-blue crayon accents. The dog baker and a blue line-art dog trio carry the mood while all copy, prices, status bars, buttons, menu controls, stamps, and navigation are rendered in code. Do not generate text, logos, watermarks, phones, system status bars, arrows, menu icons, or pseudo-UI.",
+      "summary": "A bread-holding dog and a blue line-art trio bring ordering, bakery discovery, and member stamps together as a tactile little paper note.",
+      "bestFor": "Bakeries, cafes, lifestyle retail, membership programs",
+      "tags": [
+        "Uneven linework",
+        "Dog baker",
+        "Yellow-blue crayon accents"
+      ],
+      "palette": "Paper white / Light sky blue / Butter yellow / Ink black",
+      "layout": "Welcome screen + Four-tile bakery home + Six member stamps",
+      "recipe": {
+        "principle": "Let linework and characters establish warmth first, then keep ordering and membership actions inside sparse, lightweight paper structures.",
+        "image": "Use the complete three-screen effect image to lock linework, whitespace, and yellow-blue balance; connect the dog baker and three-dog lineup as separate text-free illustrations so the handmade feeling stays consistent.",
+        "type": "Display copy can be loose, slightly tilted, and handwritten; descriptions, prices, and actions must remain stable and legible.",
+        "components": "Hand-drawn hero, four quick tiles, thin-border menu, six member stamps, and two small perks.",
+        "motion": "Give welcome entry, tile navigation, bottom navigation, and add-to-basket actions brief, direct feedback.",
+        "avoid": "Avoid oversized heavy-black display text, thick shadows, full-screen rounded cards, excessive color decoration, and an overloaded promotion or points dashboard."
+      }
+    }
+  },
+  "styleProfileIds": [
+    "soft-lifestyle"
+  ]
+}
