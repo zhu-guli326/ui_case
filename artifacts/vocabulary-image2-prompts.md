@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Historical vocabulary image-generation prompts
 
 > Archived for provenance only. These prompts are not used by the live vocabulary page,
@@ -10,6 +11,11 @@ The notes below describe the retired contact-sheet experiment. Do not create or 
 these sheets for new vocabulary entries.
 
 Historical shared constraints for every sheet: clean editorial still life, soft daylight, restrained
+=======
+# Vocabulary image2 prompts
+
+Shared constraints for every sheet: clean editorial still life, soft daylight, restrained
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 cobalt/neutral/coral/mint palette, crisp material detail, no readable text, no logo, no
 watermark, no icons, no UI symbols, no status bar, no arrows, no gear, no menu dots, no
 plus/minus, no power symbol, no playback controls, no tab icons, no toggles, no status dots.

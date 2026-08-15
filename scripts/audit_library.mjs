@@ -13,7 +13,10 @@ const cssSource = fs.readFileSync(path.join(repoRoot, "library.css"), "utf8");
 const catalogCasesDir = path.join(repoRoot, "catalog", "cases");
 const failures = [];
 const warnings = [];
+<<<<<<< HEAD
 let ffprobeUnavailable = false;
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 const caseBlocks = fs.readdirSync(catalogCasesDir).filter((file) => file.endsWith(".json")).sort().map((file) => {
   const data = JSON.parse(fs.readFileSync(path.join(catalogCasesDir, file), "utf8"));
@@ -42,8 +45,12 @@ function readVideoSize(filePath) {
     "-of", "csv=s=x:p=0",
     filePath,
   ], { encoding: "utf8" });
+<<<<<<< HEAD
   if (result.error?.code === "ENOENT") return null;
   if (result.status !== 0) throw new Error(result.stderr?.trim() || result.error?.message || "ffprobe failed");
+=======
+  if (result.status !== 0) throw new Error(result.stderr.trim() || "ffprobe failed");
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   const [width, height] = result.stdout.trim().split("x").map((value) => Number(value));
   if (!width || !height) throw new Error("ffprobe did not return video dimensions");
   return { width, height };
@@ -98,6 +105,7 @@ for (const item of caseBlocks) {
 
   if (item.video) {
     const videoDevice = getLibraryPreviewDevice(item.id, "video");
+<<<<<<< HEAD
     const targetRatio = 9 / 19.5;
     requireContract(Math.abs(videoDevice.width / videoDevice.height - targetRatio) <= 0.002, `${item.id}: video preview ratio is ${videoDevice.width}:${videoDevice.height}; expected about 9:19.5`);
     try {
@@ -111,6 +119,16 @@ for (const item of caseBlocks) {
           warnings.push(`${item.id}: video file is ${actual.width}x${actual.height}; re-export at 886x1920 or 1080x2340 when the source is refreshed`);
         }
       }
+=======
+    requireContract(videoDevice.width === 390 && videoDevice.height === 844, `${item.id}: video preview is ${videoDevice.width}x${videoDevice.height}; expected 390x844`);
+    try {
+      const actual = readVideoSize(localPath(item.video));
+      const expected = { width: videoDevice.width * 2, height: videoDevice.height * 2 };
+      requireContract(
+        actual.width === expected.width && actual.height === expected.height,
+        `${item.id}: video file is ${actual.width}x${actual.height}; expected ${expected.width}x${expected.height}`,
+      );
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     } catch (error) {
       failures.push(`${item.id}: cannot inspect video (${error.message})`);
     }
@@ -144,6 +162,7 @@ for (const item of caseBlocks) {
   }
 }
 
+<<<<<<< HEAD
 if (ffprobeUnavailable) warnings.push("ffprobe unavailable; skipped video dimension inspection");
 requireContract(liveDemoCount === 20, `case model contains ${liveDemoCount} live demos; expected 20`);
 requireContract(/data-case-id=/.test(jsSource) && /demo-card-details-hitarea/.test(jsSource), "case card bodies do not expose a detail action");
@@ -156,6 +175,15 @@ requireContract(/\.phone-media\s*\{[^}]*object-fit:\s*cover/.test(cssSource), "p
 requireContract(!/<video[^>]*\bcontrols\b/i.test(htmlSource), "preview video still exposes native controls");
 requireContract(/previewVideoToggle/.test(htmlSource) && /previewVideoProgress/.test(htmlSource), "custom video controls are missing");
 requireContract(/previewMediaStage\.requestFullscreen/.test(jsSource) && /is-lightbox/.test(jsSource), "fullscreen and overlay fallback are missing");
+=======
+requireContract(liveDemoCount === 20, `case model contains ${liveDemoCount} live demos; expected 20`);
+requireContract(/data-case-id=/.test(jsSource) && /demo-card-details-hitarea/.test(jsSource), "case card bodies do not expose a detail action");
+requireContract((htmlSource.match(/<dialog\b/g) || []).length === 3, "library must expose three semantic dialogs");
+requireContract((htmlSource.match(/aria-labelledby=/g) || []).length >= 3, "dialogs are missing accessible labels");
+requireContract(/event\.target === dialog/.test(jsSource), "dialogs do not close from backdrop clicks");
+requireContract(/previewMediaRetry/.test(jsSource) && /Demo 加载超时/.test(jsSource), "iframe loading does not expose timeout and retry states");
+requireContract(/object-fit:\s*contain/.test(cssSource), "preview media is not protected from stretching/cropping");
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 requireContract(/@media \(max-width:\s*760px\)/.test(cssSource), "mobile layout contract is missing");
 requireContract(/prefers-reduced-motion/.test(cssSource), "reduced-motion contract is missing");
 requireContract(/focus-visible/.test(cssSource), "focus-visible feedback is missing");

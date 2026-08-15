@@ -1,6 +1,9 @@
 const caseStudies = {
   fufu: {
+<<<<<<< HEAD
     id: "fufu", name: "FuFu Bakery", style: "手绘烘焙会员", template: "commerce", brand: "airbnb", theme: "soft-lifestyle",
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     reference: "./demo/fufu-bakery/assets/reference-overview.png",
     referenceAlt: "FuFu Bakery 烘焙会员应用原始参考图",
     image: "./demo/fufu-bakery/mobile-preview.png",
@@ -12,7 +15,10 @@ const caseStudies = {
     prompt: "使用 image-to-ui-skill，参考我上传的手绘烘焙会员应用图片，保留狗狗烘焙师、纸白留白、黄色按钮和底部导航结构，生成欢迎页、烘焙首页、今日菜单和会员卡可点击手机页面，并检查进入按钮、菜单切换与底部导航交互。"
   },
   plate: {
+<<<<<<< HEAD
     id: "plate-play", name: "Plate Play", style: "高彩食谱插画", template: "commerce", brand: "airbnb", theme: "editorial-commerce",
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     reference: "./demo/plate-play/assets/reference-overview.png",
     referenceAlt: "Plate Play 食谱应用原始参考图",
     image: "./demo/plate-play/mobile-preview.png",
@@ -24,7 +30,10 @@ const caseStudies = {
     prompt: "使用 image-to-ui-skill，参考我上传的食谱应用图片，保留高彩插画、主行动按钮和食谱卡片结构，生成首页、食谱列表和详情三个可点击手机页面，并检查收藏与导航交互。"
   },
   relay: {
+<<<<<<< HEAD
     id: "relay-music", name: "RELAY", style: "编辑感音乐发现", template: "social", brand: "notion", theme: "editorial-commerce",
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     reference: "./demo/relay-music/assets/reference-overview.png",
     referenceAlt: "RELAY 音乐应用原始参考图",
     image: "./demo/relay-music/assets/relay-effect-board.png",
@@ -68,6 +77,7 @@ const fufuThemes = {
   berry: { mood: "BERRY HOUR", title: "莓果粉：甜美、亲近，更像一份小礼物", text: "颜色影响感受，清楚的按钮文案和反馈则决定操作是否容易理解。" }
 };
 
+<<<<<<< HEAD
 const fufuCodeSnippets = {
   html: `<section class="bakery-card">
   <header>
@@ -178,6 +188,8 @@ document.querySelector("#fufuCopyCode")?.addEventListener("click", () => {
 
 renderFufuCode(activeFufuCode);
 
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 const fufuShop = document.querySelector("#fufuShop");
 const fufuStampCount = document.querySelector("#fufuStampCount");
 const fufuStamps = [...document.querySelectorAll("#fufuStamps span")];
@@ -255,11 +267,14 @@ function renderCase(id) {
   document.querySelector("#caseAssets").textContent = item.assets;
   document.querySelector("#caseControls").innerHTML = item.controls.map((control) => `<span>${control}</span>`).join("");
   document.querySelector("#caseDemoLink").href = item.demo;
+<<<<<<< HEAD
   const taskUrl = new URL("./launcher.html", window.location.href);
   taskUrl.searchParams.set("intent", "rebuild");
   taskUrl.searchParams.set("source", "library");
   taskUrl.searchParams.set("case", item.id);
   document.querySelector("#caseTaskLink").href = window.image2I18n?.localizeUrl?.(taskUrl.href) || taskUrl.href;
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 }
 
 const caseTabs = [...document.querySelectorAll("[data-case]")];
@@ -288,6 +303,7 @@ document.querySelector("#copyCasePrompt")?.addEventListener("click", () => {
   window.image2Analytics?.track("beginner_prompt_copy", { source: "case_study", case: activeCase });
 });
 
+<<<<<<< HEAD
 function applyLearningCase() {
   const item = caseStudies[activeCase];
   window.image2Project?.save?.({
@@ -311,6 +327,8 @@ document.querySelector("#caseTaskLink")?.addEventListener("click", () => {
   window.image2Project?.save?.({ taskIntent: "rebuild" });
 });
 
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 const learningMapLinks = [...document.querySelectorAll("[data-learn-section]")];
 const learningSections = learningMapLinks.map((link) => document.querySelector(`#${link.dataset.learnSection}`)).filter(Boolean);
 if ("IntersectionObserver" in window) {

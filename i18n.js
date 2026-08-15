@@ -1,4 +1,5 @@
 (() => {
+<<<<<<< HEAD
   if (window.location.protocol === "file:") {
     const isLabPage = /[\\/]lab[\\/]/i.test(window.location.pathname);
     const fileName = window.location.pathname.split(/[\\/]/).pop() || "index.html";
@@ -30,6 +31,18 @@
     "nav.skills": { zh: "设计 Skill", en: "Design skills" },
     "nav.vocabulary": { zh: "UI 词典", en: "UI vocabulary" },
     "nav.resources": { zh: "更多", en: "More" },
+=======
+  const STORAGE_KEY = "image2-ui-language";
+  const SUPPORTED = ["zh", "en"];
+  const pageHandlers = new Set();
+  const translations = {
+    "nav.library": { zh: "案例库", en: "Library" },
+    "nav.learn": { zh: "新手入门", en: "Quick start" },
+    "nav.brands": { zh: "设计系统", en: "Design systems" },
+    "nav.launcher": { zh: "可视化启动", en: "Visual launcher" },
+    "nav.skills": { zh: "设计 Skill", en: "Design skills" },
+    "nav.vocabulary": { zh: "UI 词典", en: "UI vocabulary" },
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     "nav.docs": { zh: "文档", en: "Docs" },
     "common.language": { zh: "语言 / Language", en: "Language / 语言" },
     "common.chinese": { zh: "中文", en: "中文" },
@@ -57,6 +70,7 @@
   }
 
   let language = readLanguage();
+<<<<<<< HEAD
   const STAR_CACHE_KEY = "image2-ui-github-stars";
   const STAR_CACHE_TTL = 6 * 60 * 60 * 1000;
   function readStarCache() {
@@ -67,6 +81,9 @@
   }
   const cachedStars = readStarCache();
   let githubStars = Number.isFinite(cachedStars?.value) ? cachedStars.value : null;
+=======
+  let githubStars = 288;
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   let githubStarsRequested = false;
 
   function text(value) {
@@ -88,6 +105,7 @@
   function siteNavigationItems() {
     return [
       { href: "./library.html", key: "nav.library" },
+<<<<<<< HEAD
       { href: "./launcher.html", key: "nav.launcher" },
       { href: "./brands.html", key: "nav.brands" },
       { href: "./learn.html", key: "nav.learn" },
@@ -227,6 +245,21 @@
     if (document.body?.dataset.sitePage) return document.body.dataset.sitePage;
     if (/\/lab\//i.test(window.location.pathname)) return "brands.html";
     return window.location.pathname.split("/").pop() || "library.html";
+=======
+      { href: "./brands.html", key: "nav.brands" },
+      { href: "./launcher.html", key: "nav.launcher" },
+      { href: "https://github.com/zhu-guli326/image2_UI_skill", label: "GitHub", external: true, stars: true },
+      { href: "https://x.com/JGuli49724", label: "X", external: true, ariaLabel: "在 X 查看 JGuli49724 的主页" },
+      { href: "https://www.xiaohongshu.com/user/profile/57b3456c82ec3947f79496e9", label: "小红书", external: true },
+      { href: "./learn.html", key: "nav.learn" },
+      { href: "./skills.html", key: "nav.skills" },
+      { href: "./vocabulary.html", key: "nav.vocabulary" },
+    ];
+  }
+
+  function currentPage() {
+    return document.body?.dataset.sitePage || window.location.pathname.split("/").pop() || "library.html";
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   }
 
   function resolveLocalHref(href) {
@@ -237,11 +270,16 @@
   function renderSiteNavigation(nav) {
     const activePage = currentPage();
     nav.classList.add("site-nav");
+<<<<<<< HEAD
     const renderLink = (item) => {
+=======
+    nav.innerHTML = siteNavigationItems().map((item) => {
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
       const file = item.external ? "" : item.href.replace(/^\.\//, "");
       const current = file === activePage ? ' aria-current="page"' : "";
       const external = item.external ? ' target="_blank" rel="noopener noreferrer"' : "";
       const ariaLabel = item.ariaLabel ? ` aria-label="${item.ariaLabel}"` : "";
+<<<<<<< HEAD
       const className = item.className ? ` class="${item.className}"` : "";
       const label = item.key ? `<span data-i18n="${item.key}">${t(item.key)}</span>` : item.label;
       const arrow = item.external ? ' <span class="site-nav-external" aria-hidden="true">↗</span>' : "";
@@ -269,10 +307,18 @@
         </span>
       </a>
       <nav class="site-nav" data-site-nav aria-label="${language === "en" ? "Primary navigation" : "主导航"}"></nav>`;
+=======
+      const label = item.key ? `<span data-i18n="${item.key}">${t(item.key)}</span>` : item.label;
+      const stars = item.stars ? ` <span class="site-nav-stars" id="githubStarsNav">${githubStars}</span>` : "";
+      const arrow = item.external && !item.stars ? ' <span class="site-nav-external" aria-hidden="true">↗</span>' : "";
+      return `<a href="${resolveLocalHref(item.href)}"${current}${external}${ariaLabel}>${label}${stars}${arrow}</a>`;
+    }).join("") + '<div data-language-switch></div>';
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   }
 
   function updateSiteStars(value) {
     if (Number.isFinite(value)) githubStars = value;
+<<<<<<< HEAD
     const formatted = Number.isFinite(githubStars) ? new Intl.NumberFormat(language === "en" ? "en" : "zh-CN").format(githubStars) : "…";
     document.querySelectorAll(".site-nav-stars, [data-github-stars], #githubStars").forEach((element) => { element.textContent = formatted; });
     window.dispatchEvent(new CustomEvent("image2:githubstars", { detail: { value: githubStars, formatted } }));
@@ -282,17 +328,25 @@
     if (!Number.isFinite(value)) return;
     updateSiteStars(value);
     try { localStorage.setItem(STAR_CACHE_KEY, JSON.stringify({ value, savedAt: Date.now() })); } catch {}
+=======
+    const formatted = new Intl.NumberFormat(language === "en" ? "en" : "zh-CN").format(githubStars);
+    document.querySelectorAll(".site-nav-stars").forEach((element) => { element.textContent = formatted; });
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   }
 
   async function requestGitHubStars() {
     if (githubStarsRequested) return;
+<<<<<<< HEAD
     if (cachedStars && Date.now() - cachedStars.savedAt < STAR_CACHE_TTL) return;
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     githubStarsRequested = true;
     try {
       const response = await fetch("https://api.github.com/repos/zhu-guli326/image2_UI_skill", {
         headers: { Accept: "application/vnd.github+json" },
         cache: "no-store",
       });
+<<<<<<< HEAD
       if (!response.ok) throw new Error(`GitHub API returned ${response.status}`);
       const value = Number((await response.json()).stargazers_count);
       if (!Number.isFinite(value)) throw new Error("Missing GitHub star count");
@@ -305,6 +359,11 @@
         if (Number.isFinite(value)) cacheGitHubStars(value);
       } catch {}
     }
+=======
+      if (!response.ok) return;
+      updateSiteStars(Number((await response.json()).stargazers_count));
+    } catch {}
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   }
 
   function setHtmlLanguage() {
@@ -377,13 +436,17 @@
         const url = new URL(raw, window.location.href);
         if (url.origin !== window.location.origin || !pages.test(url.pathname.split("/").pop() || "")) return;
         url.searchParams.set("lang", language);
+<<<<<<< HEAD
         if (new URL(window.location.href).searchParams.get("embed") === "1") url.searchParams.set("embed", "1");
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
         const path = window.location.pathname.includes("/lab/") ? `../${url.pathname.split("/").pop()}` : url.pathname.split("/").pop();
         link.setAttribute("href", `${path}${url.search}${url.hash}`);
       } catch {}
     });
   }
 
+<<<<<<< HEAD
   function hydrateSiteHeader(header) {
     renderSiteHeader(header);
     if (header.hidden) return;
@@ -520,11 +583,18 @@
   function refresh() {
     setHtmlLanguage();
     renderSiteHeader();
+=======
+  function refresh() {
+    setHtmlLanguage();
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     document.querySelectorAll("[data-site-nav]").forEach(renderSiteNavigation);
     mountSwitches();
     applyDataTranslations();
     localizeLinks();
+<<<<<<< HEAD
     mountWorkflowBar();
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     updateSiteStars(githubStars);
     requestGitHubStars();
     pageHandlers.forEach((handler) => handler(language));
@@ -544,7 +614,10 @@
     persistLanguage();
     updateUrl({ replace });
     refresh();
+<<<<<<< HEAD
     if (shellFrame) navigateInShell(window.location.href, { historyMode: "replace", force: true });
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   }
 
   window.image2I18n = Object.freeze({
@@ -559,16 +632,21 @@
     localizeUrl(value) {
       try {
         const url = new URL(value, window.location.href);
+<<<<<<< HEAD
         if (url.origin === window.location.origin) {
           url.searchParams.set("lang", language);
           const page = url.pathname.split("/").pop() || "";
           if (new URL(window.location.href).searchParams.get("embed") === "1" && /^(?:index|library|learn|brands|launcher|skills|vocabulary)\.html$/i.test(page)) url.searchParams.set("embed", "1");
         }
+=======
+        if (url.origin === window.location.origin) url.searchParams.set("lang", language);
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
         return url.href;
       } catch { return value; }
     },
   });
 
+<<<<<<< HEAD
   window.image2Project = Object.freeze({
     read: readCurrentProject,
     save(patch) {
@@ -591,6 +669,8 @@
     }
   });
 
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   window.addEventListener("popstate", () => {
     const queryLanguage = new URL(window.location.href).searchParams.get("lang");
     const next = isSupported(queryLanguage) ? queryLanguage : readLanguage();
@@ -599,6 +679,7 @@
     refresh();
   });
 
+<<<<<<< HEAD
   window.addEventListener("popstate", () => {
     if (shellFrame || document.body?.classList.contains("site-shell-active")) {
       navigateInShell(window.location.href, { historyMode: "none", force: true });
@@ -618,6 +699,8 @@
     window.parent.postMessage({ type: "image2:embedded-route", url: parentRoute.href }, window.location.origin);
   }
 
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", refresh, { once: true });
   else refresh();
 })();

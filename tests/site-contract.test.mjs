@@ -18,12 +18,17 @@ test("the published gallery has a complete case and brand catalog", () => {
   assert.ok(report.components >= 1);
 });
 
+<<<<<<< HEAD
 test("the shared site shell owns GitHub stars for the Skill repository", () => {
+=======
+test("the library GitHub entry and stars use the Skill repository", () => {
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   const library = requireText("library.html");
   const libraryScript = requireText("library.js");
   const i18n = requireText("i18n.js");
   const skillRepo = "zhu-guli326/image2_UI_skill";
   assert.match(library, new RegExp(`https://github\\.com/${skillRepo}`));
+<<<<<<< HEAD
   assert.match(library, /data-github-stars/);
   assert.match(i18n, new RegExp(`https://github\\.com/${skillRepo}`));
   assert.match(i18n, new RegExp(`api\\.github\\.com/repos/${skillRepo}`));
@@ -74,6 +79,13 @@ test("the launcher keeps case selection and prompt editing inside one workspace"
   assert.match(launcherScript, /selectCaseUrl\(window\.location\.href/);
   assert.match(launcherScript, /taskReferenceCaseName/);
   assert.match(launcherScript, /indexedDB\.open\(UPLOAD_DB/);
+=======
+  assert.match(libraryScript, new RegExp(`api\\.github\\.com/repos/${skillRepo}`));
+  assert.match(libraryScript, new RegExp(`img\\.shields\\.io/github/stars/${skillRepo}\\.json`));
+  assert.match(i18n, new RegExp(`https://github\\.com/${skillRepo}`));
+  assert.match(i18n, new RegExp(`api\\.github\\.com/repos/${skillRepo}`));
+  assert.doesNotMatch(libraryScript, /repos\/zhu-guli326\/ui_case/);
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 });
 
 function requireText(relativePath) {

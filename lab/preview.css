@@ -109,6 +109,7 @@ html[data-system="tdesign"] .primary-control, html[data-system="tdesign"] .secon
 html[data-system="tdesign"] .primary-control { border-color: var(--theme-accent); background: var(--theme-accent); color: #fff; }
 html[data-system="tdesign"] .nav-item.is-current, html[data-system="tdesign"] .settings-list button.is-current { background: var(--theme-accentSoft); color: var(--theme-accent); }
 
+<<<<<<< HEAD
 /* Brand reference changes voice and emphasis; the component geometry still comes from the selected system. */
 html[data-brand="linear"] .brand-symbol { border-radius: 4px; background: linear-gradient(135deg, #8b8cff, #5e6ad2); }
 html[data-brand="apple"] .system-page { letter-spacing: -.01em; }
@@ -167,6 +168,8 @@ html[data-intensity="strict"] .page-content { max-width: 1024px; }
 .post-card { display: grid; grid-template-columns: auto 1fr; gap: 12px; }.post-card header { display: flex; justify-content: space-between; }.post-card header small { color: var(--theme-muted); }.post-card p { line-height: 1.65; }.post-card footer { display: flex; gap: 18px; }.post-card footer button { padding: 0; border: 0; background: none; color: var(--theme-muted); font-size: 11px; }
 .social-trends h2 { margin-top: 0; font-size: 14px; }.social-trends button { display: grid; width: 100%; gap: 4px; padding: 12px 0; border: 0; border-bottom: 1px solid color-mix(in srgb, var(--theme-ink) 10%, transparent); background: none; color: var(--theme-ink); text-align: left; }.social-trends small { color: var(--theme-muted); }
 
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 html[data-device="iphone"] .system-nav, html[data-device="android"] .system-nav { grid-template-columns: 1fr auto; padding-inline: 18px; }
 html[data-device="iphone"] .system-nav nav, html[data-device="android"] .system-nav nav { position: fixed; z-index: 5; right: 0; bottom: 0; left: 0; display: grid; min-height: 64px; grid-template-columns: repeat(3, 1fr); padding: 6px 10px max(6px, env(safe-area-inset-bottom)); border-top: 1px solid color-mix(in srgb, var(--theme-ink) 12%, transparent); background: var(--theme-surface); }
 html[data-device="iphone"] .nav-item, html[data-device="android"] .nav-item { padding-inline: 4px; font-size: 11px; }
@@ -186,6 +189,7 @@ html[data-device="iphone"] .list-row, html[data-device="android"] .list-row { gr
 html[data-device="iphone"] .list-row span:last-of-type, html[data-device="android"] .list-row span:last-of-type { display: none; }
 html[data-device="iphone"] .detail-surface, html[data-device="android"] .detail-surface { align-items: flex-start; flex-direction: column; }
 html[data-device="iphone"] .detail-surface dl, html[data-device="android"] .detail-surface dl { width: 100%; justify-content: space-between; }
+<<<<<<< HEAD
 html[data-device="iphone"] .metric-grid, html[data-device="android"] .metric-grid { grid-template-columns: 1fr; }
 html[data-device="iphone"] .dashboard-grid, html[data-device="android"] .dashboard-grid { grid-template-columns: 1fr; }
 html[data-device="iphone"] .commerce-hero, html[data-device="android"] .commerce-hero { grid-template-columns: 1fr; gap: 20px; padding: 26px 20px; }
@@ -201,5 +205,7 @@ html[data-device="iphone"] .social-layout, html[data-device="android"] .social-l
 html[data-device="iphone"] .social-profile, html[data-device="android"] .social-profile, html[data-device="iphone"] .social-trends, html[data-device="android"] .social-trends { display: none; }
 html[data-device="iphone"] .composer, html[data-device="android"] .composer { grid-template-columns: auto 1fr; }
 html[data-device="iphone"] .composer button, html[data-device="android"] .composer button { grid-column: 2; }
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }

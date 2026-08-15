@@ -73,7 +73,11 @@ function App() {
 
 function PhoneFrame({ children, className = "", label }) {
   return (
+<<<<<<< HEAD
     <article className={`phone iphone-frame ${className}`} aria-label={label}>
+=======
+    <article className={`phone ${className}`} aria-label={label}>
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
       <div className="screen">
         <StatusBar />
         {children}

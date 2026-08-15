@@ -1,11 +1,15 @@
+<<<<<<< HEAD
 import { labThemes } from "../catalog/color-themes.js";
 
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 export const componentKinds = [
   "navigation", "button", "input", "select", "card", "list", "dialog", "notification",
 ];
 
 export const templates = [
   {
+<<<<<<< HEAD
     id: "dashboard",
     name: "SaaS Dashboard",
     description: "指标概览、项目进度与团队协作",
@@ -34,6 +38,8 @@ export const templates = [
     sections: [{ type: "navigation" }, { type: "input" }, { type: "list" }, { type: "button", label: "发布" }, { type: "notification", message: "动态已发布" }],
   },
   {
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     id: "login",
     name: "登录",
     description: "身份验证、输入校验与登录反馈",
@@ -344,6 +350,7 @@ export const systems = [
   },
 ];
 
+<<<<<<< HEAD
 export const themes = labThemes;
 
 export const brandReferences = [
@@ -359,6 +366,33 @@ export const changeIntensities = [
   { id: "standard", name: "标准", description: "替换组件与局部布局细节" },
   { id: "deep", name: "深度", description: "按目标体系重新组织页面" },
   { id: "strict", name: "严格", description: "尽可能遵循指定系统规范" },
+=======
+export const themes = [
+  {
+    id: "minimal-tech",
+    name: "极简科技",
+    description: "高对比功能主义，颜色只服务于状态和行动",
+    tags: ["功能主义", "高对比", "任务导向"],
+    colors: { canvas: "#f4f6f4", surface: "#ffffff", ink: "#151716", muted: "#5d625e", accent: "#168143", accentSoft: "#e1f3e7", danger: "#b42318" },
+    voice: "直接、可扫描，以任务和状态为中心。",
+  },
+  {
+    id: "editorial-commerce",
+    name: "编辑型时尚",
+    description: "克制的零售编辑感，留白与内容层级优先",
+    tags: ["编辑感", "零售", "内容优先"],
+    colors: { canvas: "#f7f4ef", surface: "#fffdfa", ink: "#2d251f", muted: "#716961", accent: "#a45855", accentSoft: "#f2e4e2", danger: "#a33832" },
+    voice: "简短、具体，避免促销堆叠。",
+  },
+  {
+    id: "soft-lifestyle",
+    name: "柔和生活方式",
+    description: "温和但明确，适合内容、健康与日常任务",
+    tags: ["亲和", "柔和", "生活方式"],
+    colors: { canvas: "#f7faf8", surface: "#ffffff", ink: "#282421", muted: "#68615d", accent: "#427a68", accentSoft: "#e4f0eb", danger: "#a23d36" },
+    voice: "温和但不含糊，用具体下一步取代空泛鼓励。",
+  },
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 ];
 
 export const devices = [
@@ -371,8 +405,11 @@ export function findTemplate(id) { return templates.find((item) => item.id === i
 export function findSystem(id) { return systems.find((item) => item.id === id) || systems[2]; }
 export function findTheme(id) { return themes.find((item) => item.id === id) || themes[0]; }
 export function findDevice(id) { return devices.find((item) => item.id === id) || devices[2]; }
+<<<<<<< HEAD
 export function findBrandReference(id) { return brandReferences.find((item) => item.id === id) || brandReferences[0]; }
 export function findChangeIntensity(id) { return changeIntensities.find((item) => item.id === id) || changeIntensities[1]; }
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 export function buildTokenExport(state) {
   const system = findSystem(state.system);

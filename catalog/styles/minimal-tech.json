@@ -8,12 +8,15 @@
   "industry": ["科技", "工具", "健康"],
   "styles": ["功能主义", "极简"],
   "completeness": "组件规范",
+<<<<<<< HEAD
   "previewCaseId": "cleanbite",
   "densityDefault": "compact",
   "tokenFoundation": {
     "spacingBase": "4pt",
     "fontScheme": "system-cjk"
   },
+=======
+>>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   "foundations": {
     "colors": { "canvas": "#F4F6F4", "ink": "#151716", "accent": "#C8FF3D", "signal": "#168143" },
     "typography": { "display": "系统无衬线 700", "body": "系统无衬线 400", "scale": "32 / 24 / 16 / 14" },
