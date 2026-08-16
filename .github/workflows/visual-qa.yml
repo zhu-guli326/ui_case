@@ -34,10 +34,12 @@ jobs:
         run: npm test
       - name: Check site contracts
         run: npm run check
-      - name: Install video probe
+      - name: Ensure video probe
         run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
+          if ! command -v ffprobe >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
           ffprobe -version | head -n 1
       - name: Install Playwright
         run: |
