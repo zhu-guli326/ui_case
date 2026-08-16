@@ -1,0 +1,32 @@
+/* Visual-quality pass: keep the check-in sparse, but anchor the only navigation
+ * control to the lower screen so the whitespace reads as intentional breathing
+ * room instead of an unfinished layout. */
+.checkin .step-actions {
+  position: absolute;
+  right: 35px;
+  bottom: 56px;
+  left: 35px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #eeeaf0;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(94, 57, 87, 0.08);
+}
+
+.checkin .arrow-button {
+  min-height: 62px;
+  border-radius: 0;
+}
+
+.checkin .arrow-button:first-child {
+  border-right: 1px solid #ececee;
+}
+
+.checkin .arrow-button:last-child {
+  border-radius: 0;
+}
+
+.checkin .arrow-button:not(:disabled):active {
+  transform: scale(0.97);
+}
