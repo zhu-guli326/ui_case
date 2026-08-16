@@ -56,6 +56,7 @@ test("repository root keeps public entry points separate from implementation", (
     ["src", "core", "analytics", "analytics.config.js"],
     ["src", "core", "analytics", "analytics.js"],
     ["src", "components", "site-header", "site-header.css"],
+    ["src", "components", "device-preview", "phone-shell.css"],
     ["src", "components", "device-preview", "device-preview.css"],
     ["src", "components", "device-preview", "device-preview.js"],
     ["src", "features", "home", "index.css"],
@@ -93,6 +94,7 @@ test("entry pages load feature and component implementation from src", () => {
   assert.match(read("launcher.html"), /src\/features\/launcher\/launcher\.css/);
   assert.match(read("library.html"), /src\/features\/library\/library\.css/);
   assert.match(read("library.html"), /src\/components\/device-preview\/device-preview\.css/);
+  assert.match(read("src", "components", "device-preview", "device-preview.css"), /@import\s+url\("\.\/phone-shell\.css"\)/);
   assert.match(read("skills.html"), /src\/features\/skills\/skills\.css/);
   assert.match(read("skills.html"), /src\/features\/skills\/skills\.js/);
   assert.match(read("markdown.html"), /src\/features\/markdown\/markdown\.css/);
