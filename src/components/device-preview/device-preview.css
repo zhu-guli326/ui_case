@@ -1,35 +1,16 @@
+@import url("./phone-shell.css");
+
 /* Preview contract v2
  *
- * Phone-shaped case media is screen content, not a second device mockup.
- * Library owns the only visible device bezel. Canonical screen media therefore
- * fills the 390 x 844 viewport edge-to-edge; only explicit artboards use contain.
+ * PhoneShell owns hardware chrome. DevicePreview owns only media behavior:
+ * screen media fills the 390 x 844 viewport edge-to-edge and explicit artboards
+ * use contain. Cases never implement a second device shell here.
  */
 
 :root {
   --library-device-width: 390;
   --library-device-height: 844;
   --library-detail-device-width: 300px;
-  --library-device-bezel: #111113;
-  --library-device-edge: rgba(255, 255, 255, 0.24);
-}
-
-.phone-frame:not(.is-artboard-preview) {
-  aspect-ratio: 390 / 844 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  background: var(--library-device-bezel) !important;
-  box-shadow:
-    0 0 0 7px var(--library-device-bezel),
-    0 0 0 8px var(--library-device-edge),
-    0 22px 44px -18px rgba(0, 0, 0, .42) !important;
-}
-
-.phone-frame:not(.is-artboard-preview) .phone-screen {
-  width: 100% !important;
-  height: 100% !important;
-  overflow: hidden !important;
-  background: #000 !important;
-  isolation: isolate;
 }
 
 /* Canonical phone sources must touch every screen edge. `contain` here was the
