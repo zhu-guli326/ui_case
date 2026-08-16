@@ -19,6 +19,65 @@
   display: none !important;
 }
 
+/* Preview image navigation uses one reusable chevron glyph instead of text
+ * arrows. Previous reuses the same icon by rotating it 180deg. */
+.preview-image-navigation {
+  inset-inline: 10px !important;
+  grid-template-columns: 36px minmax(0, 1fr) 36px !important;
+}
+
+.preview-image-navigation p {
+  right: 40px !important;
+  left: 40px !important;
+  max-width: calc(100% - 80px) !important;
+}
+
+.preview-image-step {
+  width: 36px !important;
+  height: 36px !important;
+  padding: 0 !important;
+  border: 1px solid rgba(28, 27, 24, .10) !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, .88) !important;
+  color: rgba(24, 24, 24, .88) !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .08) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background .16s ease, color .16s ease, box-shadow .16s ease, transform .16s ease;
+}
+
+.preview-image-step::before {
+  width: 16px;
+  height: 16px;
+  background: currentColor;
+  content: "";
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M7.5 4.5 13 10l-5.5 5.5' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M7.5 4.5 13 10l-5.5 5.5' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.preview-image-previous::before {
+  transform: rotate(180deg);
+}
+
+.preview-image-step:hover {
+  background: rgba(255, 255, 255, .98) !important;
+  color: #171713 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .11) !important;
+}
+
+.preview-image-step:active {
+  transform: scale(.96);
+}
+
+.preview-image-step:focus-visible {
+  outline: 2px solid rgba(25, 169, 87, .72) !important;
+  outline-offset: 2px !important;
+  background: rgba(255, 255, 255, .98) !important;
+  color: #171713 !important;
+}
+
 /* Canonical phone sources must touch every screen edge. `contain` here was the
  * compatibility behavior that produced visible inner gaps and an apparent
  * second frame around otherwise-correct phone screenshots. */
