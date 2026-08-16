@@ -8,7 +8,8 @@
     "serve": "node scripts/serve_site.mjs",
     "test": "node --test",
     "check": "node scripts/check_site.mjs",
-    "audit:visual": "node scripts/audit_demo_visual_contract.mjs"
+    "audit:visual": "node scripts/audit_demo_visual_contract.mjs",
+    "audit:library-preview": "node scripts/audit_library_preview_contract.mjs"
   },
   "engines": {
     "node": ">=20"
