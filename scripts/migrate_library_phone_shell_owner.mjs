@@ -30,6 +30,7 @@ removeRule(/\.phone-frame--card::after\s*\{[^{}]*\}\s*/g, "Library card right bu
 removeRule(/\.phone-frame--card\s+\.phone-media\s*\{[^{}]*\}\s*/g, "legacy card media scale");
 removeRule(/\.phone-frame--card\.has-wide-device-art\s*\{[^{}]*\}\s*/g, "legacy wide-device scale");
 removeRule(/\.phone-frame--card\.has-fitted-device-art\s*\{[^{}]*\}\s*/g, "legacy fitted-device scale");
+removeRule(/\.phone-frame--card\s*\{[^{}]*\}\s*/g, "Library card hardware/sizing rule");
 
 // Re-add only page-layout sizing for a card invocation of the shared component.
 css = css.replace(
@@ -53,6 +54,8 @@ const forbidden = [
   /\.phone-frame::after/,
   /\.phone-frame\s*\{[^}]*box-shadow/s,
   /\.phone-frame\s*\{[^}]*border-radius/s,
+  /\.phone-frame--card\s*\{[^}]*border-radius/s,
+  /\.phone-frame--card\s*\{[^}]*box-shadow/s,
 ];
 for (const pattern of forbidden) {
   if (pattern.test(css)) throw new Error(`Library still owns PhoneShell hardware: ${pattern}`);
