@@ -9,6 +9,7 @@ const html = readFileSync(path.join(root, "library.html"), "utf8");
 const css = readFileSync(path.join(root, "src", "features", "library", "library.css"), "utf8");
 const phoneShellCss = readFileSync(path.join(root, "src", "components", "device-preview", "phone-shell.css"), "utf8");
 const devicePreviewCss = readFileSync(path.join(root, "src", "components", "device-preview", "device-preview.css"), "utf8");
+const devicePreviewScript = readFileSync(path.join(root, "src", "components", "device-preview", "device-preview.js"), "utf8");
 const script = readFileSync(path.join(root, "library.js"), "utf8");
 
 test("library cards and detail media reuse one visible 390 by 844 PhoneShell", () => {
@@ -36,13 +37,31 @@ test("library cards and detail media reuse one visible 390 by 844 PhoneShell", (
   assert.match(devicePreviewCss, /\.phone-frame\.is-artboard-preview \.phone-media\s*\{[\s\S]*?object-fit:\s*contain\s*!important/);
   assert.doesNotMatch(devicePreviewCss, /\.phone-frame:not\(\.is-artboard-preview\)\s*\{[^}]*box-shadow:/s, "DevicePreview must not reimplement PhoneShell hardware");
 
-  assert.match(css, /--screen-ratio:\s*390\s*\/\s*844/);
+  // Library is a consumer of PhoneShell, never a second hardware owner.
+  assert.doesNotMatch(css, /--iphone-bezel/);
+  assert.doesNotMatch(css, /--radius-phone/);
+  assert.doesNotMatch(css, /--radius-screen/);
+  assert.doesNotMatch(css, /--screen-ratio/);
+  assert.doesNotMatch(css, /\.phone-frame::before|\.phone-frame::after/);
+  assert.doesNotMatch(css, /\.phone-frame\s*\{[^}]*box-shadow:/s);
+  assert.doesNotMatch(css, /\.phone-frame\s*\{[^}]*border-radius:/s);
+  assert.match(css, /\.demo-card-preview > \.phone-frame\s*\{[^}]*z-index:\s*1/);
+  assert.match(css, /\.phone-frame--card\s*\{[^}]*height:\s*min\(var\(--card-device-height\)/);
   assert.match(css, /--modal-device-width:\s*300px/);
   assert.match(css, /--card-preview-ratio:\s*4\s*\/\s*5/);
   assert.match(css, /\.phone-media\s*\{[^}]*object-fit:\s*cover/);
   assert.match(css, /\.preview-media-stage\s*\{[^}]*min-height:\s*0[^}]*overflow:\s*hidden/);
-  assert.match(css, /\.preview-media-frame\s*\{[^}]*width:\s*min\(var\(--modal-device-width\),\s*32dvh,\s*calc\(100% - 48px\)\)[^}]*height:\s*auto[^}]*max-height:\s*100%/);
   assert.match(css, /\.preview-dialog\s*\{[^}]*max-width:\s*calc\(100vw - 32px\)[^}]*max-height:\s*calc\(100dvh - 32px\)/);
+});
+
+test("legacy baked-device media is normalized to screen-only sources", () => {
+  assert.match(devicePreviewScript, /fashion:\s*"\.\/assets\/cases\/fashion-shopping-app\/screen-only\/hero\.png"/);
+  assert.match(devicePreviewScript, /museum:\s*"\.\/assets\/cases\/museum-app\/video-frames\/01-home\.png"/);
+  assert.match(devicePreviewScript, /news:\s*"\.\/assets\/cases\/news-app\/screen-only\/headlines\.png"/);
+  assert.match(devicePreviewScript, /"signal-grid"[\s\S]*?library-preview-2x\.png/);
+  assert.match(devicePreviewScript, /"still-form"[\s\S]*?library-preview-2x\.png/);
+  assert.match(devicePreviewScript, /screen-only\/demo\.mp4/);
+  assert.doesNotMatch(devicePreviewCss, /transform:\s*scale\(1\.(?:205|165|62|105|045)\)/);
 });
 
 test("video previews use poster media and custom controls", () => {
@@ -92,16 +111,6 @@ test("Organique video mode uses canonical screen frames instead of the mismatche
   }
   assert.match(script, /const videoSequence = isVideo \? getVideoSequence\(guide\) : null/);
   assert.match(script, /if \(videoSequence\)[\s\S]*?activeVideoSequence = videoSequence[\s\S]*?playPreviewSequence\(\)/);
-});
-
-test("generated device mockups are not nested inside gallery devices", () => {
-  assert.match(script, /museum:\s*"\.\/assets\/cases\/museum-app\/video-frames\/01-home\.png"/);
-  assert.match(script, /fashion:\s*"\.\/assets\/cases\/fashion-shopping-app\/card-screen\.png"/);
-  assert.match(script, /news:\s*"\.\/assets\/cases\/news-app\/card-screen\.png"/);
-  assert.match(script, /fittedCardPreviewIds = new Set\(\["museum", "fashion", "news"\]\)/);
-  assert.match(css, /\.phone-frame--card\.has-fitted-device-art\s*\{[^}]*--card-media-scale:\s*1\.02/);
-  assert.match(devicePreviewCss, /\.phone-frame--card,[\s\S]*?--card-media-scale:\s*1\s*!important/);
-  assert.doesNotMatch(script, /cardPreviewImages[\s\S]*library-preview-generated-v2-standard/);
 });
 
 test("fullscreen fallback keeps the same dialog and cleans up on close", () => {
