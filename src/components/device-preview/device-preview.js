@@ -9,6 +9,17 @@ const LEGACY_SCALE_OVERSHOOT = 1.04;
 const LEGACY_NOTEBOOK_CARD_PREVIEW = "marble-note/screenshots/library-preview-reference-v2.png";
 const CANONICAL_NOTEBOOK_CARD_PREVIEW = "marble-note/screenshots/library-preview-2x.png";
 
+const DETAIL_SCREEN_ONLY_OVERRIDES = Object.freeze({
+  "signal-grid": Object.freeze({
+    legacyPrefix: "demo/signal-grid/screenshots/",
+    canonical: "./demo/signal-grid/screenshots/library-preview-2x.png",
+  }),
+  "still-form": Object.freeze({
+    legacyPrefix: "demo/still-form/screenshots/",
+    canonical: "./demo/still-form/screenshots/library-preview-2x.png",
+  }),
+});
+
 function normalizeGalleryCardSource(image) {
   if (!image) return;
   const src = image.getAttribute("src") || "";
@@ -16,6 +27,19 @@ function normalizeGalleryCardSource(image) {
 
   image.setAttribute("src", src.replace(LEGACY_NOTEBOOK_CARD_PREVIEW, CANONICAL_NOTEBOOK_CARD_PREVIEW));
   image.dataset.previewSourceNormalized = "true";
+}
+
+function normalizeDetailScreenSource(image, caseId) {
+  if (!image || !caseId) return false;
+  const override = DETAIL_SCREEN_ONLY_OVERRIDES[caseId];
+  if (!override) return false;
+
+  const src = image.getAttribute("src") || "";
+  if (!src.includes(override.legacyPrefix) || src.includes("library-preview-2x.png")) return false;
+
+  image.setAttribute("src", override.canonical);
+  image.dataset.previewSourceNormalized = "screen-only";
+  return true;
 }
 
 function getCardCaseId(frame) {
@@ -51,13 +75,14 @@ function setFramePresentation(frame, width, height, { forceDevice = false, caseI
   }
 }
 
-function bindImageToFrame(image, frame, resolveCaseId = () => "") {
+function bindImageToFrame(image, frame, resolveCaseId = () => "", { normalizeDetailSource = false } = {}) {
   if (!image || !frame || image.dataset.adaptivePreviewBound === "true") return;
   image.dataset.adaptivePreviewBound = "true";
 
   const sync = () => {
-    if (!image.naturalWidth || !image.naturalHeight) return;
     const caseId = resolveCaseId();
+    if (normalizeDetailSource && normalizeDetailScreenSource(image, caseId)) return;
+    if (!image.naturalWidth || !image.naturalHeight) return;
     setFramePresentation(frame, image.naturalWidth, image.naturalHeight, { caseId });
   };
 
@@ -91,7 +116,7 @@ function installDetailPresentation() {
   if (!frame) return;
 
   const resolveCaseId = () => getDetailCaseId();
-  bindImageToFrame(image, frame, resolveCaseId);
+  bindImageToFrame(image, frame, resolveCaseId, { normalizeDetailSource: true });
   bindImageToFrame(sequence, frame, resolveCaseId);
 
   const syncVideo = () => {
@@ -102,6 +127,8 @@ function installDetailPresentation() {
 
   const syncVisibleMode = () => {
     const caseId = resolveCaseId();
+    if (image && !image.hidden) normalizeDetailScreenSource(image, caseId);
+
     const profile = getLibraryPreviewProfile(caseId);
     if (profile) {
       setFramePresentation(frame, standardPreviewDevice.width, standardPreviewDevice.height, {
