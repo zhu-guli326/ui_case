@@ -13,6 +13,12 @@
   --library-detail-device-width: 300px;
 }
 
+/* A mobile preview must never add a synthetic desktop mouse pointer on top of
+ * authored screens or videos. Interaction is conveyed by the UI itself. */
+#previewCursor {
+  display: none !important;
+}
+
 /* Canonical phone sources must touch every screen edge. `contain` here was the
  * compatibility behavior that produced visible inner gaps and an apparent
  * second frame around otherwise-correct phone screenshots. */
