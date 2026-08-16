@@ -20,7 +20,7 @@ test("style selection is the first workspace action and section numbers are gone
 test("semantic color themes are selectable and flow into summaries and prompts", () => {
   const html = read("launcher.html");
   const script = read("launcher.js");
-  const css = read("launcher.css");
+  const css = read("src/features/launcher/launcher.css");
   assert.match(html, /选择品牌规范/);
   assert.match(html, /id="colorThemeGrid"[^>]+role="radiogroup"/);
   assert.match(script, /function renderColorThemes\(\)/);
@@ -54,7 +54,7 @@ test("launcher state is versioned per project and task progress does not overwri
 });
 
 test("responsive workspace styles keep the summary sticky and overlays usable on mobile", () => {
-  const css = read("launcher.css");
+  const css = read("src/features/launcher/launcher.css");
   const script = read("launcher.js");
   assert.match(css, /\.prompt-column\s*\{[^}]*position:\s*sticky/s);
   assert.match(css, /\.case-picker\s*\{/);
@@ -71,7 +71,7 @@ test("responsive workspace styles keep the summary sticky and overlays usable on
 });
 
 test("foundation decisions show values without project provenance", () => {
-  const css = read("launcher.css");
+  const css = read("src/features/launcher/launcher.css");
   const script = read("launcher.js");
   assert.match(script, /tokenFoundationMarkup\(decisions\)/);
   assert.match(script, /item\.decision\.label/);
@@ -84,7 +84,7 @@ test("foundation decisions show values without project provenance", () => {
 
 test("font presets provide a live, resilient page specimen", () => {
   const script = read("launcher.js");
-  const css = read("launcher.css");
+  const css = read("src/features/launcher/launcher.css");
 
   assert.match(script, /from "\.\/catalog\/font-presets\.js"/);
   assert.match(script, /function fontPresetMarkup\(decision\)/);
@@ -106,14 +106,14 @@ test("font presets provide a live, resilient page specimen", () => {
 });
 
 test("the global workflow is collapsed into the launcher summary", () => {
-  const shell = read("i18n.js");
+  const shell = read("src/core/app-shell/app-shell.js");
   assert.match(shell, /currentPage\(\) === "launcher\.html"/);
   assert.match(shell, /document\.querySelector\("\.project-workflow"\)\?\.remove\(\)/);
   assert.doesNotMatch(shell, /current-project-bar|mountProjectBar|项目契约/);
 });
 
 test("cross-page task routes never reuse a previously browsed case", () => {
-  const shell = read("i18n.js");
+  const shell = read("src/core/app-shell/app-shell.js");
   const brands = read("brands.js");
 
   assert.match(shell, /project\.taskReferenceMode === "case" && project\.taskReferenceCaseId/);
