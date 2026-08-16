@@ -10,7 +10,6 @@ const read = (...parts) => readFileSync(path.join(root, ...parts), "utf8");
 const transitionalRootImplementation = new Set([
   "analytics.config.js",
   "analytics.js",
-  "brands.css",
   "brands.js",
   "i18n.css",
   "i18n.js",
@@ -37,6 +36,7 @@ const transitionalRootImplementation = new Set([
 
 test("repository root keeps public entry points separate from implementation", () => {
   for (const file of [
+    "brands.css",
     "skills.css",
     "skills.js",
     "markdown.css",
@@ -51,6 +51,7 @@ test("repository root keeps public entry points separate from implementation", (
   }
 
   for (const file of [
+    ["src", "features", "brands", "brands.css"],
     ["src", "features", "skills", "skills.css"],
     ["src", "features", "skills", "skills.js"],
     ["src", "features", "markdown", "markdown.css"],
@@ -74,6 +75,7 @@ test("new root implementation files are forbidden outside the migration allowlis
 });
 
 test("entry pages load feature and component implementation from src", () => {
+  assert.match(read("brands.html"), /src\/features\/brands\/brands\.css/);
   assert.match(read("skills.html"), /src\/features\/skills\/skills\.css/);
   assert.match(read("skills.html"), /src\/features\/skills\/skills\.js/);
   assert.match(read("markdown.html"), /src\/features\/markdown\/markdown\.css/);
