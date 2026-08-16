@@ -1,8 +1,9 @@
 name: Visual QA
 
 on:
-  push:
-    branches: [fix/visual-qa]
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, ready_for_review]
     paths:
       - "catalog/cases/**"
       - "demo/**"
