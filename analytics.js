@@ -39,9 +39,9 @@
   };
 
   if (/\/library\.html$/.test(location.pathname) || location.pathname.endsWith("/")) {
-    const previewFix = document.createElement("script");
-    previewFix.src = "./library-technical-fixes.js?v=20260816-sizing";
-    previewFix.defer = true;
-    document.head.append(previewFix);
+    const previewRuntime = document.createElement("script");
+    previewRuntime.type = "module";
+    previewRuntime.src = "./library-technical-fixes.js?v=20260816-adaptive-preview-v1";
+    document.head.append(previewRuntime);
   }
 })();
