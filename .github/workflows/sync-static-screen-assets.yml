@@ -1,0 +1,65 @@
+name: Sync static screen-only assets
+
+on:
+  pull_request:
+    branches: [main]
+    types: [ready_for_review]
+    paths:
+      - "scripts/capture_static_screen_only_sources.mjs"
+      - ".github/workflows/sync-static-screen-assets.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-static-screen-assets:
+    if: github.event_name == 'workflow_dispatch' || github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Playwright
+        run: |
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Start local site
+        run: |
+          IMAGE2_UI_PORT=4174 npm run serve > /tmp/ui-case-server.log 2>&1 &
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4174/library.html > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/ui-case-server.log
+          exit 1
+      - name: Generate screen-only assets
+        run: node scripts/capture_static_screen_only_sources.mjs
+      - name: Commit normalized assets to PR branch
+        env:
+          HEAD_BRANCH: ${{ github.head_ref || github.ref_name }}
+        run: |
+          cp -R artifacts/visual-qa/generated-static /tmp/generated-static
+          git fetch origin "$HEAD_BRANCH:$HEAD_BRANCH"
+          git checkout "$HEAD_BRANCH"
+
+          mkdir -p assets/cases/fashion-shopping-app/screen-only
+          mkdir -p assets/cases/news-app/screen-only
+          cp /tmp/generated-static/fashion/hero.png assets/cases/fashion-shopping-app/screen-only/hero.png
+          cp /tmp/generated-static/fashion/catalog.png assets/cases/fashion-shopping-app/screen-only/catalog.png
+          cp /tmp/generated-static/fashion/favorites.png assets/cases/fashion-shopping-app/screen-only/favorites.png
+          cp /tmp/generated-static/news/headlines.png assets/cases/news-app/screen-only/headlines.png
+          cp /tmp/generated-static/news/feed.png assets/cases/news-app/screen-only/feed.png
+          cp /tmp/generated-static/news/discover.png assets/cases/news-app/screen-only/discover.png
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f assets/cases/fashion-shopping-app/screen-only assets/cases/news-app/screen-only
+          if git diff --cached --quiet; then
+            echo "Static screen-only assets already match."
+            exit 0
+          fi
+          git commit -m "chore: add normalized static screen-only assets"
+          git push origin "HEAD:$HEAD_BRANCH"
