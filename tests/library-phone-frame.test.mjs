@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const html = readFileSync(path.join(root, "library.html"), "utf8");
 const css = readFileSync(path.join(root, "library.css"), "utf8");
-const technicalCss = readFileSync(path.join(root, "library-technical-fixes.css"), "utf8");
+const devicePreviewCss = readFileSync(path.join(root, "src", "components", "device-preview", "device-preview.css"), "utf8");
 const script = readFileSync(path.join(root, "library.js"), "utf8");
 
 test("library cards and detail media share one visible 390 by 844 iPhone bezel", () => {
@@ -17,6 +17,7 @@ test("library cards and detail media share one visible 390 by 844 iPhone bezel",
   assert.ok(detailFrame, "detail preview has an iPhone frame");
   assert.equal((cardFrame.match(/class="phone-frame(?:\s|")/g) || []).length, 1);
   assert.equal((detailFrame.match(/class="phone-frame(?:\s|")/g) || []).length, 1);
+  assert.match(html, /src\/components\/device-preview\/device-preview\.css/);
   assert.match(html, /class="phone-screen"/);
   assert.match(css, /--screen-ratio:\s*390\s*\/\s*844/);
   assert.match(css, /--modal-device-width:\s*300px/);
@@ -32,10 +33,10 @@ test("library cards and detail media share one visible 390 by 844 iPhone bezel",
   assert.match(css, /\.phone-media\s*\{[^}]*object-fit:\s*cover/);
   assert.match(css, /\.preview-media-stage\s*\{[^}]*min-height:\s*0[^}]*overflow:\s*hidden/);
   assert.match(css, /\.preview-media-frame\s*\{[^}]*width:\s*min\(var\(--modal-device-width\),\s*32dvh,\s*calc\(100% - 48px\)\)[^}]*height:\s*auto[^}]*max-height:\s*100%/);
-  assert.match(technicalCss, /--library-detail-device-width:\s*300px/);
-  assert.match(technicalCss, /\.preview-media-frame:not\(\.is-artboard-preview\)\s*\{[\s\S]*?var\(--library-detail-device-width\)[\s\S]*?aspect-ratio:\s*390\s*\/\s*844/);
-  assert.match(technicalCss, /\.phone-frame:not\(\.is-artboard-preview\) \.phone-media\s*\{[\s\S]*?object-fit:\s*cover\s*!important/);
-  assert.match(technicalCss, /\.phone-frame\.is-artboard-preview \.phone-media\s*\{[\s\S]*?object-fit:\s*contain\s*!important/);
+  assert.match(devicePreviewCss, /--library-detail-device-width:\s*300px/);
+  assert.match(devicePreviewCss, /\.preview-media-frame:not\(\.is-artboard-preview\)\s*\{[\s\S]*?var\(--library-detail-device-width\)[\s\S]*?aspect-ratio:\s*390\s*\/\s*844/);
+  assert.match(devicePreviewCss, /\.phone-frame:not\(\.is-artboard-preview\) \.phone-media\s*\{[\s\S]*?object-fit:\s*cover\s*!important/);
+  assert.match(devicePreviewCss, /\.phone-frame\.is-artboard-preview \.phone-media\s*\{[\s\S]*?object-fit:\s*contain\s*!important/);
   assert.match(css, /\.preview-dialog\s*\{[^}]*max-width:\s*calc\(100vw - 32px\)[^}]*max-height:\s*calc\(100dvh - 32px\)/);
 });
 
@@ -94,7 +95,7 @@ test("generated device mockups are not nested inside gallery devices", () => {
   assert.match(script, /news:\s*"\.\/assets\/cases\/news-app\/card-screen\.png"/);
   assert.match(script, /fittedCardPreviewIds = new Set\(\["museum", "fashion", "news"\]\)/);
   assert.match(css, /\.phone-frame--card\.has-fitted-device-art\s*\{[^}]*--card-media-scale:\s*1\.02/);
-  assert.match(technicalCss, /\.phone-frame--card,[\s\S]*?--card-media-scale:\s*1\s*!important/);
+  assert.match(devicePreviewCss, /\.phone-frame--card,[\s\S]*?--card-media-scale:\s*1\s*!important/);
   assert.doesNotMatch(script, /cardPreviewImages[\s\S]*library-preview-generated-v2-standard/);
 });
 
