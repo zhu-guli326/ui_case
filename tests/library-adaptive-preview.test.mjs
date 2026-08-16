@@ -14,9 +14,10 @@ import {
 } from "../library-preview-config.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const compatibilityCss = readFileSync(path.join(root, "library-technical-fixes.css"), "utf8");
-const runtime = readFileSync(path.join(root, "library-technical-fixes.js"), "utf8");
+const componentCss = readFileSync(path.join(root, "src", "components", "device-preview", "device-preview.css"), "utf8");
+const runtime = readFileSync(path.join(root, "src", "components", "device-preview", "device-preview.js"), "utf8");
 const analytics = readFileSync(path.join(root, "analytics.js"), "utf8");
+const libraryHtml = readFileSync(path.join(root, "library.html"), "utf8");
 const i18nCss = readFileSync(path.join(root, "i18n.css"), "utf8");
 
 const cardPreviewOverrides = Object.freeze({
@@ -152,7 +153,7 @@ test("all 23 card previews are canonical 780 by 1688 screen assets", () => {
   console.log(`\nCase preview contract audit\n${audit.join("\n")}\n`);
 });
 
-test("preview runtime tags rendered frames with the explicit case contract", () => {
+test("DevicePreview runtime tags rendered frames with the explicit case contract", () => {
   assert.match(runtime, /getLibraryPreviewProfile/);
   assert.match(runtime, /getCardCaseId/);
   assert.match(runtime, /getDetailCaseId/);
@@ -170,21 +171,22 @@ test("notebook legacy reference preview is normalized before card sizing", () =>
 
 test("canonical phone media fills the screen while only artboards use contain", () => {
   assert.match(
-    compatibilityCss,
+    componentCss,
     /\.phone-frame:not\(\.is-artboard-preview\) \.phone-media\s*\{[\s\S]*?object-fit:\s*cover\s*!important/,
   );
   assert.match(
-    compatibilityCss,
+    componentCss,
     /\.phone-frame\.is-artboard-preview \.phone-media\s*\{[\s\S]*?object-fit:\s*contain\s*!important/,
   );
-  assert.doesNotMatch(compatibilityCss, /^\.phone-media\s*\{[^}]*object-fit:\s*contain/m);
-  assert.match(compatibilityCss, /--library-detail-device-width:\s*300px/);
-  assert.match(compatibilityCss, /aspect-ratio:\s*390\s*\/\s*844/);
-  assert.match(compatibilityCss, /transform:\s*none\s*!important/);
+  assert.doesNotMatch(componentCss, /^\.phone-media\s*\{[^}]*object-fit:\s*contain/m);
+  assert.match(componentCss, /--library-detail-device-width:\s*300px/);
+  assert.match(componentCss, /aspect-ratio:\s*390\s*\/\s*844/);
+  assert.match(componentCss, /transform:\s*none\s*!important/);
 });
 
-test("preview runtime and styles are cache-busted together at contract v2", () => {
+test("DevicePreview runtime and styles load from the shared component", () => {
   assert.match(analytics, /previewRuntime\.type\s*=\s*"module"/);
-  assert.match(analytics, /library-technical-fixes\.js\?v=20260816-preview-contract-v2/);
-  assert.match(i18nCss, /library-technical-fixes\.css\?v=20260816-preview-contract-v2/);
+  assert.match(analytics, /src\/components\/device-preview\/device-preview\.js\?v=20260816-arch-v1/);
+  assert.match(libraryHtml, /src\/components\/device-preview\/device-preview\.css\?v=20260816-arch-v1/);
+  assert.doesNotMatch(i18nCss, /library-technical-fixes/);
 });
