@@ -38,6 +38,23 @@
   --card-media-scale: 1 !important;
 }
 
+/* One device owner, one visual footprint.
+ * The screenshot the Library is calibrated against is the existing ~300px-wide
+ * phone in the detail dialog. Image, video and interactive modes all keep that
+ * same footprint; only genuinely non-phone artwork may opt into artboard mode.
+ */
+.preview-media-frame:not(.is-artboard-preview) {
+  width: min(
+    var(--modal-device-width, 300px),
+    calc(100% - 48px),
+    calc((100dvh - 180px) * 390 / 844)
+  ) !important;
+  height: auto !important;
+  max-width: calc(100% - 48px) !important;
+  max-height: calc(100dvh - 180px) !important;
+  aspect-ratio: 390 / 844 !important;
+}
+
 /* Non-phone assets are shown as neutral artboards instead of being nested in
  * iPhone chrome. Their own source ratio becomes the frame ratio. */
 .phone-frame.is-artboard-preview {
@@ -81,6 +98,12 @@
   .phone-frame--card.is-artboard-preview {
     width: min(calc(100% - 28px), 440px) !important;
     max-width: calc(100% - 28px);
+  }
+
+  .preview-media-frame:not(.is-artboard-preview) {
+    width: min(300px, calc(100% - 32px), calc((100dvh - 150px) * 390 / 844)) !important;
+    max-width: calc(100% - 32px) !important;
+    max-height: calc(100dvh - 150px) !important;
   }
 
   .preview-media-frame.is-artboard-preview {
