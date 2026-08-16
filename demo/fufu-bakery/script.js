@@ -1,3 +1,8 @@
+const visualPolish = document.createElement("link");
+visualPolish.rel = "stylesheet";
+visualPolish.href = "./visual-polish.css";
+document.head.append(visualPolish);
+
 const views = [...document.querySelectorAll("[data-view]")];
 const feedback = document.querySelector("#feedback");
 const tabbar = document.querySelector(".tabbar");

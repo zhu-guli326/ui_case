@@ -3,7 +3,7 @@
   "category": "culture",
   "name": "ArtMuse",
   "style": "当代美术馆导览",
-  "video": "./assets/cases/museum-app/museum-app-demo.mp4?v=artwork-2",
+  "video": "./assets/cases/museum-app/museum-app-demo.mp4",
   "poster": "./assets/cases/museum-app/video-frames/01-home.png",
   "videoSequence": {
     "duration": 8,

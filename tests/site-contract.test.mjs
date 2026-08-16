@@ -18,30 +18,30 @@ test("the published gallery has a complete case and brand catalog", () => {
   assert.ok(report.components >= 1);
 });
 
-test("the shared site shell owns GitHub stars for the Skill repository", () => {
+test("the shared AppShell owns GitHub stars for the Skill repository", () => {
   const library = requireText("library.html");
   const libraryScript = requireText("library.js");
-  const i18n = requireText("i18n.js");
+  const appShell = requireText("src/core/app-shell/app-shell.js");
   const skillRepo = "zhu-guli326/image2_UI_skill";
   assert.match(library, new RegExp(`https://github\\.com/${skillRepo}`));
   assert.match(library, /data-github-stars/);
-  assert.match(i18n, new RegExp(`https://github\\.com/${skillRepo}`));
-  assert.match(i18n, new RegExp(`api\\.github\\.com/repos/${skillRepo}`));
-  assert.match(i18n, new RegExp(`img\\.shields\\.io/github/stars/${skillRepo}\\.json`));
+  assert.match(appShell, new RegExp(`https://github\\.com/${skillRepo}`));
+  assert.match(appShell, new RegExp(`api\\.github\\.com/repos/${skillRepo}`));
+  assert.match(appShell, new RegExp(`img\\.shields\\.io/github/stars/${skillRepo}\\.json`));
   assert.doesNotMatch(libraryScript, /api\\.github\\.com|img\\.shields\\.io\/github\/stars/);
-  assert.doesNotMatch(`${libraryScript}\n${i18n}`, /repos\/zhu-guli326\/ui_case/);
+  assert.doesNotMatch(`${libraryScript}\n${appShell}`, /repos\/zhu-guli326\/ui_case/);
 });
 
 test("the shared header uses the ONDesign logo lockup", () => {
-  const i18n = requireText("i18n.js");
-  const navigation = requireText("site-nav.css");
+  const appShell = requireText("src/core/app-shell/app-shell.js");
+  const navigation = requireText("src/components/site-header/site-header.css");
 
-  assert.match(i18n, /assets\/branding\/ondesign-mark\.png/);
-  assert.match(i18n, /assets\/branding\/ondesign-wordmark\.png/);
-  assert.match(i18n, /class="site-brand-copy"/);
+  assert.match(appShell, /assets\/branding\/ondesign-mark\.png/);
+  assert.match(appShell, /assets\/branding\/ondesign-wordmark\.png/);
+  assert.match(appShell, /class="site-brand-copy"/);
   assert.match(navigation, /\.site-brand-logo\s*\{/);
   assert.match(navigation, /\.site-brand-wordmark\s*\{/);
-  assert.doesNotMatch(i18n, /site-brand-mark|>IMAGE2 UI<|DESIGN WORKSPACE/);
+  assert.doesNotMatch(appShell, /site-brand-mark|>IMAGE2 UI<|DESIGN WORKSPACE/);
   assert.ok(readFileSync(path.join(root, "assets/branding/ondesign-mark.png")).length > 0);
   assert.ok(readFileSync(path.join(root, "assets/branding/ondesign-wordmark.png")).length > 0);
 });

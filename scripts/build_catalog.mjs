@@ -4,6 +4,12 @@ import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
 import { fileURLToPath } from "node:url";
+import {
+  getLibraryPreviewProfile,
+  libraryPreviewCaseIds,
+  standardCanonicalPreview,
+  standardPreviewDevice,
+} from "../library-preview-config.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const catalogDir = path.join(root, "catalog");
@@ -38,7 +44,7 @@ const generated = `${[
 ].join("\n")}`;
 
 if (checkOnly) {
-  if (!fs.existsSync(outputPath) || fs.readFileSync(outputPath, "utf8") !== generated) throw new Error("catalog/index.js is stale. Run npm run catalog:build.");
+  if (!fs.existsSync(outputPath) || fs.readFileSync(outputPath, "utf8") !== generated) throw new Error("catalog/index.js is stale. Run npm run build:catalog.");
 } else {
   fs.writeFileSync(outputPath, generated, "utf8");
 }
@@ -81,6 +87,12 @@ function validate(cases, styles, brands, components) {
   const styleIds = new Set(styles.map((item) => item.id));
   const brandIds = new Set(brands.map((item) => item.id));
   const componentIds = new Set(components.map((item) => item.id));
+  const caseIds = new Set(cases.map((item) => item.id));
+  const previewIds = new Set(libraryPreviewCaseIds);
+
+  if (caseIds.size !== previewIds.size || [...caseIds].some((id) => !previewIds.has(id))) {
+    throw new Error(`Preview contract coverage must match the case catalog exactly. Catalog=${[...caseIds].sort().join(",")} Preview=${[...previewIds].sort().join(",")}`);
+  }
 
   for (const item of cases) {
     requireKeys(item, ["id", "name", "style", "category", "referenceImage", "prompt", "summary", "bestFor", "preview"], "Case");
@@ -90,6 +102,17 @@ function validate(cases, styles, brands, components) {
     requireKeys(item.locales.en.recipe, localizedRecipeKeys, `Case ${item.id} locales.en.recipe`);
     if (!Array.isArray(item.locales.en.tags) || item.locales.en.tags.length !== item.tags.length) throw new Error(`Case ${item.id} locales.en.tags must map one-to-one to the default tags.`);
     for (const id of item.styleProfileIds) if (!styleIds.has(id)) throw new Error(`Case ${item.id} references unknown style profile ${id}.`);
+
+    const preview = getLibraryPreviewProfile(item.id);
+    if (!preview) throw new Error(`Case ${item.id} is missing a preview contract.`);
+    if (preview.frameOwner !== "library") throw new Error(`Case ${item.id} must use the Library-owned device frame.`);
+    if (preview.allowBakedDevice !== false) throw new Error(`Case ${item.id} must reject baked device chrome.`);
+    if (preview.screen.width !== standardPreviewDevice.width || preview.screen.height !== standardPreviewDevice.height) {
+      throw new Error(`Case ${item.id} must render a ${standardPreviewDevice.width}x${standardPreviewDevice.height} source screen.`);
+    }
+    if (preview.canonical.width !== standardCanonicalPreview.width || preview.canonical.height !== standardCanonicalPreview.height) {
+      throw new Error(`Case ${item.id} must use ${standardCanonicalPreview.width}x${standardCanonicalPreview.height} canonical previews.`);
+    }
   }
 
   for (const style of styles) {

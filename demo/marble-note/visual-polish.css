@@ -1,0 +1,58 @@
+/* Visual-quality pass for the canonical home screen. */
+.watermark {
+  display: none !important;
+}
+
+.app {
+  bottom: 82px;
+}
+
+.notes-grid .goal {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: 26px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  min-height: 96px;
+  align-content: center;
+  column-gap: 8px;
+}
+
+.notes-grid .goal b {
+  grid-row: 1 / span 2;
+  align-self: start;
+  margin-top: 1px;
+}
+
+.notes-grid .goal strong {
+  grid-column: 2;
+  margin-top: 0;
+}
+
+.notes-grid .goal span {
+  grid-column: 2;
+  margin-top: 4px;
+}
+
+.dock {
+  right: 22px;
+  bottom: 18px;
+  left: 22px;
+  height: 46px;
+  padding: 0 10px;
+  border-radius: 24px;
+}
+
+.dock::before {
+  bottom: 4px;
+  height: 3px;
+}
+
+.dock button {
+  width: 34px;
+  height: 34px;
+}
+
+.dock button svg {
+  width: 17px;
+  height: 17px;
+}

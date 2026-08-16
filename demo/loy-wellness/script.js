@@ -1,3 +1,28 @@
+const dashboardStyles = document.createElement("link");
+dashboardStyles.rel = "stylesheet";
+dashboardStyles.href = "./dashboard.css";
+document.head.append(dashboardStyles);
+
+const homeDateStrip = document.querySelector(".home .date-strip");
+if (homeDateStrip && !document.querySelector(".home .daily-playlist")) {
+  homeDateStrip.insertAdjacentHTML(
+    "afterend",
+    `<section class="daily-playlist" aria-label="Today's mood playlist">
+      <div class="daily-playlist-copy">
+        <small>For your rhythm</small>
+        <strong>Sport Mood</strong>
+        <span>4:28 · Energy reset</span>
+        <button class="daily-playlist-open" type="button" data-view-target="playlist" aria-label="Open Sport Mood playlist">
+          <svg><use href="#i-play"></use></svg><span>Play mood</span>
+        </button>
+      </div>
+      <div class="daily-playlist-art" aria-hidden="true">
+        <img src="./assets/loy-mood-characters.png" alt="" />
+      </div>
+    </section>`,
+  );
+}
+
 const views = [...document.querySelectorAll("[data-view]")];
 const tabs = [...document.querySelectorAll(".tab")];
 const feedback = document.querySelector("#feedback");
@@ -9,7 +34,7 @@ if (isEmbedded) {
     document.documentElement.style.setProperty(
       "--embed-scale",
       String(Math.min(window.innerWidth / 390, window.innerHeight / 844)),
-  );
+    );
   fit();
   window.addEventListener("resize", fit);
 }

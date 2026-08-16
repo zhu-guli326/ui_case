@@ -3,7 +3,7 @@
   "category": "wellness",
   "name": "Moe",
   "style": "插画式习惯养成",
-  "video": "./demo/moe-habits/moe-habits-demo.mp4?v=sharp-3x",
+  "video": "./demo/moe-habits/moe-habits-demo.mp4",
   "liveDemo": "./demo/moe-habits/index.html",
   "poster": "./demo/moe-habits/screenshots/video-2x/01-intro.png?v=sharp-3x",
   "previewImage": "./demo/moe-habits/screenshots/video-2x/01-intro.png?v=sharp-3x",
