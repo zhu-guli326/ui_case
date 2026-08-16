@@ -27,6 +27,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Run static tests
+        run: npm test
+      - name: Check site contracts
+        run: npm run check
       - name: Install video probe
         run: |
           sudo apt-get update
