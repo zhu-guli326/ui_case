@@ -1,16 +1,64 @@
-/* Adaptive preview compatibility layer.
+/* Preview contract v2
  *
- * The case library contains both true phone-screen captures and wider reference
- * boards / multi-device compositions. The base library stylesheet predates that
- * distinction and assumes every source should be cropped into one 390 x 844
- * device. These rules preserve the authored media ratio and let the runtime add
- * `.is-artboard-preview` whenever a source is not phone-shaped.
+ * Phone-shaped case media is screen content, not a second device mockup.
+ * Library owns the only visible device bezel. Canonical screen media therefore
+ * fills the 390 x 844 viewport edge-to-edge; only explicit artboards use contain.
  */
 
-.phone-media {
-  object-fit: contain !important;
-  object-position: center center !important;
+:root {
+  --library-device-width: 390;
+  --library-device-height: 844;
+  --library-detail-device-width: 300px;
+  --library-device-bezel: #111113;
+  --library-device-edge: rgba(255, 255, 255, 0.24);
+}
+
+.phone-frame:not(.is-artboard-preview) {
+  aspect-ratio: 390 / 844 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: var(--library-device-bezel) !important;
+  box-shadow:
+    0 0 0 7px var(--library-device-bezel),
+    0 0 0 8px var(--library-device-edge),
+    0 22px 44px -18px rgba(0, 0, 0, .42) !important;
+}
+
+.phone-frame:not(.is-artboard-preview) .phone-screen {
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  background: #000 !important;
+  isolation: isolate;
+}
+
+/* Canonical phone sources must touch every screen edge. `contain` here was the
+ * compatibility behavior that produced visible inner gaps and an apparent
+ * second frame around otherwise-correct phone screenshots. */
+.phone-frame:not(.is-artboard-preview) .phone-media {
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: top center !important;
   transform: none !important;
+  border: 0 !important;
+  background: #000;
+}
+
+.phone-frame:not(.is-artboard-preview) iframe.phone-media {
+  display: block;
+  overflow: hidden;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.phone-frame--card,
+.phone-frame--card.has-wide-device-art,
+.phone-frame--card.has-fitted-device-art {
+  --card-media-scale: 1 !important;
 }
 
 .phone-frame--card .phone-media,
@@ -22,30 +70,11 @@
   transform: none !important;
 }
 
-.phone-screen {
-  background: #111;
-}
-
-.preview-media-frame img.phone-media,
-.preview-media-frame video.phone-media,
-.phone-frame--card img.phone-media {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.phone-frame--card.has-wide-device-art,
-.phone-frame--card.has-fitted-device-art {
-  --card-media-scale: 1 !important;
-}
-
-/* One device owner, one visual footprint.
- * The screenshot the Library is calibrated against is the existing ~300px-wide
- * phone in the detail dialog. Image, video and interactive modes all keep that
- * same footprint; only genuinely non-phone artwork may opt into artboard mode.
- */
+/* Image, video sequence, MP4, and live iframe share one desktop footprint.
+ * They may shrink on a short viewport, but switching modes never changes size. */
 .preview-media-frame:not(.is-artboard-preview) {
   width: min(
-    var(--modal-device-width, 300px),
+    var(--library-detail-device-width),
     calc(100% - 48px),
     calc((100dvh - 180px) * 390 / 844)
   ) !important;
@@ -55,11 +84,12 @@
   aspect-ratio: 390 / 844 !important;
 }
 
-/* Non-phone assets are shown as neutral artboards instead of being nested in
- * iPhone chrome. Their own source ratio becomes the frame ratio. */
+/* Non-phone auxiliary media remains a neutral artboard. Its authored source
+ * ratio controls the frame and the source is never cropped. */
 .phone-frame.is-artboard-preview {
   aspect-ratio: var(--adaptive-media-ratio, 4 / 3) !important;
   padding: 0 !important;
+  border: 0 !important;
   border-radius: 16px !important;
   background: transparent !important;
   box-shadow: 0 12px 30px -18px rgba(0, 0, 0, .42) !important;
@@ -73,7 +103,18 @@
 .phone-frame.is-artboard-preview .phone-screen {
   overflow: hidden;
   border-radius: 14px !important;
-  background: transparent;
+  background: transparent !important;
+}
+
+.phone-frame.is-artboard-preview .phone-media {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  transform: none !important;
+  background: transparent !important;
 }
 
 .phone-frame--card.is-artboard-preview {
@@ -90,20 +131,20 @@
   max-height: 100% !important;
 }
 
-.preview-media-frame.is-artboard-preview .phone-media {
-  object-fit: contain !important;
-}
-
 @media (max-width: 760px) {
+  .preview-media-frame:not(.is-artboard-preview) {
+    width: min(
+      var(--library-detail-device-width),
+      calc(100% - 32px),
+      calc((100dvh - 150px) * 390 / 844)
+    ) !important;
+    max-width: calc(100% - 32px) !important;
+    max-height: calc(100dvh - 150px) !important;
+  }
+
   .phone-frame--card.is-artboard-preview {
     width: min(calc(100% - 28px), 440px) !important;
     max-width: calc(100% - 28px);
-  }
-
-  .preview-media-frame:not(.is-artboard-preview) {
-    width: min(300px, calc(100% - 32px), calc((100dvh - 150px) * 390 / 844)) !important;
-    max-width: calc(100% - 32px) !important;
-    max-height: calc(100dvh - 150px) !important;
   }
 
   .preview-media-frame.is-artboard-preview {
