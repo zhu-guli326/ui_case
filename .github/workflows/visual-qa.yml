@@ -16,6 +16,7 @@ on:
       - "scripts/audit_library_preview_contract.mjs"
       - "scripts/render_visual_qa_report.mjs"
       - "scripts/capture_screen_only_previews.mjs"
+      - "scripts/capture_static_screen_only_sources.mjs"
       - "tests/**"
       - "package.json"
       - ".github/workflows/visual-qa.yml"
@@ -61,6 +62,8 @@ jobs:
           done
           cat /tmp/ui-case-server.log
           exit 1
+      - name: Capture legacy static sources as screen-only assets
+        run: node scripts/capture_static_screen_only_sources.mjs
       - name: Run visual QA
         id: audit
         continue-on-error: true
