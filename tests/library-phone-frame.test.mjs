@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const html = readFileSync(path.join(root, "library.html"), "utf8");
 const css = readFileSync(path.join(root, "library.css"), "utf8");
+const technicalCss = readFileSync(path.join(root, "library-technical-fixes.css"), "utf8");
 const script = readFileSync(path.join(root, "library.js"), "utf8");
 
 test("library cards and detail media share one visible 390 by 844 iPhone bezel", () => {
@@ -18,6 +19,7 @@ test("library cards and detail media share one visible 390 by 844 iPhone bezel",
   assert.equal((detailFrame.match(/class="phone-frame(?:\s|")/g) || []).length, 1);
   assert.match(html, /class="phone-screen"/);
   assert.match(css, /--screen-ratio:\s*390\s*\/\s*844/);
+  assert.match(css, /--modal-device-width:\s*300px/);
   assert.match(css, /--iphone-bezel-shadow:\s*0 0 0 2px/);
   assert.match(css, /\.phone-frame\s*\{[^}]*box-shadow:\s*var\(--iphone-bezel-shadow\)/);
   assert.match(css, /\.phone-frame--card\s*\{[^}]*box-shadow:\s*var\(--iphone-bezel-shadow\)/);
@@ -30,6 +32,7 @@ test("library cards and detail media share one visible 390 by 844 iPhone bezel",
   assert.match(css, /\.phone-media\s*\{[^}]*object-fit:\s*cover/);
   assert.match(css, /\.preview-media-stage\s*\{[^}]*min-height:\s*0[^}]*overflow:\s*hidden/);
   assert.match(css, /\.preview-media-frame\s*\{[^}]*width:\s*min\(var\(--modal-device-width\),\s*32dvh,\s*calc\(100% - 48px\)\)[^}]*height:\s*auto[^}]*max-height:\s*100%/);
+  assert.match(technicalCss, /\.preview-media-frame:not\(\.is-artboard-preview\)\s*\{[\s\S]*?var\(--modal-device-width, 300px\)[\s\S]*?aspect-ratio:\s*390\s*\/\s*844/);
   assert.match(css, /\.preview-dialog\s*\{[^}]*max-width:\s*calc\(100vw - 32px\)[^}]*max-height:\s*calc\(100dvh - 32px\)/);
 });
 
