@@ -6,6 +6,11 @@ const search = document.querySelector('#search-input');
 
 const previewParams = new URLSearchParams(window.location.search);
 if (previewParams.has('embed')) {
+  const embedStyles = document.createElement('link');
+  embedStyles.rel = 'stylesheet';
+  embedStyles.href = './embed.css';
+  document.head.append(embedStyles);
+
   document.documentElement.classList.add('embed-mode');
   const fitEmbedPreview = () => {
     const scale = Math.min(window.innerWidth / 390, window.innerHeight / 844);
