@@ -9,6 +9,7 @@ on:
       - "library*.js"
       - "library*.css"
       - "scripts/audit_demo_visual_contract.mjs"
+      - "package.json"
       - ".github/workflows/visual-qa.yml"
   workflow_dispatch:
 
