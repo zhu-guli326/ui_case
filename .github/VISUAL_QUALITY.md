@@ -68,6 +68,7 @@ Each dimension is scored from 1–5.
 - B+ does **not** mean “must be redesigned”; it means the case is intentionally more idiosyncratic or sparse than the A-tier references.
 - The three structural review-only signals remain `cleanbite` and `itinerary` rasterization drift plus `mimo` intentional carousel peeking. They are not visual defects.
 - A-tier cases should remain visually diverse; the Library is a reference collection, not one unified product UI.
+- The final structural browser pass remains 23 / 23 hard passes with zero hard visual failures; the latest repository contract pass is 76 / 76 tests with `npm run check` green.
 
 ## Rules for future changes
 
