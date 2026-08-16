@@ -41,7 +41,7 @@
   if (/\/library\.html$/.test(location.pathname) || location.pathname.endsWith("/")) {
     const previewRuntime = document.createElement("script");
     previewRuntime.type = "module";
-    previewRuntime.src = "./library-technical-fixes.js?v=20260816-adaptive-preview-v1";
+    previewRuntime.src = "./library-technical-fixes.js?v=20260816-preview-contract-v2";
     document.head.append(previewRuntime);
   }
 })();
