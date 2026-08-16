@@ -4,6 +4,19 @@ This review is the second layer after structural Visual QA. Structural QA answer
 
 The scores below are manual relative scores from the canonical 390 × 844 rendered state and the 780 × 1688 Library preview. They are **not CI gates** and must not be optimized blindly.
 
+## Single-frame preview standard
+
+All phone-shaped detail previews follow one presentation standard:
+
+- the source screen is always **390 × 844**;
+- the desktop detail-dialog device footprint uses **300px** as its preferred width and only shrinks when the viewport cannot fit it;
+- **Library owns the only visible device bezel**;
+- embedded live demos must render as screen-only sources: no padding, border, device radius, or device shadow;
+- screenshot / sequence media used inside that bezel must also be screen-only and must not contain a baked phone chassis;
+- image, Demo video, and interactive Demo modes use the same device footprint so switching modes does not resize the phone.
+
+Organique is the regression case for this rule. Its old effect images contained a second rounded phone shell. The three effect states are now regenerated directly from the 390 × 844 embed source before being scaled to the canonical 780 × 1688 Library assets.
+
 ## Review dimensions
 
 Each dimension is scored from 1–5.
@@ -36,7 +49,7 @@ Each dimension is scored from 1–5.
 | museum | static | 4 | 4 | 4 | 4 | 4 | 4 | 4 | 4 | A- | Keep as static reference; video sequence is the canonical preview path. |
 | news | static | 4 | 4 | 5 | 4 | 4 | 4 | 4 | 4 | A- | Keep as static editorial reference. |
 | notebook | live | 4 | 4 | 4 | 4 | 4 | 4 | 4 | 5 | A- | Repaired. Watermark removed, dock enlarged, and Daily Goals spans the grid so the recent-note composition no longer ends with an accidental empty cell. |
-| organique | live | 5 | 5 | 5 | 5 | 5 | 5 | 5 | 5 | A | Repaired. Live screen is strong; Demo video now uses canonical screen frames instead of the mismatched baked video canvas. |
+| organique | live | 5 | 5 | 5 | 5 | 5 | 5 | 5 | 5 | A | Repaired. Live screen is strong; Demo video and effect images now use screen-only canonical frames instead of the mismatched baked device canvas. |
 | plate-play | live | 5 | 5 | 5 | 5 | 5 | 5 | 5 | 5 | A | Keep. Strongest high-color example in the library. |
 | reflect | live | 5 | 5 | 5 | 5 | 4 | 4 | 5 | 5 | A | Keep. Balanced calm hierarchy and strong photographic rhythm. |
 | relay-music | live | 5 | 5 | 5 | 5 | 4 | 5 | 5 | 5 | A | Keep. Cohesive artwork, playback controls, and saturated color system. |
@@ -49,7 +62,7 @@ Each dimension is scored from 1–5.
 
 ### P0 — presentation mismatch
 
-- **Organique — complete.** The existing MP4 contains a presentation canvas that looks visually undersized inside the shared phone bezel even though the file metadata is 780 × 1688. The Library `Demo video` path now uses the three canonical screen frames (`choose → plan → confirmation`) as a timed video sequence. The original MP4 remains in the repository as source material. A unit test locks this behavior so the case cannot silently fall back to the mismatched recording.
+- **Organique — complete.** The existing MP4 and old effect images contained presentation/device chrome that looked visually undersized or double-framed inside the shared phone bezel. The Library `Demo video` path now uses the three canonical screen frames (`choose → plan → confirmation`) as a timed video sequence, and those three effect images are regenerated from the screen-only 390 × 844 embed source. The original MP4 remains in the repository as source material. Automated checks lock both the sequence behavior and the zero-chrome embed source.
 
 ### P1 — technically correct, visibly under-finished
 
@@ -68,7 +81,7 @@ Each dimension is scored from 1–5.
 - B+ does **not** mean “must be redesigned”; it means the case is intentionally more idiosyncratic or sparse than the A-tier references.
 - The three structural review-only signals remain `cleanbite` and `itinerary` rasterization drift plus `mimo` intentional carousel peeking. They are not visual defects.
 - A-tier cases should remain visually diverse; the Library is a reference collection, not one unified product UI.
-- The final structural browser pass remains 23 / 23 hard passes with zero hard visual failures; the latest repository contract pass is 76 / 76 tests with `npm run check` green.
+- The final structural browser pass remains 23 / 23 hard passes with zero hard visual failures; the repository contract suite remains green.
 
 ## Rules for future changes
 
@@ -76,5 +89,6 @@ Each dimension is scored from 1–5.
 - A large whitespace area is not automatically a defect; fix it only when it breaks visual balance or makes the first state feel unfinished.
 - Do not add fake dashboard content solely to fill 844px.
 - Preserve each case's own visual language.
+- Keep phone detail previews on the 300px / 390 × 844 single-frame standard.
 - When a live first state changes, regenerate the canonical `library-preview-2x.png` from the actual rendered demo.
-- When a Demo video does not visually fill its device shell, repair the media source / sequence rather than hiding the mismatch with crop or scale hacks.
+- When a Demo video or effect image contains device chrome, regenerate a screen-only source rather than hiding the mismatch with crop or scale hacks.
