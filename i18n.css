@@ -1,5 +1,3 @@
-@import url("./library-technical-fixes.css?v=20260816-preview-contract-v2");
-
 .global-language-switch {
   display: inline-grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
