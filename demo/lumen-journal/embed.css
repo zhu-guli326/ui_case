@@ -1,0 +1,33 @@
+.embed-mode .app-content {
+  padding: 14px 18px 96px;
+}
+
+.embed-mode .search {
+  height: 43px;
+  margin-top: 16px;
+}
+
+.embed-mode .filter-row {
+  margin: 10px 0 12px;
+}
+
+.embed-mode .feature {
+  height: 215px;
+}
+
+.embed-mode .nearby {
+  display: block;
+  margin-top: 14px;
+}
+
+.embed-mode .nearby h3 {
+  font-size: 18px;
+}
+
+.embed-mode .discovery-list {
+  margin-top: 8px;
+}
+
+.embed-mode .discovery {
+  min-height: 34px;
+}
