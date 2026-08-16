@@ -73,6 +73,7 @@ jobs:
             process.exit(1);
           }
           NODE
+          git pull --ff-only origin fix/visual-qa
           ffmpeg -loglevel error -y -i artifacts/visual-qa/live/loy.png -vf scale=780:1688:flags=lanczos demo/loy-wellness/screenshots/library-preview-2x.png
           ffmpeg -loglevel error -y -i artifacts/visual-qa/live/journal.png -vf scale=780:1688:flags=lanczos demo/lumen-journal/screenshots/library-preview-2x.png
           git config user.name "github-actions[bot]"
