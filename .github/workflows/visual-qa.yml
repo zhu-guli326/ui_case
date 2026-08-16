@@ -10,6 +10,7 @@ on:
       - "library*.css"
       - "library-preview-config.mjs"
       - "scripts/audit_demo_visual_contract.mjs"
+      - "scripts/audit_library_preview_contract.mjs"
       - "scripts/render_visual_qa_report.mjs"
       - "scripts/capture_screen_only_previews.mjs"
       - "tests/**"
@@ -61,6 +62,10 @@ jobs:
         id: audit
         continue-on-error: true
         run: npm run audit:visual
+      - name: Audit real Library preview dialogs
+        id: library-audit
+        continue-on-error: true
+        run: npm run audit:library-preview
       - name: Capture screen-only effect states
         run: node scripts/capture_screen_only_previews.mjs
       - name: Render visual QA markdown
@@ -147,14 +152,21 @@ jobs:
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
           const reportPath = 'artifacts/visual-qa/visual-qa.json';
+          const libraryPath = 'artifacts/visual-qa/library-dialog/library-preview-contract.json';
           if (!fs.existsSync(reportPath)) {
             console.error('Visual QA did not produce visual-qa.json');
             process.exit(1);
           }
+          if (!fs.existsSync(libraryPath)) {
+            console.error('Library preview audit did not produce library-preview-contract.json');
+            process.exit(1);
+          }
           const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
-          console.log(report.summary);
-          if (report.summary.failed > 0) {
-            console.error(`${report.summary.failed} case(s) still have hard visual failures.`);
+          const library = JSON.parse(fs.readFileSync(libraryPath, 'utf8'));
+          console.log('Demo QA', report.summary);
+          console.log('Library dialog QA', library.summary);
+          if (report.summary.failed > 0 || library.summary.failed > 0) {
+            console.error(`Visual failures remain: demos=${report.summary.failed}, library=${library.summary.failed}`);
             process.exit(1);
           }
           NODE
