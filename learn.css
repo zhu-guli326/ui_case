@@ -81,7 +81,6 @@ main { overflow: hidden; }
 .theme-swatch-morning { background: #f1c957; }.theme-swatch-picnic { background: #97c98b; }.theme-swatch-berry { background: #edaaa8; }
 .fufu-lesson { display: grid; gap: 5px; margin-top: 22px; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .fufu-lesson strong { font-size: 14px; }.fufu-lesson span { color: var(--muted); font-size: 13px; line-height: 1.55; }
-<<<<<<< HEAD
 .fufu-example { display:grid; min-width:0; justify-items:center; gap:12px; }
 .fufu-example-toolbar { display:flex; width:min(100%,560px); min-height:42px; align-items:center; justify-content:space-between; gap:16px; padding:4px; border:1px solid var(--line); border-radius:9px; background:var(--surface); }
 .fufu-example-toolbar>span { padding-right:10px; color:var(--muted); font-size:10px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
@@ -101,8 +100,6 @@ main { overflow: hidden; }
 .fufu-code-output code { font:inherit; }
 .fufu-code-output:focus-visible { outline:2px solid #d8f58b; outline-offset:-5px; }
 .fufu-code-status { min-height:48px; margin:0; padding:13px 18px; border-top:1px solid rgba(255,255,255,.12); color:#aebbb0; font-size:11px; line-height:1.5; }
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 .fufu-shop { --fufu-accent:#f1c957; --fufu-soft:#f8ead2; --fufu-label:#46647c; display: grid; justify-items: center; min-width: 0; }
 .fufu-shop[data-theme="picnic"] { --fufu-accent:#97c98b; --fufu-soft:#e1f0d8; --fufu-label:#2d6a47; }.fufu-shop[data-theme="berry"] { --fufu-accent:#edaaa8; --fufu-soft:#f7dddd; --fufu-label:#8f4249; }
 .fufu-phone-frame { width: min(100%, 392px); padding: 13px; border-radius: 56px; background: #171915; box-shadow: 18px 20px 0 rgba(23,51,35,.12); }
@@ -221,11 +218,7 @@ main { overflow: hidden; }
   .learn-hero { min-height: 0; gap: 14px; padding: 30px 0 34px; }.hero-copy h1 { font-size: 38px; }.hero-intro { font-size: 14px; }.hero-actions { display: grid; }.hero-actions .button { width: 100%; }
   .hero-visual { min-height: 205px; }.hero-visual img { top: 8%; left: 8%; width: 84%; height: 76%; border-width: 5px; }.visual-note { min-width: 96px; padding: 6px 8px; }.visual-note span { font-size: 9px; }
   .fufu-play, .quick-start, .input-output, .case-study, .three-parts, .beginner-answers { padding: 64px 0; scroll-margin-top: 116px; }.section-heading h2 { font-size: 34px; }
-<<<<<<< HEAD
   .fufu-play { gap: 28px; }.fufu-play-copy h2 { font-size: 38px; }.fufu-theme-picker { display: grid; grid-template-columns: repeat(3,1fr); }.fufu-theme-button { justify-content: center; min-width: 0; padding: 8px; }.fufu-phone-frame { width: min(100%, 360px); padding: 10px; border-radius: 46px; }.fufu-phone-screen { min-height: 700px; border-radius: 36px; }.fufu-shop-main { min-height: 238px; }.fufu-product-copy { padding: 20px 22px 0; }.fufu-product-copy h3 { font-size: 31px; }.fufu-shop-main img { width: 190px; height: 150px; }.fufu-member-card { margin: 14px 14px 0; }.fufu-stamps { gap: 7px; }.fufu-stamps span { width: 40px; }.fufu-buy-button, .fufu-reset-button { margin-right: 14px; margin-left: 14px; }.fufu-status { margin-right: 14px; margin-left: 14px; }.fufu-bottom-nav button { min-height: 54px; }.fufu-code-panel { min-height:726px; }.fufu-code-output { height:590px; }
-=======
-  .fufu-play { gap: 28px; }.fufu-play-copy h2 { font-size: 38px; }.fufu-theme-picker { display: grid; grid-template-columns: repeat(3,1fr); }.fufu-theme-button { justify-content: center; min-width: 0; padding: 8px; }.fufu-phone-frame { width: min(100%, 360px); padding: 10px; border-radius: 46px; }.fufu-phone-screen { min-height: 700px; border-radius: 36px; }.fufu-phone-status { min-height: 44px; padding: 0 22px; }.dynamic-island { width: 74px; height: 22px; }.fufu-shop-main { min-height: 238px; }.fufu-product-copy { padding: 20px 22px 0; }.fufu-product-copy h3 { font-size: 31px; }.fufu-shop-main img { width: 190px; height: 150px; }.fufu-member-card { margin: 14px 14px 0; }.fufu-stamps { gap: 7px; }.fufu-stamps span { width: 40px; }.fufu-buy-button, .fufu-reset-button { margin-right: 14px; margin-left: 14px; }.fufu-status { margin-right: 14px; margin-left: 14px; }.fufu-bottom-nav button { min-height: 54px; }
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   .quick-steps { grid-template-columns: 1fr; }.quick-steps li { min-height: 0; padding: 18px 0; border-top: 1px solid var(--line); border-left: 0; }.quick-steps li:first-child { border-top: 0; }.quick-steps span { margin-bottom: 10px; }
   .prompt-tool { grid-template-columns: 1fr; padding: 18px; }.prompt-tool-head span:last-child { display: none; }.prompt-tool pre { font-size: 12px; }.prompt-tool .prompt-actions { display: grid; justify-content: stretch; }.prompt-tool .button { width: 100%; }
   .io-flow { grid-template-columns: 1fr; gap: 12px; }.io-column { min-height: 0; padding: 22px; }.io-column h3 { margin-top: 26px; }.io-arrow { transform: rotate(90deg); }

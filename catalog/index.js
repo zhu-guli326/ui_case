@@ -692,7 +692,6 @@ export const styleGuides = [
     "category": "culture",
     "name": "ArtMuse",
     "style": "当代美术馆导览",
-<<<<<<< HEAD
     "video": "./assets/cases/museum-app/museum-app-demo.mp4?v=artwork-2",
     "poster": "./assets/cases/museum-app/video-frames/01-home.png",
     "videoSequence": {
@@ -715,10 +714,6 @@ export const styleGuides = [
         }
       ]
     },
-=======
-    "video": "./assets/cases/museum-app/museum-app-demo.mp4?v=fullframe-1",
-    "poster": "./assets/cases/museum-app/museum-app-preview.gif",
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     "previewImage": "./assets/cases/museum-app/library-preview-generated-v2-standard.png",
     "preview": "#dce3d6",
     "reference": "画廊导视与展览画册的安静秩序",
@@ -1363,15 +1358,12 @@ export const styleProfiles = [
       "奢侈品"
     ],
     "completeness": "完整系统",
-<<<<<<< HEAD
     "previewCaseId": "fashion",
     "densityDefault": "balanced",
     "tokenFoundation": {
       "spacingBase": "8pt",
       "fontScheme": "serif-cjk"
     },
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     "foundations": {
       "colors": {
         "paper": "#F7F4EF",
@@ -1485,15 +1477,12 @@ export const styleProfiles = [
       "极简"
     ],
     "completeness": "组件规范",
-<<<<<<< HEAD
     "previewCaseId": "cleanbite",
     "densityDefault": "compact",
     "tokenFoundation": {
       "spacingBase": "4pt",
       "fontScheme": "system-cjk"
     },
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     "foundations": {
       "colors": {
         "canvas": "#F4F6F4",
@@ -1606,15 +1595,12 @@ export const styleProfiles = [
       "极简"
     ],
     "completeness": "基础规范",
-<<<<<<< HEAD
     "previewCaseId": "moe",
     "densityDefault": "spacious",
     "tokenFoundation": {
       "spacingBase": "8pt",
       "fontScheme": "humanist-cjk"
     },
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     "foundations": {
       "colors": {
         "paper": "#FFFDF8",

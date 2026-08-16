@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-<<<<<<< HEAD
   <meta name="description" content="组合页面类型、设计系统、品牌参考和视觉主题，实时比较并生成可编辑 UI Demo。">
   <title>设计实验室 · Image2 UI</title>
   <link rel="stylesheet" href="./brands.css?v=20260815-flow">
@@ -93,79 +92,6 @@
   <dialog class="explain-dialog" id="explainDialog">
     <form method="dialog"><button aria-label="关闭">×</button></form>
     <div id="explainContent"></div>
-=======
-  <meta name="description" content="浏览 19 套行业常用设计系统，并在独立实验室中预览和比较。">
-  <title>设计系统目录 · Image2 UI</title>
-  <script>
-    if (window.location.protocol === "file:") {
-      const target = `http://127.0.0.1:4173/brands.html${window.location.search}${window.location.hash}`;
-      const reveal = () => { const message = document.querySelector("#runtimeMessage"); if (message) message.hidden = false; };
-      const probe = new Image();
-      probe.onload = () => window.location.replace(target);
-      probe.onerror = () => document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", reveal, { once: true }) : reveal();
-      probe.src = `http://127.0.0.1:4173/assets/readme/hero.png?probe=${Date.now()}`;
-    }
-  </script>
-  <link rel="stylesheet" href="./brands.css?v=20260813-catalog-refine">
-  <link rel="stylesheet" href="./i18n.css">
-  <link rel="stylesheet" href="./site-nav.css">
-  <script src="./i18n.js"></script>
-  <script type="module" src="./brands.js?v=20260813-catalog-refine"></script>
-</head>
-<body>
-  <a class="skip-link" href="#systemCardGrid">跳到设计系统列表</a>
-  <header class="topbar">
-    <a class="brand" href="./library.html" aria-label="打开 Image2 UI 案例库"><span class="brand-mark" aria-hidden="true"><i></i></span><span>IMAGE2 UI</span></a>
-    <nav class="topnav" data-site-nav aria-label="主导航"></nav>
-  </header>
-
-  <nav class="mode-nav" aria-label="设计系统页面">
-    <a href="./brands.html" aria-current="page">系统目录</a>
-    <a href="./lab/?system=tdesign&amp;view=compare&amp;template=account-settings&amp;theme=minimal-tech&amp;device=desktop&amp;appearance=light">预览实验室</a>
-  </nav>
-
-  <main class="catalog-page">
-    <header class="catalog-intro">
-      <div class="catalog-title">
-        <h1>行业常用组件系统</h1>
-        <p>挑一套系统进入实验室，在同一页面蓝图中查看真实差异。</p>
-      </div>
-      <label class="catalog-search">
-        <span class="visually-hidden">搜索设计系统</span>
-        <i aria-hidden="true"></i>
-        <input form="catalogFilters" name="query" type="search" placeholder="搜索系统、组件或用途" autocomplete="off">
-      </label>
-    </header>
-
-    <section class="catalog-controls" aria-label="目录筛选和统计">
-      <form class="catalog-filters" id="catalogFilters" aria-label="筛选行业组件系统">
-        <label><span>平台</span><select name="platform"><option value="">全部平台</option></select></label>
-        <label><span>组件类别</span><select name="category"><option value="">全部类别</option></select></label>
-      </form>
-      <p class="catalog-meta" aria-live="polite"><strong id="catalogSystemCount">19</strong> 套体系 <span aria-hidden="true">·</span> <strong id="catalogComponentCount">57</strong> 个组件参考</p>
-    </section>
-
-    <section aria-label="设计系统目录">
-      <div class="system-card-grid" id="systemCardGrid" tabindex="-1"></div>
-      <noscript><div class="runtime-message"><strong>目录需要通过本地服务器运行</strong><p>请打开 http://127.0.0.1:4173/brands.html 查看完整内容。</p></div></noscript>
-      <div class="runtime-message" id="runtimeMessage" hidden><strong>本地服务器未启动</strong><p>目录数据需要通过本地服务器加载。请在终端进入项目目录并运行 <code>python3 -m http.server 4173</code>，然后访问 http://127.0.0.1:4173/brands.html。</p></div>
-      <div class="catalog-empty" id="catalogEmpty" hidden>
-        <strong>没有匹配的设计系统</strong>
-        <p>换个关键词，或清除当前筛选。</p>
-        <button type="button">清除筛选</button>
-      </div>
-    </section>
-
-    <footer class="catalog-note">公开设计规范与组件文档索引，不代表官方合作或背书。</footer>
-  </main>
-
-  <dialog class="reference-dialog" id="referenceDialog" aria-labelledby="referenceDialogTitle">
-    <form method="dialog" class="dialog-bar">
-      <div><span id="referenceDialogLabel">COMPONENT REFERENCE</span><h2 id="referenceDialogTitle">组件参考</h2></div>
-      <button type="submit" aria-label="关闭" title="关闭">×</button>
-    </form>
-    <div id="referenceDialogContent"></div>
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 </body>

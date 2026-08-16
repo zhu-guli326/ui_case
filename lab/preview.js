@@ -1,26 +1,16 @@
-<<<<<<< HEAD
 import { DEFAULT_COLOR_THEME_ID } from "../catalog/color-themes.js";
 import { findBrandReference, findChangeIntensity, findSystem, findTemplate, findTheme } from "./lab-data.js";
-=======
-import { findSystem, findTemplate, findTheme } from "./lab-data.js";
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 const root = document.querySelector("#previewRoot");
 const query = new URL(window.location.href).searchParams;
 let state = {
   template: query.get("template") || "account-settings",
   system: query.get("system") || "ant",
-<<<<<<< HEAD
   theme: query.get("theme") || DEFAULT_COLOR_THEME_ID,
   appearance: query.get("appearance") || "light",
   device: query.get("device") || "desktop",
   brand: query.get("brand") || "linear",
   intensity: query.get("intensity") || "standard",
-=======
-  theme: query.get("theme") || "minimal-tech",
-  appearance: query.get("appearance") || "light",
-  device: query.get("device") || "desktop",
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 };
 
 window.addEventListener("message", (event) => {
@@ -35,7 +25,6 @@ function render() {
   const template = findTemplate(state.template);
   const system = findSystem(state.system);
   const theme = findTheme(state.theme);
-<<<<<<< HEAD
   const brand = findBrandReference(state.brand);
   const intensity = findChangeIntensity(state.intensity);
   document.documentElement.dataset.system = system.id;
@@ -46,13 +35,6 @@ function render() {
   setSystemTokens(system);
   setTheme(theme, state.appearance);
   document.documentElement.style.setProperty("--brand-accent", brand.accent);
-=======
-  document.documentElement.dataset.system = system.id;
-  document.documentElement.dataset.appearance = state.appearance;
-  document.documentElement.dataset.device = state.device;
-  setSystemTokens(system);
-  setTheme(theme, state.appearance);
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   root.innerHTML = `<div class="system-page ${escapeHtml(template.id)}">
     ${renderNavigation(template, system)}
     <section class="page-content">
@@ -70,19 +52,15 @@ function renderNavigation(template, system) {
 }
 
 function renderTemplate(template, system) {
-<<<<<<< HEAD
   if (template.id === "dashboard") return renderDashboard(template, system);
   if (template.id === "commerce") return renderCommerce(template, system);
   if (template.id === "landing") return renderLanding(template, system);
   if (template.id === "social") return renderSocial(template, system);
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   if (template.id === "login") return renderLogin(template, system);
   if (template.id === "list-detail") return renderListDetail(template, system);
   return renderAccount(template, system);
 }
 
-<<<<<<< HEAD
 function renderDashboard(template, system) {
   const metrics = [["活跃用户", "18,492", "+12.4%"], ["转化率", "7.8%", "+2.1%"], ["本月收入", "¥428k", "+8.6%"]];
   return `<div class="content-heading"><div><p class="context-label">Overview / August</p><h1>团队工作台</h1><p>今天有 6 个项目正在推进，2 个等待你的确认。</p></div><button class="primary-control" type="button" data-dialog-trigger>新建项目</button></div><section class="metric-grid">${metrics.map((item) => `<article class="metric-card"><span>${item[0]}</span><strong>${item[1]}</strong><small>${item[2]}</small></article>`).join("")}</section><div class="dashboard-grid"><section class="chart-card form-surface"><header><div><h2>产品增长</h2><p>最近 8 周</p></div><span class="system-pill">${escapeHtml(system.mapping.card)}</span></header><div class="bar-chart" aria-label="增长趋势图">${[46,58,52,70,64,82,76,94].map((height) => `<i style="--bar:${height}%"></i>`).join("")}</div></section><section class="activity-card form-surface"><h2>最近活动</h2>${["主页体验完成评审", "结算流程进入开发", "设计 Tokens 已同步"].map((item, index) => `<button type="button"><i>${index + 1}</i><span><strong>${item}</strong><small>${index ? "昨天" : "12 分钟前"}</small></span></button>`).join("")}</section></div>`;
@@ -101,8 +79,6 @@ function renderSocial(template, system) {
   return `<div class="social-layout"><aside class="social-profile form-surface"><span class="profile-avatar">JG</span><h2>Ju Guli</h2><p>Designing useful interfaces.</p><dl><div><dt>关注</dt><dd>248</dd></div><div><dt>粉丝</dt><dd>1.8k</dd></div></dl></aside><section class="social-feed"><form class="composer form-surface" data-action-form><span class="profile-avatar">JG</span><textarea aria-label="发布动态" placeholder="分享一个想法…"></textarea><button class="primary-control" type="submit">发布</button></form>${posts.map((post, index) => `<article class="post-card form-surface"><span class="profile-avatar">${post[0]}</span><div><header><strong>${post[1]}</strong><small>${index + 1}h</small></header><p>${post[2]}</p><footer><button type="button">喜欢 ${18 + index * 7}</button><button type="button">回复</button><button type="button">分享</button></footer></div></article>`).join("")}</section><aside class="social-trends form-surface"><h2>正在讨论</h2>${["Design Systems", "AI Prototyping", "Quiet UI"].map((item, index) => `<button type="button"><small>0${index + 1}</small><strong>${item}</strong></button>`).join("")}</aside></div>`;
 }
 
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 function renderLogin(template, system) {
   return `<section class="login-layout"><div class="login-intro"><span class="system-mark">${escapeHtml(system.shortName)}</span><h1>欢迎回来</h1><p>继续进入 Atlas Studio，查看团队的设计与发布状态。</p></div><form class="form-surface" data-action-form><h2>登录</h2>${field("电子邮箱", "hello@example.com", "email")}${field("密码", "password", "password")}${selectField("工作空间", ["Atlas Studio", "Personal"])}<button class="primary-control" type="submit">登录</button><button class="secondary-control" type="button">使用通行密钥</button></form></section>`;
 }
@@ -144,15 +120,10 @@ function setSystemTokens(system) {
   document.documentElement.style.setProperty("--system-control-height", `${controlHeight}px`);
 }
 
-<<<<<<< HEAD
 function dialogTitle(template) {
   return ({ dashboard: "创建新项目", commerce: "浏览新品系列", landing: "开始生成页面", "list-detail": "项目详情" })[template.id] || "放弃未保存的修改？";
 }
 function dialogBody(template) {
   return ({ dashboard: "新项目会沿用当前工作空间的成员和设计规范。", commerce: "新品系列包含本周刚刚上架的 12 件单品。", landing: "我们会保存当前组合，并生成一份可以继续编辑的页面。", "list-detail": "Atlas Mobile 正在进行设计系统迁移，当前进度为 68%。" })[template.id] || "关闭后，本次修改不会被保存。";
 }
-=======
-function dialogTitle(template) { return template.id === "list-detail" ? "项目详情" : "放弃未保存的修改？"; }
-function dialogBody(template) { return template.id === "list-detail" ? "Atlas Mobile 正在进行设计系统迁移，当前进度为 68%。" : "关闭后，本次修改不会被保存。"; }
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 function escapeHtml(value) { return String(value ?? "").replace(/[&<>\"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[char]); }

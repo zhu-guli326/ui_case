@@ -9,17 +9,10 @@ Open the published gallery:
 ## Local preview
 
 ```bash
-<<<<<<< HEAD
 node scripts/serve_site.mjs
 ```
 
 Then open <http://127.0.0.1:4174/library.html?lang=zh>.
-=======
-python3 -m http.server 4173
-```
-
-Then open <http://127.0.0.1:4173/library.html?lang=zh>.
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 ## Validate
 
