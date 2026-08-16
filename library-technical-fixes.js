@@ -1,6 +1,11 @@
-import { getPreviewMediaPresentation, standardPreviewDevice } from "./library-preview-config.mjs";
+import {
+  getLibraryPreviewProfile,
+  getPreviewMediaPresentation,
+  previewContractVersion,
+  standardPreviewDevice,
+} from "./library-preview-config.mjs";
 
-const SCALE_OVERSHOOT = 1.04;
+const LEGACY_SCALE_OVERSHOOT = 1.04;
 const LEGACY_NOTEBOOK_CARD_PREVIEW = "marble-note/screenshots/library-preview-reference-v2.png";
 const CANONICAL_NOTEBOOK_CARD_PREVIEW = "marble-note/screenshots/library-preview-2x.png";
 
@@ -13,14 +18,31 @@ function normalizeGalleryCardSource(image) {
   image.dataset.previewSourceNormalized = "true";
 }
 
-function setFramePresentation(frame, width, height, { forceDevice = false } = {}) {
+function getCardCaseId(frame) {
+  return frame?.closest("[data-case-id]")?.dataset.caseId || "";
+}
+
+function getDetailCaseId() {
+  return document.querySelector("#previewDialogCopy")?.dataset.copyStyle || "";
+}
+
+function setFramePresentation(frame, width, height, { forceDevice = false, caseId = "" } = {}) {
   if (!frame) return;
 
-  const presentation = forceDevice ? "device" : getPreviewMediaPresentation(width, height);
+  const profile = caseId ? getLibraryPreviewProfile(caseId) : null;
+  const presentation = forceDevice
+    ? "device"
+    : getPreviewMediaPresentation(width, height, { caseId });
   const isArtboard = presentation === "artboard";
 
   frame.classList.toggle("is-artboard-preview", isArtboard);
   frame.dataset.mediaPresentation = presentation;
+  frame.dataset.previewContract = previewContractVersion;
+  if (caseId) frame.dataset.previewCaseId = caseId;
+  if (profile) {
+    frame.dataset.frameOwner = profile.frameOwner;
+    frame.dataset.sourceKind = profile.sourceKind;
+  }
 
   if (isArtboard && Number.isFinite(width) && Number.isFinite(height) && width > 0 && height > 0) {
     frame.style.setProperty("--adaptive-media-ratio", `${width} / ${height}`);
@@ -29,13 +51,14 @@ function setFramePresentation(frame, width, height, { forceDevice = false } = {}
   }
 }
 
-function bindImageToFrame(image, frame) {
+function bindImageToFrame(image, frame, resolveCaseId = () => "") {
   if (!image || !frame || image.dataset.adaptivePreviewBound === "true") return;
   image.dataset.adaptivePreviewBound = "true";
 
   const sync = () => {
     if (!image.naturalWidth || !image.naturalHeight) return;
-    setFramePresentation(frame, image.naturalWidth, image.naturalHeight);
+    const caseId = resolveCaseId();
+    setFramePresentation(frame, image.naturalWidth, image.naturalHeight, { caseId });
   };
 
   image.addEventListener("load", sync);
@@ -50,7 +73,7 @@ function bindGalleryCards() {
     gallery.querySelectorAll(".phone-frame--card").forEach((frame) => {
       const image = frame.querySelector("img.phone-media");
       normalizeGalleryCardSource(image);
-      bindImageToFrame(image, frame);
+      bindImageToFrame(image, frame, () => getCardCaseId(frame));
     });
   };
 
@@ -64,20 +87,31 @@ function installDetailPresentation() {
   const sequence = document.querySelector("#previewDialogSequence");
   const video = document.querySelector("#previewDialogVideo");
   const demo = document.querySelector("#previewDialogDemo");
+  const caseMarker = document.querySelector("#previewDialogCopy");
   if (!frame) return;
 
-  bindImageToFrame(image, frame);
-  bindImageToFrame(sequence, frame);
+  const resolveCaseId = () => getDetailCaseId();
+  bindImageToFrame(image, frame, resolveCaseId);
+  bindImageToFrame(sequence, frame, resolveCaseId);
 
   const syncVideo = () => {
     if (!video || !video.videoWidth || !video.videoHeight) return;
-    setFramePresentation(frame, video.videoWidth, video.videoHeight);
+    setFramePresentation(frame, video.videoWidth, video.videoHeight, { caseId: resolveCaseId() });
   };
   video?.addEventListener("loadedmetadata", syncVideo);
 
   const syncVisibleMode = () => {
+    const caseId = resolveCaseId();
+    const profile = getLibraryPreviewProfile(caseId);
+    if (profile) {
+      setFramePresentation(frame, standardPreviewDevice.width, standardPreviewDevice.height, {
+        forceDevice: profile.presentation === "device",
+        caseId,
+      });
+      return;
+    }
     if (demo && !demo.hidden) {
-      setFramePresentation(frame, standardPreviewDevice.width, standardPreviewDevice.height, { forceDevice: true });
+      setFramePresentation(frame, standardPreviewDevice.width, standardPreviewDevice.height, { forceDevice: true, caseId });
       return;
     }
     if (video && !video.hidden && video.videoWidth && video.videoHeight) {
@@ -85,11 +119,11 @@ function installDetailPresentation() {
       return;
     }
     if (sequence && !sequence.hidden && sequence.naturalWidth && sequence.naturalHeight) {
-      setFramePresentation(frame, sequence.naturalWidth, sequence.naturalHeight);
+      setFramePresentation(frame, sequence.naturalWidth, sequence.naturalHeight, { caseId });
       return;
     }
     if (image && !image.hidden && image.naturalWidth && image.naturalHeight) {
-      setFramePresentation(frame, image.naturalWidth, image.naturalHeight);
+      setFramePresentation(frame, image.naturalWidth, image.naturalHeight, { caseId });
     }
   };
 
@@ -99,11 +133,20 @@ function installDetailPresentation() {
       attributeFilter: ["hidden", "src"]
     });
   });
+  if (caseMarker) {
+    new MutationObserver(syncVisibleMode).observe(caseMarker, {
+      attributes: true,
+      attributeFilter: ["data-copy-style"]
+    });
+  }
 
   syncVisibleMode();
 }
 
-function installPreviewScaleCorrection() {
+/* library.js still contains one historic `* 1.04` embed overshoot. Keep that
+ * old implementation from changing the visual footprint while the main file is
+ * being decomposed; the contract itself never stores or relies on magic zoom. */
+function installLegacyScaleNormalization() {
   const frame = document.querySelector("#previewMediaFrame");
   if (!frame) return;
 
@@ -115,7 +158,7 @@ function installPreviewScaleCorrection() {
     const scale = Number.parseFloat(raw);
     if (!Number.isFinite(scale) || scale <= 0) return;
 
-    const corrected = String(scale / SCALE_OVERSHOOT);
+    const corrected = String(scale / LEGACY_SCALE_OVERSHOOT);
     lastCorrectedValue = corrected;
     frame.style.setProperty("--preview-embed-scale", corrected);
   };
@@ -128,9 +171,10 @@ function installPreviewScaleCorrection() {
 }
 
 function installAdaptivePreviewRuntime() {
+  document.documentElement.dataset.previewContract = previewContractVersion;
   bindGalleryCards();
   installDetailPresentation();
-  installPreviewScaleCorrection();
+  installLegacyScaleNormalization();
 }
 
 if (document.readyState === "loading") {
