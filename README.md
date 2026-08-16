@@ -6,6 +6,16 @@ Open the published gallery:
 
 <https://zhu-guli326.github.io/ui_case/>
 
+## Repository map
+
+- Root HTML files are stable GitHub Pages entry points only.
+- [`src/`](./src/) contains implementation code, split into `core`, `components`, `features`, and shared `styles`.
+- [`catalog/`](./catalog/) contains structured case / brand / design-system data.
+- [`demo/`](./demo/) contains runnable UI cases.
+- [`assets/`](./assets/) and [`references/`](./references/) contain media and source references.
+- [`scripts/`](./scripts/) and [`tests/`](./tests/) contain tooling and contracts.
+- [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) defines the reuse boundaries and migration rules.
+
 ## Local preview
 
 ```bash
