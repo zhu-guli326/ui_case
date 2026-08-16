@@ -7,7 +7,7 @@ import { DEFAULT_VOCABULARY_PREVIEW_IMAGE, SUPPORTED_VOCABULARY_PREVIEW_IDS, voc
 
 const contentCategories = vocabularyCategories.filter((category) => !["all", "favorites"].includes(category.id));
 const requiredCoverage = ["sidebar", "breadcrumbs", "data-table", "checkbox", "menu", "skeleton"];
-const vocabularyCss = readFileSync(new URL("../vocabulary.css", import.meta.url), "utf8");
+const vocabularyCss = readFileSync(new URL("../src/features/vocabulary/vocabulary.css", import.meta.url), "utf8");
 const vocabularyScript = readFileSync(new URL("../vocabulary.js", import.meta.url), "utf8");
 
 test("illustrated vocabulary entries stay complete and internally linked", () => {
