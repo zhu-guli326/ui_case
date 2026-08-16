@@ -1,7 +1,0 @@
-const labels={template:{dashboard:"SaaS Dashboard",commerce:"电商页面",landing:"产品落地页",social:"社交 App",login:"登录页","account-settings":"账户设置","list-detail":"列表详情"},system:{ant:"Ant Design",material:"Material 3",apple:"Apple HIG 风格",fluent:"Fluent 2",polaris:"Polaris",tdesign:"TDesign",carbon:"Carbon"},brand:{linear:"Linear",apple:"Apple",stripe:"Stripe",notion:"Notion",airbnb:"Airbnb"},theme:{"minimal-tech":"极简科技","editorial-commerce":"编辑感","soft-lifestyle":"柔和生活","future-tech":"未来科技","neo-brutal":"Neo Brutalism",glass:"Glassmorphism",retro:"复古数字"},device:{desktop:"Desktop",iphone:"iPhone",android:"Android"}};
-const project=window.image2Project?.read?.()||{name:"Atlas Dashboard",template:"dashboard",system:"ant",brand:"linear",theme:"minimal-tech",device:"desktop"};
-const name=document.querySelector("#currentProjectName"),path=document.querySelector("#currentProjectPath"),link=document.querySelector("#currentProjectLink");
-name.textContent=project.name||"Atlas Dashboard";
-path.textContent=["template","system","brand","theme","device"].map(key=>labels[key]?.[project[key]]||project[key]).join(" / ");
-const url=new URL("./brands.html",location.href);["template","system","brand","theme","device"].forEach(key=>url.searchParams.set(key,project[key]));link.href=url.href;
-document.querySelector("#referenceUpload")?.addEventListener("change",event=>{const file=event.target.files?.[0];if(!file)return;try{sessionStorage.setItem("image2-ui-upload-name",file.name);}catch{}location.href="./launcher.html?source=upload";});
