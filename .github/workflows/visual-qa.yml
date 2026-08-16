@@ -113,14 +113,14 @@ jobs:
           while IFS=$'\t' read -r case_id source destination; do
             mkdir -p "$(dirname "$destination")"
             echo "Syncing $case_id -> $destination"
-            ffmpeg -loglevel error -y -i "$source" -vf scale=780:1688:flags=lanczos "$destination"
+            ffmpeg -nostdin -loglevel error -y -i "$source" -vf scale=780:1688:flags=lanczos "$destination"
           done < /tmp/preview-targets.tsv
 
           # Organique exposes three stills in its image/video sequence. Keep them
           # screen-only so no historical baked phone shell can re-enter the UI.
-          ffmpeg -loglevel error -y -i artifacts/visual-qa/screen-only/organique/01-choose.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/01-choose.png
-          ffmpeg -loglevel error -y -i artifacts/visual-qa/screen-only/organique/02-plan.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/02-plan.png
-          ffmpeg -loglevel error -y -i artifacts/visual-qa/screen-only/organique/03-confirmation.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/03-confirmation.png
+          ffmpeg -nostdin -loglevel error -y -i artifacts/visual-qa/screen-only/organique/01-choose.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/01-choose.png
+          ffmpeg -nostdin -loglevel error -y -i artifacts/visual-qa/screen-only/organique/02-plan.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/02-plan.png
+          ffmpeg -nostdin -loglevel error -y -i artifacts/visual-qa/screen-only/organique/03-confirmation.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/03-confirmation.png
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
