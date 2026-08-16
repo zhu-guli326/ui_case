@@ -1,7 +1,10 @@
-/* Technical preview corrections.
- * Keep source screenshots and demos at their authored aspect ratio instead of
- * enlarging them to fill the device mask. This file deliberately overrides
- * library.css so the underlying case designs remain untouched.
+/* Adaptive preview compatibility layer.
+ *
+ * The case library contains both true phone-screen captures and wider reference
+ * boards / multi-device compositions. The base library stylesheet predates that
+ * distinction and assumes every source should be cropped into one 390 x 844
+ * device. These rules preserve the authored media ratio and let the runtime add
+ * `.is-artboard-preview` whenever a source is not phone-shaped.
  */
 
 .phone-media {
@@ -19,14 +22,10 @@
   transform: none !important;
 }
 
-/* Screenshots that are narrower/shorter than the common preview viewport now
- * letterbox inside the preview instead of being cropped. */
 .phone-screen {
   background: #111;
 }
 
-/* Do not let a source image exceed the device screen simply because its own
- * bitmap dimensions differ from the standard live-demo viewport. */
 .preview-media-frame img.phone-media,
 .preview-media-frame video.phone-media,
 .phone-frame--card img.phone-media {
@@ -34,8 +33,58 @@
   max-height: 100%;
 }
 
-/* The card chrome stays stable while artwork is fitted inside it. */
 .phone-frame--card.has-wide-device-art,
 .phone-frame--card.has-fitted-device-art {
   --card-media-scale: 1 !important;
+}
+
+/* Non-phone assets are shown as neutral artboards instead of being nested in
+ * iPhone chrome. Their own source ratio becomes the frame ratio. */
+.phone-frame.is-artboard-preview {
+  aspect-ratio: var(--adaptive-media-ratio, 4 / 3) !important;
+  padding: 0 !important;
+  border-radius: 16px !important;
+  background: transparent !important;
+  box-shadow: 0 12px 30px -18px rgba(0, 0, 0, .42) !important;
+}
+
+.phone-frame.is-artboard-preview::before,
+.phone-frame.is-artboard-preview::after {
+  display: none !important;
+}
+
+.phone-frame.is-artboard-preview .phone-screen {
+  overflow: hidden;
+  border-radius: 14px !important;
+  background: transparent;
+}
+
+.phone-frame--card.is-artboard-preview {
+  width: min(calc(100% - 36px), 440px) !important;
+  height: auto !important;
+  max-width: calc(100% - 36px);
+  max-height: calc(100% - 36px) !important;
+}
+
+.preview-media-frame.is-artboard-preview {
+  width: min(620px, calc(100% - 40px)) !important;
+  height: auto !important;
+  max-width: calc(100% - 40px) !important;
+  max-height: 100% !important;
+}
+
+.preview-media-frame.is-artboard-preview .phone-media {
+  object-fit: contain !important;
+}
+
+@media (max-width: 760px) {
+  .phone-frame--card.is-artboard-preview {
+    width: min(calc(100% - 28px), 440px) !important;
+    max-width: calc(100% - 28px);
+  }
+
+  .preview-media-frame.is-artboard-preview {
+    width: min(100%, 520px) !important;
+    max-width: 100% !important;
+  }
 }
