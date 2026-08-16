@@ -1,0 +1,42 @@
+name: Migrate PhoneShell owner
+
+on:
+  pull_request:
+    branches: [main]
+    types: [ready_for_review]
+    paths:
+      - "scripts/migrate_library_phone_shell_owner.mjs"
+      - ".github/workflows/migrate-phone-shell-owner.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Remove duplicate Library phone hardware CSS
+        run: node scripts/migrate_library_phone_shell_owner.mjs
+      - name: Commit migration to PR branch
+        env:
+          HEAD_BRANCH: ${{ github.head_ref || github.ref_name }}
+        run: |
+          cp src/features/library/library.css /tmp/library.css
+          git fetch origin "$HEAD_BRANCH:$HEAD_BRANCH"
+          git checkout "$HEAD_BRANCH"
+          cp /tmp/library.css src/features/library/library.css
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/features/library/library.css
+          if git diff --cached --quiet; then
+            echo "Library already delegates all hardware to PhoneShell."
+            exit 0
+          fi
+          git commit -m "refactor: make PhoneShell the sole hardware owner"
+          git push origin "HEAD:$HEAD_BRANCH"
