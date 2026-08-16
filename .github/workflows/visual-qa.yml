@@ -10,6 +10,7 @@ on:
       - "library*.css"
       - "scripts/audit_demo_visual_contract.mjs"
       - "scripts/render_visual_qa_report.mjs"
+      - "scripts/capture_screen_only_previews.mjs"
       - "package.json"
       - ".github/workflows/visual-qa.yml"
   workflow_dispatch:
@@ -58,6 +59,9 @@ jobs:
         id: audit
         continue-on-error: true
         run: npm run audit:visual
+      - name: Capture screen-only effect states
+        if: always()
+        run: node scripts/capture_screen_only_previews.mjs
       - name: Render visual QA markdown
         if: always()
         continue-on-error: true
@@ -68,7 +72,7 @@ jobs:
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
           const report = JSON.parse(fs.readFileSync('artifacts/visual-qa/visual-qa.json', 'utf8'));
-          const targets = new Set(['fufu', 'journal', 'loy', 'moodly', 'notebook']);
+          const targets = new Set(['fufu', 'journal', 'loy', 'moodly', 'notebook', 'organique']);
           const blocked = report.cases.filter((item) => targets.has(item.id) && item.issues?.length);
           if (blocked.length) {
             console.error('Refusing to sync previews for cases with hard failures:', blocked.map((item) => item.id));
@@ -81,6 +85,10 @@ jobs:
           ffmpeg -loglevel error -y -i artifacts/visual-qa/live/loy.png -vf scale=780:1688:flags=lanczos demo/loy-wellness/screenshots/library-preview-2x.png
           ffmpeg -loglevel error -y -i artifacts/visual-qa/live/moodly.png -vf scale=780:1688:flags=lanczos demo/moodly-health/screenshots/library-preview-2x.png
           ffmpeg -loglevel error -y -i artifacts/visual-qa/live/notebook.png -vf scale=780:1688:flags=lanczos demo/marble-note/screenshots/library-preview-2x.png
+          ffmpeg -loglevel error -y -i artifacts/visual-qa/live/organique.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/library-preview-2x.png
+          ffmpeg -loglevel error -y -i artifacts/visual-qa/screen-only/organique/01-choose.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/01-choose.png
+          ffmpeg -loglevel error -y -i artifacts/visual-qa/screen-only/organique/02-plan.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/02-plan.png
+          ffmpeg -loglevel error -y -i artifacts/visual-qa/screen-only/organique/03-confirmation.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/03-confirmation.png
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f \
@@ -88,12 +96,16 @@ jobs:
             demo/lumen-journal/screenshots/library-preview-2x.png \
             demo/loy-wellness/screenshots/library-preview-2x.png \
             demo/moodly-health/screenshots/library-preview-2x.png \
-            demo/marble-note/screenshots/library-preview-2x.png
+            demo/marble-note/screenshots/library-preview-2x.png \
+            demo/organique-food/screenshots/library-preview-2x.png \
+            demo/organique-food/screenshots/01-choose.png \
+            demo/organique-food/screenshots/02-plan.png \
+            demo/organique-food/screenshots/03-confirmation.png
           if git diff --cached --quiet; then
             echo "Canonical previews already match the repaired live states."
             exit 0
           fi
-          git commit -m "chore: sync repaired live preview screenshots"
+          git commit -m "chore: sync screen-only preview screenshots"
           git push origin HEAD:fix/visual-qa
       - name: Upload visual QA report
         if: always()
