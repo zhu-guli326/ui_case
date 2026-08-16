@@ -1,12 +1,6 @@
 name: Sync static screen-only assets
 
 on:
-  pull_request:
-    branches: [main]
-    types: [ready_for_review]
-    paths:
-      - "scripts/capture_static_screen_only_sources.mjs"
-      - ".github/workflows/sync-static-screen-assets.yml"
   workflow_dispatch:
 
 permissions:
@@ -14,7 +8,6 @@ permissions:
 
 jobs:
   sync-static-screen-assets:
-    if: github.event_name == 'workflow_dispatch' || github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -43,13 +36,12 @@ jobs:
           exit 1
       - name: Generate screen-only assets
         run: node scripts/capture_static_screen_only_sources.mjs
-      - name: Commit normalized assets to PR branch
+      - name: Commit normalized assets to current branch
         env:
-          HEAD_BRANCH: ${{ github.head_ref || github.ref_name }}
+          HEAD_BRANCH: ${{ github.ref_name }}
         run: |
           cp -R artifacts/visual-qa/generated-static /tmp/generated-static
-          git fetch origin "$HEAD_BRANCH:$HEAD_BRANCH"
-          git checkout "$HEAD_BRANCH"
+          git pull --ff-only origin "$HEAD_BRANCH"
 
           mkdir -p assets/cases/fashion-shopping-app/screen-only
           mkdir -p assets/cases/news-app/screen-only
