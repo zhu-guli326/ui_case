@@ -30,8 +30,7 @@ try {
     if (await card.count() !== 1) throw new Error(`Missing Library card for ${record.id}`);
 
     await card.scrollIntoViewIfNeeded();
-    const opener = card.locator(`[data-preview-id="${record.id}"]`).first();
-    await opener.click();
+    await card.locator(`[data-preview-id="${record.id}"]`).first().click();
     await page.locator("#previewDialog[open]").waitFor({ state: "visible" });
     await page.waitForFunction((id) => {
       const frame = document.querySelector("#previewMediaFrame");
@@ -73,19 +72,29 @@ try {
         let embedded = null;
         if (modeName === "live" && iframe?.contentDocument) {
           const doc = iframe.contentDocument;
-          const embeddedFrame = doc.querySelector(".iphone-frame");
-          const embeddedFrameStyle = embeddedFrame ? getComputedStyle(embeddedFrame) : null;
-          const embeddedFrameRect = embeddedFrame?.getBoundingClientRect();
           const scroller = doc.scrollingElement || doc.documentElement;
+          const candidates = [...doc.querySelectorAll(".iphone-frame")].map((element) => {
+            const rect = element.getBoundingClientRect();
+            const style = getComputedStyle(element);
+            return {
+              element,
+              rect,
+              style,
+              visible: style.display !== "none" && style.visibility !== "hidden" && Number(style.opacity || 1) > 0 && rect.width > 1 && rect.height > 1,
+            };
+          });
+          const visibleFrames = candidates.filter((item) => item.visible).sort((a, b) => (b.rect.width * b.rect.height) - (a.rect.width * a.rect.height));
+          const selected = visibleFrames[0] || null;
           embedded = {
-            foundFrame: Boolean(embeddedFrame),
-            width: embeddedFrameRect?.width || 0,
-            height: embeddedFrameRect?.height || 0,
-            borderTopWidth: embeddedFrameStyle?.borderTopWidth || "",
-            paddingTop: embeddedFrameStyle?.paddingTop || "",
-            borderRadius: embeddedFrameStyle?.borderRadius || "",
-            boxShadow: embeddedFrameStyle?.boxShadow || "",
-            backgroundColor: embeddedFrameStyle?.backgroundColor || "",
+            frameCount: candidates.length,
+            visibleFrameCount: visibleFrames.length,
+            width: selected?.rect.width || 0,
+            height: selected?.rect.height || 0,
+            borderTopWidth: selected?.style.borderTopWidth || "",
+            paddingTop: selected?.style.paddingTop || "",
+            borderRadius: selected?.style.borderRadius || "",
+            boxShadow: selected?.style.boxShadow || "",
+            backgroundColor: selected?.style.backgroundColor || "",
             documentScrollWidth: scroller.scrollWidth,
             documentClientWidth: scroller.clientWidth,
             documentScrollHeight: scroller.scrollHeight,
@@ -136,13 +145,20 @@ try {
       if (Math.abs(metrics.media.width - metrics.screen.width) > 1.5 || Math.abs(metrics.media.height - metrics.screen.height) > 1.5) issues.push("media-size");
 
       if (mode === "live") {
-        if (!metrics.embedded?.foundFrame) issues.push("embed-frame-missing");
-        if (metrics.embedded?.borderTopWidth !== "0px") issues.push("embed-border");
-        if (metrics.embedded?.paddingTop !== "0px") issues.push("embed-padding");
-        if (metrics.embedded?.boxShadow !== "none") issues.push("embed-shadow");
-        if (metrics.embedded?.borderRadius !== "0px") issues.push("embed-radius");
-        if (Math.abs((metrics.embedded?.width || 0) - 390) > 1.5 || Math.abs((metrics.embedded?.height || 0) - 844) > 1.5) issues.push("embed-size");
+        if (!metrics.embedded) issues.push("embed-document-missing");
+        if (Math.abs((metrics.embedded?.documentClientWidth || 0) - 390) > 1.5 || Math.abs((metrics.embedded?.documentClientHeight || 0) - 844) > 1.5) issues.push("embed-viewport-size");
         if ((metrics.embedded?.documentScrollWidth || 0) > (metrics.embedded?.documentClientWidth || 0) + 2) issues.push("embed-horizontal-scroll");
+
+        /* Only visible internal device chrome matters visually. Some demos keep
+         * hidden alternate frames in the DOM; a 0x0 hidden frame must not be
+         * mistaken for the screen the user actually sees. */
+        if ((metrics.embedded?.visibleFrameCount || 0) > 0) {
+          if (metrics.embedded.borderTopWidth !== "0px") issues.push("embed-border");
+          if (metrics.embedded.paddingTop !== "0px") issues.push("embed-padding");
+          if (metrics.embedded.boxShadow !== "none") issues.push("embed-shadow");
+          if (metrics.embedded.borderRadius !== "0px") issues.push("embed-radius");
+          if (Math.abs(metrics.embedded.width - 390) > 1.5 || Math.abs(metrics.embedded.height - 844) > 1.5) issues.push("embed-visible-frame-size");
+        }
       }
 
       modeResults.push({ ...metrics, issues });
