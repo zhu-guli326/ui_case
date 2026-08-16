@@ -19,6 +19,10 @@ const requiredEntries = [
 ];
 const sourceReferenceFiles = ["library.js", "launcher.js", "launcher.html", "vocabulary-data.js"];
 const forbiddenDirectoryNames = ["node_modules", "dist", ".image2-ui", "tmp"];
+const mergeConflictMarkers = ["<<<<<<<", "=======", ">>>>>>>"];
+const textExtensions = new Set([
+  ".css", ".html", ".js", ".json", ".md", ".mjs", ".ps1", ".txt", ".yml", ".yaml"
+]);
 const failures = [];
 const trackedFiles = readTrackedFiles();
 
@@ -75,7 +79,16 @@ walk(root, (absolute, relative, stat) => {
     if (relative === "screenshots") failures.push("forbidden root verification directory: screenshots");
     return;
   }
-  if (/^demo\/[^/]+\/screenshots\/validate-/.test(relative)) failures.push(`forbidden validation artifact: ${relative}`);
+
+  if (/^demo\/[^/]+\/screenshots\/validate-/.test(relative)) {
+    failures.push(`forbidden validation artifact: ${relative}`);
+  }
+
+  if (textExtensions.has(path.extname(relative).toLowerCase())) {
+    const source = fs.readFileSync(absolute, "utf8");
+    const marker = mergeConflictMarkers.find((value) => source.includes(value));
+    if (marker) failures.push(`unresolved merge conflict marker ${marker} in ${relative}`);
+  }
 });
 
 if (failures.length) {
@@ -123,7 +136,7 @@ function walk(directory, visit) {
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
     if (entry.name === ".git") continue;
     const absolute = path.join(directory, entry.name);
-    const relative = path.relative(root, absolute);
+    const relative = path.relative(root, absolute).replaceAll(path.sep, "/");
     visit(absolute, relative, entry);
     if (entry.isDirectory()) walk(absolute, visit);
   }
