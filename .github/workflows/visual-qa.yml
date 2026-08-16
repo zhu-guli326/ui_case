@@ -11,6 +11,7 @@ on:
       - "scripts/audit_demo_visual_contract.mjs"
       - "scripts/render_visual_qa_report.mjs"
       - "scripts/capture_screen_only_previews.mjs"
+      - "library-preview-config.mjs"
       - "package.json"
       - ".github/workflows/visual-qa.yml"
   workflow_dispatch:
@@ -66,46 +67,69 @@ jobs:
         if: always()
         continue-on-error: true
         run: node scripts/render_visual_qa_report.mjs
-      - name: Sync repaired live states to canonical card previews
+      - name: Sync every live first state to its canonical card preview
         if: always() && github.actor != 'github-actions[bot]'
         run: |
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
+          import path from 'node:path';
+
           const report = JSON.parse(fs.readFileSync('artifacts/visual-qa/visual-qa.json', 'utf8'));
-          const targets = new Set(['fufu', 'journal', 'loy', 'moodly', 'notebook', 'organique']);
-          const blocked = report.cases.filter((item) => targets.has(item.id) && item.issues?.length);
+          const records = fs.readdirSync('catalog/cases')
+            .filter((name) => name.endsWith('.json'))
+            .sort()
+            .map((name) => JSON.parse(fs.readFileSync(path.join('catalog/cases', name), 'utf8')));
+          const live = records.filter((item) => item.liveDemo);
+          if (live.length !== 20) throw new Error(`Expected 20 live cases, found ${live.length}`);
+
+          const liveIds = new Set(live.map((item) => item.id));
+          const blocked = report.cases.filter((item) => liveIds.has(item.id) && item.issues?.length);
           if (blocked.length) {
-            console.error('Refusing to sync previews for cases with hard failures:', blocked.map((item) => item.id));
+            console.error('Refusing to sync canonical previews for live cases with hard failures:', blocked.map((item) => item.id));
             process.exit(1);
           }
+
+          const lines = [];
+          for (const item of live) {
+            const source = `artifacts/visual-qa/live/${item.id}.png`;
+            if (!fs.existsSync(source)) throw new Error(`Missing rendered live state: ${source}`);
+            const destination = item.liveDemo
+              .replace(/^\.\//, '')
+              .replace(/index\.html$/, 'screenshots/library-preview-2x.png');
+            lines.push([item.id, source, destination].join('\t'));
+          }
+          fs.writeFileSync('/tmp/preview-targets.tsv', `${lines.join('\n')}\n`);
           NODE
+
           git pull --ff-only origin fix/visual-qa
-          ffmpeg -loglevel error -y -i artifacts/visual-qa/live/fufu.png -vf scale=780:1688:flags=lanczos demo/fufu-bakery/screenshots/library-preview-2x.png
-          ffmpeg -loglevel error -y -i artifacts/visual-qa/live/journal.png -vf scale=780:1688:flags=lanczos demo/lumen-journal/screenshots/library-preview-2x.png
-          ffmpeg -loglevel error -y -i artifacts/visual-qa/live/loy.png -vf scale=780:1688:flags=lanczos demo/loy-wellness/screenshots/library-preview-2x.png
-          ffmpeg -loglevel error -y -i artifacts/visual-qa/live/moodly.png -vf scale=780:1688:flags=lanczos demo/moodly-health/screenshots/library-preview-2x.png
-          ffmpeg -loglevel error -y -i artifacts/visual-qa/live/notebook.png -vf scale=780:1688:flags=lanczos demo/marble-note/screenshots/library-preview-2x.png
-          ffmpeg -loglevel error -y -i artifacts/visual-qa/live/organique.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/library-preview-2x.png
+
+          while IFS=$'\t' read -r case_id source destination; do
+            mkdir -p "$(dirname "$destination")"
+            echo "Syncing $case_id -> $destination"
+            ffmpeg -loglevel error -y -i "$source" -vf scale=780:1688:flags=lanczos "$destination"
+          done < /tmp/preview-targets.tsv
+
+          # Organique also exposes three screen-only stills in the image/video
+          # sequence. Keep those free of baked device chrome as a regression case.
           ffmpeg -loglevel error -y -i artifacts/visual-qa/screen-only/organique/01-choose.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/01-choose.png
           ffmpeg -loglevel error -y -i artifacts/visual-qa/screen-only/organique/02-plan.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/02-plan.png
           ffmpeg -loglevel error -y -i artifacts/visual-qa/screen-only/organique/03-confirmation.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/03-confirmation.png
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          while IFS=$'\t' read -r _ _ destination; do
+            git add -f "$destination"
+          done < /tmp/preview-targets.tsv
           git add -f \
-            demo/fufu-bakery/screenshots/library-preview-2x.png \
-            demo/lumen-journal/screenshots/library-preview-2x.png \
-            demo/loy-wellness/screenshots/library-preview-2x.png \
-            demo/moodly-health/screenshots/library-preview-2x.png \
-            demo/marble-note/screenshots/library-preview-2x.png \
-            demo/organique-food/screenshots/library-preview-2x.png \
             demo/organique-food/screenshots/01-choose.png \
             demo/organique-food/screenshots/02-plan.png \
             demo/organique-food/screenshots/03-confirmation.png
+
           if git diff --cached --quiet; then
-            echo "Canonical previews already match the repaired live states."
+            echo "All live canonical previews already match their rendered first states."
             exit 0
           fi
-          git commit -m "chore: sync screen-only preview screenshots"
+          git commit -m "chore: sync all live canonical preview screenshots"
           git push origin HEAD:fix/visual-qa
       - name: Upload visual QA report
         if: always()
