@@ -51,41 +51,6 @@
   transform: none !important;
 }
 
-/*
- * Legacy baked-device normalization
- * ---------------------------------
- * A few static reference sources predate the screen-only contract and contain
- * their own phone mockup. PhoneShell remains the only hardware owner; these
- * transforms crop through the legacy mockup so only its authored screen content
- * reaches the shared shell. New case assets must never depend on these rules.
- */
-.phone-frame:not(.is-artboard-preview) img.phone-media[src*="/fashion-shopping-app/"][src$="-screen.png"],
-.phone-frame:not(.is-artboard-preview) img.phone-media[src*="/fashion-shopping-app/card-screen.png"] {
-  transform: scale(1.205) !important;
-  transform-origin: 50% 50% !important;
-}
-
-.preview-media-frame[data-preview-case-id="fashion"] video.phone-media {
-  transform: scale(1.105) !important;
-  transform-origin: 50% 50% !important;
-}
-
-.preview-media-frame[data-preview-case-id="museum"] img.phone-media[src*="/museum-app/"][src$="-screen.png"] {
-  transform: scale(1.62) !important;
-  transform-origin: 50% 50% !important;
-}
-
-.phone-frame:not(.is-artboard-preview) img.phone-media[src*="/news-app/"][src$="-screen.png"],
-.phone-frame:not(.is-artboard-preview) img.phone-media[src*="/news-app/card-screen.png"] {
-  transform: scale(1.165) !important;
-  transform-origin: 50% 50% !important;
-}
-
-.preview-media-frame[data-preview-case-id="news"] video.phone-media {
-  transform: scale(1.045) !important;
-  transform-origin: 50% 50% !important;
-}
-
 /* Image, video sequence, MP4, and live iframe share one desktop footprint.
  * They may shrink on a short viewport, but switching modes never changes size. */
 .preview-media-frame:not(.is-artboard-preview) {
