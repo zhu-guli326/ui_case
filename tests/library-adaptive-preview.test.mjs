@@ -3,12 +3,21 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
-import { getPreviewMediaPresentation } from "../library-preview-config.mjs";
+import {
+  getLibraryPreviewProfile,
+  getPreviewMediaPresentation,
+  libraryPreviewCaseIds,
+  previewContractVersion,
+  standardCanonicalPreview,
+  standardPreviewDetailWidth,
+  standardPreviewDevice,
+} from "../library-preview-config.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const compatibilityCss = readFileSync(path.join(root, "library-technical-fixes.css"), "utf8");
 const runtime = readFileSync(path.join(root, "library-technical-fixes.js"), "utf8");
 const analytics = readFileSync(path.join(root, "analytics.js"), "utf8");
+const i18nCss = readFileSync(path.join(root, "i18n.css"), "utf8");
 
 const cardPreviewOverrides = Object.freeze({
   museum: "assets/cases/museum-app/video-frames/01-home.png",
@@ -63,16 +72,41 @@ function readImageDimensions(filePath) {
   return null;
 }
 
-test("phone-shaped media stays in device chrome", () => {
+test("all 23 cases share one explicit Library-owned phone preview contract", () => {
+  assert.equal(previewContractVersion, "20260816-preview-contract-v2");
+  assert.deepEqual(standardPreviewDevice, { width: 390, height: 844 });
+  assert.deepEqual(standardCanonicalPreview, { width: 780, height: 1688 });
+  assert.equal(standardPreviewDetailWidth, 300);
+  assert.equal(libraryPreviewCaseIds.length, 23);
+  assert.equal(new Set(libraryPreviewCaseIds).size, 23);
+
+  for (const id of libraryPreviewCaseIds) {
+    const profile = getLibraryPreviewProfile(id);
+    assert.ok(profile, `missing preview profile for ${id}`);
+    assert.equal(profile.presentation, "device", `${id} should use phone presentation`);
+    assert.equal(profile.frameOwner, "library", `${id} must have one Library-owned frame`);
+    assert.equal(profile.allowBakedDevice, false, `${id} must reject baked device chrome`);
+    assert.deepEqual(profile.screen, standardPreviewDevice, `${id} screen size drifted`);
+    assert.deepEqual(profile.canonical, standardCanonicalPreview, `${id} canonical preview drifted`);
+    assert.equal(profile.detailWidth, standardPreviewDetailWidth, `${id} detail width drifted`);
+  }
+});
+
+test("phone-shaped fallback media stays in device chrome", () => {
   assert.equal(getPreviewMediaPresentation(390, 844), "device");
   assert.equal(getPreviewMediaPresentation(375, 812), "device");
   assert.equal(getPreviewMediaPresentation(1080, 1920), "device");
 });
 
-test("boards and desktop-like media use neutral artboards", () => {
+test("unknown boards and desktop-like media still use neutral artboards", () => {
   assert.equal(getPreviewMediaPresentation(1600, 900), "artboard");
   assert.equal(getPreviewMediaPresentation(1200, 1200), "artboard");
   assert.equal(getPreviewMediaPresentation(1200, 900), "artboard");
+});
+
+test("known case media is contract-driven instead of inferred from its bitmap ratio", () => {
+  assert.equal(getPreviewMediaPresentation(1200, 900, { caseId: "organique" }), "device");
+  assert.equal(getPreviewMediaPresentation(1200, 1200, { caseId: "notebook" }), "device");
 });
 
 test("notebook card uses the canonical phone preview instead of the reference artboard", () => {
@@ -81,11 +115,11 @@ test("notebook card uses the canonical phone preview instead of the reference ar
   assert.equal(previewPath, "demo/marble-note/screenshots/library-preview-2x.png");
 
   const dimensions = readImageDimensions(path.join(root, previewPath));
-  assert.deepEqual(dimensions, { width: 780, height: 1688 });
-  assert.equal(getPreviewMediaPresentation(dimensions.width, dimensions.height), "device");
+  assert.deepEqual(dimensions, standardCanonicalPreview);
+  assert.equal(getPreviewMediaPresentation(dimensions.width, dimensions.height, { caseId: "notebook" }), "device");
 });
 
-test("all case-card preview assets exist and have readable dimensions", () => {
+test("all 23 card previews are canonical 780 by 1688 screen assets", () => {
   const caseDirectory = path.join(root, "catalog", "cases");
   const records = readdirSync(caseDirectory)
     .filter((name) => name.endsWith(".json"))
@@ -93,6 +127,11 @@ test("all case-card preview assets exist and have readable dimensions", () => {
     .map((name) => JSON.parse(readFileSync(path.join(caseDirectory, name), "utf8")));
 
   assert.equal(records.length, 23, "case library should retain all 23 records");
+  assert.deepEqual(
+    records.map((record) => record.id).sort(),
+    [...libraryPreviewCaseIds].sort(),
+    "preview contract must cover the exact catalog",
+  );
 
   const audit = [];
   for (const record of records) {
@@ -102,19 +141,25 @@ test("all case-card preview assets exist and have readable dimensions", () => {
     assert.ok(existsSync(absolutePath), `missing card preview asset for ${record.id}: ${previewPath}`);
 
     const dimensions = readImageDimensions(absolutePath);
-    assert.ok(dimensions, `unsupported or unreadable preview image for ${record.id}: ${previewPath}`);
-    audit.push(`${record.id}: ${dimensions.width}x${dimensions.height} -> ${getPreviewMediaPresentation(dimensions.width, dimensions.height)}`);
+    assert.deepEqual(
+      dimensions,
+      standardCanonicalPreview,
+      `${record.id} card preview must be the canonical 780 x 1688 screen asset: ${previewPath}`,
+    );
+    audit.push(`${record.id}: ${dimensions.width}x${dimensions.height} -> ${getPreviewMediaPresentation(dimensions.width, dimensions.height, { caseId: record.id })}`);
   }
 
-  console.log(`\nCase preview aspect audit\n${audit.join("\n")}\n`);
+  console.log(`\nCase preview contract audit\n${audit.join("\n")}\n`);
 });
 
-test("adaptive preview runtime classifies newly rendered gallery media", () => {
-  assert.match(runtime, /getPreviewMediaPresentation/);
+test("preview runtime tags rendered frames with the explicit case contract", () => {
+  assert.match(runtime, /getLibraryPreviewProfile/);
+  assert.match(runtime, /getCardCaseId/);
+  assert.match(runtime, /getDetailCaseId/);
+  assert.match(runtime, /data-case-id/);
+  assert.match(runtime, /previewContractVersion/);
+  assert.match(runtime, /dataset\.frameOwner/);
   assert.match(runtime, /MutationObserver/);
-  assert.match(runtime, /is-artboard-preview/);
-  assert.match(runtime, /naturalWidth/);
-  assert.match(runtime, /videoWidth/);
 });
 
 test("notebook legacy reference preview is normalized before card sizing", () => {
@@ -123,14 +168,23 @@ test("notebook legacy reference preview is normalized before card sizing", () =>
   assert.match(runtime, /normalizeGalleryCardSource/);
 });
 
-test("adaptive preview layer prevents crop and magic zoom", () => {
-  assert.match(compatibilityCss, /\.phone-media\s*\{[^}]*object-fit:\s*contain\s*!important/);
+test("canonical phone media fills the screen while only artboards use contain", () => {
+  assert.match(
+    compatibilityCss,
+    /\.phone-frame:not\(\.is-artboard-preview\) \.phone-media\s*\{[\s\S]*?object-fit:\s*cover\s*!important/,
+  );
+  assert.match(
+    compatibilityCss,
+    /\.phone-frame\.is-artboard-preview \.phone-media\s*\{[\s\S]*?object-fit:\s*contain\s*!important/,
+  );
+  assert.doesNotMatch(compatibilityCss, /^\.phone-media\s*\{[^}]*object-fit:\s*contain/m);
+  assert.match(compatibilityCss, /--library-detail-device-width:\s*300px/);
+  assert.match(compatibilityCss, /aspect-ratio:\s*390\s*\/\s*844/);
   assert.match(compatibilityCss, /transform:\s*none\s*!important/);
-  assert.match(compatibilityCss, /\.phone-frame\.is-artboard-preview/);
-  assert.match(compatibilityCss, /--adaptive-media-ratio/);
 });
 
-test("preview runtime is loaded as an ES module so it can share preview config", () => {
+test("preview runtime and styles are cache-busted together at contract v2", () => {
   assert.match(analytics, /previewRuntime\.type\s*=\s*"module"/);
-  assert.match(analytics, /library-technical-fixes\.js\?v=20260816-adaptive-preview-v1/);
+  assert.match(analytics, /library-technical-fixes\.js\?v=20260816-preview-contract-v2/);
+  assert.match(i18nCss, /library-technical-fixes\.css\?v=20260816-preview-contract-v2/);
 });
