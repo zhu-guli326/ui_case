@@ -22,6 +22,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Ensure ffmpeg
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
       - name: Install Playwright
         run: |
           npm install --no-save --no-package-lock playwright@1.55.0
@@ -54,6 +60,28 @@ jobs:
           cp /tmp/generated-static/news/feed.png assets/cases/news-app/screen-only/feed.png
           cp /tmp/generated-static/news/discover.png assets/cases/news-app/screen-only/discover.png
 
+          cat >/tmp/fashion-frames.txt <<EOF
+          file '$PWD/assets/cases/fashion-shopping-app/screen-only/hero.png'
+          duration 2
+          file '$PWD/assets/cases/fashion-shopping-app/screen-only/catalog.png'
+          duration 2
+          file '$PWD/assets/cases/fashion-shopping-app/screen-only/favorites.png'
+          duration 2
+          file '$PWD/assets/cases/fashion-shopping-app/screen-only/favorites.png'
+          EOF
+          ffmpeg -nostdin -loglevel error -y -f concat -safe 0 -i /tmp/fashion-frames.txt -vf "fps=24,scale=780:1688:flags=lanczos,format=yuv420p" -movflags +faststart assets/cases/fashion-shopping-app/screen-only/demo.mp4
+
+          cat >/tmp/news-frames.txt <<EOF
+          file '$PWD/assets/cases/news-app/screen-only/headlines.png'
+          duration 2
+          file '$PWD/assets/cases/news-app/screen-only/feed.png'
+          duration 2
+          file '$PWD/assets/cases/news-app/screen-only/discover.png'
+          duration 2
+          file '$PWD/assets/cases/news-app/screen-only/discover.png'
+          EOF
+          ffmpeg -nostdin -loglevel error -y -f concat -safe 0 -i /tmp/news-frames.txt -vf "fps=24,scale=780:1688:flags=lanczos,format=yuv420p" -movflags +faststart assets/cases/news-app/screen-only/demo.mp4
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f assets/cases/fashion-shopping-app/screen-only assets/cases/news-app/screen-only
@@ -61,5 +89,5 @@ jobs:
             echo "Static screen-only assets already match."
             exit 0
           fi
-          git commit -m "chore: add normalized static screen-only assets"
+          git commit -m "chore: sync normalized static screen-only assets"
           git push origin "HEAD:$HEAD_BRANCH"
