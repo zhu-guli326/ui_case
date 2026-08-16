@@ -1,3 +1,8 @@
+const visualPolish = document.createElement("link");
+visualPolish.rel = "stylesheet";
+visualPolish.href = "./visual-polish.css";
+document.head.append(visualPolish);
+
 const phones = Array.from(document.querySelectorAll(".phone"));
 const appViews = Array.from(document.querySelectorAll(".app-view"));
 const dockButtons = Array.from(document.querySelectorAll(".dock [data-view-target]"));
