@@ -9,7 +9,31 @@ const LEGACY_SCALE_OVERSHOOT = 1.04;
 const LEGACY_NOTEBOOK_CARD_PREVIEW = "marble-note/screenshots/library-preview-reference-v2.png";
 const CANONICAL_NOTEBOOK_CARD_PREVIEW = "marble-note/screenshots/library-preview-2x.png";
 
-const DETAIL_SCREEN_ONLY_OVERRIDES = Object.freeze({
+const CARD_SCREEN_ONLY_OVERRIDES = Object.freeze({
+  fashion: "./assets/cases/fashion-shopping-app/screen-only/hero.png",
+  museum: "./assets/cases/museum-app/video-frames/01-home.png",
+  news: "./assets/cases/news-app/screen-only/headlines.png",
+});
+
+const DETAIL_IMAGE_OVERRIDES = Object.freeze({
+  fashion: Object.freeze({
+    "hero-screen.png": "./assets/cases/fashion-shopping-app/screen-only/hero.png",
+    "catalog-screen.png": "./assets/cases/fashion-shopping-app/screen-only/catalog.png",
+    "favorites-screen.png": "./assets/cases/fashion-shopping-app/screen-only/favorites.png",
+  }),
+  museum: Object.freeze({
+    "home-screen.png": "./assets/cases/museum-app/video-frames/01-home.png",
+    "exhibitions-screen.png": "./assets/cases/museum-app/video-frames/02-exhibitions.png",
+    "detail-screen.png": "./assets/cases/museum-app/video-frames/03-detail.png",
+  }),
+  news: Object.freeze({
+    "headlines-screen.png": "./assets/cases/news-app/screen-only/headlines.png",
+    "feed-screen.png": "./assets/cases/news-app/screen-only/feed.png",
+    "discover-screen.png": "./assets/cases/news-app/screen-only/discover.png",
+  }),
+});
+
+const DETAIL_FIRST_SCREEN_OVERRIDES = Object.freeze({
   "signal-grid": Object.freeze({
     legacyPrefix: "demo/signal-grid/screenshots/",
     canonical: "./demo/signal-grid/screenshots/library-preview-2x.png",
@@ -20,25 +44,72 @@ const DETAIL_SCREEN_ONLY_OVERRIDES = Object.freeze({
   }),
 });
 
-function normalizeGalleryCardSource(image) {
-  if (!image) return;
-  const src = image.getAttribute("src") || "";
-  if (!src.includes(LEGACY_NOTEBOOK_CARD_PREVIEW)) return;
+const DETAIL_VIDEO_OVERRIDES = Object.freeze({
+  fashion: "./assets/cases/fashion-shopping-app/screen-only/demo.mp4",
+  news: "./assets/cases/news-app/screen-only/demo.mp4",
+});
 
-  image.setAttribute("src", src.replace(LEGACY_NOTEBOOK_CARD_PREVIEW, CANONICAL_NOTEBOOK_CARD_PREVIEW));
-  image.dataset.previewSourceNormalized = "true";
+function normalizeGalleryCardSource(image, caseId = "") {
+  if (!image) return false;
+  const src = image.getAttribute("src") || "";
+
+  const caseOverride = CARD_SCREEN_ONLY_OVERRIDES[caseId];
+  if (caseOverride && src !== caseOverride && !src.includes("/screen-only/")) {
+    image.setAttribute("src", caseOverride);
+    image.dataset.previewSourceNormalized = "screen-only";
+    return true;
+  }
+
+  if (src.includes(LEGACY_NOTEBOOK_CARD_PREVIEW)) {
+    image.setAttribute("src", src.replace(LEGACY_NOTEBOOK_CARD_PREVIEW, CANONICAL_NOTEBOOK_CARD_PREVIEW));
+    image.dataset.previewSourceNormalized = "true";
+    return true;
+  }
+
+  return false;
 }
 
 function normalizeDetailScreenSource(image, caseId) {
   if (!image || !caseId) return false;
-  const override = DETAIL_SCREEN_ONLY_OVERRIDES[caseId];
-  if (!override) return false;
-
   const src = image.getAttribute("src") || "";
-  if (!src.includes(override.legacyPrefix) || src.includes("library-preview-2x.png")) return false;
 
-  image.setAttribute("src", override.canonical);
-  image.dataset.previewSourceNormalized = "screen-only";
+  const mapped = DETAIL_IMAGE_OVERRIDES[caseId];
+  if (mapped) {
+    for (const [legacyName, canonical] of Object.entries(mapped)) {
+      if (src.endsWith(legacyName)) {
+        image.setAttribute("src", canonical);
+        image.dataset.previewSourceNormalized = "screen-only";
+        return true;
+      }
+    }
+  }
+
+  const firstScreen = DETAIL_FIRST_SCREEN_OVERRIDES[caseId];
+  if (
+    firstScreen &&
+    src.includes(firstScreen.legacyPrefix) &&
+    !src.includes("library-preview-2x.png")
+  ) {
+    image.setAttribute("src", firstScreen.canonical);
+    image.dataset.previewSourceNormalized = "screen-only";
+    return true;
+  }
+
+  return false;
+}
+
+function normalizeDetailVideoSource(video, caseId) {
+  if (!video || !caseId) return false;
+  const canonical = DETAIL_VIDEO_OVERRIDES[caseId];
+  if (!canonical) return false;
+
+  const src = video.getAttribute("src") || "";
+  if (!src || src === canonical || src.includes("/screen-only/demo.mp4")) return false;
+
+  video.setAttribute("src", canonical);
+  video.dataset.previewSourceNormalized = "screen-only";
+  video.load();
+  if (!video.hidden) video.play().catch(() => {});
   return true;
 }
 
@@ -97,7 +168,8 @@ function bindGalleryCards() {
   const bindCurrentCards = () => {
     gallery.querySelectorAll(".phone-frame--card").forEach((frame) => {
       const image = frame.querySelector("img.phone-media");
-      normalizeGalleryCardSource(image);
+      const caseId = getCardCaseId(frame);
+      normalizeGalleryCardSource(image, caseId);
       bindImageToFrame(image, frame, () => getCardCaseId(frame));
     });
   };
@@ -120,14 +192,17 @@ function installDetailPresentation() {
   bindImageToFrame(sequence, frame, resolveCaseId);
 
   const syncVideo = () => {
+    const caseId = resolveCaseId();
+    if (normalizeDetailVideoSource(video, caseId)) return;
     if (!video || !video.videoWidth || !video.videoHeight) return;
-    setFramePresentation(frame, video.videoWidth, video.videoHeight, { caseId: resolveCaseId() });
+    setFramePresentation(frame, video.videoWidth, video.videoHeight, { caseId });
   };
   video?.addEventListener("loadedmetadata", syncVideo);
 
   const syncVisibleMode = () => {
     const caseId = resolveCaseId();
     if (image && !image.hidden) normalizeDetailScreenSource(image, caseId);
+    if (video && !video.hidden) normalizeDetailVideoSource(video, caseId);
 
     const profile = getLibraryPreviewProfile(caseId);
     if (profile) {
