@@ -8,10 +8,11 @@ on:
       - "demo/**"
       - "library*.js"
       - "library*.css"
+      - "library-preview-config.mjs"
       - "scripts/audit_demo_visual_contract.mjs"
       - "scripts/render_visual_qa_report.mjs"
       - "scripts/capture_screen_only_previews.mjs"
-      - "library-preview-config.mjs"
+      - "tests/**"
       - "package.json"
       - ".github/workflows/visual-qa.yml"
   workflow_dispatch:
@@ -61,20 +62,21 @@ jobs:
         continue-on-error: true
         run: npm run audit:visual
       - name: Capture screen-only effect states
-        if: always()
         run: node scripts/capture_screen_only_previews.mjs
       - name: Render visual QA markdown
         if: always()
         continue-on-error: true
         run: node scripts/render_visual_qa_report.mjs
       - name: Sync every live first state to its canonical card preview
-        if: always() && github.actor != 'github-actions[bot]'
+        if: always() && steps.audit.outcome != 'skipped' && github.actor != 'github-actions[bot]'
         run: |
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
           import path from 'node:path';
 
-          const report = JSON.parse(fs.readFileSync('artifacts/visual-qa/visual-qa.json', 'utf8'));
+          const reportPath = 'artifacts/visual-qa/visual-qa.json';
+          if (!fs.existsSync(reportPath)) throw new Error(`Missing visual QA report: ${reportPath}`);
+          const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
           const records = fs.readdirSync('catalog/cases')
             .filter((name) => name.endsWith('.json'))
             .sort()
@@ -109,8 +111,8 @@ jobs:
             ffmpeg -loglevel error -y -i "$source" -vf scale=780:1688:flags=lanczos "$destination"
           done < /tmp/preview-targets.tsv
 
-          # Organique also exposes three screen-only stills in the image/video
-          # sequence. Keep those free of baked device chrome as a regression case.
+          # Organique exposes three stills in its image/video sequence. Keep them
+          # screen-only so no historical baked phone shell can re-enter the UI.
           ffmpeg -loglevel error -y -i artifacts/visual-qa/screen-only/organique/01-choose.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/01-choose.png
           ffmpeg -loglevel error -y -i artifacts/visual-qa/screen-only/organique/02-plan.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/02-plan.png
           ffmpeg -loglevel error -y -i artifacts/visual-qa/screen-only/organique/03-confirmation.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/03-confirmation.png
