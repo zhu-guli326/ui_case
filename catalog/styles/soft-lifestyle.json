@@ -8,15 +8,12 @@
   "industry": ["生活方式", "内容", "健康"],
   "styles": ["亲和", "柔和", "极简"],
   "completeness": "基础规范",
-<<<<<<< HEAD
   "previewCaseId": "moe",
   "densityDefault": "spacious",
   "tokenFoundation": {
     "spacingBase": "8pt",
     "fontScheme": "humanist-cjk"
   },
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   "foundations": {
     "colors": { "paper": "#FFFDF8", "ink": "#282421", "accent": "#6D9D8B", "warm": "#E9C9A5" },
     "typography": { "display": "人文无衬线或开源衬线替代", "body": "系统无衬线", "scale": "34 / 24 / 16 / 14" },

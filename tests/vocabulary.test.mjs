@@ -1,6 +1,5 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-<<<<<<< HEAD
 import { readFileSync } from "node:fs";
 
 import { localizeVocabularyEntry, vocabularyById, vocabularyCategories, vocabularyEnglishById, vocabularyEntries } from "../vocabulary-data.js";
@@ -19,21 +18,6 @@ test("illustrated vocabulary entries stay complete and internally linked", () =>
   assert.equal(Object.keys(vocabularyById).length, vocabularyEntries.length);
   assert.equal(Object.keys(vocabularyEnglishById).length, vocabularyEntries.length);
   assert.ok(requiredCoverage.every((id) => vocabularyById[id]), "high-value vocabulary gaps must stay covered");
-=======
-import fs from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-import { vocabularyById, vocabularyCategories, vocabularyEntries } from "../vocabulary-data.js";
-
-const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const contentCategories = vocabularyCategories.filter((category) => !["all", "favorites"].includes(category.id));
-
-test("illustrated vocabulary entries stay complete and internally linked", () => {
-  assert.equal(vocabularyEntries.length, 24);
-  assert.equal(new Set(vocabularyEntries.map((entry) => entry.id)).size, vocabularyEntries.length);
-  assert.equal(Object.keys(vocabularyById).length, vocabularyEntries.length);
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
   for (const category of contentCategories) {
     const entries = vocabularyEntries.filter((entry) => entry.category === category.id);
@@ -44,7 +28,6 @@ test("illustrated vocabulary entries stay complete and internally linked", () =>
     for (const field of ["name", "en", "ask", "definition", "role", "prompt", "confusedWith", "source"]) {
       assert.ok(entry[field], `${entry.id} missing ${field}`);
     }
-<<<<<<< HEAD
     for (const field of ["tags", "anatomy", "variants", "states", "useWhen", "avoidWhen", "codeUI", "media", "related"]) {
       assert.ok(Array.isArray(entry[field]) && entry[field].length > 0, `${entry.id} missing ${field}`);
     }
@@ -102,18 +85,3 @@ test("term details keep exactly one vertical scroll owner", () => {
   assert.match(vocabularyScript, /classList\.add\("term-dialog-open"\)/);
   assert.match(vocabularyScript, /classList\.remove\("term-dialog-open"\)/);
 });
-=======
-    for (const field of ["tags", "anatomy", "variants", "states", "useWhen", "avoidWhen", "codeUI", "image2", "related"]) {
-      assert.ok(Array.isArray(entry[field]) && entry[field].length > 0, `${entry.id} missing ${field}`);
-    }
-
-    const imagePath = path.resolve(repoRoot, entry.example.src.replace(/^\.\//, ""));
-    assert.ok(fs.existsSync(imagePath), `${entry.id} missing image ${entry.example.src}`);
-    const generatedCoverPath = path.resolve(repoRoot, "assets/vocabulary/generated-v2/covers", `${entry.id}.webp`);
-    assert.ok(fs.existsSync(generatedCoverPath), `${entry.id} missing generated cover`);
-    assert.equal(entry.example.src, `./assets/vocabulary/generated-v2/covers/${entry.id}.webp`, `${entry.id} must use its paired cover`);
-    assert.ok(entry.example.alt && entry.example.caption, `${entry.id} image needs alt text and a caption`);
-    assert.ok(entry.related.every((id) => vocabularyById[id]), `${entry.id} has an unknown related term`);
-  }
-});
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074

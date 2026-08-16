@@ -1,0 +1,41 @@
+/* Technical preview corrections.
+ * Keep source screenshots and demos at their authored aspect ratio instead of
+ * enlarging them to fill the device mask. This file deliberately overrides
+ * library.css so the underlying case designs remain untouched.
+ */
+
+.phone-media {
+  object-fit: contain !important;
+  object-position: center center !important;
+  transform: none !important;
+}
+
+.phone-frame--card .phone-media,
+.phone-frame--card.has-wide-device-art .phone-media,
+.phone-frame--card.has-fitted-device-art .phone-media,
+.preview-media-frame .phone-media,
+.preview-media-frame.has-wide-device-art .phone-media,
+.preview-media-frame .phone-media.preview-video-sequence {
+  transform: none !important;
+}
+
+/* Screenshots that are narrower/shorter than the common preview viewport now
+ * letterbox inside the preview instead of being cropped. */
+.phone-screen {
+  background: #111;
+}
+
+/* Do not let a source image exceed the device screen simply because its own
+ * bitmap dimensions differ from the standard live-demo viewport. */
+.preview-media-frame img.phone-media,
+.preview-media-frame video.phone-media,
+.phone-frame--card img.phone-media {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* The card chrome stays stable while artwork is fitted inside it. */
+.phone-frame--card.has-wide-device-art,
+.phone-frame--card.has-fitted-device-art {
+  --card-media-scale: 1 !important;
+}

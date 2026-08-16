@@ -19,12 +19,12 @@ const requiredEntries = [
 ];
 const sourceReferenceFiles = ["library.js", "launcher.js", "launcher.html", "vocabulary-data.js"];
 const forbiddenDirectoryNames = ["node_modules", "dist", ".image2-ui", "tmp"];
+const mergeConflictMarkers = ["<".repeat(7), "=".repeat(7), ">".repeat(7)];
+const textExtensions = new Set([
+  ".css", ".html", ".js", ".json", ".md", ".mjs", ".ps1", ".txt", ".yml", ".yaml"
+]);
 const failures = [];
-<<<<<<< HEAD
 const trackedFiles = readTrackedFiles();
-=======
-const trackedFiles = new Set(execFileSync("git", ["ls-files", "-z"], { cwd: root, encoding: "utf8" }).split("\0").filter(Boolean));
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 for (const entry of requiredEntries) requirePath(entry, `missing required site entry: ${entry}`);
 
@@ -79,7 +79,16 @@ walk(root, (absolute, relative, stat) => {
     if (relative === "screenshots") failures.push("forbidden root verification directory: screenshots");
     return;
   }
-  if (/^demo\/[^/]+\/screenshots\/validate-/.test(relative)) failures.push(`forbidden validation artifact: ${relative}`);
+
+  if (/^demo\/[^/]+\/screenshots\/validate-/.test(relative)) {
+    failures.push(`forbidden validation artifact: ${relative}`);
+  }
+
+  if (textExtensions.has(path.extname(relative).toLowerCase())) {
+    const source = fs.readFileSync(absolute, "utf8");
+    const marker = mergeConflictMarkers.find((value) => source.includes(value));
+    if (marker) failures.push(`unresolved merge conflict marker ${marker} in ${relative}`);
+  }
 });
 
 if (failures.length) {
@@ -100,7 +109,6 @@ function requireLocalReference(value, label) {
   if (/^(?:https?:|data:)/.test(value)) return;
   const clean = value.split(/[?#]/)[0].replace(/^\.\//, "");
   requirePath(clean, `${label} points to missing file: ${value}`);
-<<<<<<< HEAD
   if (trackedFiles && !trackedFiles.has(clean)) failures.push(`${label} points to an untracked file: ${value}`);
   checkedMediaReferences += 1;
 }
@@ -120,12 +128,6 @@ function readTrackedFiles() {
   }
 }
 
-=======
-  if (!trackedFiles.has(clean)) failures.push(`${label} points to an untracked file: ${value}`);
-  checkedMediaReferences += 1;
-}
-
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 function requirePath(relative, message) {
   if (!fs.existsSync(path.join(root, relative))) failures.push(message);
 }
@@ -134,7 +136,7 @@ function walk(directory, visit) {
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
     if (entry.name === ".git") continue;
     const absolute = path.join(directory, entry.name);
-    const relative = path.relative(root, absolute);
+    const relative = path.relative(root, absolute).replaceAll(path.sep, "/");
     visit(absolute, relative, entry);
     if (entry.isDirectory()) walk(absolute, visit);
   }

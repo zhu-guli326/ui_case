@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries, vocabularyById } from "./vocabulary-data.js?v=20260815-vocabulary-30";
 import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260815-vocabulary-30";
-=======
-import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries, vocabularyById } from "./vocabulary-data.js";
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 document.querySelectorAll(".reference-link").forEach((link) => link.remove());
 
@@ -20,11 +16,7 @@ i18n?.addTranslations({
   "vocabulary.heading": { zh: "图文 UI 词典", en: "Illustrated UI Vocabulary" },
   "vocabulary.intro": { zh: "像看图鉴一样认识界面：先用大白话描述需求，再看它在屏幕上长什么样、由哪些部件组成，以及应该怎样交给 AI 实现。", en: "Learn interfaces like a visual field guide: start with a plain-language request, see how the pattern appears on screen, inspect its parts, and hand it to an AI agent for implementation." },
   "vocabulary.keyTerms": { zh: "个重点词条", en: "key terms" },
-<<<<<<< HEAD
   "vocabulary.localExamples": { zh: "代码组件预览", en: "Code-rendered component previews" },
-=======
-  "vocabulary.localExamples": { zh: "真实本地案例图", en: "Real local examples" },
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   "vocabulary.copyablePrompts": { zh: "可复制 Agent prompt", en: "Copyable agent prompts" },
   "vocabulary.diagramLabel": { zh: "从用户需求到界面实现的三步示意", en: "Three steps from a user request to interface implementation" },
   "vocabulary.plainRequest": { zh: "人话需求", en: "Plain request" },
@@ -59,16 +51,9 @@ const tr = (zh, en) => currentLanguage === "en" ? en : zh;
 const localizedEntry = (entry, language = currentLanguage) => localizeVocabularyEntry(entry, language);
 const localizedEntryById = (id) => localizedEntry(vocabularyById[id]);
 const termAliasMarkup = (entry) => currentLanguage === "zh" ? ` <em>${escapeHtml(entry.en)}</em>` : "";
-<<<<<<< HEAD
 const componentCaption = (entry) => currentLanguage === "en"
   ? `${entry.en} is rendered as a reusable UI component; external imagery is used only as replaceable media.`
   : `${entry.name}由可复用 UI 组件渲染；外部图片只作为可替换的媒体占位。`;
-=======
-const generatedCover = (entry) => `./assets/vocabulary/generated-v2/covers/${entry.id}.webp`;
-const coverCaption = (entry) => currentLanguage === "en"
-  ? `${entry.en} abstract editorial cover. UI text, controls, and interaction remain rendered in code.`
-  : `${entry.name}的抽象视觉封面；文字、按钮和交互仍由代码渲染。`;
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 function readStoredValue(key) {
   try { return localStorage.getItem(key); } catch { return null; }
@@ -162,13 +147,8 @@ function renderCategories() {
 
 function previewMarkup(entry) {
   const localized = localizedEntry(entry);
-<<<<<<< HEAD
   const preview = vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
   return `<div class="entry-visual" role="img" aria-label="${escapeHtml(tr(`${localized.name}的代码组件预览`, `Code-rendered component preview for ${localized.name}`))}">${preview}<div class="visual-label"><span>${escapeHtml(entry.en)}</span><span>${escapeHtml(entry.category === "visual" ? tr("视觉", "VISUAL") : tr("UI 角色", "UI ROLE"))}</span></div></div>`;
-=======
-  const coverAlt = tr(`${localized.name}的抽象视觉封面`, `Abstract editorial cover for ${localized.name}`);
-  return `<div class="entry-visual"><img src="${escapeHtml(generatedCover(entry))}" alt="${escapeHtml(coverAlt)}" loading="lazy" width="640" height="400"><div class="visual-label"><span>${escapeHtml(entry.en)}</span><span>${escapeHtml(entry.category === "visual" ? tr("视觉", "VISUAL") : tr("UI 角色", "UI ROLE"))}</span></div></div>`;
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 }
 
 function cardMarkup(entry) {
@@ -226,7 +206,6 @@ function tableMarkup(rows, headings) {
   return `<div class="detail-table-wrap"><table><thead><tr>${headings.map((heading) => `<th>${escapeHtml(heading)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
 }
 
-<<<<<<< HEAD
 function relatedEntries(entry) {
   const ids = new Set(entry.related);
   for (const candidate of vocabularyEntries) {
@@ -268,35 +247,6 @@ function openTerm(id, { focusTitle = false } = {}) {
     document.documentElement.classList.add("term-dialog-open");
     termDialog.showModal();
   }
-=======
-function openTerm(id, { focusTitle = false } = {}) {
-  const entry = vocabularyById[id];
-  if (!entry) return;
-  if (!termDialog.open) dialogReturnEntryId = id;
-  const favorite = state.favorites.has(entry.id);
-  termDialogContent.innerHTML = `<div class="term-detail">
-    <div class="detail-topline"><span>${escapeHtml(categoryLabel(entry.category))} · ${escapeHtml(entry.level)}</span><button class="favorite-detail-button" type="button" data-detail-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}">${favorite ? "★ 已收藏" : "☆ 收藏词条"}</button></div>
-    <h2 id="termDialogTitle" tabindex="-1">${escapeHtml(entry.name)} <em>${escapeHtml(entry.en)}</em></h2>
-    <div class="detail-tags">${entry.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
-    <blockquote class="detail-ask">“${escapeHtml(entry.ask)}”</blockquote>
-    <p class="detail-definition"><strong>${escapeHtml(entry.definition)}</strong> ${escapeHtml(entry.role)}</p>
-    <figure class="detail-figure"><img src="${escapeHtml(generatedCover(entry))}" alt="${escapeHtml(tr(`${entry.name}的抽象视觉封面`, `Abstract editorial cover for ${entry.en}`))}" width="640" height="400"><figcaption>${escapeHtml(coverCaption(entry))}</figcaption></figure>
-    <div class="detail-columns">
-      <section><h3>组成结构 · Anatomy</h3>${tableMarkup(entry.anatomy, ["部件", "它负责什么"])}</section>
-      <section><h3>常见变体 · Variants</h3>${tableMarkup(entry.variants, ["变体", "什么时候用"])}</section>
-    </div>
-    <div class="detail-columns">
-      <section><h3>状态与响应式</h3>${tableMarkup(entry.states, ["状态", "实现提示"])}</section>
-      <section><h3>什么时候用 / 不用</h3><h4>适合</h4>${listMarkup(entry.useWhen)}<h4>不要硬用</h4>${listMarkup(entry.avoidWhen)}</section>
-    </div>
-    <section class="split-panel"><div><h3>code-ui</h3>${listMarkup(entry.codeUI, "compact-list")}</div><div><h3>image2-assets</h3>${listMarkup(entry.image2, "compact-list")}</div></section>
-    <section class="prompt-panel"><div class="prompt-heading"><h3>你可以这样告诉 AI Agent</h3><button class="copy-prompt-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}">复制 prompt</button></div><pre id="prompt-${escapeHtml(entry.id)}"><code>${escapeHtml(entry.prompt)}</code></pre></section>
-    <section class="confusion-panel"><h3>容易混淆</h3><p>${escapeHtml(entry.confusedWith)}</p><p class="related-terms"><strong>相关词：</strong>${entry.related.map((related) => vocabularyById[related] ? `<button type="button" data-related-term="${escapeHtml(related)}">${escapeHtml(vocabularyById[related].name)}</button>` : "").join(" ")}</p></section>
-    <footer class="detail-footer"><a href="${escapeHtml(entry.source)}" target="_blank" rel="noreferrer">查看权威出处 ↗</a><span>本地案例图 · 文字与控件由代码实现</span></footer>
-  </div>`;
-  termDialogContent.scrollTop = 0;
-  if (!termDialog.open) termDialog.showModal();
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   if (focusTitle) $("#termDialogTitle")?.focus({ preventScroll: true });
   $("[data-detail-favorite]").addEventListener("click", () => {
     if (state.favorites.has(id)) state.favorites.delete(id); else state.favorites.add(id);
@@ -310,17 +260,10 @@ function openTerm(id, { focusTitle = false } = {}) {
 }
 
 async function copyPrompt(id) {
-<<<<<<< HEAD
   const prompt = localizedEntryById(id)?.prompt;
   if (!prompt) return;
   try { await navigator.clipboard.writeText(prompt); } catch { const area = document.createElement("textarea"); area.value = prompt; document.body.append(area); area.select(); document.execCommand("copy"); area.remove(); }
   showToast(tr("Agent prompt 已复制", "Agent prompt copied"));
-=======
-  const prompt = vocabularyById[id]?.prompt;
-  if (!prompt) return;
-  try { await navigator.clipboard.writeText(prompt); } catch { const area = document.createElement("textarea"); area.value = prompt; document.body.append(area); area.select(); document.execCommand("copy"); area.remove(); }
-  showToast("Agent prompt 已复制");
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 }
 
 let toastTimer;
@@ -335,22 +278,16 @@ $("#vocabularySearch").addEventListener("input", (event) => { state.query = even
 $("#sortSelect").addEventListener("change", (event) => { state.sort = event.target.value; renderEntries(); });
 $("#clearSearch").addEventListener("click", () => { state.query = ""; state.category = "all"; $("#vocabularySearch").value = ""; render(); $("#vocabularySearch").focus(); });
 termDialog.addEventListener("close", () => {
-<<<<<<< HEAD
   document.documentElement.classList.remove("term-dialog-open");
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   if (dialogReturnEntryId) focusDataAttribute("data-open-term", dialogReturnEntryId);
   if (!document.activeElement || document.activeElement === document.body) focusCategory(state.category);
   dialogReturnEntryId = null;
 });
 document.addEventListener("keydown", (event) => { if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); $("#vocabularySearch").focus(); } if (event.key === "Escape" && !termDialog.open) { state.query = ""; $("#vocabularySearch").value = ""; renderEntries(); } });
-<<<<<<< HEAD
 window.addEventListener("image2:languagechange", (event) => {
   currentLanguage = event.detail?.language === "en" ? "en" : "zh";
   render();
   if (termDialog.open && dialogReturnEntryId) openTerm(dialogReturnEntryId);
 });
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 render();

@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 import { getLibraryPreviewDevice, libraryPreviewAssetVersion } from "./library-preview-config.mjs";
 import { searchGuides } from "./library-search.mjs?v=20260813-search-v5";
 import { styleGuides, styleProfiles } from "./catalog/index.js?v=20260815-artmuse-sequence";
-=======
-import { getLibraryPreviewDevice, getLibraryPreviewDisplayDevice, libraryPreviewAssetVersion } from "./library-preview-config.mjs";
-import { searchGuides } from "./library-search.mjs?v=20260813-search-v5";
-import { styleGuides, styleProfiles } from "./catalog/index.js";
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 const previewImageSets = Object.freeze({
   museum: [
@@ -91,7 +85,6 @@ const previewImageSets = Object.freeze({
 });
 
 const cardPreviewImages = Object.freeze({
-<<<<<<< HEAD
   museum: "./assets/cases/museum-app/video-frames/01-home.png",
   fashion: "./assets/cases/fashion-shopping-app/card-screen.png",
   news: "./assets/cases/news-app/card-screen.png",
@@ -99,33 +92,18 @@ const cardPreviewImages = Object.freeze({
 });
 const fittedCardPreviewIds = new Set(["museum", "fashion", "news"]);
 
-=======
-  notebook: "./demo/marble-note/screenshots/library-preview-reference-v2.png"
-});
-
-const githubApiUrl = "https://api.github.com/repos/zhu-guli326/image2_UI_skill";
-const githubStarsFallbackUrl = "https://img.shields.io/github/stars/zhu-guli326/image2_UI_skill.json";
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 const gallery = document.querySelector("#demoGallery");
 const searchInput = document.querySelector("#styleSearch");
 const categoryNav = document.querySelector("#categoryNav");
 const catalogHeading = document.querySelector("#catalogHeading");
 const resultCount = document.querySelector("#resultCount");
 const emptyState = document.querySelector("#emptyState");
-<<<<<<< HEAD
 const previewDialog = document.querySelector("#previewDialog");
 const previewDialogContent = previewDialog.querySelector(".preview-dialog-content");
 const previewDialogTitle = document.querySelector("#previewDialogTitle");
 const previewDialogDetails = document.querySelector("#previewDialogDetails");
 const previewDialogImage = document.querySelector("#previewDialogImage");
 const previewDialogSequence = document.querySelector("#previewDialogSequence");
-=======
-const githubStars = document.querySelector("#githubStars");
-const previewDialog = document.querySelector("#previewDialog");
-const previewDialogTitle = document.querySelector("#previewDialogTitle");
-const previewDialogDetails = document.querySelector("#previewDialogDetails");
-const previewDialogImage = document.querySelector("#previewDialogImage");
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 const previewImageNavigation = document.querySelector("#previewImageNavigation");
 const previewImagePrevious = document.querySelector("#previewImagePrevious");
 const previewImageNext = document.querySelector("#previewImageNext");
@@ -134,7 +112,6 @@ const previewImageCount = document.querySelector("#previewImageCount");
 const previewDialogVideo = document.querySelector("#previewDialogVideo");
 const previewDialogDemo = document.querySelector("#previewDialogDemo");
 const previewCursor = document.querySelector("#previewCursor");
-<<<<<<< HEAD
 const previewMediaStage = document.querySelector("#previewMediaStage");
 const previewMediaFrame = document.querySelector("#previewMediaFrame");
 const previewPhoneScreen = document.querySelector("#previewPhoneScreen");
@@ -149,22 +126,13 @@ const previewDialogStartTask = document.querySelector("#previewDialogStartTask")
 const previewDialogMoreActionsSummary = document.querySelector("#previewDialogMoreActionsSummary");
 const previewDialogComponents = document.querySelector("#previewDialogComponents");
 const previewDialogCompare = document.querySelector("#previewDialogCompare");
-=======
-const previewMediaFrame = document.querySelector("#previewMediaFrame");
-const previewModeSwitch = document.querySelector("#previewModeSwitch");
-const previewDialogCopy = document.querySelector("#previewDialogCopy");
-const previewDialogComponents = document.querySelector("#previewDialogComponents");
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 const previewDialogOpenLive = document.querySelector("#previewDialogOpenLive");
 const previewMediaStatus = document.querySelector("#previewMediaStatus");
 const previewMediaStatusText = document.querySelector("#previewMediaStatusText");
 const previewMediaRetry = document.querySelector("#previewMediaRetry");
 const infoDialog = document.querySelector("#infoDialog");
 const infoDialogContent = document.querySelector("#infoDialogContent");
-<<<<<<< HEAD
 const toast = document.querySelector("#projectToast");
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 let activeCategory = "all";
 let activeTag = "";
 let activePreviewGuide = null;
@@ -172,7 +140,6 @@ let previewLoadTimer = 0;
 let activePreviewMode = null;
 let activePreviewImages = [];
 let activePreviewImageIndex = 0;
-<<<<<<< HEAD
 let activeVideoSequence = null;
 let previewSequenceTime = 0;
 let previewSequencePlaying = false;
@@ -181,9 +148,6 @@ let previewSequenceFrameIndex = -1;
 let previewSequenceAnimationFrame = 0;
 let activeInfoPanelId = "";
 let toastTimer = 0;
-=======
-let activeInfoPanelId = "";
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 const track = (name, properties) => window.image2Analytics?.track(name, properties);
 // Keep the opening catalog row aligned with the visual reference while leaving
 // category and search results in their data-defined order.
@@ -195,13 +159,8 @@ const libraryCopy = Object.freeze({
     categories: { all: "全部案例", culture: "文化内容", commerce: "零售电商", editorial: "新闻阅读", travel: "旅行体验", creative: "创意工具", wellness: "健康陪伴" },
     title: "image2 UI 风格案例库", description: "image2 UI 风格案例库。", skip: "跳到案例列表", sidebarLabel: "案例类型", localDemo: "本地演示", realCases: (count) => `${count} 个真实 UI 案例`, allSkills: "全部浏览", guides: [["使用指南", "从选择到交付"], ["项目原理", "Image2 UI"]], author: "作者动态", profile: "查看主页",
     heroTitle: "界面风格案例库", heroIntro: "从已有的真实 App 演示中提炼画面、排版与交互方向。选择一个案例，复制它的风格配置，再开始做下一张界面。", heroAuthor: "作者主页", cases: "案例", styles: "风格", search: "搜索案例名称、使用场景或风格...", featured: "精选案例", searchResults: "搜索结果", startVisual: "从画面开始", searchTitle: "匹配的界面方向", count: (count) => `${count} 个案例`, empty: "没有找到匹配的案例。",
-<<<<<<< HEAD
     imagePreview: "效果图预览", video: "视频", clickable: "可点击", details: "查看要点", copyConfig: "复制配置", applyProject: "应用到当前项目", localReference: "本地参考图", styleKeywords: "风格关键词", brands: "适用风格档案", openDetails: "查看案例详情", openPreview: "打开预览", unavailable: "效果图不可用",
     previous: "上一张效果图", next: "下一张效果图", loadDemo: "正在加载可点击 Demo...", timeout: "Demo 加载超时，请重试或在新窗口打开。", failed: "Demo 加载失败，请重试或使用下方链接在新窗口打开。", openLive: "新窗口打开可点击 Demo", retry: "重试", previewTitle: "案例预览", previewType: "预览方式", play: "播放视频", pause: "暂停视频", progress: "视频进度", fullscreen: "全屏查看", exitFullscreen: "退出全屏",
-=======
-    imagePreview: "效果图预览", video: "视频", clickable: "可点击", details: "查看要点", copyConfig: "复制配置", localReference: "本地参考图", styleKeywords: "风格关键词", brands: "适用风格档案", openDetails: "查看案例详情", openPreview: "打开预览", unavailable: "效果图不可用",
-    previous: "上一张效果图", next: "下一张效果图", loadDemo: "正在加载可点击 Demo...", timeout: "Demo 加载超时，请重试或在新窗口打开。", failed: "Demo 加载失败，请重试或使用下方链接在新窗口打开。", openLive: "新窗口打开可点击 Demo", retry: "重试", previewTitle: "案例预览", previewType: "预览方式",
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     facts: ["画面色彩", "页面节奏", "参考方向", "适用场景"], recipe: ["图片", "排版", "组件"], brandProfiles: "适用风格档案", componentLibrary: "另选品牌组件", copyFull: "复制图片与提示词配置", viewImage: "查看效果图", playVideo: "播放 Demo 视频", openDemo: "打开可点击 Demo", copied: "已复制", generated: "已生成",
   },
   en: {
@@ -209,13 +168,8 @@ const libraryCopy = Object.freeze({
     categories: { all: "All cases", culture: "Culture", commerce: "Commerce", editorial: "Editorial", travel: "Travel", creative: "Creative tools", wellness: "Wellness" },
     title: "image2 UI Style Library", description: "A visual style library of image2 UI cases.", skip: "Skip to case list", sidebarLabel: "Case types", localDemo: "Local demos", realCases: (count) => `${count} real UI cases`, allSkills: "Browse all", guides: [["How to use", "From selection to delivery"], ["Principles", "Image2 UI"]], author: "Creator", profile: "View profile",
     heroTitle: "Interface style library", heroIntro: "Explore visual, typographic, and interaction directions drawn from working app demos. Choose a case, copy its style configuration, and start your next interface.", heroAuthor: "Creator profiles", cases: "Cases", styles: "Styles", search: "Search by case, use case, or visual style...", featured: "Featured cases", searchResults: "Search results", startVisual: "Start with the visual", searchTitle: "Matching interface directions", count: (count) => `${count} cases`, empty: "No matching cases found.",
-<<<<<<< HEAD
     imagePreview: "Screen preview", video: "Video", clickable: "Interactive", details: "View notes", copyConfig: "Copy config", applyProject: "Apply to current project", localReference: "Local reference", styleKeywords: "Style keywords", brands: "Compatible style profiles", openDetails: "View case details", openPreview: "Open preview", unavailable: "Screen unavailable",
     previous: "Previous screen", next: "Next screen", loadDemo: "Loading interactive demo...", timeout: "The demo timed out. Retry or open it in a new window.", failed: "The demo failed to load. Retry or use the link below to open it in a new window.", openLive: "Open interactive demo in a new window", retry: "Retry", previewTitle: "Case preview", previewType: "Preview type", play: "Play video", pause: "Pause video", progress: "Video progress", fullscreen: "View full screen", exitFullscreen: "Exit full screen",
-=======
-    imagePreview: "Screen preview", video: "Video", clickable: "Interactive", details: "View notes", copyConfig: "Copy config", localReference: "Local reference", styleKeywords: "Style keywords", brands: "Compatible style profiles", openDetails: "View case details", openPreview: "Open preview", unavailable: "Screen unavailable",
-    previous: "Previous screen", next: "Next screen", loadDemo: "Loading interactive demo...", timeout: "The demo timed out. Retry or open it in a new window.", failed: "The demo failed to load. Retry or use the link below to open it in a new window.", openLive: "Open interactive demo in a new window", retry: "Retry", previewTitle: "Case preview", previewType: "Preview type",
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     facts: ["Palette", "Page rhythm", "Reference direction", "Best for"], recipe: ["Image", "Typography", "Components"], brandProfiles: "Compatible style profiles", componentLibrary: "Choose brand components", copyFull: "Copy image and prompt config", viewImage: "View screens", playVideo: "Play demo video", openDemo: "Open interactive demo", copied: "Copied", generated: "Generated",
   },
 });
@@ -326,7 +280,6 @@ function getEmbeddedDemoUrl(guide) {
   return url.href;
 }
 
-<<<<<<< HEAD
 function projectPatchForGuide(guide) {
   const template = guide.category === "commerce" ? "commerce" : guide.category === "creative" ? "dashboard" : guide.category === "wellness" ? "social" : "landing";
   const brand = guide.category === "commerce" ? "airbnb" : guide.category === "creative" ? "linear" : guide.category === "editorial" ? "notion" : "stripe";
@@ -381,17 +334,10 @@ function updateEmbeddedPreviewScale() {
   if (!activePreviewGuide || previewDialogDemo.hidden) return;
   const { width, height } = getPreviewDevice(activePreviewGuide, "live");
   const scale = Math.min(previewPhoneScreen.clientWidth / width, previewPhoneScreen.clientHeight / height) * 1.04;
-=======
-function updateEmbeddedPreviewScale() {
-  if (!activePreviewGuide || previewDialogDemo.hidden) return;
-  const { width, height } = getPreviewDevice(activePreviewGuide, "live");
-  const scale = Math.min(previewMediaFrame.clientWidth / width, previewMediaFrame.clientHeight / height);
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   previewMediaFrame.style.setProperty("--preview-embed-scale", String(scale));
 }
 
 const previewFrameObserver = new ResizeObserver(updateEmbeddedPreviewScale);
-<<<<<<< HEAD
 previewFrameObserver.observe(previewPhoneScreen);
 
 function formatVideoTime(value) {
@@ -517,9 +463,6 @@ async function togglePreviewFullscreen() {
   setPreviewFullscreenState(true);
   if (previewMediaStage.requestFullscreen) await previewMediaStage.requestFullscreen().catch(() => {});
 }
-=======
-previewFrameObserver.observe(previewMediaFrame);
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 function buildStyleMode(guide) {
   guide = localizeRecord(guide);
@@ -624,10 +567,7 @@ function renderDemoGallery() {
     const openLabel = previewModeLabels[openMode];
     const poster = getCardPoster(guide);
     const referenceMatchedPoster = cardPreviewImages[guide.id] ? getReferenceMatchedCardPoster(guide) : poster;
-<<<<<<< HEAD
     const deviceArtClass = fittedCardPreviewIds.has(guide.id) ? " has-fitted-device-art" : (guide.previewImage || cardPreviewImages[guide.id] ? " has-wide-device-art" : "");
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     const previewActionButtons = [
       guide.video ? `<button class="style-details-button" type="button" data-preview-id="${guide.id}" data-preview-mode="video">${copy.video}</button>` : "",
       guide.liveDemo ? `<button class="style-details-button" type="button" data-preview-id="${guide.id}" data-preview-mode="live">${copy.clickable}</button>` : ""
@@ -635,11 +575,7 @@ function renderDemoGallery() {
     return `
     <article class="demo-card" data-case-id="${guide.id}">
       <div class="demo-card-preview" style="--preview: ${guide.preview}">
-<<<<<<< HEAD
         <figure class="phone-frame phone-frame--card phone-preview-media${deviceArtClass}"><div class="phone-screen"><img class="phone-media" src="${referenceMatchedPoster}" alt="${window.image2I18n?.language === "en" ? `${guide.style} mobile interface thumbnail` : `${guide.style} 手机界面缩略图`}" decoding="async"></div><span class="media-hint">${copy.imagePreview}</span></figure>
-=======
-        <div class="phone-preview-media${cardPreviewImages[guide.id] ? " is-effect-image" : ""}"><img src="${referenceMatchedPoster}" alt="${window.image2I18n?.language === "en" ? `${guide.style} mobile interface thumbnail` : `${guide.style} 手机界面缩略图`}" decoding="async"><span class="media-hint">${copy.imagePreview}</span></div>
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
         <button class="preview-open-button" type="button" data-preview-id="${guide.id}" data-preview-mode="${openMode}" aria-label="${copy.openPreview}: ${guide.style}, ${openLabel}"><span>${openLabel}</span></button>
       </div>
       <div class="demo-card-body">
@@ -647,16 +583,10 @@ function renderDemoGallery() {
         <div class="demo-card-meta"><span>${guide.name}</span><span>${guide.bestFor}</span></div>
         <h3>${guide.style}</h3>
         <p class="demo-card-summary">${guide.summary}</p>
-<<<<<<< HEAD
         <div class="case-statuses" aria-label="案例状态"><span>Screenshot</span>${guide.liveDemo ? `<span class="is-live">Clickable</span><span>Code Ready</span>` : ""}</div>
         <div class="style-tags" aria-label="${copy.styleKeywords}">${guide.tags.map((tag, index) => { const stableTag = sourceGuide.tags[index] || tag; return `<a class="style-tag${normalizeTag(stableTag) === normalizeTag(activeTag) ? " is-active" : ""}" href="./library.html?tag=${encodeURIComponent(stableTag)}" data-tag="${stableTag}" aria-pressed="${normalizeTag(stableTag) === normalizeTag(activeTag)}">${tag}</a>`; }).join("")}</div>
         <div class="brand-links" aria-label="${copy.brands}">${getStyleProfiles(sourceGuide).map((profile) => `<span>${profile.name}</span>`).join("")}</div>
         <div class="demo-card-footer"><small title="${copy.localReference}: ${guide.referenceImage}">${copy.localReference}: ${guide.reference}</small><div class="demo-card-actions">${previewActionButtons}<button class="style-details-button" type="button" data-style-details="${guide.id}">${copy.details}</button><button class="copy-style-button" type="button" data-apply-case="${guide.id}">${copy.applyProject}</button></div></div>
-=======
-        <div class="style-tags" aria-label="${copy.styleKeywords}">${guide.tags.map((tag, index) => { const stableTag = sourceGuide.tags[index] || tag; return `<a class="style-tag${normalizeTag(stableTag) === normalizeTag(activeTag) ? " is-active" : ""}" href="./library.html?tag=${encodeURIComponent(stableTag)}" data-tag="${stableTag}" aria-pressed="${normalizeTag(stableTag) === normalizeTag(activeTag)}">${tag}</a>`; }).join("")}</div>
-        <div class="brand-links" aria-label="${copy.brands}">${getStyleProfiles(sourceGuide).map((profile) => `<span>${profile.name}</span>`).join("")}</div>
-        <div class="demo-card-footer"><small title="${copy.localReference}: ${guide.referenceImage}">${copy.localReference}: ${guide.reference}</small><div class="demo-card-actions">${previewActionButtons}<button class="style-details-button" type="button" data-style-details="${guide.id}">${copy.details}</button><button class="copy-style-button" type="button" data-copy-style="${guide.id}" title="${copy.copyFull}">${copy.copyConfig}</button></div></div>
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
       </div>
     </article>
   `;
@@ -669,10 +599,7 @@ function renderDemoGallery() {
     image.remove();
   }, { once: true }));
   gallery.querySelectorAll("[data-copy-style]").forEach((button) => button.addEventListener("click", () => copyStyleMode(button)));
-<<<<<<< HEAD
   gallery.querySelectorAll("[data-apply-case]").forEach((button) => button.addEventListener("click", () => applyCaseToProject(button.dataset.applyCase, true)));
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   gallery.querySelectorAll("[data-style-details]").forEach((button) => button.addEventListener("click", () => openPreview(button.dataset.styleDetails)));
   gallery.querySelectorAll("[data-preview-id]").forEach((button) => button.addEventListener("click", () => openPreview(button.dataset.previewId, button.dataset.previewMode)));
   gallery.querySelectorAll("[data-tag]").forEach((link) => link.addEventListener("click", (event) => {
@@ -691,21 +618,12 @@ function setPreviewMode(mode, shouldTrack = true) {
   const isImage = nextMode === "image";
   const isVideo = nextMode === "video";
   const isLiveDemo = nextMode === "live";
-<<<<<<< HEAD
   const videoSequence = isVideo ? getVideoSequence(guide) : null;
   const { width: phoneWidth, height: phoneHeight } = getPreviewDevice(guide, nextMode);
   activePreviewMode = nextMode;
 
   previewMediaStage.classList.toggle("is-video", isVideo);
   previewMediaFrame.classList.toggle("has-wide-device-art", Boolean(guide.previewImage && !guide.liveDemo && !videoSequence));
-=======
-  const { width: phoneWidth, height: phoneHeight } = getPreviewDevice(guide, nextMode);
-  const { width: displayWidth, height: displayHeight } = getLibraryPreviewDisplayDevice();
-  activePreviewMode = nextMode;
-
-  previewMediaFrame.style.setProperty("--preview-phone-ratio", `${displayWidth} / ${displayHeight}`);
-  previewMediaFrame.style.setProperty("--preview-phone-ratio-value", displayWidth / displayHeight);
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   previewMediaFrame.style.setProperty("--preview-source-width", `${phoneWidth}px`);
   previewMediaFrame.style.setProperty("--preview-source-height", `${phoneHeight}px`);
   [previewDialogVideo, previewDialogDemo].forEach((element) => {
@@ -714,10 +632,7 @@ function setPreviewMode(mode, shouldTrack = true) {
   });
 
   previewDialogImage.hidden = !isImage;
-<<<<<<< HEAD
   previewDialogSequence.hidden = true;
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   previewDialogVideo.hidden = !isVideo;
   previewDialogDemo.hidden = !isLiveDemo;
   previewMediaStatus.hidden = !isLiveDemo;
@@ -725,12 +640,9 @@ function setPreviewMode(mode, shouldTrack = true) {
   previewCursor.hidden = !isVideo;
   previewImageNavigation.hidden = !isImage || activePreviewImages.length < 2;
   previewCursor.classList.toggle("is-running", isVideo && !previewDialogVideo.paused);
-<<<<<<< HEAD
   previewVideoProgress.disabled = !isVideo;
   previewVideoToggle.disabled = !isVideo;
   updateVideoControls();
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   previewModeSwitch.querySelectorAll("button").forEach((button) => {
     const active = button.dataset.previewView === nextMode;
     button.classList.toggle("is-active", active);
@@ -738,11 +650,7 @@ function setPreviewMode(mode, shouldTrack = true) {
   });
 
   if (isImage) {
-<<<<<<< HEAD
     unloadPreviewVideo();
-=======
-    previewDialogVideo.pause();
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     previewDialogDemo.src = "about:blank";
     previewDialogImage.hidden = false;
     previewMediaStatus.hidden = true;
@@ -750,7 +658,6 @@ function setPreviewMode(mode, shouldTrack = true) {
     showPreviewImage(activePreviewImageIndex);
   } else if (isVideo) {
     previewDialogDemo.src = "about:blank";
-<<<<<<< HEAD
     unloadPreviewVideo();
     if (videoSequence) {
       activeVideoSequence = videoSequence;
@@ -770,14 +677,6 @@ function setPreviewMode(mode, shouldTrack = true) {
     }
   } else {
     unloadPreviewVideo();
-=======
-    previewDialogVideo.poster = getCardPoster(guide);
-    previewDialogVideo.src = guide.video;
-    previewDialogVideo.load();
-    previewDialogVideo.play().catch(() => {});
-  } else {
-    previewDialogVideo.pause();
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     window.clearTimeout(previewLoadTimer);
     previewMediaStatusText.textContent = currentCopy().loadDemo;
     previewMediaStatus.classList.remove("is-error");
@@ -809,7 +708,6 @@ function openPreview(id, mode = "auto") {
 
   previewDialogTitle.textContent = `${guide.name} / ${guide.style}`;
   const applicableStyles = getStyleProfiles(sourceGuide);
-<<<<<<< HEAD
   const isEnglish = window.image2I18n?.language === "en";
   previewDialogDetails.innerHTML = `
     <p class="preview-dialog-summary">${guide.summary}</p>
@@ -844,27 +742,6 @@ function openPreview(id, mode = "auto") {
   previewDialogCompare.href = labUrlForGuide(sourceGuide, "compare");
   previewDialogCompare.textContent = window.image2I18n?.language === "en" ? "Compare with current project" : "与当前方案对比";
   previewMediaStage.style.setProperty("--preview-media-bg", guide.preview);
-=======
-  previewDialogDetails.innerHTML = `
-    <p class="preview-dialog-summary">${guide.summary}</p>
-    <dl class="preview-dialog-facts">
-      <div><dt>${copy.facts[0]}</dt><dd>${guide.palette}</dd></div>
-      <div><dt>${copy.facts[1]}</dt><dd>${guide.layout}</dd></div>
-      <div><dt>${copy.facts[2]}</dt><dd>${guide.reference}</dd></div>
-      <div><dt>${copy.facts[3]}</dt><dd>${guide.bestFor}</dd></div>
-    </dl>
-    <p class="preview-dialog-principle">${guide.recipe.principle}</p>
-    <div class="preview-dialog-recipe">
-      <p><strong>${copy.recipe[0]}:</strong> ${guide.recipe.image}</p>
-      <p><strong>${copy.recipe[1]}:</strong> ${guide.recipe.type}</p>
-      <p><strong>${copy.recipe[2]}:</strong> ${guide.recipe.components}</p>
-    </div>
-    <div class="preview-dialog-profiles"><strong>${copy.brandProfiles}</strong><div>${applicableStyles.map((profile) => `<span>${profile.name}</span>`).join("")}</div></div>`;
-  previewDialogCopy.dataset.copyStyle = guide.id;
-  previewDialogCopy.textContent = copy.copyFull;
-  previewDialogComponents.textContent = copy.componentLibrary;
-  previewMediaFrame.style.setProperty("--preview-media-bg", guide.preview);
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   previewDialogOpenLive.hidden = !guide.liveDemo;
   if (guide.liveDemo) previewDialogOpenLive.href = guide.liveDemo;
   previewDialogOpenLive.textContent = currentCopy().openLive;
@@ -1021,19 +898,11 @@ document.addEventListener("keydown", (event) => {
 });
 document.querySelectorAll("a[href*='github.com']").forEach((link) => link.addEventListener("click", () => track("github_click", { location: link.className || "stats" })));
 document.querySelectorAll("[data-info-panel]").forEach((button) => button.addEventListener("click", () => openInfoPanel(button.dataset.infoPanel)));
-<<<<<<< HEAD
   previewDialog.addEventListener("close", () => {
   window.clearTimeout(previewLoadTimer);
   if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {});
   setPreviewFullscreenState(false);
   unloadPreviewVideo();
-=======
-previewDialog.addEventListener("close", () => {
-  window.clearTimeout(previewLoadTimer);
-  previewDialogVideo.pause();
-  previewDialogVideo.currentTime = 0;
-  previewDialogVideo.removeAttribute("src");
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   previewDialogImage.removeAttribute("src");
   previewDialogDemo.src = "about:blank";
   previewMediaStatus.hidden = true;
@@ -1042,13 +911,10 @@ previewDialog.addEventListener("close", () => {
   previewMediaStatus.classList.remove("is-error");
   previewCursor.hidden = true;
   previewCursor.classList.remove("is-running");
-<<<<<<< HEAD
   previewMediaStage.classList.remove("is-video");
   previewVideoProgress.value = "0";
   previewVideoProgress.max = "0";
   updateVideoControls();
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   previewImageNavigation.hidden = true;
   activePreviewMode = null;
   activePreviewImages = [];
@@ -1065,7 +931,6 @@ previewImageNext.addEventListener("click", () => {
 });
 previewDialogVideo.addEventListener("loadedmetadata", () => {
   previewMediaFrame.style.setProperty("--cursor-duration", `${Math.max(6, previewDialogVideo.duration)}s`);
-<<<<<<< HEAD
   updateVideoControls();
 });
 previewDialogVideo.addEventListener("play", () => previewCursor.classList.add("is-running"));
@@ -1096,14 +961,6 @@ previewDialogImage.addEventListener("error", () => {
 previewDialogSequence.addEventListener("error", () => {
   if (activePreviewGuide) showPreviewImageError(previewDialogSequence, activePreviewGuide);
 });
-=======
-});
-previewDialogVideo.addEventListener("play", () => previewCursor.classList.add("is-running"));
-previewDialogVideo.addEventListener("pause", () => previewCursor.classList.remove("is-running"));
-previewDialogImage.addEventListener("error", () => {
-  if (activePreviewGuide) showPreviewImageError(previewDialogImage, activePreviewGuide);
-});
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 previewDialogDemo.addEventListener("load", () => {
   window.clearTimeout(previewLoadTimer);
   if (activePreviewGuide && !previewDialogDemo.hidden) previewMediaStatus.hidden = true;
@@ -1121,7 +978,6 @@ previewMediaRetry.addEventListener("click", () => {
 previewDialogCopy.addEventListener("click", () => {
   if (activePreviewGuide) copyStyleMode(previewDialogCopy);
 });
-<<<<<<< HEAD
 previewDialogApply.addEventListener("click", () => {
   if (!activePreviewGuide) return;
   applyCaseToProject(activePreviewGuide.id, true);
@@ -1141,12 +997,6 @@ previewDialog.addEventListener("click", (event) => {
 infoDialog.addEventListener("click", (event) => {
   if (event.target === infoDialog) infoDialog.close();
 });
-=======
-
-[previewDialog, infoDialog].forEach((dialog) => dialog.addEventListener("click", (event) => {
-  if (event.target === dialog) dialog.close();
-}));
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 window.addEventListener("popstate", () => {
   activeTag = readTagFromUrl();
@@ -1155,17 +1005,6 @@ window.addEventListener("popstate", () => {
   renderDemoGallery();
 });
 
-<<<<<<< HEAD
-=======
-function updateGitHubStars(count) {
-  if (!Number.isFinite(count)) return false;
-  const stars = new Intl.NumberFormat(window.image2I18n?.language === "en" ? "en" : "zh-CN").format(count);
-  githubStars.textContent = stars;
-  document.querySelectorAll(".site-nav-stars").forEach((element) => { element.textContent = stars; });
-  return true;
-}
-
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 function applyLibraryLanguage() {
   const copy = currentCopy();
   document.title = copy.title;
@@ -1203,13 +1042,10 @@ function applyLibraryLanguage() {
   previewImageNext.title = copy.next;
   previewMediaRetry.textContent = copy.retry;
   previewDialogOpenLive.textContent = copy.openLive;
-<<<<<<< HEAD
   previewVideoProgress.setAttribute("aria-label", copy.progress);
   previewExpand.setAttribute("aria-label", previewDialog.classList.contains("is-lightbox") ? copy.exitFullscreen : copy.fullscreen);
   previewExpand.title = previewExpand.getAttribute("aria-label");
   updateVideoControls();
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   document.querySelectorAll(".dialog-close").forEach((button) => button.setAttribute("aria-label", window.image2I18n?.language === "en" ? "Close dialog" : "关闭弹窗"));
   updateCatalogCounts();
   renderDemoGallery();
@@ -1219,7 +1055,6 @@ function applyLibraryLanguage() {
 
 window.image2I18n?.registerPage(applyLibraryLanguage);
 
-<<<<<<< HEAD
 updateCatalogCounts();
 activeTag = readTagFromUrl();
 renderDemoGallery();
@@ -1227,30 +1062,4 @@ const linkedCaseId = new URL(window.location.href).searchParams.get("case");
 if (linkedCaseId && styleGuides.some((guide) => guide.id === linkedCaseId)) {
   window.setTimeout(() => openPreview(linkedCaseId), 0);
 }
-=======
-async function loadGitHubStars() {
-  try {
-    const response = await fetch(githubApiUrl, {
-      headers: { Accept: "application/vnd.github+json" },
-      cache: "no-store"
-    });
-    if (!response.ok) throw new Error(`GitHub API returned ${response.status}`);
-    if (!updateGitHubStars(Number((await response.json()).stargazers_count))) throw new Error("Missing star count");
-  } catch {
-    try {
-      const response = await fetch(githubStarsFallbackUrl, { cache: "no-store" });
-      if (!response.ok) throw new Error(`Star fallback returned ${response.status}`);
-      if (!updateGitHubStars(Number((await response.json()).value))) throw new Error("Missing fallback star count");
-    } catch {
-      githubStars.textContent = "--";
-      document.querySelectorAll(".site-nav-stars").forEach((element) => { element.textContent = "--"; });
-    }
-  }
-}
-
-updateCatalogCounts();
-activeTag = readTagFromUrl();
-renderDemoGallery();
-loadGitHubStars();
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 track("library_view", { referrer: document.referrer || "direct" });

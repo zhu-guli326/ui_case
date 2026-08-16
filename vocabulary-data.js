@@ -1,24 +1,14 @@
 export const vocabularyCategories = [
-<<<<<<< HEAD
   { id: "all", label: "全部词条", en: "All terms", countLabel: "30" },
   { id: "foundation", label: "页面基础", en: "Page foundations", countLabel: "5" },
   { id: "navigation", label: "导航与发现", en: "Navigation and discovery", countLabel: "8" },
   { id: "content", label: "内容展示", en: "Content display", countLabel: "6" },
   { id: "controls", label: "控件与表单", en: "Controls and forms", countLabel: "5" },
   { id: "feedback", label: "反馈与浮层", en: "Feedback and overlays", countLabel: "5" },
-=======
-  { id: "all", label: "全部词条", en: "All terms", countLabel: "24" },
-  { id: "foundation", label: "页面基础", en: "Page foundations", countLabel: "5" },
-  { id: "navigation", label: "导航与发现", en: "Navigation and discovery", countLabel: "6" },
-  { id: "content", label: "内容展示", en: "Content display", countLabel: "5" },
-  { id: "controls", label: "控件与表单", en: "Controls and forms", countLabel: "3" },
-  { id: "feedback", label: "反馈与浮层", en: "Feedback and overlays", countLabel: "4" },
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   { id: "visual", label: "视觉与实现", en: "Visual design", countLabel: "1" },
   { id: "favorites", label: "我的收藏", en: "Favorites", countLabel: "0" },
 ];
 
-<<<<<<< HEAD
 const EXTERNAL_PLACEHOLDER_IMAGE = "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=1200&q=80";
 
 const image = (alt) => ({
@@ -29,9 +19,6 @@ const image = (alt) => ({
     : "Layout, copy, and controls are rendered in code; photos use replaceable external placeholders only.",
   source: "external-placeholder",
 });
-=======
-const image = (src, alt, caption) => ({ src, alt, caption });
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 export const vocabularyEntries = [
   {
@@ -44,11 +31,7 @@ export const vocabularyEntries = [
     ask: "这个产品的导航和内容区要一直在，页面之间怎么套起来？",
     definition: "应用框架是持续存在的外层结构，把导航、内容区、状态栏和安全区组织成一个可复用的页面骨架。",
     role: "它让用户在不同页面之间移动时，仍然知道自己在哪里，也让各页面共享同一套空间和操作规则。",
-<<<<<<< HEAD
     example: image("应用框架的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/app-shell.webp", "应用框架的抽象视觉封面", "抽象封面强调持续存在的外层框架；文字、导航和交互由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["顶部应用栏", "品牌、标题、搜索或页面级操作"], ["主内容区", "当前任务和可滚动内容"], ["导航入口", "桌面侧栏或移动底部标签栏"], ["状态层", "加载、错误、弹窗和全局提示"]],
     variants: [["桌面工作台", "侧栏 + 顶部工具栏，适合高密度任务"], ["移动 App", "顶部安全区 + 内容 + 底部标签栏"], ["沉浸式详情", "弱化导航，让媒体或对象成为焦点"]],
     states: [["默认", "导航和内容都可见，当前入口有选中态"], ["窄屏", "侧栏收起，导航改成横向或底部入口"], ["加载", "保留框架尺寸，用骨架替换内容"]],
@@ -56,15 +39,9 @@ export const vocabularyEntries = [
     avoidWhen: ["只有一张独立海报或一次性活动页", "页面内容本身就是完整的沉浸式体验"],
     confusedWith: "应用框架不是某一条导航栏；导航只是框架中的一个部件。",
     codeUI: ["语义布局、路由出口、导航、safe-area、焦点顺序"],
-<<<<<<< HEAD
     media: ["照片、产品图、复杂插画放在内容区，不放进框架位图"],
     prompt: "请把产品做成可复用的 App Shell：桌面端使用左侧导航和顶部工具栏，移动端改成顶部安全区与底部标签栏；内容区可滚动，导航保持当前选中态，加载和错误状态不能改变外层尺寸。",
     related: ["top-nav", "sidebar", "bottom-tabs", "responsive"],
-=======
-    image2: ["照片、产品图、复杂插画放在内容区，不放进框架位图"],
-    prompt: "请把产品做成可复用的 App Shell：桌面端使用左侧导航和顶部工具栏，移动端改成顶部安全区与底部标签栏；内容区可滚动，导航保持当前选中态，加载和错误状态不能改变外层尺寸。",
-    related: ["top-nav", "bottom-tabs", "responsive"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     source: "https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/",
   },
   {
@@ -77,11 +54,7 @@ export const vocabularyEntries = [
     ask: "顶部放 logo、页面名和几个入口，用户一眼知道自己在哪。",
     definition: "页头是页面最上方的品牌与上下文区域，负责建立身份、层级和全局入口。",
     role: "先回答‘这是哪个产品/页面’，再把最常用的全局操作放在用户预期的位置。",
-<<<<<<< HEAD
     example: image("页头的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/header.webp", "页头的抽象视觉封面", "抽象封面强调顶部层级和上下文；品牌、标题和操作由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["品牌标识", "产品名或 logo，链接回起点"], ["页面上下文", "当前页面标题、面包屑或返回"], ["全局操作", "搜索、主题、账户、更多"], ["响应式折叠", "窄屏时合并成菜单或图标按钮"]],
     variants: [["品牌页头", "突出品牌和一级导航"], ["应用页头", "突出页面标题与返回/更多"], ["透明页头", "叠在首屏媒体上，需确保对比度"]],
     states: [["当前页", "当前入口清晰标记"], ["滚动后", "可吸顶或缩短高度"], ["菜单打开", "焦点进入菜单，背景层级明确"]],
@@ -89,15 +62,9 @@ export const vocabularyEntries = [
     avoidWhen: ["单一任务的极简确认页", "页头会抢走对象详情的视觉焦点"],
     confusedWith: "页头偏品牌和上下文；顶部导航偏链接组织，二者可以组合但职责不同。",
     codeUI: ["header、nav、真实文字、SVG 图标、键盘焦点"],
-<<<<<<< HEAD
     media: ["品牌摄影或插画可作为背景，logo 和导航文字必须用代码"],
     prompt: "请设计一个轻量页头：左侧品牌名，中间显示当前页面上下文，右侧提供搜索与账户入口；图标使用统一 SVG，所有按钮有 aria-label，移动端把次要入口收进菜单。",
     related: ["top-nav", "breadcrumbs", "hero", "app-shell"],
-=======
-    image2: ["品牌摄影或插画可作为背景，logo 和导航文字必须用代码"],
-    prompt: "请设计一个轻量页头：左侧品牌名，中间显示当前页面上下文，右侧提供搜索与账户入口；图标使用统一 SVG，所有按钮有 aria-label，移动端把次要入口收进菜单。",
-    related: ["top-nav", "hero", "app-shell"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     source: "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header",
   },
   {
@@ -106,19 +73,11 @@ export const vocabularyEntries = [
     en: "Hero",
     category: "foundation",
     level: "基础",
-<<<<<<< HEAD
     tags: ["官网区块", "外部图片", "首屏"],
     ask: "网站最上面要有大图和大字，让人马上知道我们是做什么的。",
     definition: "首屏是页面第一个主要视觉区，用最少的信息建立主题、价值和下一步行动。",
     role: "首屏不是把所有内容塞在最上面，而是让用户在几秒内完成理解并知道下一步。",
     example: image("首屏的代码组件预览"),
-=======
-    tags: ["官网区块", "image2", "首屏"],
-    ask: "网站最上面要有大图和大字，让人马上知道我们是做什么的。",
-    definition: "首屏是页面第一个主要视觉区，用最少的信息建立主题、价值和下一步行动。",
-    role: "首屏不是把所有内容塞在最上面，而是让用户在几秒内完成理解并知道下一步。",
-    example: image("./assets/vocabulary/generated-v2/covers/hero.webp", "首屏的抽象视觉封面", "抽象封面强调首屏主视觉和留白；标题与 CTA 由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["主题标题", "一句话说清产品或页面价值"], ["支持说明", "补足对象、场景或可信度"], ["主行动", "一个清晰的 CTA，避免多个同权重按钮"], ["主视觉", "照片、插画或产品场景，预留文案安全区"]],
     variants: [["媒体主导", "图片或视频占大面积，适合品牌/产品"], ["文字主导", "窄栏标题和 CTA，适合工具入口"], ["双栏拆分", "桌面左右并置，移动端上下堆叠"]],
     states: [["默认", "标题、媒体和 CTA 首屏可见"], ["窄屏", "主视觉裁切保留主体，CTA 不被折叠"], ["减弱动效", "移除自动播放和滚动依赖"]],
@@ -126,11 +85,7 @@ export const vocabularyEntries = [
     avoidWhen: ["用户已经进入高频工作流，不需要品牌叙事", "复杂数据需要立即可比对时"],
     confusedWith: "首屏是一个页面区段；主视觉只是其中的媒体或视觉主体。",
     codeUI: ["标题、正文、CTA、布局、遮罩、响应式裁切"],
-<<<<<<< HEAD
     media: ["摄影、插画、复杂材质和产品场景，禁止烘焙文字与 UI glyph"],
-=======
-    image2: ["摄影、插画、复杂材质和产品场景，禁止烘焙文字与 UI glyph"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "请做一个有明确首屏层级的产品主页：标题和一句说明位于左侧，右侧使用一张无文字、无 logo 的真实场景图；只保留一个主 CTA，移动端改为上下结构并保留下一段内容的可见线索。",
     related: ["cta", "header", "responsive"],
     source: "https://www.nngroup.com/articles/hero-images/",
@@ -145,11 +100,7 @@ export const vocabularyEntries = [
     ask: "给我一个最明显的按钮，用户点它就能开始下一步。",
     definition: "CTA 是页面当前最希望用户完成的主要行动，通常由一个高优先级按钮承载。",
     role: "把理解转成行动，同时通过文案和层级告诉用户点击后会发生什么。",
-<<<<<<< HEAD
     example: image("主行动 CTA 的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/cta.webp", "主行动 CTA 的抽象视觉封面", "抽象封面强调主行动的视觉层级；按钮文字和状态由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["动作文案", "使用开始、保存、继续等动词"], ["视觉层级", "与次要按钮形成明显对比"], ["反馈状态", "按下、加载、成功、失败"], ["触摸区域", "至少 44×44px，文字不被挤压"]],
     variants: [["实心主按钮", "高确定性、高优先级动作"], ["描边次按钮", "可选或返回动作"], ["危险按钮", "删除、退出等需要额外确认的动作"]],
     states: [["默认/悬停", "颜色或阴影变化，不改变布局"], ["加载", "保留按钮宽度，显示进行中"], ["成功/错误", "给出短反馈与恢复路径"]],
@@ -157,11 +108,7 @@ export const vocabularyEntries = [
     avoidWhen: ["页面有多个互斥主任务", "按钮文案无法说明点击结果"],
     confusedWith: "CTA 是行动优先级概念，不等同于所有按钮；次级动作也应保留合适层级。",
     codeUI: ["button、状态、键盘焦点、aria-busy、禁用逻辑"],
-<<<<<<< HEAD
     media: ["按钮和文字由代码渲染；外部图片只负责情绪和内容"],
-=======
-    image2: ["不把按钮或文字生成进图片；图片只负责情绪和内容"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "请为页面设置一个单一主 CTA，文案使用明确动词；提供默认、hover、focus、loading、success、error 状态，按钮保持稳定尺寸并满足 44px 触摸目标。",
     related: ["button", "hero", "toast"],
     source: "https://www.w3.org/WAI/ARIA/apg/patterns/button/",
@@ -176,11 +123,7 @@ export const vocabularyEntries = [
     ask: "桌面三列到手机要变一列，内容别重叠也别横向滚。",
     definition: "响应式设计让同一套内容根据视口和输入方式调整布局、尺寸、顺序与交互。",
     role: "不是简单缩小桌面页面，而是保留任务优先级并在窄屏重新组织空间。",
-<<<<<<< HEAD
     example: image("响应式设计的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/responsive.webp", "响应式设计的抽象视觉封面", "抽象封面强调不同容器尺寸的重排；断点和内容顺序由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["断点策略", "按内容需要而不是设备名称决定"], ["流式容器", "使用 minmax、clamp、max-width"], ["重排规则", "列数、顺序和导航方式变化"], ["触摸目标", "移动端操作区域至少 44px"]],
     variants: [["流式缩放", "字号与间距在范围内变化"], ["结构重排", "桌面侧栏改成底部或抽屉"], ["内容裁剪", "保留主体，隐藏非关键元信息"]],
     states: [["桌面", "多栏与辅助信息可见"], ["平板", "减少列数和侧栏宽度"], ["手机", "单列优先，避免 hover 依赖"]],
@@ -188,11 +131,7 @@ export const vocabularyEntries = [
     avoidWhen: ["固定尺寸展览/海报本身就是交付物", "只在单一嵌入容器中展示"],
     confusedWith: "响应式关注结构变化；自适应图片只是其中一个实现手段。",
     codeUI: ["CSS Grid/Flex、container、picture、断点与可访问顺序"],
-<<<<<<< HEAD
     media: ["必要时为移动端指定单独的外部裁切图，禁止只拉伸桌面图"],
-=======
-    image2: ["必要时为移动端单独生成裁切版本，禁止只拉伸桌面图"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "请用内容驱动的响应式布局实现页面：桌面端使用两到三列，移动端改为单列；侧栏折叠为横向筛选或底部入口，所有标题、按钮和图片都不能溢出。",
     related: ["app-shell", "card-grid", "typography"],
     source: "https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design",
@@ -207,11 +146,7 @@ export const vocabularyEntries = [
     ask: "logo、主要栏目和登录入口都放在最上面，还要看得出当前在哪。",
     definition: "顶部导航栏是网站级的主要导航和全局操作区域，通常位于页面顶部并可吸顶。",
     role: "让用户快速在主要栏目之间切换，同时提供搜索、主题或账户入口。",
-<<<<<<< HEAD
     example: image("顶部导航栏的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/top-nav.webp", "顶部导航栏的抽象视觉封面", "抽象封面强调跨区域的方向和入口；链接、当前态和搜索由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["品牌入口", "回到首页或产品起点"], ["一级链接", "主要栏目，控制数量"], ["当前标记", "颜色、下划线或背景表达位置"], ["全局操作", "搜索、语言、主题、账户"]],
     variants: [["标准导航", "品牌 + 链接 + 操作"], ["居中品牌", "适合内容和品牌导向网站"], ["透明/覆盖", "适合首屏媒体，但需加强对比度"]],
     states: [["吸顶", "滚动后仍可访问，但不遮挡内容"], ["菜单展开", "移动端抽屉或下拉菜单"], ["当前项", "不仅依赖颜色，补充文字/线条"]],
@@ -219,7 +154,6 @@ export const vocabularyEntries = [
     avoidWhen: ["单任务流程中会分散注意力", "导航项目多到无法扫描"],
     confusedWith: "顶部导航栏组织站点入口；页头可以包含它，也可以只包含页面标题。",
     codeUI: ["nav、a、button、aria-current、移动菜单焦点管理"],
-<<<<<<< HEAD
     media: ["导航与 logo 由代码或矢量资源呈现，不使用外部图片占位"],
     prompt: "请做一条克制的顶部导航：左侧品牌，中间 4 个以内的一级入口，右侧搜索与账户；当前入口使用 aria-current 和明显视觉状态，移动端把链接收进可关闭菜单。",
     related: ["header", "sidebar", "menu", "app-shell", "bottom-tabs"],
@@ -272,14 +206,6 @@ export const vocabularyEntries = [
     source: "https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/",
   },
   {
-=======
-    image2: ["导航中的图片和 logo 不应由生成图承担"],
-    prompt: "请做一条克制的顶部导航：左侧品牌，中间 4 个以内的一级入口，右侧搜索与账户；当前入口使用 aria-current 和明显视觉状态，移动端把链接收进可关闭菜单。",
-    related: ["header", "app-shell", "bottom-tabs"],
-    source: "https://www.w3.org/WAI/ARIA/apg/patterns/menubar/",
-  },
-  {
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     id: "bottom-tabs",
     name: "底部标签栏",
     en: "Bottom Tab Bar",
@@ -289,11 +215,7 @@ export const vocabularyEntries = [
     ask: "手机底部固定几个入口，首页、收藏和个人资料随时能切换。",
     definition: "底部标签栏是移动端的一级导航容器，固定在屏幕底部并展示少量高频目的地。",
     role: "减少返回成本，让用户在几个核心页面之间快速切换。",
-<<<<<<< HEAD
     example: image("底部标签栏的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/bottom-tabs.webp", "底部标签栏的抽象视觉封面", "抽象封面强调并列目的地和选中态；图标、标签和安全区由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["标签项", "图标 + 短标签，控制在 3-5 项"], ["选中态", "图标、颜色和文字共同表达"], ["安全区", "适配 iOS home indicator"], ["徽标", "只在有未读信息时出现"]],
     variants: [["图标 + 文字", "最容易理解，适合主导航"], ["仅图标", "只适合熟悉用户和极少入口"], ["中心主操作", "把创建或发布作为突出入口"]],
     states: [["选中", "不可只靠颜色，保持文字可见"], ["键盘/读屏", "每项有可访问名称和当前页"], ["滚动", "可保持或隐藏，但必须可恢复"]],
@@ -301,11 +223,7 @@ export const vocabularyEntries = [
     avoidWhen: ["入口超过 5 个", "页面需要沉浸式全屏操作"],
     confusedWith: "底部标签栏是一级导航；工具栏或操作栏不应该混进来。",
     codeUI: ["nav、button/link、统一 SVG 图标、safe-area-inset-bottom"],
-<<<<<<< HEAD
     media: ["图标、标签和选中态全部由代码呈现，不需要配图"],
-=======
-    image2: ["不使用位图图标或生成式导航图"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "请为移动端添加 4 项底部标签栏，固定在 safe-area 上方；每项包含统一线性图标和短标签，当前页使用 aria-current，内容滚动时不能遮挡最后一项。",
     related: ["tabs", "app-shell", "top-nav"],
     source: "https://m3.material.io/components/navigation-bar/overview",
@@ -320,11 +238,7 @@ export const vocabularyEntries = [
     ask: "内容太多了，分几个页签，点一下就在同一块区域换内容。",
     definition: "标签页在同一语境中切换互相关联的内容面板，不应被用来隐藏完全不同的任务。",
     role: "降低页面高度和认知负担，让用户在同一上下文比较或浏览内容。",
-<<<<<<< HEAD
     example: image("标签页的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/tabs.webp", "标签页的抽象视觉封面", "抽象封面强调同一上下文中的内容分组；标签和面板由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["标签列表", "短标题，顺序表达内容关系"], ["选中指示", "下划线、底色或高对比"], ["面板", "与标签一一对应"], ["键盘行为", "左右键切换，Tab 进入面板"]],
     variants: [["线性标签", "轻量、适合内容阅读"], ["胶囊标签", "适合筛选和视图切换"], ["滚动标签", "窄屏容纳较多同级内容"]],
     states: [["选中", "保持焦点和面板同步"], ["禁用", "说明为什么不可用"], ["加载", "只替换面板，不抖动标签栏"]],
@@ -332,11 +246,7 @@ export const vocabularyEntries = [
     avoidWhen: ["每个标签都是完全独立的任务", "标签数量多到无法扫描"],
     confusedWith: "Tabs 切换内容面板；分段控件更像切换一个视图模式或筛选值。",
     codeUI: ["button、role=tab、aria-controls、键盘方向键与面板隐藏"],
-<<<<<<< HEAD
     media: ["标签文字与选中态必须由代码渲染"],
-=======
-    image2: ["标签文字与选中态必须由代码渲染"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "请实现一组可访问 Tabs：标签与面板一一对应，支持键盘左右切换和深链接；切换时不重置滚动位置，移动端允许横向滚动但不能出现页面横向溢出。",
     related: ["segmented", "filter-chips", "bottom-tabs"],
     source: "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/",
@@ -351,11 +261,7 @@ export const vocabularyEntries = [
     ask: "就两个或三个模式并排，点哪个就切哪个，像 iPhone 的切换条。",
     definition: "分段控件让用户在少量互斥选项之间切换当前视图或状态。",
     role: "比下拉更快，比标签页更紧凑，适合网格/列表、周/月或浅色/深色等模式。",
-<<<<<<< HEAD
     example: image("分段控件的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/segmented.webp", "分段控件的抽象视觉封面", "抽象封面强调互斥模式和稳定选中滑块；控件语义由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["分段容器", "保持同一组视觉边界"], ["选项", "2-4 个短词，互斥"], ["选中滑块", "表达当前模式，不改变整体宽度"], ["状态反馈", "切换后内容立即同步"]],
     variants: [["文字分段", "最通用"], ["图标 + 文字", "图标提供辅助识别"], ["紧凑分段", "工具栏中的小尺寸视图切换"]],
     states: [["选中", "滑块或底色移动，避免只换文字颜色"], ["禁用", "保持布局，降低对比度"], ["加载", "保留选中项并在面板反馈"]],
@@ -363,11 +269,7 @@ export const vocabularyEntries = [
     avoidWhen: ["选项不是互斥的", "每个选项需要长说明或图片"] ,
     confusedWith: "分段控件偏向模式切换；Tabs 偏向内容分组和面板导航。",
     codeUI: ["button、radiogroup、aria-pressed/checked、稳定尺寸"],
-<<<<<<< HEAD
     media: ["分段控件与选中滑块全部由代码呈现，不需要配图"],
-=======
-    image2: ["不要生成分段控件或选中滑块"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "请使用一个 3 段 Segmented Control 切换数据视图，选中滑块保持同一宽度和高度；为键盘与屏幕阅读器提供 radiogroup 语义，不要把长句塞进选项。",
     related: ["tabs", "filter-chips", "responsive"],
     source: "https://m3.material.io/components/segmented-buttons/overview",
@@ -382,11 +284,7 @@ export const vocabularyEntries = [
     ask: "项目太多了，加个搜索让我按名字或关键词马上找到。",
     definition: "搜索框接收用户的查询，并在本地或远程内容中返回相关结果、建议或无结果状态。",
     role: "把浏览从‘一张张看’变成‘带着意图找’，尤其适合术语、案例、文件和商品目录。",
-<<<<<<< HEAD
     example: image("搜索框的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/search.webp", "搜索框的抽象视觉封面", "抽象封面强调查询入口和放大镜识别线索；输入和结果由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["输入区", "明确 placeholder 与清除按钮"], ["搜索图标", "辅助识别，不替代可访问名称"], ["建议/历史", "帮助用户快速完成查询"], ["结果状态", "加载、匹配、无结果、错误"]],
     variants: [["即时搜索", "输入后实时筛选，适合本地数据"], ["提交搜索", "按 Enter 或按钮触发，适合远程查询"], ["命令搜索", "支持快捷键和分组结果"]],
     states: [["输入中", "保留查询值，显示清除动作"], ["加载", "显示进行中，不清空输入"], ["无结果", "说明如何修改查询并提供清除"]],
@@ -394,11 +292,7 @@ export const vocabularyEntries = [
     avoidWhen: ["内容少到 5 项以内", "查询结果无法解释或没有恢复路径"],
     confusedWith: "搜索主动查找；筛选标签是在已知集合中缩小范围。",
     codeUI: ["input type=search、debounce、键盘提交、结果 live region"],
-<<<<<<< HEAD
     media: ["搜索图标用代码，不能把输入框烘焙进图片"],
-=======
-    image2: ["搜索图标用代码，不能把输入框烘焙进图片"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "请添加一个可访问的搜索框，支持 Enter 提交、Esc 清空、即时结果和无结果状态；搜索结果按名称、英文名、标签和用户表达匹配，输入值始终保留。",
     related: ["filter-chips", "empty-state", "form"],
     source: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/",
@@ -413,11 +307,7 @@ export const vocabularyEntries = [
     ask: "只显示本周、未完成、负责人是我的项目，其他先别看。",
     definition: "筛选标签是紧凑的可选条件，用于快速缩小当前集合或表达已启用的过滤条件。",
     role: "让用户看见‘为什么只剩这些结果’，并允许低成本地打开、关闭和清除条件。",
-<<<<<<< HEAD
     example: image("筛选标签的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/filter-chips.webp", "筛选标签的抽象视觉封面", "抽象封面强调可组合的筛选条件；标签、选中态和数量由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["标签文案", "条件短而可扫描"], ["选中态", "颜色 + 勾选或填充"], ["清除动作", "单个移除或一键清空"], ["结果反馈", "数量、空状态或加载"]],
     variants: [["单选筛选", "多个条件只能选一个"], ["多选筛选", "条件可以叠加"], ["可关闭标签", "把已选条件固定在结果顶部"]],
     states: [["默认", "未启用条件保持轻量"], ["选中", "明显但不喧宾夺主"], ["无结果", "保留条件并解释如何放宽"]],
@@ -425,11 +315,7 @@ export const vocabularyEntries = [
     avoidWhen: ["条件多且有层级，使用筛选面板更清晰", "筛选逻辑无法用短标签表达"],
     confusedWith: "筛选标签是条件；标签页是内容容器；Badge 只是状态或数量展示。",
     codeUI: ["button/checkbox、pressed 状态、筛选状态管理"],
-<<<<<<< HEAD
     media: ["标签形状和文字由代码渲染"],
-=======
-    image2: ["标签形状和文字由代码渲染"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "请在搜索下方放置可多选筛选标签，标签显示当前条件和结果数量；支持清除单个条件、一键重置和无结果说明，移动端可横向滚动但不造成页面溢出。",
     related: ["search", "tabs", "empty-state"],
     source: "https://m3.material.io/components/chips/overview",
@@ -440,19 +326,11 @@ export const vocabularyEntries = [
     en: "Card",
     category: "content",
     level: "基础",
-<<<<<<< HEAD
     tags: ["内容", "容器", "外部图片"],
     ask: "每个商品做成一张卡片，图、名字、价格和操作放在一起，整张能点。",
     definition: "卡片把同一对象的标题、摘要、媒体和相关操作组织成一个边界清楚的内容容器。",
     role: "帮助用户扫读一组对象，同时保留对象级点击和局部操作的边界。",
     example: image("卡片的代码组件预览"),
-=======
-    tags: ["内容", "容器", "image2"],
-    ask: "每个商品做成一张卡片，图、名字、价格和操作放在一起，整张能点。",
-    definition: "卡片把同一对象的标题、摘要、媒体和相关操作组织成一个边界清楚的内容容器。",
-    role: "帮助用户扫读一组对象，同时保留对象级点击和局部操作的边界。",
-    example: image("./assets/vocabulary/generated-v2/covers/card.webp", "卡片的抽象视觉封面", "抽象封面强调单个对象的边界；标题、媒体和操作由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["封面", "图片或媒体，提供快速识别"], ["标题", "对象名称，视觉权重最高"], ["元信息", "价格、作者、状态等短信息"], ["操作区", "收藏、预览或进入详情"]],
     variants: [["基础卡片", "以文字和状态为主"], ["带封面", "媒体是主要识别信息"], ["带操作", "卡片内有独立按钮，需避免误触"]],
     states: [["默认/悬停", "边框或阴影变化，不布局跳动"], ["选中/收藏", "状态可见且能撤销"], ["加载", "骨架形状与最终卡片一致"]],
@@ -460,11 +338,7 @@ export const vocabularyEntries = [
     avoidWhen: ["内容是连续长文", "每项只有一行文字，列表更紧凑", "把卡片再嵌套卡片"],
     confusedWith: "卡片是对象边界；卡片网格是布局；列表是更高密度的重复结构。",
     codeUI: ["article、链接区域、局部按钮、固定宽高比和 alt"],
-<<<<<<< HEAD
     media: ["产品图、照片、插画和缩略图可使用外部图片；卡片文字与按钮由代码呈现"],
-=======
-    image2: ["产品图、照片、插画和缩略图；不生成卡片文字与按钮"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "请把每个对象做成独立卡片：封面、标题、短摘要和一个局部操作；主区域进入详情，局部按钮不触发主区域跳转；不要嵌套卡片，并固定媒体比例避免加载抖动。",
     related: ["card-grid", "media-tile", "list"],
     source: "https://m3.material.io/components/cards/overview",
@@ -479,11 +353,7 @@ export const vocabularyEntries = [
     ask: "这些案例排成整齐的格子，屏幕窄了自动变成两列或一列。",
     definition: "卡片网格用二维列和行组织重复对象，并根据可用宽度调整列数和卡片最小尺寸。",
     role: "适合比较和浏览同类对象，空间节奏比信息流更规整。",
-<<<<<<< HEAD
     example: image("卡片网格的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/card-grid.webp", "卡片网格的抽象视觉封面", "抽象封面强调重复对象的二维排列；列数、间距和响应式规则由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["网格容器", "定义列数、间距和最大宽度"], ["卡片项", "保持对象边界与一致比例"], ["排序/筛选", "改变结果时保留节奏"], ["响应式断点", "从多列收敛到单列"]],
     variants: [["等宽网格", "适合案例、商品、模板"], ["混合尺寸网格", "突出一两个重点对象"], ["水平滚动网格", "适合移动端相关内容"]],
     states: [["加载", "显示同尺寸骨架"], ["无结果", "网格位置出现下一步"], ["窄屏", "列数下降，卡片不挤压文字"]],
@@ -491,11 +361,7 @@ export const vocabularyEntries = [
     avoidWhen: ["内容顺序和时间关系更重要", "单项信息量太大无法在卡片内读完"],
     confusedWith: "网格是布局方式，不等于卡片；网格也可以承载媒体图块或数据条。",
     codeUI: ["CSS Grid、minmax、gap、容器宽度和焦点顺序"],
-<<<<<<< HEAD
     media: ["卡片中的媒体位使用可替换的外部图片，标题、标签和操作保持代码渲染"],
-=======
-    image2: ["每张卡片的封面可用本地图片或 image2 资产"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "请用 CSS Grid 实现卡片网格：桌面端 3 列、窄桌面 2 列、手机 1 列；使用 minmax 和固定媒体比例，卡片内部文字不得溢出，筛选后保持网格节奏。",
     related: ["card", "media-tile", "responsive"],
     source: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout",
@@ -510,11 +376,7 @@ export const vocabularyEntries = [
     ask: "内容一条一条排下来，最新的在上面，扫一眼就能看懂。",
     definition: "信息流列表按时间、相关性或优先级连续排列内容项，强调快速扫描和顺序关系。",
     role: "在有限空间里承载更多对象，比卡片网格更适合标题、状态和时间。",
-<<<<<<< HEAD
     example: image("信息流列表的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/list.webp", "信息流列表的抽象视觉封面", "抽象封面强调按顺序堆叠的内容项；标题、时间和加载由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["列表项", "每行一个对象，边界清楚"], ["主标题", "承担主要识别信息"], ["辅助元信息", "时间、分类、作者或状态"], ["分页/加载", "追加或分页需保持位置"]],
     variants: [["媒体列表", "左图右文，适合新闻"], ["活动列表", "时间、状态和动作更重要"], ["紧凑列表", "适合后台和设置页"]],
     states: [["未读", "字重或状态点表达"], ["加载更多", "追加时不跳回顶部"], ["错误", "保留已加载内容并提供重试"]],
@@ -522,11 +384,7 @@ export const vocabularyEntries = [
     avoidWhen: ["每个对象都依赖大图识别", "用户需要并排比较多张图片"],
     confusedWith: "信息流强调顺序和密度；卡片强调对象边界和媒体识别。",
     codeUI: ["ul/li、链接、时间语义、加载更多和可访问状态"],
-<<<<<<< HEAD
     media: ["列表缩略图可以使用外部照片或插画，但文字必须由代码呈现"],
-=======
-    image2: ["列表缩略图可以使用本地照片/插画，但文字必须是代码"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "请做一个新闻信息流：每项包含缩略图、标题、分类和时间，列表按时间排序；移动端保持标题可读，加载更多使用追加而不是重置列表。",
     related: ["card", "media-tile", "card-grid"],
     source: "https://www.nngroup.com/articles/list-design/",
@@ -537,36 +395,20 @@ export const vocabularyEntries = [
     en: "Media Tile",
     category: "content",
     level: "基础",
-<<<<<<< HEAD
     tags: ["图片", "视频", "外部图片"],
     ask: "做一组图片或视频图块，图是主角，文字只补充标题和类型。",
     definition: "媒体图块以图片或视频作为主要识别信息，代码文字和操作作为辅助层。",
     role: "让用户通过视觉快速发现内容，适合画廊、作品集、媒体库和探索页。",
     example: image("媒体图块的代码组件预览"),
-=======
-    tags: ["图片", "视频", "image2"],
-    ask: "做一组图片或视频图块，图是主角，文字只补充标题和类型。",
-    definition: "媒体图块以图片或视频作为主要识别信息，代码文字和操作作为辅助层。",
-    role: "让用户通过视觉快速发现内容，适合画廊、作品集、媒体库和探索页。",
-    example: image("./assets/vocabulary/generated-v2/covers/media-tile.webp", "媒体图块的抽象视觉封面", "抽象封面强调媒体作为主要识别信息；标题和操作由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["媒体槽位", "固定比例、object-fit 和加载占位"], ["标签", "类型、时长或状态"], ["标题", "短而可扫描"], ["操作", "播放、收藏或打开详情"]],
     variants: [["网格图块", "适合视觉浏览"], ["瀑布流图块", "保留不同图片高度"], ["视频图块", "必须有 poster、控件和暂停行为"]],
     states: [["加载", "使用同尺寸占位避免跳动"], ["播放", "控件和状态由代码绘制"], ["失败", "显示破图替代和重试"]],
     useWhen: ["图片/视频本身是主要内容", "用户需要先看视觉再决定是否打开"],
-<<<<<<< HEAD
     avoidWhen: ["图片只是装饰，文字才是主要任务", "外部占位图无法代表最终内容或版权状态"],
     confusedWith: "媒体图块是内容展示角色；UI 图标和导航 glyph 不能用图片图块替代。",
     codeUI: ["img/video、alt/poster、播放/收藏按钮、比例约束"],
     media: ["摄影、插画、产品抠图、纹理和缩略图使用可替换的外部图片"],
     prompt: "请构建一个媒体图块网格：所有图片使用可替换的外部 URL、固定比例和有意义的 alt；标题、按钮和播放图标由代码呈现，卡片内提供真实可点击控件。",
-=======
-    avoidWhen: ["图片只是装饰，文字才是主要任务", "生成图无法保证真实内容或版权"],
-    confusedWith: "媒体图块是内容展示角色；UI 图标和导航 glyph 不能用图片图块替代。",
-    codeUI: ["img/video、alt/poster、播放/收藏按钮、比例约束"],
-    image2: ["摄影、插画、产品抠图、纹理和缩略图可用 image2"],
-    prompt: "请构建一个媒体图块网格：所有图片使用本地资产、固定比例和有意义的 alt；不要把标题、按钮、播放图标烘焙进图片，卡片内提供真实可点击控件。",
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     related: ["card", "hero", "card-grid"],
     source: "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture",
   },
@@ -580,11 +422,7 @@ export const vocabularyEntries = [
     ask: "点中一个对象后，旁边展开详情，列表还留在原位方便对照。",
     definition: "详情面板在当前页面上下文中展示被选对象的完整信息、状态和相关操作。",
     role: "让用户查看细节而不丢失列表、网格或工作区的上下文。",
-<<<<<<< HEAD
     example: image("详情面板的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/detail-panel.webp", "详情面板的抽象视觉封面", "抽象封面强调被选对象的完整上下文；媒体、描述和操作由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["对象摘要", "标题、状态、主媒体"], ["信息分组", "描述、元数据、历史"], ["局部操作", "编辑、收藏、分享或关闭"], ["上下文返回", "保留来源列表或面包屑"]],
     variants: [["右侧检查器", "桌面工作区中保持列表可见"], ["全屏详情", "移动端或复杂对象"], ["内联展开", "简单对象的轻量展开"]],
     states: [["打开/关闭", "可回退，焦点有明确落点"], ["加载", "只替换面板内容"], ["错误", "提供重试和返回列表"]],
@@ -592,7 +430,6 @@ export const vocabularyEntries = [
     avoidWhen: ["详情只有一行文字", "打开后必须完成独立长流程"],
     confusedWith: "详情面板强调上下文；模态框会打断背景任务；抽屉是详情面板的一种承载方式。",
     codeUI: ["aside/dialog、焦点管理、关闭与返回、响应式重排"],
-<<<<<<< HEAD
     media: ["对象媒体、照片和插画；面板内文案/状态由代码"],
     prompt: "请在桌面端用右侧详情面板展示选中对象，保留左侧列表；移动端切换成全屏详情并提供返回按钮；打开、关闭、加载和错误状态都要可恢复。",
     related: ["drawer", "breadcrumbs", "modal", "card"],
@@ -622,14 +459,6 @@ export const vocabularyEntries = [
     source: "https://www.w3.org/WAI/ARIA/apg/patterns/grid/",
   },
   {
-=======
-    image2: ["对象媒体、照片和插画；面板内文案/状态由代码"],
-    prompt: "请在桌面端用右侧详情面板展示选中对象，保留左侧列表；移动端切换成全屏详情并提供返回按钮；打开、关闭、加载和错误状态都要可恢复。",
-    related: ["drawer", "modal", "card"],
-    source: "https://m3.material.io/components/dialogs/overview",
-  },
-  {
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     id: "button",
     name: "按钮",
     en: "Button",
@@ -639,11 +468,7 @@ export const vocabularyEntries = [
     ask: "帮我加个按钮，点一下就把内容保存下来。",
     definition: "按钮触发当前页面内的动作，例如提交、保存、打开、切换或删除。",
     role: "按钮应该告诉用户‘会发生一个动作’，而不是伪装成跳转链接。",
-<<<<<<< HEAD
     example: image("按钮的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/button.webp", "按钮的抽象视觉封面", "抽象封面强调可触发动作的实体；文字、状态和焦点由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["动作文案", "明确结果，不使用模糊的‘确定’"], ["层级", "主、次要、危险操作的视觉差异"], ["图标", "仅作辅助，不替代文字"], ["状态", "hover、active、focus、disabled、loading"]],
     variants: [["Primary", "当前页面最重要的动作"], ["Secondary", "次要或取消动作"], ["Icon button", "空间紧张时的单一熟悉动作"]],
     states: [["悬停/按下", "反馈及时，不引发布局跳动"], ["聚焦", "高对比 focus ring"], ["禁用/加载", "解释原因或保留进行中状态"]],
@@ -651,7 +476,6 @@ export const vocabularyEntries = [
     avoidWhen: ["点击会导航到新页面，优先使用链接", "操作后果危险却没有确认或撤销"],
     confusedWith: "Button 做动作；Link 做导航。外观可以相似，但语义和键盘行为不同。",
     codeUI: ["button type、aria-label、focus-visible、disabled、aria-busy"],
-<<<<<<< HEAD
     media: ["按钮、图标、状态和文字全部由代码呈现，不需要配图"],
     prompt: "请用真实 button 元素实现保存动作，提供主/次级层级和 default、hover、active、focus、disabled、loading、success、error 状态；点击后显示可恢复反馈。",
     related: ["cta", "form", "checkbox", "menu", "toast"],
@@ -681,14 +505,6 @@ export const vocabularyEntries = [
     source: "https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/",
   },
   {
-=======
-    image2: ["按钮、图标、状态和文字不能生成到图片中"],
-    prompt: "请用真实 button 元素实现保存动作，提供主/次级层级和 default、hover、active、focus、disabled、loading、success、error 状态；点击后显示可恢复反馈。",
-    related: ["cta", "form", "toast"],
-    source: "https://www.w3.org/WAI/ARIA/apg/patterns/button/",
-  },
-  {
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     id: "form",
     name: "输入框与表单",
     en: "Input / Form",
@@ -698,11 +514,7 @@ export const vocabularyEntries = [
     ask: "做一个注册表单，用户填完信息后可以提交，而且错误要说清楚。",
     definition: "表单把多个输入、说明、校验和提交动作组织成一条可完成的任务路径。",
     role: "降低输入成本，及时发现错误，并让用户知道信息会如何被使用。",
-<<<<<<< HEAD
     example: image("输入框与表单的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/form.webp", "输入框与表单的抽象视觉封面", "抽象封面强调输入、说明和提交路径；字段和校验由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["标签", "说明字段需要填写什么"], ["控件", "输入、选择、开关等真实表单元素"], ["帮助/错误", "靠近字段，说明修复方式"], ["提交区", "显示可用、加载和结果状态"]],
     variants: [["单列表单", "移动端和新手流程优先"], ["分步表单", "信息多但任务顺序明确"], ["内联编辑", "详情页中少量字段即时修改"]],
     states: [["聚焦", "标签和边框状态清楚"], ["校验错误", "文本 + 颜色说明，不只用红色"], ["提交中", "锁定重复提交并显示进度"]],
@@ -710,11 +522,7 @@ export const vocabularyEntries = [
     avoidWhen: ["只需要一个搜索词", "字段太多但没有分组或优先级"],
     confusedWith: "输入框是单个字段；表单是多个字段与提交逻辑组成的任务。",
     codeUI: ["label、input、fieldset、校验、autocomplete、错误关联"],
-<<<<<<< HEAD
     media: ["表单结构、文字和状态必须是代码"],
-=======
-    image2: ["表单结构、文字和状态必须是代码"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "请实现一列优先的可访问表单：每个字段有 label、帮助文本和错误关联；提交按钮包含 loading/success/error 状态，移动端键盘不会遮挡当前字段。",
     related: ["button", "search", "empty-state"],
     source: "https://www.w3.org/WAI/tutorials/forms/",
@@ -729,11 +537,7 @@ export const vocabularyEntries = [
     ask: "像手机设置一样，这个功能一拨就开，再拨就关。",
     definition: "开关表达一个可以立即生效的二元设置，开和关都应该拥有清晰的文字或状态反馈。",
     role: "让用户快速控制持续性偏好，而不必通过提交表单才能知道结果。",
-<<<<<<< HEAD
     example: image("开关的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/toggle.webp", "开关的抽象视觉封面", "抽象封面强调二元状态和滑动轨道；开关语义和反馈由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["标签", "说明被控制的设置"], ["轨道", "表达开/关的容器"], ["滑块", "当前值的视觉位置"], ["反馈", "需要时显示已保存或失败"]],
     variants: [["即时保存", "切换后立即保存"], ["本地偏好", "主题、通知、筛选等"], ["带说明开关", "复杂设置需要补充文本"]],
     states: [["on/off", "不只依赖颜色，提供文字或形状差异"], ["禁用", "说明受其他设置限制"], ["保存失败", "允许重试并保留原状态"]],
@@ -741,7 +545,6 @@ export const vocabularyEntries = [
     avoidWhen: ["需要多个选项", "切换会执行危险动作且没有确认"],
     confusedWith: "开关适合持续设置；Checkbox 更适合表单提交时的多选。",
     codeUI: ["button role=switch 或 input、aria-checked、键盘 Space"],
-<<<<<<< HEAD
     media: ["轨道、滑块和状态都用代码渲染"],
     prompt: "请实现一个可访问开关：标签说明设置，Space 可切换，状态用 aria-checked 与视觉同时表达；切换后显示保存成功或失败，不要让开关尺寸变化。",
     related: ["form", "checkbox", "button", "segmented"],
@@ -771,14 +574,6 @@ export const vocabularyEntries = [
     source: "https://www.w3.org/WAI/ARIA/apg/patterns/menubar/",
   },
   {
-=======
-    image2: ["轨道、滑块和状态都用代码渲染"],
-    prompt: "请实现一个可访问开关：标签说明设置，Space 可切换，状态用 aria-checked 与视觉同时表达；切换后显示保存成功或失败，不要让开关尺寸变化。",
-    related: ["form", "button", "segmented"],
-    source: "https://www.w3.org/WAI/ARIA/apg/patterns/switch/",
-  },
-  {
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     id: "modal",
     name: "模态框",
     en: "Modal",
@@ -788,11 +583,7 @@ export const vocabularyEntries = [
     ask: "点一下之后中间弹个框，背景变灰，先完成这个任务再回去。",
     definition: "模态框通过遮罩暂时阻断背景交互，把用户注意力集中到一个短任务或确认动作。",
     role: "用于确认、编辑、选择或需要集中注意的短流程，但不应滥用来承载普通详情。",
-<<<<<<< HEAD
     example: image("模态框的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/modal.webp", "模态框的抽象视觉封面", "抽象封面强调居中的遮罩层；对话框、关闭和焦点管理由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["遮罩", "降低背景对比度并阻止点击"], ["标题/说明", "解释任务和后果"], ["内容区", "表单、选择或确认信息"], ["关闭/动作", "Escape、关闭按钮和明确 CTA"]],
     variants: [["确认模态", "删除、退出、覆盖等动作"], ["编辑模态", "少量字段的集中修改"], ["全屏模态", "移动端复杂内容"]],
     states: [["打开", "焦点进入对话框"], ["提交中", "防止重复提交"], ["关闭", "返回触发点或保存后的上下文"]],
@@ -800,11 +591,7 @@ export const vocabularyEntries = [
     avoidWhen: ["只是查看详情，抽屉或内联面板更自然", "表单很长且需要上下文"],
     confusedWith: "模态框会阻断背景；Popover/Tooltip 不阻断；抽屉通常保留更多上下文。",
     codeUI: ["dialog、focus trap、aria-modal、Escape、遮罩与恢复焦点"],
-<<<<<<< HEAD
     media: ["背景媒体可用图片，但对话框文字/控件必须是代码"],
-=======
-    image2: ["背景媒体可用图片，但对话框文字/控件必须是代码"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "请实现一个可访问 modal：打开后焦点进入对话框，Escape 和关闭按钮可退出，背景不能操作，关闭后焦点回到触发按钮；移动端宽度不溢出。",
     related: ["drawer", "toast", "detail-panel"],
     source: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
@@ -819,11 +606,7 @@ export const vocabularyEntries = [
     ask: "从右边滑出一块详情，背后的列表还看得见，关掉后回到原来的位置。",
     definition: "抽屉是从屏幕边缘滑入的面板，适合承载详情、筛选或次级导航，同时保留背景上下文。",
     role: "在桌面端避免跳页，在移动端可以转换成底部抽屉或全屏面板。",
-<<<<<<< HEAD
     example: image("抽屉的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/drawer.webp", "抽屉的抽象视觉封面", "抽象封面强调从边缘进入且保留背景上下文；面板和拖拽行为由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["边缘入口", "右侧、左侧或底部出现"], ["遮罩", "可选，决定背景是否可操作"], ["标题/关闭", "说明当前面板和退出方式"], ["内容滚动区", "面板内部独立滚动"]],
     variants: [["右侧抽屉", "桌面详情和筛选"], ["左侧抽屉", "导航或工作区列表"], ["底部抽屉", "移动端操作和筛选"]],
     states: [["打开/关闭", "有明确触发与回退"], ["拖拽", "移动端可拖动但不能替代关闭按钮"], ["错误", "面板保留尺寸并提供重试"]],
@@ -831,17 +614,10 @@ export const vocabularyEntries = [
     avoidWhen: ["内容只有一句提示", "任务需要完全阻断背景且必须确认"],
     confusedWith: "抽屉强调侧边上下文；模态框强调阻断；Popover 强调触发点附近的短信息。",
     codeUI: ["dialog/aside、focus management、滑入过渡、内部滚动"],
-<<<<<<< HEAD
     media: ["面板中的对象图片可用外部占位图，面板结构与控件由代码呈现"],
     prompt: "请实现一个桌面右侧 Drawer，展示选中对象详情；移动端切换为底部 sheet 或全屏面板；支持 Escape、关闭按钮和点击遮罩，打开后保留来源列表滚动位置。",
     related: ["detail-panel", "modal", "bottom-tabs"],
     source: "https://m3.material.io/components/navigation-drawer/overview",
-=======
-    image2: ["面板中的对象图片可用本地资产，面板 chrome 不能生成"],
-    prompt: "请实现一个桌面右侧 Drawer，展示选中对象详情；移动端切换为底部 sheet 或全屏面板；支持 Escape、关闭按钮和点击遮罩，打开后保留来源列表滚动位置。",
-    related: ["detail-panel", "modal", "bottom-tabs"],
-    source: "https://m3.material.io/components/bottom-sheets/overview",
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   },
   {
     id: "toast",
@@ -853,11 +629,7 @@ export const vocabularyEntries = [
     ask: "角落冒出一句‘已保存’，过两秒自动消失，但用户也能知道结果。",
     definition: "轻提示是短暂、非阻断的操作反馈，告诉用户刚刚发生了什么或下一步可以做什么。",
     role: "提供即时确认，不打断用户继续浏览；持续性或高风险信息应使用更强的反馈。",
-<<<<<<< HEAD
     example: image("轻提示的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/toast.webp", "轻提示的抽象视觉封面", "抽象封面强调短暂、非阻断的反馈层；提示文字和计时由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["消息", "短句说明结果"], ["状态色", "成功、警告、错误有语义差异"], ["持续时间", "给足阅读时间，不只闪一下"], ["撤销/关闭", "重要操作可提供撤销"]],
     variants: [["成功提示", "保存、复制、收藏完成"], ["错误提示", "请求失败并提供重试"], ["带操作提示", "撤销、查看详情或恢复"]],
     states: [["出现", "不抢焦点但可被读屏感知"], ["堆叠", "限制数量，避免互相覆盖"], ["关闭", "自动消失与手动关闭并存"]],
@@ -865,17 +637,12 @@ export const vocabularyEntries = [
     avoidWhen: ["错误需要修复", "信息必须持续可见", "反馈会改变数据但没有撤销"] ,
     confusedWith: "Toast 短暂反馈；Alert/Banner 持续存在；Modal 会阻断任务。",
     codeUI: ["role=status/alert、计时、堆叠位置、撤销按钮"],
-<<<<<<< HEAD
     media: ["提示框、文字和图标必须由代码渲染"],
-=======
-    image2: ["提示框、文字和图标必须由代码渲染"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "请添加一个不会阻断操作的 toast 系统：成功/错误有不同语义，默认持续 3-5 秒，重要操作提供撤销；使用 aria-live，不覆盖移动端底部导航。",
     related: ["empty-state", "button", "modal"],
     source: "https://www.w3.org/WAI/ARIA/apg/patterns/alert/",
   },
   {
-<<<<<<< HEAD
     id: "skeleton",
     name: "加载骨架屏",
     en: "Loading Skeleton",
@@ -919,28 +686,6 @@ export const vocabularyEntries = [
     media: ["可选插画或照片使用外部占位图片，但所有文字和操作保持代码渲染"],
     prompt: "请为列表分别设计首次使用、集合为空和无搜索结果状态：保留当前查询或筛选，说明为什么没有内容，并只提供一个清晰的下一步；加载与错误使用各自独立的状态组件。",
     related: ["search", "toast", "skeleton", "card-grid"],
-=======
-    id: "empty-state",
-    name: "空 / 加载 / 错误状态",
-    en: "Empty / Loading / Error",
-    category: "feedback",
-    level: "基础",
-    tags: ["状态", "恢复", "image2"],
-    ask: "没数据、正在加载或出错时别留白，要告诉用户现在发生了什么和下一步怎么办。",
-    definition: "状态设计为内容不可用的时刻提供可读反馈、恢复动作和稳定的空间预期。",
-    role: "让‘没有内容’不再像页面坏了，并把等待、失败和首次使用区分开。",
-    example: image("./assets/vocabulary/generated-v2/covers/empty-state.webp", "空加载错误状态的抽象视觉封面", "抽象封面强调状态占位和恢复路径；说明、重试和加载语义由代码实现。"),
-    anatomy: [["状态标题", "说清空、加载还是失败"], ["解释", "为什么发生，是否需要等待"], ["下一步", "开始、重试、清除筛选或返回"], ["视觉占位", "骨架、插画或状态图，保持尺寸"]],
-    variants: [["首访空状态", "解释价值并提供开始动作"], ["无结果", "保留搜索/筛选条件并指导放宽"], ["错误状态", "说明失败和重试/返回路径"]],
-    states: [["加载骨架", "形状接近最终内容"], ["空状态", "不把空白误认为错误"], ["错误", "保留可恢复操作和已加载内容"]],
-    useWhen: ["请求或集合可能暂时没有内容", "用户需要知道下一步如何恢复"],
-    avoidWhen: ["只用一个 spinner 掩盖长期等待", "错误只显示红色而没有说明"] ,
-    confusedWith: "空状态是正常没有内容；错误状态是请求或操作失败；加载状态是尚未得到结果。",
-    codeUI: ["状态组件、role=status、重试、骨架尺寸和文案"],
-    image2: ["状态插画、照片或复杂纹理可作为 image2 asset，但不生成文字/UI"],
-    prompt: "请为列表补齐 loading、empty、no-results、error 和 success 状态；每个状态说明发生了什么并给出下一步，骨架尺寸匹配最终卡片，移动端不产生横向滚动。",
-    related: ["search", "toast", "card-grid"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     source: "https://www.nngroup.com/articles/empty-state-interface-design/",
   },
   {
@@ -953,11 +698,7 @@ export const vocabularyEntries = [
     ask: "标题、正文和提示要分出重点，别让整页文字糊成一片。",
     definition: "排版层级用字体、字号、字重、行高和宽度建立阅读顺序。",
     role: "它决定用户先看什么、读起来累不累，以及 UI 是否显得可信。",
-<<<<<<< HEAD
     example: image("排版层级的代码组件预览"),
-=======
-    example: image("./assets/vocabulary/generated-v2/covers/typography.webp", "排版层级的抽象视觉封面", "抽象封面强调材质、密度和层级；所有可编辑文字由代码实现。"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["标题层级", "页面、区段、组件标题"], ["正文", "稳定字号和行高，控制阅读宽度"], ["辅助信息", "标签、时间和说明，不能变成噪点"], ["代码/数字", "使用适合扫描的等宽或数字字形"]],
     variants: [["单一无衬线", "产品和工具 UI 的稳妥选择"], ["衬线标题 + 无衬线正文", "编辑/品牌语境"], ["紧凑数据型", "仪表盘和表格"]],
     states: [["响应式", "字号有上下限，标题可换行"], ["聚焦/选中", "不要只靠字重变化"], ["截断", "只在明确允许时使用省略号"]],
@@ -965,11 +706,7 @@ export const vocabularyEntries = [
     avoidWhen: ["用颜色或渐变替代真正层级", "正文小到无法在手机上阅读"],
     confusedWith: "排版层级是视觉规则；标题区/页头是页面结构角色。",
     codeUI: ["真实文本、font-size、line-height、max-width、text-wrap"],
-<<<<<<< HEAD
     media: ["所有可编辑文字由代码呈现，排版预览不需要配图"],
-=======
-    image2: ["不把可编辑文字烘焙到生成图片"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "请建立清晰的排版 token：页面标题、区段标题、正文、辅助文字和代码各有固定字号与行高；正文保持 16px 左右，移动端长标题可换行，不使用负字距。",
     related: ["header", "card", "responsive"],
     source: "https://www.w3.org/WAI/tips/designing.html",
@@ -984,11 +721,7 @@ export const vocabularyEnglishById = {
     ask: "How do I keep the product navigation and content area consistent across pages?",
     definition: "An app shell is the persistent outer structure that organizes navigation, content, status layers, and safe areas into a reusable page frame.",
     role: "It preserves orientation as users move between pages and gives every screen the same spatial and interaction rules.",
-<<<<<<< HEAD
     example: image("News product app shell example"),
-=======
-    example: image("./assets/cases/news-app/reference-overview.png", "News product app shell example", "The news example places top navigation, the content feed, and bottom destinations in one persistent shell."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Top app bar", "Brand, title, search, and page actions"], ["Main content", "The current task and scrollable content"], ["Navigation", "A desktop sidebar or mobile bottom tabs"], ["Status layer", "Loading, errors, dialogs, and global notices"]],
     variants: [["Desktop workspace", "Sidebar plus toolbar for dense tasks"], ["Mobile app", "Top safe area, content, and bottom tabs"], ["Immersive detail", "Reduced navigation so the object or media leads"]],
     states: [["Default", "Navigation and content are visible with a clear current item"], ["Narrow", "The sidebar collapses into horizontal or bottom navigation"], ["Loading", "The shell stays stable while content becomes a skeleton"]],
@@ -996,11 +729,7 @@ export const vocabularyEnglishById = {
     avoidWhen: ["The deliverable is one standalone poster or campaign page", "The content itself is a complete immersive experience"],
     confusedWith: "An app shell is not one navigation bar; navigation is only one part of the shell.",
     codeUI: ["Semantic layout, route outlet, navigation, safe areas, and focus order"],
-<<<<<<< HEAD
     media: ["Place photography, product images, and complex illustration inside the content area, not in a shell bitmap"],
-=======
-    image2: ["Place photography, product images, and complex illustration inside the content area, not in a shell bitmap"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Build the product as a reusable app shell: use a left navigation and top toolbar on desktop, then a top safe area and bottom tab bar on mobile. Keep the content scrollable, preserve the current navigation state, and prevent loading or errors from resizing the shell.",
   },
   header: {
@@ -1010,11 +739,7 @@ export const vocabularyEnglishById = {
     ask: "Put the logo, page name, and a few destinations at the top so users immediately know where they are.",
     definition: "A header is the topmost brand and context region of a page. It establishes identity, hierarchy, and global entry points.",
     role: "It first answers which product or page this is, then places common global actions where users expect them.",
-<<<<<<< HEAD
     example: image("Recipe app header example"),
-=======
-    example: image("./demo/plate-play/mobile-preview.png", "Recipe app header example", "The header uses the brand name, an account entry, and whitespace to establish page identity."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Brand identity", "Product name or logo linked to the starting point"], ["Page context", "Current title, breadcrumb, or back action"], ["Global actions", "Search, theme, account, and overflow"], ["Responsive collapse", "Secondary actions become a menu or icon buttons"]],
     variants: [["Brand header", "Emphasizes identity and primary navigation"], ["App header", "Emphasizes the page title, back, and overflow"], ["Overlay header", "Sits on hero media and needs strong contrast"]],
     states: [["Current page", "The active destination is clearly marked"], ["After scroll", "It can become sticky or reduce in height"], ["Menu open", "Focus enters the menu and layering stays clear"]],
@@ -1022,29 +747,17 @@ export const vocabularyEnglishById = {
     avoidWhen: ["A minimal, single-task confirmation screen", "The header would compete with the detail object"],
     confusedWith: "A header owns brand and page context; top navigation owns link organization. They can be combined but have different responsibilities.",
     codeUI: ["header, nav, real text, SVG icons, and keyboard focus"],
-<<<<<<< HEAD
     media: ["Brand photography or illustration may sit behind it, but logo and navigation text stay in code"],
-=======
-    image2: ["Brand photography or illustration may sit behind it, but logo and navigation text stay in code"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Design a lightweight header with the brand on the left, current page context in the middle, and search plus account actions on the right. Use consistent SVG icons, give every icon button an accessible name, and move secondary destinations into a mobile menu.",
   },
   hero: {
     name: "Hero",
     level: "Foundation",
-<<<<<<< HEAD
     tags: ["Website section", "External media", "First viewport"],
     ask: "Use a strong image and headline at the top so people immediately understand what we do.",
     definition: "A hero is the first major visual section of a page. It establishes the subject, value, and next action with minimal information.",
     role: "A hero should not contain everything. It should create understanding in seconds and make the next step obvious.",
     example: image("Fashion product hero example"),
-=======
-    tags: ["Website section", "image2", "First viewport"],
-    ask: "Use a strong image and headline at the top so people immediately understand what we do.",
-    definition: "A hero is the first major visual section of a page. It establishes the subject, value, and next action with minimal information.",
-    role: "A hero should not contain everything. It should create understanding in seconds and make the next step obvious.",
-    example: image("./assets/cases/fashion-shopping-app/hero-screen.png", "Fashion product hero example", "Media leads the hero while the copy and CTA remain editable code."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Headline", "States the product or page value in one thought"], ["Supporting copy", "Adds audience, context, or credibility"], ["Primary action", "One clear CTA instead of several equal buttons"], ["Hero media", "Photography, illustration, or product scene with a safe text area"]],
     variants: [["Media-led", "Large image or video for brands and products"], ["Copy-led", "A narrow headline and CTA for tool entry points"], ["Split layout", "Side by side on desktop and stacked on mobile"]],
     states: [["Default", "Headline, media, and CTA are visible in the first viewport"], ["Narrow", "The crop preserves the subject and the CTA remains visible"], ["Reduced motion", "Autoplay and scroll-dependent motion are removed"]],
@@ -1052,11 +765,7 @@ export const vocabularyEnglishById = {
     avoidWhen: ["The user is already inside a frequent workflow", "Complex data must be compared immediately"],
     confusedWith: "A hero is a page section; hero media is only the visual asset inside it.",
     codeUI: ["Headline, body copy, CTA, layout, overlay, and responsive crop"],
-<<<<<<< HEAD
     media: ["Photography, illustration, rich material, and product scenes without baked-in text or UI glyphs"],
-=======
-    image2: ["Photography, illustration, rich material, and product scenes without baked-in text or UI glyphs"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Create a clearly ranked product-page hero with a headline and one supporting sentence on the left and a text-free, logo-free real-world image on the right. Keep one primary CTA, stack the layout on mobile, and leave a visible hint of the next section.",
   },
   cta: {
@@ -1066,11 +775,7 @@ export const vocabularyEnglishById = {
     ask: "Give me one prominent button that starts the user's next step.",
     definition: "A CTA is the action the page most wants the user to complete, usually represented by one high-priority button.",
     role: "It turns understanding into action and uses wording plus visual priority to set the expectation for what happens next.",
-<<<<<<< HEAD
     example: image("Primary action on a recipe detail page"),
-=======
-    example: image("./demo/plate-play/screenshots/detail.png", "Primary action on a recipe detail page", "The high-contrast button uses direct wording that describes the next step."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Action label", "Uses verbs such as Start, Save, or Continue"], ["Visual priority", "Clearly differs from secondary actions"], ["Feedback", "Pressed, loading, success, and error states"], ["Touch target", "At least 44 by 44 pixels without cramped text"]],
     variants: [["Filled primary", "High-certainty, high-priority action"], ["Outlined secondary", "Optional, alternate, or back action"], ["Destructive", "Delete or exit actions that need confirmation"]],
     states: [["Default and hover", "Color or shadow changes without layout shift"], ["Loading", "Width stays fixed while progress is shown"], ["Success and error", "Brief feedback includes a recovery path"]],
@@ -1078,11 +783,7 @@ export const vocabularyEnglishById = {
     avoidWhen: ["The page contains several mutually exclusive primary tasks", "The label cannot explain the result of clicking"],
     confusedWith: "CTA describes action priority, not every button. Secondary actions still need an appropriate hierarchy.",
     codeUI: ["button, states, keyboard focus, aria-busy, and disabled logic"],
-<<<<<<< HEAD
     media: ["Buttons and labels stay code-rendered; external images carry mood and content only"],
-=======
-    image2: ["Never generate a button or its label inside an image; media only carries mood and content"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Give the page one primary CTA with a clear action verb. Include default, hover, focus, loading, success, and error states; keep its dimensions stable and meet a 44px touch target.",
   },
   responsive: {
@@ -1092,11 +793,7 @@ export const vocabularyEnglishById = {
     ask: "Turn three desktop columns into one on mobile without overlap or horizontal scrolling.",
     definition: "Responsive design adapts layout, size, order, and interaction to the available viewport and input method while keeping the same content.",
     role: "It is not a scaled-down desktop page; it preserves task priority and reorganizes space for narrower contexts.",
-<<<<<<< HEAD
     example: image("Responsive news feed example"),
-=======
-    example: image("./assets/cases/news-app/feed-screen.png", "Responsive news feed example", "On narrow screens the feed preserves titles, images, and primary actions while reducing secondary metadata."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Breakpoint strategy", "Responds to content needs instead of device names"], ["Fluid container", "Uses minmax, clamp, and max-width"], ["Reflow rules", "Changes columns, order, and navigation mode"], ["Touch targets", "Keeps mobile actions at least 44px"]],
     variants: [["Fluid scaling", "Type and spacing adapt within limits"], ["Structural reflow", "A desktop sidebar becomes a drawer or bottom entry"], ["Content reduction", "Keeps the subject and removes nonessential metadata"]],
     states: [["Desktop", "Multiple columns and supporting information are visible"], ["Tablet", "Column count and sidebar width decrease"], ["Phone", "One column leads and interaction does not depend on hover"]],
@@ -1104,11 +801,7 @@ export const vocabularyEnglishById = {
     avoidWhen: ["A fixed-size exhibition or poster is the actual deliverable", "The UI only appears in one fixed embed"],
     confusedWith: "Responsive design changes structure; responsive images are only one implementation technique.",
     codeUI: ["CSS Grid and Flexbox, containers, picture, breakpoints, and accessible source order"],
-<<<<<<< HEAD
     media: ["Use a separate external mobile crop when needed; never stretch a desktop image"],
-=======
-    image2: ["Generate a separate mobile crop when needed; never stretch a desktop image"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Implement a content-driven responsive layout with two or three columns on desktop and one column on mobile. Collapse the sidebar into a horizontal filter or bottom entry, and prevent every heading, button, and image from overflowing.",
   },
   "top-nav": {
@@ -1118,11 +811,7 @@ export const vocabularyEnglishById = {
     ask: "Put the logo, primary sections, and sign-in entry at the top, and make the current location clear.",
     definition: "A top navigation bar contains site-level destinations and global actions, usually at the top of the page and sometimes sticky.",
     role: "It lets users move quickly between major sections while keeping search, theme, or account actions available.",
-<<<<<<< HEAD
     example: image("News product top navigation example"),
-=======
-    example: image("./assets/cases/news-app/headlines-screen.png", "News product top navigation example", "The bar aligns the brand, sections, and search on one horizontal axis."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Brand link", "Returns to the home or product starting point"], ["Primary links", "A controlled number of major destinations"], ["Current marker", "Color, underline, or background shows location"], ["Global actions", "Search, language, theme, and account"]],
     variants: [["Standard navbar", "Brand, links, and actions"], ["Centered brand", "Useful for editorial and brand-led sites"], ["Transparent overlay", "Works on hero media when contrast is reinforced"]],
     states: [["Sticky", "Remains reachable without covering content"], ["Menu open", "Uses a mobile drawer or dropdown"], ["Current item", "Uses text or shape in addition to color"]],
@@ -1130,7 +819,6 @@ export const vocabularyEnglishById = {
     avoidWhen: ["A single-task flow needs concentration", "There are too many destinations to scan"],
     confusedWith: "A navbar organizes site destinations; a header may contain it or may only provide page context.",
     codeUI: ["nav, links, buttons, aria-current, and mobile-menu focus management"],
-<<<<<<< HEAD
     media: ["Navigation and logos use code or vector resources and do not need placeholder imagery"],
     prompt: "Build a restrained top navbar with the brand on the left, no more than four primary destinations in the middle, and search plus account on the right. Mark the current item with aria-current and a visible state, then move links into a closable menu on mobile.",
   },
@@ -1170,11 +858,6 @@ export const vocabularyEnglishById = {
     media: ["Path labels and separators stay entirely code-rendered"],
     prompt: "Add accessible breadcrumbs above the page title using nav and ol. Make ancestors real links, mark the current page with aria-current=page, render separators in CSS, and collapse middle levels on narrow screens while preserving the root and current page.",
   },
-=======
-    image2: ["Navigation imagery and logos should not be generated as part of a bitmap"],
-    prompt: "Build a restrained top navbar with the brand on the left, no more than four primary destinations in the middle, and search plus account on the right. Mark the current item with aria-current and a visible state, then move links into a closable menu on mobile.",
-  },
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   "bottom-tabs": {
     name: "Bottom Tab Bar",
     level: "Foundation",
@@ -1182,11 +865,7 @@ export const vocabularyEnglishById = {
     ask: "Keep Home, Favorites, and Profile available from a fixed bar at the bottom of the phone.",
     definition: "A bottom tab bar is a mobile primary-navigation container fixed to the bottom edge with a small number of frequent destinations.",
     role: "It reduces backtracking and makes switching among core screens fast.",
-<<<<<<< HEAD
     example: image("Recipe app bottom navigation example"),
-=======
-    example: image("./demo/plate-play/mobile-preview.png", "Recipe app bottom navigation example", "The navigation sits above the safe area and gives the selected destination a distinct state."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Tab item", "Icon plus short label, usually three to five items"], ["Selected state", "Icon, color, and text work together"], ["Safe area", "Accounts for the iOS home indicator"], ["Badge", "Appears only when unread information exists"]],
     variants: [["Icon and label", "Most understandable for primary navigation"], ["Icon only", "Only for familiar users and very few destinations"], ["Central primary action", "Highlights creation or publishing"]],
     states: [["Selected", "Does not rely on color and keeps the label visible"], ["Keyboard and screen reader", "Every item has a name and current-page state"], ["Scrolling", "May hide, but must be easy to restore"]],
@@ -1194,11 +873,7 @@ export const vocabularyEnglishById = {
     avoidWhen: ["There are more than five destinations", "The screen needs immersive full-screen interaction"],
     confusedWith: "A bottom tab bar is primary navigation; toolbars and action bars do not belong in it.",
     codeUI: ["nav, link or button, consistent SVG icons, and safe-area-inset-bottom"],
-<<<<<<< HEAD
     media: ["Icons, labels, and selected states are entirely code-rendered and need no imagery"],
-=======
-    image2: ["Do not use bitmap icons or generated navigation artwork"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Add a four-item mobile bottom tab bar fixed above the safe area. Give every destination a consistent line icon and short label, use aria-current for the active page, and ensure scrolling content is not covered at the bottom.",
   },
   tabs: {
@@ -1208,11 +883,7 @@ export const vocabularyEnglishById = {
     ask: "Split this content into a few tabs so the same region changes when I select one.",
     definition: "Tabs switch among related content panels within one context and should not hide unrelated tasks.",
     role: "They reduce page length and cognitive load while supporting browsing and comparison in the same context.",
-<<<<<<< HEAD
     example: image("Museum content tabs example"),
-=======
-    example: image("./assets/cases/museum-app/exhibitions-screen.png", "Museum content tabs example", "Tabs keep exhibitions, collections, and information within the same content context."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Tab list", "Short labels ordered by their relationship"], ["Selection indicator", "Underline, fill, or strong contrast"], ["Panel", "One panel associated with each tab"], ["Keyboard behavior", "Arrow keys switch tabs and Tab enters the panel"]],
     variants: [["Underline tabs", "Lightweight and useful for reading"], ["Pill tabs", "Useful for filters and view switching"], ["Scrollable tabs", "Fit more peers on narrow screens"]],
     states: [["Selected", "Focus and panel stay synchronized"], ["Disabled", "Explains why the panel is unavailable"], ["Loading", "Only the panel changes and the tab list does not shift"]],
@@ -1220,11 +891,7 @@ export const vocabularyEnglishById = {
     avoidWhen: ["Every tab is a completely independent task", "There are too many labels to scan"],
     confusedWith: "Tabs navigate content panels; a segmented control usually switches a view mode or filter value.",
     codeUI: ["button, role=tab, aria-controls, arrow-key behavior, and hidden panels"],
-<<<<<<< HEAD
     media: ["Tab labels and selected states must be rendered in code"],
-=======
-    image2: ["Tab labels and selected states must be rendered in code"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Implement accessible tabs with a one-to-one relationship between tabs and panels, arrow-key navigation, and deep links. Do not reset scroll position when switching; allow horizontal tab scrolling on mobile without page overflow.",
   },
   segmented: {
@@ -1234,11 +901,7 @@ export const vocabularyEnglishById = {
     ask: "Put two or three modes side by side so selecting one immediately switches the view, like an iPhone control.",
     definition: "A segmented control switches the current view or state among a small set of mutually exclusive options.",
     role: "It is faster than a select and more compact than tabs, making it useful for grid/list, week/month, or light/dark modes.",
-<<<<<<< HEAD
     example: image("Fitness workspace segmented control example"),
-=======
-    example: image("./demo/fithub/screenshots/00-desktop.png", "Fitness workspace segmented control example", "Short labels represent mutually exclusive view modes inside one control."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Group container", "Keeps every option within one visual boundary"], ["Options", "Two to four short, mutually exclusive choices"], ["Selection indicator", "Shows the current mode without resizing the group"], ["Immediate feedback", "The related content updates as soon as selection changes"]],
     variants: [["Text segments", "The most general form"], ["Icon and text", "Icons reinforce recognition"], ["Compact segments", "Small view switcher inside a toolbar"]],
     states: [["Selected", "A slider or fill changes without relying only on text color"], ["Disabled", "The layout remains stable at lower contrast"], ["Loading", "Selection remains visible while the view responds"]],
@@ -1246,11 +909,7 @@ export const vocabularyEnglishById = {
     avoidWhen: ["Options can be combined", "Options require long descriptions or images"],
     confusedWith: "Segmented controls switch modes; tabs organize related content panels.",
     codeUI: ["button, radiogroup, aria-pressed or checked, and stable dimensions"],
-<<<<<<< HEAD
     media: ["Segments and the selection indicator are entirely code-rendered and need no imagery"],
-=======
-    image2: ["Do not generate the segments or selection indicator as an image"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Use a three-part segmented control to switch data views. Keep the selection indicator and overall dimensions stable, provide radiogroup semantics for keyboard and screen-reader users, and keep labels short.",
   },
   search: {
@@ -1260,11 +919,7 @@ export const vocabularyEnglishById = {
     ask: "There are too many items. Add search so I can find one immediately by name or keyword.",
     definition: "A search field accepts a query and returns matching results, suggestions, or a no-results state from local or remote content.",
     role: "It changes browsing from scanning every item to looking with intent, especially for terms, examples, files, and product catalogs.",
-<<<<<<< HEAD
     example: image("Content discovery search example"),
-=======
-    example: image("./assets/cases/news-app/discover-screen.png", "Content discovery search example", "Search sits beside topic filters while the results region communicates query feedback."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Input", "Has a clear placeholder and clear action"], ["Search icon", "Supports recognition without replacing the accessible name"], ["Suggestions and history", "Help users complete queries quickly"], ["Result states", "Loading, matches, no results, and errors"]],
     variants: [["Instant search", "Filters local data as the user types"], ["Submitted search", "Runs on Enter or a button for remote queries"], ["Command search", "Supports shortcuts and grouped results"]],
     states: [["Typing", "Preserves the query and exposes a clear action"], ["Loading", "Shows progress without clearing the input"], ["No results", "Explains how to adjust the query and offers reset"]],
@@ -1272,11 +927,7 @@ export const vocabularyEnglishById = {
     avoidWhen: ["There are five or fewer items", "Results cannot be explained or recovered"],
     confusedWith: "Search actively looks for a query; filter chips narrow a known collection.",
     codeUI: ["input type=search, debounce, keyboard submission, and a live results region"],
-<<<<<<< HEAD
     media: ["Render the search icon and input in code, never baked into an image"],
-=======
-    image2: ["Render the search icon and input in code, never baked into an image"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Add an accessible search field with Enter submission, Escape to clear, instant results, and a no-results state. Match names, alternate names, tags, and user phrasing while always preserving the current query.",
   },
   "filter-chips": {
@@ -1286,11 +937,7 @@ export const vocabularyEnglishById = {
     ask: "Only show projects from this week that are unfinished and assigned to me.",
     definition: "Filter chips are compact selectable conditions that narrow a collection or expose the filters currently applied.",
     role: "They explain why only certain results remain and make enabling, disabling, and clearing conditions inexpensive.",
-<<<<<<< HEAD
     example: image("Fitness discovery filter chips example"),
-=======
-    example: image("./demo/fithub/screenshots/01-discover.png", "Fitness discovery filter chips example", "Filter chips stay close to results and update their selected state together with the count."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Label", "A short, scannable condition"], ["Selected state", "Color plus a check or filled shape"], ["Clear action", "Remove one condition or reset all"], ["Results feedback", "Count, empty state, or loading"]],
     variants: [["Single-select", "Only one condition may be active"], ["Multi-select", "Several conditions may be combined"], ["Dismissible chip", "Pins active conditions above results"]],
     states: [["Default", "Inactive conditions remain visually light"], ["Selected", "Clear without overpowering the results"], ["No results", "Keeps conditions visible and explains how to broaden them"]],
@@ -1298,29 +945,17 @@ export const vocabularyEnglishById = {
     avoidWhen: ["Conditions are numerous or hierarchical and need a filter panel", "The rule cannot be expressed as a short label"],
     confusedWith: "A filter chip is a condition, a tab is a content container, and a badge only displays status or quantity.",
     codeUI: ["button or checkbox, pressed state, and filter-state management"],
-<<<<<<< HEAD
     media: ["Render chip shape, label, and state in code"],
-=======
-    image2: ["Render chip shape, label, and state in code"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Place multi-select filter chips below search, showing each condition and its result count. Support removing one condition, resetting all, and explaining no results; allow horizontal scrolling on mobile without page overflow.",
   },
   card: {
     name: "Card",
     level: "Foundation",
-<<<<<<< HEAD
     tags: ["Content", "Container", "External media"],
     ask: "Make each product a card that groups its image, name, price, and actions, with a clickable main area.",
     definition: "A card groups one object's title, summary, media, and related actions within a clear content boundary.",
     role: "It supports scanning a collection while preserving the boundary between opening the object and using its local actions.",
     example: image("Fashion catalog card example"),
-=======
-    tags: ["Content", "Container", "image2"],
-    ask: "Make each product a card that groups its image, name, price, and actions, with a clickable main area.",
-    definition: "A card groups one object's title, summary, media, and related actions within a clear content boundary.",
-    role: "It supports scanning a collection while preserving the boundary between opening the object and using its local actions.",
-    example: image("./assets/cases/fashion-shopping-app/catalog-screen.png", "Fashion catalog card example", "Each product card groups its image, title, price, and favorite action as one object."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Cover", "Image or media used for quick recognition"], ["Title", "The object's highest-priority identifier"], ["Metadata", "Short details such as price, author, or status"], ["Actions", "Favorite, preview, or open detail"]],
     variants: [["Basic card", "Mostly text and status"], ["Media card", "The cover is the primary identifier"], ["Action card", "Contains local buttons that must avoid accidental activation"]],
     states: [["Default and hover", "Border or shadow changes without layout shift"], ["Selected or saved", "State is visible and reversible"], ["Loading", "Skeleton geometry matches the final card"]],
@@ -1328,11 +963,7 @@ export const vocabularyEnglishById = {
     avoidWhen: ["The content is a continuous article", "Each item is only one line and a list would be denser", "The design nests cards inside cards"],
     confusedWith: "A card defines an object boundary, a card grid defines layout, and a list is a denser repeated structure.",
     codeUI: ["article, primary link area, local buttons, fixed aspect ratio, and alt text"],
-<<<<<<< HEAD
     media: ["Product images, photography, illustrations, and thumbnails without card text or buttons"],
-=======
-    image2: ["Product images, photography, illustrations, and thumbnails without card text or buttons"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Make every object an independent card with a cover, title, short summary, and one local action. Let the main region open details without local buttons triggering it, avoid nested cards, and fix the media ratio to prevent loading shift.",
   },
   "card-grid": {
@@ -1342,11 +973,7 @@ export const vocabularyEnglishById = {
     ask: "Arrange these examples in a tidy grid that automatically becomes two columns or one on narrower screens.",
     definition: "A card grid organizes repeated objects across rows and columns, adapting its column count and minimum card size to available width.",
     role: "It supports comparison and browsing of similar objects with a more regular spatial rhythm than a feed.",
-<<<<<<< HEAD
     example: image("Content card grid example"),
-=======
-    example: image("./assets/cases/museum-app/home-screen.png", "Content card grid example", "A consistent card ratio carries several exhibition destinations in a regular grid."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Grid container", "Defines columns, gap, and maximum width"], ["Card item", "Maintains object boundaries and a consistent ratio"], ["Sort and filter", "Preserve visual rhythm as results change"], ["Responsive rule", "Converges from several columns to one"]],
     variants: [["Equal grid", "Useful for examples, products, and templates"], ["Mixed-size grid", "Emphasizes one or two objects"], ["Horizontal rail", "Useful for related mobile content"]],
     states: [["Loading", "Uses skeletons with matching dimensions"], ["No results", "Places a clear next step where the grid was"], ["Narrow", "Drops columns instead of compressing text"]],
@@ -1354,11 +981,7 @@ export const vocabularyEnglishById = {
     avoidWhen: ["Sequence and time matter more", "Each item contains too much information for a card"],
     confusedWith: "A grid is a layout method, not a synonym for card; it can also contain media tiles or data items.",
     codeUI: ["CSS Grid, minmax, gap, container width, and focus order"],
-<<<<<<< HEAD
     media: ["Card media uses a replaceable external image while titles, labels, and actions remain code-rendered"],
-=======
-    image2: ["Each cover can use a local image or image2 asset"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Implement a CSS Grid card layout with three columns on desktop, two on narrow desktop, and one on mobile. Use minmax and fixed media ratios, prevent text overflow, and preserve the grid rhythm after filtering.",
   },
   list: {
@@ -1368,11 +991,7 @@ export const vocabularyEnglishById = {
     ask: "Stack content in rows with the newest first so each item is easy to scan.",
     definition: "A feed list orders items continuously by time, relevance, or priority and emphasizes scanning plus sequence.",
     role: "It carries more objects in limited space than a card grid and works well for titles, status, and timestamps.",
-<<<<<<< HEAD
     example: image("News feed list example"),
-=======
-    example: image("./assets/cases/news-app/feed-screen.png", "News feed list example", "Images, headlines, and timestamps create a continuous reading rhythm."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["List item", "One object per row with a clear boundary"], ["Primary title", "Carries the main identifying information"], ["Supporting metadata", "Time, category, author, or status"], ["Pagination", "Appends content without losing position"]],
     variants: [["Media list", "Image and text for news or articles"], ["Activity list", "Prioritizes time, status, and action"], ["Compact list", "Fits settings and operational tools"]],
     states: [["Unread", "Uses weight or a status dot"], ["Load more", "Appends without returning to the top"], ["Error", "Keeps loaded content and offers retry"]],
@@ -1380,46 +999,26 @@ export const vocabularyEnglishById = {
     avoidWhen: ["Every object depends on a large image for recognition", "Users need to compare several images side by side"],
     confusedWith: "A feed emphasizes order and density; a card emphasizes object boundary and media recognition.",
     codeUI: ["ul and li, links, semantic time, load-more behavior, and accessible status"],
-<<<<<<< HEAD
     media: ["List thumbnails may use external photos or illustrations, while all text stays in code"],
-=======
-    image2: ["List thumbnails may use local photos or illustrations, but all text stays in code"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Create a news feed where each row contains a thumbnail, headline, category, and timestamp, ordered by time. Keep headlines readable on mobile and append results when loading more instead of resetting the list.",
   },
   "media-tile": {
     name: "Media Tile",
     level: "Foundation",
-<<<<<<< HEAD
     tags: ["Image", "Video", "External media"],
     ask: "Create image or video tiles where the media leads and text only adds the title and type.",
     definition: "A media tile uses an image or video as its primary identifier, with code-rendered labels and actions as a supporting layer.",
     role: "It enables visual discovery in galleries, portfolios, media libraries, and exploration views.",
     example: image("Museum media tile example"),
-=======
-    tags: ["Image", "Video", "image2"],
-    ask: "Create image or video tiles where the media leads and text only adds the title and type.",
-    definition: "A media tile uses an image or video as its primary identifier, with code-rendered labels and actions as a supporting layer.",
-    role: "It enables visual discovery in galleries, portfolios, media libraries, and exploration views.",
-    example: image("./assets/cases/museum-app/exhibitions-screen.png", "Museum media tile example", "Tiles use consistent crops while titles and save actions remain accessible."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Media slot", "Fixed ratio, object-fit, and loading placeholder"], ["Label", "Type, duration, or status"], ["Title", "Short and scannable"], ["Action", "Play, save, or open details"]],
     variants: [["Grid tile", "Useful for visual browsing"], ["Masonry tile", "Preserves different image heights"], ["Video tile", "Requires a poster, controls, and pause behavior"]],
     states: [["Loading", "Uses an equal-size placeholder to prevent shift"], ["Playing", "Controls and status are drawn in code"], ["Failure", "Shows an image fallback and retry"]],
     useWhen: ["The image or video is the primary content", "Users decide what to open by looking first"],
-<<<<<<< HEAD
     avoidWhen: ["The image is decorative and text carries the task", "Placeholder media cannot guarantee authentic content or usage rights"],
     confusedWith: "A media tile is a content role; it cannot replace UI icons or navigation glyphs.",
     codeUI: ["img or video, alt or poster, play and save buttons, and ratio constraints"],
     media: ["Photography, illustration, product cutouts, textures, and thumbnails"],
     prompt: "Build a media-tile grid using replaceable external URLs, fixed aspect ratios, and meaningful alt text. Render titles, buttons, and play icons in code, with real interactive controls in each tile.",
-=======
-    avoidWhen: ["The image is decorative and text carries the task", "Generated media cannot guarantee authentic content or rights"],
-    confusedWith: "A media tile is a content role; it cannot replace UI icons or navigation glyphs.",
-    codeUI: ["img or video, alt or poster, play and save buttons, and ratio constraints"],
-    image2: ["Photography, illustration, product cutouts, textures, and thumbnails"],
-    prompt: "Build a media-tile grid using local assets, fixed aspect ratios, and meaningful alt text. Do not bake titles, buttons, or play icons into images; provide real interactive controls in each tile.",
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   },
   "detail-panel": {
     name: "Detail Panel",
@@ -1428,11 +1027,7 @@ export const vocabularyEnglishById = {
     ask: "When I select an object, open its details beside the list so I can keep comparing it in context.",
     definition: "A detail panel shows the selected object's full information, status, and actions within the current page context.",
     role: "It reveals detail without losing the source list, grid, or workspace.",
-<<<<<<< HEAD
     example: image("Museum detail panel example"),
-=======
-    example: image("./assets/cases/museum-app/detail-screen.png", "Museum detail panel example", "Media, description, dates, and the next action remain in one object context."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Object summary", "Title, status, and primary media"], ["Information groups", "Description, metadata, and history"], ["Local actions", "Edit, save, share, or close"], ["Context return", "Preserves the source list or breadcrumb"]],
     variants: [["Right inspector", "Keeps the desktop workspace list visible"], ["Full-screen detail", "Fits mobile or complex objects"], ["Inline expansion", "A light treatment for simple objects"]],
     states: [["Open and close", "Reversible with a clear focus destination"], ["Loading", "Only panel content is replaced"], ["Error", "Offers retry and return to the list"]],
@@ -1440,7 +1035,6 @@ export const vocabularyEnglishById = {
     avoidWhen: ["The detail is only one line", "Opening begins a long independent workflow"],
     confusedWith: "A detail panel preserves context, a modal interrupts it, and a drawer is one possible container for the panel.",
     codeUI: ["aside or dialog, focus management, close and return behavior, and responsive reflow"],
-<<<<<<< HEAD
     media: ["Object media, photography, and illustration; all panel copy and status remain code"],
     prompt: "Show the selected object in a right-side detail panel on desktop while keeping the source list visible. Switch to full-screen detail with a back action on mobile, and make open, close, loading, and error states recoverable.",
   },
@@ -1462,11 +1056,6 @@ export const vocabularyEnglishById = {
     media: ["Avatars or object thumbnails may use external images; data, status, and actions stay code-rendered"],
     prompt: "Build an accessible data table with a caption and correct th scope, show sort direction in column headers, and support first-column selection plus bulk actions. Preserve column widths while loading, and hide low-priority columns or switch to a structured list on phones.",
   },
-=======
-    image2: ["Object media, photography, and illustration; all panel copy and status remain code"],
-    prompt: "Show the selected object in a right-side detail panel on desktop while keeping the source list visible. Switch to full-screen detail with a back action on mobile, and make open, close, loading, and error states recoverable.",
-  },
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   button: {
     name: "Button",
     level: "Foundation",
@@ -1474,11 +1063,7 @@ export const vocabularyEnglishById = {
     ask: "Add a button that saves the content when I press it.",
     definition: "A button triggers an action in the current page, such as submit, save, open, switch, or delete.",
     role: "It tells users that an action will occur, instead of pretending to be a navigation link.",
-<<<<<<< HEAD
     example: image("Recipe detail button example"),
-=======
-    example: image("./demo/plate-play/screenshots/detail.png", "Recipe detail button example", "The label starts with an action verb and the control preserves a generous touch area."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Action label", "Explains the result instead of saying only OK"], ["Hierarchy", "Separates primary, secondary, and destructive actions"], ["Icon", "Supports the label without replacing it"], ["States", "Hover, active, focus, disabled, and loading"]],
     variants: [["Primary", "The most important action on the page"], ["Secondary", "An alternate or cancel action"], ["Icon button", "A familiar single action in constrained space"]],
     states: [["Hover and pressed", "Responds immediately without layout shift"], ["Focus", "Uses a high-contrast focus ring"], ["Disabled and loading", "Explains unavailability or preserves progress"]],
@@ -1486,7 +1071,6 @@ export const vocabularyEnglishById = {
     avoidWhen: ["Clicking navigates to another page; use a link", "A dangerous result has no confirmation or undo"],
     confusedWith: "A button performs an action and a link navigates. Their appearance can overlap, but semantics and keyboard behavior differ.",
     codeUI: ["button type, accessible name, focus-visible, disabled, and aria-busy"],
-<<<<<<< HEAD
     media: ["Buttons, icons, labels, and states are entirely code-rendered and need no imagery"],
     prompt: "Implement the save action with a real button element. Provide primary and secondary hierarchy plus default, hover, active, focus, disabled, loading, success, and error states, then show recoverable feedback after activation.",
   },
@@ -1508,11 +1092,6 @@ export const vocabularyEnglishById = {
     media: ["The box, check state, and label stay entirely code-rendered"],
     prompt: "Use native checkboxes for a multi-select group. Make each full label clickable, describe the question with fieldset and legend, and support unchecked, checked, indeterminate, disabled, and invalid states. Do not replace submitted multi-select choices with switches.",
   },
-=======
-    image2: ["Buttons, icons, labels, and states must never be generated into an image"],
-    prompt: "Implement the save action with a real button element. Provide primary and secondary hierarchy plus default, hover, active, focus, disabled, loading, success, and error states, then show recoverable feedback after activation.",
-  },
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   form: {
     name: "Input / Form",
     level: "Foundation",
@@ -1520,11 +1099,7 @@ export const vocabularyEnglishById = {
     ask: "Build a sign-up form that users can submit and explain every validation error clearly.",
     definition: "A form organizes inputs, guidance, validation, and submission into one completable task path.",
     role: "It reduces input effort, catches errors early, and explains how submitted information will be used.",
-<<<<<<< HEAD
     example: image("Meal selection form example"),
-=======
-    example: image("./demo/organique-food/screenshots/01-choose.png", "Meal selection form example", "Inputs, explanations, and the next action create one clear form path."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Label", "Explains what a field requests"], ["Control", "A real input, select, switch, or other form element"], ["Help and error", "Sits near the field and explains how to recover"], ["Submit area", "Shows available, loading, and result states"]],
     variants: [["Single-column form", "Preferred for mobile and beginner flows"], ["Multi-step form", "Useful when information is long but ordered"], ["Inline edit", "Updates a few fields inside a detail view"]],
     states: [["Focus", "Label and border state are clear"], ["Validation error", "Uses text plus color and explains the fix"], ["Submitting", "Prevents duplicates and reports progress"]],
@@ -1532,11 +1107,7 @@ export const vocabularyEnglishById = {
     avoidWhen: ["Only one search query is needed", "There are many ungrouped fields with no priority"],
     confusedWith: "An input is one field; a form is the task composed of fields and submission logic.",
     codeUI: ["label, input, fieldset, validation, autocomplete, and error associations"],
-<<<<<<< HEAD
     media: ["Form structure, text, and states must remain code"],
-=======
-    image2: ["Form structure, text, and states must remain code"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Implement an accessible, single-column-first form where every field has a label, help text, and associated error. Include loading, success, and error states on submission, and keep the mobile keyboard from covering the active field.",
   },
   toggle: {
@@ -1546,11 +1117,7 @@ export const vocabularyEnglishById = {
     ask: "Make this setting turn on and off immediately like a switch in phone settings.",
     definition: "A switch controls a binary setting that takes effect immediately, with clear labels or feedback for both on and off.",
     role: "It gives direct control over a persistent preference without requiring form submission to reveal the result.",
-<<<<<<< HEAD
     example: image("Saved-items setting switch example"),
-=======
-    example: image("./assets/cases/fashion-shopping-app/favorites-screen.png", "Saved-items setting switch example", "The setting exposes its current value and the switch behaves as a real control."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Label", "Names the controlled setting"], ["Track", "Contains the on and off positions"], ["Thumb", "Shows the current value spatially"], ["Feedback", "Reports save success or failure when needed"]],
     variants: [["Immediate save", "Persists as soon as it changes"], ["Local preference", "Theme, notifications, and filters"], ["Described switch", "Adds explanation for a complex setting"]],
     states: [["On and off", "Uses text or shape in addition to color"], ["Disabled", "Explains which other setting limits it"], ["Save failure", "Allows retry and restores the original value"]],
@@ -1558,7 +1125,6 @@ export const vocabularyEnglishById = {
     avoidWhen: ["Several choices are needed", "Switching performs a dangerous action without confirmation"],
     confusedWith: "A switch controls a persistent setting; a checkbox is better for independent selections submitted with a form.",
     codeUI: ["button role=switch or input, aria-checked, and Space-key behavior"],
-<<<<<<< HEAD
     media: ["Track, thumb, and state are always rendered in code"],
     prompt: "Implement an accessible switch with a clear label, Space-key activation, and synchronized visual plus aria-checked states. Report save success or failure after switching and keep its dimensions fixed.",
   },
@@ -1580,11 +1146,6 @@ export const vocabularyEnglishById = {
     media: ["Menu labels, icons, and states stay entirely code-rendered"],
     prompt: "Implement an object action menu from a named More button. Move focus to the first item on open, support arrow keys, Enter, and Escape, separate dangerous commands, restore focus to the trigger on close, and keep the primary action outside the menu.",
   },
-=======
-    image2: ["Track, thumb, and state are always rendered in code"],
-    prompt: "Implement an accessible switch with a clear label, Space-key activation, and synchronized visual plus aria-checked states. Report save success or failure after switching and keep its dimensions fixed.",
-  },
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   modal: {
     name: "Modal",
     level: "Advanced",
@@ -1592,11 +1153,7 @@ export const vocabularyEnglishById = {
     ask: "Open a centered dialog over a dimmed background and make me finish this short task before returning.",
     definition: "A modal temporarily blocks background interaction and concentrates attention on a short task or confirmation.",
     role: "It supports confirmation, editing, selection, or focused short flows, but should not become a default container for ordinary details.",
-<<<<<<< HEAD
     example: image("Recipe detail modal example"),
-=======
-    example: image("./demo/plate-play/screenshots/detail-generated.png", "Recipe detail modal example", "The layer focuses on one task and offers clear close and return paths."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Scrim", "Reduces background contrast and blocks interaction"], ["Title and description", "Explain the task and its consequences"], ["Content", "Form, selection, or confirmation information"], ["Close and actions", "Escape, a close button, and a clear CTA"]],
     variants: [["Confirmation modal", "Delete, exit, or overwrite decisions"], ["Edit modal", "A focused set of fields"], ["Full-screen modal", "Complex content on mobile"]],
     states: [["Open", "Focus enters the dialog"], ["Submitting", "Duplicate submission is prevented"], ["Closed", "Focus returns to the trigger or saved context"]],
@@ -1604,11 +1161,7 @@ export const vocabularyEnglishById = {
     avoidWhen: ["The user is only viewing details and a drawer fits", "The form is long and depends on background context"],
     confusedWith: "A modal blocks the background, popovers and tooltips do not, and a drawer usually preserves more context.",
     codeUI: ["dialog, focus trap, aria-modal, Escape, scrim, and focus restoration"],
-<<<<<<< HEAD
     media: ["Background media may be an image, but all dialog copy and controls remain code"],
-=======
-    image2: ["Background media may be an image, but all dialog copy and controls remain code"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Implement an accessible modal that moves focus inside when opened, closes with Escape or its close button, prevents background interaction, and restores focus to its trigger. Keep it within the mobile viewport.",
   },
   drawer: {
@@ -1618,11 +1171,7 @@ export const vocabularyEnglishById = {
     ask: "Slide details in from the right while keeping the source list visible, then return me to the same position when it closes.",
     definition: "A drawer enters from a screen edge and contains detail, filtering, or secondary navigation while preserving background context.",
     role: "It prevents unnecessary page changes on desktop and can become a bottom sheet or full-screen panel on mobile.",
-<<<<<<< HEAD
     example: image("Detail drawer content example"),
-=======
-    example: image("./assets/cases/museum-app/detail-screen.png", "Detail drawer content example", "Object details retain their relationship with the source list."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Edge", "Enters from the right, left, or bottom"], ["Scrim", "Optionally decides whether the background remains interactive"], ["Title and close", "Name the panel and provide an exit"], ["Scroll region", "Panel content scrolls independently"]],
     variants: [["Right drawer", "Desktop detail and filtering"], ["Left drawer", "Navigation or workspace lists"], ["Bottom drawer", "Mobile actions and filters"]],
     states: [["Open and close", "Has a clear trigger and return path"], ["Drag", "Can support touch dragging without replacing a close button"], ["Error", "Keeps its dimensions and offers retry"]],
@@ -1630,11 +1179,7 @@ export const vocabularyEnglishById = {
     avoidWhen: ["The content is only one short message", "The task must block the background and require confirmation"],
     confusedWith: "A drawer emphasizes edge context, a modal emphasizes interruption, and a popover stays near its trigger.",
     codeUI: ["dialog or aside, focus management, slide transition, and internal scrolling"],
-<<<<<<< HEAD
     media: ["Object media may use external placeholders, while drawer structure and controls stay in code"],
-=======
-    image2: ["Object media may be local assets, but drawer chrome stays in code"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Implement a desktop right drawer for selected-object details and switch it to a bottom sheet or full-screen panel on mobile. Support Escape, a close button, and scrim dismissal while preserving the source list's scroll position.",
   },
   toast: {
@@ -1644,11 +1189,7 @@ export const vocabularyEnglishById = {
     ask: "Show a brief 'Saved' message in the corner for a couple of seconds so users know the action succeeded.",
     definition: "A toast is brief, non-blocking feedback that reports what just happened or suggests an optional next action.",
     role: "It confirms an operation without interrupting browsing; persistent or high-risk information needs a stronger pattern.",
-<<<<<<< HEAD
     example: image("Membership action feedback example"),
-=======
-    example: image("./demo/fufu-bakery/screenshots/03-member.png", "Membership action feedback example", "Brief feedback appears near the viewport edge without covering primary actions."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Message", "A short sentence describing the result"], ["Semantic state", "Success, warning, and error are distinguishable"], ["Duration", "Allows enough reading time"], ["Undo or close", "Important changes can be reversed"]],
     variants: [["Success toast", "Save, copy, or favorite completed"], ["Error toast", "Request failed with a recovery path"], ["Action toast", "Includes undo, view, or restore"]],
     states: [["Appearing", "Does not steal focus but is announced"], ["Stacking", "Limits quantity to prevent overlap"], ["Closing", "Supports timeout and manual dismissal"]],
@@ -1656,7 +1197,6 @@ export const vocabularyEnglishById = {
     avoidWhen: ["An error requires correction", "The message must remain visible", "Data changes without an undo path"],
     confusedWith: "A toast is temporary, an alert or banner persists, and a modal interrupts the task.",
     codeUI: ["role=status or alert, timer, stacking position, and undo action"],
-<<<<<<< HEAD
     media: ["Toast surface, message, and icons must be code-rendered"],
     prompt: "Add a non-blocking toast system with distinct success and error semantics, a default duration of three to five seconds, and undo for important operations. Use aria-live and do not cover mobile bottom navigation.",
   },
@@ -1695,28 +1235,6 @@ export const vocabularyEnglishById = {
     codeUI: ["Semantic heading, state copy, a real action button, and status announcement for dynamic updates"],
     media: ["An optional illustration or photo may use external media, while all copy and actions remain code-rendered"],
     prompt: "Design separate first-use, empty-collection, and no-search-results states. Preserve the current query or filters, explain why content is absent, and offer one clear next step. Keep loading and error feedback in their own state components.",
-=======
-    image2: ["Toast surface, message, and icons must be code-rendered"],
-    prompt: "Add a non-blocking toast system with distinct success and error semantics, a default duration of three to five seconds, and undo for important operations. Use aria-live and do not cover mobile bottom navigation.",
-  },
-  "empty-state": {
-    name: "Empty / Loading / Error",
-    level: "Foundation",
-    tags: ["State", "Recovery", "image2"],
-    ask: "When there is no data, content is loading, or an error occurs, explain what is happening and what users can do next.",
-    definition: "State design provides readable feedback, a recovery action, and stable spatial expectations whenever normal content is unavailable.",
-    role: "It keeps an absence of content from looking broken and distinguishes first use, waiting, failure, and no results.",
-    example: image("./demo/cleanbite-scanner/assets/cleanbite-effect-board.png", "Status feedback visual example", "Illustration can support explanation while key copy and actions remain code."),
-    anatomy: [["State title", "Names empty, loading, or failure"], ["Explanation", "Says why it happened and whether to wait"], ["Next step", "Start, retry, clear filters, or go back"], ["Visual placeholder", "Skeleton or illustration keeps dimensions stable"]],
-    variants: [["First-use empty", "Explains value and offers a start action"], ["No results", "Keeps the query and shows how to broaden it"], ["Error", "Explains failure and provides retry or return"]],
-    states: [["Loading skeleton", "Geometry resembles final content"], ["Empty", "Does not make absence look like failure"], ["Error", "Keeps recovery actions and already loaded content"]],
-    useWhen: ["A request or collection can temporarily have no content", "Users need a clear recovery path"],
-    avoidWhen: ["A lone spinner hides a long wait", "An error is shown only in red with no explanation"],
-    confusedWith: "Empty is a valid absence, error is a failed request or action, and loading means the result has not arrived yet.",
-    codeUI: ["State component, role=status, retry, skeleton dimensions, and copy"],
-    image2: ["Illustrations, photos, or rich textures may support the state, but never contain text or UI"],
-    prompt: "Complete the list with loading, empty, no-results, error, and success states. Explain each state and provide a next step, match skeleton dimensions to final cards, and prevent horizontal overflow on mobile.",
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   },
   typography: {
     name: "Typography",
@@ -1725,11 +1243,7 @@ export const vocabularyEnglishById = {
     ask: "Give headings, body copy, and supporting text clear priority so the page does not become one undifferentiated block.",
     definition: "Typographic hierarchy establishes reading order through typeface, size, weight, line height, and measure.",
     role: "It determines what users notice first, how comfortably they read, and whether the interface feels credible.",
-<<<<<<< HEAD
     example: image("Frontend guide typography example"),
-=======
-    example: image("./assets/readme/hero.png", "Frontend guide typography example", "Headings, explanations, and code snippets use distinct levels to create reading order."),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     anatomy: [["Heading levels", "Page, section, and component headings"], ["Body copy", "Stable size and line height within a readable measure"], ["Supporting text", "Labels, time, and help that do not become noise"], ["Code and numbers", "Glyphs optimized for scanning"]],
     variants: [["Single sans serif", "A reliable product and tool choice"], ["Serif heading and sans body", "Editorial or brand contexts"], ["Compact data type", "Dashboards and tables"]],
     states: [["Responsive", "Sizes have limits and headings can wrap"], ["Focused or selected", "Does not rely only on weight"], ["Truncation", "Uses ellipsis only where explicitly allowed"]],
@@ -1737,11 +1251,7 @@ export const vocabularyEnglishById = {
     avoidWhen: ["Color or gradients replace actual hierarchy", "Body copy is too small to read on a phone"],
     confusedWith: "Typography is a visual rule; a title block or header is a structural page role.",
     codeUI: ["Real text, font-size, line-height, max-width, and text wrapping"],
-<<<<<<< HEAD
     media: ["All editable text stays code-rendered; the typography preview needs no imagery"],
-=======
-    image2: ["Never bake editable text into generated imagery"],
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     prompt: "Create fixed typography tokens for page titles, section headings, body copy, supporting text, and code, each with an appropriate size and line height. Keep body text near 16px, let long mobile headings wrap, and do not use negative letter spacing.",
   },
 };

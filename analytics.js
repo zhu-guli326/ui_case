@@ -37,4 +37,11 @@
       });
     }
   };
+
+  if (/\/library\.html$/.test(location.pathname) || location.pathname.endsWith("/")) {
+    const previewFix = document.createElement("script");
+    previewFix.src = "./library-technical-fixes.js?v=20260816-sizing";
+    previewFix.defer = true;
+    document.head.append(previewFix);
+  }
 })();

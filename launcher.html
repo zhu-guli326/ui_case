@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-<<<<<<< HEAD
   <meta name="description" content="在单一工作区定义任务、选择案例并生成可执行的 IMAGE2 UI 指令。">
   <title>任务工作区 · IMAGE2 UI</title>
   <link rel="stylesheet" href="./launcher.css?v=20260815-font-preview">
@@ -64,54 +63,11 @@
     <form class="launcher-grid" id="launcherForm" novalidate>
       <div class="configuration-column">
         <div class="intent-form" id="intentForm" role="tabpanel" aria-labelledby="tab-create" tabindex="0"></div>
-=======
-  <meta name="description" content="根据任务意图生成清晰、可执行的 image2 UI 指令。">
-  <title>任务启动器 · IMAGE2 UI</title>
-  <link rel="stylesheet" href="./launcher.css">
-  <link rel="stylesheet" href="./i18n.css">
-  <link rel="stylesheet" href="./site-nav.css">
-  <script src="./i18n.js"></script>
-  <script src="./analytics.config.js"></script>
-  <script src="./analytics.js" defer></script>
-  <script src="./launcher.js" defer></script>
-</head>
-<body>
-  <header class="launcher-topbar">
-    <a class="brand" href="./library.html" aria-label="打开 image2 UI 案例库">
-      <span class="brand-mark" aria-hidden="true"><i></i></span>
-      <span>IMAGE2 UI</span>
-      <small>TASK LAUNCHER</small>
-    </a>
-    <nav data-site-nav aria-label="主导航"></nav>
-  </header>
-
-  <main class="launcher-shell">
-    <section class="mode-picker" aria-labelledby="modeTitle">
-      <div class="mode-picker-heading"><h2 id="modeTitle">模式用途</h2><p id="modeIntro">每种模式使用不同的输入和执行边界。</p></div>
-      <div class="intent-nav mode-tabs" id="modeTabs" role="tablist" aria-label="任务模式">
-        <button type="button" role="tab" id="tab-explore" aria-controls="intentForm" data-intent="explore"><strong>探索现有项目</strong><small>理解代码、页面和资产</small></button>
-        <button type="button" role="tab" id="tab-create" aria-controls="intentForm" data-intent="create"><strong>从零创建</strong><small>从需求生成新页面</small></button>
-        <button type="button" role="tab" id="tab-rebuild" aria-controls="intentForm" data-intent="rebuild"><strong>参考图还原</strong><small>从参考输入还原 UI</small></button>
-        <button type="button" role="tab" id="tab-improve" aria-controls="intentForm" data-intent="improve"><strong>优化现有页面</strong><small>检查问题并直接改进</small></button>
-        <button type="button" role="tab" id="tab-design-system" aria-controls="intentForm" data-intent="design-system"><strong>切换设计系统</strong><small>比较主流系统的效果</small></button>
-      </div>
-    </section>
-
-    <header class="page-heading">
-      <div><h1 id="pageTitle">探索一个现有项目</h1><p id="pageIntro">选择你想了解的范围，我们会生成一条只读检查指令。</p></div>
-      <a class="page-context-link" id="contextLink" href="./library.html">打开案例库</a>
-    </header>
-
-    <form class="launcher-grid" id="launcherForm" novalidate>
-      <div class="configuration-column">
-        <div id="intentForm" role="tabpanel" aria-labelledby="tab-explore" tabindex="0"></div>
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
       </div>
 
       <aside class="prompt-column" aria-labelledby="promptTitle">
         <div class="prompt-panel">
           <div class="prompt-heading">
-<<<<<<< HEAD
             <div><p id="promptKicker">CODEX 指令准备</p><h2 id="promptTitle">任务摘要</h2></div>
             <span class="ready-state" id="readyState"><i></i><span>等待输入</span></span>
           </div>
@@ -136,32 +92,11 @@
             <button class="secondary-button" id="copyPrompt" type="button">复制指令</button>
             <button class="secondary-button" id="savePreset" type="button">保存指令快照</button>
           </div>
-=======
-            <div><small>READY FOR CODEX</small><h2 id="promptTitle">任务摘要</h2></div>
-            <span class="ready-state" id="readyState"><i></i><span>等待输入</span></span>
-          </div>
-
-          <div class="missing-state" id="missingState" role="status" aria-live="polite"></div>
-          <dl class="task-summary" id="taskSummary" aria-live="polite"></dl>
-
-          <details class="prompt-details" id="promptDetails">
-            <summary>查看完整调用指令</summary>
-            <pre class="prompt-output" id="promptOutput" tabindex="0"></pre>
-          </details>
-
-          <div class="prompt-actions">
-            <button class="copy-button" id="copyPrompt" type="button" disabled>请先填写检查对象</button>
-            <button class="secondary-button" id="togglePrompt" type="button" disabled>查看完整指令</button>
-            <button class="secondary-button" id="savePreset" type="button" disabled>保存为预设</button>
-          </div>
-          <p class="handoff-note" id="handoffNote">填写必需信息后即可生成指令。</p>
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
         </div>
       </aside>
     </form>
   </main>
 
-<<<<<<< HEAD
   <dialog class="case-picker" id="casePicker" aria-labelledby="casePickerTitle">
     <div class="case-picker-shell">
       <header class="case-picker-header">
@@ -184,8 +119,6 @@
     <div class="assistant-content" id="assistantContent"></div>
   </aside>
 
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 </body>
 </html>

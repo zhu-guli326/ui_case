@@ -8,15 +8,12 @@
   "industry": ["电商", "生活方式", "内容"],
   "styles": ["编辑式", "极简", "奢侈品"],
   "completeness": "完整系统",
-<<<<<<< HEAD
   "previewCaseId": "fashion",
   "densityDefault": "balanced",
   "tokenFoundation": {
     "spacingBase": "8pt",
     "fontScheme": "serif-cjk"
   },
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
   "foundations": {
     "colors": { "paper": "#F7F4EF", "ink": "#2D251F", "accent": "#A45855", "muted": "#9B9188" },
     "typography": { "display": "授权衬线字体或高对比开源替代", "body": "系统无衬线", "scale": "40 / 28 / 18 / 14" },

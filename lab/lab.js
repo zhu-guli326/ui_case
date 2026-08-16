@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 import { DEFAULT_COLOR_THEME_ID } from "../catalog/color-themes.js";
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 import { componentKinds, devices, findDevice, findSystem, findTemplate, findTheme, systems, templates, themes, buildCodeExport, buildTokenExport } from "./lab-data.js";
 
 const systemTabs = document.querySelector("#systemTabs");
@@ -36,11 +33,7 @@ function readState() {
   return {
     template: valid(url.searchParams.get("template"), templates, "account-settings"),
     system: valid(url.searchParams.get("system"), systems, "ant"),
-<<<<<<< HEAD
     theme: valid(url.searchParams.get("theme"), themes, DEFAULT_COLOR_THEME_ID),
-=======
-    theme: valid(url.searchParams.get("theme"), themes, "minimal-tech"),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     device: valid(url.searchParams.get("device"), devices, "desktop"),
     appearance: ["light", "dark"].includes(url.searchParams.get("appearance")) ? url.searchParams.get("appearance") : "light",
     view: ["single", "compare", "matrix"].includes(url.searchParams.get("view")) ? url.searchParams.get("view") : "single",
@@ -70,11 +63,7 @@ function bindEvents() {
   settingsScrim.addEventListener("click", () => setSettingsOpen(false));
   document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !settingsPanel.hidden) setSettingsOpen(false); });
   document.querySelector("#resetSettings").addEventListener("click", () => {
-<<<<<<< HEAD
     Object.assign(state, { template: "account-settings", theme: DEFAULT_COLOR_THEME_ID, device: "desktop", appearance: "light" });
-=======
-    Object.assign(state, { template: "account-settings", theme: "minimal-tech", device: "desktop", appearance: "light" });
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     syncControls();
     syncState();
   });

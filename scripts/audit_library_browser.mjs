@@ -7,17 +7,11 @@ import { createRequire } from "node:module";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const repoRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
-<<<<<<< HEAD
 const targetUrl = process.env.LIBRARY_URL || "http://127.0.0.1:4174/library.html";
 const failures = [];
 const screenshots = [];
 const screenshotDir = path.join(repoRoot, "screenshots");
 fs.mkdirSync(screenshotDir, { recursive: true });
-=======
-const targetUrl = process.env.LIBRARY_URL || "http://127.0.0.1:4173/library.html";
-const failures = [];
-const screenshots = [];
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 async function loadPlaywright() {
   try {
@@ -129,11 +123,7 @@ try {
     if (metrics.horizontalOverflow || metrics.bodyOverflow || metrics.cardOverflow) failures.push(`${viewport.name}: horizontal overflow detected`);
     viewportResults.push({ ...viewport, ...metrics });
     if (viewport.name === "desktop-1440" || viewport.name === "mobile-390") {
-<<<<<<< HEAD
       const output = path.join(screenshotDir, `library-final-${viewport.name}.png`);
-=======
-      const output = path.join(repoRoot, "screenshots", `library-final-${viewport.name}.png`);
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
       await page.screenshot({ path: output, fullPage: true });
       screenshots.push(output);
     }
@@ -156,7 +146,6 @@ try {
   for (const id of caseIds) {
     const hitarea = page.locator(`[data-case-id="${escapedAttribute(id)}"] .demo-card-details-hitarea`);
     await hitarea.evaluate((element) => element.click());
-<<<<<<< HEAD
     const dialog = page.locator("#previewDialog");
     await dialog.waitFor({ state: "visible" });
     await page.waitForFunction(() => {
@@ -180,30 +169,11 @@ try {
         loop: Boolean(video?.loop),
         clipped: getComputedStyle(screen).overflow === "hidden" && getComputedStyle(screen).isolation === "isolate",
         controlsOutsidePhone: phoneRect.bottom <= toolbarRect.top,
-=======
-    const dialog = page.locator("#styleDialog");
-    await dialog.waitFor({ state: "visible" });
-    await page.waitForFunction(() => {
-      const image = document.querySelector("#styleDialog img");
-      return Boolean(image?.complete && image.naturalWidth > 0);
-    }, null, { timeout: 5000 });
-    const state = await dialog.evaluate((element) => {
-      const image = element.querySelector("img");
-      const rect = element.getBoundingClientRect();
-      return {
-        open: element.open,
-        title: element.querySelector("h2")?.textContent || "",
-        imageLoaded: Boolean(image?.complete && image?.naturalWidth),
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
         contained: rect.left >= 0 && rect.top >= 0 && rect.right <= innerWidth && rect.bottom <= innerHeight,
         bodyLocked: getComputedStyle(document.body).overflow === "hidden",
       };
     });
-<<<<<<< HEAD
     if (!state.open || !state.title || !state.mediaReady || state.nativeControls || !state.muted || !state.loop || !state.clipped || !state.controlsOutsidePhone || !state.contained || !state.bodyLocked) failures.push(`${id}: invalid detail dialog state`);
-=======
-    if (!state.open || !state.title || !state.imageLoaded || !state.contained || !state.bodyLocked) failures.push(`${id}: invalid detail dialog state`);
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     await dialog.locator(".dialog-close").click();
     await dialog.waitFor({ state: "hidden" });
     dialogResults.push({ id, ...state });
@@ -217,11 +187,7 @@ try {
     const dialog = page.locator("#previewDialog");
     await dialog.waitFor({ state: "visible" });
     const layout = await dialog.evaluate((element) => {
-<<<<<<< HEAD
       const selectors = ["#previewDialogTitle", "#previewModeSwitch", "#previewDialogDetails", ".preview-dialog-footer"];
-=======
-      const selectors = ["#previewDialogTitle", "#previewModeSwitch", "#previewDialogReference", "#previewDialogOpenLive"];
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
       const boxes = selectors.map((selector) => {
         const target = element.querySelector(selector);
         const rect = target.getBoundingClientRect();
@@ -259,11 +225,7 @@ try {
       }, null, { timeout: 5000 });
       const state = await page.locator("#previewDialogImage").evaluate((image) => {
         const rect = image.getBoundingClientRect();
-<<<<<<< HEAD
         const scale = Math.max(rect.width / image.naturalWidth, rect.height / image.naturalHeight);
-=======
-        const scale = Math.min(rect.width / image.naturalWidth, rect.height / image.naturalHeight);
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
         return {
           src: image.currentSrc,
           naturalWidth: image.naturalWidth,
@@ -326,11 +288,7 @@ try {
     status: failures.length ? "fail" : "pass",
     playwright: playwright.source,
     viewports: viewportResults,
-<<<<<<< HEAD
     dialogs: { total: dialogResults.length, failed: dialogResults.filter((item) => !item.open || !item.mediaReady || item.nativeControls).length },
-=======
-    dialogs: { total: dialogResults.length, failed: dialogResults.filter((item) => !item.open || !item.imageLoaded).length },
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
     cardImages: { total: cardImageResults.length, blank: cardImageResults.filter((item) => !item.painted).length },
     imagePreviews: {
       total: imagePreviewResults.length,

@@ -1,7 +1,6 @@
 # UI Section Vocabulary
 
 Use this reference when turning screenshots, mockups, or app references into
-<<<<<<< HEAD
 clickable demos. Name what is on the screen first, then implement the layout,
 copy, controls, states, and example previews as code-rendered components. Use a
 replaceable external HTTPS image only when the content genuinely calls for a
@@ -12,13 +11,6 @@ variants, related terms, and copyable Agent prompts, open the
 [interactive UI vocabulary](../vocabulary.html). It does not require generated
 images; a small number of media-oriented examples may use replaceable external
 HTTPS placeholders.
-=======
-clickable demos. The main job is to name what is on the screen before deciding
-whether it belongs in code or in `image2`.
-
-For a searchable version with local screenshots, anatomy, variants, related
-terms, and copyable Agent prompts, open the [illustrated UI vocabulary](../vocabulary.html).
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 ## Core Rule
 
@@ -33,27 +25,17 @@ Describe UI by role, not by vague appearance.
 
 ## Page Anatomy
 
-<<<<<<< HEAD
 | Pattern name | What it means | Usually code-rendered? | Optional external media? |
-=======
-| Pattern name | What it means | Usually code-rendered? | image2 candidate? |
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 | --- | --- | --- | --- |
 | App shell | The persistent frame around an app: nav, content region, safe area | Yes | No |
 | Top app bar | Header with title, back/menu/search/actions | Yes | No |
 | Navigation bar | Website-level links and primary actions | Yes | No |
 | Sidebar | Vertical navigation or workspace list | Yes | No |
 | Rail navigation | Compact icon-only side nav | Yes | No |
-<<<<<<< HEAD
 | Breadcrumbs | Current location and its parent path | Yes | No |
 | Bottom tab bar | Mobile destinations at the bottom edge | Yes | No |
 | Hero section | First major page moment, often text plus media | Text and controls yes | Only for genuine media content |
 | Content section | A full-width page band with one job | Yes | Only when the section contains genuine media |
-=======
-| Bottom tab bar | Mobile destinations at the bottom edge | Yes | No |
-| Hero section | First major page moment, often text plus media | Text and controls yes | Media yes |
-| Content section | A full-width page band with one job | Yes | Sometimes |
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 | Footer | Secondary links, contact, license, legal | Yes | No |
 
 ## Controls
@@ -84,10 +66,7 @@ Describe UI by role, not by vague appearance.
 | Media tile | Image or video first, text second | Portfolio and visual libraries |
 | Product card | Product image, name, price, action | Commerce and catalog screens |
 | Stat strip | Compact numeric summary | Real metrics, counts, audits |
-<<<<<<< HEAD
 | Data table | Scannable, sortable, or filterable rows and columns | Admin tools, reports, audits, catalogs |
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 | Comparison table | Row-by-row feature comparison | Plans or technical differences |
 | Detail panel | Rich information about the selected item | Inspectors, file details, product details |
 | Timeline | Ordered events over time | Releases, history, onboarding |
@@ -120,17 +99,11 @@ Describe UI by role, not by vague appearance.
 | Focus state | Keyboard focus is present | Must be visible and high contrast |
 | Success state | Action completed | Keep it brief and reversible when needed |
 
-<<<<<<< HEAD
 ## Component And Media Split Names
 
 Use these labels in `code-ui` and `external-media` inventories. Every interface
 structure stays in code; external media is content and must not carry navigation,
 controls, state, or required readable text.
-=======
-## Asset Split Names
-
-Use these labels in `code-ui` and `image2-assets` inventories.
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 | Label | Goes to | Examples |
 | --- | --- | --- |
@@ -139,7 +112,6 @@ Use these labels in `code-ui` and `image2-assets` inventories.
 | `code-icon` | Code | Search, back, close, menu, heart, play |
 | `code-status` | Code | Battery, Wi-Fi, signal, progress, badges |
 | `layout-chrome` | Code | Device frame, safe area, app shell |
-<<<<<<< HEAD
 | `external-photo` | External HTTPS image | Lifestyle photo, hero photo, editorial cover |
 | `external-product-image` | External HTTPS image | Object on transparent or clean background |
 | `external-texture` | External HTTPS image | Paper, glass, fabric, wall, or other real material |
@@ -149,13 +121,6 @@ Use these labels in `code-ui` and `image2-assets` inventories.
 External media must use HTTPS, include suitable alternative text, and remain
 replaceable without changing the component structure. Loading, fallback, crop,
 overlay, and caption behavior still belong to the code component.
-=======
-| `photo-asset` | image2 | Lifestyle photo, hero photo, editorial cover |
-| `product-cutout` | image2 | Object on transparent or clean background |
-| `texture-asset` | image2 | Paper, glass, fabric, wall, gradient-like material |
-| `illustration-asset` | image2 | Character, map, complex scene |
-| `thumbnail-asset` | image2 | Card cover, article image, gallery tile |
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 
 ## Pattern Recipes
 
@@ -165,10 +130,7 @@ Use when the reference has many examples, assets, lessons, or templates.
 
 - Top app bar
 - Sidebar or category rail
-<<<<<<< HEAD
 - Breadcrumbs
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 - Search field
 - Filter chips or category buttons
 - Stat strip
@@ -213,10 +175,7 @@ Use when the screen needs metrics but is not a dense admin tool.
 - Chart panel
 - Activity feed
 - Filters
-<<<<<<< HEAD
 - Data table when dense records are needed
-=======
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
 - Empty, loading, and error states
 
 ## Naming Checklist
@@ -227,7 +186,6 @@ Before implementation, write a short inventory:
 code-ui:
 - app shell
 - top app bar
-<<<<<<< HEAD
 - sidebar and breadcrumbs
 - search field
 - filter chips
@@ -247,19 +205,3 @@ If the inventory includes "image with text," split it again. Text belongs in
 code unless it is part of a real photograph, scanned document, or artwork. This
 page does not require image generation, and component screenshots are not the
 canonical previews.
-=======
-- search field
-- filter chips
-- masonry card grid
-- detail drawer
-- empty state
-
-image2-assets:
-- hero media: 1600x900 photo-asset
-- card covers: 4 thumbnail-assets, 4:3 crop
-- object cutout: transparent product-cutout
-```
-
-If the inventory includes "image with text," split it again. Text belongs in
-code unless it is part of a real photograph, scanned document, or artwork.
->>>>>>> b0afc67405740d9ad16be3979c2e00244622a074
