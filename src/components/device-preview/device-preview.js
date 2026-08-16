@@ -76,7 +76,7 @@ function normalizeDetailScreenSource(image, caseId) {
   const mapped = DETAIL_IMAGE_OVERRIDES[caseId];
   if (mapped) {
     for (const [legacyName, canonical] of Object.entries(mapped)) {
-      if (src.endsWith(legacyName)) {
+      if (src.includes(legacyName)) {
         image.setAttribute("src", canonical);
         image.dataset.previewSourceNormalized = "screen-only";
         return true;
