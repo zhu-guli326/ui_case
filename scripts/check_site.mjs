@@ -19,7 +19,7 @@ const requiredEntries = [
 ];
 const sourceReferenceFiles = ["library.js", "launcher.js", "launcher.html", "vocabulary-data.js"];
 const forbiddenDirectoryNames = ["node_modules", "dist", ".image2-ui", "tmp"];
-const mergeConflictMarkers = ["<<<<<<<", "=======", ">>>>>>>"];
+const mergeConflictMarkers = ["<".repeat(7), "=".repeat(7), ">".repeat(7)];
 const textExtensions = new Set([
   ".css", ".html", ".js", ".json", ".md", ".mjs", ".ps1", ".txt", ".yml", ".yaml"
 ]);
