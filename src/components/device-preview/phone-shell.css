@@ -1,0 +1,196 @@
+/*
+ * PhoneShell
+ * ----------
+ * The one visual owner for phone hardware across Library previews and demos.
+ *
+ * Cases own screen content only. They may opt into the shell with the existing
+ * `.iphone-frame` / `.phone-frame` component hooks, but must not redefine the
+ * bezel, edge, radius, shadow, or hardware buttons in case-local styles.
+ */
+
+:root {
+  --phone-shell-screen-width: 390px;
+  --phone-shell-screen-height: 844px;
+  --phone-shell-screen-ratio: 390 / 844;
+  --phone-shell-frame-radius: 48px;
+  --phone-shell-screen-radius: 39px;
+  --phone-shell-finish: #171719;
+  --phone-shell-edge: #56565b;
+  --phone-shell-library-finish: #111113;
+  --phone-shell-library-edge: rgba(255, 255, 255, 0.24);
+
+  /* Backward-compatible token names used by existing demos. */
+  --iphone-viewport-width: var(--phone-shell-screen-width);
+  --iphone-viewport-height: var(--phone-shell-screen-height);
+  --iphone-viewport-ratio: var(--phone-shell-screen-ratio);
+  --iphone-frame-radius: var(--phone-shell-frame-radius);
+  --iphone-screen-radius: var(--phone-shell-screen-radius);
+  --iphone-frame-finish: var(--phone-shell-finish);
+  --iphone-frame-edge: var(--phone-shell-edge);
+}
+
+/* Direct-demo component invocation. */
+.iphone-frame {
+  position: relative;
+  isolation: isolate;
+  min-height: 0 !important;
+  height: auto !important;
+  aspect-ratio: var(--phone-shell-screen-ratio) !important;
+}
+
+.iphone-frame:not(.iphone-frame--flat) {
+  padding: 7px !important;
+  border: 1px solid var(--phone-shell-edge) !important;
+  border-radius: var(--phone-shell-frame-radius) !important;
+  background: var(--phone-shell-finish) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.16),
+    0 0 0 1px rgba(0, 0, 0, 0.75),
+    0 22px 48px rgba(0, 0, 0, 0.28) !important;
+}
+
+.iphone-frame:not(.iphone-frame--flat) > .screen,
+.iphone-frame:not(.iphone-frame--flat) > .s {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--phone-shell-screen-radius) !important;
+}
+
+/* Legacy layouts whose authored screen is 390 x 844 inside a larger chassis. */
+.iphone-frame--viewport-shell {
+  --phone-shell-frame-radius: 58px;
+  --phone-shell-screen-radius: 46px;
+  aspect-ratio: 414 / 868 !important;
+  padding: 8px !important;
+  border-width: 4px !important;
+}
+
+.iphone-frame--viewport-shell > .screen {
+  width: var(--phone-shell-screen-width);
+  height: var(--phone-shell-screen-height);
+}
+
+/* Screens without a nested `.screen` keep their established content layout. */
+.iphone-frame--flat {
+  overflow: hidden;
+  border: 7px solid var(--phone-shell-finish) !important;
+  border-radius: var(--phone-shell-frame-radius) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.26),
+    0 22px 48px rgba(0, 0, 0, 0.28) !important;
+}
+
+/* Embedded demos are screen sources. Library adds the one visible PhoneShell. */
+.embed-mode .iphone-frame,
+.embed .iphone-frame {
+  width: var(--phone-shell-screen-width) !important;
+  height: var(--phone-shell-screen-height) !important;
+  min-height: var(--phone-shell-screen-height) !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.embed-mode .iphone-frame > .screen,
+.embed-mode .iphone-frame > .s,
+.embed .iphone-frame > .screen,
+.embed .iphone-frame > .s {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0 !important;
+}
+
+/* Library component invocation. The frame is created by Library, never by a case. */
+.phone-frame:not(.is-artboard-preview) {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: var(--phone-shell-screen-ratio) !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: var(--phone-shell-frame-radius);
+  background: var(--phone-shell-library-finish) !important;
+  box-shadow:
+    0 0 0 7px var(--phone-shell-library-finish),
+    0 0 0 8px var(--phone-shell-library-edge),
+    0 22px 44px -18px rgba(0, 0, 0, .42) !important;
+}
+
+.phone-frame:not(.is-artboard-preview)::before,
+.phone-frame:not(.is-artboard-preview)::after {
+  position: absolute;
+  z-index: 0;
+  width: 4px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #747474, #1a1a1a 42%, #606060);
+  content: "";
+  pointer-events: none;
+}
+
+.phone-frame:not(.is-artboard-preview)::before {
+  top: 18%;
+  left: -13px;
+  height: 9%;
+  box-shadow: 0 52px 0 #1a1a1a;
+}
+
+.phone-frame:not(.is-artboard-preview)::after {
+  top: 28%;
+  right: -13px;
+  height: 17%;
+}
+
+.phone-frame:not(.is-artboard-preview) .phone-screen {
+  position: relative;
+  z-index: 1;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  border-radius: var(--phone-shell-screen-radius);
+  background: #000 !important;
+  isolation: isolate;
+}
+
+.phone-frame--card:not(.is-artboard-preview) {
+  border-radius: 36px;
+}
+
+.phone-frame--card:not(.is-artboard-preview) .phone-screen {
+  border-radius: 29px;
+}
+
+.phone-frame--card:not(.is-artboard-preview)::before,
+.phone-frame--card:not(.is-artboard-preview)::after {
+  width: 3px;
+}
+
+.phone-frame--card:not(.is-artboard-preview)::before {
+  left: -10px;
+  box-shadow: 0 38px 0 #1a1a1a;
+}
+
+.phone-frame--card:not(.is-artboard-preview)::after {
+  right: -10px;
+}
+
+@media (max-width: 430px) {
+  .iphone-frame--viewport-shell {
+    width: var(--phone-shell-screen-width) !important;
+    max-width: 100% !important;
+    aspect-ratio: var(--phone-shell-screen-ratio) !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: var(--phone-shell-frame-radius) !important;
+    box-shadow:
+      0 0 0 6px var(--phone-shell-finish),
+      0 18px 36px rgba(0, 0, 0, 0.28) !important;
+  }
+
+  .iphone-frame--viewport-shell > .screen {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: var(--phone-shell-screen-radius) !important;
+  }
+}
