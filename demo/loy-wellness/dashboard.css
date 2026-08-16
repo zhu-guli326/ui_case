@@ -1,0 +1,99 @@
+.daily-playlist {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 104px;
+  height: 122px;
+  margin-top: 17px;
+  overflow: hidden;
+  border: 2px solid var(--line);
+  border-radius: 22px;
+  background: #b7efee;
+}
+
+.daily-playlist-copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 13px 8px 11px 13px;
+}
+
+.daily-playlist-copy small {
+  color: #365650;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.daily-playlist-copy strong {
+  margin-top: 4px;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.daily-playlist-copy span {
+  margin-top: 5px;
+  color: #4b5f58;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.daily-playlist-open {
+  display: inline-flex;
+  height: 32px;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 0 11px;
+  border: 2px solid var(--line);
+  border-radius: 11px;
+  background: var(--lime);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.daily-playlist-open svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.daily-playlist-art {
+  position: relative;
+  overflow: hidden;
+  border-left: 2px solid var(--line);
+  background: var(--orange);
+}
+
+.daily-playlist-art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 81% 76%;
+  mix-blend-mode: multiply;
+  transform: scale(1.35);
+}
+
+.daily-playlist-art::after {
+  position: absolute;
+  right: 9px;
+  bottom: 9px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  background: var(--green);
+  content: "";
+}
