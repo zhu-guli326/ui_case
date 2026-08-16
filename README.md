@@ -16,6 +16,17 @@ Open the published gallery:
 - [`scripts/`](./scripts/) and [`tests/`](./tests/) contain tooling and contracts.
 - [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) defines the reuse boundaries and migration rules.
 
+### Implementation layers
+
+```text
+src/
+├─ core/          shared runtime, state, localization, analytics
+├─ components/    reusable UI with one owner (DevicePreview, SiteHeader)
+└─ features/      page/domain implementation (Library, Launcher, Brands, etc.)
+```
+
+New page implementation must not be added to the repository root. A regression test enforces the temporary migration allowlist while the remaining large legacy modules are moved incrementally.
+
 ## Local preview
 
 ```bash
