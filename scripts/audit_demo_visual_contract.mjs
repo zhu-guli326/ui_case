@@ -3,6 +3,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { spawnSync } from "node:child_process";
 import { createRequire } from "node:module";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -10,8 +11,10 @@ const repoRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const baseUrl = process.env.UI_CASE_URL || "http://127.0.0.1:4174/";
 const viewport = Object.freeze({ width: 390, height: 844 });
 const outputDir = path.join(repoRoot, "artifacts", "visual-qa");
-const screenshotDir = path.join(outputDir, "screenshots");
-fs.mkdirSync(screenshotDir, { recursive: true });
+const liveScreenshotDir = path.join(outputDir, "live");
+const cardScreenshotDir = path.join(outputDir, "cards");
+fs.mkdirSync(liveScreenshotDir, { recursive: true });
+fs.mkdirSync(cardScreenshotDir, { recursive: true });
 
 const cardPreviewOverrides = Object.freeze({
   museum: "assets/cases/museum-app/video-frames/01-home.png",
@@ -54,27 +57,56 @@ function loadCases() {
 function resolveCardPreview(record) {
   if (cardPreviewOverrides[record.id]) return cardPreviewOverrides[record.id];
   if (record.liveDemo) {
-    return record.liveDemo
-      .replace(/^\.\//, "")
-      .replace(/index\.html$/, "screenshots/library-preview-2x.png");
+    return record.liveDemo.replace(/^\.\//, "").replace(/index\.html$/, "screenshots/library-preview-2x.png");
   }
   return (record.previewImage || record.poster || record.referenceImage || "").replace(/^\.\//, "");
+}
+
+function localPath(relativePath) {
+  return path.resolve(repoRoot, String(relativePath || "").replace(/^\.\//, ""));
 }
 
 function absoluteUrl(relativePath) {
   return new URL(String(relativePath || "").replace(/^\.\//, ""), baseUrl).href;
 }
 
+function probeVideo(relativePath) {
+  const file = localPath(relativePath);
+  if (!fs.existsSync(file)) return { ok: false, reason: "missing-file", file };
+
+  const probe = spawnSync("ffprobe", [
+    "-v", "error",
+    "-select_streams", "v:0",
+    "-show_entries", "stream=width,height:format=duration",
+    "-of", "json",
+    file,
+  ], { encoding: "utf8" });
+
+  if (probe.error?.code === "ENOENT") return { ok: false, infrastructure: true, reason: "ffprobe-unavailable", file };
+  if (probe.status !== 0) return { ok: false, reason: "ffprobe-failed", stderr: probe.stderr?.trim() || "", file };
+
+  try {
+    const data = JSON.parse(probe.stdout || "{}");
+    const stream = data.streams?.[0];
+    const width = Number(stream?.width);
+    const height = Number(stream?.height);
+    const duration = Number(data.format?.duration);
+    if (!(width > 0) || !(height > 0)) return { ok: false, reason: "missing-video-dimensions", file };
+    return { ok: true, width, height, duration: Number.isFinite(duration) ? duration : null, file };
+  } catch (error) {
+    return { ok: false, reason: "invalid-ffprobe-json", detail: String(error?.message || error), file };
+  }
+}
+
 async function waitForStablePaint(page) {
   await page.evaluate(async () => {
-    const images = [...document.images];
-    await Promise.all(images.map(async (image) => {
+    await Promise.all([...document.images].map(async (image) => {
       if (!image.complete) await new Promise((resolve) => image.addEventListener("load", resolve, { once: true }));
       if (image.decode) await image.decode().catch(() => {});
     }));
     await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
   });
-  await page.waitForTimeout(250);
+  await page.waitForTimeout(220);
 }
 
 async function getImageMeta(page, src) {
@@ -87,30 +119,6 @@ async function getImageMeta(page, src) {
     } catch {
       return { ok: false, width: 0, height: 0 };
     }
-  }, src);
-}
-
-async function getVideoMeta(page, src) {
-  return page.evaluate(async (url) => {
-    const video = document.createElement("video");
-    video.preload = "metadata";
-    video.muted = true;
-    const result = await new Promise((resolve) => {
-      const timer = setTimeout(() => resolve({ ok: false, reason: "timeout", width: 0, height: 0 }), 6000);
-      video.addEventListener("loadedmetadata", () => {
-        clearTimeout(timer);
-        resolve({ ok: true, width: video.videoWidth, height: video.videoHeight, duration: video.duration });
-      }, { once: true });
-      video.addEventListener("error", () => {
-        clearTimeout(timer);
-        resolve({ ok: false, reason: "load-error", width: 0, height: 0 });
-      }, { once: true });
-      video.src = url;
-      video.load();
-    });
-    video.removeAttribute("src");
-    video.load();
-    return result;
   }, src);
 }
 
@@ -134,8 +142,8 @@ async function compareCardToLive(page, cardSrc, liveScreenshot) {
     context.drawImage(live, width, 0, width, height);
     const left = context.getImageData(0, 0, width, height).data;
     const right = context.getImageData(width, 0, width, height).data;
-    let delta = 0;
-    let luminanceDelta = 0;
+    let rgb = 0;
+    let luminance = 0;
     const pixels = width * height;
     for (let offset = 0; offset < left.length; offset += 4) {
       const lr = left[offset];
@@ -144,14 +152,14 @@ async function compareCardToLive(page, cardSrc, liveScreenshot) {
       const rr = right[offset];
       const rg = right[offset + 1];
       const rb = right[offset + 2];
-      delta += Math.abs(lr - rr) + Math.abs(lg - rg) + Math.abs(lb - rb);
+      rgb += Math.abs(lr - rr) + Math.abs(lg - rg) + Math.abs(lb - rb);
       const ll = (lr * 0.2126) + (lg * 0.7152) + (lb * 0.0722);
       const rl = (rr * 0.2126) + (rg * 0.7152) + (rb * 0.0722);
-      luminanceDelta += Math.abs(ll - rl);
+      luminance += Math.abs(ll - rl);
     }
     return {
-      rgbDelta: delta / (pixels * 3 * 255),
-      luminanceDelta: luminanceDelta / (pixels * 255),
+      rgbDelta: rgb / (pixels * 3 * 255),
+      luminanceDelta: luminance / (pixels * 255),
     };
   }, { cardSrc, screenshotSrc });
 }
@@ -171,12 +179,18 @@ async function inspectDemoGeometry(page) {
     };
     const styleData = (element) => {
       const style = getComputedStyle(element);
-      return { position: style.position, overflowX: style.overflowX, overflowY: style.overflowY, borderRadius: style.borderRadius };
+      return { position: style.position, overflowX: style.overflowX, overflowY: style.overflowY };
     };
 
     const documentScroller = document.scrollingElement || document.documentElement;
-    const outerScrollPx = Math.max(0, documentScroller.scrollHeight - documentScroller.clientHeight);
-    const horizontalOverflowPx = Math.max(0, documentScroller.scrollWidth - documentScroller.clientWidth);
+    const documentMetrics = {
+      clientWidth: documentScroller.clientWidth,
+      clientHeight: documentScroller.clientHeight,
+      scrollWidth: documentScroller.scrollWidth,
+      scrollHeight: documentScroller.scrollHeight,
+      outerScrollPx: Math.max(0, documentScroller.scrollHeight - documentScroller.clientHeight),
+      horizontalOverflowPx: Math.max(0, documentScroller.scrollWidth - documentScroller.clientWidth),
+    };
 
     const shellCandidates = [...document.querySelectorAll("main, .app, .stage, .shell, .screen, .phone, .iphone-frame, [class*='app-shell'], [class*='phone-shell']")]
       .filter(visible)
@@ -195,14 +209,11 @@ async function inspectDemoGeometry(page) {
     const frameSelector = ".iphone-frame, .phone-frame, [class*='iphone-frame'], [class*='phone-frame'], [class*='device-frame']";
     const phoneFrames = [...new Set([...document.querySelectorAll(frameSelector)])]
       .filter(visible)
-      .map((element) => ({ className: String(element.className || ""), rect: rectData(element), style: styleData(element) }));
+      .map((element) => ({ className: String(element.className || ""), rect: rectData(element) }));
 
     const scrollRegions = [...document.querySelectorAll("body *")]
       .filter(visible)
-      .filter((element) => {
-        const style = getComputedStyle(element);
-        return /(auto|scroll)/.test(style.overflowY) && element.scrollHeight > element.clientHeight + 8;
-      })
+      .filter((element) => /(auto|scroll)/.test(getComputedStyle(element).overflowY) && element.scrollHeight > element.clientHeight + 8)
       .map((element) => ({
         tag: element.tagName.toLowerCase(),
         className: String(element.className || ""),
@@ -211,7 +222,8 @@ async function inspectDemoGeometry(page) {
         ratio: element.scrollHeight / Math.max(1, element.clientHeight),
         rect: rectData(element),
       }))
-      .sort((a, b) => b.ratio - a.ratio);
+      .sort((a, b) => b.ratio - a.ratio)
+      .slice(0, 8);
 
     const navSelector = "nav, [role='navigation'], .bottom-nav, [class*='bottom-nav'], [class*='bottom_bar'], [class*='bottom-bar'], [class*='tab-bar'], [class*='tabbar']";
     const bottomNavigation = [...new Set([...document.querySelectorAll(navSelector)])]
@@ -228,74 +240,110 @@ async function inspectDemoGeometry(page) {
     ));
 
     const interactiveSelector = "a[href], button, input, select, textarea, [role='button'], [onclick], [tabindex]:not([tabindex='-1'])";
-    const interactiveOverflow = [...document.querySelectorAll(interactiveSelector)]
+    const interactive = [...document.querySelectorAll(interactiveSelector)]
       .filter(visible)
-      .map((element) => ({
-        tag: element.tagName.toLowerCase(),
-        text: (element.getAttribute("aria-label") || element.textContent || "").trim().replace(/\s+/g, " ").slice(0, 80),
-        className: String(element.className || ""),
-        rect: rectData(element),
-        style: styleData(element),
-      }))
-      .filter(({ rect, style }) => {
-        const intersectsViewport = rect.bottom > 0 && rect.top < height;
-        if (!intersectsViewport) return false;
-        const horizontal = rect.left < -tolerance || rect.right > width + tolerance;
-        const fixedVertical = ["fixed", "sticky"].includes(style.position) && (rect.top < -tolerance || rect.bottom > height + tolerance);
-        return horizontal || fixedVertical;
+      .map((element) => {
+        const rect = rectData(element);
+        return {
+          tag: element.tagName.toLowerCase(),
+          text: (element.getAttribute("aria-label") || element.textContent || "").trim().replace(/\s+/g, " ").slice(0, 80),
+          className: String(element.className || ""),
+          rect,
+          style: styleData(element),
+          centerX: rect.left + (rect.width / 2),
+        };
       });
+
+    const interactiveOverflow = interactive.filter(({ rect, style, centerX }) => {
+      const intersectsVertically = rect.bottom > 0 && rect.top < height;
+      if (!intersectsVertically) return false;
+      const centerBelongsToViewport = centerX > tolerance && centerX < width - tolerance;
+      const horizontal = centerBelongsToViewport && (rect.left < -tolerance || rect.right > width + tolerance);
+      const fixedVertical = ["fixed", "sticky"].includes(style.position) && (rect.top < -tolerance || rect.bottom > height + tolerance);
+      return horizontal || fixedVertical;
+    });
+
+    const offscreenInteractive = interactive.filter(({ rect, centerX }) => {
+      const partlyVisible = rect.right > 0 && rect.left < width && rect.bottom > 0 && rect.top < height;
+      const centerOutside = centerX <= tolerance || centerX >= width - tolerance;
+      return partlyVisible && centerOutside && (rect.left < -tolerance || rect.right > width + tolerance);
+    });
 
     const fixedOverflow = [...document.querySelectorAll("body *")]
       .filter(visible)
       .map((element) => ({ element, style: getComputedStyle(element), rect: element.getBoundingClientRect() }))
       .filter(({ style }) => style.position === "fixed" || style.position === "sticky")
       .filter(({ rect }) => rect.left < -tolerance || rect.right > width + tolerance || rect.top < -tolerance || rect.bottom > height + tolerance)
-      .map(({ element, style, rect }) => ({ className: String(element.className || ""), position: style.position, rect: { left: rect.left, top: rect.top, right: rect.right, bottom: rect.bottom } }));
+      .map(({ element, style, rect }) => ({
+        className: String(element.className || ""),
+        position: style.position,
+        rect: { left: rect.left, top: rect.top, right: rect.right, bottom: rect.bottom },
+      }));
+
+    let contentBottomGap = null;
+    const activeView = [...document.querySelectorAll("[data-view], .view")].find((element) => visible(element) && !element.hidden) || document.querySelector(".screen");
+    if (activeView && bottomNavigation) {
+      const exclusions = ".tabbar, nav, .statusbar, .home-indicator, .feedback, .island";
+      const contentChildren = [...activeView.children]
+        .filter(visible)
+        .filter((element) => !element.matches(exclusions))
+        .map((element) => rectData(element))
+        .filter((rect) => rect.top < bottomNavigation.rect.top && rect.height < height * 0.65);
+      const bottom = contentChildren.length ? Math.max(...contentChildren.map((rect) => Math.min(rect.bottom, bottomNavigation.rect.top))) : null;
+      if (bottom !== null) contentBottomGap = Math.max(0, bottomNavigation.rect.top - bottom);
+    }
 
     return {
-      document: {
-        clientWidth: documentScroller.clientWidth,
-        clientHeight: documentScroller.clientHeight,
-        scrollWidth: documentScroller.scrollWidth,
-        scrollHeight: documentScroller.scrollHeight,
-        outerScrollPx,
-        horizontalOverflowPx,
-      },
+      document: documentMetrics,
       shellRect,
       shellOffset,
       phoneFrames,
-      scrollRegions: scrollRegions.slice(0, 8),
+      scrollRegions,
       bottomNavigation,
       bottomNavigationClipped,
       interactiveOverflow: interactiveOverflow.slice(0, 20),
+      offscreenInteractive: offscreenInteractive.slice(0, 20),
       fixedOverflow: fixedOverflow.slice(0, 20),
+      contentBottomGap,
     };
   }, viewport);
 }
 
-function classifyCase(record, result) {
+function classifyCase(result) {
   const issues = [];
+  const review = [];
+
   if (!result.card.ok) issues.push("card-preview-missing");
   if (result.card.ok && Math.abs((result.card.width / result.card.height) - (viewport.width / viewport.height)) > 0.015) issues.push("card-preview-ratio");
-  if (result.video && !result.video.ok) issues.push("video-metadata");
+
+  if (result.video && !result.video.ok) {
+    if (result.video.infrastructure) review.push("video-probe-unavailable");
+    else issues.push("video-metadata");
+  }
   if (result.video?.ok && result.card.ok) {
     const videoRatio = result.video.width / result.video.height;
     const cardRatio = result.card.width / result.card.height;
     if (Math.abs(videoRatio - cardRatio) > 0.02) issues.push("video-card-ratio");
   }
-  if (!result.live) return issues;
 
-  const geometry = result.live.geometry;
-  if (geometry.document.horizontalOverflowPx > 3) issues.push("horizontal-overflow");
-  if (geometry.document.outerScrollPx > 32) issues.push("outer-document-scroll");
-  if (geometry.phoneFrames.length > 1) issues.push("duplicate-phone-frame");
-  if (geometry.shellOffset && (geometry.shellOffset.left > 4 || geometry.shellOffset.top > 4 || geometry.shellOffset.rightGap > 4)) issues.push("first-screen-offset");
-  if (geometry.bottomNavigationClipped) issues.push("bottom-navigation-clipped");
-  if (geometry.interactiveOverflow.length) issues.push("interactive-hitarea-overflow");
-  if (geometry.fixedOverflow.length) issues.push("fixed-element-overflow");
-  if (geometry.scrollRegions[0]?.ratio > 4.5) issues.push("excessive-scroll-region");
-  if (result.live.visual?.rgbDelta > 0.24 && result.live.visual?.luminanceDelta > 0.18) issues.push("card-live-state-mismatch");
-  return [...new Set(issues)];
+  if (result.live) {
+    const geometry = result.live.geometry;
+    if (geometry.document.horizontalOverflowPx > 3) issues.push("horizontal-overflow");
+    if (geometry.document.outerScrollPx > 32) issues.push("outer-document-scroll");
+    if (geometry.phoneFrames.length > 1) issues.push("duplicate-phone-frame");
+    if (geometry.shellOffset && (geometry.shellOffset.left > 4 || geometry.shellOffset.top > 4 || geometry.shellOffset.rightGap > 4)) issues.push("first-screen-offset");
+    if (geometry.bottomNavigationClipped) issues.push("bottom-navigation-clipped");
+    if (geometry.interactiveOverflow.length) issues.push("interactive-hitarea-overflow");
+    if (geometry.fixedOverflow.length) issues.push("fixed-element-overflow");
+    if (geometry.scrollRegions[0]?.ratio > 4.5) issues.push("excessive-scroll-region");
+    if (result.live.visual?.rgbDelta > 0.24 && result.live.visual?.luminanceDelta > 0.18) issues.push("card-live-state-mismatch");
+
+    if (geometry.offscreenInteractive.length) review.push("carousel-or-offscreen-hitareas");
+    if (geometry.contentBottomGap !== null && geometry.contentBottomGap > 180) review.push("large-lower-dead-zone");
+    if (result.live.visual?.rgbDelta > 0.13 && result.live.visual?.luminanceDelta > 0.10) review.push("card-live-visual-drift");
+  }
+
+  return { issues: [...new Set(issues)], review: [...new Set(review)] };
 }
 
 function markdownReport(results) {
@@ -304,28 +352,36 @@ function markdownReport(results) {
     "",
     `Viewport: ${viewport.width}×${viewport.height}`,
     "",
-    "| Case | Card | Video | Live | Issues |",
-    "|---|---:|---:|---:|---|",
+    "| Case | Card | Video | Live | Hard issues | Review flags |",
+    "|---|---:|---:|---:|---|---|",
   ];
+
   for (const item of results) {
     const card = item.card.ok ? `${item.card.width}×${item.card.height}` : "missing";
-    const video = item.video ? (item.video.ok ? `${item.video.width}×${item.video.height}` : "error") : "—";
+    const video = item.video ? (item.video.ok ? `${item.video.width}×${item.video.height}` : `error:${item.video.reason}`) : "—";
     const live = item.live ? "yes" : "—";
-    lines.push(`| ${item.id} | ${card} | ${video} | ${live} | ${item.issues.length ? item.issues.join(", ") : "pass"} |`);
+    lines.push(`| ${item.id} | ${card} | ${video} | ${live} | ${item.issues.length ? item.issues.join(", ") : "pass"} | ${item.review.length ? item.review.join(", ") : "—"} |`);
   }
+
   const failed = results.filter((item) => item.issues.length);
-  lines.push("", `Failed cases: ${failed.length}/${results.length}`);
-  for (const item of failed) {
-    lines.push("", `## ${item.id}`, "", ...item.issues.map((issue) => `- ${issue}`));
+  const review = results.filter((item) => item.review.length);
+  lines.push("", `Hard failures: ${failed.length}/${results.length}`, `Human-review candidates: ${review.length}/${results.length}`);
+
+  for (const item of results.filter((entry) => entry.issues.length || entry.review.length)) {
+    lines.push("", `## ${item.id}`, "");
+    for (const issue of item.issues) lines.push(`- FAIL: ${issue}`);
+    for (const flag of item.review) lines.push(`- REVIEW: ${flag}`);
     if (item.live?.visual) lines.push(`- visual delta: RGB ${item.live.visual.rgbDelta.toFixed(3)}, luminance ${item.live.visual.luminanceDelta.toFixed(3)}`);
-    if (item.live?.geometry?.document) lines.push(`- document: ${item.live.geometry.document.scrollWidth}×${item.live.geometry.document.scrollHeight}, outer scroll ${item.live.geometry.document.outerScrollPx}px`);
+    if (item.live?.geometry?.contentBottomGap !== null) lines.push(`- lower content gap: ${Math.round(item.live.geometry.contentBottomGap)}px`);
+    if (item.live?.geometry?.interactiveOverflow?.length) lines.push(`- hard hitarea overflow: ${JSON.stringify(item.live.geometry.interactiveOverflow)}`);
+    if (item.live?.geometry?.offscreenInteractive?.length) lines.push(`- offscreen/peek hitareas: ${JSON.stringify(item.live.geometry.offscreenInteractive)}`);
   }
   return `${lines.join("\n")}\n`;
 }
 
 const playwright = await loadPlaywright();
 if (!playwright?.chromium) {
-  console.error("Playwright is unavailable. Install playwright and Chromium before running the visual audit.");
+  console.error("Playwright is unavailable. Install Playwright and Chromium before running the visual audit.");
   process.exit(2);
 }
 
@@ -335,11 +391,21 @@ const results = [];
 
 try {
   const page = await browser.newPage({ viewport });
+
+  await page.goto(new URL("library.html", baseUrl).href, { waitUntil: "networkidle" });
+  await waitForStablePaint(page);
+  for (const record of cases) {
+    const cardHost = page.locator(`[data-case-id="${record.id}"] .phone-frame--card`).first();
+    if (await cardHost.count()) {
+      await cardHost.screenshot({ path: path.join(cardScreenshotDir, `${record.id}.png`) });
+    }
+  }
+
   for (const record of cases) {
     const cardSrc = absoluteUrl(resolveCardPreview(record));
     await page.goto(baseUrl, { waitUntil: "domcontentloaded" });
     const card = await getImageMeta(page, cardSrc);
-    const video = record.video ? await getVideoMeta(page, absoluteUrl(record.video)) : null;
+    const video = record.video ? probeVideo(record.video) : null;
     let live = null;
 
     if (record.liveDemo) {
@@ -348,7 +414,7 @@ try {
       await page.goto(demoUrl.href, { waitUntil: "networkidle", timeout: 15000 });
       await waitForStablePaint(page);
       const geometry = await inspectDemoGeometry(page);
-      const screenshotPath = path.join(screenshotDir, `${record.id}.png`);
+      const screenshotPath = path.join(liveScreenshotDir, `${record.id}.png`);
       const screenshot = await page.screenshot({ path: screenshotPath, fullPage: false });
       let visual = null;
       if (card.ok) {
@@ -362,9 +428,13 @@ try {
     }
 
     const result = { id: record.id, name: record.name, card: { src: cardSrc, ...card }, video, live };
-    result.issues = classifyCase(record, result);
+    const classification = classifyCase(result);
+    result.issues = classification.issues;
+    result.review = classification.review;
     results.push(result);
-    console.log(`${record.id}: ${result.issues.length ? result.issues.join(", ") : "pass"}`);
+    const status = result.issues.length ? `FAIL ${result.issues.join(", ")}` : "pass";
+    const reviewText = result.review.length ? ` | review: ${result.review.join(", ")}` : "";
+    console.log(`${record.id}: ${status}${reviewText}`);
   }
 } finally {
   await browser.close();
@@ -379,6 +449,7 @@ const payload = {
     total: results.length,
     passed: results.filter((item) => !item.issues.length).length,
     failed: results.filter((item) => item.issues.length).length,
+    review: results.filter((item) => item.review.length).length,
     liveDemos: results.filter((item) => item.live).length,
   },
 };
