@@ -13,8 +13,7 @@ const analytics = readFileSync(path.join(root, "analytics.js"), "utf8");
 const cardPreviewOverrides = Object.freeze({
   museum: "assets/cases/museum-app/video-frames/01-home.png",
   fashion: "assets/cases/fashion-shopping-app/card-screen.png",
-  news: "assets/cases/news-app/card-screen.png",
-  notebook: "demo/marble-note/screenshots/library-preview-reference-v2.png"
+  news: "assets/cases/news-app/card-screen.png"
 });
 
 function resolveCardPreview(caseRecord) {
@@ -76,6 +75,16 @@ test("boards and desktop-like media use neutral artboards", () => {
   assert.equal(getPreviewMediaPresentation(1200, 900), "artboard");
 });
 
+test("notebook card uses the canonical phone preview instead of the reference artboard", () => {
+  const notebook = JSON.parse(readFileSync(path.join(root, "catalog", "cases", "notebook.json"), "utf8"));
+  const previewPath = resolveCardPreview(notebook);
+  assert.equal(previewPath, "demo/marble-note/screenshots/library-preview-2x.png");
+
+  const dimensions = readImageDimensions(path.join(root, previewPath));
+  assert.deepEqual(dimensions, { width: 780, height: 1688 });
+  assert.equal(getPreviewMediaPresentation(dimensions.width, dimensions.height), "device");
+});
+
 test("all case-card preview assets exist and have readable dimensions", () => {
   const caseDirectory = path.join(root, "catalog", "cases");
   const records = readdirSync(caseDirectory)
@@ -106,6 +115,12 @@ test("adaptive preview runtime classifies newly rendered gallery media", () => {
   assert.match(runtime, /is-artboard-preview/);
   assert.match(runtime, /naturalWidth/);
   assert.match(runtime, /videoWidth/);
+});
+
+test("notebook legacy reference preview is normalized before card sizing", () => {
+  assert.match(runtime, /library-preview-reference-v2\.png/);
+  assert.match(runtime, /library-preview-2x\.png/);
+  assert.match(runtime, /normalizeGalleryCardSource/);
 });
 
 test("adaptive preview layer prevents crop and magic zoom", () => {
