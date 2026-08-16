@@ -64,6 +64,24 @@ test("ArtMuse video mode uses current artwork frames instead of the stale record
   assert.match(script, /seekPreviewSequence/);
 });
 
+test("Organique video mode uses canonical screen frames instead of the mismatched recording canvas", () => {
+  const organique = JSON.parse(readFileSync(path.join(root, "catalog", "cases", "organique.json"), "utf8"));
+  assert.equal(organique.videoSequence.duration, 6);
+  assert.deepEqual(
+    organique.videoSequence.frames.map((frame) => frame.src),
+    [
+      "./demo/organique-food/screenshots/01-choose.png",
+      "./demo/organique-food/screenshots/02-plan.png",
+      "./demo/organique-food/screenshots/03-confirmation.png",
+    ],
+  );
+  for (const frame of organique.videoSequence.frames) {
+    assert.ok(existsSync(path.join(root, frame.src.replace(/^\.\//, ""))), `missing Organique frame: ${frame.src}`);
+  }
+  assert.match(script, /const videoSequence = getVideoSequence\(currentGuide\)/);
+  assert.match(script, /if \(videoSequence\)[\s\S]*?playPreviewSequence\(videoSequence\)/);
+});
+
 test("generated device mockups are not nested inside gallery devices", () => {
   assert.match(script, /museum:\s*"\.\/assets\/cases\/museum-app\/video-frames\/01-home\.png"/);
   assert.match(script, /fashion:\s*"\.\/assets\/cases\/fashion-shopping-app\/card-screen\.png"/);
