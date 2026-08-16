@@ -7,6 +7,8 @@ on:
     paths:
       - "catalog/cases/**"
       - "demo/**"
+      - "src/**"
+      - "library.html"
       - "library*.js"
       - "library*.css"
       - "library-preview-config.mjs"
@@ -74,7 +76,7 @@ jobs:
         continue-on-error: true
         run: node scripts/render_visual_qa_report.mjs
       - name: Sync every live first state to its canonical card preview
-        if: always() && steps.audit.outcome != 'skipped' && github.actor != 'github-actions[bot]'
+        if: always() && steps.audit.outcome != 'skipped' && github.event_name == 'workflow_dispatch' && github.ref_type == 'branch' && github.ref_name != 'main' && github.actor != 'github-actions[bot]'
         run: |
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
@@ -109,7 +111,7 @@ jobs:
           fs.writeFileSync('/tmp/preview-targets.tsv', `${lines.join('\n')}\n`);
           NODE
 
-          git pull --ff-only origin fix/visual-qa
+          git pull --ff-only origin "${GITHUB_REF_NAME}"
 
           while IFS=$'\t' read -r case_id source destination; do
             mkdir -p "$(dirname "$destination")"
@@ -138,7 +140,7 @@ jobs:
             exit 0
           fi
           git commit -m "chore: sync all live canonical preview screenshots"
-          git push origin HEAD:fix/visual-qa
+          git push origin "HEAD:${GITHUB_REF_NAME}"
       - name: Upload visual QA report
         if: always()
         uses: actions/upload-artifact@v4
