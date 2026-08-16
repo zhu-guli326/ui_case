@@ -78,8 +78,8 @@ test("Organique video mode uses canonical screen frames instead of the mismatche
   for (const frame of organique.videoSequence.frames) {
     assert.ok(existsSync(path.join(root, frame.src.replace(/^\.\//, ""))), `missing Organique frame: ${frame.src}`);
   }
-  assert.match(script, /const videoSequence = getVideoSequence\(currentGuide\)/);
-  assert.match(script, /if \(videoSequence\)[\s\S]*?playPreviewSequence\(videoSequence\)/);
+  assert.match(script, /const videoSequence = isVideo \? getVideoSequence\(guide\) : null/);
+  assert.match(script, /if \(videoSequence\)[\s\S]*?activeVideoSequence = videoSequence[\s\S]*?playPreviewSequence\(\)/);
 });
 
 test("generated device mockups are not nested inside gallery devices", () => {
