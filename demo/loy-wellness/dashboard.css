@@ -1,8 +1,8 @@
 .daily-playlist {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 126px;
-  height: 158px;
+  grid-template-columns: minmax(0, 1fr) 142px;
+  height: 196px;
   margin-top: 15px;
   overflow: hidden;
   border: 2px solid var(--line);
@@ -17,7 +17,7 @@
   min-width: 0;
   flex-direction: column;
   align-items: flex-start;
-  padding: 17px 10px 15px 15px;
+  padding: 20px 11px 17px 16px;
 }
 
 .daily-playlist-copy small {
@@ -29,27 +29,40 @@
 }
 
 .daily-playlist-copy strong {
-  margin-top: 5px;
-  font-size: 22px;
+  margin-top: 6px;
+  font-size: 24px;
   line-height: 1;
   letter-spacing: -0.035em;
 }
 
 .daily-playlist-copy span {
-  margin-top: 6px;
+  margin-top: 7px;
   color: #4b5f58;
   font-size: 12px;
   font-weight: 700;
 }
 
+.daily-playlist-copy::after {
+  display: block;
+  width: 56px;
+  height: 4px;
+  margin-top: 15px;
+  border-radius: 99px;
+  background: rgba(29, 34, 32, 0.18);
+  box-shadow:
+    16px 8px 0 -1px rgba(29, 34, 32, 0.1),
+    34px 16px 0 -1px rgba(29, 34, 32, 0.08);
+  content: "";
+}
+
 .daily-playlist-open {
   display: inline-flex;
-  height: 35px;
+  height: 38px;
   align-items: center;
   gap: 6px;
   align-self: flex-start;
   margin-top: auto;
-  padding: 0 12px;
+  padding: 0 13px;
   border: 2px solid var(--line);
   border-radius: 12px;
   background: var(--lime);
@@ -83,15 +96,15 @@
   object-fit: cover;
   object-position: 81% 76%;
   mix-blend-mode: multiply;
-  transform: scale(1.28);
+  transform: scale(1.2);
 }
 
 .daily-playlist-art::after {
   position: absolute;
-  right: 10px;
-  bottom: 10px;
-  width: 10px;
-  height: 10px;
+  right: 11px;
+  bottom: 11px;
+  width: 11px;
+  height: 11px;
   border: 2px solid var(--line);
   border-radius: 50%;
   background: var(--green);
