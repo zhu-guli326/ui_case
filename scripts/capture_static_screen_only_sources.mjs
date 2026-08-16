@@ -8,12 +8,13 @@ const outputRoot = path.resolve("artifacts/visual-qa/generated-static");
 /*
  * These six legacy static references were authored as phone mockups rather
  * than raw screens. Crop once from the original source pixels in Chromium and
- * persist a real 780 x 1688 screen-only asset. The normalized crop boxes were
- * measured against the authored inner screen, not against the Library shell.
+ * persist a real 780 x 1688 screen-only asset. The boxes intentionally sit a
+ * few pixels inside the historical inner bezel so no baked corner/edge line
+ * survives when the shared PhoneShell wraps the result.
  */
 const families = {
   fashion: {
-    crop: { x: 26 / 301, y: 43 / 650, width: 246 / 301, height: 532 / 650 },
+    crop: { x: 29 / 301, y: 50 / 650, width: 240 / 301, height: 518 / 650 },
     sources: [
       ["hero", "/assets/cases/fashion-shopping-app/hero-screen.png"],
       ["catalog", "/assets/cases/fashion-shopping-app/catalog-screen.png"],
@@ -21,7 +22,7 @@ const families = {
     ],
   },
   news: {
-    crop: { x: 29 / 301, y: 52 / 650, width: 251 / 301, height: 543 / 650 },
+    crop: { x: 32 / 301, y: 59 / 650, width: 245 / 301, height: 529 / 650 },
     sources: [
       ["headlines", "/assets/cases/news-app/headlines-screen.png"],
       ["feed", "/assets/cases/news-app/feed-screen.png"],
