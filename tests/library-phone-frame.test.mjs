@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const html = readFileSync(path.join(root, "library.html"), "utf8");
-const css = readFileSync(path.join(root, "library.css"), "utf8");
+const css = readFileSync(path.join(root, "src", "features", "library", "library.css"), "utf8");
 const devicePreviewCss = readFileSync(path.join(root, "src", "components", "device-preview", "device-preview.css"), "utf8");
 const script = readFileSync(path.join(root, "library.js"), "utf8");
 
