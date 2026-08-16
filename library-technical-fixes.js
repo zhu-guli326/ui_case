@@ -1,6 +1,17 @@
 import { getPreviewMediaPresentation, standardPreviewDevice } from "./library-preview-config.mjs";
 
 const SCALE_OVERSHOOT = 1.04;
+const LEGACY_NOTEBOOK_CARD_PREVIEW = "marble-note/screenshots/library-preview-reference-v2.png";
+const CANONICAL_NOTEBOOK_CARD_PREVIEW = "marble-note/screenshots/library-preview-2x.png";
+
+function normalizeGalleryCardSource(image) {
+  if (!image) return;
+  const src = image.getAttribute("src") || "";
+  if (!src.includes(LEGACY_NOTEBOOK_CARD_PREVIEW)) return;
+
+  image.setAttribute("src", src.replace(LEGACY_NOTEBOOK_CARD_PREVIEW, CANONICAL_NOTEBOOK_CARD_PREVIEW));
+  image.dataset.previewSourceNormalized = "true";
+}
 
 function setFramePresentation(frame, width, height, { forceDevice = false } = {}) {
   if (!frame) return;
@@ -37,7 +48,9 @@ function bindGalleryCards() {
 
   const bindCurrentCards = () => {
     gallery.querySelectorAll(".phone-frame--card").forEach((frame) => {
-      bindImageToFrame(frame.querySelector("img.phone-media"), frame);
+      const image = frame.querySelector("img.phone-media");
+      normalizeGalleryCardSource(image);
+      bindImageToFrame(image, frame);
     });
   };
 
