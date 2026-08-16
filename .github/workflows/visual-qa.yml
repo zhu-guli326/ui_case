@@ -68,7 +68,7 @@ jobs:
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
           const report = JSON.parse(fs.readFileSync('artifacts/visual-qa/visual-qa.json', 'utf8'));
-          const targets = new Set(['loy', 'journal']);
+          const targets = new Set(['journal', 'loy', 'moodly', 'notebook']);
           const blocked = report.cases.filter((item) => targets.has(item.id) && item.issues?.length);
           if (blocked.length) {
             console.error('Refusing to sync previews for cases with hard failures:', blocked.map((item) => item.id));
@@ -76,11 +76,17 @@ jobs:
           }
           NODE
           git pull --ff-only origin fix/visual-qa
-          ffmpeg -loglevel error -y -i artifacts/visual-qa/live/loy.png -vf scale=780:1688:flags=lanczos demo/loy-wellness/screenshots/library-preview-2x.png
           ffmpeg -loglevel error -y -i artifacts/visual-qa/live/journal.png -vf scale=780:1688:flags=lanczos demo/lumen-journal/screenshots/library-preview-2x.png
+          ffmpeg -loglevel error -y -i artifacts/visual-qa/live/loy.png -vf scale=780:1688:flags=lanczos demo/loy-wellness/screenshots/library-preview-2x.png
+          ffmpeg -loglevel error -y -i artifacts/visual-qa/live/moodly.png -vf scale=780:1688:flags=lanczos demo/moodly-health/screenshots/library-preview-2x.png
+          ffmpeg -loglevel error -y -i artifacts/visual-qa/live/notebook.png -vf scale=780:1688:flags=lanczos demo/marble-note/screenshots/library-preview-2x.png
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f demo/loy-wellness/screenshots/library-preview-2x.png demo/lumen-journal/screenshots/library-preview-2x.png
+          git add -f \
+            demo/lumen-journal/screenshots/library-preview-2x.png \
+            demo/loy-wellness/screenshots/library-preview-2x.png \
+            demo/moodly-health/screenshots/library-preview-2x.png \
+            demo/marble-note/screenshots/library-preview-2x.png
           if git diff --cached --quiet; then
             echo "Canonical previews already match the repaired live states."
             exit 0
