@@ -73,13 +73,13 @@ function readImageDimensions(filePath) {
   return null;
 }
 
-test("all 23 cases share one explicit Library-owned phone preview contract", () => {
+test("all 22 active cases share one explicit Library-owned phone preview contract", () => {
   assert.equal(previewContractVersion, "20260816-preview-contract-v2");
   assert.deepEqual(standardPreviewDevice, { width: 390, height: 844 });
   assert.deepEqual(standardCanonicalPreview, { width: 780, height: 1688 });
   assert.equal(standardPreviewDetailWidth, 300);
-  assert.equal(libraryPreviewCaseIds.length, 23);
-  assert.equal(new Set(libraryPreviewCaseIds).size, 23);
+  assert.equal(libraryPreviewCaseIds.length, 22);
+  assert.equal(new Set(libraryPreviewCaseIds).size, 22);
 
   for (const id of libraryPreviewCaseIds) {
     const profile = getLibraryPreviewProfile(id);
@@ -120,18 +120,18 @@ test("notebook card uses the canonical phone preview instead of the reference ar
   assert.equal(getPreviewMediaPresentation(dimensions.width, dimensions.height, { caseId: "notebook" }), "device");
 });
 
-test("all 23 card previews are canonical 780 by 1688 screen assets", () => {
+test("all 22 active card previews are canonical 780 by 1688 screen assets", () => {
   const caseDirectory = path.join(root, "catalog", "cases");
   const records = readdirSync(caseDirectory)
     .filter((name) => name.endsWith(".json"))
     .sort()
     .map((name) => JSON.parse(readFileSync(path.join(caseDirectory, name), "utf8")));
 
-  assert.equal(records.length, 23, "case library should retain all 23 records");
+  assert.equal(records.length, 22, "case library should expose 22 active records after merging Lumen into Aegean");
   assert.deepEqual(
     records.map((record) => record.id).sort(),
     [...libraryPreviewCaseIds].sort(),
-    "preview contract must cover the exact catalog",
+    "preview contract must cover the exact active catalog",
   );
 
   const audit = [];
