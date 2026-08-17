@@ -21,21 +21,30 @@ function notify(message) {
   if (feedback) feedback.textContent = message;
 }
 
+/*
+ * Keep the perspective carousel inside the authored 390px screen viewport.
+ * The previous +/-192px / +/-360px offsets deliberately pushed cards through
+ * the rounded screen edge. CSS clipping hid only the overflow, so the cards
+ * still looked cut off. Side cards now remain fully readable inside the safe
+ * horizontal region; farther cards fade away rather than bleeding outward.
+ */
+function getCardTransform(relative) {
+  if (relative === 0) return "translateX(-50%) scale(1)";
+  if (relative === -1) return "translateX(calc(-50% - 102px)) translateY(42px) rotate(-6deg) scale(.84)";
+  if (relative === 1) return "translateX(calc(-50% + 102px)) translateY(42px) rotate(6deg) scale(.84)";
+  if (relative < 0) return "translateX(calc(-50% - 150px)) translateY(82px) rotate(-9deg) scale(.76)";
+  return "translateX(calc(-50% + 150px)) translateY(82px) rotate(9deg) scale(.76)";
+}
+
 function renderCarousel() {
   cards.forEach((card, index) => {
     const relative = index - selected;
+    const distance = Math.abs(relative);
     card.classList.toggle("is-selected", relative === 0);
-    card.style.zIndex = String(5 - Math.min(4, Math.abs(relative)));
-    card.style.opacity = String(Math.abs(relative) > 2 ? 0 : relative === 0 ? 1 : Math.abs(relative) === 1 ? .63 : .34);
-    card.style.transform = relative === 0
-      ? "translateX(-50%) scale(1)"
-      : relative === -1
-        ? "translateX(calc(-50% - 192px)) translateY(47px) rotate(-8deg) scale(.86)"
-        : relative === 1
-          ? "translateX(calc(-50% + 192px)) translateY(48px) rotate(8deg) scale(.86)"
-          : relative < 0
-            ? "translateX(calc(-50% - 360px)) translateY(92px) rotate(-12deg) scale(.76)"
-            : "translateX(calc(-50% + 360px)) translateY(92px) rotate(12deg) scale(.76)";
+    card.style.zIndex = String(5 - Math.min(4, distance));
+    card.style.opacity = String(distance > 1 ? 0 : relative === 0 ? 1 : .66);
+    card.style.pointerEvents = distance > 1 ? "none" : "auto";
+    card.style.transform = getCardTransform(relative);
     card.tabIndex = relative === 0 ? 0 : -1;
   });
   carouselLabel.textContent = labels[selected];
@@ -91,4 +100,5 @@ if (tabbar) {
 
 document.querySelectorAll("[data-toast]").forEach((button) => button.addEventListener("click", () => notify(button.dataset.toast)));
 if (params.get("card")) selectCard(Number(params.get("card")));
+renderCarousel();
 switchView("today");
