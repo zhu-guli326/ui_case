@@ -3,15 +3,17 @@ name: Visual QA
 on:
   pull_request:
     branches: [main]
-    types: [opened, reopened, ready_for_review]
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - "catalog/cases/**"
       - "demo/**"
       - "src/**"
+      - "launcher.html"
       - "library.html"
       - "library*.js"
       - "library*.css"
       - "library-preview-config.mjs"
+      - "scripts/audit_launcher_runtime.mjs"
       - "scripts/audit_demo_visual_contract.mjs"
       - "scripts/audit_library_preview_contract.mjs"
       - "scripts/render_visual_qa_report.mjs"
@@ -62,6 +64,8 @@ jobs:
           done
           cat /tmp/ui-case-server.log
           exit 1
+      - name: Audit launcher runtime
+        run: node scripts/audit_launcher_runtime.mjs
       - name: Capture legacy static sources as screen-only assets
         run: node scripts/capture_static_screen_only_sources.mjs
       - name: Run visual QA

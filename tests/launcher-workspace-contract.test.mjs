@@ -7,29 +7,34 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (file) => readFileSync(path.join(root, file), "utf8");
 
-test("style selection is the first workspace action and section numbers are gone", () => {
+test("the workspace is task-first and grouped into three stages", () => {
   const html = read("launcher.html");
-  assert.ok(html.indexOf('id="styleDirectionGrid"') < html.indexOf('id="colorThemeGrid"'));
-  assert.ok(html.indexOf('id="colorThemeGrid"') < html.indexOf('id="modeTabs"'));
   assert.ok(html.indexOf('id="modeTabs"') < html.indexOf('id="launcherForm"'));
+  assert.ok(html.indexOf('id="launcherForm"') < html.indexOf('id="styleDirectionGrid"'));
+  assert.ok(html.indexOf('id="styleDirectionGrid"') < html.indexOf('id="platformGrid"'));
+  assert.ok(html.indexOf('id="platformGrid"') < html.indexOf('id="colorThemeGrid"'));
+  assert.match(html, /id="taskDefinition"/);
+  assert.match(html, /id="designDecisions"/);
+  assert.match(html, /id="outputPanel"/);
+  assert.match(html, /class="launcher-step-nav"/);
   assert.doesNotMatch(html, /READY FOR CODEX/);
-  assert.doesNotMatch(html, /<span>0[1-4]<\/span>/);
   assert.doesNotMatch(html, /id="styleSource"/);
 });
 
-test("semantic color themes are selectable and flow into summaries and prompts", () => {
+test("semantic color themes remain selectable inside the design-system stage", () => {
   const html = read("launcher.html");
   const script = read("launcher.js");
   const css = read("src/features/launcher/launcher.css");
-  assert.match(html, /选择品牌规范/);
+  const workspaceCss = read("src/features/launcher/launcher-workspace.css");
   assert.match(html, /id="colorThemeGrid"[^>]+role="radiogroup"/);
+  assert.match(html, /id="designSystemWorkbench"/);
   assert.match(script, /function renderColorThemes\(\)/);
   assert.match(script, /theme\.guidelineUrl/);
   assert.match(script, /system: inheritedSystem \? \{ mode: "inherit" \} : \{ mode: "override", value: theme\.designSystemId \}/);
   assert.match(script, /function syncColorThemeToDesignSystem\(value\)/);
   assert.match(script, /colorThemePrompt\(decisions\.colorTheme\.value, language\(\)\)/);
   assert.match(script, /tr\("主题色", "Color theme"\), decisions\.colorTheme\.label/);
-  assert.match(css, /\.color-theme-grid\s*\{[^}]*grid-template-columns:\s*repeat\(4,/s);
+  assert.match(workspaceCss, /\.color-theme-grid\s*\{[^}]*grid-template-columns:\s*repeat\(4,/s);
   assert.match(css, /@media \(max-width:\s*560px\)[\s\S]*?\.color-theme-grid\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/);
 });
 
@@ -55,8 +60,9 @@ test("launcher state is versioned per project and task progress does not overwri
 
 test("responsive workspace styles keep the summary sticky and overlays usable on mobile", () => {
   const css = read("src/features/launcher/launcher.css");
+  const workspaceCss = read("src/features/launcher/launcher-workspace.css");
   const script = read("launcher.js");
-  assert.match(css, /\.prompt-column\s*\{[^}]*position:\s*sticky/s);
+  assert.match(workspaceCss, /\.workspace-side\s*\{[^}]*position:\s*sticky/s);
   assert.match(css, /\.case-picker\s*\{/);
   assert.match(css, /\.case-picker\s*\{[^}]*inset:\s*0;[^}]*width:\s*min\(1100px, calc\(100vw - 48px\)\);[^}]*height:\s*min\(820px, calc\(100dvh - 48px\)\);[^}]*margin:\s*auto;[^}]*border-radius:\s*8px/s);
   assert.match(css, /\.case-picker\[open\]\s*\{[^}]*animation:\s*modal-in/s);

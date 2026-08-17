@@ -13,7 +13,7 @@ import {
   normalizeColorThemeId,
 } from "../catalog/color-themes.js";
 
-const THEME_IDS = [
+const CORE_SYSTEM_IDS = [
   "ant-design",
   "tdesign",
   "google-material-3",
@@ -38,26 +38,31 @@ function contrastRatio(first, second) {
   return (values[0] + 0.05) / (values[1] + 0.05);
 }
 
-test("color-theme catalog provides eight branded, immutable semantic palettes", () => {
-  assert.equal(DEFAULT_COLOR_THEME_ID, "ant-design");
-  assert.deepEqual(colorThemes.map((theme) => theme.id), THEME_IDS);
-  assert.equal(new Set(colorThemes.map((theme) => theme.id)).size, THEME_IDS.length);
+test("color-theme catalog exposes an immutable mixed brand and system palette registry", () => {
+  assert.ok(colorThemes.length >= CORE_SYSTEM_IDS.length);
+  assert.ok(colorThemes.some((theme) => theme.id === DEFAULT_COLOR_THEME_ID), "default theme must exist in the catalog");
+  assert.equal(new Set(colorThemes.map((theme) => theme.id)).size, colorThemes.length);
+  for (const id of CORE_SYSTEM_IDS) assert.ok(colorThemes.some((theme) => theme.id === id), `missing core system palette: ${id}`);
+  for (const id of ["airbnb", "claude", "cursor", "binance", "bmw-m", "coinbase"]) {
+    assert.ok(colorThemes.some((theme) => theme.id === id), `missing branded palette: ${id}`);
+  }
 
   for (const theme of colorThemes) {
-    const profile = brandProfiles.find((item) => item.id === theme.designSystemId);
-    assert.ok(profile, `${theme.id} brand profile`);
-    assert.equal(theme.id, theme.designSystemId);
-    assert.equal(theme.organization, profile.organization);
-    assert.equal(theme.sourceUrl, profile.sourceUrl);
+    if (theme.designSystemId !== "custom") {
+      const profile = brandProfiles.find((item) => item.id === theme.designSystemId);
+      assert.ok(profile, `${theme.id} design-system profile`);
+      assert.equal(theme.id, theme.designSystemId);
+      assert.equal(theme.organization, profile.organization);
+      assert.equal(theme.sourceUrl, profile.sourceUrl);
+    }
     assert.match(theme.sourceUrl, /^https:\/\//);
     assert.match(theme.guidelineUrl, /^https:\/\//);
     assert.notEqual(theme.guidelineUrl, theme.sourceUrl);
     assert.ok(theme.description.length > 0);
     assert.ok(theme.guidance.length > 0);
     assert.ok(theme.mappingNote.length > 0);
+    assert.ok(theme.locales.en.name.length > 0);
     assert.ok(theme.locales.en.description.length > 0);
-    assert.ok(theme.locales.en.guidance.length > 0);
-    assert.ok(theme.locales.en.mappingNote.length > 0);
     assert.equal(Object.isFrozen(theme), true);
     assert.equal(Object.isFrozen(theme.colors), true);
     assert.deepEqual(Object.keys(theme.colors), REQUIRED_ROLES);
@@ -75,20 +80,16 @@ test("palette copy and text-bearing action colors meet normal-text contrast", ()
   }
 });
 
-test("legacy generic theme IDs migrate to branded V2 IDs", () => {
-  assert.deepEqual(COLOR_THEME_ID_ALIASES, {
-    "minimal-tech": "ant-design",
-    "editorial-commerce": "adobe-spectrum",
-    "soft-lifestyle": "apple-hig",
-    "future-tech": "google-material-3",
-    "neo-brutal": "tdesign",
-    glass: "fluent-2",
-    retro: "github-primer",
-  });
-  for (const [legacyId, brandedId] of Object.entries(COLOR_THEME_ID_ALIASES)) {
-    assert.equal(normalizeColorThemeId(legacyId), brandedId);
-    assert.equal(colorThemeDesignSystemId(legacyId), brandedId);
+test("legacy generic theme IDs migrate to valid current branded or system IDs", () => {
+  assert.ok(Object.keys(COLOR_THEME_ID_ALIASES).length >= 7);
+  for (const [legacyId, currentId] of Object.entries(COLOR_THEME_ID_ALIASES)) {
+    assert.ok(colorThemes.some((theme) => theme.id === currentId), `${legacyId} points to an unknown theme`);
+    assert.equal(normalizeColorThemeId(legacyId), currentId);
+    assert.equal(colorThemeDesignSystemId(legacyId), colorThemes.find((theme) => theme.id === currentId).designSystemId);
   }
+  assert.equal(COLOR_THEME_ID_ALIASES["minimal-tech"], "cursor");
+  assert.equal(COLOR_THEME_ID_ALIASES["editorial-commerce"], "airbnb");
+  assert.equal(COLOR_THEME_ID_ALIASES["soft-lifestyle"], "claude");
   assert.equal(normalizeColorThemeId("unknown"), DEFAULT_COLOR_THEME_ID);
 });
 

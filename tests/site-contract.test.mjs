@@ -46,10 +46,12 @@ test("the shared header uses the ONDesign logo lockup", () => {
   assert.ok(readFileSync(path.join(root, "assets/branding/ondesign-wordmark.png")).length > 0);
 });
 
-test("the launcher uses the complete shared case catalog", () => {
+test("the launcher uses the complete shared case catalog through its feature entry", () => {
   const launcher = requireText("launcher.html");
+  const entry = requireText("src/features/launcher/launcher-entry.js");
   const launcherScript = requireText("launcher.js");
-  assert.match(launcher, /<script type="module" src="\.\/launcher\.js/);
+  assert.match(launcher, /<script type="module" src="\.\/src\/features\/launcher\/launcher-entry\.js/);
+  assert.match(entry, /import\(`\.\.\/\.\.\/\.\.\/launcher\.js/);
   assert.match(launcherScript, /import \{ brandProfiles, styleGuides, styleProfiles \} from "\.\/catalog\/index\.js"/);
   assert.match(launcherScript, /filterCases\(styleGuides/);
   assert.match(launcherScript, /caseThumbnail\(guide\)/);

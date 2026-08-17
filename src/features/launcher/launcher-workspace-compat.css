@@ -1,0 +1,10 @@
+/*
+ * Compatibility overrides for legacy launcher.css while the root launcher
+ * controller is still being decomposed. Keep this file intentionally small:
+ * new page-architecture invariants belong here only when an older rule would
+ * otherwise make the new shell unusable.
+ */
+
+.launcher-workspace #designSystemWorkbench.design-system-workbench {
+  display: block !important;
+}

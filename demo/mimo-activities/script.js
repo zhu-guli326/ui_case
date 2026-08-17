@@ -23,17 +23,17 @@ function notify(message) {
 
 /*
  * Keep the perspective carousel inside the authored 390px screen viewport.
- * The previous +/-192px / +/-360px offsets deliberately pushed cards through
- * the rounded screen edge. CSS clipping hid only the overflow, so the cards
- * still looked cut off. Side cards now remain fully readable inside the safe
- * horizontal region; farther cards fade away rather than bleeding outward.
+ * A rotated 205x334 card has a wider axis-aligned hit box than its visible
+ * scaled width. The +/-88px side offset keeps that full button hit area inside
+ * the phone, while the transparent edge controls still provide generous
+ * previous/next targets. Farther cards are decorative and non-interactive.
  */
 function getCardTransform(relative) {
   if (relative === 0) return "translateX(-50%) scale(1)";
-  if (relative === -1) return "translateX(calc(-50% - 102px)) translateY(42px) rotate(-6deg) scale(.84)";
-  if (relative === 1) return "translateX(calc(-50% + 102px)) translateY(42px) rotate(6deg) scale(.84)";
-  if (relative < 0) return "translateX(calc(-50% - 150px)) translateY(82px) rotate(-9deg) scale(.76)";
-  return "translateX(calc(-50% + 150px)) translateY(82px) rotate(9deg) scale(.76)";
+  if (relative === -1) return "translateX(calc(-50% - 88px)) translateY(42px) rotate(-6deg) scale(.84)";
+  if (relative === 1) return "translateX(calc(-50% + 88px)) translateY(42px) rotate(6deg) scale(.84)";
+  if (relative < 0) return "translateX(calc(-50% - 136px)) translateY(82px) rotate(-9deg) scale(.76)";
+  return "translateX(calc(-50% + 136px)) translateY(82px) rotate(9deg) scale(.76)";
 }
 
 function renderCarousel() {
