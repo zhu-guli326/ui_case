@@ -20,6 +20,14 @@ export const libraryCaseOverrides = Object.freeze({
 export function applyLibraryCaseOverrides(guides) {
   const repaired = [];
   for (const guide of guides) {
+    // The Library is a comparison surface first. Opening every case on its most
+    // representative screen makes cases comparable; video and interactive modes
+    // remain explicit choices instead of silently becoming the default.
+    if (guide.defaultPreviewMode !== "image") {
+      guide.defaultPreviewMode = "image";
+      repaired.push(guide.id);
+    }
+
     const override = libraryCaseOverrides[guide.id];
     if (!override) continue;
     for (const [key, value] of Object.entries(override)) {
