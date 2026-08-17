@@ -60,11 +60,11 @@ button {
   z-index: 2;
   width: var(--phone-width);
   height: var(--phone-height);
-  padding: 7px;
-  border: 1px solid #f4f4f4;
-  border-radius: 46px;
-  background: #101010;
-  box-shadow: 0 25px 50px #5c5c5c55;
+ 
+ 
+ 
+ 
+ 
   transform: scale(var(--stage-scale, 1));
   transform-origin: center;
 }

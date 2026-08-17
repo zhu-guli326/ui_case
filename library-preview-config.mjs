@@ -31,7 +31,7 @@ export const libraryPreviewCaseIds = Object.freeze([
 ]);
 
 const staticCaseIds = new Set(["fashion", "museum", "news"]);
-const sequencePreferredCaseIds = new Set(["museum", "organique"]);
+const sequencePreferredCaseIds = new Set(["museum", "organique", "fithub"]);
 
 function createPreviewProfile(id) {
   return Object.freeze({

@@ -1,0 +1,16 @@
+/* Keep bottom navigation visually inside the rounded screen. */
+.app-view { inset-bottom: 88px; }
+.tabbar {
+  right: 12px;
+  bottom: 14px;
+  left: 12px;
+  height: 60px;
+  padding: 3px 18px 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 23px;
+  background: linear-gradient(180deg, rgba(61,59,137,.68), rgba(49,47,119,.94));
+  box-shadow: 0 8px 22px rgba(34,32,99,.18);
+  backdrop-filter: blur(14px);
+}
+.tab { min-height: 46px; }

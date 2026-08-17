@@ -1,32 +1,25 @@
-/* Visual-quality pass: keep the welcome screen simple, but use the full device
- * height so the CTA feels anchored instead of leaving an accidental lower void. */
+/* Balanced 390x844 welcome composition. */
 .welcome-view {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 14px 31px 34px;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 31px 20px;
 }
-
-.welcome-brand {
-  margin-top: 4px;
-}
-
-.welcome-subtitle {
-  margin-top: 16px;
-}
-
+.welcome-brand { margin-top: 0; }
+.welcome-subtitle { margin: 4px 0 0; }
 .welcome-visual {
-  width: 270px;
-  height: 310px;
-  margin-top: 2px;
+  width: 286px;
+  height: 336px;
+  margin-top: 0;
 }
-
 .welcome-note {
-  margin: -2px 0 0;
+  max-width: 250px;
+  margin: 0;
 }
-
 .welcome-view .primary-button {
   flex: 0 0 auto;
   min-height: 52px;
-  margin-top: auto;
+  margin-top: 14px;
 }

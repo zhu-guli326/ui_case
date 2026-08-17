@@ -1,4 +1,4 @@
-import { getLibraryPreviewDevice, libraryPreviewAssetVersion } from "./library-preview-config.mjs";
+import { getLibraryPreviewDevice, getLibraryPreviewProfile, libraryPreviewAssetVersion } from "./library-preview-config.mjs";
 import { searchGuides } from "./library-search.mjs?v=20260813-search-v5";
 import { styleGuides, styleProfiles } from "./catalog/index.js?v=20260815-artmuse-sequence";
 
@@ -349,8 +349,17 @@ function formatVideoTime(value) {
 
 function getVideoSequence(guide) {
   const sequence = guide?.videoSequence;
-  if (!sequence || !Number.isFinite(sequence.duration) || sequence.duration <= 0 || !sequence.frames?.length) return null;
-  return sequence;
+  if (sequence && Number.isFinite(sequence.duration) && sequence.duration > 0 && sequence.frames?.length) return sequence;
+
+  const profile = getLibraryPreviewProfile(guide?.id);
+  const screenFrames = previewImageSets[guide?.id];
+  if (profile?.motionKind !== "screen-sequence" || !screenFrames?.length) return null;
+
+  const secondsPerFrame = 2;
+  return {
+    duration: screenFrames.length * secondsPerFrame,
+    frames: screenFrames.map((frame, index) => ({ ...frame, at: index * secondsPerFrame })),
+  };
 }
 
 function renderPreviewSequenceFrame() {
