@@ -1,7 +1,7 @@
 import { styleGuides } from "../../../catalog/index.js?v=20260815-artmuse-sequence";
 import { applyLibraryCaseOverrides, libraryCaseOverrides } from "./library-case-overrides.mjs";
 
-const REPAIR_VERSION = "20260817-library-qa-v4";
+const REPAIR_VERSION = "20260817-library-qa-v5";
 const guideById = new Map(styleGuides.map((guide) => [guide.id, guide]));
 const repairedIds = applyLibraryCaseOverrides(styleGuides);
 
@@ -17,10 +17,10 @@ function unique(values) {
 function preferredCardSource(id) {
   const guide = guideById.get(id);
   if (!guide) return "";
-  // Prefer an authored screen/poster over the historical `library-preview-2x`
-  // board. Those boards often include phone hardware and unequal whitespace,
-  // which made otherwise-related cards look like different component types.
-  return guide.previewImage || guide.poster || "";
+  // Poster is the canonical single-screen browsing asset. `previewImage` is a
+  // fallback because a few older preview images are composite boards containing
+  // their own phone hardware and large margins.
+  return guide.poster || guide.previewImage || "";
 }
 
 function fallbackCandidates(id) {
@@ -29,6 +29,7 @@ function fallbackCandidates(id) {
   return unique([
     preferredCardSource(id),
     ...(repair?.fallbacks || []),
+    guide?.previewImage,
     guide?.referenceImage
   ]);
 }
