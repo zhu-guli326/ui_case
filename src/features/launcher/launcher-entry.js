@@ -1,4 +1,4 @@
-const VERSION = "20260817-simplified-v4";
+const VERSION = "20260817-simplified-v5";
 
 function reportFailure(label, error) {
   console.error(`[launcher] ${label} failed to load`, error);
