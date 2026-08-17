@@ -1,4 +1,6 @@
 /* Compatibility entry for existing demo URLs.
- * Phone hardware is implemented once in the shared PhoneShell component.
+ * Phone hardware and shared screen composition are implemented once in the
+ * DevicePreview component so cases only own their screen content.
  */
 @import url("../src/components/device-preview/phone-shell.css");
+@import url("../src/components/device-preview/screen-balance.css");
