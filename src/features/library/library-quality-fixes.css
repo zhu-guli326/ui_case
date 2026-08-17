@@ -1,0 +1,135 @@
+/* Library QA normalization — loaded after the existing library CSS layers. */
+:root{
+  --card-preview-ratio:4/5;
+  --card-device-height:360px;
+}
+
+.demo-gallery{
+  align-items:stretch;
+  grid-auto-rows:1fr;
+}
+
+.demo-card{
+  grid-template-rows:auto 1fr;
+  height:100%;
+}
+
+.demo-card-preview{
+  aspect-ratio:4/5 !important;
+  min-height:0 !important;
+  cursor:pointer;
+}
+
+.demo-card-preview .phone-frame--card{
+  height:min(var(--card-device-height),calc(100% - 42px)) !important;
+  max-height:calc(100% - 42px) !important;
+  margin:auto !important;
+}
+
+.demo-card-preview .phone-screen{
+  overflow:hidden;
+}
+
+.demo-card-preview .phone-media{
+  object-fit:cover;
+  object-position:top center;
+}
+
+/* Known reference boards already include a complete device/screen composition.
+ * Keep the whole artwork visible instead of cropping it a second time. */
+.demo-card-preview .has-fitted-device-art .phone-media,
+.demo-card-preview .has-wide-device-art .phone-media{
+  object-fit:contain !important;
+  object-position:center center !important;
+  background:transparent !important;
+}
+
+.demo-card-body{
+  display:grid !important;
+  grid-template-rows:auto auto minmax(3.9em,auto) auto auto 1fr auto;
+  align-content:start;
+  min-height:0;
+}
+
+.demo-card-meta{
+  min-width:0;
+}
+
+.demo-card-meta span,
+.demo-card h3,
+.demo-card-summary,
+.demo-card-footer small{
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.demo-card-meta span{
+  white-space:nowrap;
+}
+
+.demo-card h3{
+  display:-webkit-box;
+  min-height:2.35em;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+}
+
+.demo-card-summary{
+  display:-webkit-box;
+  min-height:4.4em;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:3;
+}
+
+.case-statuses,
+.style-tags,
+.brand-links{
+  align-self:start;
+}
+
+.demo-card-footer{
+  align-self:end;
+  margin-top:auto;
+}
+
+.demo-card-actions{
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.demo-card-actions button{
+  min-height:34px;
+}
+
+.preview-open-button{
+  z-index:3;
+}
+
+/* Make image failure recovery visually stable instead of collapsing the frame. */
+.phone-preview-media.is-unavailable{
+  min-width:180px;
+  min-height:360px;
+}
+
+/* Dialog media should never inherit a stale crop from a previous case. */
+#previewDialogImage,
+#previewDialogSequence,
+#previewDialogVideo{
+  object-position:center top;
+}
+
+#previewDialogVideo{
+  background:#111;
+}
+
+@media (max-width:1180px){
+  .demo-gallery{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+
+@media (max-width:720px){
+  :root{--card-device-height:330px;}
+  .demo-gallery{grid-template-columns:1fr;gap:18px;}
+  .demo-card-preview{aspect-ratio:5/4 !important;}
+  .demo-card-preview .phone-frame--card{height:min(330px,calc(100% - 34px)) !important;}
+  .demo-card-body{grid-template-rows:auto auto auto auto auto 1fr auto;}
+}
