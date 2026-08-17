@@ -15,7 +15,6 @@ const livePreviewCss = read("src/features/launcher/launcher-live-preview.css");
 const legacyPreviewLab = read("src/features/launcher/launcher-preview-lab.js");
 const simplifiedCss = read("src/features/launcher/launcher-simplified.css");
 const simplifiedRuntime = read("src/features/launcher/launcher-simplified-runtime.js");
-const stability = read("src/features/launcher/launcher-stability.js");
 const analyticsConfig = read("src/core/analytics/analytics.config.js");
 
 test("launcher html remains a semantic shell", () => {
@@ -26,16 +25,14 @@ test("launcher html remains a semantic shell", () => {
   assert.doesNotMatch(html, /<script(?![^>]+src=)[^>]*>[\s\S]*?<\/script>/i);
 });
 
-test("launcher production entry has only current runtime owners", () => {
-  assert.match(entry, /import\(`\.\.\/\.\.\/\.\.\/launcher\.js/);
-  assert.match(entry, /launcher-design-system\.js/);
-  assert.match(entry, /launcher-live-preview\.js/);
-  assert.match(entry, /launcher-simplified-runtime\.js/);
-  assert.doesNotMatch(entry, /launcher-shell\.js/);
-  assert.doesNotMatch(entry, /launcher-preview-lab\.js/);
-  assert.doesNotMatch(entry, /launcher-preview-templates\.js/);
-  assert.doesNotMatch(entry, /launcher-preview-modern-cases\.js/);
-  assert.doesNotMatch(entry, /launcher-preview-editorial-images\.js/);
+test("production boot is an explicit Core -> Design System -> Final Preview -> Runtime chain", () => {
+  const core = entry.indexOf('load("core"');
+  const design = entry.indexOf('load("design-system"');
+  const preview = entry.indexOf('load("final-preview"');
+  const runtime = entry.indexOf('load("runtime"');
+  assert.ok(core >= 0 && design > core && preview > design && runtime > preview);
+  assert.doesNotMatch(entry, /Promise\.allSettled|launcher-shell\.js|launcher-hardening\.js|launcher-stability\.js|launcher-workspace-compat\.css/);
+  assert.doesNotMatch(entry, /launcher-preview-lab\.js|launcher-preview-templates\.js|launcher-preview-modern-cases\.js|launcher-preview-editorial-images\.js/);
   assert.doesNotMatch(analyticsConfig, /launcher|features\//);
 });
 
@@ -50,55 +47,71 @@ test("information architecture is one linear three-step flow", () => {
   assert.match(html, /href="#resultStage"/);
   assert.match(simplifiedRuntime, /function setCurrentStep/);
   assert.match(simplifiedRuntime, /function installStepNavigation/);
-  assert.match(simplifiedRuntime, /function applyCopy/);
   assert.doesNotMatch(html, /class="requirement-stage"/);
 });
 
-test("Design System has one visible summary and no duplicate Page Preview tab", () => {
+test("Design System exposes Foundation and Components together without a tab controller", () => {
   assert.match(html, /class="ds-summary-grid"/);
   assert.match(html, /data-ds-panel="foundation"/);
   assert.match(html, /data-ds-panel="components"/);
-  assert.doesNotMatch(html, /data-ds-tab="preview"/);
-  assert.doesNotMatch(html, /class="ds-tabs"/);
-  assert.match(html, /class="preview-source"/);
-  assert.match(simplifiedRuntime, /showSystemSummary/);
-  assert.match(simplifiedCss, /\.preview-source/);
+  assert.doesNotMatch(html, /data-ds-tab="preview"|class="ds-tabs"/);
+  assert.doesNotMatch(designSystem, /setDesignSystemTab|\.ds-tabs|\.preview-controls|setPreviewSize/);
+  assert.match(simplifiedRuntime, /ensureSystemSummarySemantics/);
+  assert.match(simplifiedCss, /#designSystemWorkbench\.design-system-workbench\{display:block!important/);
 });
 
-test("legacy launcher mount contract remains intact", () => {
-  const ids = [
-    "launcherForm", "intentForm", "modeTabs", "styleDirectionGrid", "colorThemeGrid",
-    "pageTitle", "pageIntro", "pageKicker", "promptOutput", "taskSummary", "missingState",
-    "summaryProgress", "readyState", "generatePrompt", "generatePromptWrap", "copyPrompt",
-    "savePreset", "casePicker", "caseGrid", "caseSearch", "assistantToggle", "assistantPanel",
-    "previewDevice", "previewSystemName", "previewPlatformName", "resultStage", "resultStageBody",
-  ];
-  ids.forEach((id) => assert.match(html, new RegExp(`id="${id}"`), `missing #${id}`));
-});
-
-test("platform and design-system behavior keeps one dedicated owner", () => {
+test("Design System is the single owner of platform and design profile state", () => {
+  assert.match(designSystem, /findColorTheme/);
+  assert.match(designSystem, /localizeColorTheme/);
   assert.match(designSystem, /function selectPlatform/);
-  assert.match(designSystem, /function setDesignSystemTab/);
-  assert.match(designSystem, /role", "radio/);
-  assert.match(designSystem, /aria-checked/);
+  assert.match(designSystem, /function resolveDesignState/);
+  assert.match(designSystem, /function publishDesignState/);
+  assert.match(designSystem, /image2:launcherdesignchange/);
+  assert.match(designSystem, /dataset\.systemName/);
+  assert.match(designSystem, /dataset\.accent/);
+  assert.doesNotMatch(designSystem, /previewDevice|previewSystemName|previewPlatformName/);
   assert.match(designSystem, /ArrowLeft/);
   assert.match(designSystem, /ArrowRight/);
 });
 
-test("visible final Preview owns its rendering and presentation", () => {
+test("visible final Preview consumes design state directly and owns page rendering", () => {
   assert.match(livePreview, /resultStageBody/);
   assert.match(livePreview, /previewLabSection/);
   assert.match(livePreview, /livePreviewDevice/);
   assert.match(livePreview, /previewPageTemplate/);
   assert.match(livePreview, /pageTemplates/);
-  assert.match(livePreview, /syncPlatformFromUi/);
-  assert.match(livePreviewCss, /\.preview-template/);
+  assert.match(livePreview, /designStateFromWorkbench/);
+  assert.match(livePreview, /image2:launcherdesignchange/);
+  assert.match(livePreview, /image2:launcherplatformchange/);
+  assert.doesNotMatch(livePreview, /sourceDevice|previewSystemName|previewPlatformName/);
+  assert.match(livePreviewCss, /--preview-canvas/);
+  assert.match(livePreviewCss, /background:var\(--preview-surface/);
   assert.match(livePreviewCss, /\.pt-kpis/);
   assert.match(livePreviewCss, /\.pt-product/);
   assert.doesNotMatch(livePreview, /restructureCreateFlow/);
-  assert.doesNotMatch(legacyPreviewLab, /create-flow-refactored/);
-  assert.doesNotMatch(legacyPreviewLab, /restructureCreateFlow/);
-  assert.match(legacyPreviewLab, /launcher-live-preview\.js/);
+  assert.doesNotMatch(legacyPreviewLab, /create-flow-refactored|restructureCreateFlow/);
+});
+
+test("Runtime owns flow semantics and compatibility without extra production modules", () => {
+  assert.match(simplifiedRuntime, /installPrimaryTabKeys/);
+  assert.match(simplifiedRuntime, /installGenerateFeedback/);
+  assert.match(simplifiedRuntime, /hardenDialog/);
+  assert.match(simplifiedRuntime, /installLegacyIntentPreservationGuard/);
+  assert.doesNotMatch(simplifiedRuntime, /setDesignSystemTab|setPreviewSize|previewDevice/);
+  assert.match(simplifiedCss, /field-validation-error/);
+  assert.match(simplifiedCss, /prefers-reduced-motion/);
+  assert.match(simplifiedCss, /html\[lang="en"\].*Complete key details/);
+});
+
+test("legacy core mount contract remains intact for task state and output", () => {
+  const ids = [
+    "launcherForm", "intentForm", "modeTabs", "styleDirectionGrid", "colorThemeGrid",
+    "pageTitle", "pageIntro", "pageKicker", "promptOutput", "taskSummary", "missingState",
+    "summaryProgress", "readyState", "generatePrompt", "generatePromptWrap", "copyPrompt",
+    "savePreset", "casePicker", "caseGrid", "caseSearch", "assistantToggle", "assistantPanel",
+    "resultStage", "resultStageBody", "designSystemWorkbench",
+  ];
+  ids.forEach((id) => assert.match(html, new RegExp(`id="${id}"`), `missing #${id}`));
 });
 
 test("output is no longer a sticky competing side rail", () => {
@@ -106,10 +119,4 @@ test("output is no longer a sticky competing side rail", () => {
   assert.match(html, /id="outputPanel"/);
   assert.match(simplifiedCss, /#outputPanel\{position:static/);
   assert.match(simplifiedCss, /\.output-review-grid/);
-});
-
-test("stability layer no longer acts as a hidden module loader", () => {
-  assert.doesNotMatch(stability, /createElement\(["']script["']\)/);
-  assert.doesNotMatch(stability, /appendChild\(script\)/);
-  assert.match(stability, /styleDirection/);
 });
