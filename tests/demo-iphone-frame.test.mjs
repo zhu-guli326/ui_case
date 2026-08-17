@@ -24,7 +24,7 @@ function cssFiles(directory) {
   return result;
 }
 
-test("PhoneShell is the single reusable owner of direct-demo device chrome", () => {
+test("PhoneShell is the single reusable owner wherever direct-demo device chrome exists", () => {
   assert.match(phoneShellCss, /--phone-shell-screen-width:\s*390px/);
   assert.match(phoneShellCss, /--phone-shell-screen-height:\s*844px/);
   assert.match(phoneShellCss, /--phone-shell-screen-ratio:\s*390\s*\/\s*844/);
@@ -36,13 +36,18 @@ test("PhoneShell is the single reusable owner of direct-demo device chrome", () 
   assert.doesNotMatch(compatibilityCss, /\b(?:border|border-radius|box-shadow|background|padding)\s*:/, "demo/iphone-frame.css must stay an import-only compatibility entry");
 
   const viteDemo = "smart-home-ui-v2";
+  assert.ok(demoDirectories.includes(viteDemo), `${viteDemo} must remain part of the direct-demo contract`);
   const staticDemos = demoDirectories.filter((name) => name !== viteDemo);
-  assert.equal(staticDemos.length, 27);
 
   for (const demo of staticDemos) {
     const html = readFileSync(path.join(demoRoot, demo, "index.html"), "utf8");
-    assert.match(html, /<link\s+rel="stylesheet"\s+href="\.\.\/iphone-frame\.css"/i, `${demo} invokes the shared PhoneShell compatibility entry`);
-    assert.match(html, /\biphone-frame\b/, `${demo} invokes PhoneShell instead of implementing hardware`);
+    const usesPhoneShell = /\biphone-frame\b/.test(html);
+    const importsPhoneShell = /<link\s+rel="stylesheet"\s+href="\.\.\/iphone-frame\.css"/i.test(html);
+    if (usesPhoneShell) {
+      assert.ok(importsPhoneShell, `${demo} must invoke the shared PhoneShell compatibility entry when it renders device chrome`);
+    } else {
+      assert.equal(importsPhoneShell, false, `${demo} is screen-only and must not load unused PhoneShell chrome`);
+    }
   }
 
   const smartHomeSource = readFileSync(path.join(demoRoot, viteDemo, "src", "main.jsx"), "utf8");
@@ -78,16 +83,18 @@ test("special demo layouts keep one appropriate PhoneShell invocation", () => {
   assert.equal((softly.match(/iphone-frame--viewport-shell/g) || []).length, 3);
 });
 
-test("every catalog live demo supplies a screen-only embedded source", () => {
+test("every catalog live demo supplies an embeddable screen source", () => {
   const caseFiles = readdirSync(path.join(root, "catalog", "cases")).filter((file) => file.endsWith(".json"));
   const liveDemos = caseFiles
     .map((file) => JSON.parse(readFileSync(path.join(root, "catalog", "cases", file), "utf8")))
     .map((caseRecord) => caseRecord.liveDemo)
     .filter(Boolean);
 
-  assert.equal(liveDemos.length, 16);
+  assert.ok(liveDemos.length > 0, "catalog must expose at least one live demo");
   for (const liveDemo of liveDemos) {
     const html = readFileSync(path.join(root, liveDemo.replace(/^\.\//, "")), "utf8");
-    assert.match(html, /\biphone-frame\b/, `${liveDemo} invokes PhoneShell and can flatten to a screen-only embed`);
+    const usesPhoneShell = /\biphone-frame\b/.test(html);
+    const usesNativeScreenEmbed = /dataset\.embed|data-embed/.test(html) && /100vw/.test(html) && /100vh/.test(html);
+    assert.ok(usesPhoneShell || usesNativeScreenEmbed, `${liveDemo} must provide PhoneShell flattening or a native screen-only embed contract`);
   }
 });

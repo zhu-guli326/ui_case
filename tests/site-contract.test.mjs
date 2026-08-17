@@ -51,7 +51,8 @@ test("the launcher uses the complete shared case catalog through its feature ent
   const entry = requireText("src/features/launcher/launcher-entry.js");
   const launcherScript = requireText("launcher.js");
   assert.match(launcher, /<script type="module" src="\.\/src\/features\/launcher\/launcher-entry\.js/);
-  assert.match(entry, /import\(`\.\.\/\.\.\/\.\.\/launcher\.js/);
+  assert.match(entry, /load\("core"/);
+  assert.match(entry, /\.\.\/\.\.\/\.\.\/launcher\.js\?v=/);
   assert.match(launcherScript, /import \{ brandProfiles, styleGuides, styleProfiles \} from "\.\/catalog\/index\.js"/);
   assert.match(launcherScript, /filterCases\(styleGuides/);
   assert.match(launcherScript, /caseThumbnail\(guide\)/);

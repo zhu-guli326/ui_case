@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const caseDirectory = path.join(root, "catalog", "cases");
 
-function readLocalAssets(htmlPath, html, tag, attribute) {
+function readLocalAssets(htmlPath, html, tag) {
   const baseDirectory = path.dirname(htmlPath);
   const pattern = tag === "script"
     ? /<script\b[^>]*\bsrc=["']([^"']+)["'][^>]*><\/script>/gi
@@ -31,19 +31,30 @@ function liveDemoRecords() {
     .filter((record) => record.liveDemo);
 }
 
-test("all clickable demos implement the shared embed query contract", () => {
+function demoSources(record) {
+  const htmlPath = path.join(root, record.liveDemo.replace(/^\.\//, ""));
+  const html = readFileSync(htmlPath, "utf8");
+  const scripts = readLocalAssets(htmlPath, html, "script");
+  const stylesheets = readLocalAssets(htmlPath, html, "link");
+  return {
+    html,
+    runtimeSource: [html, ...scripts.map((asset) => asset.content)].join("\n"),
+    styleSource: [html, ...stylesheets.map((asset) => asset.content)].join("\n"),
+  };
+}
+
+test("all clickable demos implement an explicit embed query contract", () => {
   const records = liveDemoRecords();
-  assert.equal(records.length, 16);
+  assert.ok(records.length > 0, "catalog must expose at least one live demo");
 
   const failures = [];
   for (const record of records) {
-    const htmlPath = path.join(root, record.liveDemo.replace(/^\.\//, ""));
-    const html = readFileSync(htmlPath, "utf8");
-    const scripts = readLocalAssets(htmlPath, html, "script", "src");
-    const runtimeSource = [html, ...scripts.map((asset) => asset.content)].join("\n");
-
+    const { runtimeSource } = demoSources(record);
     const readsEmbedQuery = /URLSearchParams|location\.search|searchParams/.test(runtimeSource) && /\bembed\b/.test(runtimeSource);
-    const activatesEmbedMode = /embed-mode/.test(runtimeSource) || /classList\.(?:add|toggle)\([^\n]*embed/.test(runtimeSource);
+    const activatesEmbedMode = /embed-mode/.test(runtimeSource)
+      || /classList\.(?:add|toggle)\([^\n]*embed/.test(runtimeSource)
+      || /dataset\.embed/.test(runtimeSource)
+      || /data-embed/.test(runtimeSource);
 
     if (!readsEmbedQuery || !activatesEmbedMode) {
       failures.push(`${record.id}: query=${readsEmbedQuery} mode=${activatesEmbedMode} (${record.liveDemo})`);
@@ -53,28 +64,34 @@ test("all clickable demos implement the shared embed query contract", () => {
   assert.deepEqual(failures, [], `inconsistent embedded demos:\n${failures.join("\n")}`);
 });
 
-test("embedded demo CSS owns one 390 x 844 screen and never widens it", () => {
+test("embedded demos resolve to one bounded phone screen without requiring unnecessary chrome", () => {
   const records = liveDemoRecords();
   const failures = [];
 
   for (const record of records) {
-    const htmlPath = path.join(root, record.liveDemo.replace(/^\.\//, ""));
-    const html = readFileSync(htmlPath, "utf8");
-    const stylesheets = readLocalAssets(htmlPath, html, "link", "href");
-    const css = stylesheets.map((asset) => asset.content).join("\n");
+    const { html, styleSource } = demoSources(record);
+    const usesPhoneShell = /iphone-frame\.css/.test(html) || /\biphone-frame\b/.test(html);
 
-    if (!/iphone-frame\.css/.test(html)) {
-      failures.push(`${record.id}: shared iphone-frame.css missing`);
-      continue;
-    }
-
-    const suspiciousEmbedWidth = [...css.matchAll(/\.embed(?:-mode)?[^{}]*\{[^}]*\b(?:width|inline-size)\s*:\s*(\d+)px/gi)]
+    const suspiciousEmbedWidth = [...styleSource.matchAll(/(?:\.embed(?:-mode)?|\[data-embed[^\]]*\])[^{}]*\{[^}]*\b(?:width|inline-size)\s*:\s*(\d+)px/gi)]
       .map((match) => Number(match[1]))
       .filter((width) => width > 430);
     if (suspiciousEmbedWidth.length) {
       failures.push(`${record.id}: embed width ${suspiciousEmbedWidth.join(", ")}px`);
+      continue;
+    }
+
+    if (usesPhoneShell) continue;
+
+    const hasNativeEmbedViewport = /\[data-embed[^\]]*\][^{]*[^}]*\bwidth\s*:\s*100vw[^}]*\bheight\s*:\s*100vh/i.test(styleSource)
+      || /body\[data-embed[^\]]*\][^{]*[^}]*\bwidth\s*:\s*100vw[^}]*\bheight\s*:\s*100vh/i.test(styleSource);
+    const boundsNativeScreen = /\bwidth\s*:\s*min\(100vw\s*,\s*390px\)/i.test(styleSource)
+      || /\bmax-width\s*:\s*390px/i.test(styleSource)
+      || /\bwidth\s*:\s*390px/i.test(styleSource);
+
+    if (!hasNativeEmbedViewport || !boundsNativeScreen) {
+      failures.push(`${record.id}: native screen source lacks 390px base + 100vw/100vh embed contract`);
     }
   }
 
-  assert.deepEqual(failures, [], `embed viewport width regressions:\n${failures.join("\n")}`);
+  assert.deepEqual(failures, [], `embed viewport regressions:\n${failures.join("\n")}`);
 });

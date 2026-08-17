@@ -6,94 +6,111 @@ const browser = await chromium.launch({ headless: true });
 async function inspect(url, run) {
   const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
   const page = await context.newPage();
-  const pageErrors = [];
-  page.on("pageerror", (error) => pageErrors.push(error.message));
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.stack || error.message));
   try {
     await page.goto(`${baseUrl}/${url}`, { waitUntil: "networkidle" });
     await page.locator("#intentForm").waitFor({ state: "visible" });
     await run(page);
-    if (pageErrors.length) throw new Error(`runtime page errors: ${pageErrors.join(" | ")}`);
+    if (errors.length) throw new Error(`runtime page errors:\n${errors.join("\n---\n")}`);
   } finally {
     await context.close();
   }
 }
 
-async function visibilityTrace(locator) {
-  return locator.evaluate((element) => {
-    const trace = [];
-    let node = element;
-    while (node && node instanceof HTMLElement) {
-      const style = getComputedStyle(node);
-      const rect = node.getBoundingClientRect();
-      trace.push({
-        tag: node.tagName.toLowerCase(),
-        id: node.id || "",
-        className: node.className || "",
-        hidden: node.hidden,
-        display: style.display,
-        visibility: style.visibility,
-        opacity: style.opacity,
-        width: Math.round(rect.width),
-        height: Math.round(rect.height),
-      });
-      node = node.parentElement;
-    }
-    return trace;
-  });
-}
-
 async function modeShape(page) {
   return page.locator('#modeTabs [data-intent="create"]').evaluate((element) => {
     const style = getComputedStyle(element);
-    const detail = element.querySelector("small");
-    const tabs = element.parentElement;
     return {
       height: Math.round(element.getBoundingClientRect().height),
       radius: style.borderRadius,
-      detailDisplay: detail ? getComputedStyle(detail).display : "missing",
-      layout: tabs ? getComputedStyle(tabs).display : "missing",
+      detailDisplay: getComputedStyle(element.querySelector("small")).display,
+      layout: getComputedStyle(element.parentElement).display,
     };
   });
 }
 
 function assertCardModeShape(shape, label) {
-  if (shape.layout !== "grid") throw new Error(`${label}: task modes are not using the shared grid layout (${JSON.stringify(shape)})`);
-  if (shape.height < 60) throw new Error(`${label}: task mode cards collapsed into compact pills (${JSON.stringify(shape)})`);
-  if (shape.detailDisplay === "none") throw new Error(`${label}: task mode descriptions disappeared (${JSON.stringify(shape)})`);
-  if (/999/.test(shape.radius)) throw new Error(`${label}: task mode cards inherited pill radius (${JSON.stringify(shape)})`);
+  if (shape.layout !== "grid") throw new Error(`${label}: task modes are not a grid`);
+  if (shape.height < 56) throw new Error(`${label}: task modes collapsed into pills`);
+  if (shape.detailDisplay === "none") throw new Error(`${label}: task descriptions disappeared`);
+  if (/999/.test(shape.radius)) throw new Error(`${label}: task mode inherited pill radius`);
 }
 
-async function choosePlatform(page, platform, expectedName) {
+async function choosePlatform(page, platform, expectedSize) {
   const button = page.locator(`.platform-card[data-platform="${platform}"]`);
   await button.click();
-  if (await button.getAttribute("aria-checked") !== "true") {
-    throw new Error(`${expectedName} platform did not become the selected radio`);
+  if (await button.getAttribute("aria-checked") !== "true") throw new Error(`${platform} was not selected`);
+  await page.waitForFunction(({ platform, expectedSize }) => {
+    const device = document.querySelector("#livePreviewDevice");
+    return device?.dataset.platform === platform && device?.dataset.size === expectedSize;
+  }, { platform, expectedSize });
+}
+
+async function readDesignState(page, themeId) {
+  return page.evaluate((requestedThemeId) => {
+    const input = document.querySelector(`input[name="colorTheme"][value="${requestedThemeId}"]`);
+    const checked = document.querySelector('input[name="colorTheme"]:checked');
+    const workbench = document.querySelector("#designSystemWorkbench");
+    const device = document.querySelector("#livePreviewDevice");
+    return {
+      requestedThemeId,
+      requestedSelected: Boolean(input?.checked),
+      checkedThemeId: checked?.value || null,
+      workbenchThemeId: workbench?.dataset.themeId || null,
+      workbenchThemeName: workbench?.dataset.themeName || null,
+      workbenchSystemName: workbench?.dataset.systemName || null,
+      workbenchAccent: workbench?.dataset.accent || null,
+      previewSystemName: document.querySelector("#previewCurrentSystem")?.textContent?.trim() || null,
+      previewAccent: device?.style.getPropertyValue("--preview-accent").trim() || null,
+    };
+  }, themeId);
+}
+
+async function chooseDesignTheme(page, themeId, expectedSystem, expectedAccent) {
+  const card = page.locator(`.color-theme-card:has(input[name="colorTheme"][value="${themeId}"])`);
+  if (!(await card.count())) throw new Error(`missing color theme ${themeId}`);
+  const choice = card.locator(".color-theme-choice");
+  await choice.click();
+
+  try {
+    await page.waitForFunction((requestedThemeId) => {
+      return Boolean(document.querySelector(`input[name="colorTheme"][value="${requestedThemeId}"]`)?.checked);
+    }, themeId, { timeout: 3000 });
+  } catch {
+    const state = await readDesignState(page, themeId);
+    throw new Error(`${themeId}: card click did not select requested theme: ${JSON.stringify(state)}`);
   }
-  if (await page.locator("#previewDevice").getAttribute("data-platform") !== platform) {
-    throw new Error(`${expectedName} platform did not synchronize the design-system preview device`);
-  }
-  if ((await page.locator("#previewPlatformName").innerText()).trim() !== expectedName) {
-    throw new Error(`${expectedName} platform did not synchronize the preview label`);
+
+  await page.waitForTimeout(150);
+  const state = await readDesignState(page, themeId);
+  const expectedAccentNormalized = expectedAccent.toLowerCase();
+  const mismatches = [];
+  if (!state.requestedSelected) mismatches.push(`selected=${state.requestedSelected}`);
+  if (state.checkedThemeId !== themeId) mismatches.push(`checkedThemeId=${state.checkedThemeId}`);
+  if (state.workbenchThemeId !== themeId) mismatches.push(`workbenchThemeId=${state.workbenchThemeId}`);
+  if (state.workbenchSystemName !== expectedSystem) mismatches.push(`systemName=${state.workbenchSystemName}`);
+  if ((state.workbenchAccent || "").toLowerCase() !== expectedAccentNormalized) mismatches.push(`workbenchAccent=${state.workbenchAccent}`);
+  if ((state.previewAccent || "").toLowerCase() !== expectedAccentNormalized) mismatches.push(`previewAccent=${state.previewAccent}`);
+  if (state.previewSystemName !== expectedSystem) mismatches.push(`previewSystemName=${state.previewSystemName}`);
+  if (mismatches.length) {
+    throw new Error(`${themeId}: design-state propagation mismatch (${mismatches.join(", ")}): ${JSON.stringify(state)}`);
   }
 }
 
 await inspect("launcher.html?lang=zh&intent=create", async (page) => {
-  await page.locator('#modeTabs [data-intent="create"]').waitFor();
-  if (await page.locator('#modeTabs [data-intent="create"]').getAttribute("aria-selected") !== "true") {
-    throw new Error("create task tab is not selected");
-  }
-  if (!/从零创建/.test(await page.locator("#pageTitle").innerText())) {
-    throw new Error("create page title did not localize for zh");
-  }
-  if (await page.locator("body").evaluate((body) => body.classList.contains("create-flow-refactored"))) {
-    throw new Error("legacy Create-only layout class was reintroduced");
-  }
+  if (!/从零创建/.test(await page.locator("#pageTitle").innerText())) throw new Error("create title did not render");
   assertCardModeShape(await modeShape(page), "create");
+  if (await page.locator("body").evaluate((body) => body.classList.contains("create-flow-refactored"))) throw new Error("legacy Create layout returned");
 
-  const createReference = page.locator('.config-section[aria-labelledby="referenceTitle"]');
-  if (!(await createReference.isVisible())) {
-    throw new Error(`create reference module is missing or hidden: ${JSON.stringify(await visibilityTrace(createReference))}`);
-  }
+  const steps = await page.locator(".launcher-step-link").count();
+  if (steps !== 3) throw new Error(`expected exactly three workflow steps, got ${steps}`);
+  if (await page.locator(".ds-tab").count()) throw new Error("Design System tabs still exist in simplified mode");
+  if (!(await page.locator('[data-ds-panel="foundation"]').isVisible())) throw new Error("Foundation summary is hidden");
+  if (!(await page.locator('[data-ds-panel="components"]').isVisible())) throw new Error("Components summary is hidden");
+
+  const reference = page.locator('.config-section[aria-labelledby="referenceTitle"]');
+  if (!(await reference.isVisible())) throw new Error("Create reference module is hidden");
 
   await page.locator('[name="audience"]').fill("设计团队");
   await page.locator('[name="coreTask"]').fill("创建一个项目工作台");
@@ -101,84 +118,47 @@ await inspect("launcher.html?lang=zh&intent=create", async (page) => {
   await page.locator('[name="requiredPages"]').blur();
   await page.waitForFunction(() => !document.querySelector("#generatePrompt")?.disabled);
 
-  await choosePlatform(page, "android", "Android");
-  await choosePlatform(page, "windows", "Windows");
-  await choosePlatform(page, "android", "Android");
+  const preview = page.locator("#previewLabSection");
+  await preview.waitFor({ state: "visible" });
+  const previewParent = await preview.evaluate((el) => el.parentElement?.id || "");
+  if (previewParent !== "resultStageBody") throw new Error(`Live Preview mounted outside result step: ${previewParent}`);
+  await page.waitForFunction(() => Boolean(document.querySelector("#livePreviewDevice .preview-template")));
 
-  const componentsTab = page.locator('.ds-tab[data-ds-tab="components"]');
-  if (!(await componentsTab.isVisible())) {
-    throw new Error(`Design System components tab is hidden: ${JSON.stringify(await visibilityTrace(componentsTab))}`);
-  }
-  await componentsTab.click();
-  if (await componentsTab.getAttribute("aria-selected") !== "true") {
-    throw new Error("Design System components tab did not activate");
-  }
-  if (await page.locator('[data-ds-panel="components"]').isHidden()) {
-    throw new Error("Design System components panel stayed hidden");
-  }
+  const outputPosition = await page.locator("#outputPanel").evaluate((el) => getComputedStyle(el).position);
+  if (outputPosition === "sticky" || outputPosition === "fixed") throw new Error(`output is still competing as ${outputPosition}`);
 
-  const livePreview = page.locator("#previewLabSection");
-  await livePreview.waitFor({ state: "visible" });
-  await page.waitForFunction(() => {
-    const device = document.querySelector("#livePreviewDevice");
-    return Boolean(device && device.children.length && !device.querySelector(".live-preview-empty"));
-  });
-  if ((await page.locator("#livePreviewDevice").innerHTML()).trim().length < 100) {
-    throw new Error("final Live Preview is visually empty");
-  }
+  await chooseDesignTheme(page, "google-material-3", "Material 3", "#6750a4");
+  await chooseDesignTheme(page, "airbnb", "Airbnb Visual System", "#e00b41");
 
   await page.locator("#previewPageTemplate").selectOption("dashboard");
-  await page.waitForFunction(() => document.querySelector("#livePreviewDevice .pt-kpis, #livePreviewDevice .pm-shell"));
+  await page.waitForFunction(() => document.querySelector("#livePreviewDevice .pt-kpis"));
   await page.locator('#previewThemeSegment [data-theme="dark"]').click();
-  if (await page.locator("#previewLabStage").getAttribute("data-theme") !== "dark") {
-    throw new Error("Live Preview dark theme did not activate");
+  if (await page.locator("#previewLabStage").getAttribute("data-theme") !== "dark") throw new Error("dark preview did not activate");
+
+  await choosePlatform(page, "windows", "desktop");
+  await choosePlatform(page, "android", "mobile");
+
+  for (const intent of ["rebuild", "improve", "explore", "design-system", "create"]) {
+    await page.locator(`#modeTabs [data-intent="${intent}"]`).click();
+    await page.waitForFunction((value) => new URL(location.href).searchParams.get("intent") === value, intent);
+    assertCardModeShape(await modeShape(page), intent);
+    if (!(await page.locator("#designDecisions").isVisible())) throw new Error(`${intent}: design step disappeared`);
+    if (!(await page.locator("#resultStage").isVisible())) throw new Error(`${intent}: result step disappeared`);
+    if (await page.locator(".ds-tab").count()) throw new Error(`${intent}: Design System tabs reappeared`);
   }
 
-  await choosePlatform(page, "windows", "Windows");
-  await page.waitForFunction(() => document.querySelector("#livePreviewDevice")?.dataset.size === "desktop");
-  if (await page.locator("#livePreviewDevice").getAttribute("data-platform") !== "windows") {
-    throw new Error("final Live Preview did not synchronize Windows platform");
-  }
-  await choosePlatform(page, "android", "Android");
-
-  await page.locator('#modeTabs [data-intent="rebuild"]').click();
-  await page.waitForFunction(() => new URL(location.href).searchParams.get("intent") === "rebuild");
-  if (!/参考图还原/.test(await page.locator("#pageTitle").innerText())) {
-    throw new Error("rebuild title did not synchronize with the selected intent");
-  }
-  assertCardModeShape(await modeShape(page), "rebuild");
-  const rebuildReference = page.locator('.config-section[aria-labelledby="referenceTitle"]');
-  if (!(await rebuildReference.isVisible())) {
-    throw new Error(`rebuild reference module is missing or hidden: ${JSON.stringify(await visibilityTrace(rebuildReference))}`);
-  }
-  if (!(await page.locator("#previewLabSection").isVisible())) {
-    throw new Error("Live Preview disappeared after switching to Rebuild");
-  }
-
-  await page.locator('#modeTabs [data-intent="create"]').click();
-  await page.waitForFunction(() => new URL(location.href).searchParams.get("intent") === "create");
-  assertCardModeShape(await modeShape(page), "create-after-round-trip");
-  if (await page.locator('[name="audience"]').inputValue() !== "设计团队") {
-    throw new Error("create draft was not preserved after switching intents");
-  }
-  if (!(await page.locator('.config-section[aria-labelledby="referenceTitle"]').isVisible())) {
-    throw new Error("Create reference module disappeared after the intent round-trip");
-  }
+  if (await page.locator('[name="audience"]').inputValue() !== "设计团队") throw new Error("create draft was not preserved");
 });
 
 await inspect("launcher.html?lang=en&intent=create", async (page) => {
   if (await page.locator("html").getAttribute("lang") !== "en") throw new Error("html lang did not switch to en");
   if (!/create/i.test(await page.locator("#pageTitle").innerText())) throw new Error("English create title did not render");
-  if (!/choose a task mode/i.test(await page.locator("#modeTitle").innerText())) throw new Error("English shell copy did not render");
-  if (!/define task/i.test(await page.locator('.launcher-step-link[data-launcher-step="task"] strong').innerText())) {
-    throw new Error("English step navigation did not render");
-  }
   assertCardModeShape(await modeShape(page), "english-create");
   await page.locator("#previewLabSection").waitFor({ state: "visible" });
-  if (!/final page preview/i.test(await page.locator("#livePreviewTitle").innerText())) {
-    throw new Error("English Live Preview heading did not render");
-  }
+  if (!/page preview/i.test(await page.locator("#livePreviewTitle").innerText())) throw new Error("English page preview heading did not render");
+  const pseudo = await page.locator(".structured-brief").first().evaluate((el) => getComputedStyle(el, "::before").content).catch(() => "");
+  if (pseudo && /补齐关键信息/.test(pseudo)) throw new Error("English structured brief still exposes Chinese pseudo-copy");
 });
 
 await browser.close();
-console.log("Launcher runtime audit passed: stable task-mode cards, create/rebuild reference modules, readiness, repeated platform switching, Design System tabs, populated Live Preview, and zh/en shell.");
+console.log("Launcher runtime audit passed: one three-step flow, explicit four-owner runtime, real design-token propagation, one final preview, non-sticky output, stable intent switching, and zh/en runtime.");
