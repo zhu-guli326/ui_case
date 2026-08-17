@@ -42,6 +42,20 @@ async function visibilityTrace(locator) {
   });
 }
 
+async function choosePlatform(page, platform, expectedName) {
+  const button = page.locator(`.platform-card[data-platform="${platform}"]`);
+  await button.click();
+  if (await button.getAttribute("aria-checked") !== "true") {
+    throw new Error(`${expectedName} platform did not become the selected radio`);
+  }
+  if (await page.locator("#previewDevice").getAttribute("data-platform") !== platform) {
+    throw new Error(`${expectedName} platform did not synchronize the preview device`);
+  }
+  if ((await page.locator("#previewPlatformName").innerText()).trim() !== expectedName) {
+    throw new Error(`${expectedName} platform did not synchronize the preview label`);
+  }
+}
+
 await inspect("launcher.html?lang=zh&intent=create", async (page) => {
   await page.locator('#modeTabs [data-intent="create"]').waitFor();
   if (await page.locator('#modeTabs [data-intent="create"]').getAttribute("aria-selected") !== "true") {
@@ -57,13 +71,9 @@ await inspect("launcher.html?lang=zh&intent=create", async (page) => {
   await page.locator('[name="requiredPages"]').blur();
   await page.waitForFunction(() => !document.querySelector("#generatePrompt")?.disabled);
 
-  await page.locator('.platform-card[data-platform="android"]').click();
-  if (await page.locator('.platform-card[data-platform="android"]').getAttribute("aria-checked") !== "true") {
-    throw new Error("Android platform did not become the selected radio");
-  }
-  if (await page.locator("#previewDevice").getAttribute("data-platform") !== "android") {
-    throw new Error("platform selection did not synchronize the preview");
-  }
+  await choosePlatform(page, "android", "Android");
+  await choosePlatform(page, "windows", "Windows");
+  await choosePlatform(page, "android", "Android");
 
   const componentsTab = page.locator('.ds-tab[data-ds-tab="components"]');
   if (!(await componentsTab.isVisible())) {
@@ -82,6 +92,12 @@ await inspect("launcher.html?lang=zh&intent=create", async (page) => {
   if (!/参考图还原/.test(await page.locator("#pageTitle").innerText())) {
     throw new Error("rebuild title did not synchronize with the selected intent");
   }
+
+  await page.locator('#modeTabs [data-intent="create"]').click();
+  await page.waitForFunction(() => new URL(location.href).searchParams.get("intent") === "create");
+  if (await page.locator('[name="audience"]').inputValue() !== "设计团队") {
+    throw new Error("create draft was not preserved after switching intents");
+  }
 });
 
 await inspect("launcher.html?lang=en&intent=create", async (page) => {
@@ -94,4 +110,4 @@ await inspect("launcher.html?lang=en&intent=create", async (page) => {
 });
 
 await browser.close();
-console.log("Launcher runtime audit passed: zh/create/rebuild, readiness, platform, Design System tabs, and en shell.");
+console.log("Launcher runtime audit passed: zh create/rebuild round-trip, readiness, repeated platform switching, Design System tabs, and en shell.");
