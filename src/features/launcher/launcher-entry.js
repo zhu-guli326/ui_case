@@ -1,4 +1,4 @@
-const VERSION = "20260817-simplified-v1";
+const VERSION = "20260817-simplified-v2";
 
 function reportFailure(label, error) {
   console.error(`[launcher] ${label} failed to load`, error);
@@ -35,9 +35,6 @@ async function loadEnhancements() {
     ["hardening", `./launcher-hardening.js?v=${VERSION}`],
     ["stability", `./launcher-stability.js?v=${VERSION}`],
     ["live-preview", `./launcher-live-preview.js?v=${VERSION}`],
-    ["preview-templates", `./launcher-preview-templates.js?v=${VERSION}`],
-    ["preview-modern-cases", `./launcher-preview-modern-cases.js?v=${VERSION}`],
-    ["preview-editorial-images", `./launcher-preview-editorial-images.js?v=${VERSION}`],
   ];
 
   const results = await Promise.allSettled(modules.map(([, path]) => import(path)));
