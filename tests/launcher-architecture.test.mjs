@@ -14,12 +14,14 @@ const livePreview = read("src/features/launcher/launcher-live-preview.js");
 const livePreviewCss = read("src/features/launcher/launcher-live-preview.css");
 const legacyPreviewLab = read("src/features/launcher/launcher-preview-lab.js");
 const simplifiedCss = read("src/features/launcher/launcher-simplified.css");
+const stateContractCss = read("src/features/launcher/launcher-state-contract.css");
 const simplifiedRuntime = read("src/features/launcher/launcher-simplified-runtime.js");
 const analyticsConfig = read("src/core/analytics/analytics.config.js");
 
 test("launcher html remains a semantic shell", () => {
   assert.match(html, /launcher-workspace\.css/);
   assert.match(html, /launcher-simplified\.css/);
+  assert.match(html, /launcher-state-contract\.css/);
   assert.match(html, /launcher-entry\.js/);
   assert.doesNotMatch(html, /<style(?:\s|>)/i);
   assert.doesNotMatch(html, /<script(?![^>]+src=)[^>]*>[\s\S]*?<\/script>/i);
@@ -114,6 +116,26 @@ test("Runtime owns flow semantics and compatibility without extra production mod
 test("structured brief heading spans the full grid and the obsolete font specimen stays out of the UI", () => {
   assert.match(simplifiedCss, /\.structured-brief::before\{grid-column:1\/-1;/);
   assert.match(simplifiedCss, /\.font-preview-shell\{display:none!important\}/);
+});
+
+test("task mode states are fully owned by one contract without legacy pseudo-element leakage", () => {
+  assert.match(stateContractCss, /\.mode-tabs > button::after \{/);
+  assert.match(stateContractCss, /content: none !important/);
+  assert.match(stateContractCss, /\.mode-tabs > button\[aria-selected="true"\]::after/);
+  assert.match(stateContractCss, /left: auto !important/);
+  assert.match(stateContractCss, /bottom: auto !important/);
+  assert.match(stateContractCss, /width: 18px !important/);
+  assert.match(stateContractCss, /padding: 12px 40px 12px 13px/);
+  assert.match(stateContractCss, /\.is-active:not\(\[aria-selected="true"\]\)/);
+  assert.match(stateContractCss, /button:focus-visible,[\s\S]*platform-card:focus-visible/);
+});
+
+test("platform and radio-card focus states share the same no-jump interaction contract", () => {
+  assert.match(stateContractCss, /\.platform-card \{[\s\S]*transform: none !important/);
+  assert.match(stateContractCss, /\.platform-card\[aria-checked="true"\]/);
+  assert.match(stateContractCss, /style-card-grid > label:has\(input:focus-visible\)/);
+  assert.match(stateContractCss, /color-theme-card:has\(input:focus-visible\)/);
+  assert.match(stateContractCss, /font-preset-card:has\(input:focus-visible\)/);
 });
 
 test("legacy core mount contract remains intact for task state and output", () => {

@@ -37,6 +37,53 @@ function assertCardModeShape(shape, label) {
   if (/999/.test(shape.radius)) throw new Error(`${label}: task mode inherited pill radius`);
 }
 
+async function assertModeVisualState(page, intent) {
+  const selectedCount = await page.locator('#modeTabs [aria-selected="true"]').count();
+  if (selectedCount !== 1) throw new Error(`${intent}: expected one visually selected task mode, got ${selectedCount}`);
+
+  const state = await page.locator(`#modeTabs [data-intent="${intent}"]`).evaluate((element) => {
+    const style = getComputedStyle(element);
+    const badge = getComputedStyle(element, "::after");
+    const title = element.querySelector("strong")?.getBoundingClientRect();
+    const rect = element.getBoundingClientRect();
+    const badgeWidth = Number.parseFloat(badge.width) || 0;
+    const badgeRight = Number.parseFloat(badge.right) || 0;
+    const badgeLeft = rect.right - badgeRight - badgeWidth;
+    return {
+      selected: element.getAttribute("aria-selected"),
+      paddingRight: Number.parseFloat(style.paddingRight) || 0,
+      badgeContent: badge.content,
+      badgePosition: badge.position,
+      badgeRight: badgeRight,
+      badgeTop: Number.parseFloat(badge.top) || 0,
+      badgeWidth: badgeWidth,
+      badgeHeight: Number.parseFloat(badge.height) || 0,
+      titleRight: title?.right || 0,
+      badgeLeft,
+      cardRight: rect.right,
+      cardTop: rect.top,
+    };
+  });
+
+  if (state.selected !== "true") throw new Error(`${intent}: task mode is not aria-selected: ${JSON.stringify(state)}`);
+  if (!/✓/.test(state.badgeContent)) throw new Error(`${intent}: selected badge is missing: ${JSON.stringify(state)}`);
+  if (state.badgePosition !== "absolute") throw new Error(`${intent}: selected badge is not absolutely positioned: ${JSON.stringify(state)}`);
+  if (Math.abs(state.badgeRight - 10) > 1 || Math.abs(state.badgeTop - 10) > 1) {
+    throw new Error(`${intent}: selected badge is not anchored to the top-right corner: ${JSON.stringify(state)}`);
+  }
+  if (Math.abs(state.badgeWidth - 18) > 1 || Math.abs(state.badgeHeight - 18) > 1) {
+    throw new Error(`${intent}: selected badge geometry drifted: ${JSON.stringify(state)}`);
+  }
+  if (state.paddingRight < 36) throw new Error(`${intent}: selected title has no reserved badge space: ${JSON.stringify(state)}`);
+  if (state.titleRight > state.badgeLeft - 4) throw new Error(`${intent}: selected badge overlaps task title: ${JSON.stringify(state)}`);
+  if (state.badgeLeft < state.cardRight - 32) throw new Error(`${intent}: selected badge drifted into the card body: ${JSON.stringify(state)}`);
+
+  const inactivePseudo = await page.locator(`#modeTabs [data-intent]:not([data-intent="${intent}"])`).first().evaluate((element) => getComputedStyle(element, "::after").content);
+  if (inactivePseudo && inactivePseudo !== "none" && inactivePseudo !== "normal" && inactivePseudo !== '""') {
+    throw new Error(`${intent}: inactive task mode still paints a legacy pseudo-element: ${inactivePseudo}`);
+  }
+}
+
 async function choosePlatform(page, platform, expectedSize) {
   const button = page.locator(`.platform-card[data-platform="${platform}"]`);
   await button.click();
@@ -101,6 +148,7 @@ async function chooseDesignTheme(page, themeId, expectedSystem, expectedAccent) 
 await inspect("launcher.html?lang=zh&intent=create", async (page) => {
   if (!/从零创建/.test(await page.locator("#pageTitle").innerText())) throw new Error("create title did not render");
   assertCardModeShape(await modeShape(page), "create");
+  await assertModeVisualState(page, "create");
   if (await page.locator("body").evaluate((body) => body.classList.contains("create-flow-refactored"))) throw new Error("legacy Create layout returned");
 
   const steps = await page.locator(".launcher-step-link").count();
@@ -177,6 +225,7 @@ await inspect("launcher.html?lang=zh&intent=create", async (page) => {
     await page.locator(`#modeTabs [data-intent="${intent}"]`).click();
     await page.waitForFunction((value) => new URL(location.href).searchParams.get("intent") === value, intent);
     assertCardModeShape(await modeShape(page), intent);
+    await assertModeVisualState(page, intent);
     if (!(await page.locator("#designDecisions").isVisible())) throw new Error(`${intent}: design step disappeared`);
     if (!(await page.locator("#resultStage").isVisible())) throw new Error(`${intent}: result step disappeared`);
     if (await page.locator(".ds-tab").count()) throw new Error(`${intent}: Design System tabs reappeared`);
@@ -189,6 +238,7 @@ await inspect("launcher.html?lang=en&intent=create", async (page) => {
   if (await page.locator("html").getAttribute("lang") !== "en") throw new Error("html lang did not switch to en");
   if (!/create/i.test(await page.locator("#pageTitle").innerText())) throw new Error("English create title did not render");
   assertCardModeShape(await modeShape(page), "english-create");
+  await assertModeVisualState(page, "create");
   await page.locator("#previewLabSection").waitFor({ state: "visible" });
   if (!/page preview/i.test(await page.locator("#livePreviewTitle").innerText())) throw new Error("English page preview heading did not render");
   const pseudo = await page.locator(".structured-brief").first().evaluate((el) => getComputedStyle(el, "::before").content).catch(() => "");
@@ -197,4 +247,4 @@ await inspect("launcher.html?lang=en&intent=create", async (page) => {
 });
 
 await browser.close();
-console.log("Launcher runtime audit passed: one three-step flow, aligned structured brief, removed font specimen, real design-token propagation, one final preview, viewport-fixed prompt output across desktop scrolling, stable intent switching, and zh/en runtime.");
+console.log("Launcher runtime audit passed: unified task-control states, non-overlapping selected badges, aligned structured brief, removed font specimen, real design-token propagation, one final preview, viewport-fixed prompt output across desktop scrolling, stable intent switching, and zh/en runtime.");

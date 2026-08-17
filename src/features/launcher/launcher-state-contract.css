@@ -1,0 +1,177 @@
+.launcher-simplified {
+  --launcher-choice-border: #dfe4df;
+  --launcher-choice-border-hover: #aeb8b0;
+  --launcher-choice-bg: #fafbfa;
+  --launcher-choice-bg-hover: #ffffff;
+  --launcher-choice-selected: #167543;
+  --launcher-choice-selected-soft: #eef7f1;
+  --launcher-choice-focus: #0b6b3a;
+}
+
+/*
+ * Launcher selectable controls own their complete state here.
+ * This file intentionally resets older launcher/workspace pseudo-element
+ * rules so default / hover / selected / pressed / keyboard-focus states
+ * cannot inherit stale geometry from previous UI generations.
+ */
+.launcher-simplified .mode-tabs {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.launcher-simplified .mode-tabs > button,
+.launcher-simplified .mode-tabs > button:last-child {
+  min-height: 66px;
+  padding: 12px 40px 12px 13px;
+  border: 1px solid var(--launcher-choice-border);
+  border-right: 1px solid var(--launcher-choice-border);
+  border-radius: 10px;
+  background: var(--launcher-choice-bg);
+  color: #273029;
+  box-shadow: none;
+  transform: none;
+  transition: border-color .16s ease, background-color .16s ease, color .16s ease, box-shadow .16s ease;
+}
+
+.launcher-simplified .mode-tabs > button strong {
+  color: inherit;
+}
+
+.launcher-simplified .mode-tabs > button small {
+  color: #667068;
+}
+
+.launcher-simplified .mode-tabs > button:hover:not([aria-selected="true"]),
+.launcher-simplified .mode-tabs > button.is-active:not([aria-selected="true"]):hover {
+  border-color: var(--launcher-choice-border-hover);
+  background: var(--launcher-choice-bg-hover);
+  color: #202720;
+  box-shadow: none;
+  transform: none;
+}
+
+.launcher-simplified .mode-tabs > button:active:not([aria-selected="true"]) {
+  border-color: #8f9b91;
+  background: #f2f5f3;
+  transform: none;
+}
+
+/* aria-selected is the visual source of truth; a stale .is-active class may not paint a second selected card. */
+.launcher-simplified .mode-tabs > button.is-active:not([aria-selected="true"]) {
+  border-color: var(--launcher-choice-border);
+  background: var(--launcher-choice-bg);
+  color: #273029;
+  box-shadow: none;
+  transform: none;
+}
+
+.launcher-simplified .mode-tabs > button[aria-selected="true"] {
+  border-color: var(--launcher-choice-selected);
+  background: var(--launcher-choice-selected);
+  color: #ffffff;
+  box-shadow: none;
+  transform: none;
+}
+
+.launcher-simplified .mode-tabs > button[aria-selected="true"] small {
+  color: rgba(255, 255, 255, .84);
+}
+
+/* Fully clear the legacy underline/check geometry before drawing the selected badge. */
+.launcher-simplified .mode-tabs > button::after {
+  position: static !important;
+  inset: auto !important;
+  display: none !important;
+  width: auto !important;
+  height: auto !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  content: none !important;
+  box-shadow: none !important;
+  pointer-events: none;
+}
+
+.launcher-simplified .mode-tabs > button[aria-selected="true"]::after {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  bottom: auto !important;
+  left: auto !important;
+  display: grid !important;
+  width: 18px !important;
+  height: 18px !important;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .28) !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, .14) !important;
+  color: #ffffff !important;
+  content: "✓" !important;
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.launcher-simplified .mode-tabs > button:focus-visible,
+.launcher-simplified .platform-card:focus-visible {
+  outline: 3px solid var(--launcher-choice-focus) !important;
+  outline-offset: 3px !important;
+  box-shadow: none !important;
+}
+
+.launcher-simplified .mode-tabs > button[disabled],
+.launcher-simplified .mode-tabs > button[aria-disabled="true"] {
+  border-color: var(--launcher-choice-border);
+  background: #f0f2f0;
+  color: #818982;
+  cursor: not-allowed;
+  opacity: .62;
+}
+
+/* Platform cards: no position jump between idle / hover / selected / focus. */
+.launcher-simplified .platform-card {
+  transform: none !important;
+  transition: border-color .16s ease, background-color .16s ease, box-shadow .16s ease;
+}
+
+.launcher-simplified .platform-card:hover:not([aria-checked="true"]) {
+  border-color: var(--launcher-choice-border-hover);
+  background: var(--launcher-choice-bg-hover);
+  transform: none !important;
+}
+
+.launcher-simplified .platform-card.is-active:not([aria-checked="true"]) {
+  border-color: var(--launcher-choice-border);
+  background: var(--launcher-choice-bg);
+  box-shadow: none;
+}
+
+.launcher-simplified .platform-card[aria-checked="true"] {
+  border-color: var(--launcher-choice-selected);
+  background: var(--launcher-choice-selected-soft);
+  box-shadow: 0 0 0 1px var(--launcher-choice-selected) inset;
+  transform: none !important;
+}
+
+/* Radio-card focus rings use the same external outline instead of competing inner shadows. */
+.launcher-simplified .style-card-grid > label:has(input:focus-visible),
+.launcher-simplified .style-card:has(input:focus-visible),
+.launcher-simplified .color-theme-card:has(input:focus-visible),
+.launcher-simplified .font-preset-card:has(input:focus-visible) {
+  outline: 3px solid var(--launcher-choice-focus) !important;
+  outline-offset: 3px !important;
+}
+
+.launcher-simplified .color-theme-card:has(input:focus-visible) {
+  box-shadow: inset 0 0 0 1px var(--theme-accent) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .launcher-simplified .mode-tabs > button,
+  .launcher-simplified .platform-card {
+    transition: none !important;
+  }
+}
