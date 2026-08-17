@@ -25,6 +25,19 @@
       body.create-flow-refactored #designSystemWorkbench{display:none!important}
       body.create-flow-refactored .color-theme-section{display:none!important}
 
+      /* Create / rebuild / improve / explore / compare must share the same launcher shell. */
+      body.create-flow-refactored .page-heading{display:flex!important}
+      body.create-flow-refactored .workspace-flow{margin-top:22px!important}
+      body.create-flow-refactored .mode-picker{padding:22px!important;border-radius:14px!important}
+      body.create-flow-refactored .mode-picker-heading{display:flex!important;align-items:end;justify-content:space-between;gap:18px;margin-bottom:14px}
+      body.create-flow-refactored .mode-tabs{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:8px!important;overflow:visible!important}
+      body.create-flow-refactored .mode-tabs>button{position:relative;display:block;min-height:76px!important;padding:14px 14px 12px!important;border-radius:10px!important;flex:initial!important}
+      body.create-flow-refactored .mode-tabs strong{display:block;font-size:12px!important}
+      body.create-flow-refactored .mode-tabs small{display:block!important;margin-top:6px;font-size:9px;line-height:1.4}
+      @media(max-width:1120px){body.create-flow-refactored .mode-tabs{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+      @media(max-width:780px){body.create-flow-refactored .mode-picker{padding:16px!important}body.create-flow-refactored .mode-tabs{grid-template-columns:1fr 1fr!important}}
+      @media(max-width:520px){body.create-flow-refactored .mode-tabs{grid-template-columns:1fr!important}}
+
       .brief-delivery-block{margin-top:16px;padding-top:16px;border-top:1px solid #e2e8e3}
       .brief-delivery-head{margin-bottom:10px}
       .brief-delivery-head strong{display:block;font-size:11px;color:#253128}
