@@ -2,6 +2,10 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import {
+  COLOR_THEME_ID_ALIASES,
+  DEFAULT_COLOR_THEME_ID,
+} from "../catalog/color-themes.js";
+import {
   LAUNCHER_INTENTS,
   LAUNCHER_WORKSPACE_VERSION,
   createLauncherWorkspace,
@@ -40,7 +44,7 @@ test("scalar decisions inherit defaults while references remain task-local", () 
   const inherited = resolveEffectiveDecisions(initial, "create");
   assert.deepEqual(
     [inherited.format.value, inherited.system.value, inherited.style.value, inherited.colorTheme.value],
-    ["desktop", "ant-design", "minimal-tech", "apple-hig"],
+    ["desktop", "ant-design", "minimal-tech", COLOR_THEME_ID_ALIASES["soft-lifestyle"]],
   );
   assert.equal(inherited.reference.mode, "none");
   assert.equal(inherited.reference.source, "task");
@@ -52,8 +56,8 @@ test("scalar decisions inherit defaults while references remain task-local", () 
   assert.equal(inherited.fontScheme.text, "人文无衬线组合（项目默认值）");
   assert.equal(inherited.fontScheme.fontPresetId, "humanist-sans-cjk");
   assert.match(inherited.fontScheme.bodyFontFamily, /Source Sans 3/);
-  assert.equal(inherited.colorTheme.text, "Apple 系统蓝（项目默认值）");
-  assert.equal(inherited.colorTheme.designSystemId, "apple-hig");
+  assert.equal(inherited.colorTheme.text, "Claude 暖珊瑚（项目默认值）");
+  assert.equal(inherited.colorTheme.designSystemId, "custom");
 
   const overridden = updateIntentDraft(initial, "create", {
     overrides: {
@@ -135,11 +139,11 @@ test("color themes persist per intent without consuming the legacy style alias",
 
   assert.equal(migrated.contract.style, "editorial-commerce");
   assert.equal(migrated.version, LAUNCHER_WORKSPACE_VERSION);
-  assert.equal(migrated.contract.colorTheme, "ant-design");
-  assert.equal(resolveEffectiveDecisions(migrated, "create").colorTheme.value, "fluent-2");
+  assert.equal(migrated.contract.colorTheme, DEFAULT_COLOR_THEME_ID);
+  assert.equal(resolveEffectiveDecisions(migrated, "create").colorTheme.value, COLOR_THEME_ID_ALIASES.glass);
   assert.equal(resolveEffectiveDecisions(migrated, "create").colorTheme.designSystemId, "fluent-2");
-  assert.equal(resolveEffectiveDecisions(migrated, "rebuild").colorTheme.value, "github-primer");
-  assert.equal(resolveEffectiveDecisions(migrated, "explore").colorTheme.value, "ant-design");
+  assert.equal(resolveEffectiveDecisions(migrated, "rebuild").colorTheme.value, COLOR_THEME_ID_ALIASES.retro);
+  assert.equal(resolveEffectiveDecisions(migrated, "explore").colorTheme.value, DEFAULT_COLOR_THEME_ID);
 });
 
 test("font presets migrate within V2, stay isolated per intent, and persist only their IDs", () => {
