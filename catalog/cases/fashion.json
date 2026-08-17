@@ -4,6 +4,7 @@
   "name": "Vestra",
   "style": "编辑式时尚电商",
   "video": "./assets/cases/fashion-shopping-app/screen-only/demo.mp4",
+  "liveDemo": "./demo/fashion/index.html",
   "poster": "./assets/cases/fashion-shopping-app/screen-only/hero.png",
   "previewImage": "./assets/cases/fashion-shopping-app/screen-only/hero.png",
   "preview": "#eadfe0",

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <title>Vestra · Interactive Demo</title>
+  <style>
+    :root{font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#251f1d;background:#eadfe0}
+    *{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;background:#eadfe0}body{display:grid;place-items:center;overflow:hidden}
+    .app{position:relative;width:min(100vw,390px);height:min(100vh,844px);min-height:620px;overflow:hidden;background:#f7eeee;color:#2a2321}
+    .status{display:flex;align-items:center;justify-content:space-between;height:38px;padding:10px 18px 0;font-size:11px;font-weight:700;letter-spacing:.01em}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 18px 10px}.brand{font-family:Georgia,"Times New Roman",serif;font-size:24px;letter-spacing:.02em}.icon{display:grid;width:34px;height:34px;place-items:center;border:1px solid rgba(43,32,30,.14);border-radius:999px;background:rgba(255,255,255,.56);font-size:15px}
+    .screen{position:absolute;inset:92px 0 70px;display:grid;grid-template-rows:1fr auto;opacity:0;transform:translateX(20px);transition:opacity .22s ease,transform .22s ease;pointer-events:none}.screen.is-active{opacity:1;transform:none;pointer-events:auto}
+    .visual{position:relative;min-height:0;margin:0 14px;overflow:hidden;border-radius:28px;background:#e8dada}.visual img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}.visual::after{position:absolute;inset:auto 0 0;height:34%;background:linear-gradient(transparent,rgba(35,23,21,.34));content:"";pointer-events:none}
+    .caption{position:absolute;z-index:2;left:24px;right:24px;bottom:22px;color:#fff}.caption small{font-size:10px;letter-spacing:.18em;text-transform:uppercase}.caption h1{margin:7px 0 0;font:400 38px/1 Georgia,"Times New Roman",serif}.caption p{max-width:260px;margin:8px 0 0;font-size:11px;line-height:1.45;opacity:.86}
+    .actions{display:flex;gap:8px;padding:12px 18px 4px}.actions button{flex:1;min-height:40px;border:0;border-radius:999px;font-weight:750}.primary{background:#2b2321;color:#fff}.secondary{background:#fff5f3;color:#372c29}
+    .nav{position:absolute;z-index:4;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(3,1fr);height:66px;padding:7px 12px 9px;border-top:1px solid rgba(63,47,43,.1);background:rgba(247,238,238,.94);backdrop-filter:blur(16px)}.nav button{border:0;background:transparent;color:#8b7772;font-size:9px;font-weight:700}.nav button b{display:block;margin-bottom:3px;font-size:16px;font-weight:500}.nav button.is-active{color:#2e2422}
+    body[data-embed="1"] .app{width:100vw;height:100vh;min-height:0}
+    @media (prefers-reduced-motion:reduce){.screen{transition:none}}
+  </style>
+</head>
+<body>
+  <main class="app" aria-label="Vestra fashion commerce demo">
+    <div class="status"><span>9:41</span><span>● ●●</span></div>
+    <header class="topbar"><strong class="brand">Vestra</strong><span class="icon" aria-hidden="true">♡</span></header>
+    <section class="screen is-active" data-screen="home">
+      <div class="visual"><img src="../../assets/cases/fashion-shopping-app/hero-screen.png" alt="Vestra 品牌首页"><div class="caption"><small>New season · 01</small><h1>Soft Structure</h1><p>轻盈廓形、低饱和材质与留白，让商品成为唯一焦点。</p></div></div>
+      <div class="actions"><button class="primary" data-next="catalog">浏览系列</button><button class="secondary" data-next="favorites">收藏夹</button></div>
+    </section>
+    <section class="screen" data-screen="catalog">
+      <div class="visual"><img src="../../assets/cases/fashion-shopping-app/catalog-screen.png" alt="Vestra 商品目录"><div class="caption"><small>Collection</small><h1>Objects to keep</h1><p>按系列浏览，点击底部导航可在三个真实页面之间切换。</p></div></div>
+      <div class="actions"><button class="primary" data-next="favorites">查看收藏</button><button class="secondary" data-next="home">返回首页</button></div>
+    </section>
+    <section class="screen" data-screen="favorites">
+      <div class="visual"><img src="../../assets/cases/fashion-shopping-app/favorites-screen.png" alt="Vestra 收藏页"><div class="caption"><small>Saved</small><h1>Your edit</h1><p>收藏动作保持轻量，不用额外弹窗打断浏览节奏。</p></div></div>
+      <div class="actions"><button class="primary" data-next="catalog">继续浏览</button><button class="secondary" data-next="home">首页</button></div>
+    </section>
+    <nav class="nav" aria-label="Demo pages">
+      <button class="is-active" data-next="home"><b>⌂</b>首页</button>
+      <button data-next="catalog"><b>▦</b>系列</button>
+      <button data-next="favorites"><b>♡</b>收藏</button>
+    </nav>
+  </main>
+  <script>
+    const params=new URLSearchParams(location.search);document.body.dataset.embed=params.get('embed')==='1'?'1':'0';
+    const show=(id)=>{document.querySelectorAll('.screen').forEach(el=>el.classList.toggle('is-active',el.dataset.screen===id));document.querySelectorAll('.nav button').forEach(el=>el.classList.toggle('is-active',el.dataset.next===id));};
+    document.addEventListener('click',e=>{const button=e.target.closest('[data-next]');if(button)show(button.dataset.next)});
+  </script>
+</body>
+</html>
