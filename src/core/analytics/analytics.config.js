@@ -5,7 +5,7 @@ window.IMAGE2_ANALYTICS = {
 };
 
 if (/(?:^|\/)launcher\.html$/i.test(window.location.pathname)) {
-  import("../../features/launcher/launcher-hardening.js?v=20260817-a11y-v1").catch((error) => {
+  import("../../features/launcher/launcher-hardening.js?v=20260817-a11y-v2").catch((error) => {
     console.warn("[launcher-hardening] failed to load", error);
   });
 }
