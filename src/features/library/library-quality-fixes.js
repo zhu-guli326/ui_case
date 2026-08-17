@@ -1,36 +1,9 @@
 import { styleGuides } from "../../../catalog/index.js?v=20260815-artmuse-sequence";
+import { applyLibraryCaseOverrides, libraryCaseOverrides } from "./library-case-overrides.mjs";
 
-const REPAIR_VERSION = "20260817-library-qa-v2";
-const caseRepairs = Object.freeze({
-  fashion: {
-    liveDemo: "./demo/fashion/index.html",
-    fallbacks: [
-      "./assets/cases/fashion-shopping-app/card-screen.png",
-      "./assets/cases/fashion-shopping-app/hero-screen.png",
-      "./assets/cases/fashion-shopping-app/screen-only/hero.png"
-    ]
-  },
-  news: {
-    liveDemo: "./demo/news/index.html",
-    fallbacks: [
-      "./assets/cases/news-app/card-screen.png",
-      "./assets/cases/news-app/headlines-screen.png",
-      "./assets/cases/news-app/screen-only/headlines.png"
-    ]
-  }
-});
-
+const REPAIR_VERSION = "20260817-library-qa-v3";
 const guideById = new Map(styleGuides.map((guide) => [guide.id, guide]));
-const repairedIds = [];
-
-for (const [id, repair] of Object.entries(caseRepairs)) {
-  const guide = guideById.get(id);
-  if (!guide) continue;
-  if (!guide.liveDemo && repair.liveDemo) {
-    guide.liveDemo = repair.liveDemo;
-    repairedIds.push(id);
-  }
-}
+const repairedIds = applyLibraryCaseOverrides(styleGuides);
 
 function absolute(src) {
   try { return new URL(src, window.location.href).href; }
@@ -43,7 +16,7 @@ function unique(values) {
 
 function fallbackCandidates(id) {
   const guide = guideById.get(id);
-  const repair = caseRepairs[id];
+  const repair = libraryCaseOverrides[id];
   return unique([
     ...(repair?.fallbacks || []),
     guide?.previewImage,
@@ -102,8 +75,6 @@ function installImageRecovery() {
     const next = queue.find((src) => src && src !== current && !failed.includes(src));
     if (!next) return;
 
-    // Prevent the base Library error handler from removing the image before all
-    // known local fallbacks have been tried.
     event.stopImmediatePropagation();
     image.src = next;
     image.closest(".phone-preview-media")?.classList.remove("is-unavailable");
@@ -174,8 +145,8 @@ function installIframeHealthCheck() {
       if (retry) retry.hidden = false;
       dialog.querySelector('[data-preview-view="image"]')?.click();
     } catch {
-      // Cross-origin demos cannot be inspected. The base timeout/error handlers
-      // remain responsible for those cases.
+      // Cross-origin demos cannot be inspected; the base timeout/error handlers
+      // continue to own those cases.
     }
   });
 }
@@ -183,9 +154,8 @@ function installIframeHealthCheck() {
 function installDialogMediaPolicy() {
   const video = document.querySelector("#previewDialogVideo");
   if (video) {
-    // The base library assigns video.src only after a modal is opened, so the
-    // catalogue already behaves as lazy-loaded media. Keep metadata preload to
-    // make the custom progress controls reliable without loading every MP4.
+    // Video sources are assigned only after the modal is opened, so the page is
+    // already lazy-loading MP4s. Metadata preload keeps progress controls stable.
     video.preload = "metadata";
     video.playsInline = true;
     video.muted = true;
