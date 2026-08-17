@@ -1,4 +1,5 @@
 import { styleGuides } from "../../../catalog/index.js?v=20260815-artmuse-sequence";
+import { getLibraryPreviewDevice } from "../../../library-preview-config.mjs";
 
 const SCREEN_RAILS = Object.freeze({
   museum: [
@@ -26,11 +27,6 @@ const SCREEN_RAILS = Object.freeze({
     { baseIndex: 1, src: "./demo/plate-play/screenshots/recipes.png", label: "食谱" },
     { baseIndex: 2, src: "./demo/plate-play/screenshots/detail.png", label: "详情" },
     { baseIndex: 0, src: "./demo/plate-play/screenshots/library-preview-2x.png", label: "欢迎" }
-  ],
-  "carry-bag": [
-    { baseIndex: 0, src: "./demo/carry-bag/screenshots/03-hero.png", label: "首页" },
-    { baseIndex: 1, src: "./demo/carry-bag/screenshots/01-catalog.png", label: "目录" },
-    { baseIndex: 2, src: "./demo/carry-bag/screenshots/02-detail.png", label: "详情" }
   ],
   fithub: [
     { baseIndex: 0, src: "./demo/fithub/screenshots/01-discover.png", label: "发现" },
@@ -98,14 +94,18 @@ const categoryLabels = Object.freeze({
 const dialog = document.querySelector("#previewDialog");
 const stage = document.querySelector("#previewMediaStage");
 const frame = document.querySelector("#previewMediaFrame");
+const phoneScreen = document.querySelector("#previewPhoneScreen");
 const video = document.querySelector("#previewDialogVideo");
 const sequence = document.querySelector("#previewDialogSequence");
+const demo = document.querySelector("#previewDialogDemo");
 const modeSwitch = document.querySelector("#previewModeSwitch");
 const details = document.querySelector("#previewDialogDetails");
 const title = document.querySelector("#previewDialogTitle");
 const imageCount = document.querySelector("#previewImageCount");
 const imageNext = document.querySelector("#previewImageNext");
 const copyMarker = document.querySelector("#previewDialogCopy");
+const rail = document.querySelector("#previewScreenRail");
+const badge = document.querySelector("#previewModeBadge");
 
 function isEnglish() {
   return window.image2I18n?.language === "en";
@@ -129,9 +129,12 @@ function currentCaseId() {
   return copyMarker?.dataset.copyStyle || "";
 }
 
+function sourceGuide() {
+  return styleGuides.find((guide) => guide.id === currentCaseId()) || null;
+}
+
 function currentGuide() {
-  const source = styleGuides.find((guide) => guide.id === currentCaseId());
-  return localized(source);
+  return localized(sourceGuide());
 }
 
 function currentMode() {
@@ -139,41 +142,18 @@ function currentMode() {
 }
 
 function currentBaseImageIndex() {
-  const value = imageCount?.textContent || "";
-  const match = value.match(/(\d+)\s*\/\s*(\d+)/);
+  const match = (imageCount?.textContent || "").match(/(\d+)\s*\/\s*(\d+)/);
   return match ? Math.max(0, Number(match[1]) - 1) : 0;
 }
 
 function goToBaseImageIndex(targetIndex) {
-  const value = imageCount?.textContent || "";
-  const match = value.match(/(\d+)\s*\/\s*(\d+)/);
+  const match = (imageCount?.textContent || "").match(/(\d+)\s*\/\s*(\d+)/);
   if (!match || !imageNext) return;
   const current = Math.max(0, Number(match[1]) - 1);
   const total = Math.max(1, Number(match[2]));
   const target = ((targetIndex % total) + total) % total;
   const steps = (target - current + total) % total;
   for (let index = 0; index < steps; index += 1) imageNext.click();
-}
-
-function ensureMediaChrome() {
-  if (!stage || !modeSwitch || !frame) return;
-  let head = stage.querySelector(".preview-mode-head");
-  if (!head) {
-    head = document.createElement("div");
-    head.className = "preview-mode-head";
-    head.innerHTML = `<span class="preview-mode-caption">${isEnglish() ? "Preview" : "预览方式"}</span><span class="preview-mode-badge" id="previewModeBadge"></span>`;
-    stage.insertBefore(head, frame);
-  }
-  if (modeSwitch.parentElement !== head) head.insertBefore(modeSwitch, head.querySelector(".preview-mode-badge"));
-
-  let rail = stage.querySelector("#previewScreenRail");
-  if (!rail) {
-    rail = document.createElement("div");
-    rail.id = "previewScreenRail";
-    rail.className = "preview-screen-rail";
-    rail.setAttribute("aria-label", isEnglish() ? "Case screens" : "案例页面");
-    frame.insertAdjacentElement("afterend", rail);
-  }
 }
 
 function renderDetails() {
@@ -185,9 +165,7 @@ function renderDetails() {
   const category = categoryLabels[locale][guide.category] || guide.category;
   title.innerHTML = `<strong>${escapeHtml(guide.name)}</strong><span>/ ${escapeHtml(guide.style)}</span>`;
   const tags = [category, ...(guide.tags || []).slice(0, 2)];
-  const factLabels = isEnglish()
-    ? ["Palette", "Structure", "Best for"]
-    : ["色彩", "页面结构", "适用场景"];
+  const factLabels = isEnglish() ? ["Palette", "Structure", "Best for"] : ["色彩", "页面结构", "适用场景"];
   const detailTitle = isEnglish() ? "Full design notes" : "完整设计说明";
   const principleLabel = isEnglish() ? "Core principle" : "核心原则";
   const referenceLabel = isEnglish() ? "Reference direction" : "参考方向";
@@ -206,29 +184,24 @@ function renderDetails() {
       </div>
     </div>
     <details class="preview-dialog-more case-design-notes">
-      <summary><span>${detailTitle}</span><small>${isEnglish() ? "Principles, type and components" : "原则、排版与组件"}</small></summary>
-      <div class="case-design-notes-content">
-        <dl>
-          <div><dt>${principleLabel}</dt><dd>${escapeHtml(guide.recipe?.principle)}</dd></div>
-          <div><dt>${referenceLabel}</dt><dd>${escapeHtml(guide.reference)}</dd></div>
-          <div><dt>${componentsLabel}</dt><dd>${escapeHtml(guide.recipe?.components)}</dd></div>
-          <div><dt>${typeLabel}</dt><dd>${escapeHtml(guide.recipe?.type)}</dd></div>
-          <div><dt>${imageLabel}</dt><dd>${escapeHtml(guide.recipe?.image)}</dd></div>
-        </dl>
-      </div>
+      <summary><span>${detailTitle}</span><small></small></summary>
+      <div class="case-design-notes-content"><dl>
+        <div><dt>${principleLabel}</dt><dd>${escapeHtml(guide.recipe?.principle)}</dd></div>
+        <div><dt>${referenceLabel}</dt><dd>${escapeHtml(guide.reference)}</dd></div>
+        <div><dt>${componentsLabel}</dt><dd>${escapeHtml(guide.recipe?.components)}</dd></div>
+        <div><dt>${typeLabel}</dt><dd>${escapeHtml(guide.recipe?.type)}</dd></div>
+        <div><dt>${imageLabel}</dt><dd>${escapeHtml(guide.recipe?.image)}</dd></div>
+      </dl></div>
     </details>`;
 }
 
 function renderScreenRail() {
-  const rail = stage?.querySelector("#previewScreenRail");
   if (!rail) return;
   const id = currentCaseId();
   const screens = SCREEN_RAILS[id] || [];
-  const imageMode = currentMode() === "image";
-  rail.hidden = !imageMode || screens.length < 2;
+  rail.hidden = currentMode() !== "image" || screens.length < 2;
   if (rail.hidden) return;
 
-  const currentIndex = currentBaseImageIndex();
   if (rail.dataset.caseId !== id) {
     rail.dataset.caseId = id;
     rail.innerHTML = screens.map((screen) => `
@@ -236,31 +209,63 @@ function renderScreenRail() {
         <img src="${escapeHtml(screen.src)}" alt="" loading="lazy" decoding="async">
         <span>${escapeHtml(screen.label)}</span>
       </button>`).join("");
-    rail.querySelectorAll("button").forEach((button) => button.addEventListener("click", () => goToBaseImageIndex(Number(button.dataset.baseIndex))));
+    rail.querySelectorAll("button").forEach((button) => {
+      button.addEventListener("click", () => goToBaseImageIndex(Number(button.dataset.baseIndex)));
+    });
   }
+
+  const activeIndex = currentBaseImageIndex();
   rail.querySelectorAll("button").forEach((button) => {
-    const active = Number(button.dataset.baseIndex) === currentIndex;
+    const active = Number(button.dataset.baseIndex) === activeIndex;
     button.classList.toggle("is-active", active);
     button.setAttribute("aria-pressed", String(active));
   });
 }
 
+function relabelModes() {
+  const guide = sourceGuide();
+  if (!guide || !modeSwitch) return;
+  const videoButton = modeSwitch.querySelector('[data-preview-view="video"]');
+  if (videoButton && guide.videoSequence) {
+    videoButton.textContent = isEnglish() ? "Flow preview" : "流程预览";
+    videoButton.setAttribute("aria-label", videoButton.textContent);
+  }
+}
+
+function syncLiveScale() {
+  if (!frame || !phoneScreen || !demo || demo.hidden || currentMode() !== "live") return;
+  const guide = sourceGuide();
+  if (!guide) return;
+  const { width, height } = getLibraryPreviewDevice(guide.id, "live") || { width: 390, height: 844 };
+  if (!phoneScreen.clientWidth || !phoneScreen.clientHeight) return;
+  const scale = Math.min(phoneScreen.clientWidth / width, phoneScreen.clientHeight / height);
+  frame.style.setProperty("--preview-embed-scale", String(scale));
+}
+
 function syncModePresentation() {
   if (!stage || !frame) return;
+  const guide = sourceGuide();
   const mode = currentMode();
   stage.dataset.previewMode = mode;
+
+  // A sequence is screen-only and uses the neutral Library viewport. Only a raw
+  // MP4 receives source-video treatment for the legacy baked-device fallback.
   const rawVideo = mode === "video" && video && !video.hidden && (!sequence || sequence.hidden);
   frame.classList.toggle("is-source-video", Boolean(rawVideo));
 
-  const badge = stage.querySelector("#previewModeBadge");
+  relabelModes();
   if (badge) {
     const labels = isEnglish()
-      ? { image: "Screens", video: "Demo video", live: "Interactive" }
-      : { image: "效果图", video: "Demo 视频", live: "可点击 Demo" };
+      ? { image: "Screens", video: guide?.videoSequence ? "Flow preview" : "Demo video", live: "Interactive" }
+      : { image: "效果图", video: guide?.videoSequence ? "流程预览" : "Demo 视频", live: "可点击 Demo" };
     const screenCount = SCREEN_RAILS[currentCaseId()]?.length || 0;
-    badge.textContent = mode === "image" && screenCount > 1 ? `${labels[mode]} · ${screenCount} ${isEnglish() ? "screens" : "屏"}` : labels[mode];
+    badge.textContent = mode === "image" && screenCount > 1
+      ? `${labels.image} · ${screenCount} ${isEnglish() ? "screens" : "屏"}`
+      : labels[mode];
   }
+
   renderScreenRail();
+  if (mode === "live") requestAnimationFrame(syncLiveScale);
 }
 
 function applyPreferredScreen() {
@@ -269,51 +274,60 @@ function applyPreferredScreen() {
   const preferred = PREFERRED_IMAGE_INDEX[id];
   dialog.dataset.preferredScreenApplied = id;
   if (!Number.isFinite(preferred)) return;
-  window.requestAnimationFrame(() => goToBaseImageIndex(preferred));
+  requestAnimationFrame(() => goToBaseImageIndex(preferred));
 }
 
 function syncDialog() {
   if (!dialog?.open) return;
-  ensureMediaChrome();
   renderDetails();
   syncModePresentation();
   applyPreferredScreen();
 }
 
 function boot() {
-  ensureMediaChrome();
+  if (!dialog || !modeSwitch || !copyMarker) return;
 
-  new MutationObserver(() => window.requestAnimationFrame(syncDialog)).observe(dialog, {
+  new MutationObserver(() => requestAnimationFrame(syncDialog)).observe(dialog, {
     attributes: true,
     attributeFilter: ["open"]
   });
-  new MutationObserver(() => window.requestAnimationFrame(syncDialog)).observe(copyMarker, {
+  new MutationObserver(() => {
+    delete dialog.dataset.preferredScreenApplied;
+    if (rail) rail.dataset.caseId = "";
+    requestAnimationFrame(syncDialog);
+  }).observe(copyMarker, {
     attributes: true,
     attributeFilter: ["data-copy-style"]
   });
-  new MutationObserver(() => window.requestAnimationFrame(syncDialog)).observe(modeSwitch, {
+  new MutationObserver(() => requestAnimationFrame(syncModePresentation)).observe(modeSwitch, {
     subtree: true,
     childList: true,
     attributes: true,
     attributeFilter: ["class", "aria-pressed"]
   });
-  new MutationObserver(() => window.requestAnimationFrame(syncModePresentation)).observe(imageCount, {
-    childList: true,
-    subtree: true,
-    characterData: true
-  });
-  [video, sequence].filter(Boolean).forEach((element) => {
-    new MutationObserver(() => window.requestAnimationFrame(syncModePresentation)).observe(element, {
+  if (imageCount) {
+    new MutationObserver(() => requestAnimationFrame(renderScreenRail)).observe(imageCount, {
+      childList: true,
+      subtree: true,
+      characterData: true
+    });
+  }
+  [video, sequence, demo].filter(Boolean).forEach((element) => {
+    new MutationObserver(() => requestAnimationFrame(syncModePresentation)).observe(element, {
       attributes: true,
       attributeFilter: ["hidden", "src"]
     });
   });
-  new MutationObserver(() => window.requestAnimationFrame(renderDetails)).observe(details, { childList: true });
+  if (details) {
+    new MutationObserver(() => requestAnimationFrame(renderDetails)).observe(details, { childList: true });
+  }
+  if (phoneScreen && "ResizeObserver" in window) {
+    new ResizeObserver(() => requestAnimationFrame(syncLiveScale)).observe(phoneScreen);
+  }
 
   dialog.addEventListener("close", () => {
     delete dialog.dataset.preferredScreenApplied;
     frame?.classList.remove("is-source-video");
-    const rail = stage?.querySelector("#previewScreenRail");
     if (rail) rail.hidden = true;
   });
 
@@ -321,7 +335,7 @@ function boot() {
     const caption = stage?.querySelector(".preview-mode-caption");
     if (caption) caption.textContent = isEnglish() ? "Preview" : "预览方式";
     if (dialog.open) {
-      details.innerHTML = "";
+      if (details) details.innerHTML = "";
       renderDetails();
       syncModePresentation();
     }
