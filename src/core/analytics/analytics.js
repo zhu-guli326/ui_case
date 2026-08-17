@@ -47,7 +47,7 @@
 
   if (/\/launcher\.html$/.test(location.pathname)) {
     const launcherPreviewLab = document.createElement("script");
-    launcherPreviewLab.src = "./src/features/launcher/launcher-preview-lab.js?v=20260817-preview-lab-v1";
+    launcherPreviewLab.src = "./src/features/launcher/launcher-preview-lab.js?v=20260817-preview-lab-v2";
     launcherPreviewLab.defer = true;
     document.head.append(launcherPreviewLab);
   }
