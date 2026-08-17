@@ -54,28 +54,29 @@ async function assertModeVisualState(page, intent) {
       paddingRight: Number.parseFloat(style.paddingRight) || 0,
       badgeContent: badge.content,
       badgePosition: badge.position,
-      badgeLeftRule: badge.left,
-      badgeRightRule: badge.right,
-      badgeTopRule: badge.top,
-      badgeBottomRule: badge.bottom,
-      badgeWidth: badge.width,
-      badgeHeight: badge.height,
+      badgeRight: badgeRight,
+      badgeTop: Number.parseFloat(badge.top) || 0,
+      badgeWidth: badgeWidth,
+      badgeHeight: Number.parseFloat(badge.height) || 0,
       titleRight: title?.right || 0,
       badgeLeft,
+      cardRight: rect.right,
+      cardTop: rect.top,
     };
   });
 
   if (state.selected !== "true") throw new Error(`${intent}: task mode is not aria-selected: ${JSON.stringify(state)}`);
   if (!/✓/.test(state.badgeContent)) throw new Error(`${intent}: selected badge is missing: ${JSON.stringify(state)}`);
   if (state.badgePosition !== "absolute") throw new Error(`${intent}: selected badge is not absolutely positioned: ${JSON.stringify(state)}`);
-  if (state.badgeLeftRule !== "auto" || state.badgeBottomRule !== "auto") {
-    throw new Error(`${intent}: legacy underline geometry leaked into selected badge: ${JSON.stringify(state)}`);
+  if (Math.abs(state.badgeRight - 10) > 1 || Math.abs(state.badgeTop - 10) > 1) {
+    throw new Error(`${intent}: selected badge is not anchored to the top-right corner: ${JSON.stringify(state)}`);
   }
-  if (Math.abs(Number.parseFloat(state.badgeWidth) - 18) > 1 || Math.abs(Number.parseFloat(state.badgeHeight) - 18) > 1) {
+  if (Math.abs(state.badgeWidth - 18) > 1 || Math.abs(state.badgeHeight - 18) > 1) {
     throw new Error(`${intent}: selected badge geometry drifted: ${JSON.stringify(state)}`);
   }
   if (state.paddingRight < 36) throw new Error(`${intent}: selected title has no reserved badge space: ${JSON.stringify(state)}`);
   if (state.titleRight > state.badgeLeft - 4) throw new Error(`${intent}: selected badge overlaps task title: ${JSON.stringify(state)}`);
+  if (state.badgeLeft < state.cardRight - 32) throw new Error(`${intent}: selected badge drifted into the card body: ${JSON.stringify(state)}`);
 
   const inactivePseudo = await page.locator(`#modeTabs [data-intent]:not([data-intent="${intent}"])`).first().evaluate((element) => getComputedStyle(element, "::after").content);
   if (inactivePseudo && inactivePseudo !== "none" && inactivePseudo !== "normal" && inactivePseudo !== '""') {
