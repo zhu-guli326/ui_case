@@ -62,20 +62,26 @@
 
 /*
  * Shared screen safe areas.
- * Cases may choose typography and color, but status-bar geometry and the
- * hardware home indicator belong to PhoneShell so they cannot drift per case.
+ * Cases may choose typography, color and horizontal padding, but the status-bar
+ * box itself always begins at the screen origin and occupies one 44px safe row.
  */
 .iphone-frame > .screen > .statusbar,
 .iphone-frame > .screen > .status-bar,
+.iphone-frame > .screen > .status,
 .iphone-frame > .s > .statusbar,
-.iphone-frame > .s > .status-bar {
-  position: relative;
+.iphone-frame > .s > .status-bar,
+.iphone-frame > .s > .status {
+  position: relative !important;
   z-index: 30;
   box-sizing: border-box;
-  width: 100%;
+  top: 0 !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: 0 !important;
+  width: 100% !important;
   min-height: var(--phone-shell-statusbar-height) !important;
   height: var(--phone-shell-statusbar-height) !important;
-  margin: 0;
+  margin: 0 !important;
   padding-top: var(--phone-shell-statusbar-top-padding) !important;
 }
 
