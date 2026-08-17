@@ -11,6 +11,16 @@ import { styleGuides } from "../../../catalog/index.js?v=20260815-artmuse-sequen
 const liveGuides = styleGuides.filter((guide) => Boolean(guide.liveDemo));
 const liveGuideById = new Map(liveGuides.map((guide) => [guide.id, guide]));
 
+/* These are screenshots captured from the actual clickable demos. Their older
+ * mobile-preview posters are presentation compositions and do not match the
+ * demo that opens after clicking the card. The Library thumbnail should be a
+ * scaled version of the real demo, not a second art-directed preview. */
+const liveDemoCardScreens = Object.freeze({
+  mimo: "./demo/mimo-activities/screenshots/01-carousel.png",
+  moe: "./demo/moe-habits/screenshots/video-2x/01-intro.png",
+  moodly: "./demo/moodly-health/screenshots/01-checkin.png"
+});
+
 const gallery = document.querySelector("#demoGallery");
 const resultCount = document.querySelector("#resultCount");
 const emptyState = document.querySelector("#emptyState");
@@ -26,7 +36,7 @@ function countLabel(count) {
 
 function withPosterVersion(src) {
   if (!src) return "";
-  return `${src}${src.includes("?") ? "&" : "?"}v=20260817-canonical-poster-v3`;
+  return `${src}${src.includes("?") ? "&" : "?"}v=20260817-live-demo-card-v1`;
 }
 
 function forceNotebookLivePreview(card, guide) {
@@ -107,9 +117,12 @@ function normalizeRenderedCards() {
       forceNotebookLivePreview(card, guide);
     } else {
       const poster = card.querySelector(".phone-preview-media .phone-media");
-      if (poster && poster.tagName === "IMG" && guide.poster) {
-        const canonicalSrc = withPosterVersion(guide.poster);
-        if (poster.getAttribute("src") !== canonicalSrc) poster.setAttribute("src", canonicalSrc);
+      if (poster && poster.tagName === "IMG") {
+        const source = liveDemoCardScreens[guide.id] || guide.poster;
+        if (source) {
+          const canonicalSrc = withPosterVersion(source);
+          if (poster.getAttribute("src") !== canonicalSrc) poster.setAttribute("src", canonicalSrc);
+        }
       }
     }
 
