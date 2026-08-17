@@ -112,6 +112,21 @@ await inspect("launcher.html?lang=zh&intent=create", async (page) => {
   const reference = page.locator('.config-section[aria-labelledby="referenceTitle"]');
   if (!(await reference.isVisible())) throw new Error("Create reference module is hidden");
 
+  const structuredBrief = page.locator(".structured-brief").first();
+  await structuredBrief.waitFor({ state: "visible" });
+  const briefPseudo = await structuredBrief.evaluate((el) => {
+    const style = getComputedStyle(el, "::before");
+    return { start: style.gridColumnStart, end: style.gridColumnEnd };
+  });
+  if (briefPseudo.start !== "1" || !["-1", "4"].includes(briefPseudo.end)) {
+    throw new Error(`structured brief heading does not span the full grid: ${JSON.stringify(briefPseudo)}`);
+  }
+  const briefFieldTops = await structuredBrief.locator(".text-field").evaluateAll((fields) => fields.slice(0, 3).map((field) => Math.round(field.getBoundingClientRect().top)));
+  if (briefFieldTops.length >= 3 && Math.max(...briefFieldTops) - Math.min(...briefFieldTops) > 3) {
+    throw new Error(`structured brief fields are staggered instead of aligned: ${JSON.stringify(briefFieldTops)}`);
+  }
+  if (await page.locator(".font-preview-shell").isVisible()) throw new Error("obsolete Northstar font specimen is still visible");
+
   const outputPosition = await page.locator("#outputPanel").evaluate((el) => getComputedStyle(el).position);
   if (outputPosition !== "fixed") throw new Error(`prompt output is not viewport-fixed: ${outputPosition}`);
   const outputBeforeScroll = await page.locator("#outputPanel").boundingBox();
@@ -178,7 +193,8 @@ await inspect("launcher.html?lang=en&intent=create", async (page) => {
   if (!/page preview/i.test(await page.locator("#livePreviewTitle").innerText())) throw new Error("English page preview heading did not render");
   const pseudo = await page.locator(".structured-brief").first().evaluate((el) => getComputedStyle(el, "::before").content).catch(() => "");
   if (pseudo && /补齐关键信息/.test(pseudo)) throw new Error("English structured brief still exposes Chinese pseudo-copy");
+  if (await page.locator(".font-preview-shell").isVisible()) throw new Error("obsolete font specimen is visible in English mode");
 });
 
 await browser.close();
-console.log("Launcher runtime audit passed: one three-step flow, explicit four-owner runtime, real design-token propagation, one final preview, viewport-fixed prompt output across desktop scrolling, stable intent switching, and zh/en runtime.");
+console.log("Launcher runtime audit passed: one three-step flow, aligned structured brief, removed font specimen, real design-token propagation, one final preview, viewport-fixed prompt output across desktop scrolling, stable intent switching, and zh/en runtime.");
