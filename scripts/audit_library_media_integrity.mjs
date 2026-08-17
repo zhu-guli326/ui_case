@@ -113,12 +113,18 @@ for (const guide of guides) {
 
 const libraryHtml = fs.readFileSync(path.join(root, "library.html"), "utf8");
 const qualityScriptIndex = libraryHtml.indexOf("library-quality-fixes.js");
+const deviceRuntimeIndex = libraryHtml.indexOf("device-preview.js");
 const libraryScriptIndex = libraryHtml.indexOf("./library.js");
+const detailRuntimeIndex = libraryHtml.indexOf("library-detail-redesign.js");
 const detailStyleIndex = libraryHtml.indexOf("library-detail-minimal.css");
 
 if (qualityScriptIndex < 0) errors.push("library.html: missing library-quality-fixes.js");
+if (deviceRuntimeIndex < 0) errors.push("library.html: missing DevicePreview runtime");
 if (libraryScriptIndex < 0) errors.push("library.html: missing library.js");
+if (detailRuntimeIndex < 0) errors.push("library.html: missing detail-view runtime");
 if (qualityScriptIndex > libraryScriptIndex) errors.push("library.html: catalog overrides must load before library.js");
+if (deviceRuntimeIndex > libraryScriptIndex) errors.push("library.html: DevicePreview runtime must bind before Library render");
+if (detailRuntimeIndex < libraryScriptIndex) errors.push("library.html: detail-view runtime must load after library.js");
 if (detailStyleIndex < 0) errors.push("library.html: missing authoritative library-detail-minimal.css");
 if (libraryHtml.includes("library-media-fixes.css")) errors.push("library.html: legacy library-media-fixes.css is still loaded and can fight detail geometry");
 if (libraryHtml.includes("library-quality-fixes.css")) errors.push("library.html: legacy library-quality-fixes.css is still loaded and can fight gallery density rules");
