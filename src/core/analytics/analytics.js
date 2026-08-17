@@ -50,5 +50,10 @@
     launcherPreviewLab.src = "./src/features/launcher/launcher-preview-lab.js?v=20260817-preview-lab-v2";
     launcherPreviewLab.defer = true;
     document.head.append(launcherPreviewLab);
+
+    const launcherPlatformMerge = document.createElement("script");
+    launcherPlatformMerge.src = "./src/features/launcher/launcher-platform-merge.js?v=20260817-platform-merge-v1";
+    launcherPlatformMerge.defer = true;
+    document.head.append(launcherPlatformMerge);
   }
 })();
