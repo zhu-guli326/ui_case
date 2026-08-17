@@ -1,0 +1,10 @@
+/* Loy-only viewport correction. Keep all authored layout and interactions unchanged. */
+.phone {
+  aspect-ratio: 390 / 844 !important;
+}
+
+.embed-mode .phone {
+  width: 390px !important;
+  height: 844px !important;
+  aspect-ratio: 390 / 844 !important;
+}
