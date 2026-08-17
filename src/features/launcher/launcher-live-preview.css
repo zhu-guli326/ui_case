@@ -1,0 +1,138 @@
+.preview-lab-section {
+  margin-top: 22px;
+  overflow: hidden;
+  border: 1px solid var(--launcher-card-border, #dce3dd);
+  border-radius: var(--launcher-card-radius, 16px);
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(29, 42, 33, .035);
+}
+
+.preview-lab-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid #e5eae6;
+  background: linear-gradient(180deg, #fbfdfb 0%, #f7faf8 100%);
+}
+.preview-lab-head-copy { min-width: 0; }
+.preview-lab-head .flow-label { margin-bottom: 8px; }
+.preview-lab-head h2 { margin: 0; font-size: 21px; letter-spacing: -.02em; }
+.preview-lab-head p { max-width: 760px; margin: 6px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+.preview-lab-badge {
+  display: inline-flex;
+  min-height: 30px;
+  flex: 0 0 auto;
+  align-items: center;
+  padding: 0 11px;
+  border: 1px solid #dce4dd;
+  border-radius: 999px;
+  background: #fff;
+  color: #315c42;
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.preview-toolbar {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 18px 24px 14px;
+  padding: 12px 14px;
+  border: 1px solid #dde4de;
+  border-radius: 11px;
+  background: #fbfcfb;
+}
+.preview-field { display: grid; gap: 5px; margin: 0; }
+.preview-field > span { color: #657067; font-size: 8px; font-weight: 850; }
+.preview-field select {
+  height: 36px;
+  min-width: 210px;
+  padding: 0 34px 0 10px;
+  border: 1px solid #d5ddd6;
+  border-radius: 8px;
+  background: #fff;
+  color: #202721;
+  font: inherit;
+  font-size: 10px;
+}
+.preview-segment { display: flex; gap: 5px; }
+.preview-segment button {
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid #d8dfd9;
+  border-radius: 8px;
+  background: #fff;
+  color: #3d4740;
+  font-size: 9px;
+  font-weight: 850;
+  cursor: pointer;
+}
+.preview-segment button:hover { border-color: #aeb8b0; background: #f8faf8; }
+.preview-segment button.is-active,
+.preview-segment button[aria-pressed="true"] {
+  border-color: #17804b;
+  background: #edf7f1;
+  color: #126b3e;
+  box-shadow: 0 0 0 1px #17804b inset;
+}
+.preview-current { margin-left: auto; align-self: center; color: #6a746c; font-size: 9px; }
+.preview-current b { color: #245c3b; }
+
+.preview-lab-stage {
+  min-width: 0;
+  margin: 0 24px 24px;
+  padding: 18px;
+  overflow: auto;
+  border: 1px solid #dde4de;
+  border-radius: 12px;
+  background: #f0f3f1;
+}
+.live-preview-canvas {
+  display: flex;
+  min-height: 520px;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 22px;
+  overflow: auto;
+  border-radius: 10px;
+  background: #e7ece8;
+}
+.live-preview-device {
+  --preview-accent: #176f43;
+  width: min(100%, 390px);
+  min-height: 460px;
+  padding: 18px;
+  border: 1px solid #cfd6d0;
+  border-radius: 24px;
+  background: #fff;
+  color: #202721;
+  box-shadow: 0 16px 38px rgba(32, 43, 35, .13);
+  transition: width .18s ease, border-radius .18s ease, background .18s ease, color .18s ease;
+}
+.live-preview-device[data-size="tablet"] { width: min(100%, 768px); border-radius: 18px; }
+.live-preview-device[data-size="desktop"] { width: min(100%, 1180px); min-height: 430px; border-radius: 12px; }
+.live-preview-device[data-platform="android"] { border-radius: 18px; }
+.live-preview-device[data-platform="windows"],
+.live-preview-device[data-platform="macos"] { border-radius: 12px; }
+.live-preview-empty { display: grid; min-height: 360px; place-items: center; color: #748078; font-size: 11px; text-align: center; }
+
+.preview-lab-stage[data-theme="dark"] { border-color: #303631; background: #1d211e; }
+.preview-lab-stage[data-theme="dark"] .live-preview-canvas { background: #151815; }
+.preview-lab-stage[data-theme="dark"] .live-preview-device { border-color: #383f39; background: #202421; color: #f6f7f6; }
+.preview-lab-stage[data-theme="dark"] .preview-card,
+.preview-lab-stage[data-theme="dark"] .preview-list { border-color: #3a413b; background: #272c28; }
+.preview-lab-stage[data-theme="dark"] .preview-list div { border-color: #343a35; }
+
+@media (max-width: 780px) {
+  .preview-lab-head { align-items: flex-start; flex-direction: column; padding-inline: 16px; }
+  .preview-toolbar { margin-inline: 16px; }
+  .preview-field { width: 100%; }
+  .preview-field select { width: 100%; min-width: 0; }
+  .preview-current { width: 100%; margin-left: 0; }
+  .preview-lab-stage { margin-inline: 16px; padding: 10px; }
+  .live-preview-canvas { min-height: 430px; padding: 10px; }
+  .live-preview-device { padding: 14px; }
+}
