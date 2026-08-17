@@ -47,6 +47,20 @@ async function choosePlatform(page, platform, expectedSize) {
   }, { platform, expectedSize });
 }
 
+async function chooseDesignTheme(page, themeId, expectedSystem, expectedAccent) {
+  const input = page.locator(`input[name="colorTheme"][value="${themeId}"]`);
+  if (!(await input.count())) throw new Error(`missing color theme ${themeId}`);
+  await input.check();
+  await page.waitForFunction(({ themeId, expectedSystem, expectedAccent }) => {
+    const workbench = document.querySelector("#designSystemWorkbench");
+    const device = document.querySelector("#livePreviewDevice");
+    return workbench?.dataset.themeId === themeId
+      && workbench?.dataset.systemName === expectedSystem
+      && workbench?.dataset.accent?.toLowerCase() === expectedAccent
+      && device?.style.getPropertyValue("--preview-accent").trim().toLowerCase() === expectedAccent;
+  }, { themeId, expectedSystem, expectedAccent: expectedAccent.toLowerCase() });
+}
+
 await inspect("launcher.html?lang=zh&intent=create", async (page) => {
   if (!/从零创建/.test(await page.locator("#pageTitle").innerText())) throw new Error("create title did not render");
   assertCardModeShape(await modeShape(page), "create");
@@ -54,7 +68,7 @@ await inspect("launcher.html?lang=zh&intent=create", async (page) => {
 
   const steps = await page.locator(".launcher-step-link").count();
   if (steps !== 3) throw new Error(`expected exactly three workflow steps, got ${steps}`);
-  if (await page.locator('.ds-tab').count()) throw new Error("Design System tabs still exist in simplified mode");
+  if (await page.locator(".ds-tab").count()) throw new Error("Design System tabs still exist in simplified mode");
   if (!(await page.locator('[data-ds-panel="foundation"]').isVisible())) throw new Error("Foundation summary is hidden");
   if (!(await page.locator('[data-ds-panel="components"]').isVisible())) throw new Error("Components summary is hidden");
 
@@ -76,6 +90,9 @@ await inspect("launcher.html?lang=zh&intent=create", async (page) => {
   const outputPosition = await page.locator("#outputPanel").evaluate((el) => getComputedStyle(el).position);
   if (outputPosition === "sticky" || outputPosition === "fixed") throw new Error(`output is still competing as ${outputPosition}`);
 
+  await chooseDesignTheme(page, "google-material-3", "Material 3", "#6750a4");
+  await chooseDesignTheme(page, "airbnb", "Airbnb Visual System", "#e00b41");
+
   await page.locator("#previewPageTemplate").selectOption("dashboard");
   await page.waitForFunction(() => document.querySelector("#livePreviewDevice .pt-kpis"));
   await page.locator('#previewThemeSegment [data-theme="dark"]').click();
@@ -90,7 +107,7 @@ await inspect("launcher.html?lang=zh&intent=create", async (page) => {
     assertCardModeShape(await modeShape(page), intent);
     if (!(await page.locator("#designDecisions").isVisible())) throw new Error(`${intent}: design step disappeared`);
     if (!(await page.locator("#resultStage").isVisible())) throw new Error(`${intent}: result step disappeared`);
-    if (await page.locator('.ds-tab').count()) throw new Error(`${intent}: Design System tabs reappeared`);
+    if (await page.locator(".ds-tab").count()) throw new Error(`${intent}: Design System tabs reappeared`);
   }
 
   if (await page.locator('[name="audience"]').inputValue() !== "设计团队") throw new Error("create draft was not preserved");
@@ -102,7 +119,9 @@ await inspect("launcher.html?lang=en&intent=create", async (page) => {
   assertCardModeShape(await modeShape(page), "english-create");
   await page.locator("#previewLabSection").waitFor({ state: "visible" });
   if (!/page preview/i.test(await page.locator("#livePreviewTitle").innerText())) throw new Error("English page preview heading did not render");
+  const pseudo = await page.locator(".structured-brief").first().evaluate((el) => getComputedStyle(el, "::before").content).catch(() => "");
+  if (pseudo && /补齐关键信息/.test(pseudo)) throw new Error("English structured brief still exposes Chinese pseudo-copy");
 });
 
 await browser.close();
-console.log("Launcher runtime audit passed: one three-step flow, no duplicate Design System preview tabs, visible system summary, direct final-page preview ownership, non-sticky output, stable intent switching, and zh/en runtime.");
+console.log("Launcher runtime audit passed: one three-step flow, explicit four-owner runtime, real design-token propagation, one final preview, non-sticky output, stable intent switching, and zh/en runtime.");
