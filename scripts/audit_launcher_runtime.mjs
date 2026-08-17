@@ -7,12 +7,12 @@ async function inspect(url, run) {
   const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
   const page = await context.newPage();
   const errors = [];
-  page.on("pageerror", (error) => errors.push(error.message));
+  page.on("pageerror", (error) => errors.push(error.stack || error.message));
   try {
     await page.goto(`${baseUrl}/${url}`, { waitUntil: "networkidle" });
     await page.locator("#intentForm").waitFor({ state: "visible" });
     await run(page);
-    if (errors.length) throw new Error(`runtime page errors: ${errors.join(" | ")}`);
+    if (errors.length) throw new Error(`runtime page errors:\n${errors.join("\n---\n")}`);
   } finally {
     await context.close();
   }
