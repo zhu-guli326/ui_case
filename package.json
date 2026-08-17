@@ -9,7 +9,8 @@
     "test": "node --test",
     "check": "node scripts/check_site.mjs",
     "audit:visual": "node scripts/audit_demo_visual_contract.mjs",
-    "audit:library-preview": "node scripts/audit_library_preview_contract.mjs"
+    "audit:library-preview": "node scripts/audit_library_preview_contract.mjs",
+    "audit:bottom-safety": "node scripts/audit_demo_bottom_safety.mjs"
   },
   "engines": {
     "node": ">=20"
