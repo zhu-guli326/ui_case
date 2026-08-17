@@ -18,6 +18,9 @@
   --phone-shell-edge: #56565b;
   --phone-shell-library-finish: #111113;
   --phone-shell-library-edge: rgba(255, 255, 255, 0.24);
+  --phone-shell-statusbar-height: 44px;
+  --phone-shell-statusbar-top-padding: 4px;
+  --phone-shell-home-indicator-bottom: 6px;
 
   /* Backward-compatible token names used by existing demos. */
   --iphone-viewport-width: var(--phone-shell-screen-width);
@@ -55,6 +58,32 @@
   height: 100%;
   overflow: hidden;
   border-radius: var(--phone-shell-screen-radius) !important;
+}
+
+/*
+ * Shared screen safe areas.
+ * Cases may choose typography and color, but status-bar geometry and the
+ * hardware home indicator belong to PhoneShell so they cannot drift per case.
+ */
+.iphone-frame > .screen > .statusbar,
+.iphone-frame > .screen > .status-bar,
+.iphone-frame > .s > .statusbar,
+.iphone-frame > .s > .status-bar {
+  position: relative;
+  z-index: 30;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--phone-shell-statusbar-height) !important;
+  height: var(--phone-shell-statusbar-height) !important;
+  margin: 0;
+  padding-top: var(--phone-shell-statusbar-top-padding) !important;
+}
+
+.iphone-frame .home-indicator,
+.iphone-frame [class*="home-indicator"] {
+  bottom: var(--phone-shell-home-indicator-bottom) !important;
+  pointer-events: none !important;
+  user-select: none;
 }
 
 /* Legacy layouts whose authored screen is 390 x 844 inside a larger chassis. */
