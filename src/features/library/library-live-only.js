@@ -11,16 +11,6 @@ import { styleGuides } from "../../../catalog/index.js?v=20260815-artmuse-sequen
 const liveGuides = styleGuides.filter((guide) => Boolean(guide.liveDemo));
 const liveGuideById = new Map(liveGuides.map((guide) => [guide.id, guide]));
 
-/* These are screenshots captured from the actual clickable demos. Their older
- * mobile-preview posters are presentation compositions and do not match the
- * demo that opens after clicking the card. The Library thumbnail should be a
- * scaled version of the real demo, not a second art-directed preview. */
-const liveDemoCardScreens = Object.freeze({
-  mimo: "./demo/mimo-activities/screenshots/01-carousel.png",
-  moe: "./demo/moe-habits/screenshots/video-2x/01-intro.png",
-  moodly: "./demo/moodly-health/screenshots/01-checkin.png"
-});
-
 const gallery = document.querySelector("#demoGallery");
 const resultCount = document.querySelector("#resultCount");
 const emptyState = document.querySelector("#emptyState");
@@ -34,27 +24,32 @@ function countLabel(count) {
   return isEnglish() ? `${count} cases` : `${count} 个案例`;
 }
 
-function withPosterVersion(src) {
-  if (!src) return "";
-  return `${src}${src.includes("?") ? "&" : "?"}v=20260817-live-demo-card-v1`;
-}
-
-function forceNotebookLivePreview(card, guide) {
+/*
+ * Card preview rule
+ * -----------------
+ * Never use the old art-directed poster for a case that has a clickable demo.
+ * Those posters were authored at mixed sizes/aspect ratios and can make a
+ * desktop board, composite mockup, or incorrectly scaled phone appear inside
+ * the Library device frame.
+ *
+ * Instead, render the real demo itself in a non-interactive iframe. This gives
+ * the card the demo's actual first screen, at the same viewport used by the
+ * interactive preview, so the browse card and opened demo always agree.
+ */
+function forceLiveDemoFirstScreen(card, guide) {
   const screen = card.querySelector(".phone-screen") || card.querySelector(".phone-preview-media");
-  if (!screen) return;
+  if (!screen || !guide.liveDemo) return;
 
-  // The historical Marble Note poster is a presentation board containing its
-  // own phone mockups. It must never be shown in the browse grid.
   screen.querySelectorAll("img, video, iframe").forEach((node) => {
-    if (node.dataset?.notebookLive === "true") return;
+    if (node.dataset?.libraryLivePreview === "true") return;
     node.remove();
   });
 
-  let frame = screen.querySelector("iframe[data-notebook-live='true']");
+  let frame = screen.querySelector("iframe[data-library-live-preview='true']");
   if (!frame) {
     frame = document.createElement("iframe");
-    frame.dataset.notebookLive = "true";
-    frame.src = `${guide.liveDemo}${guide.liveDemo.includes("?") ? "&" : "?"}libraryPreview=1&v=20260817-notebook-live-v2`;
+    frame.dataset.libraryLivePreview = "true";
+    frame.src = `${guide.liveDemo}${guide.liveDemo.includes("?") ? "&" : "?"}libraryPreview=1&v=20260817-live-first-screen-v2`;
     frame.title = `${guide.name} preview`;
     frame.loading = "eager";
     frame.tabIndex = -1;
@@ -68,13 +63,15 @@ function forceNotebookLivePreview(card, guide) {
       "display:block",
       "pointer-events:none",
       "background:#fff",
-      "transform:none"
+      "transform:none",
+      "transform-origin:top left"
     ].join(";");
     screen.appendChild(frame);
   }
 
   const frameShell = card.querySelector(".phone-frame");
   frameShell?.classList.remove("has-wide-device-art", "has-fitted-device-art", "is-artboard-preview");
+  frameShell?.classList.add("has-live-first-screen");
 }
 
 function updateGlobalCounts() {
@@ -112,19 +109,7 @@ function normalizeRenderedCards() {
     }
 
     card.dataset.hasLiveDemo = "true";
-
-    if (guide.id === "notebook") {
-      forceNotebookLivePreview(card, guide);
-    } else {
-      const poster = card.querySelector(".phone-preview-media .phone-media");
-      if (poster && poster.tagName === "IMG") {
-        const source = liveDemoCardScreens[guide.id] || guide.poster;
-        if (source) {
-          const canonicalSrc = withPosterVersion(source);
-          if (poster.getAttribute("src") !== canonicalSrc) poster.setAttribute("src", canonicalSrc);
-        }
-      }
-    }
+    forceLiveDemoFirstScreen(card, guide);
 
     const primary = card.querySelector(".preview-open-button[data-preview-id]");
     if (primary) {
