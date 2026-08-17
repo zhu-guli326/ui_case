@@ -1,4 +1,4 @@
-name: Bottom Safety QA
+name: Phone Safety QA
 
 on:
   push:
@@ -6,7 +6,9 @@ on:
     paths:
       - "demo/**"
       - "catalog/cases/**"
+      - "src/components/device-preview/phone-shell.css"
       - "scripts/audit_demo_bottom_safety.mjs"
+      - "scripts/audit_demo_screen_safety.mjs"
       - "package.json"
       - ".github/workflows/bottom-safety.yml"
   pull_request:
@@ -14,7 +16,9 @@ on:
     paths:
       - "demo/**"
       - "catalog/cases/**"
+      - "src/components/device-preview/phone-shell.css"
       - "scripts/audit_demo_bottom_safety.mjs"
+      - "scripts/audit_demo_screen_safety.mjs"
       - "package.json"
       - ".github/workflows/bottom-safety.yml"
   workflow_dispatch:
@@ -23,7 +27,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: bottom-safety-${{ github.ref }}
+  group: phone-safety-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -48,13 +52,17 @@ jobs:
           done
           cat /tmp/ui-case-server.log
           exit 1
-      - name: Audit all live demo bottom areas
+      - name: Audit bottom navigation safety
         run: npm run audit:bottom-safety
-      - name: Upload bottom safety report
+      - name: Audit status bars and screen balance
+        run: npm run audit:screen-safety
+      - name: Upload phone safety reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: bottom-safety-report
-          path: artifacts/visual-qa/bottom-safety
+          name: phone-safety-report
+          path: |
+            artifacts/visual-qa/bottom-safety
+            artifacts/visual-qa/screen-safety
           if-no-files-found: error
           retention-days: 14
