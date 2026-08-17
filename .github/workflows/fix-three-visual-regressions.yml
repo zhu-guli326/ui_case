@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/fix-three-visual-regressions.yml"
+      - "scripts/repair_three_visual_regressions.py"
 
 permissions:
   contents: write
@@ -14,213 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Repair FuFu, FitHub and Mimo visual regressions
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-
-          def must_replace(path, old, new):
-              p = Path(path)
-              text = p.read_text()
-              if old not in text:
-                  raise SystemExit(f"missing expected text in {path}: {old[:80]!r}")
-              p.write_text(text.replace(old, new, 1))
-
-          def strip_phone_hardware(path):
-              p = Path(path)
-              text = p.read_text()
-              pattern = re.compile(r"(\.phone\s*\{)(.*?)(\})", re.S)
-              hardware = re.compile(r"(?:^|\s)(?:padding|border|border-radius|background|box-shadow)\s*:\s*[^;{}]+;?", re.I)
-              def clean(match):
-                  body = hardware.sub("", match.group(2))
-                  return match.group(1) + body + match.group(3)
-              cleaned, count = pattern.subn(clean, text)
-              if count == 0:
-                  raise SystemExit(f"no .phone rules found in {path}")
-              p.write_text(cleaned)
-
-          # FuFu: the polish file existed but was never loaded. Make the welcome
-          # composition balanced instead of anchoring the CTA below a huge void.
-          fufu_html = Path("demo/fufu-bakery/index.html")
-          text = fufu_html.read_text()
-          if "./visual-polish.css" not in text:
-              text = text.replace(
-                  '<link rel="stylesheet" href="../iphone-frame.css">',
-                  '<link rel="stylesheet" href="../iphone-frame.css">\n    <link rel="stylesheet" href="./visual-polish.css">',
-                  1,
-              )
-          fufu_html.write_text(text)
-          Path("demo/fufu-bakery/visual-polish.css").write_text('''/* Balanced 390x844 welcome composition. Keep the screen intentionally simple,
- * but distribute the existing content as one coherent block instead of leaving
- * a large accidental gap between the illustration and the CTA. */
-.welcome-view {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 31px 20px;
-}
-
-.welcome-brand { margin-top: 0; }
-.welcome-subtitle { margin: 4px 0 0; }
-.welcome-visual {
-  width: 286px;
-  height: 336px;
-  margin-top: 0;
-}
-.welcome-note {
-  max-width: 250px;
-  margin: 0;
-}
-.welcome-view .primary-button {
-  flex: 0 0 auto;
-  min-height: 52px;
-  margin-top: 14px;
-}
-''')
-
-          # PhoneShell remains the only hardware owner. Remove stale hardware
-          # declarations from the local .phone aliases used by these demos.
-          for css in [
-              "demo/fufu-bakery/styles.css",
-              "demo/fithub/styles.css",
-              "demo/mimo-activities/styles.css",
-          ]:
-              strip_phone_hardware(css)
-
-          # Mimo: use an inset floating tab bar. A full-width translucent slab is
-          # mathematically inside the viewport but visually collides with the
-          # rounded lower screen edge and reads as overflow.
-          mimo_html = Path("demo/mimo-activities/index.html")
-          text = mimo_html.read_text()
-          if "./visual-polish.css" not in text:
-              text = text.replace(
-                  '<link rel="stylesheet" href="../iphone-frame.css">',
-                  '<link rel="stylesheet" href="../iphone-frame.css">\n    <link rel="stylesheet" href="./visual-polish.css">',
-                  1,
-              )
-              text = text.replace(
-                  '<link rel="stylesheet" href="../iphone-frame.css" />',
-                  '<link rel="stylesheet" href="../iphone-frame.css" />\n    <link rel="stylesheet" href="./visual-polish.css" />',
-                  1,
-              )
-          mimo_html.write_text(text)
-          Path("demo/mimo-activities/visual-polish.css").write_text('''/* Keep bottom navigation visually inside the rounded screen instead of
- * painting a full-width rectangular overlay across the lower edge. */
-.app-view { inset-bottom: 88px; }
-.tabbar {
-  right: 12px;
-  bottom: 14px;
-  left: 12px;
-  height: 60px;
-  padding: 3px 18px 10px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 23px;
-  background: linear-gradient(180deg, rgba(61,59,137,.68), rgba(49,47,119,.94));
-  box-shadow: 0 8px 22px rgba(34,32,99,.18);
-  backdrop-filter: blur(14px);
-}
-.tab { min-height: 46px; }
-''')
-
-          # FitHub: its old MP4 contains baked phone chrome. Reuse the existing
-          # canonical 780x1688 screen-only states as the video sequence instead.
-          preview_config = Path("library-preview-config.mjs")
-          config = preview_config.read_text()
-          config = config.replace(
-              'const sequencePreferredCaseIds = new Set(["museum", "organique"]);',
-              'const sequencePreferredCaseIds = new Set(["museum", "organique", "fithub"]);',
-          )
-          preview_config.write_text(config)
-
-          library = Path("library.js")
-          source = library.read_text()
-          source = source.replace(
-              'import { getLibraryPreviewDevice, libraryPreviewAssetVersion } from "./library-preview-config.mjs";',
-              'import { getLibraryPreviewDevice, getLibraryPreviewProfile, libraryPreviewAssetVersion } from "./library-preview-config.mjs";',
-              1,
-          )
-          old = '''function getVideoSequence(guide) {
-  const sequence = guide?.videoSequence;
-  if (!sequence || !Number.isFinite(sequence.duration) || sequence.duration <= 0 || !sequence.frames?.length) return null;
-  return sequence;
-}'''
-          new = '''function getVideoSequence(guide) {
-  const sequence = guide?.videoSequence;
-  if (sequence && Number.isFinite(sequence.duration) && sequence.duration > 0 && sequence.frames?.length) return sequence;
-
-  const profile = getLibraryPreviewProfile(guide?.id);
-  const screenFrames = previewImageSets[guide?.id];
-  if (profile?.motionKind !== "screen-sequence" || !screenFrames?.length) return null;
-
-  const secondsPerFrame = 2;
-  return {
-    duration: screenFrames.length * secondsPerFrame,
-    frames: screenFrames.map((frame, index) => ({ ...frame, at: index * secondsPerFrame })),
-  };
-}'''
-          if old not in source:
-              raise SystemExit("getVideoSequence source changed; refusing blind replacement")
-          library.write_text(source.replace(old, new, 1))
-
-          # Regression test: lock the three visual fixes so they cannot silently
-          # regress while still passing geometry-only QA.
-          Path("tests/visual-regressions.test.mjs").write_text('''import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
-import path from "node:path";
-import test from "node:test";
-import { fileURLToPath } from "node:url";
-import { getLibraryPreviewProfile } from "../library-preview-config.mjs";
-
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const read = (file) => readFileSync(path.join(root, file), "utf8");
-
-function primaryPhoneRule(css) {
-  return css.match(/\\.phone\\s*\\{([^}]*)\\}/s)?.[1] || "";
-}
-
-test("FuFu loads a balanced welcome composition instead of an inactive polish file", () => {
-  const html = read("demo/fufu-bakery/index.html");
-  const polish = read("demo/fufu-bakery/visual-polish.css");
-  assert.match(html, /visual-polish\\.css/);
-  assert.match(polish, /justify-content:\s*center/);
-  assert.match(polish, /height:\s*336px/);
-  assert.doesNotMatch(polish, /margin-top:\s*auto/);
-});
-
-test("FitHub uses canonical screen frames for Demo video instead of baked phone chrome", () => {
-  const profile = getLibraryPreviewProfile("fithub");
-  const library = read("library.js");
-  assert.equal(profile?.motionKind, "screen-sequence");
-  assert.match(library, /getLibraryPreviewProfile/);
-  assert.match(library, /screenFrames = previewImageSets\[guide\?\.id\]/);
-  assert.match(library, /secondsPerFrame = 2/);
-});
-
-test("Mimo bottom navigation is inset from the rounded screen edge", () => {
-  const html = read("demo/mimo-activities/index.html");
-  const polish = read("demo/mimo-activities/visual-polish.css");
-  assert.match(html, /visual-polish\\.css/);
-  assert.match(polish, /right:\s*12px/);
-  assert.match(polish, /left:\s*12px/);
-  assert.match(polish, /border-radius:\s*23px/);
-});
-
-test("case-local phone aliases no longer own device hardware", () => {
-  for (const file of [
-    "demo/fufu-bakery/styles.css",
-    "demo/fithub/styles.css",
-    "demo/mimo-activities/styles.css",
-  ]) {
-    const rule = primaryPhoneRule(read(file));
-    assert.doesNotMatch(rule, /(?:padding|border|border-radius|background|box-shadow)\s*:/, `${file} must leave device chrome to PhoneShell`);
-  }
-});
-''')
-          PY
+      - name: Repair visual regressions
+        run: python scripts/repair_three_visual_regressions.py
       - name: Commit repairs
         run: |
           git config user.name "github-actions[bot]"
@@ -236,5 +32,9 @@ test("case-local phone aliases no longer own device hardware", () => {
             library-preview-config.mjs \
             library.js \
             tests/visual-regressions.test.mjs
+          if git diff --cached --quiet; then
+            echo "Nothing to repair"
+            exit 0
+          fi
           git commit -m "fix: resolve FuFu FitHub and Mimo visual regressions"
           git push origin main
