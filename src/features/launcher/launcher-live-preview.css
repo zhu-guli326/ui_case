@@ -23,13 +23,12 @@
 .preview-current b { color:#245c3b; }
 .preview-lab-stage { min-width:0; margin:0 24px 24px; padding:18px; overflow:auto; border:1px solid #dde4de; border-radius:12px; background:#f0f3f1; }
 .live-preview-canvas { display:flex; min-height:520px; align-items:flex-start; justify-content:center; padding:22px; overflow:auto; border-radius:10px; background:#e7ece8; }
-.live-preview-device { --preview-accent:#176f43; width:min(100%,390px); min-height:460px; padding:18px; border:1px solid #cfd6d0; border-radius:24px; background:#fff; color:#202721; box-shadow:0 16px 38px rgba(32,43,35,.13); transition:width .18s ease,border-radius .18s ease,background .18s ease,color .18s ease; }
+.live-preview-device { --preview-accent:#176f43; --preview-canvas:#fff; --preview-surface:#fff; --preview-ink:#202721; width:min(100%,390px); min-height:460px; padding:18px; border:1px solid #cfd6d0; border-radius:24px; background:var(--preview-canvas,#fff); color:var(--preview-ink,#202721); box-shadow:0 16px 38px rgba(32,43,35,.13); transition:width .18s ease,border-radius .18s ease,background .18s ease,color .18s ease; }
 .live-preview-device[data-size="tablet"] { width:min(100%,768px); border-radius:18px; }
 .live-preview-device[data-size="desktop"] { width:min(100%,1180px); min-height:430px; border-radius:12px; }
 .live-preview-device[data-platform="android"] { border-radius:18px; }
 .live-preview-device[data-platform="windows"],.live-preview-device[data-platform="macos"] { border-radius:12px; }
 
-/* Final page templates are owned here. Legacy hidden-preview modules no longer inject these rules. */
 .preview-template { width:100%; display:grid; gap:14px; }
 .preview-template * { box-sizing:border-box; }
 .pt-top { display:flex; align-items:center; justify-content:space-between; gap:12px; }
@@ -37,9 +36,9 @@
 .pt-title { margin:2px 0 0; font-size:24px; line-height:1.08; }
 .pt-sub { margin:4px 0 0; color:#6f7871; font-size:11px; line-height:1.5; }
 .pt-icon { display:grid; width:34px; height:34px; place-items:center; border-radius:50%; background:#eef1ef; }
-.pt-card { padding:16px; border:1px solid #dfe4e0; border-radius:16px; background:#fff; }
+.pt-card { padding:16px; border:1px solid #dfe4e0; border-radius:16px; background:var(--preview-surface,#fff); color:inherit; }
 .pt-primary { padding:12px 16px; border:0; border-radius:10px; background:var(--preview-accent,#176f43); color:#fff; font-weight:800; }
-.pt-secondary { padding:10px 13px; border:1px solid #dce2dd; border-radius:10px; background:#fff; font-weight:700; }
+.pt-secondary { padding:10px 13px; border:1px solid #dce2dd; border-radius:10px; background:var(--preview-surface,#fff); color:inherit; font-weight:700; }
 .pt-row { display:flex; align-items:center; gap:9px; }
 .pt-grid { display:grid; gap:10px; }
 .pt-chip { display:inline-flex; padding:5px 8px; border-radius:999px; background:#f0f3f1; font-size:9px; }
@@ -55,13 +54,13 @@
 .pt-kpis { grid-template-columns:repeat(3,1fr); }
 .pt-kpi strong { display:block; margin:3px 0; font-size:22px; }
 .pt-kpi small { color:#78827a; font-size:9px; }
-.pt-chart { position:relative; height:145px; overflow:hidden; border-radius:12px; background:linear-gradient(to top,#f4f7f5,#fff); }
+.pt-chart { position:relative; height:145px; overflow:hidden; border-radius:12px; background:linear-gradient(to top,#f4f7f5,var(--preview-surface,#fff)); }
 .pt-bars { display:flex; height:100%; align-items:flex-end; gap:8px; padding:18px; }
 .pt-bars i { flex:1; min-width:10px; border-radius:5px 5px 2px 2px; background:var(--preview-accent,#176f43); opacity:.25; }
 .pt-bars i:nth-child(2n) { opacity:.5; }
 .pt-bars i:nth-child(3n) { opacity:.85; }
 .pt-product { grid-template-columns:1.08fr .92fr; align-items:stretch; }
-.pt-product-visual { position:relative; display:grid; min-height:270px; place-items:center; overflow:hidden; border-radius:16px; background:linear-gradient(145deg,#f1f3f1,#dfe6e1); }
+.pt-product-visual { position:relative; display:grid; min-height:270px; place-items:center; overflow:hidden; border-radius:16px; background:linear-gradient(145deg,var(--preview-surface,#f1f3f1),#dfe6e1); }
 .pt-product-shape { width:58%; aspect-ratio:1; border-radius:28% 48% 34% 44%; background:linear-gradient(145deg,var(--preview-accent,#176f43),#b9c8bf); box-shadow:0 28px 55px rgba(28,45,34,.16); transform:rotate(-9deg); }
 .pt-product-info { display:flex; flex-direction:column; justify-content:center; gap:12px; }
 .pt-price { font-size:25px; font-weight:900; }
