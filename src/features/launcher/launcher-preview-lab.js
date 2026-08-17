@@ -30,6 +30,9 @@
       .format-icon-option:hover{border-color:#aeb8b0;background:#fafcfb}.format-icon-option.is-active{border-color:#16804b;background:#edf7f1;color:#126b3e;box-shadow:0 0 0 1px #16804b inset}
       .format-icon-option svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
       .format-icon-option strong{font-size:10px}.format-icon-option small{font-size:8px;color:#7a837c;text-align:center;line-height:1.35}
+      .brief-preset-select{width:100%;height:30px;margin-top:7px;padding:0 30px 0 9px;border:1px solid #d9e2db;border-radius:8px;background:#fff;color:#4c5b51;font:inherit;font-size:9px;font-weight:700;cursor:pointer;outline:none}
+      .brief-preset-select:hover{border-color:#aebbb1}.brief-preset-select:focus{border-color:#16804b;box-shadow:0 0 0 2px rgba(22,128,75,.08)}
+      .brief-preset-select option{font-weight:500;color:#243129}
       .preview-lab-section{order:99;padding:22px;border:1px solid #dde2dd;border-radius:14px;background:#fff}
       .preview-lab-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:14px}.preview-lab-head h2{margin:0;font-size:20px;letter-spacing:-.02em}.preview-lab-head p{margin:5px 0 0;color:var(--muted);font-size:11px}
       .preview-lab-badge{padding:7px 10px;border:1px solid #dce4dd;border-radius:999px;background:#f7faf8;color:#55705f;font-size:9px;font-weight:800}
@@ -53,6 +56,7 @@
         desktop:'<svg viewBox="0 0 32 32"><rect x="4" y="4" width="24" height="17" rx="2"></rect><path d="M12 27h8M16 21v6"></path></svg>'
       }; return icons[value]||icons.web;
     }
+
     function enhanceFormatSelector(){
       const select=document.querySelector('#intentForm select[name="format"]'); if(!select||select.dataset.iconEnhanced==='true')return;
       select.dataset.iconEnhanced='true';select.classList.add('format-select-hidden');const picker=document.createElement('div');picker.className='format-icon-picker';
@@ -60,7 +64,41 @@
       [...select.options].forEach(o=>{if(!details[o.value])return;const b=document.createElement('button');b.type='button';b.className='format-icon-option';b.dataset.value=o.value;b.innerHTML=formatIcon(o.value)+'<strong>'+details[o.value][0]+'</strong><small>'+details[o.value][1]+'</small>';b.onclick=()=>{select.value=o.value;select.dispatchEvent(new Event('change',{bubbles:true}));sync()};picker.append(b)});select.insertAdjacentElement('afterend',picker);
       function sync(){picker.querySelectorAll('button').forEach(b=>b.classList.toggle('is-active',b.dataset.value===select.value))}select.addEventListener('change',sync);sync();
     }
-    const intentForm=document.querySelector('#intentForm');if(intentForm){new MutationObserver(enhanceFormatSelector).observe(intentForm,{childList:true,subtree:true});enhanceFormatSelector()}
+
+    function enhanceBriefPresets(){
+      const brief=document.querySelector('#intentForm .structured-brief');
+      if(!brief)return;
+      const fields=[...brief.querySelectorAll('label')].filter(label=>label.querySelector('input,textarea'));
+      if(fields.length<3)return;
+      const presets=[
+        ['选择用户预设…','普通消费者','新用户 / 首次使用者','付费会员','团队管理员','内容创作者','附近上班族','学生 / 年轻用户','企业员工'],
+        ['选择核心任务预设…','浏览与搜索内容','预约并完成支付','注册登录并完成设置','创建 / 编辑 / 发布内容','查看数据并管理任务','选购商品并完成下单','上传文件并整理资料','聊天 / 匹配 / 建立联系'],
+        ['选择页面组合预设…','首页、列表、详情','登录、注册、首页、个人中心','首页、搜索、详情、结算、订单','工作台、列表、详情、设置','Onboarding、首页、编辑、发布','首页、日历、预约、支付、订单','首页、消息、聊天、个人资料','首页、上传、文件库、详情、设置']
+      ];
+      fields.slice(0,3).forEach((label,index)=>{
+        if(label.querySelector('.brief-preset-select'))return;
+        const input=label.querySelector('input,textarea');
+        const select=document.createElement('select');
+        select.className='brief-preset-select';
+        select.setAttribute('aria-label',presets[index][0]);
+        presets[index].forEach((text,i)=>{const option=document.createElement('option');option.value=i?text:'';option.textContent=text;select.append(option)});
+        select.addEventListener('change',()=>{
+          if(!select.value)return;
+          input.value=select.value;
+          input.dispatchEvent(new Event('input',{bubbles:true}));
+          input.dispatchEvent(new Event('change',{bubbles:true}));
+          select.value='';
+        });
+        label.append(select);
+      });
+    }
+
+    const intentForm=document.querySelector('#intentForm');
+    if(intentForm){
+      let enhanceTimer=0;
+      new MutationObserver(()=>{clearTimeout(enhanceTimer);enhanceTimer=setTimeout(()=>{enhanceFormatSelector();enhanceBriefPresets()},20)}).observe(intentForm,{childList:true,subtree:true});
+      enhanceFormatSelector();enhanceBriefPresets();
+    }
 
     const previewTab=workbench.querySelector('[data-ds-tab="preview"]');previewTab?.remove();
     const foundationTab=workbench.querySelector('[data-ds-tab="foundation"]'),foundationPanel=workbench.querySelector('[data-ds-panel="foundation"]');
