@@ -1,42 +1,42 @@
 /* Library media alignment hardening — 2026-08-17
- * Loaded last on purpose. This file only repairs media geometry and keeps the
- * existing Library visual design intact.
+ * Loaded last on purpose. Geometry only: the shared DevicePreview JS owns
+ * source normalization and presentation state; this file prevents later CSS
+ * from undoing that contract.
  */
 
-/* The base stylesheet positions the interactive iframe at 50%/50% and scales
- * its canonical 390 x 844 viewport. device-preview.css later reset transform
- * with !important, which left the iframe offset and clipped. Restore the
- * intended transform here and cancel the 4% overscan added by JS. */
+/* Interactive demos are authored at the canonical 390 x 844 viewport. The base
+ * Library stylesheet centers and scales the iframe, while device-preview.css
+ * later resets transforms with !important. Restore the intended geometry here.
+ * DevicePreview JS removes the historical 1.04 overscan from the scale value. */
 #previewMediaFrame:not(.is-artboard-preview) iframe.phone-media {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: var(--preview-source-width, 390px) !important;
+  height: var(--preview-source-height, 844px) !important;
+  max-width: none !important;
+  max-height: none !important;
   transform: translate(-50%, -50%) scale(var(--preview-embed-scale, 1)) !important;
   transform-origin: center center !important;
-  scale: .96153846;
 }
 
-/* Detail previews should prioritize correctness over edge-to-edge cropping.
- * Exact canonical phone captures still use cover; mismatched phone captures,
- * videos, and wide effect boards are switched to contain by media guard JS. */
-#previewMediaFrame[data-preview-fit="contain"]:not(.is-artboard-preview) .phone-media:not(iframe) {
-  object-fit: contain !important;
-  object-position: center center !important;
-  background: #000 !important;
-}
-
-#previewMediaFrame[data-preview-fit="cover"]:not(.is-artboard-preview) .phone-media:not(iframe) {
-  object-fit: cover !important;
+/* Canonical phone media already matches the 390 x 844 screen. Centering is a
+ * safer default than top anchoring: exact-ratio sources are visually unchanged,
+ * while tiny encoding/rounding differences no longer bias cropping downward. */
+#previewMediaFrame:not(.is-artboard-preview) .phone-media:not(iframe) {
   object-position: center center !important;
 }
 
-/* Artboards are not phones. Remove hardware chrome and always show the whole
- * authored image/video rather than forcing it into 390 x 844. */
+/* Non-phone reference boards are classified by DevicePreview and must always
+ * remain fully visible instead of being forced into the phone crop. */
 #previewMediaFrame.is-artboard-preview .phone-media:not(iframe) {
   object-fit: contain !important;
   object-position: center center !important;
   background: transparent !important;
 }
 
-/* Stable viewport fallback: use vh first, then upgrade to dvh where supported.
- * This prevents old/embedded browsers from dropping the sizing declaration. */
+/* Stable viewport fallback: declare vh first, then upgrade to dvh where the
+ * browser supports dynamic viewport units. */
 #previewMediaFrame:not(.is-artboard-preview) {
   width: min(
     var(--library-detail-device-width, 300px),
@@ -59,7 +59,6 @@
   }
 }
 
-/* Keep non-phone boards proportional to their real source. */
 #previewMediaFrame.is-artboard-preview {
   aspect-ratio: var(--adaptive-media-ratio, 4 / 3) !important;
   width: min(620px, calc(100% - 40px)) !important;
