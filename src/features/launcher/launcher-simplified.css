@@ -37,6 +37,7 @@
 .launcher-simplified .intent-form>.config-section:first-child .text-field input,.launcher-simplified .intent-form>.config-section:first-child textarea{font-size:12px}
 .launcher-simplified .structured-brief{padding:14px;border-radius:10px;background:#fafcfb}
 .launcher-simplified .structured-brief::before{content:"补齐关键信息";margin-bottom:10px;font-size:9px}
+html[lang="en"] .launcher-simplified .structured-brief::before{content:"Complete key details"}
 .launcher-simplified .brief-chips{margin-top:7px}
 .launcher-simplified .design-decisions-body{display:grid;grid-template-columns:1fr 1fr}
 .launcher-simplified .design-decisions-body>.style-direction{grid-column:1/-1}
@@ -57,7 +58,7 @@
 .launcher-simplified .platform-hint{margin-top:8px;padding:8px 10px}
 .launcher-simplified .color-theme-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
 .launcher-simplified .color-theme-card{min-height:76px}
-.launcher-simplified .design-system-workbench{margin-top:14px;padding:14px;border:1px solid #e4e9e5;border-radius:12px;background:#fafcfb}
+.launcher-simplified #designSystemWorkbench.design-system-workbench{display:block!important;margin-top:14px;padding:14px;border:1px solid #e4e9e5;border-radius:12px;background:#fafcfb}
 .launcher-simplified .ds-toolbar{margin-bottom:10px}
 .launcher-simplified .ds-toolbar strong{font-size:11px}
 .launcher-simplified .ds-toolbar span{font-size:8px}
@@ -87,5 +88,15 @@
 .launcher-simplified .prompt-output{min-height:220px}
 .launcher-simplified .prompt-actions{justify-content:flex-end;margin-top:12px}
 .launcher-simplified .assistant-trigger{right:20px;bottom:20px}
+.launcher-simplified :is(button,a,input,textarea,select,[tabindex]):focus-visible{outline:3px solid #0b6b3a!important;outline-offset:3px!important}
+.launcher-simplified .mode-tabs>button:focus-visible,.launcher-simplified .platform-card:focus-visible{box-shadow:0 0 0 4px #fff,0 0 0 7px #0b6b3a!important}
+.launcher-simplified .field-validation-error{margin:6px 0 0;color:#8f2d20;font-size:11px;font-weight:700;line-height:1.45}
+.launcher-simplified [aria-invalid="true"]{border-color:#a33d2e!important;box-shadow:0 0 0 2px rgba(163,61,46,.12)!important}
+.launcher-simplified .generate-button[disabled]{opacity:.58;cursor:not-allowed}
+.launcher-simplified .prompt-actions .primary-action-wrap{position:relative}
+.launcher-simplified .prompt-actions .primary-action-wrap[data-readiness="blocked"]::after{position:absolute;inset:0;content:"";cursor:help}
+.launcher-simplified .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 @media(max-width:980px){.launcher-simplified .launcher-shell{width:min(100% - 28px,1240px)}.launcher-simplified .page-heading{grid-template-columns:1fr}.launcher-simplified .launcher-step-nav{justify-content:flex-start}.launcher-simplified .design-decisions-body{grid-template-columns:1fr}.launcher-simplified .design-decisions-body>.style-direction,.launcher-simplified .design-decisions-body>.color-theme-section{grid-column:auto}.launcher-simplified .design-decisions-body>.platform-section{border-right:0}.launcher-simplified .style-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.launcher-simplified .color-theme-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.launcher-simplified .ds-summary-grid,.launcher-simplified .output-review-grid{grid-template-columns:1fr}}
 @media(max-width:680px){.launcher-simplified .launcher-shell{width:calc(100% - 20px);padding-top:12px}.launcher-simplified .page-heading{padding:18px}.launcher-simplified .launcher-step-nav{overflow:auto}.launcher-simplified .launcher-step-link{min-width:108px;padding:8px 10px}.launcher-simplified .mode-tabs{grid-template-columns:1fr 1fr}.launcher-simplified .mode-tabs>button:last-child{grid-column:1/-1}.launcher-simplified .style-card-grid,.launcher-simplified .platform-grid,.launcher-simplified .color-theme-grid,.launcher-simplified .ds-foundation-grid,.launcher-simplified .component-strip{grid-template-columns:1fr}.launcher-simplified .stage-heading,.launcher-simplified .mode-picker,.launcher-simplified .intent-form>.config-section,.launcher-simplified .design-decisions-body>section,.launcher-simplified .result-stage-body,.launcher-simplified #outputPanel{padding-left:16px!important;padding-right:16px!important}}
+@media(prefers-contrast:more){.launcher-simplified{--muted:#424b44;--quiet:#515a52;--line:#a6aea7;--line-strong:#727c74}.launcher-simplified .workspace-stage{border-color:#8f9991!important}}
+@media(prefers-reduced-motion:reduce){.launcher-simplified *,.launcher-simplified *::before,.launcher-simplified *::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
