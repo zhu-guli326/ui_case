@@ -36,8 +36,9 @@ test("PhoneShell is the single reusable owner of direct-demo device chrome", () 
   assert.doesNotMatch(compatibilityCss, /\b(?:border|border-radius|box-shadow|background|padding)\s*:/, "demo/iphone-frame.css must stay an import-only compatibility entry");
 
   const viteDemo = "smart-home-ui-v2";
+  assert.ok(demoDirectories.includes(viteDemo), `${viteDemo} must remain part of the direct-demo contract`);
   const staticDemos = demoDirectories.filter((name) => name !== viteDemo);
-  assert.equal(staticDemos.length, 27);
+  assert.equal(staticDemos.length, demoDirectories.length - 1, "every non-Vite direct demo must be covered by the shared PhoneShell audit");
 
   for (const demo of staticDemos) {
     const html = readFileSync(path.join(demoRoot, demo, "index.html"), "utf8");
