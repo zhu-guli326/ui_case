@@ -1,4 +1,4 @@
-const STYLE_VERSION = "20260817-simplified-v2";
+const STYLE_VERSION = "20260817-simplified-v3";
 const q = (selector) => document.querySelector(selector);
 const qa = (selector, root = document) => [...root.querySelectorAll(selector)];
 const locale = () => {
@@ -88,7 +88,6 @@ function init() {
   }
   function syncMetadata() {
     currentSystem.textContent = q('#previewSystemName')?.textContent?.trim() || localized('跟随上方选择', 'Follow selection');
-    liveDevice.dataset.platform = sourceDevice.dataset.platform || currentPlatform();
     const accent = sourceDevice.style.getPropertyValue('--preview-accent') || getComputedStyle(sourceDevice).getPropertyValue('--preview-accent');
     if (accent.trim()) liveDevice.style.setProperty('--preview-accent', accent.trim());
   }
@@ -109,25 +108,37 @@ function init() {
     });
   }
   function setDeviceForPlatform(platform) {
-    setDevice(platform === 'windows' || platform === 'macos' ? 'desktop' : 'mobile');
     liveDevice.dataset.platform = platform;
+    setDevice(platform === 'windows' || platform === 'macos' ? 'desktop' : 'mobile');
+  }
+  function syncPlatformFromUi() {
+    setDeviceForPlatform(currentPlatform());
   }
 
   pageSelect.addEventListener('change', renderPage);
   languageSelect.addEventListener('change', renderPage);
   qa('#previewDeviceSegment button', section).forEach((button) => button.addEventListener('click', () => setDevice(button.dataset.size)));
   qa('#previewThemeSegment button', section).forEach((button) => button.addEventListener('click', () => setTheme(button.dataset.theme)));
-  new MutationObserver(syncMetadata).observe(sourceDevice, { attributes:true, attributeFilter:['style','data-platform'] });
+
+  const platformGrid = q('#platformGrid');
+  platformGrid?.addEventListener('click', (event) => {
+    if (!event.target.closest('.platform-card[data-platform]')) return;
+    queueMicrotask(syncPlatformFromUi);
+    requestAnimationFrame(syncPlatformFromUi);
+  });
+  if (platformGrid) new MutationObserver(syncPlatformFromUi).observe(platformGrid, { subtree:true, attributes:true, attributeFilter:['aria-checked','class'] });
+
+  new MutationObserver(syncMetadata).observe(sourceDevice, { attributes:true, attributeFilter:['style'] });
   const systemName = q('#previewSystemName');
   if (systemName) new MutationObserver(syncMetadata).observe(systemName, { childList:true, characterData:true, subtree:true });
-  window.addEventListener('image2:launcherplatformchange', (event) => { setDeviceForPlatform(event.detail?.platform || currentPlatform()); requestAnimationFrame(syncMetadata); });
+  window.addEventListener('image2:launcherplatformchange', (event) => setDeviceForPlatform(event.detail?.platform || currentPlatform()));
   document.addEventListener('change', (event) => {
     if (event.target.matches('[name="colorTheme"],[name="fontScheme"]')) window.setTimeout(syncMetadata, 40);
   });
   window.image2I18n?.registerPage?.(() => { languageSelect.value = locale(); renderPage(); window.setTimeout(syncMetadata, 40); });
 
   setTheme('light');
-  setDeviceForPlatform(currentPlatform());
+  syncPlatformFromUi();
   syncMetadata();
   renderPage();
 }
