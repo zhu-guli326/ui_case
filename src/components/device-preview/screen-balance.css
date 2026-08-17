@@ -1,0 +1,156 @@
+/*
+ * ScreenBalance
+ * -------------
+ * Shared embed-only composition corrections for secondary demo screens that
+ * otherwise leave a large dead zone above the persistent bottom navigation.
+ *
+ * These rules redistribute existing UI only. They do not add synthetic copy or
+ * content, and they are scoped by each demo's distinctive screen structure.
+ */
+
+/* Buddy travel planner ----------------------------------------------------- */
+.embed-mode .screen:has(.destination-list) .view.explore {
+  display: flex;
+  flex-direction: column;
+}
+
+.embed-mode .screen:has(.destination-list) .destination-list {
+  flex: 1 1 auto;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  min-height: 0;
+  margin-top: 24px;
+  gap: 12px;
+}
+
+.embed-mode .screen:has(.destination-list) .destination-list button {
+  min-height: 0;
+  height: 100%;
+}
+
+.embed-mode .screen:has(.destination-list) .explore .new-trip {
+  flex: 0 0 auto;
+  margin-top: 16px;
+}
+
+.embed-mode .screen:has(.destination-list) .view.trips {
+  display: flex;
+  flex-direction: column;
+}
+
+.embed-mode .screen:has(.destination-list) .trip-card {
+  min-height: 330px;
+  margin-top: 30px;
+  align-content: center;
+}
+
+.embed-mode .screen:has(.destination-list) .view.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 92px;
+}
+
+.embed-mode .screen:has(.destination-list) .profile .avatar {
+  width: 124px;
+  height: 124px;
+  margin: 0 auto 24px;
+}
+
+.embed-mode .screen:has(.destination-list) .profile .avatar svg {
+  width: 54px;
+  height: 54px;
+}
+
+.embed-mode .screen:has(.destination-list) .profile .profile-copy {
+  margin: 18px auto 8px;
+}
+
+/* Loy / Brightly ---------------------------------------------------------- */
+.embed-mode .screen:has(.playlist-art) .view.playlist {
+  display: flex;
+  flex-direction: column;
+}
+
+.embed-mode .screen:has(.playlist-art) .playlist-art {
+  height: 248px;
+  flex: 0 0 248px;
+  margin-top: 14px;
+}
+
+.embed-mode .screen:has(.playlist-art) .mood-picks {
+  margin-top: 18px;
+}
+
+.embed-mode .screen:has(.playlist-art) .thumb {
+  height: 92px;
+}
+
+.embed-mode .screen:has(.playlist-art) .view.welcome {
+  align-content: center;
+  padding-bottom: 92px;
+}
+
+.embed-mode .screen:has(.playlist-art) .welcome h1 {
+  margin-top: 12px;
+}
+
+.embed-mode .screen:has(.playlist-art) .peace-art {
+  width: 278px;
+  height: 305px;
+  margin-top: 10px;
+}
+
+/* Marble Note ------------------------------------------------------------- */
+.embed-mode .screen:has(.folder-card) .app-view[data-view="search"] .list-stack {
+  gap: 15px;
+  margin-top: 18px;
+}
+
+.embed-mode .screen:has(.folder-card) .app-view[data-view="search"] .list-stack button {
+  min-height: 108px;
+  padding: 18px 16px;
+}
+
+.embed-mode .screen:has(.folder-card) .app-view[data-view="create"] .editor-card {
+  min-height: 410px;
+  gap: 18px;
+  padding: 22px;
+}
+
+.embed-mode .screen:has(.folder-card) .app-view[data-view="create"] .editor-card textarea {
+  min-height: 270px;
+}
+
+.embed-mode .screen:has(.folder-card) .app-view[data-view="settings"] .profile-card {
+  min-height: 104px;
+  padding: 20px;
+}
+
+.embed-mode .screen:has(.folder-card) .app-view[data-view="settings"] .settings-list {
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.embed-mode .screen:has(.folder-card) .app-view[data-view="settings"] .settings-list button {
+  min-height: 96px;
+  padding: 16px;
+}
+
+/* Reflect journal --------------------------------------------------------- */
+.embed-mode .screen:has(.home-hero) .collection-card {
+  height: 308px;
+}
+
+.embed-mode .screen:has(.home-hero) .collection-row {
+  min-height: 88px;
+}
+
+.embed-mode .screen:has(.home-hero) .writing-copy textarea {
+  height: 306px;
+}
+
+.embed-mode .screen:has(.home-hero) .mood-select {
+  margin-top: 22px;
+  padding-top: 20px;
+}
