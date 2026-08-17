@@ -1,4 +1,4 @@
-const VERSION = "20260817-consistency-v1";
+const VERSION = "20260817-simplified-v1";
 
 function reportFailure(label, error) {
   console.error(`[launcher] ${label} failed to load`, error);
@@ -44,6 +44,12 @@ async function loadEnhancements() {
   results.forEach((result, index) => {
     if (result.status === "rejected") reportFailure(modules[index][0], result.reason);
   });
+
+  try {
+    await import(`./launcher-simplified-runtime.js?v=${VERSION}`);
+  } catch (error) {
+    reportFailure("simplified-runtime", error);
+  }
 }
 
 installCompatibilityStyles();
