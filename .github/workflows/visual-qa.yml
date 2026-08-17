@@ -3,7 +3,7 @@ name: Visual QA
 on:
   pull_request:
     branches: [main]
-    types: [opened, reopened, ready_for_review]
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - "catalog/cases/**"
       - "demo/**"
@@ -78,73 +78,7 @@ jobs:
         if: always()
         continue-on-error: true
         run: node scripts/render_visual_qa_report.mjs
-      - name: Sync every live first state to its canonical card preview
-        if: always() && steps.audit.outcome != 'skipped' && github.event_name == 'workflow_dispatch' && github.ref_type == 'branch' && github.ref_name != 'main' && github.actor != 'github-actions[bot]'
-        run: |
-          node --input-type=module <<'NODE'
-          import fs from 'node:fs';
-          import path from 'node:path';
-
-          const reportPath = 'artifacts/visual-qa/visual-qa.json';
-          if (!fs.existsSync(reportPath)) throw new Error(`Missing visual QA report: ${reportPath}`);
-          const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
-          const records = fs.readdirSync('catalog/cases')
-            .filter((name) => name.endsWith('.json'))
-            .sort()
-            .map((name) => JSON.parse(fs.readFileSync(path.join('catalog/cases', name), 'utf8')));
-          const live = records.filter((item) => item.liveDemo);
-          if (live.length !== 16) throw new Error(`Expected 16 live cases, found ${live.length}`);
-
-          const liveIds = new Set(live.map((item) => item.id));
-          const blocked = report.cases.filter((item) => liveIds.has(item.id) && item.issues?.length);
-          if (blocked.length) {
-            console.error('Refusing to sync canonical previews for live cases with hard failures:', blocked.map((item) => item.id));
-            process.exit(1);
-          }
-
-          const lines = [];
-          for (const item of live) {
-            const source = `artifacts/visual-qa/live/${item.id}.png`;
-            if (!fs.existsSync(source)) throw new Error(`Missing rendered live state: ${source}`);
-            const destination = item.liveDemo
-              .replace(/^\.\//, '')
-              .replace(/index\.html$/, 'screenshots/library-preview-2x.png');
-            lines.push([item.id, source, destination].join('\t'));
-          }
-          fs.writeFileSync('/tmp/preview-targets.tsv', `${lines.join('\n')}\n`);
-          NODE
-
-          git pull --ff-only origin "${GITHUB_REF_NAME}"
-
-          while IFS=$'\t' read -r case_id source destination; do
-            mkdir -p "$(dirname "$destination")"
-            echo "Syncing $case_id -> $destination"
-            ffmpeg -nostdin -loglevel error -y -i "$source" -vf scale=780:1688:flags=lanczos "$destination"
-          done < /tmp/preview-targets.tsv
-
-          # Organique exposes three stills in its image/video sequence. Keep them
-          # screen-only so no historical baked phone shell can re-enter the UI.
-          ffmpeg -nostdin -loglevel error -y -i artifacts/visual-qa/screen-only/organique/01-choose.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/01-choose.png
-          ffmpeg -nostdin -loglevel error -y -i artifacts/visual-qa/screen-only/organique/02-plan.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/02-plan.png
-          ffmpeg -nostdin -loglevel error -y -i artifacts/visual-qa/screen-only/organique/03-confirmation.png -vf scale=780:1688:flags=lanczos demo/organique-food/screenshots/03-confirmation.png
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          while IFS=$'\t' read -r _ _ destination; do
-            git add -f "$destination"
-          done < /tmp/preview-targets.tsv
-          git add -f \
-            demo/organique-food/screenshots/01-choose.png \
-            demo/organique-food/screenshots/02-plan.png \
-            demo/organique-food/screenshots/03-confirmation.png
-
-          if git diff --cached --quiet; then
-            echo "All live canonical previews already match their rendered first states."
-            exit 0
-          fi
-          git commit -m "chore: sync all live canonical preview screenshots"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
-      - name: Upload visual QA report
+      - name: Upload visual QA artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -152,7 +86,7 @@ jobs:
           path: artifacts/visual-qa
           if-no-files-found: error
           retention-days: 14
-      - name: Enforce structured visual QA result
+      - name: Fail on visual contract regression
         if: always()
         run: |
           node --input-type=module <<'NODE'
