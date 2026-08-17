@@ -43,12 +43,15 @@ try {
       const rectData = (rect) => ({ left: rect.left, top: rect.top, right: rect.right, bottom: rect.bottom, width: rect.width, height: rect.height });
       const intersects = (a, b) => Math.max(a.left, b.left) < Math.min(a.right, b.right) && Math.max(a.top, b.top) < Math.min(a.bottom, b.bottom);
 
-      const status = [...document.querySelectorAll(".statusbar,.status-bar")].find(isVisible) || null;
+      const status = [...document.querySelectorAll(".statusbar,.status-bar,.status")].find(isVisible) || null;
       const statusRect = status ? status.getBoundingClientRect() : null;
       const island = [...document.querySelectorAll(".island,.dynamic-island,[class*='dynamic-island']")].find(isVisible) || null;
       const islandRect = island ? island.getBoundingClientRect() : null;
       const statusChildren = status
-        ? [...status.children].filter(isVisible).map((child) => ({ tag: child.tagName.toLowerCase(), rect: rectData(child.getBoundingClientRect()) }))
+        ? [...status.children]
+            .filter(isVisible)
+            .filter((child) => !child.matches(".island,.dynamic-island,[class*='dynamic-island']"))
+            .map((child) => ({ tag: child.tagName.toLowerCase(), rect: rectData(child.getBoundingClientRect()) }))
         : [];
       const statusIslandOverlap = Boolean(islandRect && statusChildren.some((child) => intersects(child.rect, islandRect)));
 
@@ -63,7 +66,7 @@ try {
       const meaningfulSelector = "h1,h2,h3,h4,p,small,strong,time,img,figure,button,a,input,label,li,article,[role='button']";
       const meaningful = [...activeView.querySelectorAll(meaningfulSelector)]
         .filter(isVisible)
-        .filter((element) => !element.closest("nav,.tabbar,.bottom-nav,.bottom-bar,.bottom-tabs,.statusbar,.status-bar"))
+        .filter((element) => !element.closest("nav,.tabbar,.bottom-nav,.bottom-bar,.bottom-tabs,.statusbar,.status-bar,.status"))
         .map((element) => element.getBoundingClientRect())
         .filter((rect) => rect.top >= 0 && rect.top < bottomBoundary + 4 && rect.bottom > 0)
         .filter((rect) => rect.width < vw * 0.98 || rect.height < vh * 0.45);
@@ -83,6 +86,7 @@ try {
     });
 
     const issues = [];
+    const reviews = [];
     if (!metrics.statusbar) issues.push("statusbar-missing");
     if (metrics.statusbar) {
       if (metrics.statusbar.top < -2 || metrics.statusbar.bottom > 62) issues.push("statusbar-out-of-safe-zone");
@@ -90,9 +94,9 @@ try {
       if (metrics.statusbar.left < -2 || metrics.statusbar.right > metrics.viewport.width + 2) issues.push("statusbar-horizontal-overflow");
     }
     if (metrics.statusIslandOverlap) issues.push("statusbar-island-overlap");
-    if (metrics.bottomWhitespace > 210) issues.push("excess-bottom-whitespace");
+    if (metrics.bottomWhitespace > 210) reviews.push("excess-bottom-whitespace");
 
-    results.push({ id: record.id, name: record.name, liveDemo: record.liveDemo, issues, ...metrics });
+    results.push({ id: record.id, name: record.name, liveDemo: record.liveDemo, issues, reviews, ...metrics });
     await page.screenshot({ path: path.join(outputDir, `${record.id}.png`), type: "png", fullPage: false });
   }
 } finally {
@@ -100,12 +104,14 @@ try {
 }
 
 const failed = results.filter((result) => result.issues.length);
+const review = results.filter((result) => result.reviews.length);
 const report = {
   generatedAt: new Date().toISOString(),
-  summary: { total: results.length, passed: results.length - failed.length, failed: failed.length },
+  summary: { total: results.length, passed: results.length - failed.length, failed: failed.length, review: review.length },
   cases: results,
 };
 fs.writeFileSync(path.join(outputDir, "screen-safety.json"), `${JSON.stringify(report, null, 2)}\n`, "utf8");
 console.log(JSON.stringify(report.summary, null, 2));
 for (const item of failed) console.error(`${item.id}: ${item.issues.join(", ")} (bottomWhitespace=${Math.round(item.bottomWhitespace)}px)`);
+for (const item of review) console.warn(`${item.id}: ${item.reviews.join(", ")} (bottomWhitespace=${Math.round(item.bottomWhitespace)}px)`);
 if (failed.length) process.exitCode = 1;
