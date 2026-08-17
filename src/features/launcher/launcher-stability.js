@@ -29,8 +29,6 @@
       }, true);
     }
 
-    // Create mode no longer owns a standalone typography catalogue.
-    // Typography is summarized in the final preview/brand summary only.
     const style = document.createElement("style");
     style.id = "launcher-hide-redundant-typography";
     style.textContent = `
@@ -44,7 +42,6 @@
 
     function removeStandaloneTypography() {
       if (!document.body.classList.contains("create-flow-refactored")) return;
-
       document.querySelectorAll(
         ".font-workbench,.font-preview-shell,[data-font-workbench],[data-section='typography'],[data-section='font']"
       ).forEach((el) => el.remove());
@@ -67,17 +64,30 @@
       });
     }
 
-    function loadDistinctPreviewTemplates() {
-      if (document.querySelector('script[data-launcher-preview-templates]')) return;
+    function loadScriptOnce(selector, src, dataKey) {
+      if (document.querySelector(selector)) return;
       const script = document.createElement("script");
-      script.src = "./src/features/launcher/launcher-preview-templates.js?v=20260817-distinct-pages-v1";
+      script.src = src;
       script.defer = true;
-      script.dataset.launcherPreviewTemplates = "true";
+      script.dataset[dataKey] = "true";
       document.body.append(script);
     }
 
+    function loadPreviewEnhancements() {
+      loadScriptOnce(
+        'script[data-launcher-preview-templates]',
+        './src/features/launcher/launcher-preview-templates.js?v=20260817-distinct-pages-v2',
+        'launcherPreviewTemplates'
+      );
+      loadScriptOnce(
+        'script[data-launcher-preview-modern-cases]',
+        './src/features/launcher/launcher-preview-modern-cases.js?v=20260817-modern-cases-v1',
+        'launcherPreviewModernCases'
+      );
+    }
+
     removeStandaloneTypography();
-    loadDistinctPreviewTemplates();
+    loadPreviewEnhancements();
 
     let queued = false;
     new MutationObserver(() => {
@@ -86,7 +96,7 @@
       requestAnimationFrame(() => {
         queued = false;
         removeStandaloneTypography();
-        loadDistinctPreviewTemplates();
+        loadPreviewEnhancements();
       });
     }).observe(document.querySelector(".workspace-main") || document.body, { childList: true, subtree: true });
   });
