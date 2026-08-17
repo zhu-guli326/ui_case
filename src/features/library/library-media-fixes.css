@@ -1,14 +1,15 @@
 /* Library media alignment hardening — 2026-08-17
- * Loaded last on purpose. Geometry only: the shared DevicePreview JS owns
- * source normalization and presentation state; this file prevents later CSS
- * from undoing that contract.
+ * Loaded before the detail viewer layout. Geometry only: the shared DevicePreview
+ * JS owns source normalization and presentation state; this file protects the
+ * canonical Library-owned phone contract. Recorded videos that already contain
+ * their own rendered device opt out through `.is-source-video`.
  */
 
 /* Interactive demos are authored at the canonical 390 x 844 viewport. The base
  * Library stylesheet centers and scales the iframe, while device-preview.css
  * later resets transforms with !important. Restore the intended geometry here.
  * DevicePreview JS removes the historical 1.04 overscan from the scale value. */
-#previewMediaFrame:not(.is-artboard-preview) iframe.phone-media {
+#previewMediaFrame:not(.is-artboard-preview):not(.is-source-video) iframe.phone-media {
   position: absolute !important;
   top: 50% !important;
   left: 50% !important;
@@ -23,7 +24,7 @@
 /* Canonical phone media already matches the 390 x 844 screen. Centering is a
  * safer default than top anchoring: exact-ratio sources are visually unchanged,
  * while tiny encoding/rounding differences no longer bias cropping downward. */
-#previewMediaFrame:not(.is-artboard-preview) .phone-media:not(iframe) {
+#previewMediaFrame:not(.is-artboard-preview):not(.is-source-video) .phone-media:not(iframe) {
   object-position: center center !important;
 }
 
@@ -36,8 +37,9 @@
 }
 
 /* Stable viewport fallback: declare vh first, then upgrade to dvh where the
- * browser supports dynamic viewport units. */
-#previewMediaFrame:not(.is-artboard-preview) {
+ * browser supports dynamic viewport units. Source-owned recorded video is sized
+ * by the detail-view stylesheet instead of receiving the Library phone shell. */
+#previewMediaFrame:not(.is-artboard-preview):not(.is-source-video) {
   width: min(
     var(--library-detail-device-width, 300px),
     calc(100% - 48px),
@@ -49,7 +51,7 @@
 }
 
 @supports (height: 100dvh) {
-  #previewMediaFrame:not(.is-artboard-preview) {
+  #previewMediaFrame:not(.is-artboard-preview):not(.is-source-video) {
     width: min(
       var(--library-detail-device-width, 300px),
       calc(100% - 48px),
@@ -73,7 +75,7 @@
 }
 
 @media (max-width: 760px) {
-  #previewMediaFrame:not(.is-artboard-preview) {
+  #previewMediaFrame:not(.is-artboard-preview):not(.is-source-video) {
     width: min(
       var(--library-detail-device-width, 300px),
       calc(100% - 32px),
@@ -90,7 +92,7 @@
   }
 
   @supports (height: 100dvh) {
-    #previewMediaFrame:not(.is-artboard-preview) {
+    #previewMediaFrame:not(.is-artboard-preview):not(.is-source-video) {
       width: min(
         var(--library-detail-device-width, 300px),
         calc(100% - 32px),
