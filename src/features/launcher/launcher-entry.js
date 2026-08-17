@@ -10,6 +10,15 @@ function reportFailure(label, error) {
   toast.hidden = false;
 }
 
+function installCompatibilityStyles() {
+  if (document.querySelector('link[data-launcher-compat]')) return;
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = new URL(`./launcher-workspace-compat.css?v=${VERSION}`, import.meta.url).href;
+  link.dataset.launcherCompat = "true";
+  document.head.append(link);
+}
+
 async function loadCore() {
   try {
     await import(`../../../launcher.js?v=${VERSION}`);
@@ -36,4 +45,5 @@ async function loadEnhancements() {
   });
 }
 
+installCompatibilityStyles();
 loadCore().then(loadEnhancements).catch(() => {});
