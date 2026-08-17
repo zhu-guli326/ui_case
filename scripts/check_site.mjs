@@ -36,7 +36,7 @@ try {
   failures.push(`catalog could not be imported: ${error.message}`);
 }
 
-if (catalog.styleGuides.length !== 23) failures.push(`expected 23 cases, found ${catalog.styleGuides.length}`);
+if (catalog.styleGuides.length !== 22) failures.push(`expected 22 cases, found ${catalog.styleGuides.length}`);
 if (catalog.styleProfiles.length < 1) failures.push("expected at least one style profile");
 if (catalog.brandProfiles.length < 1) failures.push("expected at least one design-system profile");
 if (catalog.componentReferences.length < 1) failures.push("expected at least one component reference");
