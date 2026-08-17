@@ -19,7 +19,23 @@
       .format-platform-option.is-active{border-color:#16804b;background:#edf7f1;color:#126b3e;box-shadow:0 0 0 1px #16804b inset}
       .format-platform-option svg{width:24px;height:24px;flex:0 0 24px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
       .format-platform-option strong{display:block;font-size:10px}.format-platform-option small{display:block;margin-top:2px;color:#7c857e;font-size:8px}
-      @media(max-width:620px){.format-platform-options{grid-template-columns:1fr}}
+
+      /* Brand specification is no longer a standalone block in create mode. */
+      body.create-flow-refactored #designSystemWorkbench{display:none!important}
+      .final-brand-summary{display:grid;grid-template-columns:minmax(190px,1.25fr) repeat(4,minmax(100px,.7fr));gap:8px;margin:0 0 12px;padding:10px;border:1px solid #dde4de;border-radius:11px;background:#fbfcfb}
+      .final-brand-main,.final-brand-item{min-width:0;padding:9px 10px;border-radius:9px;background:#fff;border:1px solid #e5e9e6}
+      .final-brand-main{display:flex;align-items:center;gap:10px}
+      .final-brand-swatches{display:flex;gap:4px;flex:0 0 auto}
+      .final-brand-swatches i{width:18px;height:30px;border:1px solid rgba(0,0,0,.07);border-radius:5px;background:#eee}
+      .final-brand-copy{min-width:0}.final-brand-copy small,.final-brand-item small{display:block;margin-bottom:3px;color:#7a847c;font-size:7px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+      .final-brand-copy strong,.final-brand-item strong{display:block;overflow:hidden;color:#202721;font-size:10px;line-height:1.35;text-overflow:ellipsis;white-space:nowrap}
+      .final-brand-item span{display:block;margin-top:2px;color:#7a837c;font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .final-brand-details{grid-column:1/-1;margin-top:1px}
+      .final-brand-details summary{cursor:pointer;color:#4c6655;font-size:8px;font-weight:800;list-style:none}
+      .final-brand-details summary::-webkit-details-marker{display:none}.final-brand-details summary::after{content:'＋';margin-left:5px}.final-brand-details[open] summary::after{content:'−'}
+      .final-brand-components{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:8px}.final-brand-components .component-demo{min-height:88px;background:#fff}
+      @media(max-width:980px){.final-brand-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.final-brand-main{grid-column:1/-1}}
+      @media(max-width:620px){.format-platform-options{grid-template-columns:1fr}.final-brand-summary,.final-brand-components{grid-template-columns:1fr}.final-brand-main{grid-column:auto}}
     `;
     document.head.append(style);
 
@@ -106,21 +122,69 @@
       render();
     }
 
+    function valueText(selector, fallback) {
+      return document.querySelector(selector)?.textContent?.trim() || fallback;
+    }
+
+    function syncBrandSummary() {
+      const preview = document.querySelector("#previewLabSection");
+      const toolbar = preview?.querySelector(".preview-toolbar");
+      if (!preview || !toolbar) return;
+
+      let summary = preview.querySelector("#finalBrandSummary");
+      if (!summary) {
+        summary = document.createElement("div");
+        summary.id = "finalBrandSummary";
+        summary.className = "final-brand-summary";
+        toolbar.insertAdjacentElement("afterend", summary);
+      }
+
+      const swatches = [...document.querySelectorAll("#dsSwatches .ds-swatch")].slice(0, 4)
+        .map((item) => '<i style="background:' + (getComputedStyle(item).getPropertyValue('--swatch').trim() || '#eee') + '"></i>')
+        .join("");
+      const system = valueText("#previewSystemName", valueText("#previewCurrentSystem", "当前设计系统"));
+      const font = valueText("#dsFontSample", "System UI");
+      const radius = valueText("#dsRadius", "—");
+      const spacing = valueText("#dsSpacing", "—");
+      const density = valueText("#dsDensity", "—");
+      const components = document.querySelector('[data-ds-panel="components"] .component-strip');
+
+      summary.innerHTML = `
+        <div class="final-brand-main">
+          <div class="final-brand-swatches">${swatches}</div>
+          <div class="final-brand-copy"><small>Brand system</small><strong>${system}</strong></div>
+        </div>
+        <div class="final-brand-item"><small>Typography</small><strong>${font}</strong><span>当前字体方案</span></div>
+        <div class="final-brand-item"><small>Radius</small><strong>${radius}</strong><span>圆角基准</span></div>
+        <div class="final-brand-item"><small>Spacing</small><strong>${spacing}</strong><span>间距基准</span></div>
+        <div class="final-brand-item"><small>Density</small><strong>${density}</strong><span>界面密度</span></div>
+        <details class="final-brand-details"><summary>查看当前组件骨架</summary><div class="final-brand-components"></div></details>`;
+
+      const target = summary.querySelector(".final-brand-components");
+      if (components && target) target.innerHTML = components.innerHTML;
+    }
+
     const intentForm = document.querySelector("#intentForm");
     if (intentForm) {
       let timer = 0;
       new MutationObserver(() => {
         clearTimeout(timer);
-        timer = setTimeout(enhance, 50);
+        timer = setTimeout(() => { enhance(); syncBrandSummary(); }, 50);
       }).observe(intentForm, { childList: true, subtree: true });
     }
 
     const previewLabObserver = new MutationObserver(() => {
       const label = document.querySelector("#previewLabSection .flow-label span");
-      if (label) label.textContent = "5";
+      if (label) label.textContent = "6";
+      syncBrandSummary();
     });
     previewLabObserver.observe(document.body, { childList: true, subtree: true });
 
+    const workbench = document.querySelector("#designSystemWorkbench");
+    if (workbench) new MutationObserver(syncBrandSummary).observe(workbench, { subtree: true, childList: true, characterData: true, attributes: true });
+    document.addEventListener("change", () => setTimeout(syncBrandSummary, 40));
+
     enhance();
+    syncBrandSummary();
   });
 })();
