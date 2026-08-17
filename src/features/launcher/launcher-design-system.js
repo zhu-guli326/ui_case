@@ -43,7 +43,8 @@ function resolveDesignState() {
   const theme = findColorTheme(activeThemeId());
   const localizedTheme = localizeColorTheme(theme, language());
   const componentProfile = systemProfiles[theme.designSystemId] || systemProfiles.generic;
-  const systemName = theme.designSystemId
+  const isNamedComponentSystem = Boolean(theme.designSystemId && theme.designSystemId !== "custom");
+  const systemName = isNamedComponentSystem
     ? componentProfile.name
     : `${theme.organization || localizedTheme.organization || "Brand"} Visual System`;
   const colors = theme.colors || {};
