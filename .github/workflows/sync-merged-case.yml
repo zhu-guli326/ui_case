@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/sync-merged-case.yml"
+      - "scripts/sync_case_index.mjs"
 
 permissions:
   contents: write
