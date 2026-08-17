@@ -37,12 +37,14 @@ function assertCardModeShape(shape, label) {
   if (/999/.test(shape.radius)) throw new Error(`${label}: task mode inherited pill radius`);
 }
 
-async function choosePlatform(page, platform, expectedName) {
+async function choosePlatform(page, platform, expectedSize) {
   const button = page.locator(`.platform-card[data-platform="${platform}"]`);
   await button.click();
-  if (await button.getAttribute("aria-checked") !== "true") throw new Error(`${expectedName} was not selected`);
-  if (await page.locator("#previewDevice").getAttribute("data-platform") !== platform) throw new Error(`${expectedName} did not sync source preview`);
-  if ((await page.locator("#previewPlatformName").innerText()).trim() !== expectedName) throw new Error(`${expectedName} label did not sync`);
+  if (await button.getAttribute("aria-checked") !== "true") throw new Error(`${platform} was not selected`);
+  await page.waitForFunction(({ platform, expectedSize }) => {
+    const device = document.querySelector("#livePreviewDevice");
+    return device?.dataset.platform === platform && device?.dataset.size === expectedSize;
+  }, { platform, expectedSize });
 }
 
 await inspect("launcher.html?lang=zh&intent=create", async (page) => {
@@ -69,22 +71,18 @@ await inspect("launcher.html?lang=zh&intent=create", async (page) => {
   await preview.waitFor({ state: "visible" });
   const previewParent = await preview.evaluate((el) => el.parentElement?.id || "");
   if (previewParent !== "resultStageBody") throw new Error(`Live Preview mounted outside result step: ${previewParent}`);
-  await page.waitForFunction(() => {
-    const device = document.querySelector("#livePreviewDevice");
-    return Boolean(device && device.children.length && !device.querySelector(".live-preview-empty"));
-  });
+  await page.waitForFunction(() => Boolean(document.querySelector("#livePreviewDevice .preview-template")));
 
   const outputPosition = await page.locator("#outputPanel").evaluate((el) => getComputedStyle(el).position);
   if (outputPosition === "sticky" || outputPosition === "fixed") throw new Error(`output is still competing as ${outputPosition}`);
 
   await page.locator("#previewPageTemplate").selectOption("dashboard");
-  await page.waitForFunction(() => document.querySelector("#livePreviewDevice .pt-kpis, #livePreviewDevice .pm-shell"));
+  await page.waitForFunction(() => document.querySelector("#livePreviewDevice .pt-kpis"));
   await page.locator('#previewThemeSegment [data-theme="dark"]').click();
   if (await page.locator("#previewLabStage").getAttribute("data-theme") !== "dark") throw new Error("dark preview did not activate");
 
-  await choosePlatform(page, "windows", "Windows");
-  await page.waitForFunction(() => document.querySelector("#livePreviewDevice")?.dataset.size === "desktop");
-  await choosePlatform(page, "android", "Android");
+  await choosePlatform(page, "windows", "desktop");
+  await choosePlatform(page, "android", "mobile");
 
   for (const intent of ["rebuild", "improve", "explore", "design-system", "create"]) {
     await page.locator(`#modeTabs [data-intent="${intent}"]`).click();
@@ -107,4 +105,4 @@ await inspect("launcher.html?lang=en&intent=create", async (page) => {
 });
 
 await browser.close();
-console.log("Launcher runtime audit passed: one three-step flow, no duplicate Design System preview tabs, visible system summary, populated final preview, non-sticky output, stable intent switching, and zh/en runtime.");
+console.log("Launcher runtime audit passed: one three-step flow, no duplicate Design System preview tabs, visible system summary, direct final-page preview ownership, non-sticky output, stable intent switching, and zh/en runtime.");
