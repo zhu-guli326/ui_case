@@ -1,4 +1,11 @@
-export const legacyCaseIds = Object.freeze({ plate: "plate-play" });
+export const legacyCaseIds = Object.freeze({
+  plate: "plate-play",
+  journal: "itinerary",
+});
+
+export const mergedCaseIds = Object.freeze({
+  journal: "itinerary",
+});
 
 export const stylePreviewCaseIds = Object.freeze({
   "editorial-commerce": "still-form",
@@ -10,6 +17,10 @@ export const stylePreviewCaseIds = Object.freeze({
 export function normalizeCaseId(id) {
   const value = String(id || "");
   return legacyCaseIds[value] || value;
+}
+
+export function activeCases(guides = []) {
+  return guides.filter((guide) => !mergedCaseIds[guide?.id]);
 }
 
 export function localizeCase(guide, language = "zh") {
@@ -55,7 +66,7 @@ export function projectPatchForGuide(guide) {
 
 export function filterCases(guides, { styleId = "all", category = "all", query = "" } = {}) {
   const normalizedQuery = String(query || "").trim().toLocaleLowerCase();
-  return guides.filter((guide) => {
+  return activeCases(guides).filter((guide) => {
     const styleMatch = styleId === "all"
       || guide.styleProfileIds?.includes(styleId)
       || styleId === "dense-tool" && ["creative", "editorial"].includes(guide.category);
