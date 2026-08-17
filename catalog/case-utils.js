@@ -1,11 +1,8 @@
 export const legacyCaseIds = Object.freeze({
   plate: "plate-play",
-  journal: "itinerary",
 });
 
-export const mergedCaseIds = Object.freeze({
-  journal: "itinerary",
-});
+export const mergedCaseIds = Object.freeze({});
 
 export const stylePreviewCaseIds = Object.freeze({
   "editorial-commerce": "still-form",
