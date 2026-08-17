@@ -29,7 +29,28 @@ function countLabel(count) {
 
 function withPosterVersion(src) {
   if (!src) return "";
-  return `${src}${src.includes("?") ? "&" : "?"}v=20260817-canonical-poster-v1`;
+  return `${src}${src.includes("?") ? "&" : "?"}v=20260817-canonical-poster-v2`;
+}
+
+function mountLiveCardPreview(card, guide) {
+  const screen = card.querySelector(".phone-preview-media");
+  if (!screen || screen.querySelector("iframe[data-library-live-preview]")) return;
+
+  const poster = screen.querySelector(".phone-media");
+  if (!poster) return;
+
+  const frame = document.createElement("iframe");
+  frame.dataset.libraryLivePreview = "true";
+  frame.className = poster.className;
+  frame.src = `${guide.liveDemo}${guide.liveDemo.includes("?") ? "&" : "?"}libraryPreview=1`;
+  frame.title = `${guide.name} preview`;
+  frame.loading = "lazy";
+  frame.tabIndex = -1;
+  frame.setAttribute("aria-hidden", "true");
+  frame.style.border = "0";
+  frame.style.pointerEvents = "none";
+  frame.style.background = "#fff";
+  poster.replaceWith(frame);
 }
 
 function updateGlobalCounts() {
@@ -68,14 +89,23 @@ function normalizeRenderedCards() {
 
     card.dataset.hasLiveDemo = "true";
 
-    /* Always use the case's canonical 390 x 844 mobile poster in the grid.
-     * Do not use library-preview-2x effect boards, because those may contain a
-     * baked phone shell or presentation background and create inconsistent
-     * frame ownership across cards. */
-    const poster = card.querySelector(".phone-preview-media .phone-media");
-    if (poster && guide.poster) {
-      const canonicalSrc = withPosterVersion(guide.poster);
-      if (poster.getAttribute("src") !== canonicalSrc) poster.setAttribute("src", canonicalSrc);
+    /* Marble Note's historical poster is a presentation board that already
+     * contains a phone mockup. Putting it inside the Library PhoneShell creates
+     * the broken double-phone composition seen in the grid. Render the real
+     * first screen directly from the live demo instead, so the outer shell is
+     * owned only by Library. */
+    if (guide.id === "notebook") {
+      mountLiveCardPreview(card, guide);
+    } else {
+      /* Always use the case's canonical 390 x 844 mobile poster in the grid.
+       * Do not use library-preview-2x effect boards, because those may contain a
+       * baked phone shell or presentation background and create inconsistent
+       * frame ownership across cards. */
+      const poster = card.querySelector(".phone-preview-media .phone-media");
+      if (poster && poster.tagName === "IMG" && guide.poster) {
+        const canonicalSrc = withPosterVersion(guide.poster);
+        if (poster.getAttribute("src") !== canonicalSrc) poster.setAttribute("src", canonicalSrc);
+      }
     }
 
     const primary = card.querySelector(".preview-open-button[data-preview-id]");
