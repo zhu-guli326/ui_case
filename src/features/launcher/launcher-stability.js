@@ -84,6 +84,11 @@
         './src/features/launcher/launcher-preview-modern-cases.js?v=20260817-modern-cases-v1',
         'launcherPreviewModernCases'
       );
+      loadScriptOnce(
+        'script[data-launcher-preview-editorial-images]',
+        './src/features/launcher/launcher-preview-editorial-images.js?v=20260817-editorial-images-v1',
+        'launcherPreviewEditorialImages'
+      );
     }
 
     removeStandaloneTypography();
