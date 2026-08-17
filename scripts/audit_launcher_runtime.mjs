@@ -18,6 +18,30 @@ async function inspect(url, run) {
   }
 }
 
+async function visibilityTrace(locator) {
+  return locator.evaluate((element) => {
+    const trace = [];
+    let node = element;
+    while (node && node instanceof HTMLElement) {
+      const style = getComputedStyle(node);
+      const rect = node.getBoundingClientRect();
+      trace.push({
+        tag: node.tagName.toLowerCase(),
+        id: node.id || "",
+        className: node.className || "",
+        hidden: node.hidden,
+        display: style.display,
+        visibility: style.visibility,
+        opacity: style.opacity,
+        width: Math.round(rect.width),
+        height: Math.round(rect.height),
+      });
+      node = node.parentElement;
+    }
+    return trace;
+  });
+}
+
 await inspect("launcher.html?lang=zh&intent=create", async (page) => {
   await page.locator('#modeTabs [data-intent="create"]').waitFor();
   if (await page.locator('#modeTabs [data-intent="create"]').getAttribute("aria-selected") !== "true") {
@@ -41,8 +65,12 @@ await inspect("launcher.html?lang=zh&intent=create", async (page) => {
     throw new Error("platform selection did not synchronize the preview");
   }
 
-  await page.locator('.ds-tab[data-ds-tab="components"]').click();
-  if (await page.locator('.ds-tab[data-ds-tab="components"]').getAttribute("aria-selected") !== "true") {
+  const componentsTab = page.locator('.ds-tab[data-ds-tab="components"]');
+  if (!(await componentsTab.isVisible())) {
+    throw new Error(`Design System components tab is hidden: ${JSON.stringify(await visibilityTrace(componentsTab))}`);
+  }
+  await componentsTab.click();
+  if (await componentsTab.getAttribute("aria-selected") !== "true") {
     throw new Error("Design System components tab did not activate");
   }
   if (await page.locator('[data-ds-panel="components"]').isHidden()) {
