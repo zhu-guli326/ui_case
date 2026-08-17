@@ -20,8 +20,11 @@
       .format-platform-option svg{width:24px;height:24px;flex:0 0 24px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
       .format-platform-option strong{display:block;font-size:10px}.format-platform-option small{display:block;margin-top:2px;color:#7c857e;font-size:8px}
 
-      /* Brand specification is no longer a standalone block in create mode. */
+      /* Keep create mode focused: these choices are already represented upstream / in final preview. */
+      body.create-flow-refactored .create-advanced{display:none!important}
+      body.create-flow-refactored .style-direction{display:none!important}
       body.create-flow-refactored #designSystemWorkbench{display:none!important}
+
       .final-brand-summary{display:grid;grid-template-columns:minmax(190px,1.25fr) repeat(4,minmax(100px,.7fr));gap:8px;margin:0 0 12px;padding:10px;border:1px solid #dde4de;border-radius:11px;background:#fbfcfb}
       .final-brand-main,.final-brand-item{min-width:0;padding:9px 10px;border-radius:9px;background:#fff;border:1px solid #e5e9e6}
       .final-brand-main{display:flex;align-items:center;gap:10px}
@@ -42,9 +45,6 @@
     const platformSection = document.querySelector(".platform-section");
     if (platformSection) platformSection.hidden = true;
 
-    const designStep = document.querySelector(".color-theme-section .flow-label span");
-    if (designStep) designStep.textContent = "4";
-
     function platformIcon(key) {
       const icons = {
         ios: '<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="9" y="3" width="14" height="26" rx="4"></rect><path d="M13 6h6M14 26h4"></path></svg>',
@@ -56,14 +56,8 @@
     }
 
     function platformData(format) {
-      if (format === "mobile") return [
-        ["ios", "iOS", "iPhone · Apple HIG"],
-        ["android", "Android", "Phone · Material 3"]
-      ];
-      if (format === "desktop") return [
-        ["windows", "Windows", "Desktop · Fluent 2"],
-        ["macos", "macOS", "Mac · Apple HIG"]
-      ];
+      if (format === "mobile") return [["ios", "iOS", "iPhone · Apple HIG"],["android", "Android", "Phone · Material 3"]];
+      if (format === "desktop") return [["windows", "Windows", "Desktop · Fluent 2"],["macos", "macOS", "Mac · Apple HIG"]];
       return [];
     }
 
@@ -77,114 +71,48 @@
       const select = document.querySelector('#intentForm select[name="format"]');
       const picker = document.querySelector("#intentForm .format-icon-picker");
       if (!select || !picker) return;
-
       let detail = document.querySelector("#intentForm .format-platform-detail");
-      if (!detail) {
-        detail = document.createElement("div");
-        detail.className = "format-platform-detail";
-        picker.insertAdjacentElement("afterend", detail);
-      }
-
+      if (!detail) { detail = document.createElement("div"); detail.className = "format-platform-detail"; picker.insertAdjacentElement("afterend", detail); }
       const render = () => {
         const options = platformData(select.value);
-        if (!options.length) {
-          detail.classList.remove("is-visible");
-          detail.innerHTML = "";
-          return;
-        }
-
+        if (!options.length) { detail.classList.remove("is-visible"); detail.innerHTML = ""; return; }
         const saved = localStorage.getItem("image2-ui-target-platform");
         const validKeys = options.map((x) => x[0]);
         const active = validKeys.includes(saved) ? saved : options[0][0];
         if (!validKeys.includes(saved)) selectPlatform(active);
-
         detail.innerHTML = '<div class="format-platform-title">' + (select.value === "mobile" ? "选择移动平台" : "选择桌面系统") + '</div><div class="format-platform-options"></div>';
         const wrap = detail.querySelector(".format-platform-options");
         options.forEach(([key, label, hint]) => {
-          const button = document.createElement("button");
-          button.type = "button";
-          button.className = "format-platform-option" + (key === active ? " is-active" : "");
-          button.dataset.platform = key;
+          const button = document.createElement("button"); button.type = "button"; button.className = "format-platform-option" + (key === active ? " is-active" : ""); button.dataset.platform = key;
           button.innerHTML = platformIcon(key) + '<span><strong>' + label + '</strong><small>' + hint + '</small></span>';
-          button.addEventListener("click", () => {
-            selectPlatform(key);
-            wrap.querySelectorAll(".format-platform-option").forEach((item) => item.classList.toggle("is-active", item === button));
-          });
+          button.addEventListener("click", () => { selectPlatform(key); wrap.querySelectorAll(".format-platform-option").forEach((item) => item.classList.toggle("is-active", item === button)); });
           wrap.append(button);
         });
         detail.classList.add("is-visible");
       };
-
-      if (detail.dataset.bound !== "true") {
-        detail.dataset.bound = "true";
-        select.addEventListener("change", render);
-      }
+      if (detail.dataset.bound !== "true") { detail.dataset.bound = "true"; select.addEventListener("change", render); }
       render();
     }
 
-    function valueText(selector, fallback) {
-      return document.querySelector(selector)?.textContent?.trim() || fallback;
-    }
-
+    function valueText(selector, fallback) { return document.querySelector(selector)?.textContent?.trim() || fallback; }
     function syncBrandSummary() {
-      const preview = document.querySelector("#previewLabSection");
-      const toolbar = preview?.querySelector(".preview-toolbar");
-      if (!preview || !toolbar) return;
-
+      const preview = document.querySelector("#previewLabSection"); const toolbar = preview?.querySelector(".preview-toolbar"); if (!preview || !toolbar) return;
       let summary = preview.querySelector("#finalBrandSummary");
-      if (!summary) {
-        summary = document.createElement("div");
-        summary.id = "finalBrandSummary";
-        summary.className = "final-brand-summary";
-        toolbar.insertAdjacentElement("afterend", summary);
-      }
-
-      const swatches = [...document.querySelectorAll("#dsSwatches .ds-swatch")].slice(0, 4)
-        .map((item) => '<i style="background:' + (getComputedStyle(item).getPropertyValue('--swatch').trim() || '#eee') + '"></i>')
-        .join("");
+      if (!summary) { summary = document.createElement("div"); summary.id = "finalBrandSummary"; summary.className = "final-brand-summary"; toolbar.insertAdjacentElement("afterend", summary); }
+      const swatches = [...document.querySelectorAll("#dsSwatches .ds-swatch")].slice(0, 4).map((item) => '<i style="background:' + (getComputedStyle(item).getPropertyValue('--swatch').trim() || '#eee') + '"></i>').join("");
       const system = valueText("#previewSystemName", valueText("#previewCurrentSystem", "当前设计系统"));
-      const font = valueText("#dsFontSample", "System UI");
-      const radius = valueText("#dsRadius", "—");
-      const spacing = valueText("#dsSpacing", "—");
-      const density = valueText("#dsDensity", "—");
+      const font = valueText("#dsFontSample", "System UI"); const radius = valueText("#dsRadius", "—"); const spacing = valueText("#dsSpacing", "—"); const density = valueText("#dsDensity", "—");
       const components = document.querySelector('[data-ds-panel="components"] .component-strip');
-
-      summary.innerHTML = `
-        <div class="final-brand-main">
-          <div class="final-brand-swatches">${swatches}</div>
-          <div class="final-brand-copy"><small>Brand system</small><strong>${system}</strong></div>
-        </div>
-        <div class="final-brand-item"><small>Typography</small><strong>${font}</strong><span>当前字体方案</span></div>
-        <div class="final-brand-item"><small>Radius</small><strong>${radius}</strong><span>圆角基准</span></div>
-        <div class="final-brand-item"><small>Spacing</small><strong>${spacing}</strong><span>间距基准</span></div>
-        <div class="final-brand-item"><small>Density</small><strong>${density}</strong><span>界面密度</span></div>
-        <details class="final-brand-details"><summary>查看当前组件骨架</summary><div class="final-brand-components"></div></details>`;
-
-      const target = summary.querySelector(".final-brand-components");
-      if (components && target) target.innerHTML = components.innerHTML;
+      summary.innerHTML = `<div class="final-brand-main"><div class="final-brand-swatches">${swatches}</div><div class="final-brand-copy"><small>Brand system</small><strong>${system}</strong></div></div><div class="final-brand-item"><small>Typography</small><strong>${font}</strong><span>当前字体方案</span></div><div class="final-brand-item"><small>Radius</small><strong>${radius}</strong><span>圆角基准</span></div><div class="final-brand-item"><small>Spacing</small><strong>${spacing}</strong><span>间距基准</span></div><div class="final-brand-item"><small>Density</small><strong>${density}</strong><span>界面密度</span></div><details class="final-brand-details"><summary>查看当前组件骨架</summary><div class="final-brand-components"></div></details>`;
+      const target = summary.querySelector(".final-brand-components"); if (components && target) target.innerHTML = components.innerHTML;
     }
 
     const intentForm = document.querySelector("#intentForm");
-    if (intentForm) {
-      let timer = 0;
-      new MutationObserver(() => {
-        clearTimeout(timer);
-        timer = setTimeout(() => { enhance(); syncBrandSummary(); }, 50);
-      }).observe(intentForm, { childList: true, subtree: true });
-    }
-
-    const previewLabObserver = new MutationObserver(() => {
-      const label = document.querySelector("#previewLabSection .flow-label span");
-      if (label) label.textContent = "6";
-      syncBrandSummary();
-    });
+    if (intentForm) { let timer = 0; new MutationObserver(() => { clearTimeout(timer); timer = setTimeout(() => { enhance(); syncBrandSummary(); }, 50); }).observe(intentForm, { childList: true, subtree: true }); }
+    const previewLabObserver = new MutationObserver(() => { const label = document.querySelector("#previewLabSection .flow-label span"); if (label) label.textContent = "5"; syncBrandSummary(); });
     previewLabObserver.observe(document.body, { childList: true, subtree: true });
-
-    const workbench = document.querySelector("#designSystemWorkbench");
-    if (workbench) new MutationObserver(syncBrandSummary).observe(workbench, { subtree: true, childList: true, characterData: true, attributes: true });
+    const workbench = document.querySelector("#designSystemWorkbench"); if (workbench) new MutationObserver(syncBrandSummary).observe(workbench, { subtree: true, childList: true, characterData: true, attributes: true });
     document.addEventListener("change", () => setTimeout(syncBrandSummary, 40));
-
-    enhance();
-    syncBrandSummary();
+    enhance(); syncBrandSummary();
   });
 })();
