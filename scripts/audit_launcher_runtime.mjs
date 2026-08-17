@@ -47,21 +47,55 @@ async function choosePlatform(page, platform, expectedSize) {
   }, { platform, expectedSize });
 }
 
+async function readDesignState(page, themeId) {
+  return page.evaluate((requestedThemeId) => {
+    const input = document.querySelector(`input[name="colorTheme"][value="${requestedThemeId}"]`);
+    const checked = document.querySelector('input[name="colorTheme"]:checked');
+    const workbench = document.querySelector("#designSystemWorkbench");
+    const device = document.querySelector("#livePreviewDevice");
+    return {
+      requestedThemeId,
+      requestedSelected: Boolean(input?.checked),
+      checkedThemeId: checked?.value || null,
+      workbenchThemeId: workbench?.dataset.themeId || null,
+      workbenchThemeName: workbench?.dataset.themeName || null,
+      workbenchSystemName: workbench?.dataset.systemName || null,
+      workbenchAccent: workbench?.dataset.accent || null,
+      previewSystemName: document.querySelector("#previewCurrentSystem")?.textContent?.trim() || null,
+      previewAccent: device?.style.getPropertyValue("--preview-accent").trim() || null,
+    };
+  }, themeId);
+}
+
 async function chooseDesignTheme(page, themeId, expectedSystem, expectedAccent) {
   const card = page.locator(`.color-theme-card:has(input[name="colorTheme"][value="${themeId}"])`);
   if (!(await card.count())) throw new Error(`missing color theme ${themeId}`);
   const choice = card.locator(".color-theme-choice");
   await choice.click();
-  await page.waitForFunction(({ themeId, expectedSystem, expectedAccent }) => {
-    const selected = document.querySelector(`input[name="colorTheme"][value="${themeId}"]`)?.checked;
-    const workbench = document.querySelector("#designSystemWorkbench");
-    const device = document.querySelector("#livePreviewDevice");
-    return selected
-      && workbench?.dataset.themeId === themeId
-      && workbench?.dataset.systemName === expectedSystem
-      && workbench?.dataset.accent?.toLowerCase() === expectedAccent
-      && device?.style.getPropertyValue("--preview-accent").trim().toLowerCase() === expectedAccent;
-  }, { themeId, expectedSystem, expectedAccent: expectedAccent.toLowerCase() });
+
+  try {
+    await page.waitForFunction((requestedThemeId) => {
+      return Boolean(document.querySelector(`input[name="colorTheme"][value="${requestedThemeId}"]`)?.checked);
+    }, themeId, { timeout: 3000 });
+  } catch {
+    const state = await readDesignState(page, themeId);
+    throw new Error(`${themeId}: card click did not select requested theme: ${JSON.stringify(state)}`);
+  }
+
+  await page.waitForTimeout(150);
+  const state = await readDesignState(page, themeId);
+  const expectedAccentNormalized = expectedAccent.toLowerCase();
+  const mismatches = [];
+  if (!state.requestedSelected) mismatches.push(`selected=${state.requestedSelected}`);
+  if (state.checkedThemeId !== themeId) mismatches.push(`checkedThemeId=${state.checkedThemeId}`);
+  if (state.workbenchThemeId !== themeId) mismatches.push(`workbenchThemeId=${state.workbenchThemeId}`);
+  if (state.workbenchSystemName !== expectedSystem) mismatches.push(`systemName=${state.workbenchSystemName}`);
+  if ((state.workbenchAccent || "").toLowerCase() !== expectedAccentNormalized) mismatches.push(`workbenchAccent=${state.workbenchAccent}`);
+  if ((state.previewAccent || "").toLowerCase() !== expectedAccentNormalized) mismatches.push(`previewAccent=${state.previewAccent}`);
+  if (state.previewSystemName !== expectedSystem) mismatches.push(`previewSystemName=${state.previewSystemName}`);
+  if (mismatches.length) {
+    throw new Error(`${themeId}: design-state propagation mismatch (${mismatches.join(", ")}): ${JSON.stringify(state)}`);
+  }
 }
 
 await inspect("launcher.html?lang=zh&intent=create", async (page) => {
