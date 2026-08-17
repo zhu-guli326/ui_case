@@ -1,4 +1,4 @@
-const STYLE_VERSION = "20260817-simplified-v4";
+const STYLE_VERSION = "20260817-simplified-v5";
 const q = (selector) => document.querySelector(selector);
 const qa = (selector, root = document) => [...root.querySelectorAll(selector)];
 const locale = () => {
