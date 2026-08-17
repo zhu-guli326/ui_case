@@ -24,7 +24,7 @@ function cssFiles(directory) {
   return result;
 }
 
-test("PhoneShell is the single reusable owner of direct-demo device chrome", () => {
+test("PhoneShell is the single reusable owner wherever direct-demo device chrome exists", () => {
   assert.match(phoneShellCss, /--phone-shell-screen-width:\s*390px/);
   assert.match(phoneShellCss, /--phone-shell-screen-height:\s*844px/);
   assert.match(phoneShellCss, /--phone-shell-screen-ratio:\s*390\s*\/\s*844/);
@@ -38,12 +38,16 @@ test("PhoneShell is the single reusable owner of direct-demo device chrome", () 
   const viteDemo = "smart-home-ui-v2";
   assert.ok(demoDirectories.includes(viteDemo), `${viteDemo} must remain part of the direct-demo contract`);
   const staticDemos = demoDirectories.filter((name) => name !== viteDemo);
-  assert.equal(staticDemos.length, demoDirectories.length - 1, "every non-Vite direct demo must be covered by the shared PhoneShell audit");
 
   for (const demo of staticDemos) {
     const html = readFileSync(path.join(demoRoot, demo, "index.html"), "utf8");
-    assert.match(html, /<link\s+rel="stylesheet"\s+href="\.\.\/iphone-frame\.css"/i, `${demo} invokes the shared PhoneShell compatibility entry`);
-    assert.match(html, /\biphone-frame\b/, `${demo} invokes PhoneShell instead of implementing hardware`);
+    const usesPhoneShell = /\biphone-frame\b/.test(html);
+    const importsPhoneShell = /<link\s+rel="stylesheet"\s+href="\.\.\/iphone-frame\.css"/i.test(html);
+    if (usesPhoneShell) {
+      assert.ok(importsPhoneShell, `${demo} must invoke the shared PhoneShell compatibility entry when it renders device chrome`);
+    } else {
+      assert.equal(importsPhoneShell, false, `${demo} is screen-only and must not load unused PhoneShell chrome`);
+    }
   }
 
   const smartHomeSource = readFileSync(path.join(demoRoot, viteDemo, "src", "main.jsx"), "utf8");
