@@ -5,6 +5,7 @@ if (isLauncher) {
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn, { once: true });
     else fn();
   };
+
   const currentLanguage = () => {
     const fromQuery = new URL(window.location.href).searchParams.get("lang");
     if (fromQuery === "en" || fromQuery === "zh") return fromQuery;
@@ -24,18 +25,11 @@ if (isLauncher) {
       .launcher-workspace .generate-button[disabled]{opacity:.58;cursor:not-allowed}
       .launcher-workspace .prompt-actions .primary-action-wrap{position:relative}
       .launcher-workspace .prompt-actions .primary-action-wrap[data-readiness="blocked"]::after{position:absolute;inset:0;content:"";cursor:help}
-      .launcher-workspace .ds-tab[aria-selected="true"]{border-color:#12683c;background:#e4f2e8;color:#0c5630}
-      .launcher-workspace .platform-card[role="radio"][aria-checked="true"]{border-color:#12683c;background:#e8f4ec;box-shadow:0 0 0 1px #12683c inset}
-      .launcher-workspace .platform-copy small,.launcher-workspace .platform-hint,.launcher-workspace .ds-toolbar span,.launcher-workspace .preview-meta p,.launcher-workspace .preview-meta ul,.launcher-workspace .ds-info-card p,.launcher-workspace .ds-type-sample small,.launcher-workspace .ds-metric span{color:#505a52!important}
       .launcher-workspace .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
-      @media(prefers-contrast:more){.launcher-workspace{--muted:#424b44;--quiet:#515a52;--line:#a6aea7;--line-strong:#727c74}.launcher-workspace :is(.mode-picker,.style-direction,.platform-section,.color-theme-section,.launcher-grid){border-color:#9ca59e!important}}
+      @media(prefers-contrast:more){.launcher-workspace{--muted:#424b44;--quiet:#515a52;--line:#a6aea7;--line-strong:#727c74}.launcher-workspace .workspace-stage{border-color:#8f9991!important}}
       @media(prefers-reduced-motion:reduce){.launcher-workspace *,.launcher-workspace *::before,.launcher-workspace *::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
     `;
     document.head.appendChild(style);
-  }
-
-  function syncDocumentLanguage() {
-    document.documentElement.lang = currentLanguage() === "en" ? "en" : "zh-CN";
   }
 
   function installLandmarks() {
@@ -64,27 +58,22 @@ if (isLauncher) {
 
   function installPrimaryTabKeys() {
     const tablist = document.getElementById("modeTabs");
-    if (!tablist || tablist.dataset.keyboardReady === "1") return;
-    tablist.dataset.keyboardReady = "1";
+    if (!tablist || tablist.dataset.hardeningKeyboardReady === "1") return;
+    tablist.dataset.hardeningKeyboardReady = "1";
     tablist.addEventListener("keydown", (event) => {
-      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      if (!["Home", "End"].includes(event.key)) return;
       const tabs = Array.from(tablist.querySelectorAll("[role='tab']"));
-      const current = Math.max(0, tabs.indexOf(document.activeElement));
-      let next = current;
-      if (event.key === "ArrowLeft") next = (current - 1 + tabs.length) % tabs.length;
-      if (event.key === "ArrowRight") next = (current + 1) % tabs.length;
-      if (event.key === "Home") next = 0;
-      if (event.key === "End") next = tabs.length - 1;
+      if (!tabs.length) return;
       event.preventDefault();
-      tabs[next]?.focus();
-      tabs[next]?.click();
+      const next = event.key === "Home" ? tabs[0] : tabs[tabs.length - 1];
+      next.focus();
+      next.click();
     });
   }
 
-  function syncDesignSystemTabs() {
+  function syncDesignSystemSemantics() {
     const tabs = Array.from(document.querySelectorAll(".ds-tabs .ds-tab"));
     const panels = Array.from(document.querySelectorAll(".design-system-workbench .ds-panel"));
-    if (!tabs.length || !panels.length) return;
     tabs.forEach((tab, index) => {
       const key = tab.dataset.dsTab || `panel-${index + 1}`;
       const panel = panels.find((item) => item.dataset.dsPanel === key) || panels[index];
@@ -94,75 +83,34 @@ if (isLauncher) {
       tab.id = tabId;
       tab.setAttribute("role", "tab");
       tab.setAttribute("aria-controls", panelId);
-      if (tab.getAttribute("aria-selected") !== String(selected)) tab.setAttribute("aria-selected", String(selected));
+      tab.setAttribute("aria-selected", String(selected));
       tab.tabIndex = selected ? 0 : -1;
       if (panel) {
         panel.id = panelId;
         panel.setAttribute("role", "tabpanel");
         panel.setAttribute("aria-labelledby", tabId);
         panel.tabIndex = 0;
-        if (panel.hidden === selected) panel.hidden = !selected;
+        panel.hidden = !selected;
       }
     });
   }
 
-  function installDesignSystemTabKeys() {
-    const tablist = document.querySelector(".ds-tabs[role='tablist']");
-    if (!tablist || tablist.dataset.keyboardReady === "1") return;
-    tablist.dataset.keyboardReady = "1";
-    tablist.addEventListener("keydown", (event) => {
-      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
-      const tabs = Array.from(tablist.querySelectorAll("[role='tab']"));
-      const current = Math.max(0, tabs.indexOf(document.activeElement));
-      let next = current;
-      if (event.key === "ArrowLeft") next = (current - 1 + tabs.length) % tabs.length;
-      if (event.key === "ArrowRight") next = (current + 1) % tabs.length;
-      if (event.key === "Home") next = 0;
-      if (event.key === "End") next = tabs.length - 1;
-      event.preventDefault();
-      tabs[next]?.focus();
-      tabs[next]?.click();
-      requestAnimationFrame(syncDesignSystemTabs);
-    });
-  }
-
-  function syncPlatformRadios() {
+  function syncPlatformSemantics() {
     const grid = document.getElementById("platformGrid");
     if (!grid) return;
-    const cards = Array.from(grid.querySelectorAll(".platform-card"));
-    cards.forEach((card) => {
+    grid.setAttribute("role", "radiogroup");
+    Array.from(grid.querySelectorAll(".platform-card")).forEach((card) => {
       const active = card.classList.contains("is-active");
       card.setAttribute("role", "radio");
-      if (card.getAttribute("aria-checked") !== String(active)) card.setAttribute("aria-checked", String(active));
-      if (card.hasAttribute("aria-pressed")) card.removeAttribute("aria-pressed");
+      card.setAttribute("aria-checked", String(active));
+      card.removeAttribute("aria-pressed");
       card.tabIndex = active ? 0 : -1;
-    });
-  }
-
-  function installPlatformKeys() {
-    const grid = document.getElementById("platformGrid");
-    if (!grid || grid.dataset.keyboardReady === "1") return;
-    grid.dataset.keyboardReady = "1";
-    grid.addEventListener("keydown", (event) => {
-      if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) return;
-      const cards = Array.from(grid.querySelectorAll(".platform-card"));
-      const current = Math.max(0, cards.indexOf(document.activeElement));
-      let next = current;
-      if (["ArrowLeft", "ArrowUp"].includes(event.key)) next = (current - 1 + cards.length) % cards.length;
-      if (["ArrowRight", "ArrowDown"].includes(event.key)) next = (current + 1) % cards.length;
-      if (event.key === "Home") next = 0;
-      if (event.key === "End") next = cards.length - 1;
-      event.preventDefault();
-      cards[next]?.focus();
-      cards[next]?.click();
-      requestAnimationFrame(syncPlatformRadios);
     });
   }
 
   function syncPreviewControls() {
     document.querySelectorAll(".preview-control").forEach((button) => {
-      const value = String(button.classList.contains("is-active"));
-      if (button.getAttribute("aria-pressed") !== value) button.setAttribute("aria-pressed", value);
+      button.setAttribute("aria-pressed", String(button.classList.contains("is-active")));
     });
   }
 
@@ -178,14 +126,6 @@ if (isLauncher) {
       help.textContent = tr("搜索、筛选并选择一个参考案例。按 Escape 可关闭。", "Search, filter, and choose a reference case. Press Escape to close.");
       dialog.querySelector(".case-picker-header")?.insertAdjacentElement("afterend", help);
     }
-    const observer = new MutationObserver(() => {
-      if (!dialog.open) return;
-      requestAnimationFrame(() => {
-        const search = document.getElementById("caseSearch");
-        if (search && !dialog.contains(document.activeElement)) search.focus();
-      });
-    });
-    observer.observe(dialog, { attributes: true, attributeFilter: ["open"] });
   }
 
   function firstLikelyIncompleteField() {
@@ -255,17 +195,16 @@ if (isLauncher) {
     const toggle = document.getElementById("assistantToggle");
     const panel = document.getElementById("assistantPanel");
     if (!toggle || !panel) return;
-    const expanded = String(!panel.hidden);
-    if (toggle.getAttribute("aria-expanded") !== expanded) toggle.setAttribute("aria-expanded", expanded);
+    toggle.setAttribute("aria-expanded", String(!panel.hidden));
     panel.setAttribute("role", "complementary");
     panel.setAttribute("aria-label", tr("任务助手", "Task assistant"));
   }
 
   function syncAll() {
-    syncDocumentLanguage();
+    document.documentElement.lang = currentLanguage() === "en" ? "en" : "zh-CN";
     syncPrimaryTabs();
-    syncDesignSystemTabs();
-    syncPlatformRadios();
+    syncDesignSystemSemantics();
+    syncPlatformSemantics();
     syncPreviewControls();
     syncGenerateReadiness();
     syncAssistant();
@@ -275,8 +214,6 @@ if (isLauncher) {
     installStyles();
     installLandmarks();
     installPrimaryTabKeys();
-    installDesignSystemTabKeys();
-    installPlatformKeys();
     installGenerateFeedback();
     hardenDialog();
     syncAll();
@@ -296,6 +233,5 @@ if (isLauncher) {
       if (event.target.closest("#assistantToggle,#assistantClose,.ds-tab,.preview-control,.platform-card,#modeTabs [role='tab']")) requestAnimationFrame(syncAll);
     });
     window.addEventListener("popstate", () => requestAnimationFrame(syncAll));
-    window.addEventListener("languagechange", () => requestAnimationFrame(syncAll));
   });
 }
