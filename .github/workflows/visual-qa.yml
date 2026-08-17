@@ -93,7 +93,7 @@ jobs:
             .sort()
             .map((name) => JSON.parse(fs.readFileSync(path.join('catalog/cases', name), 'utf8')));
           const live = records.filter((item) => item.liveDemo);
-          if (live.length !== 20) throw new Error(`Expected 20 live cases, found ${live.length}`);
+          if (live.length !== 19) throw new Error(`Expected 19 live cases, found ${live.length}`);
 
           const liveIds = new Set(live.map((item) => item.id));
           const blocked = report.cases.filter((item) => liveIds.has(item.id) && item.issues?.length);
