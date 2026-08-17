@@ -112,11 +112,25 @@ await inspect("launcher.html?lang=zh&intent=create", async (page) => {
   const reference = page.locator('.config-section[aria-labelledby="referenceTitle"]');
   if (!(await reference.isVisible())) throw new Error("Create reference module is hidden");
 
+  const outputPosition = await page.locator("#outputPanel").evaluate((el) => getComputedStyle(el).position);
+  if (outputPosition !== "fixed") throw new Error(`prompt output is not viewport-fixed: ${outputPosition}`);
+  const outputBeforeScroll = await page.locator("#outputPanel").boundingBox();
+  if (!outputBeforeScroll) throw new Error("floating prompt rail has no measurable layout box");
+  if (Math.abs(outputBeforeScroll.y - 80) > 2) throw new Error(`floating prompt rail top offset drifted: ${JSON.stringify(outputBeforeScroll)}`);
+
   await page.locator('[name="audience"]').fill("设计团队");
   await page.locator('[name="coreTask"]').fill("创建一个项目工作台");
   await page.locator('[name="requiredPages"]').fill("首页, 项目详情");
   await page.locator('[name="requiredPages"]').blur();
   await page.waitForFunction(() => !document.querySelector("#generatePrompt")?.disabled);
+
+  await page.locator("#designDecisions").scrollIntoViewIfNeeded();
+  await page.waitForTimeout(120);
+  const outputAfterScroll = await page.locator("#outputPanel").boundingBox();
+  if (!outputAfterScroll) throw new Error("floating prompt rail disappeared after scrolling");
+  if (Math.abs(outputAfterScroll.y - outputBeforeScroll.y) > 2 || Math.abs(outputAfterScroll.x - outputBeforeScroll.x) > 2) {
+    throw new Error(`floating prompt rail moved with page scroll: before=${JSON.stringify(outputBeforeScroll)} after=${JSON.stringify(outputAfterScroll)}`);
+  }
 
   const preview = page.locator("#previewLabSection");
   await preview.waitFor({ state: "visible" });
@@ -124,16 +138,13 @@ await inspect("launcher.html?lang=zh&intent=create", async (page) => {
   if (previewParent !== "resultStageBody") throw new Error(`Live Preview mounted outside result step: ${previewParent}`);
   await page.waitForFunction(() => Boolean(document.querySelector("#livePreviewDevice .preview-template")));
 
-  const outputPosition = await page.locator("#outputPanel").evaluate((el) => getComputedStyle(el).position);
-  if (outputPosition === "sticky" || outputPosition === "fixed") throw new Error(`output is still competing as ${outputPosition}`);
-
   const [previewBox, outputBox] = await Promise.all([
     page.locator("#resultStageBody").boundingBox(),
     page.locator("#outputPanel").boundingBox(),
   ]);
   if (!previewBox || !outputBox) throw new Error("Step 03 preview or prompt rail has no measurable layout box");
   if (outputBox.x < previewBox.x + previewBox.width - 2) {
-    throw new Error(`prompt output is not to the right of preview: preview=${JSON.stringify(previewBox)} output=${JSON.stringify(outputBox)}`);
+    throw new Error(`floating prompt overlaps the left workflow: preview=${JSON.stringify(previewBox)} output=${JSON.stringify(outputBox)}`);
   }
 
   await chooseDesignTheme(page, "google-material-3", "Material 3", "#6750a4");
@@ -170,4 +181,4 @@ await inspect("launcher.html?lang=en&intent=create", async (page) => {
 });
 
 await browser.close();
-console.log("Launcher runtime audit passed: one three-step flow, explicit four-owner runtime, real design-token propagation, one final preview, right-side non-sticky prompt output, stable intent switching, and zh/en runtime.");
+console.log("Launcher runtime audit passed: one three-step flow, explicit four-owner runtime, real design-token propagation, one final preview, viewport-fixed prompt output across desktop scrolling, stable intent switching, and zh/en runtime.");
