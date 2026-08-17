@@ -1,0 +1,58 @@
+name: Launcher QA
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - "launcher.html"
+      - "launcher.js"
+      - "launcher-state.mjs"
+      - "launcher-url.mjs"
+      - "catalog/**"
+      - "src/features/launcher/**"
+      - "src/core/app-shell/**"
+      - "src/components/site-header/**"
+      - "scripts/audit_launcher_runtime.mjs"
+      - "tests/launcher-*.test.mjs"
+      - "package.json"
+      - ".github/workflows/launcher-qa.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: launcher-qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  launcher-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run Launcher static contracts
+        run: node --test tests/launcher-*.test.mjs
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Start Launcher site
+        run: |
+          IMAGE2_UI_PORT=4174 npm run serve > /tmp/ui-case-launcher-server.log 2>&1 &
+          for i in {1..30}; do
+            if curl -fsS "http://127.0.0.1:4174/launcher.html?lang=zh&intent=create" > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/ui-case-launcher-server.log
+          exit 1
+
+      - name: Audit Launcher runtime in Chromium
+        run: node scripts/audit_launcher_runtime.mjs
