@@ -46,6 +46,12 @@
       .brief-delivery-block .format-icon-picker{display:grid!important;margin-top:0}
       .brief-delivery-block .format-platform-detail{margin-top:10px}
 
+      /* The section title already explains this is a component system selector. */
+      body.create-flow-refactored #componentSystemPicker .select-field>span{display:none!important}
+      body.create-flow-refactored #componentSystemPicker{padding:10px!important}
+      body.create-flow-refactored #componentSystemPicker .select-field{display:block!important}
+      body.create-flow-refactored #componentSystemPicker select{width:100%;min-height:44px}
+
       .preview-color-field{display:grid;gap:5px}.preview-color-field>span{font-size:8px;font-weight:800;color:#657067}
       .preview-color-picker{position:relative;min-width:180px}
       .preview-color-button{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;height:34px;padding:0 10px;border:1px solid #d5ddd6;border-radius:8px;background:#fff;color:#202721;font:inherit;font-size:10px;cursor:pointer}
@@ -88,10 +94,30 @@
       return [];
     }
 
+    function platformDeliveryLabel(key, format) {
+      if (format === 'web') return '响应式网页';
+      if (format === 'dashboard') return '产品后台';
+      if (format === 'mobile') return key === 'android' ? 'Android · 手机 App' : 'iOS · 手机 App';
+      if (format === 'desktop') return key === 'windows' ? 'Windows · 桌面应用' : 'macOS · 桌面应用';
+      return '';
+    }
+
+    function syncPlatformSummary(key) {
+      const format = document.querySelector('#intentForm select[name="format"]')?.value || '';
+      const label = platformDeliveryLabel(key || localStorage.getItem('image2-ui-target-platform') || 'ios', format);
+      if (!label) return;
+      document.querySelectorAll('#taskSummary > div').forEach((row) => {
+        const dt = row.querySelector('dt');
+        const dd = row.querySelector('dd');
+        if (dt && dd && /交付|Deliverable/i.test(dt.textContent || '')) dd.textContent = label;
+      });
+    }
+
     function selectPlatform(key) {
       const original = document.querySelector('.platform-card[data-platform="' + key + '"]');
       if (original) original.click();
       try { localStorage.setItem("image2-ui-target-platform", key); } catch {}
+      setTimeout(() => syncPlatformSummary(key), 20);
     }
 
     function moveDeliveryUnderBrief() {
@@ -116,6 +142,18 @@
       if (detail && !field.contains(detail)) field.append(detail);
     }
 
+    function dedupeComponentSystemPicker() {
+      const picker = document.querySelector('#componentSystemPicker');
+      if (!picker) return;
+      const fields = [...picker.querySelectorAll('.select-field')].filter((field) => field.querySelector('select[name="designSystem"]'));
+      if (fields.length > 1) fields.slice(0, -1).forEach((field) => field.remove());
+      const keep = [...picker.querySelectorAll('.select-field')].find((field) => field.querySelector('select[name="designSystem"]'));
+      if (keep) {
+        keep.querySelector(':scope > span')?.remove();
+        [...picker.children].forEach((child) => { if (child !== keep) child.remove(); });
+      }
+    }
+
     function enhance() {
       const select = document.querySelector('#intentForm select[name="format"]');
       const picker = document.querySelector("#intentForm .format-icon-picker");
@@ -124,7 +162,7 @@
       if (!detail) { detail = document.createElement("div"); detail.className = "format-platform-detail"; picker.insertAdjacentElement("afterend", detail); }
       const render = () => {
         const options = platformData(select.value);
-        if (!options.length) { detail.classList.remove("is-visible"); detail.innerHTML = ""; return; }
+        if (!options.length) { detail.classList.remove("is-visible"); detail.innerHTML = ""; syncPlatformSummary(''); return; }
         const saved = localStorage.getItem("image2-ui-target-platform");
         const validKeys = options.map((x) => x[0]);
         const active = validKeys.includes(saved) ? saved : options[0][0];
@@ -138,10 +176,12 @@
           wrap.append(button);
         });
         detail.classList.add("is-visible");
+        syncPlatformSummary(active);
       };
       if (detail.dataset.bound !== "true") { detail.dataset.bound = "true"; select.addEventListener("change", render); }
       render();
       moveDeliveryUnderBrief();
+      dedupeComponentSystemPicker();
     }
 
     function colorDataFromCard(card) {
@@ -205,11 +245,21 @@
     }
 
     const intentForm = document.querySelector("#intentForm");
-    if (intentForm) { let timer = 0; new MutationObserver(() => { clearTimeout(timer); timer = setTimeout(() => { enhance(); moveDeliveryUnderBrief(); syncPreviewColorPicker(); syncBrandSummary(); }, 50); }).observe(intentForm, { childList: true, subtree: true }); }
+    if (intentForm) {
+      let timer = 0;
+      new MutationObserver(() => {
+        clearTimeout(timer);
+        timer = setTimeout(() => { enhance(); moveDeliveryUnderBrief(); dedupeComponentSystemPicker(); syncPreviewColorPicker(); syncBrandSummary(); syncPlatformSummary(); }, 50);
+      }).observe(intentForm, { childList: true, subtree: true });
+    }
+    const taskSummary = document.querySelector('#taskSummary');
+    if (taskSummary) new MutationObserver(() => syncPlatformSummary()).observe(taskSummary, { childList:true, subtree:true, characterData:true });
+    const componentPickerObserver = new MutationObserver(() => dedupeComponentSystemPicker());
+    componentPickerObserver.observe(document.body, { childList:true, subtree:true });
     const previewLabObserver = new MutationObserver(() => { const label = document.querySelector("#previewLabSection .flow-label span"); if (label) label.textContent = "4"; syncPreviewColorPicker(); syncBrandSummary(); });
     previewLabObserver.observe(document.body, { childList: true, subtree: true });
     const workbench = document.querySelector("#designSystemWorkbench"); if (workbench) new MutationObserver(() => { syncPreviewColorPicker(); syncBrandSummary(); }).observe(workbench, { subtree: true, childList: true, characterData: true, attributes: true });
-    document.addEventListener("change", () => setTimeout(() => { moveDeliveryUnderBrief(); syncPreviewColorPicker(); syncBrandSummary(); }, 40));
-    enhance(); moveDeliveryUnderBrief(); syncPreviewColorPicker(); syncBrandSummary();
+    document.addEventListener("change", () => setTimeout(() => { moveDeliveryUnderBrief(); dedupeComponentSystemPicker(); syncPreviewColorPicker(); syncBrandSummary(); syncPlatformSummary(); }, 40));
+    enhance(); moveDeliveryUnderBrief(); dedupeComponentSystemPicker(); syncPreviewColorPicker(); syncBrandSummary(); syncPlatformSummary();
   });
 })();
