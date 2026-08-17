@@ -59,6 +59,29 @@ const COPY = {
   "assistant.title": ["下一步建议", "Next suggestion"],
 };
 
+const HERO_COPY = {
+  create: {
+    zh: ["从零创建界面", "先定义产品、用户与核心任务，再设置视觉、平台和组件约束。"],
+    en: ["Create an interface", "Define the product, users, and core task first, then set visual, platform, and component constraints."],
+  },
+  rebuild: {
+    zh: ["参考图还原", "选择案例或上传参考图，明确要还原的页面、状态与交互，再决定实现约束。"],
+    en: ["Rebuild from a reference", "Choose a case or upload a reference, define the pages, states, and interactions to recreate, then set implementation constraints."],
+  },
+  improve: {
+    zh: ["优化现有页面", "明确检查对象、优化目标与操作权限，再输出有边界的实施指令。"],
+    en: ["Improve an existing page", "Define the target, improvement goal, and permission boundary before producing an implementation prompt."],
+  },
+  explore: {
+    zh: ["探索现有项目", "先确定项目范围与检查重点，再生成只读或有限权限的探索指令。"],
+    en: ["Explore an existing project", "Define project scope and inspection focus before generating a bounded exploration prompt."],
+  },
+  "design-system": {
+    zh: ["比较设计系统", "用同一页面目标与关键操作公平比较多套系统的组件、Token、交互与迁移成本。"],
+    en: ["Compare design systems", "Use one shared page goal and key actions to compare components, tokens, interactions, and migration cost fairly."],
+  },
+};
+
 const locale = () => {
   const query = new URL(location.href).searchParams.get("lang");
   if (query === "en" || query === "zh") return query;
@@ -78,6 +101,21 @@ function localized(zh, en) {
 function setAttr(selector, name, zh, en) {
   const node = document.querySelector(selector);
   if (node) node.setAttribute(name, localized(zh, en));
+}
+
+function currentIntent() {
+  const fromUrl = new URL(location.href).searchParams.get("intent");
+  if (HERO_COPY[fromUrl]) return fromUrl;
+  return document.querySelector("#modeTabs [aria-selected='true']")?.dataset.intent || "create";
+}
+
+function syncIntentHero() {
+  const copy = HERO_COPY[currentIntent()] || HERO_COPY.create;
+  const localizedCopy = copy[locale()];
+  const title = document.querySelector("#pageTitle");
+  const intro = document.querySelector("#pageIntro");
+  if (title) title.textContent = localizedCopy[0];
+  if (intro) intro.textContent = localizedCopy[1];
 }
 
 function applyStaticCopy() {
@@ -120,6 +158,7 @@ function applyStaticCopy() {
       " · Keep the information structure fixed while switching platform rules, typography, component anatomy, radius, density, and brand tokens.",
     )));
   }
+  syncIntentHero();
 }
 
 function setCurrentStep(step) {
@@ -139,6 +178,11 @@ function installStepNavigation() {
   document.querySelector(".launcher-step-nav")?.addEventListener("click", (event) => {
     const link = event.target.closest(".launcher-step-link[data-launcher-step]");
     if (link) setCurrentStep(link.dataset.launcherStep);
+  });
+
+  document.querySelector("#modeTabs")?.addEventListener("click", (event) => {
+    if (!event.target.closest("[data-intent]")) return;
+    requestAnimationFrame(syncIntentHero);
   });
 
   Object.entries(regions).forEach(([key, region]) => {
@@ -168,6 +212,7 @@ function init() {
   installStepNavigation();
   setCurrentStep("task");
   window.addEventListener("image2:launcherplatformchange", applyStaticCopy);
+  window.addEventListener("popstate", () => requestAnimationFrame(syncIntentHero));
   window.image2I18n?.registerPage?.(applyStaticCopy);
 }
 
