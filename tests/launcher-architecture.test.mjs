@@ -122,11 +122,12 @@ test("legacy core mount contract remains intact for task state and output", () =
   ids.forEach((id) => assert.match(html, new RegExp(`id="${id}"`), `missing #${id}`));
 });
 
-test("prompt output remains a right-side non-sticky rail on desktop", () => {
+test("prompt output remains a viewport-fixed rail throughout the desktop flow", () => {
   assert.match(html, /class="workspace-stage result-stage"/);
   assert.match(html, /id="outputPanel"/);
-  assert.match(simplifiedCss, /\.result-stage\{display:grid;grid-template-columns:/);
-  assert.match(simplifiedCss, /#outputPanel\{grid-column:2;grid-row:2;position:static/);
-  assert.doesNotMatch(simplifiedCss, /#outputPanel\{[^}]*position:(?:sticky|fixed)/);
-  assert.match(simplifiedCss, /@media\(max-width:980px\)[\s\S]*#outputPanel\{grid-row:auto/);
+  assert.match(simplifiedCss, /\.workspace-flow\{display:block;margin-top:20px;padding-right:calc\(clamp\(320px,30vw,380px\) \+ 20px\)\}/);
+  assert.match(simplifiedCss, /#outputPanel\{position:fixed;z-index:30;top:80px;/);
+  assert.match(simplifiedCss, /width:clamp\(320px,30vw,380px\);height:calc\(100vh - 104px\)/);
+  assert.match(simplifiedCss, /\.output-review-grid\{[^}]*overflow-y:auto/);
+  assert.match(simplifiedCss, /@media\(max-width:980px\)[\s\S]*\.workspace-flow\{padding-right:0\}[\s\S]*#outputPanel\{position:static/);
 });
