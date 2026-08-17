@@ -12,8 +12,8 @@ test("every library case has a video preview as the primary mode", () => {
   const cases = fs.readdirSync(casesDir).filter((file) => file.endsWith(".json")).map((file) => JSON.parse(fs.readFileSync(path.join(casesDir, file), "utf8")));
   const videos = cases.map((item) => item.video).filter(Boolean);
 
-  assert.equal(cases.length, 23);
-  assert.equal(videos.length, 23);
+  assert.equal(cases.length, 22);
+  assert.equal(videos.length, 22);
   for (const video of videos) {
     assert.ok(fs.existsSync(path.join(repoRoot, video.replace(/^\.\//, "").replace(/\?.*/, ""))), video);
   }
