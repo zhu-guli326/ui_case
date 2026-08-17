@@ -10,6 +10,7 @@ const read = (...parts) => readFileSync(path.join(root, ...parts), "utf8");
 const transitionalRootImplementation = new Set([
   "analytics.config.js",
   "analytics.js",
+  "brands-runtime-fix.js",
   "brands.js",
   "i18n.css",
   "i18n.js",
@@ -19,6 +20,7 @@ const transitionalRootImplementation = new Set([
   "learn.css",
   "learn.js",
   "library-effect-captures.mjs",
+  "library-media-guard.mjs",
   "library-preview-config.mjs",
   "library-search.mjs",
   "library.js",
@@ -88,8 +90,15 @@ test("new root implementation files are forbidden outside the migration allowlis
 });
 
 test("entry pages load feature and component implementation from src", () => {
-  assert.match(read("index.html"), /src\/features\/home\/index\.css/);
-  assert.match(read("index.html"), /src\/features\/home\/index\.js/);
+  const index = read("index.html");
+  const indexRedirectsToLibrary = /http-equiv="refresh"[^>]+library\.html/.test(index) && /window\.location\.replace\(target\.href\)/.test(index);
+  if (indexRedirectsToLibrary) {
+    assert.match(index, /<link rel="canonical" href="\.\/library\.html">/);
+  } else {
+    assert.match(index, /src\/features\/home\/index\.css/);
+    assert.match(index, /src\/features\/home\/index\.js/);
+  }
+
   assert.match(read("brands.html"), /src\/features\/brands\/brands\.css/);
   assert.match(read("launcher.html"), /src\/features\/launcher\/launcher\.css/);
   assert.match(read("library.html"), /src\/features\/library\/library\.css/);
@@ -104,7 +113,7 @@ test("entry pages load feature and component implementation from src", () => {
   assert.match(read("reference.html"), /src\/features\/markdown\/markdown\.js/);
   assert.match(read("vocabulary.html"), /src\/features\/vocabulary\/vocabulary\.css/);
 
-  for (const page of ["index.html", "brands.html", "launcher.html", "library.html", "skills.html", "markdown.html", "reference.html", "vocabulary.html"]) {
+  for (const page of ["brands.html", "launcher.html", "library.html", "skills.html", "markdown.html", "reference.html", "vocabulary.html"]) {
     const source = read(page);
     assert.match(source, /src\/core\/app-shell\/app-shell\.js/, `${page} should use AppShell`);
     assert.match(source, /src\/core\/app-shell\/language-switch\.css/, `${page} should use shared language switch styles`);
