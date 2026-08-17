@@ -122,9 +122,11 @@ test("legacy core mount contract remains intact for task state and output", () =
   ids.forEach((id) => assert.match(html, new RegExp(`id="${id}"`), `missing #${id}`));
 });
 
-test("output is no longer a sticky competing side rail", () => {
+test("prompt output remains a right-side non-sticky rail on desktop", () => {
   assert.match(html, /class="workspace-stage result-stage"/);
   assert.match(html, /id="outputPanel"/);
-  assert.match(simplifiedCss, /#outputPanel\{position:static/);
-  assert.match(simplifiedCss, /\.output-review-grid/);
+  assert.match(simplifiedCss, /\.result-stage\{display:grid;grid-template-columns:/);
+  assert.match(simplifiedCss, /#outputPanel\{grid-column:2;grid-row:2;position:static/);
+  assert.doesNotMatch(simplifiedCss, /#outputPanel\{[^}]*position:(?:sticky|fixed)/);
+  assert.match(simplifiedCss, /@media\(max-width:980px\)[\s\S]*#outputPanel\{grid-row:auto/);
 });
