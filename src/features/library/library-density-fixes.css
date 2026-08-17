@@ -27,11 +27,11 @@
   margin-bottom: 24px;
 }
 
-/* Three readable columns is the desktop default. Four columns made complete
- * mobile screens too narrow to inspect. */
+/* Four-column desktop gallery: keep the full mobile screen fitted inside each
+ * 4:5 board, so density increases without returning to cropped thumbnails. */
 .demo-gallery {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
 }
 
 .demo-card {
@@ -51,7 +51,7 @@
   position: relative;
   display: grid;
   aspect-ratio: var(--card-preview-ratio);
-  padding: 22px;
+  padding: 18px;
   place-items: center;
   overflow: hidden;
 }
@@ -64,14 +64,14 @@
  * absent in the library grid; the detail modal owns PhoneShell. */
 .demo-card-preview > .phone-frame.phone-frame--card:not(.is-artboard-preview) {
   width: auto !important;
-  height: calc(100% - 4px) !important;
-  max-width: calc(100% - 20px) !important;
-  max-height: calc(100% - 4px) !important;
+  height: calc(100% - 6px) !important;
+  max-width: calc(100% - 18px) !important;
+  max-height: calc(100% - 6px) !important;
   aspect-ratio: 390 / 844 !important;
   margin: 0 !important;
   overflow: hidden !important;
   border: 0 !important;
-  border-radius: 20px !important;
+  border-radius: 18px !important;
   background: transparent !important;
   box-shadow: 0 15px 34px -22px rgba(25, 24, 21, .42) !important;
 }
@@ -85,7 +85,7 @@
   width: 100% !important;
   height: 100% !important;
   overflow: hidden !important;
-  border-radius: 20px !important;
+  border-radius: 18px !important;
   background: transparent !important;
 }
 
@@ -116,7 +116,7 @@
 .demo-card-body {
   min-height: 0;
   gap: 7px;
-  padding: 15px 17px 17px;
+  padding: 14px 15px 16px;
 }
 
 .demo-card-meta {
@@ -163,8 +163,8 @@
 /* The whole preview remains the main action. The label stays quiet until the
  * user engages with the card. */
 .preview-open-button span {
-  top: 12px;
-  left: 12px;
+  top: 11px;
+  left: 11px;
   opacity: .72;
   transform: translateY(-2px);
   transition: opacity .16s ease, transform .16s ease, background .16s ease;
@@ -176,13 +176,14 @@
   transform: translateY(0);
 }
 
-@media (min-width: 1700px) {
+@media (max-width: 1380px) {
   .demo-gallery {
-    gap: 24px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
   }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 980px) {
   .demo-gallery {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
