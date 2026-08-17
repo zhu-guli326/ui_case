@@ -6,9 +6,6 @@ import { styleGuides } from "../../../catalog/index.js?v=20260815-artmuse-sequen
  * A case belongs in the browseable UI library only when it has a real
  * clickable demo. Screenshot/video-only references can still exist in the
  * repository, but they should not appear as first-class cases in Library.
- *
- * This also normalizes the primary action: clicking a case opens the live demo
- * first, so every mobile preview uses the same Library-owned PhoneShell.
  */
 
 const liveGuides = styleGuides.filter((guide) => Boolean(guide.liveDemo));
@@ -29,28 +26,45 @@ function countLabel(count) {
 
 function withPosterVersion(src) {
   if (!src) return "";
-  return `${src}${src.includes("?") ? "&" : "?"}v=20260817-canonical-poster-v2`;
+  return `${src}${src.includes("?") ? "&" : "?"}v=20260817-canonical-poster-v3`;
 }
 
-function mountLiveCardPreview(card, guide) {
-  const screen = card.querySelector(".phone-preview-media");
-  if (!screen || screen.querySelector("iframe[data-library-live-preview]")) return;
+function forceNotebookLivePreview(card, guide) {
+  const screen = card.querySelector(".phone-screen") || card.querySelector(".phone-preview-media");
+  if (!screen) return;
 
-  const poster = screen.querySelector(".phone-media");
-  if (!poster) return;
+  // The historical Marble Note poster is a presentation board containing its
+  // own phone mockups. It must never be shown in the browse grid.
+  screen.querySelectorAll("img, video, iframe").forEach((node) => {
+    if (node.dataset?.notebookLive === "true") return;
+    node.remove();
+  });
 
-  const frame = document.createElement("iframe");
-  frame.dataset.libraryLivePreview = "true";
-  frame.className = poster.className;
-  frame.src = `${guide.liveDemo}${guide.liveDemo.includes("?") ? "&" : "?"}libraryPreview=1`;
-  frame.title = `${guide.name} preview`;
-  frame.loading = "lazy";
-  frame.tabIndex = -1;
-  frame.setAttribute("aria-hidden", "true");
-  frame.style.border = "0";
-  frame.style.pointerEvents = "none";
-  frame.style.background = "#fff";
-  poster.replaceWith(frame);
+  let frame = screen.querySelector("iframe[data-notebook-live='true']");
+  if (!frame) {
+    frame = document.createElement("iframe");
+    frame.dataset.notebookLive = "true";
+    frame.src = `${guide.liveDemo}${guide.liveDemo.includes("?") ? "&" : "?"}libraryPreview=1&v=20260817-notebook-live-v2`;
+    frame.title = `${guide.name} preview`;
+    frame.loading = "eager";
+    frame.tabIndex = -1;
+    frame.setAttribute("aria-hidden", "true");
+    frame.style.cssText = [
+      "position:absolute",
+      "inset:0",
+      "width:100%",
+      "height:100%",
+      "border:0",
+      "display:block",
+      "pointer-events:none",
+      "background:#fff",
+      "transform:none"
+    ].join(";");
+    screen.appendChild(frame);
+  }
+
+  const frameShell = card.querySelector(".phone-frame");
+  frameShell?.classList.remove("has-wide-device-art", "has-fitted-device-art", "is-artboard-preview");
 }
 
 function updateGlobalCounts() {
@@ -89,18 +103,9 @@ function normalizeRenderedCards() {
 
     card.dataset.hasLiveDemo = "true";
 
-    /* Marble Note's historical poster is a presentation board that already
-     * contains a phone mockup. Putting it inside the Library PhoneShell creates
-     * the broken double-phone composition seen in the grid. Render the real
-     * first screen directly from the live demo instead, so the outer shell is
-     * owned only by Library. */
     if (guide.id === "notebook") {
-      mountLiveCardPreview(card, guide);
+      forceNotebookLivePreview(card, guide);
     } else {
-      /* Always use the case's canonical 390 x 844 mobile poster in the grid.
-       * Do not use library-preview-2x effect boards, because those may contain a
-       * baked phone shell or presentation background and create inconsistent
-       * frame ownership across cards. */
       const poster = card.querySelector(".phone-preview-media .phone-media");
       if (poster && poster.tagName === "IMG" && guide.poster) {
         const canonicalSrc = withPosterVersion(guide.poster);
@@ -125,14 +130,10 @@ function normalizeRenderedCards() {
   if (emptyState) emptyState.hidden = visibleCount !== 0;
 }
 
-/* Existing Library rerenders the grid for search/category/tag changes. Keep the
- * admission rule applied after every render without duplicating its renderer. */
 if (gallery) {
   const observer = new MutationObserver(normalizeRenderedCards);
-  observer.observe(gallery, { childList: true });
+  observer.observe(gallery, { childList: true, subtree: true });
 
-  /* The card body previously opened the automatic mode, which prefers video.
-   * Redirect that gesture to the primary live-demo button instead. */
   gallery.addEventListener("click", (event) => {
     const detailsHit = event.target.closest("[data-style-details]");
     if (!detailsHit) return;
@@ -148,6 +149,9 @@ if (gallery) {
 
 updateGlobalCounts();
 normalizeRenderedCards();
+requestAnimationFrame(normalizeRenderedCards);
+setTimeout(normalizeRenderedCards, 150);
+setTimeout(normalizeRenderedCards, 600);
 
 window.addEventListener("image2:languagechange", () => {
   updateGlobalCounts();
