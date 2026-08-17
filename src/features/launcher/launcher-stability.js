@@ -45,12 +45,10 @@
     function removeStandaloneTypography() {
       if (!document.body.classList.contains("create-flow-refactored")) return;
 
-      // Remove known runtime-generated font blocks.
       document.querySelectorAll(
         ".font-workbench,.font-preview-shell,[data-font-workbench],[data-section='typography'],[data-section='font']"
       ).forEach((el) => el.remove());
 
-      // Fallback for duplicated blocks whose runtime markup has no stable class.
       const headings = [...document.querySelectorAll(".workspace-main h1,.workspace-main h2,.workspace-main h3,.workspace-main strong")]
         .filter((el) => /^字体方案$|^Typography$/i.test(el.textContent.trim()));
 
@@ -69,7 +67,18 @@
       });
     }
 
+    function loadDistinctPreviewTemplates() {
+      if (document.querySelector('script[data-launcher-preview-templates]')) return;
+      const script = document.createElement("script");
+      script.src = "./src/features/launcher/launcher-preview-templates.js?v=20260817-distinct-pages-v1";
+      script.defer = true;
+      script.dataset.launcherPreviewTemplates = "true";
+      document.body.append(script);
+    }
+
     removeStandaloneTypography();
+    loadDistinctPreviewTemplates();
+
     let queued = false;
     new MutationObserver(() => {
       if (queued) return;
@@ -77,6 +86,7 @@
       requestAnimationFrame(() => {
         queued = false;
         removeStandaloneTypography();
+        loadDistinctPreviewTemplates();
       });
     }).observe(document.querySelector(".workspace-main") || document.body, { childList: true, subtree: true });
   });
