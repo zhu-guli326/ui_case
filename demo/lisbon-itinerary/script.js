@@ -18,6 +18,10 @@ if (previewParams.has('embed')) {
 const feedback = document.querySelector('#feedback');
 const timeline = document.querySelector('#timeline');
 const progress = document.querySelector('#progress');
+const screen = document.querySelector('.screen');
+const appBar = document.querySelector('.app-bar');
+const scrollArea = document.querySelector('.scroll-area');
+const addStopButton = document.querySelector('#add-stop');
 let activeDay = 'Saturday';
 let completed = new Set();
 let lastFocused = null;
@@ -41,6 +45,90 @@ function updateProgress() {
   progress.textContent = `${count} of ${plans[activeDay].stops.length} done`;
 }
 
+function createDiscoveryView() {
+  const view = document.createElement('section');
+  view.className = 'discover-view';
+  view.dataset.view = 'discover';
+  view.hidden = true;
+  view.setAttribute('aria-label', 'Travel inspiration and small discoveries');
+  view.innerHTML = `
+    <header class="discover-head">
+      <div>
+        <p class="eyebrow">Thursday, 10 August</p>
+        <h2>Where are<br>you drawn?</h2>
+      </div>
+      <span class="discover-avatar" aria-hidden="true">AE</span>
+    </header>
+    <label class="discover-search">
+      <svg aria-hidden="true"><use href="#i-search"></use></svg>
+      <input type="search" placeholder="Search a feeling or place" aria-label="Search a feeling or place">
+    </label>
+    <div class="discover-filters" aria-label="Discovery filters">
+      <button class="is-selected" type="button" data-discovery-filter="Slow escapes">Slow escapes</button>
+      <button type="button" data-discovery-filter="By the water">By the water</button>
+      <button type="button" data-discovery-filter="After dark">After dark</button>
+    </div>
+    <article class="discover-feature">
+      <img src="assets/lisbon-coast-hero.png" alt="Red kayak beside cobalt water and limestone cliffs">
+      <div class="discover-feature-scrim"></div>
+      <p class="discover-location">LEFKADA, GREECE</p>
+      <div class="discover-feature-copy">
+        <div><span>Field note 14</span><h3>Follow the<br>blue edge.</h3></div>
+        <button type="button" class="discover-save" aria-label="Save blue edge field note" aria-pressed="false"><svg aria-hidden="true"><use href="#i-bookmark"></use></svg></button>
+      </div>
+    </article>
+    <section class="discover-nearby" aria-labelledby="discover-nearby-title">
+      <div class="section-head">
+        <div><p class="eyebrow">Keep close</p><h3 id="discover-nearby-title">Small discoveries</h3></div>
+        <button class="discover-see-all" type="button">See all</button>
+      </div>
+      <div class="discover-list">
+        <button type="button" data-discovery="Saltwater swimming"><span>01</span><b>Saltwater swimming</b><svg aria-hidden="true"><use href="#i-chevron"></use></svg></button>
+        <button type="button" data-discovery="A table in shade"><span>02</span><b>A table in shade</b><svg aria-hidden="true"><use href="#i-chevron"></use></svg></button>
+      </div>
+    </section>`;
+  screen.insertBefore(view, addStopButton);
+
+  view.querySelectorAll('[data-discovery-filter]').forEach((button) => button.addEventListener('click', () => {
+    view.querySelectorAll('[data-discovery-filter]').forEach((item) => item.classList.toggle('is-selected', item === button));
+    feedback.textContent = `${button.dataset.discoveryFilter} discoveries selected`;
+  }));
+  view.querySelector('.discover-search input').addEventListener('input', (event) => {
+    feedback.textContent = event.target.value ? `Searching for ${event.target.value}` : 'Discovery search cleared';
+  });
+  view.querySelector('.discover-save').addEventListener('click', (event) => {
+    const button = event.currentTarget;
+    const saved = button.getAttribute('aria-pressed') !== 'true';
+    button.setAttribute('aria-pressed', String(saved));
+    button.classList.toggle('is-saved', saved);
+    feedback.textContent = saved ? 'Field note saved' : 'Field note removed from saved';
+  });
+  view.querySelectorAll('[data-discovery]').forEach((button) => button.addEventListener('click', () => {
+    feedback.textContent = `${button.dataset.discovery} opened`;
+  }));
+  view.querySelector('.discover-see-all').addEventListener('click', () => {
+    feedback.textContent = 'All small discoveries opened';
+  });
+  return view;
+}
+
+const discoveryView = createDiscoveryView();
+const savedTab = document.querySelector('.tab[data-tab="Saved"]');
+if (savedTab) {
+  savedTab.dataset.tab = 'Discover';
+  savedTab.querySelector('span').textContent = 'Discover';
+  savedTab.setAttribute('aria-label', 'Discover');
+}
+
+function setPrimaryMode(mode) {
+  const discoveryOpen = mode === 'Discover';
+  discoveryView.hidden = !discoveryOpen;
+  appBar.hidden = discoveryOpen;
+  scrollArea.hidden = discoveryOpen;
+  addStopButton.hidden = discoveryOpen;
+  if (!discoveryOpen) scrollArea.scrollTop = 0;
+}
+
 document.querySelectorAll('.day').forEach((day) => day.addEventListener('click', () => {
   activeDay = day.dataset.day;
   document.querySelectorAll('.day').forEach((item) => { const selected = item === day; item.classList.toggle('is-selected', selected); item.setAttribute('aria-selected', String(selected)); });
@@ -61,11 +149,22 @@ const sheet = document.querySelector('#add-sheet');
 const backdrop = document.querySelector('#sheet-backdrop');
 function closeSheet() { sheet.hidden = true; backdrop.hidden = true; lastFocused?.focus(); }
 function openSheet() { lastFocused = document.activeElement; sheet.hidden = false; backdrop.hidden = false; document.querySelector('#place-search').focus(); }
-document.querySelector('#add-stop').addEventListener('click', openSheet);
+addStopButton.addEventListener('click', openSheet);
 document.querySelector('#close-sheet').addEventListener('click', closeSheet);
 backdrop.addEventListener('click', closeSheet);
 document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !sheet.hidden) closeSheet(); });
 document.querySelector('#suggestions').addEventListener('click', (event) => { const choice = event.target.closest('button'); if (!choice) return; feedback.textContent = `${choice.dataset.place} added to ${activeDay}`; closeSheet(); });
 document.querySelector('#share-button').addEventListener('click', () => { feedback.textContent = 'Share link copied'; });
-document.querySelectorAll('.tab').forEach((tab) => tab.addEventListener('click', () => { document.querySelectorAll('.tab').forEach((item) => { const active = item === tab; item.classList.toggle('is-active', active); active ? item.setAttribute('aria-current', 'page') : item.removeAttribute('aria-current'); }); feedback.textContent = `${tab.dataset.tab} open`; }));
+
+document.querySelectorAll('.tab').forEach((tab) => tab.addEventListener('click', () => {
+  document.querySelectorAll('.tab').forEach((item) => {
+    const active = item === tab;
+    item.classList.toggle('is-active', active);
+    active ? item.setAttribute('aria-current', 'page') : item.removeAttribute('aria-current');
+  });
+  setPrimaryMode(tab.dataset.tab);
+  feedback.textContent = `${tab.dataset.tab} open`;
+}));
+
 renderPlan();
+setPrimaryMode('Plan');
