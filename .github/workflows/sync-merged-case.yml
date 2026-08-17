@@ -18,36 +18,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Sync active case data and QA counts
-        run: |
-          node scripts/sync_case_index.mjs
-          python - <<'PY'
-          from pathlib import Path
-
-          replacements = {
-              Path('scripts/audit_library_preview_contract.mjs'): [
-                  ('records.length !== 23', 'records.length !== 22'),
-                  ('Expected 23 cases', 'Expected 22 cases'),
-              ],
-              Path('.github/workflows/visual-qa.yml'): [
-                  ('live.length !== 20', 'live.length !== 19'),
-                  ('Expected 20 live cases', 'Expected 19 live cases'),
-              ],
-          }
-
-          for path, pairs in replacements.items():
-              text = path.read_text(encoding='utf-8')
-              for old, new in pairs:
-                  if old not in text:
-                      raise SystemExit(f'Missing expected text in {path}: {old}')
-                  text = text.replace(old, new)
-              path.write_text(text, encoding='utf-8')
-          PY
+      - name: Sync active case data
+        run: node scripts/sync_case_index.mjs
       - name: Commit synchronized catalog
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add catalog/index.js scripts/audit_library_preview_contract.mjs .github/workflows/visual-qa.yml
+          git add catalog/index.js
           if git diff --cached --quiet; then
             echo "Nothing to sync"
             exit 0
