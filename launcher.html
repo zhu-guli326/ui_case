@@ -4,116 +4,297 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="在单一工作区定义任务、描述需求、选择案例并生成可执行的 IMAGE2 UI 指令。">
+  <meta name="description" content="在单一工作区定义任务、设置设计约束并生成可执行的 IMAGE2 UI 指令。">
   <title>任务工作区 · IMAGE2 UI</title>
   <link rel="stylesheet" href="./src/features/launcher/launcher.css?v=20260817-brand-library-v5">
+  <link rel="stylesheet" href="./src/features/launcher/launcher-workspace.css?v=20260817-architecture-v1">
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260816-arch-v1">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260816-arch-v1">
-  <style>
-    .launcher-shell{width:min(1380px,calc(100% - 64px));padding-top:34px}
-    .workspace-flow{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:22px;align-items:start;margin-top:22px}
-    .workspace-main{min-width:0;display:grid;gap:14px}
-    .workspace-side{min-width:0;position:sticky;top:82px}
-    .page-heading{position:relative;min-height:158px;align-items:center;padding:28px 34px;border:1px solid #dce4dd;border-radius:18px;background:linear-gradient(135deg,#fff 0%,#f8fbf8 58%,#eef6f0 100%)}
-    .page-heading h1{font-size:clamp(34px,3.1vw,50px);letter-spacing:-.035em}
-    .page-heading>div>p:last-child{max-width:660px;margin-top:10px;font-size:14px}
-    .mode-picker,.style-direction,.platform-section,.color-theme-section,.launcher-grid{border:1px solid #dde2dd;border-radius:14px;background:#fff}
-    .mode-picker,.style-direction,.platform-section,.color-theme-section{padding:22px}
-    .launcher-grid{display:block;margin:0;padding:0;overflow:hidden}
-    .intent-form{padding:0;background:#fff}
-    .mode-picker{order:0}.launcher-grid{order:1}.style-direction{order:2}.platform-section{order:3}.color-theme-section{order:4}
-    .mode-picker-heading{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:14px}
-    .mode-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:0;border:0;background:transparent}
-    .mode-tabs>button{position:relative;min-height:76px;padding:14px 14px 12px;border:1px solid #dfe4df;border-radius:10px;background:#f8faf8;text-align:left;transition:.18s ease}
-    .mode-tabs>button:hover{border-color:#aeb8b0;background:#fff;transform:translateY(-1px)}
-    .mode-tabs>button[aria-selected="true"],.mode-tabs>button.is-active{border-color:#136e3e;background:#146f3f;color:#fff;box-shadow:0 8px 20px rgba(20,111,63,.18);transform:translateY(-2px)}
-    .mode-tabs>button[aria-selected="true"]::after,.mode-tabs>button.is-active::after{position:absolute;right:12px;top:10px;content:"✓";font-weight:900}
-    .mode-tabs strong{display:block;font-size:12px}.mode-tabs small{display:block;margin-top:6px;color:var(--muted);font-size:9px;line-height:1.4}.mode-tabs>button[aria-selected="true"] small,.mode-tabs>button.is-active small{color:rgba(255,255,255,.78)}
-    .requirement-stage{padding:22px;border-bottom:1px solid #e1e6e1;background:linear-gradient(135deg,#fbfdfb,#f3f8f4)}
-    .requirement-stage .flow-label{margin-bottom:7px}.requirement-stage h2{margin:0;font-size:20px;letter-spacing:-.02em}.requirement-stage p{max-width:720px;margin:6px 0 0;color:var(--muted);font-size:11px;line-height:1.6}
-    .intent-form>.config-section:first-child{margin:0;padding:24px 22px 26px;background:#fff}.intent-form>.config-section:first-child .section-heading h2{font-size:22px}.intent-form>.config-section:first-child .section-heading p{font-size:12px}.intent-form>.config-section:first-child .text-field>span{font-weight:800}.intent-form>.config-section:first-child input,.intent-form>.config-section:first-child textarea{min-height:46px;border-color:#b8c3ba;background:#fff;font-size:13px}.intent-form>.config-section:first-child textarea{min-height:110px}.intent-form>.config-section:not(:first-child){padding:22px;border-top:1px solid #e3e7e3}
-    .brief-seed-row{align-items:end}.brief-seed-row .text-field{flex:1}.brief-seed-row input{font-size:14px!important;font-weight:650}.structured-brief{margin-top:14px;padding:16px;border:1px solid #d9e3db;border-radius:10px;background:#f8fbf8}.structured-brief::before{display:block;margin-bottom:12px;color:#146f3f;content:"把需求补完整";font-size:10px;font-weight:850;letter-spacing:.06em}
-    .section-heading,.mode-picker-heading{margin-bottom:14px}.section-heading h2,.mode-picker-heading h2{font-size:18px;letter-spacing:-.02em}.section-heading p,.mode-picker-heading p{font-size:11px}
-    .flow-label{display:inline-flex;align-items:center;gap:7px;margin-bottom:8px;color:var(--accent-strong);font-size:9px;font-weight:850;letter-spacing:.05em;text-transform:uppercase}.flow-label span{display:grid;width:22px;height:22px;place-items:center;border-radius:50%;background:var(--accent-soft);color:var(--accent-strong);font-size:9px}
-    .style-card-grid{display:flex;gap:9px;align-items:stretch;counter-reset:visual-direction}.style-card-grid>:is(label,button),.style-card{flex:1 1 0;min-width:0;min-height:184px;border-radius:11px;transition:flex .18s ease,border-color .18s ease,background .18s ease,transform .18s ease;counter-increment:visual-direction}.style-card-grid>:is(label,button)::before,.style-card::before{position:absolute;z-index:3;top:12px;left:12px;display:grid;width:28px;height:28px;place-items:center;border:1px solid rgba(255,255,255,.82);border-radius:999px;background:rgba(20,26,21,.78);color:#fff;content:counter(visual-direction,decimal-leading-zero);font-size:9px;font-weight:850;letter-spacing:.04em;box-shadow:0 3px 10px rgba(0,0,0,.12);pointer-events:none}.style-card-grid>:is(label,button):hover,.style-card:hover{transform:translateY(-2px)}.style-card-grid>:is(label,button):is(:has(input:checked),[aria-checked="true"],[aria-pressed="true"],.is-selected),.style-card:is(:has(input:checked),[aria-checked="true"],[aria-pressed="true"],.is-selected){flex:1.65 1 0;background:#f2f9f4}.style-card-grid>:is(label,button):is(:has(input:checked),[aria-checked="true"],[aria-pressed="true"],.is-selected)::before,.style-card:is(:has(input:checked),[aria-checked="true"],[aria-pressed="true"],.is-selected)::before{background:var(--accent)}
-    .platform-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.platform-card{position:relative;display:flex;align-items:center;gap:12px;min-height:76px;padding:12px 14px;border:1px solid #dfe5e0;border-radius:11px;background:#fafbfa;cursor:pointer;text-align:left;transition:.16s ease}.platform-card:hover{border-color:#aeb9b0;background:#fff;transform:translateY(-1px)}.platform-card.is-active{border-color:#147043;background:#f0f8f3;box-shadow:0 0 0 1px #147043 inset}.platform-card.is-active::after{position:absolute;right:9px;bottom:9px;display:grid;width:18px;height:18px;place-items:center;border-radius:50%;background:#147043;color:#fff;content:"✓";font-size:10px;font-weight:900}.platform-icon{display:grid;width:46px;height:46px;flex:0 0 46px;place-items:center;border:1px solid #e1e6e2;border-radius:12px;background:#fff;color:#202722}.platform-icon svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}.platform-copy strong{display:block;font-size:12px}.platform-copy small{display:block;margin-top:4px;color:#778079;font-size:9px;line-height:1.35}.platform-hint{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;padding:9px 11px;border-radius:9px;background:#f5f8f6;color:#667068;font-size:9px}.platform-hint b{color:#2f503b}.platform-hint span:last-child{white-space:nowrap;color:#176b41;font-weight:800}
-    .color-theme-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.color-theme-card{min-height:84px;grid-template-rows:1fr;border-radius:10px;background:#fafbfa}.color-theme-choice{grid-template-columns:54px minmax(0,1fr);gap:10px;padding:11px 30px 11px 10px}.color-theme-palette{width:54px;height:44px;border-radius:6px}.color-theme-copy{gap:3px}.color-theme-copy strong{font-size:11px}.color-theme-copy small{max-height:30px;overflow:hidden;font-size:9px;line-height:1.35}.color-theme-meta,.color-theme-source{display:none}.color-theme-check{right:8px;bottom:8px;width:18px;height:18px}
-    .design-system-workbench{margin-top:18px;padding-top:18px;border-top:1px solid #e5eae6}
-    .ds-toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}.ds-toolbar strong{font-size:13px}.ds-toolbar span{color:#6f786f;font-size:10px}
-    .ds-tabs{display:flex;gap:6px;flex-wrap:wrap}.ds-tab{border:1px solid #dce3dd;border-radius:999px;background:#f7faf8;padding:7px 11px;font-size:10px;font-weight:800;cursor:pointer}.ds-tab.is-active{border-color:#177446;background:#e9f5ed;color:#12683c}
-    .ds-panel{display:none}.ds-panel.is-active{display:block}
-    .ds-foundation-grid{display:grid;grid-template-columns:1.05fr 1fr 1fr;gap:10px}.ds-info-card{min-height:132px;padding:14px;border:1px solid #e0e5e1;border-radius:11px;background:#fbfcfb}.ds-info-card h3{margin:0 0 10px;font-size:11px}.ds-info-card p{margin:0;color:#667067;font-size:9px;line-height:1.55}.ds-token-row{display:flex;gap:6px;margin:10px 0}.ds-swatch{width:28px;height:28px;border:1px solid rgba(0,0,0,.08);border-radius:8px;background:var(--swatch,#1677ff)}.ds-type-sample{margin-top:8px}.ds-type-sample strong{display:block;font-size:19px;line-height:1.1}.ds-type-sample small{font-size:9px;color:#778078}.ds-metric-list{display:grid;grid-template-columns:1fr 1fr;gap:6px}.ds-metric{padding:8px;border-radius:8px;background:#f0f4f1}.ds-metric b{display:block;font-size:10px}.ds-metric span{font-size:8px;color:#7a827b}
-    .component-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.component-demo{min-height:108px;padding:12px;border:1px solid #e0e5e1;border-radius:10px;background:#fbfcfb}.component-demo>span{display:block;margin-bottom:10px;color:#707971;font-size:8px;font-weight:850;text-transform:uppercase;letter-spacing:.05em}.demo-button{display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:0 14px;border:0;border-radius:8px;background:#1677ff;color:#fff;font-size:10px;font-weight:800}.demo-input{height:34px;border:1px solid #d4d9d5;border-radius:8px;background:#fff;padding:0 10px;color:#8a928b;font-size:9px;display:flex;align-items:center}.demo-segmented{display:grid;grid-template-columns:1fr 1fr 1fr;padding:3px;border-radius:8px;background:#eef1ef}.demo-segmented i{padding:6px 5px;border-radius:6px;font-style:normal;text-align:center;font-size:8px}.demo-segmented i:first-child{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.09)}.demo-list{overflow:hidden;border:1px solid #e0e4e1;border-radius:8px;background:#fff}.demo-list div{display:flex;justify-content:space-between;padding:8px 9px;border-bottom:1px solid #eef1ef;font-size:8px}.demo-list div:last-child{border-bottom:0}
-    .preview-controls{display:flex;gap:6px;margin-bottom:10px}.preview-control{border:1px solid #dce3dd;border-radius:7px;background:#fff;padding:6px 9px;font-size:9px;font-weight:750;cursor:pointer}.preview-control.is-active{border-color:#1c7548;background:#edf6f0;color:#176d42}.ds-preview-shell{display:grid;grid-template-columns:180px minmax(0,1fr);gap:12px;min-height:260px;padding:12px;border:1px solid #dfe5e0;border-radius:12px;background:#f3f6f4}.preview-meta{padding:12px;border-radius:9px;background:#fff}.preview-meta strong{display:block;font-size:12px}.preview-meta p{margin:6px 0 12px;color:#737c74;font-size:9px;line-height:1.5}.preview-meta ul{margin:0;padding-left:15px;color:#5e675f;font-size:8px;line-height:1.8}.preview-canvas{display:flex;align-items:center;justify-content:center;overflow:auto;border-radius:9px;background:#e7ece8}.preview-device{--preview-accent:#1677ff;width:246px;min-height:420px;padding:16px;border:1px solid #cfd6d0;border-radius:24px;background:#fff;box-shadow:0 14px 34px rgba(32,43,35,.12);transition:.2s ease}.preview-device[data-size="tablet"]{width:390px;border-radius:18px}.preview-device[data-size="desktop"]{width:100%;min-height:300px;border-radius:12px}.preview-device[data-platform="android"]{border-radius:18px}.preview-device[data-platform="windows"],.preview-device[data-platform="macos"]{width:100%;min-height:300px;border-radius:12px}.preview-status{display:flex;justify-content:space-between;font-size:8px;font-weight:800}.preview-nav{display:flex;justify-content:space-between;align-items:center;margin:18px 0 14px}.preview-nav strong{font-size:18px}.preview-avatar{width:28px;height:28px;border-radius:50%;background:#edf0ee}.preview-card{padding:14px;border:1px solid #e2e6e3;border-radius:14px;background:#fafbfa}.preview-card small{color:#7a827b;font-size:8px}.preview-card h4{margin:5px 0 12px;font-size:14px}.preview-card-row{display:flex;gap:8px}.preview-chip{padding:6px 8px;border-radius:999px;background:#eef1ef;font-size:8px}.preview-primary{margin-top:12px;width:100%;height:36px;border:0;border-radius:10px;background:var(--preview-accent);color:white;font-size:10px;font-weight:800}.preview-list{margin-top:12px;overflow:hidden;border:1px solid #e4e8e5;border-radius:12px}.preview-list div{display:flex;justify-content:space-between;padding:11px 12px;border-bottom:1px solid #edf0ee;font-size:9px}.preview-list div:last-child{border-bottom:0}
-    .ds-rule-note{margin-top:10px;padding:10px 12px;border-radius:9px;background:#f1f7f3;color:#335b42;font-size:9px;line-height:1.55}.ds-rule-note b{color:#155f38}
-    .prompt-panel{border:1px solid #243128;border-radius:16px;background:#202721;box-shadow:0 18px 44px rgba(26,35,28,.14);overflow:hidden}.prompt-heading{padding-top:20px}.prompt-heading h2{font-size:22px}.task-summary{margin-top:4px}.prompt-preview{border-radius:10px}.generate-button{min-height:44px;border-radius:9px}
-    @media(max-width:1120px){.workspace-flow{grid-template-columns:1fr}.workspace-side{position:static}.mode-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}}
-    @media(max-width:780px){.launcher-shell{width:min(100% - 28px,1380px);padding-top:18px}.page-heading{min-height:140px;padding:22px}.mode-picker,.style-direction,.platform-section,.color-theme-section{padding:16px}.requirement-stage,.intent-form>.config-section:first-child,.intent-form>.config-section:not(:first-child){padding:16px}.mode-tabs{grid-template-columns:1fr 1fr}.style-card-grid{display:grid;grid-template-columns:1fr 1fr}.platform-grid,.color-theme-grid{grid-template-columns:1fr 1fr}.ds-foundation-grid,.component-strip{grid-template-columns:1fr 1fr}.ds-preview-shell{grid-template-columns:1fr}.preview-meta{display:none}}
-    @media(max-width:520px){.mode-tabs,.style-card-grid,.platform-grid,.color-theme-grid,.ds-foundation-grid,.component-strip{grid-template-columns:1fr}.page-heading h1{font-size:32px}.preview-device,.preview-device[data-size="tablet"]{width:100%;min-width:0}}
-  </style>
   <script src="./src/core/app-shell/app-shell.js?v=20260816-arch-v1"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
-  <script type="module">
-    await fetch('./catalog/color-themes.js?v=20260817-brand-library-v5', { cache: 'reload' });
-    await import('./launcher.js?v=20260817-brand-library-v5');
-  </script>
+  <script type="module" src="./src/features/launcher/launcher-entry.js?v=20260817-architecture-v1"></script>
 </head>
 <body class="launcher-workspace">
   <image2-site-header data-site-header></image2-site-header>
-  <main class="launcher-shell">
-    <header class="page-heading"><div><p class="page-kicker" id="pageKicker">单一任务工作区</p><h1 id="pageTitle">从零创建界面</h1><p id="pageIntro">先告诉我你要做什么，再选择风格、目标平台和设计系统；需求本身永远是第一优先级。</p></div></header>
+
+  <main class="launcher-shell" aria-labelledby="pageTitle">
+    <header class="page-heading">
+      <div class="page-heading-copy">
+        <p class="page-kicker" id="pageKicker">单一任务工作区</p>
+        <h1 id="pageTitle">从零创建界面</h1>
+        <p id="pageIntro">先告诉我你要做什么，再选择风格、目标平台和设计系统；需求本身永远是第一优先级。</p>
+      </div>
+
+      <nav class="launcher-step-nav" aria-label="任务流程">
+        <a class="launcher-step-link" href="#taskDefinition" data-launcher-step="task" aria-current="step">
+          <span data-launcher-copy="steps.task.eyebrow">01 · 定义</span>
+          <strong data-launcher-copy="steps.task.title">定义任务</strong>
+          <small data-launcher-copy="steps.task.detail">模式与需求</small>
+        </a>
+        <a class="launcher-step-link" href="#designDecisions" data-launcher-step="design">
+          <span data-launcher-copy="steps.design.eyebrow">02 · 约束</span>
+          <strong data-launcher-copy="steps.design.title">设计约束</strong>
+          <small data-launcher-copy="steps.design.detail">风格、平台、系统</small>
+        </a>
+        <a class="launcher-step-link" href="#outputPanel" data-launcher-step="output">
+          <span data-launcher-copy="steps.output.eyebrow">03 · 输出</span>
+          <strong data-launcher-copy="steps.output.title">检查并输出</strong>
+          <small data-launcher-copy="steps.output.detail">摘要与指令</small>
+        </a>
+      </nav>
+    </header>
+
     <div class="workspace-flow">
       <div class="workspace-main">
-        <section class="mode-picker" aria-labelledby="modeTitle"><div class="mode-picker-heading"><div><div class="flow-label"><span>1</span> Task mode</div><h2 id="modeTitle">先确定要做什么</h2><p id="modeIntro">不同模式会展示不同的需求输入项。</p></div></div><div class="intent-nav mode-tabs" id="modeTabs" role="tablist" aria-label="任务模式"><button type="button" role="tab" id="tab-create" aria-controls="intentForm" data-intent="create"><strong>从零创建</strong><small>描述产品、用户和页面</small></button><button type="button" role="tab" id="tab-rebuild" aria-controls="intentForm" data-intent="rebuild"><strong>参考图还原</strong><small>说明要还原哪些页面和状态</small></button><button type="button" role="tab" id="tab-improve" aria-controls="intentForm" data-intent="improve"><strong>优化现有页面</strong><small>说明页面问题和优化目标</small></button><button type="button" role="tab" id="tab-explore" aria-controls="intentForm" data-intent="explore"><strong>探索现有项目</strong><small>指定项目和检查重点</small></button><button type="button" role="tab" id="tab-design-system" aria-controls="intentForm" data-intent="design-system"><strong>比较设计系统</strong><small>说明页面目标后再比较</small></button></div></section>
-        <form class="launcher-grid" id="launcherForm" novalidate><div class="requirement-stage"><div class="flow-label"><span>2</span> Requirements</div><h2>描述你的需求</h2><p>先写清楚要做什么、给谁用、核心任务和需要哪些页面。风格与组件系统放在需求之后决定。</p></div><div class="configuration-column"><div class="intent-form" id="intentForm" role="tabpanel" aria-labelledby="tab-create" tabindex="0"></div></div></form>
-        <section class="style-direction" aria-labelledby="styleTitle"><div class="section-heading"><div><div class="flow-label"><span>3</span> Visual direction</div><h2 id="styleTitle">再选风格方向</h2><p id="styleIntro">风格负责构图、密度、图片气质与视觉表达，不替代真实需求。</p></div></div><div class="style-card-grid" id="styleDirectionGrid" role="radiogroup" aria-label="风格方向"></div></section>
-        <section class="platform-section" aria-labelledby="platformTitle"><div class="section-heading"><div><div class="flow-label"><span>4</span> Target platform</div><h2 id="platformTitle">选择目标端</h2><p>先确定页面最终运行在哪个平台。平台会影响导航方式、控件尺寸、安全区、字体与组件推荐。</p></div></div><div class="platform-grid" id="platformGrid" role="radiogroup" aria-label="目标平台">
-          <button class="platform-card is-active" type="button" data-platform="ios" aria-pressed="true"><span class="platform-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="9" y="3" width="14" height="26" rx="4"></rect><path d="M13 6h6"></path><path d="M14 26h4"></path></svg></span><span class="platform-copy"><strong>iOS</strong><small>iPhone · 原生移动端</small></span></button>
-          <button class="platform-card" type="button" data-platform="android" aria-pressed="false"><span class="platform-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 12h14v10H9z"></path><path d="M11 12a5 5 0 0 1 10 0"></path><path d="M12 7 10 4M20 7l2-3"></path><path d="M7 13v7M25 13v7M12 22v5M20 22v5"></path><circle cx="13" cy="10" r=".7" fill="currentColor" stroke="none"></circle><circle cx="19" cy="10" r=".7" fill="currentColor" stroke="none"></circle></svg></span><span class="platform-copy"><strong>Android</strong><small>Phone · Material 生态</small></span></button>
-          <button class="platform-card" type="button" data-platform="windows" aria-pressed="false"><span class="platform-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6l11-1.5V15H4zM17 4.2 28 2.7V15H17zM4 17h11v10.5L4 26zM17 17h11v12.3L17 27.8z"></path></svg></span><span class="platform-copy"><strong>Windows</strong><small>Desktop · Fluent 桌面端</small></span></button>
-          <button class="platform-card" type="button" data-platform="macos" aria-pressed="false"><span class="platform-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="5" width="22" height="16" rx="2"></rect><path d="M2.5 25h27M12 25h8"></path><circle cx="16" cy="13" r="2.2"></circle></svg></span><span class="platform-copy"><strong>macOS</strong><small>Mac · Apple 桌面端</small></span></button>
-        </div><div class="platform-hint"><span><b id="platformHintTitle">iOS 推荐：</b><span id="platformHintText">Apple HIG + SF Pro + iOS 原生组件，并自动遵守 Safe Area。</span></span><span id="platformBadge">Mobile</span></div></section>
-        <section class="color-theme-section" aria-labelledby="colorThemeTitle"><div class="section-heading"><div><div class="flow-label"><span>5</span> Design system</div><h2 id="colorThemeTitle">选择 Design System</h2><p id="colorThemeIntro">先选择官方组件系统或品牌视觉规范，再查看对应 Token、字体、组件与真实页面效果。</p></div></div><div class="color-theme-grid" id="colorThemeGrid" role="radiogroup" aria-label="品牌设计规范"></div>
-          <div class="design-system-workbench" id="designSystemWorkbench">
-            <div class="ds-toolbar"><div><strong id="dsWorkbenchTitle">Design System 配置</strong><br><span id="dsWorkbenchSubtitle">选择上方规范后，这里展示完整系统而不只是颜色。</span></div><div class="ds-tabs" role="tablist" aria-label="Design System 详情"><button class="ds-tab is-active" type="button" data-ds-tab="foundation">Foundation</button><button class="ds-tab" type="button" data-ds-tab="components">Components</button><button class="ds-tab" type="button" data-ds-tab="preview">Page Preview</button></div></div>
-            <div class="ds-panel is-active" data-ds-panel="foundation"><div class="ds-foundation-grid"><article class="ds-info-card"><h3>Color Tokens</h3><div class="ds-token-row" id="dsSwatches"><i class="ds-swatch" style="--swatch:#1677ff"></i><i class="ds-swatch" style="--swatch:#ffffff"></i><i class="ds-swatch" style="--swatch:#1d1d1f"></i><i class="ds-swatch" style="--swatch:#f2f2f7"></i></div><p id="dsColorCopy">Primary / Background / Text / Surface</p></article><article class="ds-info-card"><h3>Typography</h3><div class="ds-type-sample"><strong id="dsFontSample">SF Pro</strong><small id="dsFontStack">SF Pro Display · SF Pro Text · SF Mono</small></div><p id="dsTypeScale">Large Title 34 / Title 28 / Headline 17 / Body 17 / Caption 12</p></article><article class="ds-info-card"><h3>Layout Tokens</h3><div class="ds-metric-list"><div class="ds-metric"><b id="dsRadius">12 px</b><span>Radius</span></div><div class="ds-metric"><b id="dsSpacing">8 pt</b><span>Spacing base</span></div><div class="ds-metric"><b id="dsBorder">1 px</b><span>Border</span></div><div class="ds-metric"><b id="dsDensity">Comfortable</b><span>Density</span></div></div></article></div></div>
-            <div class="ds-panel" data-ds-panel="components"><div class="component-strip"><article class="component-demo"><span>Button</span><button class="demo-button" id="dsDemoButton" type="button">Continue</button></article><article class="component-demo"><span>Text field</span><div class="demo-input">Search or enter text</div></article><article class="component-demo"><span>Segmented / Tabs</span><div class="demo-segmented"><i>Today</i><i>Week</i><i>Month</i></div></article><article class="component-demo"><span>List</span><div class="demo-list"><div><b>Account</b><span>›</span></div><div><b>Notifications</b><span>›</span></div><div><b>Privacy</b><span>›</span></div></div></article></div><div class="ds-rule-note"><b>组件调用规则：</b>生成页面时优先调用当前 Design System 的现成组件与交互模式；只有 Registry 中不存在目标组件时，才允许自定义绘制。</div></div>
-            <div class="ds-panel" data-ds-panel="preview"><div class="preview-controls" aria-label="预览设备"><button class="preview-control is-active" type="button" data-preview-size="mobile">Mobile</button><button class="preview-control" type="button" data-preview-size="tablet">Tablet</button><button class="preview-control" type="button" data-preview-size="desktop">Desktop</button></div><div class="ds-preview-shell"><aside class="preview-meta"><strong id="previewSystemName">Apple System</strong><p><span id="previewPlatformName">iOS</span> · 保持信息结构不变，只切换平台规范、字体、组件骨架、圆角、密度和品牌 Token。</p><ul id="previewUsing"><li>Navigation Bar</li><li>Card / List</li><li>Primary Button</li><li>System Typography</li></ul></aside><div class="preview-canvas"><div class="preview-device" id="previewDevice" data-size="mobile" data-platform="ios"><div class="preview-status"><span>9:41</span><span>● ● ●</span></div><div class="preview-nav"><strong>Overview</strong><i class="preview-avatar"></i></div><section class="preview-card"><small>Weekly activity</small><h4>Keep your workspace moving</h4><div class="preview-card-row"><span class="preview-chip">12 tasks</span><span class="preview-chip">4 active</span></div><button class="preview-primary" id="previewPrimary" type="button">Continue</button></section><div class="preview-list"><div><span>Profile</span><b>›</b></div><div><span>Notifications</span><b>›</b></div><div><span>Privacy</span><b>›</b></div></div></div></div></div></div>
+        <section class="workspace-stage" id="taskDefinition" aria-labelledby="taskDefinitionTitle">
+          <header class="stage-heading">
+            <div class="stage-heading-copy">
+              <h2 id="taskDefinitionTitle" data-launcher-copy="stage.task.title">定义任务</h2>
+              <p data-launcher-copy="stage.task.intro">先确定你要完成的工作，再补齐真实需求。这里决定“做什么”，后面的设计选择只负责“怎么做”。</p>
+            </div>
+            <span class="stage-number" aria-hidden="true">01</span>
+          </header>
+
+          <section class="mode-picker" aria-labelledby="modeTitle">
+            <div class="mode-picker-heading">
+              <div>
+                <h2 id="modeTitle" data-launcher-copy="mode.title">选择任务模式</h2>
+                <p id="modeIntro" data-launcher-copy="mode.intro">不同模式只改变需要填写的任务信息，不改变后续的设计与输出路径。</p>
+              </div>
+            </div>
+            <div class="intent-nav mode-tabs" id="modeTabs" role="tablist" aria-label="任务模式">
+              <button type="button" role="tab" id="tab-create" aria-controls="intentForm" data-intent="create">
+                <strong data-launcher-copy="mode.create.title">从零创建</strong>
+                <small data-launcher-copy="mode.create.detail">描述产品、用户和页面</small>
+              </button>
+              <button type="button" role="tab" id="tab-rebuild" aria-controls="intentForm" data-intent="rebuild">
+                <strong data-launcher-copy="mode.rebuild.title">参考图还原</strong>
+                <small data-launcher-copy="mode.rebuild.detail">还原页面、状态与交互</small>
+              </button>
+              <button type="button" role="tab" id="tab-improve" aria-controls="intentForm" data-intent="improve">
+                <strong data-launcher-copy="mode.improve.title">优化现有页面</strong>
+                <small data-launcher-copy="mode.improve.detail">诊断问题并实施优化</small>
+              </button>
+              <button type="button" role="tab" id="tab-explore" aria-controls="intentForm" data-intent="explore">
+                <strong data-launcher-copy="mode.explore.title">探索现有项目</strong>
+                <small data-launcher-copy="mode.explore.detail">理解结构、风险和缺口</small>
+              </button>
+              <button type="button" role="tab" id="tab-design-system" aria-controls="intentForm" data-intent="design-system">
+                <strong data-launcher-copy="mode.system.title">比较设计系统</strong>
+                <small data-launcher-copy="mode.system.detail">同一目标下公平比较</small>
+              </button>
+            </div>
+          </section>
+
+          <form class="launcher-grid" id="launcherForm" novalidate>
+            <div class="requirement-stage">
+              <h2 data-launcher-copy="requirements.title">填写任务信息</h2>
+              <p data-launcher-copy="requirements.intro">只填写这个模式真正需要的信息；缺失项会在右侧实时提示。</p>
+            </div>
+            <div class="configuration-column">
+              <div class="intent-form" id="intentForm" role="tabpanel" aria-labelledby="tab-create" tabindex="0"></div>
+            </div>
+          </form>
+        </section>
+
+        <section class="workspace-stage" id="designDecisions" aria-labelledby="designDecisionsTitle">
+          <header class="stage-heading">
+            <div class="stage-heading-copy">
+              <h2 id="designDecisionsTitle" data-launcher-copy="stage.design.title">设置设计约束</h2>
+              <p data-launcher-copy="stage.design.intro">在需求明确后，再决定视觉方向、目标平台和组件系统，避免设计语言反过来绑架产品需求。</p>
+            </div>
+            <span class="stage-number" aria-hidden="true">02</span>
+          </header>
+
+          <div class="design-decisions-body">
+            <section class="style-direction" aria-labelledby="styleTitle">
+              <div class="section-heading">
+                <div>
+                  <div class="flow-label"><span aria-hidden="true">A</span> Visual direction</div>
+                  <h2 id="styleTitle" data-launcher-copy="style.title">视觉方向</h2>
+                  <p id="styleIntro" data-launcher-copy="style.intro">决定构图、密度和视觉气质，不替代产品目标。</p>
+                </div>
+              </div>
+              <div class="style-card-grid" id="styleDirectionGrid" role="radiogroup" aria-label="风格方向"></div>
+            </section>
+
+            <section class="platform-section" aria-labelledby="platformTitle">
+              <div class="section-heading">
+                <div>
+                  <div class="flow-label"><span aria-hidden="true">B</span> Target platform</div>
+                  <h2 id="platformTitle" data-launcher-copy="platform.title">目标平台</h2>
+                  <p data-launcher-copy="platform.intro">平台会影响导航、控件尺寸、安全区、字体和交互惯例。</p>
+                </div>
+              </div>
+
+              <div class="platform-grid" id="platformGrid" role="radiogroup" aria-label="目标平台">
+                <button class="platform-card is-active" type="button" data-platform="ios" role="radio" aria-checked="true" tabindex="0">
+                  <span class="platform-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="9" y="3" width="14" height="26" rx="4"></rect><path d="M13 6h6"></path><path d="M14 26h4"></path></svg></span>
+                  <span class="platform-copy"><strong>iOS</strong><small data-launcher-copy="platform.ios.detail">iPhone · 原生移动端</small></span>
+                </button>
+                <button class="platform-card" type="button" data-platform="android" role="radio" aria-checked="false" tabindex="-1">
+                  <span class="platform-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 12h14v10H9z"></path><path d="M11 12a5 5 0 0 1 10 0"></path><path d="M12 7 10 4M20 7l2-3"></path><path d="M7 13v7M25 13v7M12 22v5M20 22v5"></path><circle cx="13" cy="10" r=".7" fill="currentColor" stroke="none"></circle><circle cx="19" cy="10" r=".7" fill="currentColor" stroke="none"></circle></svg></span>
+                  <span class="platform-copy"><strong>Android</strong><small data-launcher-copy="platform.android.detail">Phone · Material 生态</small></span>
+                </button>
+                <button class="platform-card" type="button" data-platform="windows" role="radio" aria-checked="false" tabindex="-1">
+                  <span class="platform-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6l11-1.5V15H4zM17 4.2 28 2.7V15H17zM4 17h11v10.5L4 26zM17 17h11v12.3L17 27.8z"></path></svg></span>
+                  <span class="platform-copy"><strong>Windows</strong><small data-launcher-copy="platform.windows.detail">Desktop · Fluent 桌面端</small></span>
+                </button>
+                <button class="platform-card" type="button" data-platform="macos" role="radio" aria-checked="false" tabindex="-1">
+                  <span class="platform-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="5" width="22" height="16" rx="2"></rect><path d="M2.5 25h27M12 25h8"></path><circle cx="16" cy="13" r="2.2"></circle></svg></span>
+                  <span class="platform-copy"><strong>macOS</strong><small data-launcher-copy="platform.macos.detail">Mac · Apple 桌面端</small></span>
+                </button>
+              </div>
+              <div class="platform-hint" aria-live="polite">
+                <span><b id="platformHintTitle">iOS 推荐：</b><span id="platformHintText">Apple HIG + SF Pro + iOS 原生组件，并自动遵守 Safe Area。</span></span>
+                <span id="platformBadge">Mobile</span>
+              </div>
+            </section>
+
+            <section class="color-theme-section" aria-labelledby="colorThemeTitle">
+              <div class="section-heading">
+                <div>
+                  <div class="flow-label"><span aria-hidden="true">C</span> Design system</div>
+                  <h2 id="colorThemeTitle" data-launcher-copy="system.title">Design System</h2>
+                  <p id="colorThemeIntro" data-launcher-copy="system.intro">选择组件与 Token 的来源，再用同一预览检查差异。</p>
+                </div>
+              </div>
+
+              <div class="color-theme-grid" id="colorThemeGrid" role="radiogroup" aria-label="品牌设计规范"></div>
+
+              <div class="design-system-workbench" id="designSystemWorkbench">
+                <div class="ds-toolbar">
+                  <div>
+                    <strong id="dsWorkbenchTitle">Design System 配置</strong><br>
+                    <span id="dsWorkbenchSubtitle">选择上方规范后，这里展示完整系统而不只是颜色。</span>
+                  </div>
+                  <div class="ds-tabs" role="tablist" aria-label="Design System 详情">
+                    <button class="ds-tab is-active" id="ds-tab-foundation" type="button" role="tab" aria-selected="true" aria-controls="ds-panel-foundation" tabindex="0" data-ds-tab="foundation" data-launcher-copy="workbench.foundation">Foundation</button>
+                    <button class="ds-tab" id="ds-tab-components" type="button" role="tab" aria-selected="false" aria-controls="ds-panel-components" tabindex="-1" data-ds-tab="components" data-launcher-copy="workbench.components">Components</button>
+                    <button class="ds-tab" id="ds-tab-preview" type="button" role="tab" aria-selected="false" aria-controls="ds-panel-preview" tabindex="-1" data-ds-tab="preview" data-launcher-copy="workbench.preview">Page Preview</button>
+                  </div>
+                </div>
+
+                <div class="ds-panel is-active" id="ds-panel-foundation" role="tabpanel" aria-labelledby="ds-tab-foundation" tabindex="0" data-ds-panel="foundation">
+                  <div class="ds-foundation-grid">
+                    <article class="ds-info-card">
+                      <h3>Color Tokens</h3>
+                      <div class="ds-token-row" id="dsSwatches" aria-label="Color token preview">
+                        <i class="ds-swatch" style="--swatch:#1677ff"></i><i class="ds-swatch" style="--swatch:#ffffff"></i><i class="ds-swatch" style="--swatch:#1d1d1f"></i><i class="ds-swatch" style="--swatch:#f2f2f7"></i>
+                      </div>
+                      <p id="dsColorCopy">Primary / Background / Text / Surface</p>
+                    </article>
+                    <article class="ds-info-card">
+                      <h3>Typography</h3>
+                      <div class="ds-type-sample"><strong id="dsFontSample">SF Pro</strong><small id="dsFontStack">SF Pro Display · SF Pro Text · SF Mono</small></div>
+                      <p id="dsTypeScale">Large Title 34 / Title 28 / Headline 17 / Body 17 / Caption 12</p>
+                    </article>
+                    <article class="ds-info-card">
+                      <h3>Layout Tokens</h3>
+                      <div class="ds-metric-list">
+                        <div class="ds-metric"><b id="dsRadius">12 px</b><span>Radius</span></div>
+                        <div class="ds-metric"><b id="dsSpacing">8 pt</b><span>Spacing base</span></div>
+                        <div class="ds-metric"><b id="dsBorder">1 px</b><span>Border</span></div>
+                        <div class="ds-metric"><b id="dsDensity">Comfortable</b><span>Density</span></div>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+
+                <div class="ds-panel" id="ds-panel-components" role="tabpanel" aria-labelledby="ds-tab-components" tabindex="0" data-ds-panel="components" hidden>
+                  <div class="component-strip">
+                    <article class="component-demo"><span>Button</span><button class="demo-button" id="dsDemoButton" type="button">Continue</button></article>
+                    <article class="component-demo"><span>Text field</span><div class="demo-input">Search or enter text</div></article>
+                    <article class="component-demo"><span>Segmented / Tabs</span><div class="demo-segmented"><i>Today</i><i>Week</i><i>Month</i></div></article>
+                    <article class="component-demo"><span>List</span><div class="demo-list"><div><b>Account</b><span>›</span></div><div><b>Notifications</b><span>›</span></div><div><b>Privacy</b><span>›</span></div></div></article>
+                  </div>
+                  <div class="ds-rule-note"><b data-launcher-copy="workbench.rule">组件调用规则：</b><span data-launcher-copy="workbench.rule.detail">生成页面时优先调用当前 Design System 的现成组件与交互模式；只有 Registry 中不存在目标组件时，才允许自定义绘制。</span></div>
+                </div>
+
+                <div class="ds-panel" id="ds-panel-preview" role="tabpanel" aria-labelledby="ds-tab-preview" tabindex="0" data-ds-panel="preview" hidden>
+                  <div class="preview-controls" aria-label="预览设备">
+                    <button class="preview-control is-active" type="button" data-preview-size="mobile" aria-pressed="true">Mobile</button>
+                    <button class="preview-control" type="button" data-preview-size="tablet" aria-pressed="false">Tablet</button>
+                    <button class="preview-control" type="button" data-preview-size="desktop" aria-pressed="false">Desktop</button>
+                  </div>
+                  <div class="ds-preview-shell">
+                    <aside class="preview-meta">
+                      <strong id="previewSystemName">Apple System</strong>
+                      <p><span id="previewPlatformName">iOS</span> · 保持信息结构不变，只切换平台规范、字体、组件骨架、圆角、密度和品牌 Token。</p>
+                      <ul id="previewUsing"><li>Navigation Bar</li><li>Card / List</li><li>Primary Button</li><li>System Typography</li></ul>
+                    </aside>
+                    <div class="preview-canvas">
+                      <div class="preview-device" id="previewDevice" data-size="mobile" data-platform="ios">
+                        <div class="preview-status"><span>9:41</span><span>● ● ●</span></div>
+                        <div class="preview-nav"><strong>Overview</strong><i class="preview-avatar"></i></div>
+                        <section class="preview-card">
+                          <small>Weekly activity</small>
+                          <h4>Keep your workspace moving</h4>
+                          <div class="preview-card-row"><span class="preview-chip">12 tasks</span><span class="preview-chip">4 active</span></div>
+                          <button class="preview-primary" id="previewPrimary" type="button">Continue</button>
+                        </section>
+                        <div class="preview-list"><div><span>Profile</span><b>›</b></div><div><span>Notifications</span><b>›</b></div><div><span>Privacy</span><b>›</b></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
         </section>
       </div>
-      <aside class="workspace-side prompt-column" aria-labelledby="promptTitle"><div class="prompt-panel"><div class="prompt-heading"><div><p id="promptKicker">CURRENT TASK</p><h2 id="promptTitle">当前任务</h2></div><span class="ready-state" id="readyState"><i></i><span>等待输入</span></span></div><ol class="summary-progress" id="summaryProgress" aria-label="任务进度"></ol><div class="missing-state" id="missingState" role="status" aria-live="polite"></div><dl class="task-summary" id="taskSummary"></dl><section class="prompt-preview" aria-labelledby="promptPreviewTitle"><div class="prompt-preview-heading"><div><h3 id="promptPreviewTitle">实时调用指令</h3><span id="promptEditState">随表单实时更新</span></div><button class="text-button" id="applyGeneratedPrompt" type="button" hidden>应用最新生成</button></div><p class="prompt-sync-notice" id="promptSyncNotice" hidden>表单内容已更新；你的手动修改仍保留。</p><textarea class="prompt-output" id="promptOutput" rows="13" aria-label="可编辑的完整调用指令" spellcheck="false"></textarea></section><div class="prompt-actions"><span class="primary-action-wrap" id="generatePromptWrap"><button class="generate-button" id="generatePrompt" type="button" aria-describedby="missingState" disabled>生成指令</button></span><button class="secondary-button" id="copyPrompt" type="button">复制指令</button><button class="secondary-button" id="savePreset" type="button">保存指令快照</button></div></div></aside>
+
+      <aside class="workspace-side prompt-column" id="outputPanel" aria-labelledby="promptTitle">
+        <div class="prompt-panel">
+          <div class="prompt-heading">
+            <div><p id="promptKicker" data-launcher-copy="output.kicker">当前任务</p><h2 id="promptTitle" data-launcher-copy="output.title">检查并输出</h2></div>
+            <span class="ready-state" id="readyState"><i></i><span>等待输入</span></span>
+          </div>
+          <ol class="summary-progress" id="summaryProgress" aria-label="任务进度"></ol>
+          <div class="missing-state" id="missingState" role="status" aria-live="polite"></div>
+          <dl class="task-summary" id="taskSummary"></dl>
+          <section class="prompt-preview" aria-labelledby="promptPreviewTitle">
+            <div class="prompt-preview-heading">
+              <div><h3 id="promptPreviewTitle" data-launcher-copy="output.prompt">实时调用指令</h3><span id="promptEditState" data-launcher-copy="output.sync">随表单实时更新</span></div>
+              <button class="text-button" id="applyGeneratedPrompt" type="button" hidden data-launcher-copy="output.apply">应用最新生成</button>
+            </div>
+            <p class="prompt-sync-notice" id="promptSyncNotice" hidden data-launcher-copy="output.notice">表单内容已更新；你的手动修改仍保留。</p>
+            <textarea class="prompt-output" id="promptOutput" rows="13" aria-label="可编辑的完整调用指令" spellcheck="false"></textarea>
+          </section>
+          <div class="prompt-actions">
+            <span class="primary-action-wrap" id="generatePromptWrap"><button class="generate-button" id="generatePrompt" type="button" aria-describedby="missingState" disabled data-launcher-copy="output.generate">生成指令</button></span>
+            <button class="secondary-button" id="copyPrompt" type="button" data-launcher-copy="output.copy">复制指令</button>
+            <button class="secondary-button" id="savePreset" type="button">保存指令快照</button>
+          </div>
+        </div>
+      </aside>
     </div>
   </main>
-  <dialog class="case-picker" id="casePicker" aria-labelledby="casePickerTitle"><div class="case-picker-shell"><header class="case-picker-header"><div><p>参考案例</p><h2 id="casePickerTitle">从案例库选择</h2></div><button class="icon-button" id="closeCasePicker" type="button" aria-label="关闭案例选择器" title="关闭">&times;</button></header><div class="case-picker-tools"><label class="search-field"><span>搜索案例</span><input id="caseSearch" type="search" placeholder="名称、风格或标签" autocomplete="off"></label><div class="filter-group" id="caseStyleFilters" aria-label="按风格筛选"></div><div class="filter-group" id="caseCategoryFilters" aria-label="按类型筛选"></div></div><div class="case-grid" id="caseGrid"></div><div class="case-empty" id="caseEmpty" hidden>没有符合当前条件的案例。</div></div></dialog>
-  <button class="assistant-trigger" id="assistantToggle" type="button" aria-expanded="false" aria-controls="assistantPanel"><span aria-hidden="true">?</span><span>任务助手</span></button>
-  <aside class="assistant-panel" id="assistantPanel" aria-labelledby="assistantTitle" hidden><header><div><p>工作区助手</p><h2 id="assistantTitle">下一步建议</h2></div><button class="icon-button" id="assistantClose" type="button" aria-label="关闭任务助手" title="关闭">&times;</button></header><div class="assistant-content" id="assistantContent"></div></aside>
+
+  <dialog class="case-picker" id="casePicker" aria-labelledby="casePickerTitle" aria-describedby="casePickerHelp" aria-modal="true">
+    <div class="case-picker-shell">
+      <header class="case-picker-header">
+        <div><p data-launcher-copy="case.eyebrow">参考案例</p><h2 id="casePickerTitle" data-launcher-copy="case.title">从案例库选择</h2></div>
+        <button class="icon-button" id="closeCasePicker" type="button" aria-label="关闭案例选择器" title="关闭">&times;</button>
+      </header>
+      <p class="sr-only" id="casePickerHelp">搜索、筛选并选择一个参考案例。按 Escape 可关闭。</p>
+      <div class="case-picker-tools">
+        <label class="search-field"><span data-launcher-copy="case.search">搜索案例</span><input id="caseSearch" type="search" data-launcher-placeholder="case.placeholder" placeholder="名称、风格或标签" autocomplete="off"></label>
+        <div class="filter-group" id="caseStyleFilters" aria-label="按风格筛选"></div>
+        <div class="filter-group" id="caseCategoryFilters" aria-label="按类型筛选"></div>
+      </div>
+      <div class="case-grid" id="caseGrid"></div>
+      <div class="case-empty" id="caseEmpty" hidden data-launcher-copy="case.empty">没有符合当前条件的案例。</div>
+    </div>
+  </dialog>
+
+  <button class="assistant-trigger" id="assistantToggle" type="button" aria-expanded="false" aria-controls="assistantPanel"><span aria-hidden="true">?</span><span data-launcher-copy="assistant.trigger">任务助手</span></button>
+  <aside class="assistant-panel" id="assistantPanel" aria-labelledby="assistantTitle" hidden>
+    <header><div><p data-launcher-copy="assistant.eyebrow">工作区助手</p><h2 id="assistantTitle" data-launcher-copy="assistant.title">下一步建议</h2></div><button class="icon-button" id="assistantClose" type="button" aria-label="关闭任务助手" title="关闭">&times;</button></header>
+    <div class="assistant-content" id="assistantContent"></div>
+  </aside>
+
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
-  <script>
-    (()=>{
-      const profiles={
-        apple:{match:/Apple|苹果|System/i,name:'Apple System',font:'SF Pro',stack:'SF Pro Display · SF Pro Text · SF Mono',type:'Large Title 34 / Title 28 / Headline 17 / Body 17 / Caption 12',colors:['#0a84ff','#ffffff','#1d1d1f','#f2f2f7'],radius:'12 px',spacing:'8 pt',border:'1 px',density:'Comfortable'},
-        material:{match:/Material/i,name:'Material 3',font:'Roboto Flex',stack:'Roboto Flex · Roboto · system-ui',type:'Display 45 / Headline 32 / Title 22 / Body 16 / Label 14',colors:['#6750a4','#fffbfe','#1d1b20','#e7e0ec'],radius:'16 px',spacing:'8 dp',border:'1 px',density:'Comfortable'},
-        ant:{match:/Ant/i,name:'Ant Design',font:'Inter / system-ui',stack:'Inter · -apple-system · BlinkMacSystemFont · Segoe UI',type:'Title 24 / Heading 20 / Body 14 / Caption 12',colors:['#1677ff','#ffffff','#1f1f1f','#f5f5f5'],radius:'6 px',spacing:'8 px',border:'1 px',density:'Compact'},
-        fluent:{match:/Fluent/i,name:'Fluent 2',font:'Segoe UI Variable',stack:'Segoe UI Variable · Segoe UI · system-ui',type:'Title 28 / Subtitle 20 / Body 14 / Caption 12',colors:['#0f6cbd','#ffffff','#242424','#f5f5f5'],radius:'4–8 px',spacing:'4 px',border:'1 px',density:'Comfortable'},
-        carbon:{match:/Carbon|IBM/i,name:'Carbon',font:'IBM Plex Sans',stack:'IBM Plex Sans · IBM Plex Mono · sans-serif',type:'Heading 32 / Productive 20 / Body 14 / Helper 12',colors:['#0f62fe','#ffffff','#161616','#f4f4f4'],radius:'0–4 px',spacing:'8 px',border:'1 px',density:'Dense'},
-        primer:{match:/Primer/i,name:'Primer',font:'-apple-system',stack:'-apple-system · BlinkMacSystemFont · Segoe UI · sans-serif',type:'Display 40 / Heading 24 / Body 14 / Small 12',colors:['#0969da','#ffffff','#1f2328','#f6f8fa'],radius:'6 px',spacing:'8 px',border:'1 px',density:'Compact'},
-        spectrum:{match:/Spectrum|Adobe/i,name:'Spectrum',font:'Adobe Clean',stack:'Adobe Clean · system-ui · sans-serif',type:'Heading 28 / Detail 18 / Body 14 / Label 12',colors:['#1473e6','#ffffff','#2c2c2c','#f5f5f5'],radius:'4 px',spacing:'8 px',border:'1 px',density:'Comfortable'},
-        generic:{match:/.*/,name:'Brand Visual System',font:'Inter',stack:'Inter · system-ui · sans-serif',type:'Display 36 / Heading 24 / Body 16 / Caption 12',colors:['#176f43','#ffffff','#202421','#f1f4f2'],radius:'10 px',spacing:'8 px',border:'1 px',density:'Balanced'}
-      };
-      const platforms={ios:{name:'iOS',hintTitle:'iOS 推荐：',hint:'Apple HIG + SF Pro + iOS 原生组件，并自动遵守 Safe Area。',badge:'Mobile'},android:{name:'Android',hintTitle:'Android 推荐：',hint:'Material 3 + Roboto + Android 原生导航与触控尺寸。',badge:'Mobile'},windows:{name:'Windows',hintTitle:'Windows 推荐：',hint:'Fluent 2 + Segoe UI Variable + 桌面窗口与键鼠交互。',badge:'Desktop'},macos:{name:'macOS',hintTitle:'macOS 推荐：',hint:'Apple HIG + SF Pro + macOS 窗口、Toolbar、Sidebar 与键鼠交互。',badge:'Desktop'}};
-      const q=s=>document.querySelector(s), qa=s=>[...document.querySelectorAll(s)];
-      function activeThemeText(){const grid=q('#colorThemeGrid'); if(!grid)return ''; const checked=grid.querySelector('input:checked'); const card=checked?.closest('.color-theme-card')||grid.querySelector('.is-selected,[aria-checked="true"],[aria-pressed="true"]'); return (card?.innerText||checked?.value||'').trim()}
-      function profileFor(text){return Object.values(profiles).find(p=>p!==profiles.generic&&p.match.test(text))||profiles.generic}
-      function renderProfile(){const p=profileFor(activeThemeText()); q('#previewSystemName').textContent=p.name; q('#dsFontSample').textContent=p.font; q('#dsFontStack').textContent=p.stack; q('#dsTypeScale').textContent=p.type; q('#dsRadius').textContent=p.radius; q('#dsSpacing').textContent=p.spacing; q('#dsBorder').textContent=p.border; q('#dsDensity').textContent=p.density; const sw=qa('#dsSwatches .ds-swatch'); p.colors.forEach((c,i)=>{if(sw[i])sw[i].style.setProperty('--swatch',c)}); q('#previewDevice').style.setProperty('--preview-accent',p.colors[0]); q('#dsDemoButton').style.background=p.colors[0]; q('#dsWorkbenchTitle').textContent=p.name+' · 完整规范'; q('#dsWorkbenchSubtitle').textContent='字体、Token、组件骨架与页面预览会同步当前选择。'}
-      function selectPlatform(key){const p=platforms[key]||platforms.ios;qa('.platform-card').forEach(btn=>{const on=btn.dataset.platform===key;btn.classList.toggle('is-active',on);btn.setAttribute('aria-pressed',String(on))});q('#platformHintTitle').textContent=p.hintTitle;q('#platformHintText').textContent=p.hint;q('#platformBadge').textContent=p.badge;q('#previewPlatformName').textContent=p.name;q('#previewDevice').dataset.platform=key;localStorage.setItem('image2-ui-target-platform',key);if(key==='windows'||key==='macos'){q('#previewDevice').dataset.size='desktop';qa('.preview-control').forEach(x=>x.classList.toggle('is-active',x.dataset.previewSize==='desktop'))}else{q('#previewDevice').dataset.size='mobile';qa('.preview-control').forEach(x=>x.classList.toggle('is-active',x.dataset.previewSize==='mobile'))}}
-      qa('.platform-card').forEach(btn=>btn.addEventListener('click',()=>selectPlatform(btn.dataset.platform)));
-      qa('.ds-tab').forEach(btn=>btn.addEventListener('click',()=>{qa('.ds-tab').forEach(x=>x.classList.toggle('is-active',x===btn));qa('.ds-panel').forEach(x=>x.classList.toggle('is-active',x.dataset.dsPanel===btn.dataset.dsTab))}));
-      qa('.preview-control').forEach(btn=>btn.addEventListener('click',()=>{qa('.preview-control').forEach(x=>x.classList.toggle('is-active',x===btn));q('#previewDevice').dataset.size=btn.dataset.previewSize}));
-      const grid=q('#colorThemeGrid'); if(grid){new MutationObserver(renderProfile).observe(grid,{subtree:true,attributes:true,attributeFilter:['class','aria-checked','aria-pressed']});grid.addEventListener('change',()=>setTimeout(renderProfile));grid.addEventListener('click',()=>setTimeout(renderProfile,50))}
-      window.addEventListener('load',()=>{selectPlatform(localStorage.getItem('image2-ui-target-platform')||'ios');setTimeout(renderProfile,120)});
-    })();
-  </script>
 </body>
 </html>
