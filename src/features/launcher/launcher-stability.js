@@ -29,50 +29,54 @@
       }, true);
     }
 
-    // Typography is one lightweight decision in the create flow, never a repeated catalogue.
-    // Runtime modules may re-render sections, so keep exactly one font workbench visible.
-    const typographyStyle = document.createElement("style");
-    typographyStyle.id = "launcher-typography-dedupe-style";
-    typographyStyle.textContent = `
-      body.create-flow-refactored .font-workbench{padding:16px 0 0!important;margin-top:14px!important}
-      body.create-flow-refactored .font-workbench-heading{margin-bottom:9px!important}
-      body.create-flow-refactored .font-workbench-heading h2,
-      body.create-flow-refactored .font-workbench-heading h3{font-size:15px!important;margin:0!important}
-      body.create-flow-refactored .font-workbench-heading p{font-size:9px!important;margin:4px 0 0!important}
-      body.create-flow-refactored .font-preset-grid{gap:8px!important}
-      body.create-flow-refactored .font-preset-grid>*{min-height:92px!important;padding:10px!important}
-      body.create-flow-refactored .font-workbench .token-foundation-block,
-      body.create-flow-refactored .font-workbench .foundation-block,
-      body.create-flow-refactored .font-workbench [class*="base-param"],
-      body.create-flow-refactored .font-workbench [class*="foundation"]{display:none!important}
-      body.create-flow-refactored .font-workbench.is-duplicate-font-workbench{display:none!important}
+    // Create mode no longer owns a standalone typography catalogue.
+    // Typography is summarized in the final preview/brand summary only.
+    const style = document.createElement("style");
+    style.id = "launcher-hide-redundant-typography";
+    style.textContent = `
+      body.create-flow-refactored .font-workbench,
+      body.create-flow-refactored .font-preview-shell,
+      body.create-flow-refactored [data-font-workbench],
+      body.create-flow-refactored [data-section="typography"],
+      body.create-flow-refactored [data-section="font"]{display:none!important}
     `;
-    document.head.append(typographyStyle);
+    document.head.append(style);
 
-    function dedupeTypography() {
-      const benches = [...document.querySelectorAll(".font-workbench")];
-      benches.forEach((bench, index) => bench.classList.toggle("is-duplicate-font-workbench", index > 0));
+    function removeStandaloneTypography() {
+      if (!document.body.classList.contains("create-flow-refactored")) return;
 
-      // Defensive cleanup for duplicated typography sections created without .font-workbench.
-      const candidates = [...document.querySelectorAll(".workspace-main section, .workspace-main .config-section, .workspace-main > div")]
-        .filter(el => !el.closest(".font-workbench"))
-        .filter(el => {
-          const title = el.querySelector(":scope > .section-heading h2, :scope > .section-heading h3, :scope > h2, :scope > h3");
-          return title && /字体方案|Typography/i.test(title.textContent.trim());
-        });
-      candidates.forEach((el, index) => {
-        if (index > 0) el.style.setProperty("display", "none", "important");
+      // Remove known runtime-generated font blocks.
+      document.querySelectorAll(
+        ".font-workbench,.font-preview-shell,[data-font-workbench],[data-section='typography'],[data-section='font']"
+      ).forEach((el) => el.remove());
+
+      // Fallback for duplicated blocks whose runtime markup has no stable class.
+      const headings = [...document.querySelectorAll(".workspace-main h1,.workspace-main h2,.workspace-main h3,.workspace-main strong")]
+        .filter((el) => /^字体方案$|^Typography$/i.test(el.textContent.trim()));
+
+      headings.forEach((heading) => {
+        let block = heading;
+        for (let i = 0; i < 6 && block?.parentElement; i += 1) {
+          const parent = block.parentElement;
+          const text = parent.textContent || "";
+          const hasFontChoices = /系统无衬线|人文无衬线|编辑型衬线|System UI font stack|Source Sans 3|Source Serif 4/i.test(text);
+          if (hasFontChoices && (parent.querySelectorAll("input,button,label").length >= 2 || /基础参数|间距基数/.test(text))) {
+            parent.remove();
+            break;
+          }
+          block = parent;
+        }
       });
     }
 
-    dedupeTypography();
+    removeStandaloneTypography();
     let queued = false;
     new MutationObserver(() => {
       if (queued) return;
       queued = true;
       requestAnimationFrame(() => {
         queued = false;
-        dedupeTypography();
+        removeStandaloneTypography();
       });
     }).observe(document.querySelector(".workspace-main") || document.body, { childList: true, subtree: true });
   });
