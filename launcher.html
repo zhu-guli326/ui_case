@@ -4,94 +4,161 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="在单一工作区定义任务、选择案例并生成可执行的 IMAGE2 UI 指令。">
+  <meta name="description" content="在单一工作区定义任务、描述需求、选择案例并生成可执行的 IMAGE2 UI 指令。">
   <title>任务工作区 · IMAGE2 UI</title>
-  <link rel="stylesheet" href="./src/features/launcher/launcher.css?v=20260816-arch-v1">
+  <link rel="stylesheet" href="./src/features/launcher/launcher.css?v=20260817-requirements-first">
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260816-arch-v1">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260816-arch-v1">
   <style>
-    .launcher-shell { width: min(1380px, calc(100% - 64px)); padding-top: 34px; }
-    .page-heading { position: relative; min-height: 172px; align-items: center; padding: 30px 36px; border: 1px solid #dce4dd; border-radius: 18px; background: radial-gradient(circle at 88% 18%, rgba(22,122,69,.10), transparent 28%), linear-gradient(135deg, #ffffff 0%, #f8fbf8 58%, #eef6f0 100%); overflow: hidden; }
-    .page-heading::after { position: absolute; right: 34px; bottom: 28px; width: 180px; height: 88px; border: 1px solid rgba(22,122,69,.15); border-radius: 16px; box-shadow: 34px -20px 0 -1px rgba(255,255,255,.9), 34px -20px 0 0 rgba(22,122,69,.10); content: ""; pointer-events: none; transform: rotate(-4deg); }
-    .page-heading > div { position: relative; z-index: 1; max-width: 760px; }
-    .page-kicker { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 12px; padding: 5px 9px; border-radius: 999px; background: #e8f4eb; font-size: 10px; letter-spacing: .04em; }
-    .page-kicker::before { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); content: ""; }
-    .page-heading h1 { font-size: clamp(34px, 3.2vw, 52px); letter-spacing: -.035em; }
-    .page-heading > div > p:last-child { max-width: 620px; margin-top: 12px; font-size: 14px; }
-    .workspace-flow { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 22px; align-items: start; margin-top: 22px; }
-    .workspace-main { min-width: 0; display: grid; gap: 14px; }
-    .workspace-side { min-width: 0; position: sticky; top: 82px; }
-    .mode-picker, .style-direction, .color-theme-section { padding: 22px; border: 1px solid #dde2dd; border-radius: 14px; background: #fff; }
-    .style-direction, .color-theme-section { border-bottom: 1px solid #dde2dd; }
-    .section-heading, .mode-picker-heading { margin-bottom: 14px; }
-    .section-heading h2, .mode-picker-heading h2 { font-size: 18px; letter-spacing: -.02em; }
-    .section-heading p, .mode-picker-heading p { font-size: 11px; }
+    .launcher-shell{width:min(1380px,calc(100% - 64px));padding-top:34px}
+    .workspace-flow{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:22px;align-items:start;margin-top:22px}
+    .workspace-main{min-width:0;display:grid;gap:14px}
+    .workspace-side{min-width:0;position:sticky;top:82px}
 
-    .mode-picker { order: 0; }
-    .mode-picker-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; }
-    .mode-tabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 9px; padding: 0; border: 0; background: transparent; }
-    .mode-tabs > button { position: relative; min-height: 82px; padding: 15px 16px 14px; overflow: hidden; border: 1px solid #d7ddd8; border-radius: 12px; background: #f8faf8; color: #252a26; text-align: left; transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease, background .16s ease; }
-    .mode-tabs > button:hover { transform: translateY(-2px); border-color: #9fab9f; background: #fff; box-shadow: 0 7px 18px rgba(26,42,31,.06); }
-    .mode-tabs > button[aria-selected="true"], .mode-tabs > button.is-active { border-color: #126c3c; background: #167a45; color: #fff; box-shadow: 0 10px 24px rgba(22,122,69,.22); transform: translateY(-2px); }
-    .mode-tabs > button[aria-selected="true"]::before, .mode-tabs > button.is-active::before { position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: #b8f0c9; content: ""; }
-    .mode-tabs > button[aria-selected="true"]::after, .mode-tabs > button.is-active::after { position: absolute; top: 13px; right: 13px; display: grid; width: 21px; height: 21px; place-items: center; border-radius: 50%; background: rgba(255,255,255,.18); color: #fff; content: "✓"; font-size: 11px; font-weight: 900; }
-    .mode-tabs strong { display: block; padding-right: 24px; font-size: 12px; font-weight: 850; }
-    .mode-tabs small { display: block; margin-top: 6px; color: #697169; font-size: 9px; line-height: 1.4; }
-    .mode-tabs > button[aria-selected="true"] small, .mode-tabs > button.is-active small { color: rgba(255,255,255,.78); }
+    .page-heading{position:relative;min-height:158px;align-items:center;padding:28px 34px;border:1px solid #dce4dd;border-radius:18px;background:linear-gradient(135deg,#fff 0%,#f8fbf8 58%,#eef6f0 100%)}
+    .page-heading h1{font-size:clamp(34px,3.1vw,50px);letter-spacing:-.035em}
+    .page-heading>div>p:last-child{max-width:660px;margin-top:10px;font-size:14px}
 
-    .style-card-grid { display: flex; gap: 9px; align-items: stretch; counter-reset: visual-direction; }
-    .style-card-grid > :is(label, button), .style-card { flex: 1 1 0; min-width: 0; min-height: 184px; border-radius: 11px; transition: flex .18s ease, border-color .18s ease, background .18s ease, transform .18s ease; counter-increment: visual-direction; }
-    .style-card-grid > :is(label, button)::before, .style-card::before { position: absolute; z-index: 3; top: 12px; left: 12px; display: grid; width: 28px; height: 28px; place-items: center; border: 1px solid rgba(255,255,255,.82); border-radius: 999px; background: rgba(20,26,21,.78); color: #fff; content: counter(visual-direction, decimal-leading-zero); font-size: 9px; font-weight: 850; letter-spacing: .04em; box-shadow: 0 3px 10px rgba(0,0,0,.12); pointer-events: none; }
-    .style-card-grid > :is(label, button):hover, .style-card:hover { transform: translateY(-2px); }
-    .style-card-grid > :is(label, button):is(:has(input:checked), [aria-checked="true"], [aria-pressed="true"], .is-selected), .style-card:is(:has(input:checked), [aria-checked="true"], [aria-pressed="true"], .is-selected) { flex: 1.75 1 0; background: #f2f9f4; }
-    .style-card-grid > :is(label, button):is(:has(input:checked), [aria-checked="true"], [aria-pressed="true"], .is-selected)::before, .style-card:is(:has(input:checked), [aria-checked="true"], [aria-pressed="true"], .is-selected)::before { border-color: rgba(22,122,69,.25); background: var(--accent); }
-    .style-card-media, .style-card-thumb { border-radius: 8px; }
-    .style-card-grid strong, .style-card strong { font-size: 12px; }
-    .color-theme-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
-    .color-theme-card { min-height: 84px; grid-template-rows: 1fr; border-radius: 10px; background: #fafbfa; }
-    .color-theme-choice { grid-template-columns: 54px minmax(0, 1fr); gap: 10px; padding: 11px 30px 11px 10px; }
-    .color-theme-palette { width: 54px; height: 44px; border-radius: 6px; }
-    .color-theme-copy { gap: 3px; }
-    .color-theme-copy strong { font-size: 11px; }
-    .color-theme-copy small { max-height: 30px; overflow: hidden; font-size: 9px; line-height: 1.35; }
-    .color-theme-meta, .color-theme-source { display: none; }
-    .color-theme-check { right: 8px; bottom: 8px; width: 18px; height: 18px; }
-    .launcher-grid { display: block; margin: 0; }
-    .configuration-column { min-width: 0; }
-    .intent-form { padding: 22px; border: 1px solid #dde2dd; border-radius: 14px; background: #fff; }
-    .prompt-column { margin: 0; }
-    .prompt-panel { border: 1px solid #243128; border-radius: 16px; background: #202721; box-shadow: 0 18px 44px rgba(26,35,28,.14); overflow: hidden; }
-    .prompt-heading { padding-top: 20px; }
-    .prompt-heading h2 { font-size: 22px; }
-    .task-summary { margin-top: 4px; }
-    .prompt-preview { border-radius: 10px; }
-    .generate-button { min-height: 44px; border-radius: 9px; }
-    .flow-label { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 8px; color: var(--accent-strong); font-size: 9px; font-weight: 850; letter-spacing: .05em; text-transform: uppercase; }
-    .flow-label span { display: grid; width: 20px; height: 20px; place-items: center; border-radius: 50%; background: var(--accent-soft); color: var(--accent-strong); font-size: 9px; }
-    @media (max-width: 1120px) { .workspace-flow { grid-template-columns: 1fr; } .workspace-side { position: static; } .prompt-panel { max-width: none; } .mode-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-    @media (max-width: 780px) { .launcher-shell { width: min(100% - 28px, 1380px); padding-top: 18px; } .page-heading { min-height: 150px; padding: 24px 22px; } .page-heading::after { opacity: .45; } .workspace-flow { margin-top: 14px; } .mode-picker, .style-direction, .color-theme-section, .intent-form { padding: 16px; } .mode-tabs { grid-template-columns: 1fr 1fr; } .style-card-grid { display: grid; grid-template-columns: 1fr 1fr; } .style-card-grid > :is(label, button), .style-card, .style-card-grid > :is(label, button):is(:has(input:checked), [aria-checked="true"], [aria-pressed="true"], .is-selected), .style-card:is(:has(input:checked), [aria-checked="true"], [aria-pressed="true"], .is-selected) { min-height: 150px; } .color-theme-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 520px) { .mode-tabs, .style-card-grid, .color-theme-grid { grid-template-columns: 1fr; } .page-heading h1 { font-size: 32px; } }
+    .mode-picker,.style-direction,.color-theme-section,.launcher-grid{border:1px solid #dde2dd;border-radius:14px;background:#fff}
+    .mode-picker,.style-direction,.color-theme-section{padding:22px}
+    .launcher-grid{display:block;margin:0;padding:0;overflow:hidden}
+    .intent-form{padding:0;background:#fff}
+
+    .mode-picker{order:0}
+    .launcher-grid{order:1}
+    .style-direction{order:2}
+    .color-theme-section{order:3}
+
+    .mode-picker-heading{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:14px}
+    .mode-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:0;border:0;background:transparent}
+    .mode-tabs>button{position:relative;min-height:76px;padding:14px 14px 12px;border:1px solid #dfe4df;border-radius:10px;background:#f8faf8;text-align:left;transition:.18s ease}
+    .mode-tabs>button:hover{border-color:#aeb8b0;background:#fff;transform:translateY(-1px)}
+    .mode-tabs>button[aria-selected="true"],.mode-tabs>button.is-active{border-color:#136e3e;background:#146f3f;color:#fff;box-shadow:0 8px 20px rgba(20,111,63,.18);transform:translateY(-2px)}
+    .mode-tabs>button[aria-selected="true"]::after,.mode-tabs>button.is-active::after{position:absolute;right:12px;top:10px;content:"✓";font-weight:900}
+    .mode-tabs strong{display:block;font-size:12px}
+    .mode-tabs small{display:block;margin-top:6px;color:var(--muted);font-size:9px;line-height:1.4}
+    .mode-tabs>button[aria-selected="true"] small,.mode-tabs>button.is-active small{color:rgba(255,255,255,.78)}
+
+    .requirement-stage{padding:22px;border-bottom:1px solid #e1e6e1;background:linear-gradient(135deg,#fbfdfb,#f3f8f4)}
+    .requirement-stage .flow-label{margin-bottom:7px}
+    .requirement-stage h2{margin:0;font-size:20px;letter-spacing:-.02em}
+    .requirement-stage p{max-width:720px;margin:6px 0 0;color:var(--muted);font-size:11px;line-height:1.6}
+    .intent-form>.config-section:first-child{margin:0;padding:24px 22px 26px;background:#fff}
+    .intent-form>.config-section:first-child .section-heading h2{font-size:22px}
+    .intent-form>.config-section:first-child .section-heading p{font-size:12px}
+    .intent-form>.config-section:first-child .text-field>span{font-weight:800}
+    .intent-form>.config-section:first-child input,.intent-form>.config-section:first-child textarea{min-height:46px;border-color:#b8c3ba;background:#fff;font-size:13px}
+    .intent-form>.config-section:first-child textarea{min-height:110px}
+    .intent-form>.config-section:not(:first-child){padding:22px;border-top:1px solid #e3e7e3}
+
+    .brief-seed-row{align-items:end}
+    .brief-seed-row .text-field{flex:1}
+    .brief-seed-row input{font-size:14px!important;font-weight:650}
+    .structured-brief{margin-top:14px;padding:16px;border:1px solid #d9e3db;border-radius:10px;background:#f8fbf8}
+    .structured-brief::before{display:block;margin-bottom:12px;color:#146f3f;content:"把需求补完整";font-size:10px;font-weight:850;letter-spacing:.06em}
+
+    .section-heading,.mode-picker-heading{margin-bottom:14px}
+    .section-heading h2,.mode-picker-heading h2{font-size:18px;letter-spacing:-.02em}
+    .section-heading p,.mode-picker-heading p{font-size:11px}
+
+    .flow-label{display:inline-flex;align-items:center;gap:7px;margin-bottom:8px;color:var(--accent-strong);font-size:9px;font-weight:850;letter-spacing:.05em;text-transform:uppercase}
+    .flow-label span{display:grid;width:22px;height:22px;place-items:center;border-radius:50%;background:var(--accent-soft);color:var(--accent-strong);font-size:9px}
+
+    .style-card-grid{display:flex;gap:9px;align-items:stretch;counter-reset:visual-direction}
+    .style-card-grid>:is(label,button),.style-card{flex:1 1 0;min-width:0;min-height:184px;border-radius:11px;transition:flex .18s ease,border-color .18s ease,background .18s ease,transform .18s ease;counter-increment:visual-direction}
+    .style-card-grid>:is(label,button)::before,.style-card::before{position:absolute;z-index:3;top:12px;left:12px;display:grid;width:28px;height:28px;place-items:center;border:1px solid rgba(255,255,255,.82);border-radius:999px;background:rgba(20,26,21,.78);color:#fff;content:counter(visual-direction,decimal-leading-zero);font-size:9px;font-weight:850;letter-spacing:.04em;box-shadow:0 3px 10px rgba(0,0,0,.12);pointer-events:none}
+    .style-card-grid>:is(label,button):hover,.style-card:hover{transform:translateY(-2px)}
+    .style-card-grid>:is(label,button):is(:has(input:checked),[aria-checked="true"],[aria-pressed="true"],.is-selected),.style-card:is(:has(input:checked),[aria-checked="true"],[aria-pressed="true"],.is-selected){flex:1.65 1 0;background:#f2f9f4}
+    .style-card-grid>:is(label,button):is(:has(input:checked),[aria-checked="true"],[aria-pressed="true"],.is-selected)::before,.style-card:is(:has(input:checked),[aria-checked="true"],[aria-pressed="true"],.is-selected)::before{background:var(--accent)}
+
+    .color-theme-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+    .color-theme-card{min-height:84px;grid-template-rows:1fr;border-radius:10px;background:#fafbfa}
+    .color-theme-choice{grid-template-columns:54px minmax(0,1fr);gap:10px;padding:11px 30px 11px 10px}
+    .color-theme-palette{width:54px;height:44px;border-radius:6px}
+    .color-theme-copy{gap:3px}.color-theme-copy strong{font-size:11px}.color-theme-copy small{max-height:30px;overflow:hidden;font-size:9px;line-height:1.35}.color-theme-meta,.color-theme-source{display:none}.color-theme-check{right:8px;bottom:8px;width:18px;height:18px}
+
+    .prompt-panel{border:1px solid #243128;border-radius:16px;background:#202721;box-shadow:0 18px 44px rgba(26,35,28,.14);overflow:hidden}
+    .prompt-heading{padding-top:20px}.prompt-heading h2{font-size:22px}.task-summary{margin-top:4px}.prompt-preview{border-radius:10px}.generate-button{min-height:44px;border-radius:9px}
+
+    @media(max-width:1120px){.workspace-flow{grid-template-columns:1fr}.workspace-side{position:static}.mode-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:780px){.launcher-shell{width:min(100% - 28px,1380px);padding-top:18px}.page-heading{min-height:140px;padding:22px}.mode-picker,.style-direction,.color-theme-section{padding:16px}.requirement-stage,.intent-form>.config-section:first-child,.intent-form>.config-section:not(:first-child){padding:16px}.mode-tabs{grid-template-columns:1fr 1fr}.style-card-grid{display:grid;grid-template-columns:1fr 1fr}.color-theme-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:520px){.mode-tabs,.style-card-grid,.color-theme-grid{grid-template-columns:1fr}.page-heading h1{font-size:32px}}
   </style>
   <script src="./src/core/app-shell/app-shell.js?v=20260816-arch-v1"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
-  <script type="module" src="./launcher.js?v=20260815-font-preview"></script>
+  <script type="module" src="./launcher.js?v=20260817-requirements-first"></script>
 </head>
 <body class="launcher-workspace">
   <image2-site-header data-site-header></image2-site-header>
+
   <main class="launcher-shell">
-    <header class="page-heading"><div><p class="page-kicker" id="pageKicker">单一任务工作区</p><h1 id="pageTitle">从零创建界面</h1><p id="pageIntro">先确定任务，再选择参考方向与设计系统；右侧会持续汇总为一条可直接执行的设计指令。</p></div></header>
+    <header class="page-heading">
+      <div>
+        <p class="page-kicker" id="pageKicker">单一任务工作区</p>
+        <h1 id="pageTitle">从零创建界面</h1>
+        <p id="pageIntro">先告诉我你要做什么，再选择风格和设计系统；需求本身永远是第一优先级。</p>
+      </div>
+    </header>
+
     <div class="workspace-flow">
       <div class="workspace-main">
-        <section class="mode-picker" aria-labelledby="modeTitle"><div class="mode-picker-heading"><div><div class="flow-label"><span>1</span> Define task</div><h2 id="modeTitle">先确定要做什么</h2><p id="modeIntro">选择任务类型，后面的参考案例与配置会跟着任务变化。</p></div></div><div class="intent-nav mode-tabs" id="modeTabs" role="tablist" aria-label="任务模式"><button type="button" role="tab" id="tab-create" aria-controls="intentForm" data-intent="create"><strong>从零创建</strong><small>从需求生成新页面</small></button><button type="button" role="tab" id="tab-rebuild" aria-controls="intentForm" data-intent="rebuild"><strong>参考图还原</strong><small>按案例或图片还原</small></button><button type="button" role="tab" id="tab-improve" aria-controls="intentForm" data-intent="improve"><strong>优化现有页面</strong><small>检查问题并改进</small></button><button type="button" role="tab" id="tab-explore" aria-controls="intentForm" data-intent="explore"><strong>探索现有项目</strong><small>理解代码与页面</small></button><button type="button" role="tab" id="tab-design-system" aria-controls="intentForm" data-intent="design-system"><strong>比较设计系统</strong><small>对比系统适配性</small></button></div></section>
-        <section class="style-direction" aria-labelledby="styleTitle"><div class="section-heading"><div><div class="flow-label"><span>2</span> Visual direction</div><h2 id="styleTitle">先选风格方向</h2><p id="styleIntro">风格负责视觉语言：构图、密度、图片气质与色彩倾向；当前选择会自动放大。</p></div></div><div class="style-card-grid" id="styleDirectionGrid" role="radiogroup" aria-label="风格方向"></div></section>
-        <section class="color-theme-section" aria-labelledby="colorThemeTitle"><div class="section-heading"><div><div class="flow-label"><span>3</span> Design system</div><h2 id="colorThemeTitle">选择组件与交互规范</h2><p id="colorThemeIntro">Design System 负责组件骨架、交互规范与 Token；与上面的视觉风格分开控制。</p></div></div><div class="color-theme-grid" id="colorThemeGrid" role="radiogroup" aria-label="品牌设计规范"></div></section>
-        <form class="launcher-grid" id="launcherForm" novalidate><div class="configuration-column"><div class="intent-form" id="intentForm" role="tabpanel" aria-labelledby="tab-create" tabindex="0"></div></div></form>
+        <section class="mode-picker" aria-labelledby="modeTitle">
+          <div class="mode-picker-heading"><div><div class="flow-label"><span>1</span> Task mode</div><h2 id="modeTitle">先确定要做什么</h2><p id="modeIntro">不同模式会展示不同的需求输入项。</p></div></div>
+          <div class="intent-nav mode-tabs" id="modeTabs" role="tablist" aria-label="任务模式">
+            <button type="button" role="tab" id="tab-create" aria-controls="intentForm" data-intent="create"><strong>从零创建</strong><small>描述产品、用户和页面</small></button>
+            <button type="button" role="tab" id="tab-rebuild" aria-controls="intentForm" data-intent="rebuild"><strong>参考图还原</strong><small>说明要还原哪些页面和状态</small></button>
+            <button type="button" role="tab" id="tab-improve" aria-controls="intentForm" data-intent="improve"><strong>优化现有页面</strong><small>说明页面问题和优化目标</small></button>
+            <button type="button" role="tab" id="tab-explore" aria-controls="intentForm" data-intent="explore"><strong>探索现有项目</strong><small>指定项目和检查重点</small></button>
+            <button type="button" role="tab" id="tab-design-system" aria-controls="intentForm" data-intent="design-system"><strong>比较设计系统</strong><small>说明页面目标后再比较</small></button>
+          </div>
+        </section>
+
+        <form class="launcher-grid" id="launcherForm" novalidate>
+          <div class="requirement-stage">
+            <div class="flow-label"><span>2</span> Requirements</div>
+            <h2>描述你的需求</h2>
+            <p>先写清楚要做什么、给谁用、核心任务和需要哪些页面。风格与组件系统放在需求之后决定。</p>
+          </div>
+          <div class="configuration-column"><div class="intent-form" id="intentForm" role="tabpanel" aria-labelledby="tab-create" tabindex="0"></div></div>
+        </form>
+
+        <section class="style-direction" aria-labelledby="styleTitle">
+          <div class="section-heading"><div><div class="flow-label"><span>3</span> Visual direction</div><h2 id="styleTitle">再选风格方向</h2><p id="styleIntro">风格负责构图、密度、图片气质与视觉表达，不替代真实需求。</p></div></div>
+          <div class="style-card-grid" id="styleDirectionGrid" role="radiogroup" aria-label="风格方向"></div>
+        </section>
+
+        <section class="color-theme-section" aria-labelledby="colorThemeTitle">
+          <div class="section-heading"><div><div class="flow-label"><span>4</span> Design system</div><h2 id="colorThemeTitle">最后选择组件与交互规范</h2><p id="colorThemeIntro">Design System 负责组件骨架、交互规范与 Token。</p></div></div>
+          <div class="color-theme-grid" id="colorThemeGrid" role="radiogroup" aria-label="品牌设计规范"></div>
+        </section>
       </div>
-      <aside class="workspace-side prompt-column" aria-labelledby="promptTitle"><div class="prompt-panel"><div class="prompt-heading"><div><p id="promptKicker">CURRENT TASK</p><h2 id="promptTitle">当前任务</h2></div><span class="ready-state" id="readyState"><i></i><span>等待输入</span></span></div><ol class="summary-progress" id="summaryProgress" aria-label="任务进度"></ol><div class="missing-state" id="missingState" role="status" aria-live="polite"></div><dl class="task-summary" id="taskSummary"></dl><section class="prompt-preview" aria-labelledby="promptPreviewTitle"><div class="prompt-preview-heading"><div><h3 id="promptPreviewTitle">实时调用指令</h3><span id="promptEditState">随表单实时更新</span></div><button class="text-button" id="applyGeneratedPrompt" type="button" hidden>应用最新生成</button></div><p class="prompt-sync-notice" id="promptSyncNotice" hidden>表单内容已更新；你的手动修改仍保留。</p><textarea class="prompt-output" id="promptOutput" rows="13" aria-label="可编辑的完整调用指令" spellcheck="false"></textarea></section><div class="prompt-actions"><span class="primary-action-wrap" id="generatePromptWrap"><button class="generate-button" id="generatePrompt" type="button" aria-describedby="missingState" disabled>生成指令</button></span><button class="secondary-button" id="copyPrompt" type="button">复制指令</button><button class="secondary-button" id="savePreset" type="button">保存指令快照</button></div></div></aside>
+
+      <aside class="workspace-side prompt-column" aria-labelledby="promptTitle">
+        <div class="prompt-panel">
+          <div class="prompt-heading"><div><p id="promptKicker">CURRENT TASK</p><h2 id="promptTitle">当前任务</h2></div><span class="ready-state" id="readyState"><i></i><span>等待输入</span></span></div>
+          <ol class="summary-progress" id="summaryProgress" aria-label="任务进度"></ol>
+          <div class="missing-state" id="missingState" role="status" aria-live="polite"></div>
+          <dl class="task-summary" id="taskSummary"></dl>
+          <section class="prompt-preview" aria-labelledby="promptPreviewTitle">
+            <div class="prompt-preview-heading"><div><h3 id="promptPreviewTitle">实时调用指令</h3><span id="promptEditState">随表单实时更新</span></div><button class="text-button" id="applyGeneratedPrompt" type="button" hidden>应用最新生成</button></div>
+            <p class="prompt-sync-notice" id="promptSyncNotice" hidden>表单内容已更新；你的手动修改仍保留。</p>
+            <textarea class="prompt-output" id="promptOutput" rows="13" aria-label="可编辑的完整调用指令" spellcheck="false"></textarea>
+          </section>
+          <div class="prompt-actions"><span class="primary-action-wrap" id="generatePromptWrap"><button class="generate-button" id="generatePrompt" type="button" aria-describedby="missingState" disabled>生成指令</button></span><button class="secondary-button" id="copyPrompt" type="button">复制指令</button><button class="secondary-button" id="savePreset" type="button">保存指令快照</button></div>
+        </div>
+      </aside>
     </div>
   </main>
-  <dialog class="case-picker" id="casePicker" aria-labelledby="casePickerTitle"><div class="case-picker-shell"><header class="case-picker-header"><div><p>参考案例</p><h2 id="casePickerTitle">从案例库选择</h2></div><button class="icon-button" id="closeCasePicker" type="button" aria-label="关闭案例选择器" title="关闭">&times;</button></header><div class="case-picker-tools"><label class="search-field"><span>搜索案例</span><input id="caseSearch" type="search" placeholder="名称、风格或标签" autocomplete="off"></label><div class="filter-group" id="caseStyleFilters" aria-label="按风格筛选"></div><div class="filter-group" id="caseCategoryFilters" aria-label="按类型筛选"></div><div class="case-grid" id="caseGrid"></div><div class="case-empty" id="caseEmpty" hidden>没有符合当前条件的案例。</div></div></div></dialog>
+
+  <dialog class="case-picker" id="casePicker" aria-labelledby="casePickerTitle">
+    <div class="case-picker-shell">
+      <header class="case-picker-header"><div><p>参考案例</p><h2 id="casePickerTitle">从案例库选择</h2></div><button class="icon-button" id="closeCasePicker" type="button" aria-label="关闭案例选择器" title="关闭">&times;</button></header>
+      <div class="case-picker-tools"><label class="search-field"><span>搜索案例</span><input id="caseSearch" type="search" placeholder="名称、风格或标签" autocomplete="off"></label><div class="filter-group" id="caseStyleFilters" aria-label="按风格筛选"></div><div class="filter-group" id="caseCategoryFilters" aria-label="按类型筛选"></div></div>
+      <div class="case-grid" id="caseGrid"></div><div class="case-empty" id="caseEmpty" hidden>没有符合当前条件的案例。</div>
+    </div>
+  </dialog>
+
   <button class="assistant-trigger" id="assistantToggle" type="button" aria-expanded="false" aria-controls="assistantPanel"><span aria-hidden="true">?</span><span>任务助手</span></button>
   <aside class="assistant-panel" id="assistantPanel" aria-labelledby="assistantTitle" hidden><header><div><p>工作区助手</p><h2 id="assistantTitle">下一步建议</h2></div><button class="icon-button" id="assistantClose" type="button" aria-label="关闭任务助手" title="关闭">&times;</button></header><div class="assistant-content" id="assistantContent"></div></aside>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
