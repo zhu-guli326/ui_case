@@ -11,6 +11,8 @@ const html = read("launcher.html");
 const entry = read("src/features/launcher/launcher-entry.js");
 const shell = read("src/features/launcher/launcher-shell.js");
 const designSystem = read("src/features/launcher/launcher-design-system.js");
+const livePreview = read("src/features/launcher/launcher-live-preview.js");
+const legacyPreviewLab = read("src/features/launcher/launcher-preview-lab.js");
 const stability = read("src/features/launcher/launcher-stability.js");
 const analyticsConfig = read("src/core/analytics/analytics.config.js");
 
@@ -29,6 +31,7 @@ test("launcher has one explicit feature entry and analytics stays feature-agnost
   assert.match(entry, /launcher-design-system\.js/);
   assert.match(entry, /launcher-hardening\.js/);
   assert.match(entry, /launcher-stability\.js/);
+  assert.match(entry, /launcher-live-preview\.js/);
   assert.doesNotMatch(entry, /launcher-preview-lab\.js/);
   assert.doesNotMatch(entry, /launcher-platform-merge\.js/);
   assert.doesNotMatch(analyticsConfig, /launcher|features\//);
@@ -63,6 +66,19 @@ test("platform and design-system behavior has one dedicated owner", () => {
   assert.match(designSystem, /aria-selected/);
   assert.match(designSystem, /ArrowLeft/);
   assert.match(designSystem, /ArrowRight/);
+});
+
+test("live preview is independent from task-mode layout and the legacy lab cannot rewrite Create", () => {
+  assert.match(livePreview, /previewLabSection/);
+  assert.match(livePreview, /livePreviewDevice/);
+  assert.match(livePreview, /previewPageTemplate/);
+  assert.match(livePreview, /image2:launcherplatformchange/);
+  assert.doesNotMatch(livePreview, /restructureCreateFlow/);
+  assert.doesNotMatch(livePreview, /componentStep/);
+  assert.doesNotMatch(legacyPreviewLab, /create-flow-refactored/);
+  assert.doesNotMatch(legacyPreviewLab, /restructureCreateFlow/);
+  assert.doesNotMatch(legacyPreviewLab, /componentStep/);
+  assert.match(legacyPreviewLab, /launcher-live-preview\.js/);
 });
 
 test("stability layer no longer acts as a hidden module loader", () => {
