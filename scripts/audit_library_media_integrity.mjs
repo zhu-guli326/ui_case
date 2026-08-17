@@ -34,7 +34,27 @@ function checkLocalAsset(guide, key, value, { required = false } = {}) {
   if (!file) return { key, value, exists: true, local: false };
   const exists = fs.existsSync(file) && fs.statSync(file).isFile();
   if (!exists) errors.push(`${guide.id}: ${key} does not exist -> ${value}`);
-  return { key, value, exists, local: true };
+  return { key, value, exists, local: true, file };
+}
+
+function checkDemoDependencies(guide, liveAsset) {
+  if (!liveAsset?.exists || !liveAsset.file || path.extname(liveAsset.file).toLowerCase() !== ".html") return [];
+  const html = fs.readFileSync(liveAsset.file, "utf8");
+  const baseDir = path.dirname(liveAsset.file);
+  const dependencies = [];
+  const matcher = /\b(?:src|href)\s*=\s*["']([^"']+)["']/gi;
+  let match;
+  while ((match = matcher.exec(html))) {
+    const raw = match[1].trim();
+    if (!raw || raw.startsWith("#") || raw.startsWith("data:") || raw.startsWith("blob:") || /^[a-z]+:\/\//i.test(raw) || raw.startsWith("//")) continue;
+    const clean = stripQuery(raw);
+    if (!clean || clean.startsWith("javascript:")) continue;
+    const resolved = clean.startsWith("/") ? path.resolve(root, `.${clean}`) : path.resolve(baseDir, clean);
+    const exists = fs.existsSync(resolved) && fs.statSync(resolved).isFile();
+    dependencies.push({ raw, exists, resolved: path.relative(root, resolved) });
+    if (!exists) errors.push(`${guide.id}: liveDemo dependency missing -> ${raw} (${path.relative(root, resolved)})`);
+  }
+  return dependencies;
 }
 
 for (const guide of guides) {
@@ -48,6 +68,8 @@ for (const guide of guides) {
     checkLocalAsset(guide, "video", guide.video),
     checkLocalAsset(guide, "liveDemo", guide.liveDemo)
   ];
+  const liveAsset = assets.find((asset) => asset.key === "liveDemo");
+  const dependencies = checkDemoDependencies(guide, liveAsset);
 
   if (!guide.poster && !guide.previewImage && !guide.referenceImage) errors.push(`${guide.id}: no usable card image source`);
   if (!guide.video && !guide.liveDemo) warnings.push(`${guide.id}: static-only case (no video/live demo)`);
@@ -63,7 +85,9 @@ for (const guide of guides) {
     video: Boolean(guide.video),
     liveDemo: Boolean(guide.liveDemo),
     localAssets: assets.filter((asset) => asset.local).length,
-    missingAssets: assets.filter((asset) => asset.local && !asset.exists).map((asset) => asset.key)
+    missingAssets: assets.filter((asset) => asset.local && !asset.exists).map((asset) => asset.key),
+    demoDependencies: dependencies.length,
+    missingDemoDependencies: dependencies.filter((item) => !item.exists).map((item) => item.raw)
   });
 }
 
