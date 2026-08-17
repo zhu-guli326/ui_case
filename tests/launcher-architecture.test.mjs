@@ -9,7 +9,6 @@ const read = (file) => readFileSync(path.join(root, file), "utf8");
 
 const html = read("launcher.html");
 const entry = read("src/features/launcher/launcher-entry.js");
-const shell = read("src/features/launcher/launcher-shell.js");
 const designSystem = read("src/features/launcher/launcher-design-system.js");
 const livePreview = read("src/features/launcher/launcher-live-preview.js");
 const livePreviewCss = read("src/features/launcher/launcher-live-preview.css");
@@ -27,12 +26,12 @@ test("launcher html remains a semantic shell", () => {
   assert.doesNotMatch(html, /<script(?![^>]+src=)[^>]*>[\s\S]*?<\/script>/i);
 });
 
-test("launcher has one explicit feature entry and no legacy preview enrichers", () => {
+test("launcher production entry has only current runtime owners", () => {
   assert.match(entry, /import\(`\.\.\/\.\.\/\.\.\/launcher\.js/);
-  assert.match(entry, /launcher-shell\.js/);
   assert.match(entry, /launcher-design-system\.js/);
   assert.match(entry, /launcher-live-preview\.js/);
   assert.match(entry, /launcher-simplified-runtime\.js/);
+  assert.doesNotMatch(entry, /launcher-shell\.js/);
   assert.doesNotMatch(entry, /launcher-preview-lab\.js/);
   assert.doesNotMatch(entry, /launcher-preview-templates\.js/);
   assert.doesNotMatch(entry, /launcher-preview-modern-cases\.js/);
@@ -49,7 +48,9 @@ test("information architecture is one linear three-step flow", () => {
   assert.match(html, /href="#taskDefinition"/);
   assert.match(html, /href="#designDecisions"/);
   assert.match(html, /href="#resultStage"/);
-  assert.match(shell, /setCurrentStep/);
+  assert.match(simplifiedRuntime, /function setCurrentStep/);
+  assert.match(simplifiedRuntime, /function installStepNavigation/);
+  assert.match(simplifiedRuntime, /function applyCopy/);
   assert.doesNotMatch(html, /class="requirement-stage"/);
 });
 
