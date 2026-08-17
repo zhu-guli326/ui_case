@@ -35,10 +35,11 @@
 .launcher-simplified .intent-form>.config-section .section-heading h2{font-size:15px!important}
 .launcher-simplified .intent-form>.config-section .section-heading p{font-size:9px!important}
 .launcher-simplified .intent-form>.config-section:first-child .text-field input,.launcher-simplified .intent-form>.config-section:first-child textarea{font-size:12px}
-.launcher-simplified .structured-brief{padding:14px;border-radius:10px;background:#fafcfb}
-.launcher-simplified .structured-brief::before{content:"补齐关键信息";margin-bottom:10px;font-size:9px}
+.launcher-simplified .structured-brief{align-items:start;padding:14px;border-radius:10px;background:#fafcfb}
+.launcher-simplified .structured-brief::before{grid-column:1/-1;display:block;content:"补齐关键信息";margin-bottom:2px;color:#177446;font-size:9px;font-weight:850;letter-spacing:.04em}
 html[lang="en"] .launcher-simplified .structured-brief::before{content:"Complete key details"}
 .launcher-simplified .brief-chips{margin-top:7px}
+.launcher-simplified .font-preview-shell{display:none!important}
 .launcher-simplified .design-decisions-body{display:grid;grid-template-columns:1fr 1fr}
 .launcher-simplified .design-decisions-body>.style-direction{grid-column:1/-1}
 .launcher-simplified .design-decisions-body>.color-theme-section{grid-column:1/-1}

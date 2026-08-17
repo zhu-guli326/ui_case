@@ -111,6 +111,11 @@ test("Runtime owns flow semantics and compatibility without extra production mod
   assert.match(simplifiedCss, /html\[lang="en"\].*Complete key details/);
 });
 
+test("structured brief heading spans the full grid and the obsolete font specimen stays out of the UI", () => {
+  assert.match(simplifiedCss, /\.structured-brief::before\{grid-column:1\/-1;/);
+  assert.match(simplifiedCss, /\.font-preview-shell\{display:none!important\}/);
+});
+
 test("legacy core mount contract remains intact for task state and output", () => {
   const ids = [
     "launcherForm", "intentForm", "modeTabs", "styleDirectionGrid", "colorThemeGrid",
