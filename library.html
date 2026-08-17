@@ -11,15 +11,17 @@
   <link rel="stylesheet" href="./src/features/library/library-density-fixes.css?v=20260817-restored-fit-v1">
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260816-arch-v1">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260816-arch-v1">
-  <link rel="stylesheet" href="./src/features/library/library-media-fixes.css?v=20260817-media-contract-v3">
-  <link rel="stylesheet" href="./src/features/library/library-quality-fixes.css?v=20260817-library-qa-v1">
-  <link rel="stylesheet" href="./src/features/library/library-detail-minimal.css?v=20260817-detail-v2">
+  <!-- One final stylesheet owns the detail viewer. Older media/QA CSS layers
+       intentionally stay unloaded to avoid competing !important geometry. -->
+  <link rel="stylesheet" href="./src/features/library/library-detail-minimal.css?v=20260817-detail-v4">
   <script src="./src/core/app-shell/app-shell.js?v=20260816-arch-v1"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
-  <script type="module" src="./library.js?v=20260817-library-restore-v1"></script>
-  <script type="module" src="./src/features/library/library-quality-fixes.js?v=20260817-library-qa-v3"></script>
-  <script type="module" src="./src/features/library/library-detail-redesign.js?v=20260817-detail-v2"></script>
+  <!-- Apply catalog repair/default-screen overrides before the main Library
+       renders so cards do not flash the old welcome/splash artwork first. -->
+  <script type="module" src="./src/features/library/library-quality-fixes.js?v=20260817-library-qa-v4"></script>
+  <script type="module" src="./library.js?v=20260817-library-restore-v2"></script>
+  <script type="module" src="./src/features/library/library-detail-redesign.js?v=20260817-detail-v4"></script>
 </head>
 <body>
   <a class="skip-link" href="#demoGallery">跳到案例列表</a>
@@ -99,7 +101,7 @@
     <form method="dialog" class="dialog-close-form"><button class="dialog-close" type="submit" aria-label="关闭预览">&#215;</button></form>
     <div class="preview-dialog-content">
       <div class="preview-dialog-info">
-        <header class="preview-dialog-header"><p id="previewDialogTitle">案例预览</p><div class="preview-mode-switch" id="previewModeSwitch" aria-label="预览方式"></div></header>
+        <header class="preview-dialog-header"><p id="previewDialogTitle">案例预览</p></header>
         <div class="preview-dialog-details" id="previewDialogDetails"></div>
         <footer class="preview-dialog-footer">
           <div class="preview-dialog-primary-actions"><button class="dialog-copy-button" id="previewDialogApply" type="button">应用到当前项目</button><a class="dialog-action-link" id="previewDialogStartTask" href="./launcher.html?intent=rebuild&source=library">基于此案例开始任务</a></div>
@@ -108,7 +110,9 @@
         </footer>
       </div>
       <div class="preview-media-stage" id="previewMediaStage">
+        <div class="preview-mode-head"><span class="preview-mode-caption">预览方式</span><div class="preview-mode-switch" id="previewModeSwitch" aria-label="预览方式"></div><span class="preview-mode-badge" id="previewModeBadge"></span></div>
         <figure class="phone-frame phone-frame--detail preview-media-frame" id="previewMediaFrame"><div class="phone-screen" id="previewPhoneScreen"><img class="phone-media" id="previewDialogImage" width="390" height="844" decoding="async" alt="" hidden /><img class="phone-media preview-video-sequence" id="previewDialogSequence" width="390" height="844" decoding="async" alt="" hidden /><div class="preview-image-navigation" id="previewImageNavigation" aria-live="polite" hidden><button class="preview-image-step preview-image-previous" id="previewImagePrevious" type="button" aria-label="上一张效果图" title="上一张效果图">&#8592;</button><p><strong id="previewImageLabel"></strong><span id="previewImageCount"></span></p><button class="preview-image-step preview-image-next" id="previewImageNext" type="button" aria-label="下一张效果图" title="下一张效果图">&#8594;</button></div><video class="phone-media" id="previewDialogVideo" width="390" height="844" autoplay muted loop playsinline preload="metadata" hidden></video><iframe class="phone-media" id="previewDialogDemo" width="390" height="844" title="可点击 demo 预览" loading="eager" hidden></iframe><div class="preview-media-status" id="previewMediaStatus" role="status" aria-live="polite" hidden><span id="previewMediaStatusText"></span><button id="previewMediaRetry" type="button" hidden>重试</button></div><span class="interaction-cursor preview-cursor" id="previewCursor" aria-hidden="true" hidden><i></i></span></div></figure>
+        <div class="preview-screen-rail" id="previewScreenRail" aria-label="案例页面" hidden></div>
         <div class="preview-media-toolbar" aria-label="媒体控制"><button class="media-icon-button" id="previewVideoToggle" type="button" aria-label="暂停视频" title="暂停视频"><span aria-hidden="true">&#10074;&#10074;</span></button><input class="video-progress" id="previewVideoProgress" type="range" min="0" max="0" value="0" step="0.05" aria-label="视频进度"><output class="video-time" id="previewVideoTime" for="previewVideoProgress">0:00 / 0:00</output><button class="media-icon-button" id="previewExpand" type="button" aria-label="全屏查看" title="全屏查看"><span aria-hidden="true">&#9974;</span></button></div>
       </div>
     </div>
