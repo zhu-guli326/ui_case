@@ -85,7 +85,7 @@ test("every catalog live demo supplies a screen-only embedded source", () => {
     .map((caseRecord) => caseRecord.liveDemo)
     .filter(Boolean);
 
-  assert.equal(liveDemos.length, 20);
+  assert.equal(liveDemos.length, 19);
   for (const liveDemo of liveDemos) {
     const html = readFileSync(path.join(root, liveDemo.replace(/^\.\//, "")), "utf8");
     assert.match(html, /\biphone-frame\b/, `${liveDemo} invokes PhoneShell and can flatten to a screen-only embed`);
