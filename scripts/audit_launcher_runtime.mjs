@@ -48,13 +48,16 @@ async function choosePlatform(page, platform, expectedSize) {
 }
 
 async function chooseDesignTheme(page, themeId, expectedSystem, expectedAccent) {
-  const input = page.locator(`input[name="colorTheme"][value="${themeId}"]`);
-  if (!(await input.count())) throw new Error(`missing color theme ${themeId}`);
-  await input.check();
+  const card = page.locator(`.color-theme-card:has(input[name="colorTheme"][value="${themeId}"])`);
+  if (!(await card.count())) throw new Error(`missing color theme ${themeId}`);
+  const choice = card.locator(".color-theme-choice");
+  await choice.click();
   await page.waitForFunction(({ themeId, expectedSystem, expectedAccent }) => {
+    const selected = document.querySelector(`input[name="colorTheme"][value="${themeId}"]`)?.checked;
     const workbench = document.querySelector("#designSystemWorkbench");
     const device = document.querySelector("#livePreviewDevice");
-    return workbench?.dataset.themeId === themeId
+    return selected
+      && workbench?.dataset.themeId === themeId
       && workbench?.dataset.systemName === expectedSystem
       && workbench?.dataset.accent?.toLowerCase() === expectedAccent
       && device?.style.getPropertyValue("--preview-accent").trim().toLowerCase() === expectedAccent;
