@@ -1,7 +1,7 @@
 import { styleGuides } from "../../../catalog/index.js?v=20260815-artmuse-sequence";
 import { applyLibraryCaseOverrides, libraryCaseOverrides } from "./library-case-overrides.mjs";
 
-const REPAIR_VERSION = "20260817-library-qa-v3";
+const REPAIR_VERSION = "20260817-library-qa-v4";
 const guideById = new Map(styleGuides.map((guide) => [guide.id, guide]));
 const repairedIds = applyLibraryCaseOverrides(styleGuides);
 
@@ -14,13 +14,21 @@ function unique(values) {
   return [...new Set(values.filter(Boolean).map(absolute))];
 }
 
+function preferredCardSource(id) {
+  const guide = guideById.get(id);
+  if (!guide) return "";
+  // Prefer an authored screen/poster over the historical `library-preview-2x`
+  // board. Those boards often include phone hardware and unequal whitespace,
+  // which made otherwise-related cards look like different component types.
+  return guide.previewImage || guide.poster || "";
+}
+
 function fallbackCandidates(id) {
   const guide = guideById.get(id);
   const repair = libraryCaseOverrides[id];
   return unique([
+    preferredCardSource(id),
     ...(repair?.fallbacks || []),
-    guide?.previewImage,
-    guide?.poster,
     guide?.referenceImage
   ]);
 }
@@ -31,17 +39,30 @@ function refreshGalleryFromSharedCatalog() {
   search.dispatchEvent(new Event("input", { bubbles: true }));
 }
 
+function normalizeCardImage(image, caseId) {
+  const preferred = preferredCardSource(caseId);
+  if (!image || !preferred) return;
+  const current = absolute(image.getAttribute("src") || "");
+  const target = absolute(preferred);
+  if (!target || current === target || current.startsWith(`${target}?`) || current.startsWith(`${target}&`)) return;
+  image.src = preferred;
+  image.dataset.previewSourceNormalized = "representative-screen";
+  image.closest(".phone-preview-media")?.classList.remove("is-unavailable");
+}
+
 function enhanceCards() {
   const cards = [...document.querySelectorAll("#demoGallery .demo-card")];
   cards.forEach((card, index) => {
     card.dataset.qaNormalized = "true";
+    const caseId = card.dataset.caseId || "";
     const image = card.querySelector(".phone-preview-media img");
     if (image) {
+      normalizeCardImage(image, caseId);
       image.loading = index < 3 ? "eager" : "lazy";
       image.fetchPriority = index < 3 ? "high" : "low";
       image.decoding = "async";
-      image.dataset.caseId = card.dataset.caseId || "";
-      if (!image.dataset.fallbackQueue) image.dataset.fallbackQueue = JSON.stringify(fallbackCandidates(card.dataset.caseId));
+      image.dataset.caseId = caseId;
+      image.dataset.fallbackQueue = JSON.stringify(fallbackCandidates(caseId));
       if (!image.dataset.failedSources) image.dataset.failedSources = "[]";
     }
 
@@ -139,8 +160,8 @@ function installIframeHealthCheck() {
         status.hidden = false;
         status.classList.add("is-error");
         statusText.textContent = window.image2I18n?.language === "en"
-          ? "This interactive demo is unavailable. Use the screen or video preview instead."
-          : "这个可点击 Demo 当前不可用，请改用效果图或视频预览。";
+          ? "This interactive demo is unavailable. Use the screen or flow preview instead."
+          : "这个可点击 Demo 当前不可用，请改用效果图或流程预览。";
       }
       if (retry) retry.hidden = false;
       dialog.querySelector('[data-preview-view="image"]')?.click();
@@ -154,8 +175,6 @@ function installIframeHealthCheck() {
 function installDialogMediaPolicy() {
   const video = document.querySelector("#previewDialogVideo");
   if (video) {
-    // Video sources are assigned only after the modal is opened, so the page is
-    // already lazy-loading MP4s. Metadata preload keeps progress controls stable.
     video.preload = "metadata";
     video.playsInline = true;
     video.muted = true;
