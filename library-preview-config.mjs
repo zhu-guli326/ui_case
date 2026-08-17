@@ -16,7 +16,6 @@ export const libraryPreviewCaseIds = Object.freeze([
   "fithub",
   "fufu",
   "itinerary",
-  "journal",
   "loy",
   "mimo",
   "moe",
