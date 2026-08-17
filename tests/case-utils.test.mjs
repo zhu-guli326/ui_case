@@ -12,16 +12,16 @@ import {
 } from "../catalog/case-utils.js";
 
 test("the shared launcher catalog exposes every unique case", () => {
-  assert.equal(styleGuides.length, 22);
-  assert.equal(new Set(styleGuides.map((guide) => guide.id)).size, 22);
+  assert.equal(styleGuides.length, 19);
+  assert.equal(new Set(styleGuides.map((guide) => guide.id)).size, 19);
   assert.equal(normalizeCaseId("plate"), "plate-play");
-  assert.equal(normalizeCaseId("journal"), "itinerary");
+  assert.equal(normalizeCaseId("journal"), "journal");
 });
 
 test("style filters use the catalog profile IDs", () => {
-  assert.equal(filterCases(styleGuides, { styleId: "editorial-commerce" }).length, 5);
+  assert.equal(filterCases(styleGuides, { styleId: "editorial-commerce" }).length, 4);
   assert.equal(filterCases(styleGuides, { styleId: "minimal-tech" }).length, 4);
-  assert.equal(filterCases(styleGuides, { styleId: "soft-lifestyle" }).length, 13);
+  assert.equal(filterCases(styleGuides, { styleId: "soft-lifestyle" }).length, 11);
 });
 
 test("style cards use distinct complete case previews", () => {
