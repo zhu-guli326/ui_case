@@ -1,4 +1,4 @@
-const VERSION = "20260817-simplified-v3";
+const VERSION = "20260817-simplified-v4";
 
 function reportFailure(label, error) {
   console.error(`[launcher] ${label} failed to load`, error);
@@ -10,43 +10,20 @@ function reportFailure(label, error) {
   toast.hidden = false;
 }
 
-function installCompatibilityStyles() {
-  if (document.querySelector('link[data-launcher-compat]')) return;
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = new URL(`./launcher-workspace-compat.css?v=${VERSION}`, import.meta.url).href;
-  link.dataset.launcherCompat = "true";
-  document.head.append(link);
-}
-
-async function loadCore() {
+async function load(label, path) {
   try {
-    await import(`../../../launcher.js?v=${VERSION}`);
+    return await import(path);
   } catch (error) {
-    reportFailure("core", error);
+    reportFailure(label, error);
     throw error;
   }
 }
 
-async function loadEnhancements() {
-  const modules = [
-    ["design-system", `./launcher-design-system.js?v=${VERSION}`],
-    ["hardening", `./launcher-hardening.js?v=${VERSION}`],
-    ["stability", `./launcher-stability.js?v=${VERSION}`],
-    ["live-preview", `./launcher-live-preview.js?v=${VERSION}`],
-  ];
-
-  const results = await Promise.allSettled(modules.map(([, path]) => import(path)));
-  results.forEach((result, index) => {
-    if (result.status === "rejected") reportFailure(modules[index][0], result.reason);
-  });
-
-  try {
-    await import(`./launcher-simplified-runtime.js?v=${VERSION}`);
-  } catch (error) {
-    reportFailure("simplified-runtime", error);
-  }
+async function boot() {
+  await load("core", `../../../launcher.js?v=${VERSION}`);
+  await load("design-system", `./launcher-design-system.js?v=${VERSION}`);
+  await load("final-preview", `./launcher-live-preview.js?v=${VERSION}`);
+  await load("runtime", `./launcher-simplified-runtime.js?v=${VERSION}`);
 }
 
-installCompatibilityStyles();
-loadCore().then(loadEnhancements).catch(() => {});
+boot().catch(() => {});
