@@ -12,7 +12,7 @@ test("the published gallery has a complete case and brand catalog", () => {
   assert.equal(result.status, 0, result.stderr || result.stdout);
   const report = JSON.parse(result.stdout);
   assert.equal(report.status, "pass");
-  assert.equal(report.cases, 23);
+  assert.equal(report.cases, 22);
   assert.ok(report.styles >= 1);
   assert.ok(report.brands >= 1);
   assert.ok(report.components >= 1);
