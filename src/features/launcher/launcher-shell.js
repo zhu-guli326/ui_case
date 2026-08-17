@@ -71,6 +71,15 @@ function text(key) {
   return item[locale() === "en" ? 1 : 0];
 }
 
+function localized(zh, en) {
+  return locale() === "en" ? en : zh;
+}
+
+function setAttr(selector, name, zh, en) {
+  const node = document.querySelector(selector);
+  if (node) node.setAttribute(name, localized(zh, en));
+}
+
 function applyStaticCopy() {
   document.querySelectorAll("[data-launcher-copy]").forEach((node) => {
     const value = text(node.dataset.launcherCopy);
@@ -80,18 +89,33 @@ function applyStaticCopy() {
     const value = text(node.dataset.launcherPlaceholder);
     if (value) node.setAttribute("placeholder", value);
   });
-  document.documentElement.lang = locale() === "en" ? "en" : "zh-CN";
 
-  const modeTabs = document.querySelector("#modeTabs");
-  if (modeTabs) modeTabs.setAttribute("aria-label", locale() === "en" ? "Task mode" : "任务模式");
-  const platform = document.querySelector("#platformGrid");
-  if (platform) platform.setAttribute("aria-label", locale() === "en" ? "Target platform" : "目标平台");
-  const style = document.querySelector("#styleDirectionGrid");
-  if (style) style.setAttribute("aria-label", locale() === "en" ? "Visual direction" : "风格方向");
-  const colors = document.querySelector("#colorThemeGrid");
-  if (colors) colors.setAttribute("aria-label", locale() === "en" ? "Brand design system" : "品牌设计规范");
-  const steps = document.querySelector(".launcher-step-nav");
-  if (steps) steps.setAttribute("aria-label", locale() === "en" ? "Task workflow" : "任务流程");
+  document.documentElement.lang = locale() === "en" ? "en" : "zh-CN";
+  setAttr("#modeTabs", "aria-label", "任务模式", "Task mode");
+  setAttr("#platformGrid", "aria-label", "目标平台", "Target platform");
+  setAttr("#styleDirectionGrid", "aria-label", "风格方向", "Visual direction");
+  setAttr("#colorThemeGrid", "aria-label", "品牌设计规范", "Brand design system");
+  setAttr(".launcher-step-nav", "aria-label", "任务流程", "Task workflow");
+  setAttr(".ds-tabs", "aria-label", "Design System 详情", "Design system details");
+  setAttr(".preview-controls", "aria-label", "预览设备", "Preview device");
+  setAttr("#summaryProgress", "aria-label", "任务进度", "Task progress");
+  setAttr("#promptOutput", "aria-label", "可编辑的完整调用指令", "Editable full execution prompt");
+  setAttr("#caseStyleFilters", "aria-label", "按风格筛选", "Filter by style");
+  setAttr("#caseCategoryFilters", "aria-label", "按类型筛选", "Filter by type");
+  setAttr("#closeCasePicker", "aria-label", "关闭案例选择器", "Close case picker");
+  setAttr("#closeCasePicker", "title", "关闭", "Close");
+  setAttr("#assistantClose", "aria-label", "关闭任务助手", "Close task assistant");
+  setAttr("#assistantClose", "title", "关闭", "Close");
+  const caseHelp = document.querySelector("#casePickerHelp");
+  if (caseHelp) caseHelp.textContent = localized("搜索、筛选并选择一个参考案例。按 Escape 可关闭。", "Search, filter, and choose a reference case. Press Escape to close.");
+  const previewMeta = document.querySelector(".preview-meta p");
+  if (previewMeta) {
+    const platformName = document.querySelector("#previewPlatformName")?.textContent || "iOS";
+    previewMeta.textContent = localized(
+      `${platformName} · 保持信息结构不变，只切换平台规范、字体、组件骨架、圆角、密度和品牌 Token。`,
+      `${platformName} · Keep the information structure fixed while switching platform rules, typography, component anatomy, radius, density, and brand tokens.`,
+    );
+  }
 }
 
 function setCurrentStep(step) {
@@ -139,6 +163,7 @@ function init() {
   applyStaticCopy();
   installStepNavigation();
   setCurrentStep("task");
+  window.addEventListener("image2:launcherplatformchange", applyStaticCopy);
   window.image2I18n?.registerPage?.(applyStaticCopy);
 }
 
