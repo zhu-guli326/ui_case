@@ -1,0 +1,60 @@
+name: Bottom Safety QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "demo/**"
+      - "catalog/cases/**"
+      - "scripts/audit_demo_bottom_safety.mjs"
+      - "package.json"
+      - ".github/workflows/bottom-safety.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "demo/**"
+      - "catalog/cases/**"
+      - "scripts/audit_demo_bottom_safety.mjs"
+      - "package.json"
+      - ".github/workflows/bottom-safety.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bottom-safety-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Playwright
+        run: |
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Start local site
+        run: |
+          IMAGE2_UI_PORT=4174 npm run serve > /tmp/ui-case-server.log 2>&1 &
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4174/library.html > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/ui-case-server.log
+          exit 1
+      - name: Audit all live demo bottom areas
+        run: npm run audit:bottom-safety
+      - name: Upload bottom safety report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bottom-safety-report
+          path: artifacts/visual-qa/bottom-safety
+          if-no-files-found: error
+          retention-days: 14
