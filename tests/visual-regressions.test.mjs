@@ -33,9 +33,9 @@ test("Mimo bottom navigation is inset from the rounded screen edge", () => {
   const html = read("demo/mimo-activities/index.html");
   const polish = read("demo/mimo-activities/visual-polish.css");
   assert.match(html, /visual-polish\.css/);
-  assert.match(polish, /right:\s*12px/);
-  assert.match(polish, /left:\s*12px/);
-  assert.match(polish, /border-radius:\s*23px/);
+  assert.match(polish, /right:\s*14px/);
+  assert.match(polish, /left:\s*14px/);
+  assert.match(polish, /border-radius:\s*24px/);
 });
 
 test("these case-local phone aliases no longer own device hardware", () => {
