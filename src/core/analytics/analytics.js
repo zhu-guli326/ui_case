@@ -47,13 +47,18 @@
 
   if (/\/launcher\.html$/.test(location.pathname)) {
     const launcherPreviewLab = document.createElement("script");
-    launcherPreviewLab.src = "./src/features/launcher/launcher-preview-lab.js?v=20260817-preview-lab-v2";
+    launcherPreviewLab.src = "./src/features/launcher/launcher-preview-lab.js?v=20260817-preview-lab-v3";
     launcherPreviewLab.defer = true;
     document.head.append(launcherPreviewLab);
 
-    const launcherPlatformMerge = document.createElement("script");
-    launcherPlatformMerge.src = "./src/features/launcher/launcher-platform-merge.js?v=20260817-platform-merge-v1";
-    launcherPlatformMerge.defer = true;
-    document.head.append(launcherPlatformMerge);
+    const launcherPlatformFlow = document.createElement("script");
+    launcherPlatformFlow.src = "./src/features/launcher/launcher-platform-flow.js?v=20260817-platform-flow-v1";
+    launcherPlatformFlow.defer = true;
+    document.head.append(launcherPlatformFlow);
+
+    const launcherStability = document.createElement("script");
+    launcherStability.src = "./src/features/launcher/launcher-stability.js?v=20260817-stability-v1";
+    launcherStability.defer = true;
+    document.head.append(launcherStability);
   }
 })();
