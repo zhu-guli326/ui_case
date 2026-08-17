@@ -25,6 +25,14 @@
       body.create-flow-refactored #designSystemWorkbench{display:none!important}
       body.create-flow-refactored .color-theme-section{display:none!important}
 
+      .brief-delivery-block{margin-top:16px;padding-top:16px;border-top:1px solid #e2e8e3}
+      .brief-delivery-head{margin-bottom:10px}
+      .brief-delivery-head strong{display:block;font-size:11px;color:#253128}
+      .brief-delivery-head small{display:block;margin-top:3px;color:#778079;font-size:9px}
+      .brief-delivery-block .select-field>span{display:none}
+      .brief-delivery-block .format-icon-picker{display:grid!important;margin-top:0}
+      .brief-delivery-block .format-platform-detail{margin-top:10px}
+
       .preview-color-field{display:grid;gap:5px}.preview-color-field>span{font-size:8px;font-weight:800;color:#657067}
       .preview-color-picker{position:relative;min-width:180px}
       .preview-color-button{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;height:34px;padding:0 10px;border:1px solid #d5ddd6;border-radius:8px;background:#fff;color:#202721;font:inherit;font-size:10px;cursor:pointer}
@@ -44,7 +52,7 @@
       .final-brand-details{grid-column:1/-1;margin-top:1px}.final-brand-details summary{cursor:pointer;color:#4c6655;font-size:8px;font-weight:800;list-style:none}.final-brand-details summary::-webkit-details-marker{display:none}.final-brand-details summary::after{content:'＋';margin-left:5px}.final-brand-details[open] summary::after{content:'−'}
       .final-brand-components{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:8px}.final-brand-components .component-demo{min-height:88px;background:#fff}
       @media(max-width:980px){.final-brand-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.final-brand-main{grid-column:1/-1}}
-      @media(max-width:620px){.format-platform-options{grid-template-columns:1fr}.final-brand-summary,.final-brand-components{grid-template-columns:1fr}.final-brand-main{grid-column:auto}.preview-color-picker{min-width:100%}.preview-color-menu{width:min(320px,calc(100vw - 48px))}}
+      @media(max-width:620px){.format-platform-options{grid-template-columns:1fr}.brief-delivery-block .format-icon-picker{grid-template-columns:1fr 1fr!important}.final-brand-summary,.final-brand-components{grid-template-columns:1fr}.final-brand-main{grid-column:auto}.preview-color-picker{min-width:100%}.preview-color-menu{width:min(320px,calc(100vw - 48px))}}
     `;
     document.head.append(style);
 
@@ -73,6 +81,28 @@
       try { localStorage.setItem("image2-ui-target-platform", key); } catch {}
     }
 
+    function moveDeliveryUnderBrief() {
+      if (!document.body.classList.contains('create-flow-refactored')) return;
+      const brief = document.querySelector('#intentForm .config-section[aria-labelledby="briefTitle"]');
+      const select = document.querySelector('#intentForm select[name="format"]');
+      const field = select?.closest('.select-field');
+      const picker = document.querySelector('#intentForm .format-icon-picker');
+      if (!brief || !field || !picker) return;
+      let block = brief.querySelector('#briefDeliveryBlock');
+      if (!block) {
+        block = document.createElement('div');
+        block.id = 'briefDeliveryBlock';
+        block.className = 'brief-delivery-block';
+        block.innerHTML = '<div class="brief-delivery-head"><strong>交付形式</strong><small>先确定要做网页、手机 App、产品后台还是桌面应用。</small></div>';
+        const structured = brief.querySelector('.structured-brief');
+        (structured || brief).insertAdjacentElement('afterend', block);
+      }
+      if (!block.contains(field)) block.append(field);
+      if (!field.contains(picker)) field.append(picker);
+      const detail = document.querySelector('#intentForm .format-platform-detail');
+      if (detail && !field.contains(detail)) field.append(detail);
+    }
+
     function enhance() {
       const select = document.querySelector('#intentForm select[name="format"]');
       const picker = document.querySelector("#intentForm .format-icon-picker");
@@ -98,6 +128,7 @@
       };
       if (detail.dataset.bound !== "true") { detail.dataset.bound = "true"; select.addEventListener("change", render); }
       render();
+      moveDeliveryUnderBrief();
     }
 
     function colorDataFromCard(card) {
@@ -161,11 +192,11 @@
     }
 
     const intentForm = document.querySelector("#intentForm");
-    if (intentForm) { let timer = 0; new MutationObserver(() => { clearTimeout(timer); timer = setTimeout(() => { enhance(); syncPreviewColorPicker(); syncBrandSummary(); }, 50); }).observe(intentForm, { childList: true, subtree: true }); }
+    if (intentForm) { let timer = 0; new MutationObserver(() => { clearTimeout(timer); timer = setTimeout(() => { enhance(); moveDeliveryUnderBrief(); syncPreviewColorPicker(); syncBrandSummary(); }, 50); }).observe(intentForm, { childList: true, subtree: true }); }
     const previewLabObserver = new MutationObserver(() => { const label = document.querySelector("#previewLabSection .flow-label span"); if (label) label.textContent = "4"; syncPreviewColorPicker(); syncBrandSummary(); });
     previewLabObserver.observe(document.body, { childList: true, subtree: true });
     const workbench = document.querySelector("#designSystemWorkbench"); if (workbench) new MutationObserver(() => { syncPreviewColorPicker(); syncBrandSummary(); }).observe(workbench, { subtree: true, childList: true, characterData: true, attributes: true });
-    document.addEventListener("change", () => setTimeout(() => { syncPreviewColorPicker(); syncBrandSummary(); }, 40));
-    enhance(); syncPreviewColorPicker(); syncBrandSummary();
+    document.addEventListener("change", () => setTimeout(() => { moveDeliveryUnderBrief(); syncPreviewColorPicker(); syncBrandSummary(); }, 40));
+    enhance(); moveDeliveryUnderBrief(); syncPreviewColorPicker(); syncBrandSummary();
   });
 })();
