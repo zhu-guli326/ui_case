@@ -12,6 +12,7 @@ const entry = read("src/features/launcher/launcher-entry.js");
 const shell = read("src/features/launcher/launcher-shell.js");
 const designSystem = read("src/features/launcher/launcher-design-system.js");
 const livePreview = read("src/features/launcher/launcher-live-preview.js");
+const livePreviewCss = read("src/features/launcher/launcher-live-preview.css");
 const legacyPreviewLab = read("src/features/launcher/launcher-preview-lab.js");
 const simplifiedCss = read("src/features/launcher/launcher-simplified.css");
 const simplifiedRuntime = read("src/features/launcher/launcher-simplified-runtime.js");
@@ -26,13 +27,16 @@ test("launcher html remains a semantic shell", () => {
   assert.doesNotMatch(html, /<script(?![^>]+src=)[^>]*>[\s\S]*?<\/script>/i);
 });
 
-test("launcher has one explicit feature entry", () => {
+test("launcher has one explicit feature entry and no legacy preview enrichers", () => {
   assert.match(entry, /import\(`\.\.\/\.\.\/\.\.\/launcher\.js/);
   assert.match(entry, /launcher-shell\.js/);
   assert.match(entry, /launcher-design-system\.js/);
   assert.match(entry, /launcher-live-preview\.js/);
   assert.match(entry, /launcher-simplified-runtime\.js/);
   assert.doesNotMatch(entry, /launcher-preview-lab\.js/);
+  assert.doesNotMatch(entry, /launcher-preview-templates\.js/);
+  assert.doesNotMatch(entry, /launcher-preview-modern-cases\.js/);
+  assert.doesNotMatch(entry, /launcher-preview-editorial-images\.js/);
   assert.doesNotMatch(analyticsConfig, /launcher|features\//);
 });
 
@@ -80,11 +84,16 @@ test("platform and design-system behavior keeps one dedicated owner", () => {
   assert.match(designSystem, /ArrowRight/);
 });
 
-test("live preview belongs to the result step and legacy lab cannot rewrite Create", () => {
+test("visible final Preview owns its rendering and presentation", () => {
   assert.match(livePreview, /resultStageBody/);
   assert.match(livePreview, /previewLabSection/);
   assert.match(livePreview, /livePreviewDevice/);
   assert.match(livePreview, /previewPageTemplate/);
+  assert.match(livePreview, /pageTemplates/);
+  assert.match(livePreview, /syncPlatformFromUi/);
+  assert.match(livePreviewCss, /\.preview-template/);
+  assert.match(livePreviewCss, /\.pt-kpis/);
+  assert.match(livePreviewCss, /\.pt-product/);
   assert.doesNotMatch(livePreview, /restructureCreateFlow/);
   assert.doesNotMatch(legacyPreviewLab, /create-flow-refactored/);
   assert.doesNotMatch(legacyPreviewLab, /restructureCreateFlow/);
