@@ -57,6 +57,24 @@ function checkDemoDependencies(guide, liveAsset) {
   return dependencies;
 }
 
+function checkVideoSequence(guide) {
+  const sequence = guide.videoSequence;
+  if (!sequence) return [];
+  if (!Number.isFinite(sequence.duration) || sequence.duration <= 0) errors.push(`${guide.id}: invalid videoSequence duration`);
+  if (!Array.isArray(sequence.frames) || !sequence.frames.length) {
+    errors.push(`${guide.id}: videoSequence has no frames`);
+    return [];
+  }
+
+  let previousAt = -1;
+  return sequence.frames.map((frame, index) => {
+    if (!Number.isFinite(frame.at) || frame.at < 0 || frame.at < previousAt) errors.push(`${guide.id}: invalid videoSequence frame time at index ${index}`);
+    previousAt = Number(frame.at) || 0;
+    if (!frame.label) warnings.push(`${guide.id}: videoSequence frame ${index} has no label`);
+    return checkLocalAsset(guide, `videoSequence[${index}]`, frame.src, { required: true });
+  });
+}
+
 for (const guide of guides) {
   if (ids.has(guide.id)) errors.push(`duplicate case id: ${guide.id}`);
   ids.add(guide.id);
@@ -68,6 +86,7 @@ for (const guide of guides) {
     checkLocalAsset(guide, "video", guide.video),
     checkLocalAsset(guide, "liveDemo", guide.liveDemo)
   ];
+  const sequenceAssets = checkVideoSequence(guide);
   const liveAsset = assets.find((asset) => asset.key === "liveDemo");
   const dependencies = checkDemoDependencies(guide, liveAsset);
 
@@ -83,17 +102,27 @@ for (const guide of guides) {
     id: guide.id,
     category: guide.category,
     video: Boolean(guide.video),
+    sequence: Boolean(guide.videoSequence),
     liveDemo: Boolean(guide.liveDemo),
-    localAssets: assets.filter((asset) => asset.local).length,
-    missingAssets: assets.filter((asset) => asset.local && !asset.exists).map((asset) => asset.key),
+    localAssets: [...assets, ...sequenceAssets].filter((asset) => asset.local).length,
+    missingAssets: [...assets, ...sequenceAssets].filter((asset) => asset.local && !asset.exists).map((asset) => asset.key),
     demoDependencies: dependencies.length,
     missingDemoDependencies: dependencies.filter((item) => !item.exists).map((item) => item.raw)
   });
 }
 
 const libraryHtml = fs.readFileSync(path.join(root, "library.html"), "utf8");
-if (!libraryHtml.includes("library-quality-fixes.css")) errors.push("library.html: missing library-quality-fixes.css");
-if (!libraryHtml.includes("library-quality-fixes.js")) errors.push("library.html: missing library-quality-fixes.js");
+const qualityScriptIndex = libraryHtml.indexOf("library-quality-fixes.js");
+const libraryScriptIndex = libraryHtml.indexOf("./library.js");
+const detailStyleIndex = libraryHtml.indexOf("library-detail-minimal.css");
+
+if (qualityScriptIndex < 0) errors.push("library.html: missing library-quality-fixes.js");
+if (libraryScriptIndex < 0) errors.push("library.html: missing library.js");
+if (qualityScriptIndex > libraryScriptIndex) errors.push("library.html: catalog overrides must load before library.js");
+if (detailStyleIndex < 0) errors.push("library.html: missing authoritative library-detail-minimal.css");
+if (libraryHtml.includes("library-media-fixes.css")) errors.push("library.html: legacy library-media-fixes.css is still loaded and can fight detail geometry");
+if (libraryHtml.includes("library-quality-fixes.css")) errors.push("library.html: legacy library-quality-fixes.css is still loaded and can fight gallery density rules");
+if (!libraryHtml.includes('id="previewModeSwitch"') || !libraryHtml.includes('id="previewScreenRail"')) errors.push("library.html: stable detail media controls are missing");
 
 for (const id of Object.keys(libraryCaseOverrides)) {
   if (!ids.has(id)) errors.push(`library override points to unknown case: ${id}`);
@@ -104,6 +133,7 @@ const report = {
   summary: {
     cases: guides.length,
     videos: guides.filter((guide) => guide.video).length,
+    sequences: guides.filter((guide) => guide.videoSequence).length,
     liveDemos: guides.filter((guide) => guide.liveDemo).length,
     errors: errors.length,
     warnings: warnings.length
