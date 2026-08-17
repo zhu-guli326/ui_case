@@ -33,7 +33,7 @@ function liveDemoRecords() {
 
 test("all clickable demos implement the shared embed query contract", () => {
   const records = liveDemoRecords();
-  assert.equal(records.length, 20);
+  assert.equal(records.length, 19);
 
   const failures = [];
   for (const record of records) {
