@@ -108,13 +108,17 @@ function applyStaticCopy() {
   setAttr("#assistantClose", "title", "关闭", "Close");
   const caseHelp = document.querySelector("#casePickerHelp");
   if (caseHelp) caseHelp.textContent = localized("搜索、筛选并选择一个参考案例。按 Escape 可关闭。", "Search, filter, and choose a reference case. Press Escape to close.");
-  const previewMeta = document.querySelector(".preview-meta p");
-  if (previewMeta) {
-    const platformName = document.querySelector("#previewPlatformName")?.textContent || "iOS";
-    previewMeta.textContent = localized(
-      `${platformName} · 保持信息结构不变，只切换平台规范、字体、组件骨架、圆角、密度和品牌 Token。`,
-      `${platformName} · Keep the information structure fixed while switching platform rules, typography, component anatomy, radius, density, and brand tokens.`,
-    );
+
+  const platformName = document.querySelector("#previewPlatformName");
+  const previewMeta = platformName?.parentElement;
+  if (platformName && previewMeta) {
+    Array.from(previewMeta.childNodes).forEach((node) => {
+      if (node !== platformName) node.remove();
+    });
+    previewMeta.append(document.createTextNode(localized(
+      " · 保持信息结构不变，只切换平台规范、字体、组件骨架、圆角、密度和品牌 Token。",
+      " · Keep the information structure fixed while switching platform rules, typography, component anatomy, radius, density, and brand tokens.",
+    )));
   }
 }
 
