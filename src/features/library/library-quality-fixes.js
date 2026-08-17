@@ -1,6 +1,6 @@
 import { styleGuides } from "../../../catalog/index.js?v=20260815-artmuse-sequence";
 
-const REPAIR_VERSION = "20260817-library-qa-v1";
+const REPAIR_VERSION = "20260817-library-qa-v2";
 const caseRepairs = Object.freeze({
   fashion: {
     liveDemo: "./demo/fashion/index.html",
@@ -68,9 +68,8 @@ function enhanceCards() {
       image.fetchPriority = index < 3 ? "high" : "low";
       image.decoding = "async";
       image.dataset.caseId = card.dataset.caseId || "";
-      if (!image.dataset.fallbackQueue) {
-        image.dataset.fallbackQueue = JSON.stringify(fallbackCandidates(card.dataset.caseId));
-      }
+      if (!image.dataset.fallbackQueue) image.dataset.fallbackQueue = JSON.stringify(fallbackCandidates(card.dataset.caseId));
+      if (!image.dataset.failedSources) image.dataset.failedSources = "[]";
     }
 
     const preview = card.querySelector(".demo-card-preview");
@@ -93,16 +92,19 @@ function installImageRecovery() {
 
     const current = absolute(image.currentSrc || image.src);
     let queue = [];
+    let failed = [];
     try { queue = JSON.parse(image.dataset.fallbackQueue || "[]"); } catch {}
+    try { failed = JSON.parse(image.dataset.failedSources || "[]"); } catch {}
     if (!queue.length) queue = fallbackCandidates(card.dataset.caseId);
-    const next = queue.find((src) => src && src !== current && !image.dataset[`failed${btoa(src).replace(/=/g, "")}`]);
+    if (current && !failed.includes(current)) failed.push(current);
+    image.dataset.failedSources = JSON.stringify(failed);
+
+    const next = queue.find((src) => src && src !== current && !failed.includes(src));
     if (!next) return;
 
-    // Prevent the base Library error handler from removing the image before we
-    // have exhausted the known-good local fallbacks.
+    // Prevent the base Library error handler from removing the image before all
+    // known local fallbacks have been tried.
     event.stopImmediatePropagation();
-    const key = `failed${btoa(current).replace(/=/g, "")}`;
-    image.dataset[key] = "1";
     image.src = next;
     image.closest(".phone-preview-media")?.classList.remove("is-unavailable");
   }, true);
@@ -181,8 +183,9 @@ function installIframeHealthCheck() {
 function installDialogMediaPolicy() {
   const video = document.querySelector("#previewDialogVideo");
   if (video) {
-    // The base library assigns video.src only after the modal is opened, so
-    // keeping metadata preload here preserves the existing lazy-load contract.
+    // The base library assigns video.src only after a modal is opened, so the
+    // catalogue already behaves as lazy-loaded media. Keep metadata preload to
+    // make the custom progress controls reliable without loading every MP4.
     video.preload = "metadata";
     video.playsInline = true;
     video.muted = true;
