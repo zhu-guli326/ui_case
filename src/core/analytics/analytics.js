@@ -44,4 +44,11 @@
     previewRuntime.src = "./src/components/device-preview/device-preview.js?v=20260816-arch-v1";
     document.head.append(previewRuntime);
   }
+
+  if (/\/launcher\.html$/.test(location.pathname)) {
+    const launcherPreviewLab = document.createElement("script");
+    launcherPreviewLab.src = "./src/features/launcher/launcher-preview-lab.js?v=20260817-preview-lab-v1";
+    launcherPreviewLab.defer = true;
+    document.head.append(launcherPreviewLab);
+  }
 })();
