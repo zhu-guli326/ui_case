@@ -1,12 +1,13 @@
-/* Library density + full-screen preview pass (2026-08-17)
+/* Library screenshot-first layout (2026-08-17)
  *
- * The gallery must show the complete authored mobile screen. Do not crop a
- * 390 x 844 UI into a landscape/cover thumbnail: status bar, main content,
- * bottom navigation and home-indicator region all remain visible at once.
+ * Goal: keep every authored 390 x 844 screen fully visible without turning the
+ * library into a wall of tall cards. The card preview is a 4:5 visual board and
+ * the full mobile screen is scaled inside it. Browse first; inspect details in
+ * the case modal.
  */
 
 :root {
-  --card-preview-ratio: 390 / 844;
+  --card-preview-ratio: 4 / 5;
 }
 
 .catalog-main {
@@ -26,34 +27,53 @@
   margin-bottom: 24px;
 }
 
+/* Three readable columns is the desktop default. Four columns made complete
+ * mobile screens too narrow to inspect. */
 .demo-gallery {
-  gap: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
 }
 
+.demo-card {
+  align-content: start;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(44, 40, 31, .035);
+}
+
+.demo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(44, 40, 31, .075);
+}
+
+/* The board gives a Mobbin/Refero-like visual browsing rhythm: one calm field,
+ * one complete screen, no crop. */
 .demo-card-preview {
-  padding: 0;
+  position: relative;
+  display: grid;
+  aspect-ratio: var(--card-preview-ratio);
+  padding: 22px;
+  place-items: center;
+  overflow: hidden;
 }
 
-/* One visual layer only. The source screen owns its own contrast and artwork. */
 .demo-card-preview::before {
   display: none;
 }
 
-/* Gallery cards are complete screen previews, not cropped cover art. Hardware
- * chrome stays out of this layer; the detail modal continues to own PhoneShell.
- */
+/* Complete screen, fitted inside the board. Hardware chrome is intentionally
+ * absent in the library grid; the detail modal owns PhoneShell. */
 .demo-card-preview > .phone-frame.phone-frame--card:not(.is-artboard-preview) {
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100% !important;
-  max-height: 100% !important;
+  width: auto !important;
+  height: calc(100% - 4px) !important;
+  max-width: calc(100% - 20px) !important;
+  max-height: calc(100% - 4px) !important;
   aspect-ratio: 390 / 844 !important;
   margin: 0 !important;
   overflow: hidden !important;
   border: 0 !important;
-  border-radius: 16px !important;
+  border-radius: 20px !important;
   background: transparent !important;
-  box-shadow: none !important;
+  box-shadow: 0 15px 34px -22px rgba(25, 24, 21, .42) !important;
 }
 
 .demo-card-preview > .phone-frame.phone-frame--card:not(.is-artboard-preview)::before,
@@ -65,7 +85,7 @@
   width: 100% !important;
   height: 100% !important;
   overflow: hidden !important;
-  border-radius: 16px !important;
+  border-radius: 20px !important;
   background: transparent !important;
 }
 
@@ -81,38 +101,108 @@
   background: transparent !important;
 }
 
+/* Artboard-based cases follow the same browsing rhythm rather than becoming a
+ * different card species. */
+.demo-card-preview > .phone-frame.is-artboard-preview {
+  width: calc(100% - 10px) !important;
+  height: calc(100% - 10px) !important;
+  max-width: calc(100% - 10px) !important;
+  max-height: calc(100% - 10px) !important;
+  margin: 0 !important;
+}
+
+/* The grid is for visual scanning, not project metadata. Keep only identity +
+ * two style cues. Everything else remains available after opening the case. */
 .demo-card-body {
-  min-height: 206px;
-  gap: 8px;
-  padding: 17px 18px 16px;
+  min-height: 0;
+  gap: 7px;
+  padding: 15px 17px 17px;
 }
 
+.demo-card-meta {
+  min-height: 18px;
+  font-size: 11px;
+}
+
+.demo-card-meta span:first-child {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.demo-card-meta span:last-child {
+  display: none;
+}
+
+.demo-card h3 {
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.demo-card-summary,
+.case-statuses,
+.brand-links,
 .demo-card-footer {
-  gap: 9px;
-  padding-top: 11px;
+  display: none !important;
 }
 
+.style-tags {
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.style-tag {
+  min-height: 27px;
+  padding: 3px 8px;
+  font-size: 11px;
+}
+
+.style-tag:nth-child(n + 3) {
+  display: none;
+}
+
+/* The whole preview remains the main action. The label stays quiet until the
+ * user engages with the card. */
 .preview-open-button span {
   top: 12px;
   left: 12px;
+  opacity: .72;
+  transform: translateY(-2px);
+  transition: opacity .16s ease, transform .16s ease, background .16s ease;
 }
 
-@media (min-width: 1500px) {
+.demo-card:hover .preview-open-button span,
+.preview-open-button:focus-visible span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (min-width: 1700px) {
   .demo-gallery {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .demo-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 760px) {
-  :root {
-    --card-preview-ratio: 390 / 844;
-  }
-
   .catalog-main {
     padding-top: 34px;
   }
 
+  .demo-gallery {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
   .demo-card-preview {
-    padding: 0;
+    padding: 18px;
+  }
+
+  .demo-card-body {
+    padding: 14px 15px 16px;
   }
 }
