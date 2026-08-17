@@ -1,0 +1,115 @@
+/* Library density + preview containment pass (2026-08-17)
+ *
+ * Card thumbnails are visual crops, not a second phone mockup. The full
+ * PhoneShell stays in the detail preview. This keeps the gallery dense and
+ * prevents authored screenshots from being wrapped by two visible masks.
+ */
+
+:root {
+  --card-preview-ratio: 5 / 4;
+}
+
+.catalog-main {
+  padding-top: 54px;
+}
+
+.sidebar {
+  padding-top: 78px;
+}
+
+.catalog-heading {
+  gap: 36px;
+}
+
+.search-section {
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+
+.demo-gallery {
+  gap: 18px;
+}
+
+.demo-card-preview {
+  padding: 14px;
+}
+
+/* One mask only. The previous generic gradient sat above every screenshot and
+ * could read as a second overlay when the source already contained contrast
+ * treatment of its own. */
+.demo-card-preview::before {
+  display: none;
+}
+
+/* Gallery cards intentionally lose hardware chrome. They become a dense,
+ * clipped visual window. The modal/detail preview still uses PhoneShell. */
+.demo-card-preview > .phone-frame.phone-frame--card:not(.is-artboard-preview) {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  aspect-ratio: auto !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 16px !important;
+  background: #111 !important;
+  box-shadow: 0 10px 26px -18px rgba(27, 25, 20, .52) !important;
+}
+
+.demo-card-preview > .phone-frame.phone-frame--card:not(.is-artboard-preview)::before,
+.demo-card-preview > .phone-frame.phone-frame--card:not(.is-artboard-preview)::after {
+  display: none !important;
+}
+
+.demo-card-preview > .phone-frame.phone-frame--card:not(.is-artboard-preview) .phone-screen {
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  border-radius: 16px !important;
+}
+
+.demo-card-preview > .phone-frame.phone-frame--card:not(.is-artboard-preview) .phone-media {
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: top center !important;
+  transform: none !important;
+}
+
+.demo-card-body {
+  min-height: 206px;
+  gap: 8px;
+  padding: 17px 18px 16px;
+}
+
+.demo-card-footer {
+  gap: 9px;
+  padding-top: 11px;
+}
+
+.preview-open-button span {
+  top: 12px;
+  left: 12px;
+}
+
+@media (min-width: 1500px) {
+  .demo-gallery {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  :root {
+    --card-preview-ratio: 4 / 3;
+  }
+
+  .catalog-main {
+    padding-top: 34px;
+  }
+
+  .demo-card-preview {
+    padding: 10px;
+  }
+}
