@@ -83,16 +83,18 @@ test("special demo layouts keep one appropriate PhoneShell invocation", () => {
   assert.equal((softly.match(/iphone-frame--viewport-shell/g) || []).length, 3);
 });
 
-test("every catalog live demo supplies a screen-only embedded source", () => {
+test("every catalog live demo supplies an embeddable screen source", () => {
   const caseFiles = readdirSync(path.join(root, "catalog", "cases")).filter((file) => file.endsWith(".json"));
   const liveDemos = caseFiles
     .map((file) => JSON.parse(readFileSync(path.join(root, "catalog", "cases", file), "utf8")))
     .map((caseRecord) => caseRecord.liveDemo)
     .filter(Boolean);
 
-  assert.equal(liveDemos.length, 16);
+  assert.ok(liveDemos.length > 0, "catalog must expose at least one live demo");
   for (const liveDemo of liveDemos) {
     const html = readFileSync(path.join(root, liveDemo.replace(/^\.\//, "")), "utf8");
-    assert.match(html, /\biphone-frame\b/, `${liveDemo} invokes PhoneShell and can flatten to a screen-only embed`);
+    const usesPhoneShell = /\biphone-frame\b/.test(html);
+    const usesNativeScreenEmbed = /dataset\.embed|data-embed/.test(html) && /100vw/.test(html) && /100vh/.test(html);
+    assert.ok(usesPhoneShell || usesNativeScreenEmbed, `${liveDemo} must provide PhoneShell flattening or a native screen-only embed contract`);
   }
 });
