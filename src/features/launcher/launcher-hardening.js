@@ -5,13 +5,11 @@ if (isLauncher) {
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn, { once: true });
     else fn();
   };
-
   const currentLanguage = () => {
     const fromQuery = new URL(window.location.href).searchParams.get("lang");
     if (fromQuery === "en" || fromQuery === "zh") return fromQuery;
     return window.image2I18n?.language === "en" ? "en" : "zh";
   };
-
   const tr = (zh, en) => currentLanguage() === "en" ? en : zh;
 
   function installStyles() {
@@ -19,79 +17,19 @@ if (isLauncher) {
     const style = document.createElement("style");
     style.id = "launcher-hardening-styles";
     style.textContent = `
-      .launcher-workspace :is(button,a,input,textarea,select,[tabindex]):focus-visible {
-        outline: 3px solid #0b6b3a !important;
-        outline-offset: 3px !important;
-      }
-      .launcher-workspace .mode-tabs > button:focus-visible,
-      .launcher-workspace .ds-tab:focus-visible,
-      .launcher-workspace .platform-card:focus-visible {
-        box-shadow: 0 0 0 4px #fff, 0 0 0 7px #0b6b3a !important;
-      }
-      .launcher-workspace .field-validation-error {
-        margin: 6px 0 0;
-        color: #8f2d20;
-        font-size: 11px;
-        font-weight: 700;
-        line-height: 1.45;
-      }
-      .launcher-workspace [aria-invalid="true"] {
-        border-color: #a33d2e !important;
-        box-shadow: 0 0 0 2px rgba(163,61,46,.12) !important;
-      }
-      .launcher-workspace .generate-button[disabled] {
-        opacity: .58;
-        cursor: not-allowed;
-      }
-      .launcher-workspace .generate-button[disabled] + * { pointer-events: auto; }
-      .launcher-workspace .prompt-actions .primary-action-wrap {
-        position: relative;
-      }
-      .launcher-workspace .prompt-actions .primary-action-wrap[data-readiness="blocked"]::after {
-        position: absolute;
-        inset: 0;
-        content: "";
-        cursor: help;
-      }
-      .launcher-workspace .ds-tab[aria-selected="true"] {
-        border-color: #12683c;
-        background: #e4f2e8;
-        color: #0c5630;
-      }
-      .launcher-workspace .platform-card[role="radio"][aria-checked="true"] {
-        border-color: #12683c;
-        background: #e8f4ec;
-        box-shadow: 0 0 0 1px #12683c inset;
-      }
-      .launcher-workspace .platform-copy small,
-      .launcher-workspace .platform-hint,
-      .launcher-workspace .ds-toolbar span,
-      .launcher-workspace .preview-meta p,
-      .launcher-workspace .preview-meta ul,
-      .launcher-workspace .ds-info-card p,
-      .launcher-workspace .ds-type-sample small,
-      .launcher-workspace .ds-metric span {
-        color: #505a52 !important;
-      }
-      @media (prefers-contrast: more) {
-        .launcher-workspace {
-          --muted: #424b44;
-          --quiet: #515a52;
-          --line: #a6aea7;
-          --line-strong: #727c74;
-        }
-        .launcher-workspace :is(.mode-picker,.style-direction,.platform-section,.color-theme-section,.launcher-grid) {
-          border-color: #9ca59e !important;
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .launcher-workspace *, .launcher-workspace *::before, .launcher-workspace *::after {
-          scroll-behavior: auto !important;
-          transition-duration: .01ms !important;
-          animation-duration: .01ms !important;
-          animation-iteration-count: 1 !important;
-        }
-      }
+      .launcher-workspace :is(button,a,input,textarea,select,[tabindex]):focus-visible{outline:3px solid #0b6b3a!important;outline-offset:3px!important}
+      .launcher-workspace .mode-tabs>button:focus-visible,.launcher-workspace .ds-tab:focus-visible,.launcher-workspace .platform-card:focus-visible{box-shadow:0 0 0 4px #fff,0 0 0 7px #0b6b3a!important}
+      .launcher-workspace .field-validation-error{margin:6px 0 0;color:#8f2d20;font-size:11px;font-weight:700;line-height:1.45}
+      .launcher-workspace [aria-invalid="true"]{border-color:#a33d2e!important;box-shadow:0 0 0 2px rgba(163,61,46,.12)!important}
+      .launcher-workspace .generate-button[disabled]{opacity:.58;cursor:not-allowed}
+      .launcher-workspace .prompt-actions .primary-action-wrap{position:relative}
+      .launcher-workspace .prompt-actions .primary-action-wrap[data-readiness="blocked"]::after{position:absolute;inset:0;content:"";cursor:help}
+      .launcher-workspace .ds-tab[aria-selected="true"]{border-color:#12683c;background:#e4f2e8;color:#0c5630}
+      .launcher-workspace .platform-card[role="radio"][aria-checked="true"]{border-color:#12683c;background:#e8f4ec;box-shadow:0 0 0 1px #12683c inset}
+      .launcher-workspace .platform-copy small,.launcher-workspace .platform-hint,.launcher-workspace .ds-toolbar span,.launcher-workspace .preview-meta p,.launcher-workspace .preview-meta ul,.launcher-workspace .ds-info-card p,.launcher-workspace .ds-type-sample small,.launcher-workspace .ds-metric span{color:#505a52!important}
+      .launcher-workspace .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+      @media(prefers-contrast:more){.launcher-workspace{--muted:#424b44;--quiet:#515a52;--line:#a6aea7;--line-strong:#727c74}.launcher-workspace :is(.mode-picker,.style-direction,.platform-section,.color-theme-section,.launcher-grid){border-color:#9ca59e!important}}
+      @media(prefers-reduced-motion:reduce){.launcher-workspace *,.launcher-workspace *::before,.launcher-workspace *::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
     `;
     document.head.appendChild(style);
   }
@@ -100,7 +38,7 @@ if (isLauncher) {
     document.documentElement.lang = currentLanguage() === "en" ? "en" : "zh-CN";
   }
 
-  function installMainLandmarks() {
+  function installLandmarks() {
     const main = document.querySelector("main.launcher-shell");
     if (main && !main.hasAttribute("aria-labelledby")) main.setAttribute("aria-labelledby", "pageTitle");
     const side = document.querySelector(".workspace-side");
@@ -113,13 +51,14 @@ if (isLauncher) {
   function syncPrimaryTabs() {
     const tabs = Array.from(document.querySelectorAll("#modeTabs [role='tab']"));
     if (!tabs.length) return;
-    const panel = document.getElementById("intentForm");
+    const activeIntent = new URL(window.location.href).searchParams.get("intent");
     tabs.forEach((tab) => {
-      const selected = tab.classList.contains("is-active") || tab.getAttribute("aria-selected") === "true";
+      const selected = tab.dataset.intent === activeIntent || tab.classList.contains("is-active") || tab.getAttribute("aria-selected") === "true";
       tab.setAttribute("aria-selected", String(selected));
       tab.tabIndex = selected ? 0 : -1;
     });
     const active = tabs.find((tab) => tab.getAttribute("aria-selected") === "true") || tabs[0];
+    const panel = document.getElementById("intentForm");
     if (panel && active?.id) panel.setAttribute("aria-labelledby", active.id);
   }
 
@@ -149,20 +88,20 @@ if (isLauncher) {
     tabs.forEach((tab, index) => {
       const key = tab.dataset.dsTab || `panel-${index + 1}`;
       const panel = panels.find((item) => item.dataset.dsPanel === key) || panels[index];
+      const selected = tab.classList.contains("is-active");
       const tabId = `ds-tab-${key}`;
       const panelId = `ds-panel-${key}`;
-      const selected = tab.classList.contains("is-active");
       tab.id = tabId;
       tab.setAttribute("role", "tab");
       tab.setAttribute("aria-controls", panelId);
-      tab.setAttribute("aria-selected", String(selected));
+      if (tab.getAttribute("aria-selected") !== String(selected)) tab.setAttribute("aria-selected", String(selected));
       tab.tabIndex = selected ? 0 : -1;
       if (panel) {
         panel.id = panelId;
         panel.setAttribute("role", "tabpanel");
         panel.setAttribute("aria-labelledby", tabId);
         panel.tabIndex = 0;
-        panel.hidden = !selected;
+        if (panel.hidden === selected) panel.hidden = !selected;
       }
     });
   }
@@ -183,20 +122,19 @@ if (isLauncher) {
       event.preventDefault();
       tabs[next]?.focus();
       tabs[next]?.click();
-      queueMicrotask(syncDesignSystemTabs);
+      requestAnimationFrame(syncDesignSystemTabs);
     });
   }
 
   function syncPlatformRadios() {
     const grid = document.getElementById("platformGrid");
     if (!grid) return;
-    grid.setAttribute("role", "radiogroup");
     const cards = Array.from(grid.querySelectorAll(".platform-card"));
     cards.forEach((card) => {
       const active = card.classList.contains("is-active");
       card.setAttribute("role", "radio");
-      card.setAttribute("aria-checked", String(active));
-      card.removeAttribute("aria-pressed");
+      if (card.getAttribute("aria-checked") !== String(active)) card.setAttribute("aria-checked", String(active));
+      if (card.hasAttribute("aria-pressed")) card.removeAttribute("aria-pressed");
       card.tabIndex = active ? 0 : -1;
     });
   }
@@ -217,13 +155,14 @@ if (isLauncher) {
       event.preventDefault();
       cards[next]?.focus();
       cards[next]?.click();
-      queueMicrotask(syncPlatformRadios);
+      requestAnimationFrame(syncPlatformRadios);
     });
   }
 
   function syncPreviewControls() {
     document.querySelectorAll(".preview-control").forEach((button) => {
-      button.setAttribute("aria-pressed", String(button.classList.contains("is-active")));
+      const value = String(button.classList.contains("is-active"));
+      if (button.getAttribute("aria-pressed") !== value) button.setAttribute("aria-pressed", value);
     });
   }
 
@@ -232,9 +171,8 @@ if (isLauncher) {
     if (!dialog) return;
     dialog.setAttribute("aria-modal", "true");
     dialog.setAttribute("aria-describedby", "casePickerHelp");
-    let help = document.getElementById("casePickerHelp");
-    if (!help) {
-      help = document.createElement("p");
+    if (!document.getElementById("casePickerHelp")) {
+      const help = document.createElement("p");
       help.id = "casePickerHelp";
       help.className = "sr-only";
       help.textContent = tr("搜索、筛选并选择一个参考案例。按 Escape 可关闭。", "Search, filter, and choose a reference case. Press Escape to close.");
@@ -251,7 +189,7 @@ if (isLauncher) {
   }
 
   function firstLikelyIncompleteField() {
-    const fields = Array.from(document.querySelectorAll("#intentForm input, #intentForm textarea, #intentForm select"))
+    const fields = Array.from(document.querySelectorAll("#intentForm input,#intentForm textarea,#intentForm select"))
       .filter((field) => !field.disabled && field.type !== "hidden" && field.offsetParent !== null);
     return fields.find((field) => {
       if (field.type === "radio" || field.type === "checkbox") {
@@ -272,6 +210,7 @@ if (isLauncher) {
     const field = firstLikelyIncompleteField();
     const missing = document.getElementById("missingState");
     if (!field) {
+      missing?.setAttribute("tabindex", "-1");
       missing?.focus?.();
       return;
     }
@@ -282,8 +221,7 @@ if (isLauncher) {
     message.setAttribute("role", "alert");
     message.textContent = tr("请先补充这个字段，再生成指令。", "Complete this field before generating the prompt.");
     field.setAttribute("aria-describedby", [field.getAttribute("aria-describedby"), message.id].filter(Boolean).join(" "));
-    const label = field.closest("label") || field.parentElement;
-    label?.appendChild(message);
+    (field.closest("label") || field.parentElement)?.appendChild(message);
     field.focus();
     field.scrollIntoView({ block: "center", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   }
@@ -294,9 +232,7 @@ if (isLauncher) {
     if (!button || !wrap) return;
     const blocked = button.disabled || button.getAttribute("aria-disabled") === "true";
     wrap.dataset.readiness = blocked ? "blocked" : "ready";
-    wrap.setAttribute("aria-label", blocked
-      ? tr("生成指令暂不可用：请先完成缺失信息", "Generate prompt unavailable: complete the missing information first")
-      : tr("生成指令已可用", "Generate prompt is ready"));
+    wrap.setAttribute("aria-label", blocked ? tr("生成指令暂不可用：请先完成缺失信息", "Generate prompt unavailable: complete the missing information first") : tr("生成指令已可用", "Generate prompt is ready"));
     if (!blocked) clearValidationMessages();
   }
 
@@ -309,8 +245,7 @@ if (isLauncher) {
       if (document.getElementById("generatePrompt")?.disabled) showBlockedFeedback();
     });
     wrap.addEventListener("keydown", (event) => {
-      if (!["Enter", " "].includes(event.key)) return;
-      if (!document.getElementById("generatePrompt")?.disabled) return;
+      if (!["Enter", " "].includes(event.key) || !document.getElementById("generatePrompt")?.disabled) return;
       event.preventDefault();
       showBlockedFeedback();
     });
@@ -320,7 +255,8 @@ if (isLauncher) {
     const toggle = document.getElementById("assistantToggle");
     const panel = document.getElementById("assistantPanel");
     if (!toggle || !panel) return;
-    toggle.setAttribute("aria-expanded", String(!panel.hidden));
+    const expanded = String(!panel.hidden);
+    if (toggle.getAttribute("aria-expanded") !== expanded) toggle.setAttribute("aria-expanded", expanded);
     panel.setAttribute("role", "complementary");
     panel.setAttribute("aria-label", tr("任务助手", "Task assistant"));
   }
@@ -337,8 +273,7 @@ if (isLauncher) {
 
   whenReady(() => {
     installStyles();
-    syncDocumentLanguage();
-    installMainLandmarks();
+    installLandmarks();
     installPrimaryTabKeys();
     installDesignSystemTabKeys();
     installPlatformKeys();
@@ -346,15 +281,21 @@ if (isLauncher) {
     hardenDialog();
     syncAll();
 
-    const observer = new MutationObserver(() => syncAll());
-    observer.observe(document.body, {
-      subtree: true,
-      childList: true,
-      attributes: true,
-      attributeFilter: ["class", "hidden", "disabled", "aria-selected", "aria-pressed", "open"],
+    let scheduled = false;
+    const observer = new MutationObserver(() => {
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(() => {
+        scheduled = false;
+        syncAll();
+      });
     });
+    observer.observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ["class", "disabled", "open"] });
 
-    window.addEventListener("popstate", () => queueMicrotask(syncAll));
-    window.addEventListener("languagechange", () => queueMicrotask(syncAll));
+    document.addEventListener("click", (event) => {
+      if (event.target.closest("#assistantToggle,#assistantClose,.ds-tab,.preview-control,.platform-card,#modeTabs [role='tab']")) requestAnimationFrame(syncAll);
+    });
+    window.addEventListener("popstate", () => requestAnimationFrame(syncAll));
+    window.addEventListener("languagechange", () => requestAnimationFrame(syncAll));
   });
 }
