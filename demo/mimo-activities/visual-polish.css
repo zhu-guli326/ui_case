@@ -14,3 +14,27 @@
   backdrop-filter: blur(14px);
 }
 .tab { min-height: 46px; }
+
+/* Initial carousel geometry mirrors script.js before interaction begins. Side
+ * cards stay inside the 390px screen instead of being deliberately clipped by
+ * the left/right edge. Runtime transforms take over after JS initializes. */
+.activity-card[data-index="0"] {
+  opacity: 0;
+  transform: translateX(calc(-50% - 150px)) translateY(82px) rotate(-9deg) scale(.76);
+}
+.activity-card[data-index="1"] {
+  opacity: .66;
+  transform: translateX(calc(-50% - 102px)) translateY(42px) rotate(-6deg) scale(.84);
+}
+.activity-card[data-index="2"] {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+.activity-card[data-index="3"] {
+  opacity: .66;
+  transform: translateX(calc(-50% + 102px)) translateY(42px) rotate(6deg) scale(.84);
+}
+.activity-card[data-index="4"] {
+  opacity: 0;
+  transform: translateX(calc(-50% + 150px)) translateY(82px) rotate(9deg) scale(.76);
+}
