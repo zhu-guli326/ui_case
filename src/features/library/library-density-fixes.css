@@ -1,13 +1,12 @@
 /* Library screenshot-first layout (2026-08-17)
  *
- * Goal: keep every authored 390 x 844 screen fully visible without turning the
- * library into a wall of tall cards. The card preview is a 4:5 visual board and
- * the full mobile screen is scaled inside it. Browse first; inspect details in
- * the case modal.
+ * Every case occupies the same card slot. Source artwork is never allowed to
+ * drive grid geometry: Grid -> Card -> Media Frame -> Artwork.
  */
 
 :root {
-  --card-preview-ratio: 4 / 5;
+  --case-card-preview-height: 360px;
+  --case-card-info-height: 118px;
 }
 
 .catalog-main {
@@ -27,15 +26,21 @@
   margin-bottom: 24px;
 }
 
-/* Four-column desktop gallery: keep the full mobile screen fitted inside each
- * 4:5 board, so density increases without returning to cropped thumbnails. */
+/* Keep the desktop library at four equal columns. Card geometry is fixed and
+ * independent of each source image's intrinsic dimensions. */
 .demo-gallery {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
   gap: 18px;
 }
 
 .demo-card {
-  align-content: start;
+  display: grid;
+  grid-template-rows: var(--case-card-preview-height) var(--case-card-info-height);
+  min-width: 0;
+  height: calc(var(--case-card-preview-height) + var(--case-card-info-height));
+  overflow: hidden;
+  align-content: stretch;
   border-radius: 18px;
   box-shadow: 0 6px 18px rgba(44, 40, 31, .035);
 }
@@ -45,23 +50,27 @@
   box-shadow: 0 12px 28px rgba(44, 40, 31, .075);
 }
 
-/* The board gives a Mobbin/Refero-like visual browsing rhythm: one calm field,
- * one complete screen, no crop. */
+/* Fixed visual board. Images/screens can scale inside it but cannot resize it. */
 .demo-card-preview {
   position: relative;
   display: grid;
-  aspect-ratio: var(--card-preview-ratio);
+  width: 100%;
+  height: var(--case-card-preview-height);
+  min-height: var(--case-card-preview-height);
+  max-height: var(--case-card-preview-height);
   padding: 18px;
   place-items: center;
   overflow: hidden;
+  box-sizing: border-box;
+  aspect-ratio: auto !important;
 }
 
 .demo-card-preview::before {
   display: none;
 }
 
-/* Complete screen, fitted inside the board. Hardware chrome is intentionally
- * absent in the library grid; the detail modal owns PhoneShell. */
+/* Mobile screens stay complete and centered. The board owns dimensions; the
+ * screen only fits within the available slot. */
 .demo-card-preview > .phone-frame.phone-frame--card:not(.is-artboard-preview) {
   width: auto !important;
   height: calc(100% - 6px) !important;
@@ -71,7 +80,7 @@
   margin: 0 !important;
   overflow: hidden !important;
   border: 0 !important;
-  border-radius: 18px !important;
+  border-radius: 16px !important;
   background: transparent !important;
   box-shadow: 0 15px 34px -22px rgba(25, 24, 21, .42) !important;
 }
@@ -85,11 +94,12 @@
   width: 100% !important;
   height: 100% !important;
   overflow: hidden !important;
-  border-radius: 18px !important;
+  border-radius: 16px !important;
   background: transparent !important;
 }
 
 .demo-card-preview > .phone-frame.phone-frame--card:not(.is-artboard-preview) .phone-media {
+  position: absolute !important;
   inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
@@ -101,22 +111,41 @@
   background: transparent !important;
 }
 
-/* Artboard-based cases follow the same browsing rhythm rather than becoming a
- * different card species. */
+/* Artboard cases use the exact same fixed preview slot. No artboard may alter
+ * the surrounding card height or width. */
 .demo-card-preview > .phone-frame.is-artboard-preview {
-  width: calc(100% - 10px) !important;
-  height: calc(100% - 10px) !important;
-  max-width: calc(100% - 10px) !important;
-  max-height: calc(100% - 10px) !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
   margin: 0 !important;
+  overflow: hidden !important;
 }
 
-/* The grid is for visual scanning, not project metadata. Keep only identity +
- * two style cues. Everything else remains available after opening the case. */
+.demo-card-preview > .phone-frame.is-artboard-preview .phone-screen,
+.demo-card-preview > .phone-frame.is-artboard-preview .phone-media,
+.demo-card-preview > .phone-frame.is-artboard-preview img,
+.demo-card-preview > .phone-frame.is-artboard-preview video {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+/* Fixed information rail: identity + title + at most two tags. */
 .demo-card-body {
-  min-height: 0;
-  gap: 7px;
-  padding: 14px 15px 16px;
+  display: grid;
+  grid-template-rows: 18px auto 30px;
+  align-content: start;
+  width: 100%;
+  height: var(--case-card-info-height);
+  min-height: var(--case-card-info-height);
+  max-height: var(--case-card-info-height);
+  gap: 6px;
+  padding: 13px 15px 14px;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .demo-card-meta {
@@ -134,8 +163,14 @@
 }
 
 .demo-card h3 {
+  margin: 0;
+  max-height: 46px;
+  overflow: hidden;
   font-size: 18px;
   line-height: 1.25;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .demo-card-summary,
@@ -146,11 +181,17 @@
 }
 
 .style-tags {
+  align-self: end;
+  display: flex;
+  min-height: 27px;
   gap: 5px;
-  margin-top: 2px;
+  margin-top: 0;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .style-tag {
+  flex: 0 0 auto;
   min-height: 27px;
   padding: 3px 8px;
   font-size: 11px;
@@ -160,8 +201,6 @@
   display: none;
 }
 
-/* The whole preview remains the main action. The label stays quiet until the
- * user engages with the card. */
 .preview-open-button span {
   top: 11px;
   left: 11px;
@@ -177,9 +216,13 @@
 }
 
 @media (max-width: 1380px) {
+  :root {
+    --case-card-preview-height: 340px;
+  }
+
   .demo-gallery {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 20px;
+    gap: 18px;
   }
 }
 
@@ -190,6 +233,10 @@
 }
 
 @media (max-width: 760px) {
+  :root {
+    --case-card-preview-height: 360px;
+  }
+
   .catalog-main {
     padding-top: 34px;
   }
@@ -200,10 +247,6 @@
   }
 
   .demo-card-preview {
-    padding: 18px;
-  }
-
-  .demo-card-body {
-    padding: 14px 15px 16px;
+    padding: 16px;
   }
 }
