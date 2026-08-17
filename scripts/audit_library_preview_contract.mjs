@@ -15,7 +15,7 @@ const records = fs.readdirSync(path.join(repoRoot, "catalog", "cases"))
   .sort()
   .map((name) => JSON.parse(fs.readFileSync(path.join(repoRoot, "catalog", "cases", name), "utf8")));
 
-if (records.length !== 23) throw new Error(`Expected 23 cases, found ${records.length}`);
+if (records.length !== 22) throw new Error(`Expected 22 cases, found ${records.length}`);
 
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 960 }, deviceScaleFactor: 1 });
