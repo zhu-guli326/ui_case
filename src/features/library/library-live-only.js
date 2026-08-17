@@ -27,6 +27,11 @@ function countLabel(count) {
   return isEnglish() ? `${count} cases` : `${count} 个案例`;
 }
 
+function withPosterVersion(src) {
+  if (!src) return "";
+  return `${src}${src.includes("?") ? "&" : "?"}v=20260817-canonical-poster-v1`;
+}
+
 function updateGlobalCounts() {
   const categoryCounts = liveGuides.reduce((counts, guide) => {
     counts[guide.category] = (counts[guide.category] || 0) + 1;
@@ -62,6 +67,16 @@ function normalizeRenderedCards() {
     }
 
     card.dataset.hasLiveDemo = "true";
+
+    /* Always use the case's canonical 390 x 844 mobile poster in the grid.
+     * Do not use library-preview-2x effect boards, because those may contain a
+     * baked phone shell or presentation background and create inconsistent
+     * frame ownership across cards. */
+    const poster = card.querySelector(".phone-preview-media .phone-media");
+    if (poster && guide.poster) {
+      const canonicalSrc = withPosterVersion(guide.poster);
+      if (poster.getAttribute("src") !== canonicalSrc) poster.setAttribute("src", canonicalSrc);
+    }
 
     const primary = card.querySelector(".preview-open-button[data-preview-id]");
     if (primary) {
