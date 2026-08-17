@@ -1,0 +1,146 @@
+const COPY = {
+  "steps.task.eyebrow": ["01 · 定义", "01 · Define"],
+  "steps.task.title": ["定义任务", "Define task"],
+  "steps.task.detail": ["模式与需求", "Mode & requirements"],
+  "steps.design.eyebrow": ["02 · 约束", "02 · Shape"],
+  "steps.design.title": ["设计约束", "Design constraints"],
+  "steps.design.detail": ["风格、平台、系统", "Style, platform, system"],
+  "steps.output.eyebrow": ["03 · 输出", "03 · Output"],
+  "steps.output.title": ["检查并输出", "Review & output"],
+  "steps.output.detail": ["摘要与指令", "Summary & prompt"],
+  "stage.task.title": ["定义任务", "Define the task"],
+  "stage.task.intro": ["先确定你要完成的工作，再补齐真实需求。这里决定“做什么”，后面的设计选择只负责“怎么做”。", "Choose the job first, then make the real requirements explicit. This stage defines what to build; later choices define how."],
+  "stage.design.title": ["设置设计约束", "Set design constraints"],
+  "stage.design.intro": ["在需求明确后，再决定视觉方向、目标平台和组件系统，避免设计语言反过来绑架产品需求。", "After the requirements are clear, choose visual direction, target platform, and component system without letting style override the product need."],
+  "mode.title": ["选择任务模式", "Choose a task mode"],
+  "mode.intro": ["不同模式只改变需要填写的任务信息，不改变后续的设计与输出路径。", "The mode changes the required task inputs, not the design and output flow."],
+  "mode.create.title": ["从零创建", "Create"],
+  "mode.create.detail": ["描述产品、用户和页面", "Define product, users, and pages"],
+  "mode.rebuild.title": ["参考图还原", "Rebuild"],
+  "mode.rebuild.detail": ["还原页面、状态与交互", "Recreate pages, states, and interactions"],
+  "mode.improve.title": ["优化现有页面", "Improve"],
+  "mode.improve.detail": ["诊断问题并实施优化", "Diagnose and implement improvements"],
+  "mode.explore.title": ["探索现有项目", "Explore"],
+  "mode.explore.detail": ["理解结构、风险和缺口", "Understand structure, risks, and gaps"],
+  "mode.system.title": ["比较设计系统", "Compare systems"],
+  "mode.system.detail": ["同一目标下公平比较", "Compare on the same target"],
+  "requirements.title": ["填写任务信息", "Describe the task"],
+  "requirements.intro": ["只填写这个模式真正需要的信息；缺失项会在右侧实时提示。", "Only provide what this mode actually needs; missing items appear in the output panel immediately."],
+  "style.title": ["视觉方向", "Visual direction"],
+  "style.intro": ["决定构图、密度和视觉气质，不替代产品目标。", "Choose composition, density, and visual character without replacing product goals."],
+  "platform.title": ["目标平台", "Target platform"],
+  "platform.intro": ["平台会影响导航、控件尺寸、安全区、字体和交互惯例。", "Platform affects navigation, target sizes, safe areas, typography, and interaction conventions."],
+  "system.title": ["Design System", "Design system"],
+  "system.intro": ["选择组件与 Token 的来源，再用同一预览检查差异。", "Choose the source of components and tokens, then compare through the same preview."],
+  "platform.ios.detail": ["iPhone · 原生移动端", "iPhone · native mobile"],
+  "platform.android.detail": ["Phone · Material 生态", "Phone · Material ecosystem"],
+  "platform.windows.detail": ["Desktop · Fluent 桌面端", "Desktop · Fluent"],
+  "platform.macos.detail": ["Mac · Apple 桌面端", "Mac · Apple desktop"],
+  "workbench.foundation": ["Foundation", "Foundation"],
+  "workbench.components": ["Components", "Components"],
+  "workbench.preview": ["Page Preview", "Page Preview"],
+  "workbench.rule": ["组件调用规则：", "Component rule:"],
+  "workbench.rule.detail": ["生成页面时优先调用当前 Design System 的现成组件与交互模式；只有 Registry 中不存在目标组件时，才允许自定义绘制。", "Prefer components and interaction patterns from the selected design system. Draw custom components only when the registry has no suitable option."],
+  "output.kicker": ["当前任务", "Current task"],
+  "output.title": ["检查并输出", "Review & output"],
+  "output.prompt": ["实时调用指令", "Live execution prompt"],
+  "output.sync": ["随表单实时更新", "Updates live with the form"],
+  "output.apply": ["应用最新生成", "Apply latest generated"],
+  "output.notice": ["表单内容已更新；你的手动修改仍保留。", "The form changed; your manual edits are still preserved."],
+  "output.generate": ["生成指令", "Generate prompt"],
+  "output.copy": ["复制指令", "Copy prompt"],
+  "case.eyebrow": ["参考案例", "Reference cases"],
+  "case.title": ["从案例库选择", "Choose from the case library"],
+  "case.search": ["搜索案例", "Search cases"],
+  "case.placeholder": ["名称、风格或标签", "Name, style, or tag"],
+  "case.empty": ["没有符合当前条件的案例。", "No cases match the current filters."],
+  "assistant.trigger": ["任务助手", "Task assistant"],
+  "assistant.eyebrow": ["工作区助手", "Workspace assistant"],
+  "assistant.title": ["下一步建议", "Next suggestion"],
+};
+
+const locale = () => {
+  const query = new URL(location.href).searchParams.get("lang");
+  if (query === "en" || query === "zh") return query;
+  return window.image2I18n?.language === "en" ? "en" : "zh";
+};
+
+function text(key) {
+  const item = COPY[key];
+  if (!item) return "";
+  return item[locale() === "en" ? 1 : 0];
+}
+
+function applyStaticCopy() {
+  document.querySelectorAll("[data-launcher-copy]").forEach((node) => {
+    const value = text(node.dataset.launcherCopy);
+    if (value) node.textContent = value;
+  });
+  document.querySelectorAll("[data-launcher-placeholder]").forEach((node) => {
+    const value = text(node.dataset.launcherPlaceholder);
+    if (value) node.setAttribute("placeholder", value);
+  });
+  document.documentElement.lang = locale() === "en" ? "en" : "zh-CN";
+
+  const modeTabs = document.querySelector("#modeTabs");
+  if (modeTabs) modeTabs.setAttribute("aria-label", locale() === "en" ? "Task mode" : "任务模式");
+  const platform = document.querySelector("#platformGrid");
+  if (platform) platform.setAttribute("aria-label", locale() === "en" ? "Target platform" : "目标平台");
+  const style = document.querySelector("#styleDirectionGrid");
+  if (style) style.setAttribute("aria-label", locale() === "en" ? "Visual direction" : "风格方向");
+  const colors = document.querySelector("#colorThemeGrid");
+  if (colors) colors.setAttribute("aria-label", locale() === "en" ? "Brand design system" : "品牌设计规范");
+  const steps = document.querySelector(".launcher-step-nav");
+  if (steps) steps.setAttribute("aria-label", locale() === "en" ? "Task workflow" : "任务流程");
+}
+
+function setCurrentStep(step) {
+  document.querySelectorAll(".launcher-step-link").forEach((link) => {
+    if (link.dataset.launcherStep === step) link.setAttribute("aria-current", "step");
+    else link.removeAttribute("aria-current");
+  });
+}
+
+function installStepNavigation() {
+  const regions = {
+    task: document.querySelector("#taskDefinition"),
+    design: document.querySelector("#designDecisions"),
+    output: document.querySelector("#outputPanel"),
+  };
+
+  document.querySelector(".launcher-step-nav")?.addEventListener("click", (event) => {
+    const link = event.target.closest(".launcher-step-link[data-launcher-step]");
+    if (link) setCurrentStep(link.dataset.launcherStep);
+  });
+
+  Object.entries(regions).forEach(([key, region]) => {
+    region?.addEventListener("focusin", () => setCurrentStep(key));
+  });
+
+  document.querySelector("#generatePrompt")?.addEventListener("click", () => setCurrentStep("output"));
+  document.querySelector("#copyPrompt")?.addEventListener("click", () => setCurrentStep("output"));
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+      if (visible.target.id === "taskDefinition") setCurrentStep("task");
+      if (visible.target.id === "designDecisions") setCurrentStep("design");
+    }, { rootMargin: "-18% 0px -52% 0px", threshold: [0.1, 0.35, 0.6] });
+    if (regions.task) observer.observe(regions.task);
+    if (regions.design) observer.observe(regions.design);
+  }
+}
+
+function init() {
+  if (!document.body.classList.contains("launcher-workspace")) return;
+  applyStaticCopy();
+  installStepNavigation();
+  setCurrentStep("task");
+  window.image2I18n?.registerPage?.(applyStaticCopy);
+}
+
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });
+else init();
