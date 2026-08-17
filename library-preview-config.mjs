@@ -9,13 +9,10 @@ export const standardVideoPreviewDevice = standardPreviewDevice;
 export const standardPreviewDisplayDevice = standardPreviewDevice;
 
 export const libraryPreviewCaseIds = Object.freeze([
-  "buddy",
-  "carry-bag",
   "cleanbite",
   "fashion",
   "fithub",
   "fufu",
-  "itinerary",
   "loy",
   "mimo",
   "moe",
