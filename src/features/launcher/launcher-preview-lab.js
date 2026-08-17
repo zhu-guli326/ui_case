@@ -15,30 +15,46 @@
     const style = document.createElement("style");
     style.textContent = `
       .structured-brief::before{grid-column:1/-1;width:100%;margin-bottom:2px}
+      .config-section[aria-labelledby="referenceTitle"] .choice-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .config-section[aria-labelledby="referenceTitle"] .choice-grid label{min-height:68px;padding:10px 34px 10px 12px}
+      .case-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+      .case-card-media{aspect-ratio:4/3!important;padding:6px!important;background:#f2f4f1}
+      .case-card-media img,.case-grid>article .case-card-media img{object-fit:contain!important;object-position:center!important}
+      .case-card-body,.case-grid>article>.case-card-body{padding:10px;gap:6px}
+      .case-card p,.case-grid>article p{font-size:9px;line-height:1.45}
+      .case-card h3,.case-grid>article h3{font-size:12px}
+      .case-card-tags span,.case-card-body li{font-size:8px;padding:3px 5px}
       .color-theme-section .design-system-workbench{margin-top:14px;padding-top:14px}
       .color-theme-section .ds-toolbar{margin-bottom:10px}
       .color-theme-section .ds-tabs{justify-content:flex-end}
+      .format-select-hidden{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+      .format-icon-picker{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}
+      .format-icon-option{display:grid;min-height:82px;place-items:center;gap:6px;padding:10px 8px;border:1px solid #d9dfda;border-radius:10px;background:#fff;color:#4f5851;cursor:pointer}
+      .format-icon-option:hover{border-color:#aeb8b0;background:#fafcfb}
+      .format-icon-option.is-active{border-color:#16804b;background:#edf7f1;color:#126b3e;box-shadow:0 0 0 1px #16804b inset}
+      .format-icon-option svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+      .format-icon-option strong{font-size:10px}.format-icon-option small{font-size:8px;color:#7a837c;text-align:center;line-height:1.35}.format-icon-option.is-active small{color:#4a7058}
       .preview-lab-section{order:5;padding:22px;border:1px solid #dde2dd;border-radius:14px;background:#fff}
       .preview-lab-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:16px}
       .preview-lab-head h2{margin:0;font-size:18px;letter-spacing:-.02em}
       .preview-lab-head p{margin:5px 0 0;color:var(--muted);font-size:11px}
       .preview-lab-badge{padding:7px 10px;border:1px solid #dce4dd;border-radius:999px;background:#f7faf8;color:#55705f;font-size:9px;font-weight:800}
-      .preview-lab-layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:14px;align-items:start}
-      .preview-config-panel{padding:14px;border:1px solid #dde4de;border-radius:12px;background:#fbfcfb}
-      .preview-config-panel h3{margin:0 0 12px;font-size:12px}
-      .preview-field{display:grid;gap:5px;margin-bottom:11px}
+      .preview-lab-layout{display:grid;grid-template-columns:1fr;gap:14px;align-items:start}
+      .preview-config-panel{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:14px;border:1px solid #dde4de;border-radius:12px;background:#fbfcfb}
+      .preview-config-panel h3{grid-column:1/-1;margin:0 0 2px;font-size:12px}
+      .preview-field{display:grid;gap:5px;margin:0}
       .preview-field>span{font-size:9px;font-weight:800;color:#4d5750}
       .preview-field select,.preview-field input{width:100%;height:36px;padding:0 10px;border:1px solid #d5ddd6;border-radius:8px;background:#fff;color:#202721;font:inherit;font-size:10px;outline:none}
       .preview-field select:focus,.preview-field input:focus{border-color:#16804b;box-shadow:0 0 0 2px rgba(22,128,75,.08)}
       .preview-segment{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
       .preview-segment.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-      .preview-segment button{height:34px;border:1px solid #d8dfd9;border-radius:8px;background:#fff;color:#3d4740;font-size:9px;font-weight:800;cursor:pointer}
+      .preview-segment button{height:36px;border:1px solid #d8dfd9;border-radius:8px;background:#fff;color:#3d4740;font-size:9px;font-weight:800;cursor:pointer}
       .preview-segment button.is-active{border-color:#17804b;background:#edf7f1;color:#126b3e;box-shadow:0 0 0 1px #17804b inset}
-      .preview-config-note{margin-top:12px;padding:9px 10px;border-radius:8px;background:#f0f5f1;color:#5d685f;font-size:8px;line-height:1.55}
+      .preview-config-note{grid-column:1/-1;margin-top:2px;padding:9px 10px;border-radius:8px;background:#f0f5f1;color:#5d685f;font-size:8px;line-height:1.55}
       .preview-lab-stage{min-width:0;padding:12px;border:1px solid #dde4de;border-radius:12px;background:#f0f3f1;overflow:auto}
-      .preview-lab-stage .ds-preview-shell{grid-template-columns:170px minmax(0,1fr);min-height:480px;margin:0;background:#f5f7f5}
-      .preview-lab-stage .preview-canvas{min-height:450px}
-      .preview-lab-stage .preview-device[data-size="desktop"]{max-width:920px}
+      .preview-lab-stage .ds-preview-shell{grid-template-columns:190px minmax(0,1fr);min-height:520px;margin:0;background:#f5f7f5}
+      .preview-lab-stage .preview-canvas{min-height:490px}
+      .preview-lab-stage .preview-device[data-size="desktop"]{max-width:980px}
       .preview-lab-stage[data-theme="dark"]{background:#1d211e;border-color:#303631}
       .preview-lab-stage[data-theme="dark"] .ds-preview-shell{background:#252a26;border-color:#39403a}
       .preview-lab-stage[data-theme="dark"] .preview-meta{background:#171a18;color:#f4f6f4}
@@ -48,10 +64,72 @@
       .preview-lab-stage[data-theme="dark"] .preview-card,.preview-lab-stage[data-theme="dark"] .preview-list{background:#272c28;border-color:#3a413b}
       .preview-lab-stage[data-theme="dark"] .preview-list div{border-color:#343a35}
       .preview-lab-stage[data-grid="on"] .preview-canvas{background-image:linear-gradient(rgba(40,75,53,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(40,75,53,.055) 1px,transparent 1px);background-size:16px 16px}
-      @media(max-width:900px){.preview-lab-layout{grid-template-columns:1fr}.preview-config-panel{display:grid;grid-template-columns:1fr 1fr;gap:10px}.preview-config-panel h3,.preview-config-note{grid-column:1/-1}.preview-field{margin:0}}
-      @media(max-width:620px){.preview-lab-section{padding:16px}.preview-config-panel{grid-template-columns:1fr}.preview-config-panel h3,.preview-config-note{grid-column:auto}.preview-lab-stage .ds-preview-shell{grid-template-columns:1fr}.preview-lab-stage .preview-meta{display:block}}
+      @media(max-width:1180px){.preview-config-panel{grid-template-columns:repeat(2,minmax(0,1fr))}.case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+      @media(max-width:780px){.format-icon-picker{grid-template-columns:repeat(2,minmax(0,1fr))}.preview-config-panel{grid-template-columns:1fr}.preview-config-panel h3,.preview-config-note{grid-column:auto}.preview-lab-stage .ds-preview-shell{grid-template-columns:1fr}.preview-lab-stage .preview-meta{display:block}.config-section[aria-labelledby="referenceTitle"] .choice-grid{grid-template-columns:1fr}.case-grid{grid-template-columns:1fr}}
     `;
     document.head.append(style);
+
+    function formatIcon(value) {
+      const icons = {
+        web: '<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="26" height="20" rx="2"></rect><path d="M3 10h26M8 8h.1M11 8h.1M14 8h.1"></path></svg>',
+        mobile: '<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="9" y="3" width="14" height="26" rx="4"></rect><path d="M13 6h6M14 26h4"></path></svg>',
+        dashboard: '<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="4" width="26" height="24" rx="2"></rect><path d="M3 10h26M10 10v18M14 15h11M14 20h7M14 24h9"></path></svg>',
+        desktop: '<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="4" width="24" height="17" rx="2"></rect><path d="M12 27h8M16 21v6"></path></svg>'
+      };
+      return icons[value] || icons.web;
+    }
+
+    function enhanceFormatSelector() {
+      const intentForm = document.querySelector("#intentForm");
+      const select = intentForm?.querySelector('select[name="format"]');
+      if (!select || select.dataset.iconEnhanced === "true") return;
+      select.dataset.iconEnhanced = "true";
+      select.classList.add("format-select-hidden");
+      const picker = document.createElement("div");
+      picker.className = "format-icon-picker";
+      picker.setAttribute("role", "radiogroup");
+      picker.setAttribute("aria-label", "交付形式");
+      const details = {
+        web: ["响应式网页", "Browser / Web"],
+        mobile: ["手机 App", "iOS / Android"],
+        dashboard: ["产品后台", "Dashboard / Admin"],
+        desktop: ["桌面应用", "Windows / macOS"]
+      };
+      [...select.options].forEach((option) => {
+        if (!details[option.value]) return;
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "format-icon-option";
+        button.dataset.value = option.value;
+        button.innerHTML = formatIcon(option.value) + '<strong>' + details[option.value][0] + '</strong><small>' + details[option.value][1] + '</small>';
+        button.addEventListener("click", () => {
+          select.value = option.value;
+          select.dispatchEvent(new Event("change", { bubbles: true }));
+          syncFormatPicker();
+        });
+        picker.append(button);
+      });
+      select.insertAdjacentElement("afterend", picker);
+      function syncFormatPicker() {
+        picker.querySelectorAll(".format-icon-option").forEach((button) => {
+          const active = button.dataset.value === select.value;
+          button.classList.toggle("is-active", active);
+          button.setAttribute("aria-pressed", String(active));
+        });
+      }
+      select.addEventListener("change", syncFormatPicker);
+      syncFormatPicker();
+    }
+
+    const intentForm = document.querySelector("#intentForm");
+    if (intentForm) {
+      let formatTimer = 0;
+      new MutationObserver(() => {
+        clearTimeout(formatTimer);
+        formatTimer = setTimeout(enhanceFormatSelector, 30);
+      }).observe(intentForm, { childList: true, subtree: true });
+      enhanceFormatSelector();
+    }
 
     const previewTab = workbench.querySelector('[data-ds-tab="preview"]');
     previewTab?.remove();
@@ -68,7 +146,7 @@
         <div>
           <div class="flow-label"><span>6</span> Live preview</div>
           <h2>最后预览完整页面效果</h2>
-          <p>把平台、设计系统和页面参数集中到一个设置面板里；下拉调整后直接看最终页面，而不是在上面打断选择流程。</p>
+          <p>先在上方集中设置预览参数，再在下方查看完整页面效果；设置和页面不再左右挤在一起。</p>
         </div>
         <span class="preview-lab-badge">实时联动</span>
       </div>
@@ -82,7 +160,7 @@
           <label class="preview-field"><span>布局宽度</span><input id="previewWidth" type="number" min="320" max="1440" step="20" value="390"></label>
           <div class="preview-field"><span>网格</span><div class="preview-segment" id="previewGridSegment"><button type="button" data-grid="on" class="is-active">是</button><button type="button" data-grid="off">否</button></div></div>
           <label class="preview-field"><span>语言</span><select id="previewLanguage"><option value="zh">简体中文</option><option value="en">English</option></select></label>
-          <div class="preview-config-note">上方负责“选方向与规范”，这里负责“验证最终页面”。参数只影响预览，不会把页面结构拆散。</div>
+          <div class="preview-config-note">上面负责参数设置，下面只负责看最终效果。设备、主题、宽度和设计系统会实时同步到页面预览。</div>
         </aside>
         <div class="preview-lab-stage" id="previewLabStage" data-theme="light" data-grid="on"></div>
       </div>`;
@@ -145,8 +223,7 @@
     function applyWidth() {
       if (!device) return;
       const v = Math.max(320, Math.min(1440, Number(widthInput.value) || 390));
-      if (device.dataset.size === "desktop") device.style.width = `min(100%, ${v}px)`;
-      else device.style.width = `min(100%, ${v}px)`;
+      device.style.width = `min(100%, ${v}px)`;
     }
 
     function setTheme(theme) {
