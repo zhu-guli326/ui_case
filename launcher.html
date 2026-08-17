@@ -9,6 +9,239 @@
   <link rel="stylesheet" href="./src/features/launcher/launcher.css?v=20260816-arch-v1">
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260816-arch-v1">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260816-arch-v1">
+  <style>
+    /* 2026-08-17 workspace hierarchy pass
+       Keep launcher behavior intact while turning the page into a focused task configurator. */
+    .launcher-shell {
+      width: min(1380px, calc(100% - 64px));
+      padding-top: 34px;
+    }
+
+    .page-heading {
+      position: relative;
+      min-height: 172px;
+      align-items: center;
+      padding: 30px 36px;
+      border: 1px solid #dce4dd;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 88% 18%, rgba(22,122,69,.10), transparent 28%),
+        linear-gradient(135deg, #ffffff 0%, #f8fbf8 58%, #eef6f0 100%);
+      overflow: hidden;
+    }
+    .page-heading::after {
+      position: absolute;
+      right: 34px;
+      bottom: 28px;
+      width: 180px;
+      height: 88px;
+      border: 1px solid rgba(22,122,69,.15);
+      border-radius: 16px;
+      box-shadow: 34px -20px 0 -1px rgba(255,255,255,.9), 34px -20px 0 0 rgba(22,122,69,.10);
+      content: "";
+      pointer-events: none;
+      transform: rotate(-4deg);
+    }
+    .page-heading > div { position: relative; z-index: 1; max-width: 760px; }
+    .page-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 12px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #e8f4eb;
+      font-size: 10px;
+      letter-spacing: .04em;
+    }
+    .page-kicker::before { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); content: ""; }
+    .page-heading h1 { font-size: clamp(34px, 3.2vw, 52px); letter-spacing: -.035em; }
+    .page-heading > div > p:last-child { max-width: 620px; margin-top: 12px; font-size: 14px; }
+
+    .workspace-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 380px;
+      gap: 22px;
+      align-items: start;
+      margin-top: 22px;
+    }
+    .workspace-main {
+      min-width: 0;
+      display: grid;
+      gap: 14px;
+    }
+    .workspace-side { min-width: 0; position: sticky; top: 82px; }
+
+    .mode-picker,
+    .style-direction,
+    .color-theme-section {
+      padding: 22px;
+      border: 1px solid #dde2dd;
+      border-radius: 14px;
+      background: #fff;
+    }
+    .style-direction,
+    .color-theme-section { border-bottom: 1px solid #dde2dd; }
+    .section-heading,
+    .mode-picker-heading { margin-bottom: 14px; }
+    .section-heading h2,
+    .mode-picker-heading h2 { font-size: 18px; letter-spacing: -.02em; }
+    .section-heading p,
+    .mode-picker-heading p { font-size: 11px; }
+
+    /* Step 1 — task mode becomes the first decision instead of a footer-like strip. */
+    .mode-picker { order: 0; }
+    .mode-picker-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 7px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+    .mode-tabs > button {
+      min-height: 68px;
+      padding: 11px 12px;
+      border: 1px solid #dfe4df;
+      border-radius: 10px;
+      background: #f8faf8;
+      text-align: left;
+    }
+    .mode-tabs > button:hover { border-color: #aeb8b0; background: #fff; }
+    .mode-tabs > button[aria-selected="true"],
+    .mode-tabs > button.is-active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      box-shadow: inset 0 0 0 1px var(--accent);
+    }
+    .mode-tabs strong { display: block; font-size: 11px; }
+    .mode-tabs small { display: block; margin-top: 5px; color: var(--muted); font-size: 9px; line-height: 1.35; }
+
+    /* Step 2 — selected visual direction gets more visual weight. */
+    .style-card-grid {
+      display: flex;
+      gap: 9px;
+      align-items: stretch;
+    }
+    .style-card-grid > :is(label, button), .style-card {
+      flex: 1 1 0;
+      min-width: 0;
+      min-height: 184px;
+      border-radius: 11px;
+      transition: flex .18s ease, border-color .18s ease, background .18s ease, transform .18s ease;
+    }
+    .style-card-grid > :is(label, button):hover, .style-card:hover { transform: translateY(-2px); }
+    .style-card-grid > :is(label, button):is(:has(input:checked), [aria-checked="true"], [aria-pressed="true"], .is-selected),
+    .style-card:is(:has(input:checked), [aria-checked="true"], [aria-pressed="true"], .is-selected) {
+      flex: 1.75 1 0;
+      background: #f2f9f4;
+    }
+    .style-card-media, .style-card-thumb { border-radius: 8px; }
+    .style-card-grid strong, .style-card strong { font-size: 12px; }
+
+    /* Step 3 — Design Systems are selectors, not eight equally loud content cards. */
+    .color-theme-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .color-theme-card {
+      min-height: 84px;
+      grid-template-rows: 1fr;
+      border-radius: 10px;
+      background: #fafbfa;
+    }
+    .color-theme-choice {
+      grid-template-columns: 54px minmax(0, 1fr);
+      gap: 10px;
+      padding: 11px 30px 11px 10px;
+    }
+    .color-theme-palette { width: 54px; height: 44px; border-radius: 6px; }
+    .color-theme-copy { gap: 3px; }
+    .color-theme-copy strong { font-size: 11px; }
+    .color-theme-copy small { max-height: 30px; overflow: hidden; font-size: 9px; line-height: 1.35; }
+    .color-theme-meta { display: none; }
+    .color-theme-source { display: none; }
+    .color-theme-check { right: 8px; bottom: 8px; width: 18px; height: 18px; }
+
+    /* Existing dynamic form lives under the three primary decisions. */
+    .launcher-grid {
+      display: block;
+      margin: 0;
+    }
+    .configuration-column { min-width: 0; }
+    .intent-form {
+      padding: 22px;
+      border: 1px solid #dde2dd;
+      border-radius: 14px;
+      background: #fff;
+    }
+    .prompt-column { margin: 0; }
+    .prompt-panel {
+      border: 1px solid #243128;
+      border-radius: 16px;
+      background: #202721;
+      box-shadow: 0 18px 44px rgba(26, 35, 28, .14);
+      overflow: hidden;
+    }
+    .prompt-heading { padding-top: 20px; }
+    .prompt-heading h2 { font-size: 22px; }
+    .task-summary { margin-top: 4px; }
+    .prompt-preview { border-radius: 10px; }
+    .generate-button { min-height: 44px; border-radius: 9px; }
+
+    .flow-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 8px;
+      color: var(--accent-strong);
+      font-size: 9px;
+      font-weight: 850;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .flow-label span {
+      display: grid;
+      width: 20px;
+      height: 20px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      font-size: 9px;
+    }
+
+    @media (max-width: 1120px) {
+      .workspace-flow { grid-template-columns: 1fr; }
+      .workspace-side { position: static; }
+      .prompt-panel { max-width: none; }
+      .mode-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 780px) {
+      .launcher-shell { width: min(100% - 28px, 1380px); padding-top: 18px; }
+      .page-heading { min-height: 150px; padding: 24px 22px; }
+      .page-heading::after { opacity: .45; }
+      .workspace-flow { margin-top: 14px; }
+      .mode-picker, .style-direction, .color-theme-section, .intent-form { padding: 16px; }
+      .mode-tabs { grid-template-columns: 1fr 1fr; }
+      .style-card-grid { display: grid; grid-template-columns: 1fr 1fr; }
+      .style-card-grid > :is(label, button), .style-card,
+      .style-card-grid > :is(label, button):is(:has(input:checked), [aria-checked="true"], [aria-pressed="true"], .is-selected),
+      .style-card:is(:has(input:checked), [aria-checked="true"], [aria-pressed="true"], .is-selected) { min-height: 150px; }
+      .color-theme-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px) {
+      .mode-tabs, .style-card-grid, .color-theme-grid { grid-template-columns: 1fr; }
+      .page-heading h1 { font-size: 32px; }
+    }
+  </style>
   <script src="./src/core/app-shell/app-shell.js?v=20260816-arch-v1"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
@@ -22,53 +255,62 @@
       <div>
         <p class="page-kicker" id="pageKicker">单一任务工作区</p>
         <h1 id="pageTitle">从零创建界面</h1>
-        <p id="pageIntro">先确定风格，再补充任务信息；案例、摘要和指令会始终保持同步。</p>
+        <p id="pageIntro">先确定任务，再选择参考方向与设计系统；右侧会持续汇总为一条可直接执行的设计指令。</p>
       </div>
     </header>
 
-    <section class="style-direction" aria-labelledby="styleTitle">
-      <div class="section-heading">
-        <div>
-          <h2 id="styleTitle">先选风格方向</h2>
-          <p id="styleIntro">风格会筛选案例，并自动应用匹配的密度与 Token 地基。</p>
-        </div>
-      </div>
-      <div class="style-card-grid" id="styleDirectionGrid" role="radiogroup" aria-label="风格方向"></div>
-    </section>
+    <div class="workspace-flow">
+      <div class="workspace-main">
+        <section class="mode-picker" aria-labelledby="modeTitle">
+          <div class="mode-picker-heading">
+            <div>
+              <div class="flow-label"><span>1</span> Define task</div>
+              <h2 id="modeTitle">先确定要做什么</h2>
+              <p id="modeIntro">选择任务类型，后面的参考案例与配置会跟着任务变化。</p>
+            </div>
+          </div>
+          <div class="intent-nav mode-tabs" id="modeTabs" role="tablist" aria-label="任务模式">
+            <button type="button" role="tab" id="tab-create" aria-controls="intentForm" data-intent="create"><strong>从零创建</strong><small>从需求生成新页面</small></button>
+            <button type="button" role="tab" id="tab-rebuild" aria-controls="intentForm" data-intent="rebuild"><strong>参考图还原</strong><small>按案例或图片还原</small></button>
+            <button type="button" role="tab" id="tab-improve" aria-controls="intentForm" data-intent="improve"><strong>优化现有页面</strong><small>检查问题并改进</small></button>
+            <button type="button" role="tab" id="tab-explore" aria-controls="intentForm" data-intent="explore"><strong>探索现有项目</strong><small>理解代码与页面</small></button>
+            <button type="button" role="tab" id="tab-design-system" aria-controls="intentForm" data-intent="design-system"><strong>比较设计系统</strong><small>对比系统适配性</small></button>
+          </div>
+        </section>
 
-    <section class="color-theme-section" aria-labelledby="colorThemeTitle">
-      <div class="section-heading">
-        <div>
-          <h2 id="colorThemeTitle">选择品牌规范</h2>
-          <p id="colorThemeIntro">色彩 Token 来自公开规范；选择后会同步对应设计系统，避免组件与颜色混用。</p>
-        </div>
-      </div>
-      <div class="color-theme-grid" id="colorThemeGrid" role="radiogroup" aria-label="品牌设计规范"></div>
-    </section>
+        <section class="style-direction" aria-labelledby="styleTitle">
+          <div class="section-heading">
+            <div>
+              <div class="flow-label"><span>2</span> Visual direction</div>
+              <h2 id="styleTitle">选择参考方向</h2>
+              <p id="styleIntro">风格负责视觉语言：构图、密度、图片气质与色彩倾向；当前选择会自动放大。</p>
+            </div>
+          </div>
+          <div class="style-card-grid" id="styleDirectionGrid" role="radiogroup" aria-label="风格方向"></div>
+        </section>
 
-    <section class="mode-picker" aria-labelledby="modeTitle">
-      <div class="mode-picker-heading">
-        <h2 id="modeTitle">任务模式</h2>
-        <p id="modeIntro">切换模式不会覆盖其他模式的草稿。</p>
-      </div>
-      <div class="intent-nav mode-tabs" id="modeTabs" role="tablist" aria-label="任务模式">
-        <button type="button" role="tab" id="tab-create" aria-controls="intentForm" data-intent="create"><strong>从零创建</strong><small>从需求生成新页面</small></button>
-        <button type="button" role="tab" id="tab-rebuild" aria-controls="intentForm" data-intent="rebuild"><strong>参考图还原</strong><small>按案例或图片还原</small></button>
-        <button type="button" role="tab" id="tab-improve" aria-controls="intentForm" data-intent="improve"><strong>优化现有页面</strong><small>检查问题并改进</small></button>
-        <button type="button" role="tab" id="tab-explore" aria-controls="intentForm" data-intent="explore"><strong>探索现有项目</strong><small>理解代码与页面</small></button>
-        <button type="button" role="tab" id="tab-design-system" aria-controls="intentForm" data-intent="design-system"><strong>比较设计系统</strong><small>对比系统适配性</small></button>
-      </div>
-    </section>
+        <section class="color-theme-section" aria-labelledby="colorThemeTitle">
+          <div class="section-heading">
+            <div>
+              <div class="flow-label"><span>3</span> Design system</div>
+              <h2 id="colorThemeTitle">选择组件与交互规范</h2>
+              <p id="colorThemeIntro">Design System 负责组件骨架、交互规范与 Token；与上面的视觉风格分开控制。</p>
+            </div>
+          </div>
+          <div class="color-theme-grid" id="colorThemeGrid" role="radiogroup" aria-label="品牌设计规范"></div>
+        </section>
 
-    <form class="launcher-grid" id="launcherForm" novalidate>
-      <div class="configuration-column">
-        <div class="intent-form" id="intentForm" role="tabpanel" aria-labelledby="tab-create" tabindex="0"></div>
+        <form class="launcher-grid" id="launcherForm" novalidate>
+          <div class="configuration-column">
+            <div class="intent-form" id="intentForm" role="tabpanel" aria-labelledby="tab-create" tabindex="0"></div>
+          </div>
+        </form>
       </div>
 
-      <aside class="prompt-column" aria-labelledby="promptTitle">
+      <aside class="workspace-side prompt-column" aria-labelledby="promptTitle">
         <div class="prompt-panel">
           <div class="prompt-heading">
-            <div><p id="promptKicker">CODEX 指令准备</p><h2 id="promptTitle">任务摘要</h2></div>
+            <div><p id="promptKicker">CURRENT TASK</p><h2 id="promptTitle">当前任务</h2></div>
             <span class="ready-state" id="readyState"><i></i><span>等待输入</span></span>
           </div>
 
@@ -94,7 +336,7 @@
           </div>
         </div>
       </aside>
-    </form>
+    </div>
   </main>
 
   <dialog class="case-picker" id="casePicker" aria-labelledby="casePickerTitle">
