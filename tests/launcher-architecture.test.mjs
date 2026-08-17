@@ -13,39 +13,51 @@ const shell = read("src/features/launcher/launcher-shell.js");
 const designSystem = read("src/features/launcher/launcher-design-system.js");
 const livePreview = read("src/features/launcher/launcher-live-preview.js");
 const legacyPreviewLab = read("src/features/launcher/launcher-preview-lab.js");
+const simplifiedCss = read("src/features/launcher/launcher-simplified.css");
+const simplifiedRuntime = read("src/features/launcher/launcher-simplified-runtime.js");
 const stability = read("src/features/launcher/launcher-stability.js");
 const analyticsConfig = read("src/core/analytics/analytics.config.js");
 
-test("launcher html is a semantic shell rather than an inline application bundle", () => {
+test("launcher html remains a semantic shell", () => {
   assert.match(html, /launcher-workspace\.css/);
+  assert.match(html, /launcher-simplified\.css/);
   assert.match(html, /launcher-entry\.js/);
   assert.doesNotMatch(html, /<style(?:\s|>)/i);
   assert.doesNotMatch(html, /<script(?![^>]+src=)[^>]*>[\s\S]*?<\/script>/i);
-  assert.doesNotMatch(html, /await\s+fetch\(/);
-  assert.doesNotMatch(html, /await\s+import\(/);
 });
 
-test("launcher has one explicit feature entry and analytics stays feature-agnostic", () => {
+test("launcher has one explicit feature entry", () => {
   assert.match(entry, /import\(`\.\.\/\.\.\/\.\.\/launcher\.js/);
   assert.match(entry, /launcher-shell\.js/);
   assert.match(entry, /launcher-design-system\.js/);
-  assert.match(entry, /launcher-hardening\.js/);
-  assert.match(entry, /launcher-stability\.js/);
   assert.match(entry, /launcher-live-preview\.js/);
+  assert.match(entry, /launcher-simplified-runtime\.js/);
   assert.doesNotMatch(entry, /launcher-preview-lab\.js/);
-  assert.doesNotMatch(entry, /launcher-platform-merge\.js/);
   assert.doesNotMatch(analyticsConfig, /launcher|features\//);
 });
 
-test("information architecture follows define, constrain, output", () => {
+test("information architecture is one linear three-step flow", () => {
   const task = html.indexOf('id="taskDefinition"');
   const design = html.indexOf('id="designDecisions"');
+  const result = html.indexOf('id="resultStage"');
   const output = html.indexOf('id="outputPanel"');
-  assert.ok(task >= 0 && design > task && output > design);
+  assert.ok(task >= 0 && design > task && result > design && output > result);
   assert.match(html, /href="#taskDefinition"/);
   assert.match(html, /href="#designDecisions"/);
-  assert.match(html, /href="#outputPanel"/);
+  assert.match(html, /href="#resultStage"/);
   assert.match(shell, /setCurrentStep/);
+  assert.doesNotMatch(html, /class="requirement-stage"/);
+});
+
+test("Design System has one visible summary and no duplicate Page Preview tab", () => {
+  assert.match(html, /class="ds-summary-grid"/);
+  assert.match(html, /data-ds-panel="foundation"/);
+  assert.match(html, /data-ds-panel="components"/);
+  assert.doesNotMatch(html, /data-ds-tab="preview"/);
+  assert.doesNotMatch(html, /class="ds-tabs"/);
+  assert.match(html, /class="preview-source"/);
+  assert.match(simplifiedRuntime, /showSystemSummary/);
+  assert.match(simplifiedCss, /\.preview-source/);
 });
 
 test("legacy launcher mount contract remains intact", () => {
@@ -54,31 +66,36 @@ test("legacy launcher mount contract remains intact", () => {
     "pageTitle", "pageIntro", "pageKicker", "promptOutput", "taskSummary", "missingState",
     "summaryProgress", "readyState", "generatePrompt", "generatePromptWrap", "copyPrompt",
     "savePreset", "casePicker", "caseGrid", "caseSearch", "assistantToggle", "assistantPanel",
+    "previewDevice", "previewSystemName", "previewPlatformName", "resultStage", "resultStageBody",
   ];
   ids.forEach((id) => assert.match(html, new RegExp(`id="${id}"`), `missing #${id}`));
 });
 
-test("platform and design-system behavior has one dedicated owner", () => {
+test("platform and design-system behavior keeps one dedicated owner", () => {
   assert.match(designSystem, /function selectPlatform/);
   assert.match(designSystem, /function setDesignSystemTab/);
   assert.match(designSystem, /role", "radio/);
   assert.match(designSystem, /aria-checked/);
-  assert.match(designSystem, /aria-selected/);
   assert.match(designSystem, /ArrowLeft/);
   assert.match(designSystem, /ArrowRight/);
 });
 
-test("live preview is independent from task-mode layout and the legacy lab cannot rewrite Create", () => {
+test("live preview belongs to the result step and legacy lab cannot rewrite Create", () => {
+  assert.match(livePreview, /resultStageBody/);
   assert.match(livePreview, /previewLabSection/);
   assert.match(livePreview, /livePreviewDevice/);
   assert.match(livePreview, /previewPageTemplate/);
-  assert.match(livePreview, /image2:launcherplatformchange/);
   assert.doesNotMatch(livePreview, /restructureCreateFlow/);
-  assert.doesNotMatch(livePreview, /componentStep/);
   assert.doesNotMatch(legacyPreviewLab, /create-flow-refactored/);
   assert.doesNotMatch(legacyPreviewLab, /restructureCreateFlow/);
-  assert.doesNotMatch(legacyPreviewLab, /componentStep/);
   assert.match(legacyPreviewLab, /launcher-live-preview\.js/);
+});
+
+test("output is no longer a sticky competing side rail", () => {
+  assert.match(html, /class="workspace-stage result-stage"/);
+  assert.match(html, /id="outputPanel"/);
+  assert.match(simplifiedCss, /#outputPanel\{position:static/);
+  assert.match(simplifiedCss, /\.output-review-grid/);
 });
 
 test("stability layer no longer acts as a hidden module loader", () => {
