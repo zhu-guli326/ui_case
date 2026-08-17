@@ -60,6 +60,14 @@ test("Design System exposes Foundation and Components together without a tab con
   assert.match(simplifiedCss, /#designSystemWorkbench\.design-system-workbench\{display:block!important/);
 });
 
+test("retired hidden Preview DOM cannot return", () => {
+  assert.doesNotMatch(html, /class="preview-source"/);
+  for (const id of ["previewSystemName", "previewPlatformName", "previewUsing", "previewDevice", "previewPrimary"]) {
+    assert.doesNotMatch(html, new RegExp(`id="${id}"`), `retired #${id} returned`);
+  }
+  assert.doesNotMatch(simplifiedCss, /\.preview-source/);
+});
+
 test("Design System is the single owner of platform and design profile state", () => {
   assert.match(designSystem, /findColorTheme/);
   assert.match(designSystem, /localizeColorTheme/);
