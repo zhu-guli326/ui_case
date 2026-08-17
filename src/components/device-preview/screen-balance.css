@@ -38,7 +38,7 @@
 }
 
 .embed-mode .screen:has(.destination-list) .trip-card {
-  min-height: 330px;
+  min-height: 392px;
   margin-top: 30px;
   align-content: center;
 }
@@ -48,22 +48,28 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom: 92px;
+  padding-bottom: 42px;
 }
 
 .embed-mode .screen:has(.destination-list) .profile .avatar {
-  width: 124px;
-  height: 124px;
-  margin: 0 auto 24px;
+  width: 168px;
+  height: 168px;
+  margin: 0 auto 28px;
 }
 
 .embed-mode .screen:has(.destination-list) .profile .avatar svg {
-  width: 54px;
-  height: 54px;
+  width: 68px;
+  height: 68px;
 }
 
 .embed-mode .screen:has(.destination-list) .profile .profile-copy {
-  margin: 18px auto 8px;
+  margin: 20px auto 12px;
+  line-height: 1.65;
+}
+
+.embed-mode .screen:has(.destination-list) .profile .new-trip {
+  min-height: 52px;
+  margin-top: 28px;
 }
 
 /* Loy / Brightly ---------------------------------------------------------- */
@@ -113,18 +119,18 @@
 }
 
 .embed-mode .screen:has(.folder-card) .app-view[data-view="create"] .editor-card {
-  min-height: 410px;
+  min-height: 440px;
   gap: 18px;
   padding: 22px;
 }
 
 .embed-mode .screen:has(.folder-card) .app-view[data-view="create"] .editor-card textarea {
-  min-height: 270px;
+  min-height: 304px;
 }
 
 .embed-mode .screen:has(.folder-card) .app-view[data-view="settings"] .profile-card {
-  min-height: 104px;
-  padding: 20px;
+  min-height: 114px;
+  padding: 22px;
 }
 
 .embed-mode .screen:has(.folder-card) .app-view[data-view="settings"] .settings-list {
@@ -133,8 +139,8 @@
 }
 
 .embed-mode .screen:has(.folder-card) .app-view[data-view="settings"] .settings-list button {
-  min-height: 96px;
-  padding: 16px;
+  min-height: 104px;
+  padding: 17px;
 }
 
 /* Reflect journal --------------------------------------------------------- */
