@@ -69,7 +69,6 @@ html[lang="en"] .launcher-simplified .structured-brief::before{content:"Complete
 .launcher-simplified .component-strip{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
 .launcher-simplified .component-demo{min-height:70px;padding:9px}
 .launcher-simplified .ds-rule-note{margin-top:8px;padding:8px 10px;font-size:8px}
-.launcher-simplified .preview-source{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;clip-path:inset(50%)!important;white-space:nowrap!important}
 .launcher-simplified .result-stage-body{padding:20px 26px 0}
 .launcher-simplified .preview-lab-section{margin:0!important;padding:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important}
 .launcher-simplified .preview-lab-head{align-items:center;margin-bottom:10px}
