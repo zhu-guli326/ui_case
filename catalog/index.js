@@ -347,109 +347,54 @@ export const styleGuides = [
     "id": "itinerary",
     "category": "travel",
     "name": "Aegean",
-    "style": "海岸行程编排",
+    "style": "海岸行程与灵感探索",
     "video": "./demo/lisbon-itinerary/lisbon-itinerary-demo.mp4",
     "liveDemo": "./demo/lisbon-itinerary/index.html",
     "poster": "./demo/lisbon-itinerary/mobile-preview.png",
     "preview": "#dfe5e2",
-    "reference": "纸本行程表的从容层级，叠加轻量的路线与天气信息",
+    "reference": "把纸本行程的从容层级和旅行灵感收藏合并在一个海岸旅行 App 中：既能安排一天，也能从地点、氛围和小发现中继续探索。",
     "referenceImage": "./demo/lisbon-itinerary/mobile-preview.png",
-    "prompt": "海岸旅行行程 App 视觉参考：有纸张感的浅灰白底，深青与珊瑚红作为少量功能强调，路线照片有明确留白，时间线清晰安静；把信息安排成一天的节奏，不做旅游平台式的密集卡片与促销标签。",
-    "summary": "把路线、时间和停留点整理成一张可慢慢读的日程，而不是堆满行程卡的旅游首页。",
-    "bestFor": "旅行计划、活动排程、婚礼流程、城市漫游",
+    "prompt": "海岸旅行 App 视觉参考：浅灰白纸张质感，深青与珊瑚红作为少量功能强调；Plan 用日期轨道、路线摄影和时间线组织一天，Discover 用搜索、氛围筛选、旅行 field note 与 Small discoveries 延续灵感。避免旅游平台式的密集卡片、促销标签和两个独立 App 视觉系统。",
+    "summary": "把行程编排和旅行灵感探索收进同一个 App：先安排路线、时间与停留点，也能切到 Discover 保存地点与小发现。",
+    "bestFor": "旅行计划、城市漫游、旅行日记、地点收藏、活动排程",
     "tags": [
       "纸本行程",
+      "旅行探索",
       "时间线",
-      "海岸色调"
+      "地点收藏"
     ],
     "palette": "雾白 / 深青 / 珊瑚红 / 苔绿",
-    "layout": "日期轨道 + 路线主视觉 + 时间线",
+    "layout": "Plan 日期轨道与时间线 + Discover 搜索与灵感收藏 + 底部导航",
     "recipe": {
-      "principle": "让用户先感受到一天的节奏，再处理每个具体动作。",
-      "image": "一张横向路线照片承担氛围，使用清晰的裁切和小面积深色遮罩。",
-      "type": "日期、时间与地点形成稳定的三层阅读顺序。",
-      "components": "日期分段、路线卡、竖向时间线、底部导航和添加停留点底部 sheet。",
-      "motion": "日期切换、展开停留点和底部 sheet 都用短而明确的反馈。",
-      "avoid": "地图、标签、交通信息和商家推荐同时抢占首屏。"
+      "principle": "用同一套视觉语言同时承载计划与探索：Plan 负责下一步行动，Discover 负责保留旅行中的灵感与小发现。",
+      "image": "海岸摄影同时服务路线和 field note，两种模式通过裁切、遮罩和信息层级区分，而不是切换到另一套品牌视觉。",
+      "type": "日期、时间、地点保持稳定的工具型层级；Discover 的标题更松弛，但沿用同一字体与颜色系统。",
+      "components": "日期分段、路线卡、竖向时间线、搜索框、氛围筛选、field note、Small discoveries、保存按钮和底部导航。",
+      "motion": "日期切换、停留点展开、Plan/Discover Tab 和保存反馈都使用短而明确的状态变化。",
+      "avoid": "不要把行程和探索拆成两套互不相关的 UI，也不要让地图、推荐、标签和商家信息同时抢占首屏。"
     },
     "locales": {
       "en": {
-        "style": "Coastal itinerary planning",
-        "reference": "The calm hierarchy of a paper itinerary with lightweight route and weather information",
-        "prompt": "Coastal travel-itinerary app visual reference: a pale gray-white paper texture with deep teal and coral used sparingly for functional emphasis. Route photography has clear whitespace, and the timeline remains calm and legible. Arrange information around the rhythm of a day instead of using dense travel-platform cards and promotional labels.",
-        "summary": "Routes, times, and stops become an itinerary that can be read slowly instead of a travel home page packed with cards.",
-        "bestFor": "Travel planning, event schedules, wedding timelines, city walks",
+        "style": "Coastal itinerary and travel discovery",
+        "reference": "A single coastal travel app combining the calm hierarchy of a paper itinerary with saved inspiration, field notes, and small discoveries.",
+        "prompt": "Coastal travel-app visual reference: pale paper-like surfaces with deep teal and coral used sparingly. Plan organizes the day with date rails, route photography, and a timeline; Discover extends the same system with search, mood filters, a travel field note, and Small discoveries. Avoid dense marketplace cards, promotional badges, or two disconnected app identities.",
+        "summary": "Trip planning and travel discovery live in one app: arrange routes and stops, then switch to Discover to save places and small findings.",
+        "bestFor": "Travel planning, city walks, travel journals, saved places, event schedules",
         "tags": [
           "Paper itinerary",
+          "Travel discovery",
           "Timeline",
-          "Coastal palette"
+          "Saved places"
         ],
         "palette": "Mist white / Deep teal / Coral red / Moss green",
-        "layout": "Date rail + Route hero + Timeline",
+        "layout": "Plan date rail and timeline + Discover search and saved inspiration + Bottom navigation",
         "recipe": {
-          "principle": "Let people feel the rhythm of the day before asking them to handle each specific action.",
-          "image": "One horizontal route photograph carries the atmosphere, using a clear crop and a small dark overlay.",
-          "type": "Dates, times, and places form a stable three-level reading order.",
-          "components": "Date segments, route card, vertical timeline, bottom navigation, and an add-stop bottom sheet.",
-          "motion": "Use short, explicit feedback for date changes, stop expansion, and the bottom sheet.",
-          "avoid": "Do not let maps, labels, transport details, and merchant recommendations compete on the first screen."
-        }
-      }
-    },
-    "styleProfileIds": [
-      "soft-lifestyle"
-    ]
-  },
-  {
-    "id": "journal",
-    "category": "travel",
-    "name": "Lumen",
-    "style": "旷野日记探索",
-    "video": "./demo/lumen-journal/lumen-journal-demo.mp4",
-    "liveDemo": "./demo/lumen-journal/index.html",
-    "poster": "./demo/lumen-journal/screenshot-app-frame.png",
-    "preview": "#d5e4e7",
-    "reference": "自然摄影的辽阔感，配合日记式短句和少量探索入口",
-    "referenceImage": "./demo/lumen-journal/screenshot-app-frame.png",
-    "prompt": "旅行日记探索 App 视觉参考：钴蓝水面与珊瑚红主体的摄影主视觉，文字像现场笔记一样简短，深色蓝色 UI chrome 克制存在；保留很强的单图情绪，不用大量旅游缩略图、评分和商业化标签。",
-    "summary": "用一张有呼吸感的旅行照片打开探索，剩下的内容像随手记下的小发现。",
-    "bestFor": "旅行灵感、个人日记、摄影收藏、生活方式内容",
-    "tags": [
-      "钴蓝摄影",
-      "场景叙事",
-      "轻探索"
-    ],
-    "palette": "钴蓝 / 珊瑚红 / 浅雾蓝 / 墨色",
-    "layout": "场景提问 + 搜索 + 单张主视觉 + 发现列表",
-    "recipe": {
-      "principle": "一屏只建立一个去处的情绪，交互退到边缘。",
-      "image": "主视觉选一个明确的自然主体，给予低干扰的文字留白。",
-      "type": "问题式标题先于地点信息，辅助信息缩小并后置。",
-      "components": "个人状态区、搜索字段、筛选 chip、沉浸主视觉、保存按钮和简短发现列表。",
-      "motion": "筛选、收藏和底部 tab 的状态变化轻而可感。",
-      "avoid": "把目的地、榜单、评分、攻略和广告塞进同一个画面。"
-    },
-    "locales": {
-      "en": {
-        "style": "Open-landscape journal discovery",
-        "reference": "The expansive feeling of nature photography paired with short journal-like notes and a few discovery entry points",
-        "prompt": "Travel-journal discovery app visual reference: a photographic hero with cobalt water and a coral-red subject, short copy that reads like field notes, and restrained dark-blue UI chrome. Preserve the emotional force of one image; avoid grids of travel thumbnails, ratings, and commercial labels.",
-        "summary": "One breathable travel photograph opens discovery, while the remaining content reads like small findings jotted down along the way.",
-        "bestFor": "Travel inspiration, personal journals, photo collections, lifestyle content",
-        "tags": [
-          "Cobalt photography",
-          "Scene storytelling",
-          "Light discovery"
-        ],
-        "palette": "Cobalt blue / Coral red / Pale mist blue / Ink",
-        "layout": "Scene prompt + Search + Single hero image + Discovery list",
-        "recipe": {
-          "principle": "Establish the feeling of one place per screen and move interaction to the edges.",
-          "image": "Choose one distinct natural subject for the hero and reserve low-interference whitespace for copy.",
-          "type": "Lead with a question-style heading; reduce and defer location metadata.",
-          "components": "Personal status area, search field, filter chips, immersive hero, save action, and a short discovery list.",
-          "motion": "Keep state changes for filters, saves, and bottom tabs subtle but perceptible.",
-          "avoid": "Do not put destinations, rankings, ratings, guides, and advertising into one view."
+          "principle": "Use one visual language for planning and exploration: Plan clarifies the next action, while Discover preserves inspiration and small findings.",
+          "image": "Reuse coastal photography for routes and field notes, separating modes through crop, scrim, and hierarchy instead of introducing another brand system.",
+          "type": "Keep dates, times, and places in a stable utility hierarchy; let Discover headlines breathe while retaining the same type and color system.",
+          "components": "Date segments, route card, timeline, search, mood filters, field note, Small discoveries, save action, and bottom navigation.",
+          "motion": "Use brief explicit feedback for date changes, stop expansion, Plan/Discover switching, and save actions.",
+          "avoid": "Do not split planning and discovery into unrelated interfaces or crowd the first screen with maps, recommendations, tags, and merchant details."
         }
       }
     },
@@ -577,7 +522,7 @@ export const styleGuides = [
     "category": "wellness",
     "name": "Moe",
     "style": "插画式习惯养成",
-    "video": "./demo/moe-habits/moe-habits-demo.mp4?v=sharp-3x",
+    "video": "./demo/moe-habits/moe-habits-demo.mp4",
     "liveDemo": "./demo/moe-habits/index.html",
     "poster": "./demo/moe-habits/screenshots/video-2x/01-intro.png?v=sharp-3x",
     "previewImage": "./demo/moe-habits/screenshots/video-2x/01-intro.png?v=sharp-3x",
@@ -692,7 +637,7 @@ export const styleGuides = [
     "category": "culture",
     "name": "ArtMuse",
     "style": "当代美术馆导览",
-    "video": "./assets/cases/museum-app/museum-app-demo.mp4?v=artwork-2",
+    "video": "./assets/cases/museum-app/museum-app-demo.mp4",
     "poster": "./assets/cases/museum-app/video-frames/01-home.png",
     "videoSequence": {
       "duration": 8,
@@ -884,6 +829,26 @@ export const styleGuides = [
     "name": "Organique Food",
     "style": "编辑式有机餐食",
     "video": "./demo/organique-food/organique-food-demo.mp4",
+    "videoSequence": {
+      "duration": 6,
+      "frames": [
+        {
+          "at": 0,
+          "src": "./demo/organique-food/screenshots/01-choose.png",
+          "label": "选择餐食"
+        },
+        {
+          "at": 2,
+          "src": "./demo/organique-food/screenshots/02-plan.png",
+          "label": "配送计划"
+        },
+        {
+          "at": 4,
+          "src": "./demo/organique-food/screenshots/03-confirmation.png",
+          "label": "确认页"
+        }
+      ]
+    },
     "liveDemo": "./demo/organique-food/index.html",
     "poster": "./demo/organique-food/mobile-preview.png",
     "preview": "#ede8d5",
@@ -1336,6 +1301,7 @@ export const styleGuides = [
     ]
   }
 ];
+
 export const styleProfiles = [
   {
     "id": "editorial-commerce",
