@@ -1,4 +1,4 @@
-const STYLE_VERSION = "20260817-simplified-v3";
+const STYLE_VERSION = "20260817-simplified-v4";
 const q = (selector) => document.querySelector(selector);
 const qa = (selector, root = document) => [...root.querySelectorAll(selector)];
 const locale = () => {
@@ -36,112 +36,125 @@ function sectionMarkup() {
 const pageTemplates = {
   account: {
     zh: () => `<div class="preview-template"><div class="pt-top"><div><div class="pt-eyebrow">账户与偏好</div><h3 class="pt-title">账户设置</h3><p class="pt-sub">管理资料、安全、通知与隐私。</p></div><div class="pt-icon">•••</div></div><div class="pt-section-label">个人资料</div><div class="pt-card pt-profile"><div class="pt-avatar"></div><div><strong>Zhuzhu</strong><div class="pt-muted">zhuzhu@example.com</div></div><button class="pt-secondary">编辑</button></div><div class="pt-section-label">偏好设置</div><div class="pt-card pt-setting-list"><div><span>通知</span><span class="pt-toggle"></span></div><div><span>隐私与安全</span><b>›</b></div><div><span>外观</span><span class="pt-muted">跟随系统</span></div></div><button class="pt-primary">保存设置</button></div>`,
-    en: () => `<div class="preview-template"><div class="pt-top"><div><div class="pt-eyebrow">ACCOUNT & PREFERENCES</div><h3 class="pt-title">Account Settings</h3><p class="pt-sub">Manage profile, security, notifications and privacy.</p></div><div class="pt-icon">•••</div></div><div class="pt-section-label">Profile</div><div class="pt-card pt-profile"><div class="pt-avatar"></div><div><strong>Zhuzhu</strong><div class="pt-muted">zhuzhu@example.com</div></div><button class="pt-secondary">Edit</button></div><div class="pt-section-label">Preferences</div><div class="pt-card pt-setting-list"><div><span>Notifications</span><span class="pt-toggle"></span></div><div><span>Privacy & Security</span><b>›</b></div><div><span>Appearance</span><span class="pt-muted">System</span></div></div><button class="pt-primary">Save changes</button></div>`
+    en: () => `<div class="preview-template"><div class="pt-top"><div><div class="pt-eyebrow">ACCOUNT & PREFERENCES</div><h3 class="pt-title">Account Settings</h3><p class="pt-sub">Manage profile, security, notifications and privacy.</p></div><div class="pt-icon">•••</div></div><div class="pt-section-label">Profile</div><div class="pt-card pt-profile"><div class="pt-avatar"></div><div><strong>Zhuzhu</strong><div class="pt-muted">zhuzhu@example.com</div></div><button class="pt-secondary">Edit</button></div><div class="pt-section-label">Preferences</div><div class="pt-card pt-setting-list"><div><span>Notifications</span><span class="pt-toggle"></span></div><div><span>Privacy & Security</span><b>›</b></div><div><span>Appearance</span><span class="pt-muted">System</span></div></div><button class="pt-primary">Save changes</button></div>`,
   },
   dashboard: {
     zh: () => `<div class="preview-template"><div class="pt-top"><div><div class="pt-eyebrow">TODAY · WORKSPACE</div><h3 class="pt-title">数据面板</h3><p class="pt-sub">把进度、待处理事项和趋势放在同一屏。</p></div><button class="pt-primary">+ 新建</button></div><div class="pt-grid pt-kpis"><div class="pt-card pt-kpi"><small>本周完成</small><strong>84%</strong><span class="pt-chip">+12%</span></div><div class="pt-card pt-kpi"><small>待评审</small><strong>12</strong><span class="pt-muted">3 紧急</span></div><div class="pt-card pt-kpi"><small>节省时间</small><strong>18.5h</strong><span class="pt-muted">本周</span></div></div><div class="pt-card"><div class="pt-row" style="justify-content:space-between"><strong>交付趋势</strong><span class="pt-muted">过去 7 天</span></div><div class="pt-chart"><div class="pt-bars"><i style="height:35%"></i><i style="height:52%"></i><i style="height:43%"></i><i style="height:72%"></i><i style="height:61%"></i><i style="height:88%"></i><i style="height:76%"></i></div></div></div></div>`,
-    en: () => `<div class="preview-template"><div class="pt-top"><div><div class="pt-eyebrow">TODAY · WORKSPACE</div><h3 class="pt-title">Dashboard</h3><p class="pt-sub">Progress, reviews and trends in one focused workspace.</p></div><button class="pt-primary">+ New</button></div><div class="pt-grid pt-kpis"><div class="pt-card pt-kpi"><small>Completed</small><strong>84%</strong><span class="pt-chip">+12%</span></div><div class="pt-card pt-kpi"><small>Review</small><strong>12</strong><span class="pt-muted">3 urgent</span></div><div class="pt-card pt-kpi"><small>Saved</small><strong>18.5h</strong><span class="pt-muted">week</span></div></div><div class="pt-card"><div class="pt-row" style="justify-content:space-between"><strong>Delivery trend</strong><span class="pt-muted">Last 7 days</span></div><div class="pt-chart"><div class="pt-bars"><i style="height:35%"></i><i style="height:52%"></i><i style="height:43%"></i><i style="height:72%"></i><i style="height:61%"></i><i style="height:88%"></i><i style="height:76%"></i></div></div></div></div>`
+    en: () => `<div class="preview-template"><div class="pt-top"><div><div class="pt-eyebrow">TODAY · WORKSPACE</div><h3 class="pt-title">Dashboard</h3><p class="pt-sub">Progress, reviews and trends in one focused workspace.</p></div><button class="pt-primary">+ New</button></div><div class="pt-grid pt-kpis"><div class="pt-card pt-kpi"><small>Completed</small><strong>84%</strong><span class="pt-chip">+12%</span></div><div class="pt-card pt-kpi"><small>Review</small><strong>12</strong><span class="pt-muted">3 urgent</span></div><div class="pt-card pt-kpi"><small>Saved</small><strong>18.5h</strong><span class="pt-muted">week</span></div></div><div class="pt-card"><div class="pt-row" style="justify-content:space-between"><strong>Delivery trend</strong><span class="pt-muted">Last 7 days</span></div><div class="pt-chart"><div class="pt-bars"><i style="height:35%"></i><i style="height:52%"></i><i style="height:43%"></i><i style="height:72%"></i><i style="height:61%"></i><i style="height:88%"></i><i style="height:76%"></i></div></div></div></div>`,
   },
   commerce: {
     zh: () => `<div class="preview-template"><div class="pt-top"><div><div class="pt-eyebrow">NEW COLLECTION</div><h3 class="pt-title">商品详情</h3></div><div class="pt-icon">♡</div></div><div class="pt-grid pt-product"><div class="pt-product-visual"><div class="pt-product-shape"></div></div><div class="pt-product-info"><span class="pt-chip">新品 · 限量</span><h3 style="margin:0;font-size:22px">日常通勤包</h3><p class="pt-sub">轻量结构与柔软触感，为每天的移动重新设计。</p><div class="pt-price">¥1,299</div><div class="pt-swatches"><i></i><i></i><i></i></div><button class="pt-primary">加入购物车</button><button class="pt-secondary">尺寸与配送</button></div></div></div>`,
-    en: () => `<div class="preview-template"><div class="pt-top"><div><div class="pt-eyebrow">NEW COLLECTION</div><h3 class="pt-title">Product Detail</h3></div><div class="pt-icon">♡</div></div><div class="pt-grid pt-product"><div class="pt-product-visual"><div class="pt-product-shape"></div></div><div class="pt-product-info"><span class="pt-chip">New · Limited</span><h3 style="margin:0;font-size:22px">Everyday Carry</h3><p class="pt-sub">A lightweight everyday bag redesigned for the commute.</p><div class="pt-price">$189</div><div class="pt-swatches"><i></i><i></i><i></i></div><button class="pt-primary">Add to cart</button><button class="pt-secondary">Size & delivery</button></div></div></div>`
+    en: () => `<div class="preview-template"><div class="pt-top"><div><div class="pt-eyebrow">NEW COLLECTION</div><h3 class="pt-title">Product Detail</h3></div><div class="pt-icon">♡</div></div><div class="pt-grid pt-product"><div class="pt-product-visual"><div class="pt-product-shape"></div></div><div class="pt-product-info"><span class="pt-chip">New · Limited</span><h3 style="margin:0;font-size:22px">Everyday Carry</h3><p class="pt-sub">A lightweight everyday bag redesigned for the commute.</p><div class="pt-price">$189</div><div class="pt-swatches"><i></i><i></i><i></i></div><button class="pt-primary">Add to cart</button><button class="pt-secondary">Size & delivery</button></div></div></div>`,
   },
   editorial: {
     zh: () => `<div class="preview-template"><div class="pt-top"><div><div class="pt-eyebrow">FIELD NOTES · 08</div><h3 class="pt-title">内容主页</h3></div><div class="pt-row"><span class="pt-chip">设计</span><span class="pt-chip">文化</span><span class="pt-chip">产品</span></div></div><div class="pt-editorial-hero"><span class="pt-chip" style="align-self:flex-start;background:rgba(255,255,255,.16);color:#fff">本周专题</span><h3>好的界面，不应该让人意识到界面的存在</h3><p>从信息层级、组件节奏到交互反馈，重新理解安静的产品体验。</p></div><div class="pt-grid pt-stories"><article class="pt-card pt-story"><div class="pt-story-img"></div><div class="pt-story-copy"><span class="pt-eyebrow">DESIGN</span><strong>产品为什么需要视觉语言</strong><p>从品牌到组件建立一致体验。</p></div></article><article class="pt-card pt-story"><div class="pt-story-img"></div><div class="pt-story-copy"><span class="pt-eyebrow">PEOPLE</span><strong>创作者真实的一天</strong><p>工具如何进入日常工作流。</p></div></article></div></div>`,
-    en: () => `<div class="preview-template"><div class="pt-top"><div><div class="pt-eyebrow">FIELD NOTES · 08</div><h3 class="pt-title">Editorial Home</h3></div><div class="pt-row"><span class="pt-chip">Design</span><span class="pt-chip">Culture</span><span class="pt-chip">Product</span></div></div><div class="pt-editorial-hero"><span class="pt-chip" style="align-self:flex-start;background:rgba(255,255,255,.16);color:#fff">FEATURE</span><h3>Good interfaces disappear into the experience</h3><p>Rethinking quiet product design through hierarchy, rhythm and feedback.</p></div><div class="pt-grid pt-stories"><article class="pt-card pt-story"><div class="pt-story-img"></div><div class="pt-story-copy"><span class="pt-eyebrow">DESIGN</span><strong>Why products need a visual language</strong><p>Build consistency from brand to components.</p></div></article><article class="pt-card pt-story"><div class="pt-story-img"></div><div class="pt-story-copy"><span class="pt-eyebrow">PEOPLE</span><strong>Inside a creator's day</strong><p>How tools enter real workflows.</p></div></article></div></div>`
-  }
+    en: () => `<div class="preview-template"><div class="pt-top"><div><div class="pt-eyebrow">FIELD NOTES · 08</div><h3 class="pt-title">Editorial Home</h3></div><div class="pt-row"><span class="pt-chip">Design</span><span class="pt-chip">Culture</span><span class="pt-chip">Product</span></div></div><div class="pt-editorial-hero"><span class="pt-chip" style="align-self:flex-start;background:rgba(255,255,255,.16);color:#fff">FEATURE</span><h3>Good interfaces disappear into the experience</h3><p>Rethinking quiet product design through hierarchy, rhythm and feedback.</p></div><div class="pt-grid pt-stories"><article class="pt-card pt-story"><div class="pt-story-img"></div><div class="pt-story-copy"><span class="pt-eyebrow">DESIGN</span><strong>Why products need a visual language</strong><p>Build consistency from brand to components.</p></div></article><article class="pt-card pt-story"><div class="pt-story-img"></div><div class="pt-story-copy"><span class="pt-eyebrow">PEOPLE</span><strong>Inside a creator's day</strong><p>How tools enter real workflows.</p></div></article></div></div>`,
+  },
 };
 
 function currentPlatform() {
-  return q('.platform-card[aria-checked="true"]')?.dataset.platform || q('.platform-card.is-active')?.dataset.platform || 'ios';
+  return q('.platform-card[aria-checked="true"]')?.dataset.platform || q('.platform-card.is-active')?.dataset.platform || "ios";
+}
+
+function designStateFromWorkbench() {
+  const workbench = q("#designSystemWorkbench");
+  return {
+    systemName: workbench?.dataset.systemName || localized("跟随上方选择", "Follow selection"),
+    platform: workbench?.dataset.platform || currentPlatform(),
+    accent: workbench?.dataset.accent || "#176f43",
+    colors: {
+      canvas: workbench?.dataset.canvas || "",
+      surface: workbench?.dataset.surface || "",
+      ink: workbench?.dataset.ink || "",
+    },
+  };
 }
 
 function init() {
-  if (!document.body.classList.contains('launcher-workspace')) return;
+  if (!document.body.classList.contains("launcher-workspace")) return;
   installStyles();
-  document.body.classList.remove('create-flow-refactored');
-  const mount = q('#resultStageBody') || q('.workspace-main');
-  const sourceDevice = q('#previewDevice');
-  if (!mount || !sourceDevice || q('#previewLabSection')) return;
+  document.body.classList.remove("create-flow-refactored");
+  const mount = q("#resultStageBody") || q(".workspace-main");
+  if (!mount || q("#previewLabSection")) return;
 
-  const section = document.createElement('section');
-  section.className = 'preview-lab-section';
-  section.id = 'previewLabSection';
-  section.setAttribute('aria-labelledby', 'livePreviewTitle');
+  const section = document.createElement("section");
+  section.className = "preview-lab-section";
+  section.id = "previewLabSection";
+  section.setAttribute("aria-labelledby", "livePreviewTitle");
   section.innerHTML = sectionMarkup();
   mount.prepend(section);
 
-  const stage = q('#previewLabStage');
-  const liveDevice = q('#livePreviewDevice');
-  const pageSelect = q('#previewPageTemplate');
-  const languageSelect = q('#previewLanguage');
-  const currentSystem = q('#previewCurrentSystem');
+  const stage = q("#previewLabStage");
+  const liveDevice = q("#livePreviewDevice");
+  const pageSelect = q("#previewPageTemplate");
+  const languageSelect = q("#previewLanguage");
+  const currentSystem = q("#previewCurrentSystem");
   if (!stage || !liveDevice || !pageSelect || !languageSelect || !currentSystem) return;
   languageSelect.value = locale();
 
   function renderPage() {
-    const type = pageSelect.value || 'account';
-    const language = languageSelect.value === 'en' ? 'en' : 'zh';
+    const type = pageSelect.value || "account";
+    const language = languageSelect.value === "en" ? "en" : "zh";
     const factory = pageTemplates[type]?.[language] || pageTemplates.account[language];
     liveDevice.innerHTML = factory();
     liveDevice.dataset.template = type;
   }
-  function syncMetadata() {
-    currentSystem.textContent = q('#previewSystemName')?.textContent?.trim() || localized('跟随上方选择', 'Follow selection');
-    const accent = sourceDevice.style.getPropertyValue('--preview-accent') || getComputedStyle(sourceDevice).getPropertyValue('--preview-accent');
-    if (accent.trim()) liveDevice.style.setProperty('--preview-accent', accent.trim());
+
+  function syncDesignMetadata(state = designStateFromWorkbench()) {
+    currentSystem.textContent = state.systemName || localized("跟随上方选择", "Follow selection");
+    const colors = state.colors || {};
+    const tokens = {
+      "--preview-accent": state.accent,
+      "--preview-canvas": colors.canvas,
+      "--preview-surface": colors.surface,
+      "--preview-ink": colors.ink,
+    };
+    Object.entries(tokens).forEach(([name, value]) => {
+      if (value) liveDevice.style.setProperty(name, value);
+    });
   }
+
   function setDevice(size) {
     liveDevice.dataset.size = size;
-    qa('#previewDeviceSegment button', section).forEach((button) => {
+    qa("#previewDeviceSegment button", section).forEach((button) => {
       const active = button.dataset.size === size;
-      button.classList.toggle('is-active', active);
-      button.setAttribute('aria-pressed', String(active));
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-pressed", String(active));
     });
   }
+
   function setTheme(theme) {
     stage.dataset.theme = theme;
-    qa('#previewThemeSegment button', section).forEach((button) => {
+    qa("#previewThemeSegment button", section).forEach((button) => {
       const active = button.dataset.theme === theme;
-      button.classList.toggle('is-active', active);
-      button.setAttribute('aria-pressed', String(active));
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-pressed", String(active));
     });
   }
+
   function setDeviceForPlatform(platform) {
     liveDevice.dataset.platform = platform;
-    setDevice(platform === 'windows' || platform === 'macos' ? 'desktop' : 'mobile');
-  }
-  function syncPlatformFromUi() {
-    setDeviceForPlatform(currentPlatform());
+    setDevice(platform === "windows" || platform === "macos" ? "desktop" : "mobile");
   }
 
-  pageSelect.addEventListener('change', renderPage);
-  languageSelect.addEventListener('change', renderPage);
-  qa('#previewDeviceSegment button', section).forEach((button) => button.addEventListener('click', () => setDevice(button.dataset.size)));
-  qa('#previewThemeSegment button', section).forEach((button) => button.addEventListener('click', () => setTheme(button.dataset.theme)));
+  pageSelect.addEventListener("change", renderPage);
+  languageSelect.addEventListener("change", renderPage);
+  qa("#previewDeviceSegment button", section).forEach((button) => button.addEventListener("click", () => setDevice(button.dataset.size)));
+  qa("#previewThemeSegment button", section).forEach((button) => button.addEventListener("click", () => setTheme(button.dataset.theme)));
 
-  const platformGrid = q('#platformGrid');
-  platformGrid?.addEventListener('click', (event) => {
-    if (!event.target.closest('.platform-card[data-platform]')) return;
-    queueMicrotask(syncPlatformFromUi);
-    requestAnimationFrame(syncPlatformFromUi);
+  window.addEventListener("image2:launcherdesignchange", (event) => syncDesignMetadata(event.detail));
+  window.addEventListener("image2:launcherplatformchange", (event) => setDeviceForPlatform(event.detail?.platform || currentPlatform()));
+  window.image2I18n?.registerPage?.(() => {
+    languageSelect.value = locale();
+    renderPage();
+    syncDesignMetadata();
   });
-  if (platformGrid) new MutationObserver(syncPlatformFromUi).observe(platformGrid, { subtree:true, attributes:true, attributeFilter:['aria-checked','class'] });
 
-  new MutationObserver(syncMetadata).observe(sourceDevice, { attributes:true, attributeFilter:['style'] });
-  const systemName = q('#previewSystemName');
-  if (systemName) new MutationObserver(syncMetadata).observe(systemName, { childList:true, characterData:true, subtree:true });
-  window.addEventListener('image2:launcherplatformchange', (event) => setDeviceForPlatform(event.detail?.platform || currentPlatform()));
-  document.addEventListener('change', (event) => {
-    if (event.target.matches('[name="colorTheme"],[name="fontScheme"]')) window.setTimeout(syncMetadata, 40);
-  });
-  window.image2I18n?.registerPage?.(() => { languageSelect.value = locale(); renderPage(); window.setTimeout(syncMetadata, 40); });
-
-  setTheme('light');
-  syncPlatformFromUi();
-  syncMetadata();
+  setTheme("light");
+  setDeviceForPlatform(currentPlatform());
+  syncDesignMetadata();
   renderPage();
 }
 
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once:true });
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });
 else init();
