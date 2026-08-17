@@ -1,4 +1,4 @@
-const VERSION = "20260817-simplified-v2";
+const VERSION = "20260817-simplified-v3";
 
 function reportFailure(label, error) {
   console.error(`[launcher] ${label} failed to load`, error);
@@ -30,7 +30,6 @@ async function loadCore() {
 
 async function loadEnhancements() {
   const modules = [
-    ["shell", `./launcher-shell.js?v=${VERSION}`],
     ["design-system", `./launcher-design-system.js?v=${VERSION}`],
     ["hardening", `./launcher-hardening.js?v=${VERSION}`],
     ["stability", `./launcher-stability.js?v=${VERSION}`],
