@@ -14,6 +14,7 @@
 
     const style = document.createElement("style");
     style.textContent = `
+      .structured-brief::before{grid-column:1/-1;width:100%;margin-bottom:2px}
       .color-theme-section .design-system-workbench{margin-top:14px;padding-top:14px}
       .color-theme-section .ds-toolbar{margin-bottom:10px}
       .color-theme-section .ds-tabs{justify-content:flex-end}
