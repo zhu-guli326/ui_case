@@ -127,6 +127,15 @@ await inspect("launcher.html?lang=zh&intent=create", async (page) => {
   const outputPosition = await page.locator("#outputPanel").evaluate((el) => getComputedStyle(el).position);
   if (outputPosition === "sticky" || outputPosition === "fixed") throw new Error(`output is still competing as ${outputPosition}`);
 
+  const [previewBox, outputBox] = await Promise.all([
+    page.locator("#resultStageBody").boundingBox(),
+    page.locator("#outputPanel").boundingBox(),
+  ]);
+  if (!previewBox || !outputBox) throw new Error("Step 03 preview or prompt rail has no measurable layout box");
+  if (outputBox.x < previewBox.x + previewBox.width - 2) {
+    throw new Error(`prompt output is not to the right of preview: preview=${JSON.stringify(previewBox)} output=${JSON.stringify(outputBox)}`);
+  }
+
   await chooseDesignTheme(page, "google-material-3", "Material 3", "#6750a4");
   await chooseDesignTheme(page, "airbnb", "Airbnb Visual System", "#e00b41");
 
@@ -161,4 +170,4 @@ await inspect("launcher.html?lang=en&intent=create", async (page) => {
 });
 
 await browser.close();
-console.log("Launcher runtime audit passed: one three-step flow, explicit four-owner runtime, real design-token propagation, one final preview, non-sticky output, stable intent switching, and zh/en runtime.");
+console.log("Launcher runtime audit passed: one three-step flow, explicit four-owner runtime, real design-token propagation, one final preview, right-side non-sticky prompt output, stable intent switching, and zh/en runtime.");
