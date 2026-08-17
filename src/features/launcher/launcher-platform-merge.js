@@ -20,25 +20,31 @@
       .format-platform-option svg{width:24px;height:24px;flex:0 0 24px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
       .format-platform-option strong{display:block;font-size:10px}.format-platform-option small{display:block;margin-top:2px;color:#7c857e;font-size:8px}
 
-      /* Keep create mode focused: these choices are already represented upstream / in final preview. */
       body.create-flow-refactored .create-advanced{display:none!important}
       body.create-flow-refactored .style-direction{display:none!important}
       body.create-flow-refactored #designSystemWorkbench{display:none!important}
+      body.create-flow-refactored .color-theme-section{display:none!important}
+
+      .preview-color-field{display:grid;gap:5px}.preview-color-field>span{font-size:8px;font-weight:800;color:#657067}
+      .preview-color-picker{position:relative;min-width:180px}
+      .preview-color-button{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;height:34px;padding:0 10px;border:1px solid #d5ddd6;border-radius:8px;background:#fff;color:#202721;font:inherit;font-size:10px;cursor:pointer}
+      .preview-color-button:hover{border-color:#aebbb1}.preview-color-button i{display:flex;gap:3px}.preview-color-button i b{display:block;width:14px;height:18px;border-radius:4px;border:1px solid rgba(0,0,0,.07)}
+      .preview-color-menu{position:absolute;z-index:20;top:39px;left:0;display:none;width:320px;max-height:320px;overflow:auto;padding:7px;border:1px solid #dce3dd;border-radius:10px;background:#fff;box-shadow:0 14px 34px rgba(27,41,32,.16)}
+      .preview-color-picker.is-open .preview-color-menu{display:grid;gap:5px}
+      .preview-color-option{display:grid;grid-template-columns:58px minmax(0,1fr);align-items:center;gap:9px;padding:8px;border:1px solid transparent;border-radius:8px;background:#fff;cursor:pointer;text-align:left}
+      .preview-color-option:hover{background:#f6f9f7}.preview-color-option.is-active{border-color:#16804b;background:#edf7f1}
+      .preview-color-option .swatches{display:flex;overflow:hidden;height:28px;border:1px solid #e1e5e2;border-radius:6px}.preview-color-option .swatches b{flex:1}
+      .preview-color-option strong{display:block;font-size:9px}.preview-color-option small{display:block;margin-top:2px;color:#7c857e;font-size:7px}
 
       .final-brand-summary{display:grid;grid-template-columns:minmax(190px,1.25fr) repeat(4,minmax(100px,.7fr));gap:8px;margin:0 0 12px;padding:10px;border:1px solid #dde4de;border-radius:11px;background:#fbfcfb}
       .final-brand-main,.final-brand-item{min-width:0;padding:9px 10px;border-radius:9px;background:#fff;border:1px solid #e5e9e6}
-      .final-brand-main{display:flex;align-items:center;gap:10px}
-      .final-brand-swatches{display:flex;gap:4px;flex:0 0 auto}
-      .final-brand-swatches i{width:18px;height:30px;border:1px solid rgba(0,0,0,.07);border-radius:5px;background:#eee}
+      .final-brand-main{display:flex;align-items:center;gap:10px}.final-brand-swatches{display:flex;gap:4px;flex:0 0 auto}.final-brand-swatches i{width:18px;height:30px;border:1px solid rgba(0,0,0,.07);border-radius:5px;background:#eee}
       .final-brand-copy{min-width:0}.final-brand-copy small,.final-brand-item small{display:block;margin-bottom:3px;color:#7a847c;font-size:7px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
-      .final-brand-copy strong,.final-brand-item strong{display:block;overflow:hidden;color:#202721;font-size:10px;line-height:1.35;text-overflow:ellipsis;white-space:nowrap}
-      .final-brand-item span{display:block;margin-top:2px;color:#7a837c;font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-      .final-brand-details{grid-column:1/-1;margin-top:1px}
-      .final-brand-details summary{cursor:pointer;color:#4c6655;font-size:8px;font-weight:800;list-style:none}
-      .final-brand-details summary::-webkit-details-marker{display:none}.final-brand-details summary::after{content:'＋';margin-left:5px}.final-brand-details[open] summary::after{content:'−'}
+      .final-brand-copy strong,.final-brand-item strong{display:block;overflow:hidden;color:#202721;font-size:10px;line-height:1.35;text-overflow:ellipsis;white-space:nowrap}.final-brand-item span{display:block;margin-top:2px;color:#7a837c;font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .final-brand-details{grid-column:1/-1;margin-top:1px}.final-brand-details summary{cursor:pointer;color:#4c6655;font-size:8px;font-weight:800;list-style:none}.final-brand-details summary::-webkit-details-marker{display:none}.final-brand-details summary::after{content:'＋';margin-left:5px}.final-brand-details[open] summary::after{content:'−'}
       .final-brand-components{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:8px}.final-brand-components .component-demo{min-height:88px;background:#fff}
       @media(max-width:980px){.final-brand-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.final-brand-main{grid-column:1/-1}}
-      @media(max-width:620px){.format-platform-options{grid-template-columns:1fr}.final-brand-summary,.final-brand-components{grid-template-columns:1fr}.final-brand-main{grid-column:auto}}
+      @media(max-width:620px){.format-platform-options{grid-template-columns:1fr}.final-brand-summary,.final-brand-components{grid-template-columns:1fr}.final-brand-main{grid-column:auto}.preview-color-picker{min-width:100%}.preview-color-menu{width:min(320px,calc(100vw - 48px))}}
     `;
     document.head.append(style);
 
@@ -94,6 +100,53 @@
       render();
     }
 
+    function colorDataFromCard(card) {
+      const radio = card.querySelector('input[name="colorTheme"]');
+      if (!radio) return null;
+      const title = card.querySelector('.color-theme-copy strong')?.textContent?.trim() || radio.value;
+      const desc = card.querySelector('.color-theme-copy small')?.textContent?.trim() || '';
+      const swatches = [...card.querySelectorAll('.color-theme-palette i')].slice(0,5).map((el) => getComputedStyle(el).backgroundColor || '#eee');
+      return { value: radio.value, title, desc, swatches, checked: radio.checked };
+    }
+
+    function syncPreviewColorPicker() {
+      const toolbar = document.querySelector('#previewLabSection .preview-toolbar');
+      const sourceCards = [...document.querySelectorAll('.color-theme-card')];
+      if (!toolbar || !sourceCards.length) return;
+      let field = toolbar.querySelector('#previewColorField');
+      if (!field) {
+        field = document.createElement('div'); field.id = 'previewColorField'; field.className = 'preview-color-field';
+        field.innerHTML = '<span>颜色</span><div class="preview-color-picker"><button class="preview-color-button" type="button"><i></i><strong>选择颜色</strong><span>⌄</span></button><div class="preview-color-menu"></div></div>';
+        const current = toolbar.querySelector('.preview-current');
+        toolbar.insertBefore(field, current || null);
+        const picker = field.querySelector('.preview-color-picker');
+        field.querySelector('.preview-color-button').addEventListener('click', (e) => { e.stopPropagation(); picker.classList.toggle('is-open'); });
+      }
+      const data = sourceCards.map(colorDataFromCard).filter(Boolean);
+      const active = data.find((x) => x.checked) || data[0];
+      const button = field.querySelector('.preview-color-button');
+      button.querySelector('strong').textContent = active?.title || '选择颜色';
+      button.querySelector('i').innerHTML = (active?.swatches || []).slice(0,4).map((c) => '<b style="background:'+c+'"></b>').join('');
+      const menu = field.querySelector('.preview-color-menu');
+      menu.innerHTML = '';
+      data.forEach((item) => {
+        const option = document.createElement('button'); option.type = 'button'; option.className = 'preview-color-option' + (item.value === active?.value ? ' is-active' : '');
+        option.innerHTML = '<span class="swatches">' + item.swatches.slice(0,5).map((c) => '<b style="background:'+c+'"></b>').join('') + '</span><span><strong>'+item.title+'</strong><small>'+item.desc+'</small></span>';
+        option.addEventListener('click', () => {
+          const radio = document.querySelector('.color-theme-card input[name="colorTheme"][value="'+CSS.escape(item.value)+'"]');
+          if (radio) { radio.checked = true; radio.dispatchEvent(new Event('change',{bubbles:true})); }
+          field.querySelector('.preview-color-picker').classList.remove('is-open');
+          setTimeout(() => { syncPreviewColorPicker(); syncBrandSummary(); }, 30);
+        });
+        menu.append(option);
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      const picker = document.querySelector('.preview-color-picker');
+      if (picker && !picker.contains(e.target)) picker.classList.remove('is-open');
+    });
+
     function valueText(selector, fallback) { return document.querySelector(selector)?.textContent?.trim() || fallback; }
     function syncBrandSummary() {
       const preview = document.querySelector("#previewLabSection"); const toolbar = preview?.querySelector(".preview-toolbar"); if (!preview || !toolbar) return;
@@ -108,11 +161,11 @@
     }
 
     const intentForm = document.querySelector("#intentForm");
-    if (intentForm) { let timer = 0; new MutationObserver(() => { clearTimeout(timer); timer = setTimeout(() => { enhance(); syncBrandSummary(); }, 50); }).observe(intentForm, { childList: true, subtree: true }); }
-    const previewLabObserver = new MutationObserver(() => { const label = document.querySelector("#previewLabSection .flow-label span"); if (label) label.textContent = "5"; syncBrandSummary(); });
+    if (intentForm) { let timer = 0; new MutationObserver(() => { clearTimeout(timer); timer = setTimeout(() => { enhance(); syncPreviewColorPicker(); syncBrandSummary(); }, 50); }).observe(intentForm, { childList: true, subtree: true }); }
+    const previewLabObserver = new MutationObserver(() => { const label = document.querySelector("#previewLabSection .flow-label span"); if (label) label.textContent = "4"; syncPreviewColorPicker(); syncBrandSummary(); });
     previewLabObserver.observe(document.body, { childList: true, subtree: true });
-    const workbench = document.querySelector("#designSystemWorkbench"); if (workbench) new MutationObserver(syncBrandSummary).observe(workbench, { subtree: true, childList: true, characterData: true, attributes: true });
-    document.addEventListener("change", () => setTimeout(syncBrandSummary, 40));
-    enhance(); syncBrandSummary();
+    const workbench = document.querySelector("#designSystemWorkbench"); if (workbench) new MutationObserver(() => { syncPreviewColorPicker(); syncBrandSummary(); }).observe(workbench, { subtree: true, childList: true, characterData: true, attributes: true });
+    document.addEventListener("change", () => setTimeout(() => { syncPreviewColorPicker(); syncBrandSummary(); }, 40));
+    enhance(); syncPreviewColorPicker(); syncBrandSummary();
   });
 })();
