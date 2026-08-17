@@ -5,7 +5,6 @@ import {
   standardPreviewDevice,
 } from "../../../library-preview-config.mjs";
 
-const LEGACY_SCALE_OVERSHOOT = 1.04;
 const LEGACY_NOTEBOOK_CARD_PREVIEW = "marble-note/screenshots/library-preview-reference-v2.png";
 const CANONICAL_NOTEBOOK_CARD_PREVIEW = "marble-note/screenshots/library-preview-2x.png";
 
@@ -30,17 +29,6 @@ const DETAIL_IMAGE_OVERRIDES = Object.freeze({
     "headlines-screen.png": "./assets/cases/news-app/screen-only/headlines.png",
     "feed-screen.png": "./assets/cases/news-app/screen-only/feed.png",
     "discover-screen.png": "./assets/cases/news-app/screen-only/discover.png",
-  }),
-});
-
-const DETAIL_FIRST_SCREEN_OVERRIDES = Object.freeze({
-  "signal-grid": Object.freeze({
-    legacyPrefix: "demo/signal-grid/screenshots/",
-    canonical: "./demo/signal-grid/screenshots/library-preview-2x.png",
-  }),
-  "still-form": Object.freeze({
-    legacyPrefix: "demo/still-form/screenshots/",
-    canonical: "./demo/still-form/screenshots/library-preview-2x.png",
   }),
 });
 
@@ -72,29 +60,15 @@ function normalizeGalleryCardSource(image, caseId = "") {
 function normalizeDetailScreenSource(image, caseId) {
   if (!image || !caseId) return false;
   const src = image.getAttribute("src") || "";
-
   const mapped = DETAIL_IMAGE_OVERRIDES[caseId];
-  if (mapped) {
-    for (const [legacyName, canonical] of Object.entries(mapped)) {
-      if (src.includes(legacyName)) {
-        image.setAttribute("src", canonical);
-        image.dataset.previewSourceNormalized = "screen-only";
-        return true;
-      }
-    }
-  }
+  if (!mapped) return false;
 
-  const firstScreen = DETAIL_FIRST_SCREEN_OVERRIDES[caseId];
-  if (
-    firstScreen &&
-    src.includes(firstScreen.legacyPrefix) &&
-    !src.includes("library-preview-2x.png")
-  ) {
-    image.setAttribute("src", firstScreen.canonical);
+  for (const [legacyName, canonical] of Object.entries(mapped)) {
+    if (!src.includes(legacyName)) continue;
+    image.setAttribute("src", canonical);
     image.dataset.previewSourceNormalized = "screen-only";
     return true;
   }
-
   return false;
 }
 
@@ -105,7 +79,6 @@ function normalizeDetailVideoSource(video, caseId) {
 
   const src = video.getAttribute("src") || "";
   if (!src || src === canonical || src.includes("/screen-only/demo.mp4")) return false;
-
   video.setAttribute("src", canonical);
   video.dataset.previewSourceNormalized = "screen-only";
   video.load();
@@ -125,9 +98,7 @@ function setFramePresentation(frame, width, height, { forceDevice = false, caseI
   if (!frame) return;
 
   const profile = caseId ? getLibraryPreviewProfile(caseId) : null;
-  const presentation = forceDevice
-    ? "device"
-    : getPreviewMediaPresentation(width, height, { caseId });
+  const presentation = forceDevice ? "device" : getPreviewMediaPresentation(width, height, { caseId });
   const isArtboard = presentation === "artboard";
 
   frame.classList.toggle("is-artboard-preview", isArtboard);
@@ -245,35 +216,10 @@ function installDetailPresentation() {
   syncVisibleMode();
 }
 
-function installLegacyScaleNormalization() {
-  const frame = document.querySelector("#previewMediaFrame");
-  if (!frame) return;
-
-  let lastCorrectedValue = "";
-  const correctScale = () => {
-    const raw = frame.style.getPropertyValue("--preview-embed-scale").trim();
-    if (!raw || raw === lastCorrectedValue) return;
-
-    const scale = Number.parseFloat(raw);
-    if (!Number.isFinite(scale) || scale <= 0) return;
-
-    const corrected = String(scale / LEGACY_SCALE_OVERSHOOT);
-    lastCorrectedValue = corrected;
-    frame.style.setProperty("--preview-embed-scale", corrected);
-  };
-
-  new MutationObserver(correctScale).observe(frame, {
-    attributes: true,
-    attributeFilter: ["style"]
-  });
-  correctScale();
-}
-
 function installDevicePreview() {
   document.documentElement.dataset.previewContract = previewContractVersion;
   bindGalleryCards();
   installDetailPresentation();
-  installLegacyScaleNormalization();
 }
 
 if (document.readyState === "loading") {
