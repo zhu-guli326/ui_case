@@ -1,9 +1,14 @@
 import { styleGuides } from "../../../catalog/index.js?v=20260815-artmuse-sequence";
 import { applyLibraryCaseOverrides, libraryCaseOverrides } from "./library-case-overrides.mjs";
 
-const REPAIR_VERSION = "20260817-library-qa-v5";
+const REPAIR_VERSION = "20260819-library-qa-v7";
 const guideById = new Map(styleGuides.map((guide) => [guide.id, guide]));
 const repairedIds = applyLibraryCaseOverrides(styleGuides);
+const canonicalCardScreens = Object.freeze({
+  "relay-music": "./demo/relay-music/screenshots/library-preview-2x.png",
+  "signal-grid": "./demo/signal-grid/screenshots/01-scan.png",
+  mimo: "./demo/mimo-activities/screenshots/02-walk-focus.png"
+});
 
 function absolute(src) {
   try { return new URL(src, window.location.href).href; }
@@ -20,7 +25,7 @@ function preferredCardSource(id) {
   // Poster is the canonical single-screen browsing asset. `previewImage` is a
   // fallback because a few older preview images are composite boards containing
   // their own phone hardware and large margins.
-  return guide.poster || guide.previewImage || "";
+  return canonicalCardScreens[id] || guide.poster || guide.previewImage || "";
 }
 
 function fallbackCandidates(id) {
