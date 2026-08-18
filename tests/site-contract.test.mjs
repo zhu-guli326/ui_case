@@ -59,9 +59,15 @@ test("the Learn page uses the canonical shared AppShell navigation", () => {
   const learn = requireText("learn.html");
   const appShell = requireText("src/core/app-shell/app-shell.js");
 
-  assert.match(learn, /src\/core\/app-shell\/app-shell\.js\?v=20260819-skill-nav-v2/);
+  assert.match(learn, /src\/core\/app-shell\/app-shell\.js\?v=20260819-shell-v4/);
   assert.doesNotMatch(learn, /<script[^>]+src="\.\/i18n\.js/);
   assert.match(appShell, /href:\s*"\.\/skills\.html",\s*key:\s*"nav\.skills"/);
+});
+
+test("top-level navigation does not reuse a page-specific iframe shell", () => {
+  const appShell = requireText("src/core/app-shell/app-shell.js");
+  assert.match(appShell, /const ENABLE_EMBEDDED_SHELL = false/);
+  assert.match(appShell, /if \(ENABLE_EMBEDDED_SHELL && navigateInShell\(link\.href\)\)/);
 });
 
 test("the launcher uses the complete shared case catalog through its feature entry", () => {

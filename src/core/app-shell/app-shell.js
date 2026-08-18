@@ -405,6 +405,9 @@
   // The task workspace owns same-page drawers and browser history, so it must
   // remain a top-level document rather than an embedded shell route.
   const SHELL_PAGE_PATTERN = /\/(?:index|library|brands|learn|skills|vocabulary)\.html$/i;
+  // Keep top-level navigation on full document loads. Reusing an iframe shell
+  // makes page-specific layout rules leak into the persistent header.
+  const ENABLE_EMBEDDED_SHELL = false;
   const prefetchedPages = new Set();
   let shellElement = null;
   let shellFrame = null;
@@ -496,7 +499,7 @@
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const link = event.target.closest?.(".site-header a[href], .project-workflow a[href]");
     if (!link || link.target === "_blank") return;
-    if (navigateInShell(link.href)) event.preventDefault();
+    if (ENABLE_EMBEDDED_SHELL && navigateInShell(link.href)) event.preventDefault();
   });
   document.addEventListener("pointerover", (event) => {
     const link = event.target.closest?.(".site-header a[href], .project-workflow a[href]");
@@ -545,7 +548,7 @@
     persistLanguage();
     updateUrl({ replace });
     refresh();
-    if (shellFrame) navigateInShell(window.location.href, { historyMode: "replace", force: true });
+    if (ENABLE_EMBEDDED_SHELL && shellFrame) navigateInShell(window.location.href, { historyMode: "replace", force: true });
   }
 
   window.image2I18n = Object.freeze({
@@ -601,7 +604,7 @@
   });
 
   window.addEventListener("popstate", () => {
-    if (shellFrame || document.body?.classList.contains("site-shell-active")) {
+    if (ENABLE_EMBEDDED_SHELL && (shellFrame || document.body?.classList.contains("site-shell-active"))) {
       navigateInShell(window.location.href, { historyMode: "none", force: true });
     }
   });
