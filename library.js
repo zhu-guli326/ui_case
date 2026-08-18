@@ -87,8 +87,15 @@ const previewImageSets = Object.freeze({
 const cardPreviewImages = Object.freeze({
   museum: "./assets/cases/museum-app/video-frames/01-home.png",
   fashion: "./assets/cases/fashion-shopping-app/card-screen.png",
-  news: "./assets/cases/news-app/card-screen.png",
-  notebook: "./demo/marble-note/screenshots/library-preview-reference-v2.png"
+  news: "./assets/cases/news-app/card-screen.png"
+});
+// Card thumbnails must always be a single screen capture. Several legacy
+// posters are presentation boards (multiple phones or an effect board) and
+// are valid for detail/reference views only.
+const canonicalCardScreens = Object.freeze({
+  "relay-music": "./demo/relay-music/screenshots/library-preview-2x.png",
+  "signal-grid": "./demo/signal-grid/screenshots/01-scan.png",
+  mimo: "./demo/mimo-activities/screenshots/02-walk-focus.png"
 });
 // Card thumbnails must always be a single screen capture. Several legacy
 // posters are presentation boards (multiple phones or an effect board) and
@@ -592,8 +599,10 @@ function renderDemoGallery() {
     const openMode = guide.defaultPreviewMode || mediaMode;
     const openLabel = previewModeLabels[openMode];
     const poster = getCardPoster(guide);
-    const referenceMatchedPoster = cardPreviewImages[guide.id] ? getReferenceMatchedCardPoster(guide) : poster;
-    const deviceArtClass = fittedCardPreviewIds.has(guide.id) ? " has-fitted-device-art" : (guide.previewImage || cardPreviewImages[guide.id] ? " has-wide-device-art" : "");
+    // Card surfaces are intentionally single-screen only. Reference boards and
+    // legacy posters belong to the detail view, never to the browse grid.
+    const referenceMatchedPoster = poster;
+    const deviceArtClass = fittedCardPreviewIds.has(guide.id) ? " has-fitted-device-art" : "";
     const previewActionButtons = [
       guide.video ? `<button class="style-details-button" type="button" data-preview-id="${guide.id}" data-preview-mode="video">${copy.video}</button>` : "",
       guide.liveDemo ? `<button class="style-details-button" type="button" data-preview-id="${guide.id}" data-preview-mode="live">${copy.clickable}</button>` : ""
