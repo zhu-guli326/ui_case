@@ -97,14 +97,6 @@ const canonicalCardScreens = Object.freeze({
   "signal-grid": "./demo/signal-grid/screenshots/01-scan.png",
   mimo: "./demo/mimo-activities/screenshots/02-walk-focus.png"
 });
-// Card thumbnails must always be a single screen capture. Several legacy
-// posters are presentation boards (multiple phones or an effect board) and
-// are valid for detail/reference views only.
-const canonicalCardScreens = Object.freeze({
-  "relay-music": "./demo/relay-music/screenshots/library-preview-2x.png",
-  "signal-grid": "./demo/signal-grid/screenshots/01-scan.png",
-  mimo: "./demo/mimo-activities/screenshots/02-walk-focus.png"
-});
 const fittedCardPreviewIds = new Set(["museum", "fashion", "news"]);
 
 const gallery = document.querySelector("#demoGallery");
