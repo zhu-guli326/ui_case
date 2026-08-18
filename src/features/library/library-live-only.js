@@ -16,9 +16,11 @@ const liveGuideById = new Map(liveGuides.map((guide) => [guide.id, guide]));
  * demo that opens after clicking the card. The Library thumbnail should be a
  * scaled version of the real demo, not a second art-directed preview. */
 const liveDemoCardScreens = Object.freeze({
-  mimo: "./demo/mimo-activities/screenshots/01-carousel.png",
+  mimo: "./demo/mimo-activities/screenshots/02-walk-focus.png",
   moe: "./demo/moe-habits/screenshots/video-2x/01-intro.png",
-  moodly: "./demo/moodly-health/screenshots/01-checkin.png"
+  moodly: "./demo/moodly-health/screenshots/01-checkin.png",
+  "relay-music": "./demo/relay-music/screenshots/library-preview-2x.png",
+  "signal-grid": "./demo/signal-grid/screenshots/01-scan.png"
 });
 
 const gallery = document.querySelector("#demoGallery");
