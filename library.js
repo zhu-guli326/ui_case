@@ -200,8 +200,14 @@ function getPreviewModes(guide) {
   return ["image", guide.video && "video", guide.liveDemo && "live"].filter(Boolean);
 }
 
+function getCanonicalLivePreview(guide) {
+  if (!guide?.liveDemo) return "";
+  return guide.liveDemo.replace(/index\.html$/, "screenshots/library-preview-2x.png");
+}
+
 function getCardPoster(guide) {
-  if (guide.liveDemo) return `${guide.liveDemo.replace(/index\.html$/, "screenshots/library-preview-2x.png")}?v=${libraryPreviewAssetVersion}`;
+  const livePreview = getCanonicalLivePreview(guide);
+  if (livePreview) return `${livePreview}?v=${libraryPreviewAssetVersion}`;
   return guide.previewImage || guide.poster;
 }
 
@@ -211,8 +217,9 @@ function getReferenceMatchedCardPoster(guide) {
 }
 
 function getPreviewPoster(guide) {
+  const livePreview = getCanonicalLivePreview(guide);
+  if (livePreview) return `${livePreview}?v=${libraryPreviewAssetVersion}`;
   if (guide.previewImage) return guide.previewImage;
-  if (guide.liveDemo) return getCardPoster(guide);
   return guide.poster;
 }
 
