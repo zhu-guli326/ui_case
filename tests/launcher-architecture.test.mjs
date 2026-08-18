@@ -157,3 +157,10 @@ test("prompt output remains a bounded sticky rail throughout the desktop flow", 
   assert.match(simplifiedCss, /\.output-review-grid\{[^}]*overflow-y:auto/);
   assert.match(simplifiedCss, /@media\(max-width:980px\)[\s\S]*\.workspace-flow\{display:block;padding-right:0\}[\s\S]*#outputPanel\{position:static/);
 });
+
+test("simplified output rail keeps readable text on its light surface", () => {
+  assert.match(simplifiedCss, /\.launcher-simplified \.prompt-panel\{color:#172019/);
+  assert.match(simplifiedCss, /\.launcher-simplified \.task-summary dd\{color:#26352b\}/);
+  assert.match(simplifiedCss, /\.launcher-simplified \.summary-progress li strong\{color:#26352b\}/);
+  assert.match(simplifiedCss, /\.launcher-simplified \.prompt-actions\{[^}]*background:#f7faf8/);
+});
