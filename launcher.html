@@ -8,11 +8,11 @@
   <title>任务工作区 · IMAGE2 UI</title>
   <link rel="stylesheet" href="./src/features/launcher/launcher.css?v=20260817-brand-library-v5">
   <link rel="stylesheet" href="./src/features/launcher/launcher-workspace.css?v=20260817-architecture-v1">
-  <link rel="stylesheet" href="./src/features/launcher/launcher-simplified.css?v=20260817-simplified-v7">
+  <link rel="stylesheet" href="./src/features/launcher/launcher-simplified.css?v=20260819-layout-v1">
   <link rel="stylesheet" href="./src/features/launcher/launcher-state-contract.css?v=20260817-state-v1">
-  <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260816-arch-v1">
-  <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260816-arch-v1">
-  <script src="./src/core/app-shell/app-shell.js?v=20260816-arch-v1"></script>
+  <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260819-shell-v3">
+  <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260819-shell-v3">
+  <script src="./src/core/app-shell/app-shell.js?v=20260819-shell-v3"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
   <script type="module" src="./src/features/launcher/launcher-entry.js?v=20260817-simplified-v5"></script>
@@ -103,18 +103,18 @@
         <section class="workspace-stage result-stage" id="resultStage" aria-labelledby="resultStageTitle">
           <header class="stage-heading"><div class="stage-heading-copy"><p class="stage-kicker">STEP 03</p><h2 id="resultStageTitle">看结果，然后输出</h2><p>先检查真实页面效果，再确认任务摘要和最终调用指令。</p></div></header>
           <div class="result-stage-body" id="resultStageBody"></div>
-          <aside class="workspace-side prompt-column" id="outputPanel" aria-labelledby="promptTitle">
-            <div class="prompt-panel">
-              <div class="prompt-heading"><div><p id="promptKicker">任务检查</p><h2 id="promptTitle">输出指令</h2></div><span class="ready-state" id="readyState"><i></i><span>等待输入</span></span></div>
-              <div class="output-review-grid">
-                <div class="output-review-summary"><ol class="summary-progress" id="summaryProgress" aria-label="任务进度"></ol><div class="missing-state" id="missingState" role="status" aria-live="polite"></div><dl class="task-summary" id="taskSummary"></dl></div>
-                <section class="prompt-preview" aria-labelledby="promptPreviewTitle"><div class="prompt-preview-heading"><div><h3 id="promptPreviewTitle">完整调用指令</h3><span id="promptEditState">随表单实时更新</span></div><button class="text-button" id="applyGeneratedPrompt" type="button" hidden>应用最新生成</button></div><p class="prompt-sync-notice" id="promptSyncNotice" hidden>表单内容已更新；你的手动修改仍保留。</p><textarea class="prompt-output" id="promptOutput" rows="13" aria-label="可编辑的完整调用指令" spellcheck="false"></textarea></section>
-              </div>
-              <div class="prompt-actions"><span class="primary-action-wrap" id="generatePromptWrap"><button class="generate-button" id="generatePrompt" type="button" aria-describedby="missingState" disabled>生成指令</button></span><button class="secondary-button" id="copyPrompt" type="button">复制指令</button><button class="secondary-button" id="savePreset" type="button">保存快照</button></div>
-            </div>
-          </aside>
         </section>
       </div>
+      <aside class="workspace-side prompt-column" id="outputPanel" aria-labelledby="promptTitle">
+        <div class="prompt-panel">
+          <div class="prompt-heading"><div><p id="promptKicker">任务检查</p><h2 id="promptTitle">输出指令</h2></div><span class="ready-state" id="readyState"><i></i><span>等待输入</span></span></div>
+          <div class="output-review-grid">
+            <div class="output-review-summary"><ol class="summary-progress" id="summaryProgress" aria-label="任务进度"></ol><div class="missing-state" id="missingState" role="status" aria-live="polite"></div><dl class="task-summary" id="taskSummary"></dl></div>
+            <section class="prompt-preview" aria-labelledby="promptPreviewTitle"><div class="prompt-preview-heading"><div><h3 id="promptPreviewTitle">完整调用指令</h3><span id="promptEditState">随表单实时更新</span></div><button class="text-button" id="applyGeneratedPrompt" type="button" hidden>应用最新生成</button></div><p class="prompt-sync-notice" id="promptSyncNotice" hidden>表单内容已更新；你的手动修改仍保留。</p><textarea class="prompt-output" id="promptOutput" rows="13" aria-label="可编辑的完整调用指令" spellcheck="false"></textarea></section>
+          </div>
+          <div class="prompt-actions"><span class="primary-action-wrap" id="generatePromptWrap"><button class="generate-button" id="generatePrompt" type="button" aria-describedby="missingState" disabled>生成指令</button></span><button class="secondary-button" id="copyPrompt" type="button">复制指令</button><button class="secondary-button" id="savePreset" type="button">保存快照</button></div>
+        </div>
+      </aside>
     </div>
   </main>
 
