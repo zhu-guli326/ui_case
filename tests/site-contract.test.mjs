@@ -55,6 +55,15 @@ test("the Learn progress navigation stays in document flow", () => {
   assert.doesNotMatch(learnStyles, /\.learning-map\s*\{[^}]*position:\s*(?:sticky|fixed)/);
 });
 
+test("the Learn page uses the canonical shared AppShell navigation", () => {
+  const learn = requireText("learn.html");
+  const appShell = requireText("src/core/app-shell/app-shell.js");
+
+  assert.match(learn, /src\/core\/app-shell\/app-shell\.js\?v=20260819-skill-nav-v2/);
+  assert.doesNotMatch(learn, /<script[^>]+src="\.\/i18n\.js/);
+  assert.match(appShell, /href:\s*"\.\/skills\.html",\s*key:\s*"nav\.skills"/);
+});
+
 test("the launcher uses the complete shared case catalog through its feature entry", () => {
   const launcher = requireText("launcher.html");
   const entry = requireText("src/features/launcher/launcher-entry.js");
