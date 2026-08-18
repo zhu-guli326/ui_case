@@ -91,6 +91,7 @@
       { href: "./launcher.html", key: "nav.launcher" },
       { href: "./brands.html", key: "nav.brands" },
       { href: "./learn.html", key: "nav.learn" },
+      { href: "./skills.html", key: "nav.skills" },
     ];
   }
 
