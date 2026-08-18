@@ -404,7 +404,7 @@
 
   // The task workspace owns same-page drawers and browser history, so it must
   // remain a top-level document rather than an embedded shell route.
-  const SHELL_PAGE_PATTERN = /\/(?:index|library|brands|learn|skills|vocabulary)\.html$/i;
+  const SHELL_PAGE_PATTERN = /\/(?:index|library|launcher|brands|learn|skills|vocabulary)\.html$/i;
   // Keep top-level navigation on full document loads. Reusing an iframe shell
   // makes page-specific layout rules leak into the persistent header.
   const ENABLE_EMBEDDED_SHELL = false;
@@ -499,6 +499,12 @@
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const link = event.target.closest?.(".site-header a[href], .project-workflow a[href]");
     if (!link || link.target === "_blank") return;
+    link.classList.add("is-navigating");
+    link.setAttribute("aria-busy", "true");
+    window.setTimeout(() => {
+      link.classList.remove("is-navigating");
+      link.removeAttribute("aria-busy");
+    }, 4000);
     if (ENABLE_EMBEDDED_SHELL && navigateInShell(link.href)) event.preventDefault();
   });
   document.addEventListener("pointerover", (event) => {
