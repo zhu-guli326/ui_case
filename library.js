@@ -90,6 +90,14 @@ const cardPreviewImages = Object.freeze({
   news: "./assets/cases/news-app/card-screen.png",
   notebook: "./demo/marble-note/screenshots/library-preview-reference-v2.png"
 });
+// Card thumbnails must always be a single screen capture. Several legacy
+// posters are presentation boards (multiple phones or an effect board) and
+// are valid for detail/reference views only.
+const canonicalCardScreens = Object.freeze({
+  "relay-music": "./demo/relay-music/screenshots/library-preview-2x.png",
+  "signal-grid": "./demo/signal-grid/screenshots/01-scan.png",
+  mimo: "./demo/mimo-activities/screenshots/02-walk-focus.png"
+});
 const fittedCardPreviewIds = new Set(["museum", "fashion", "news"]);
 
 const gallery = document.querySelector("#demoGallery");
@@ -206,6 +214,8 @@ function getCanonicalLivePreview(guide) {
 }
 
 function getCardPoster(guide) {
+  const canonicalScreen = canonicalCardScreens[guide?.id];
+  if (canonicalScreen) return `${canonicalScreen}?v=${libraryPreviewAssetVersion}`;
   const livePreview = getCanonicalLivePreview(guide);
   if (livePreview) return `${livePreview}?v=${libraryPreviewAssetVersion}`;
   return guide.previewImage || guide.poster;
