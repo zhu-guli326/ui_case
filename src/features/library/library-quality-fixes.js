@@ -188,7 +188,12 @@ function runEnhancements() {
 }
 
 function boot() {
-  refreshGalleryFromSharedCatalog();
+  // library.js performs the initial render itself. Defer the compatibility
+  // refresh until all deferred modules have run, and only use it when the
+  // gallery is still empty; this prevents a second full card render on load.
+  window.setTimeout(() => {
+    if (!document.querySelector("#demoGallery .demo-card")) refreshGalleryFromSharedCatalog();
+  }, 0);
   runEnhancements();
 
   const gallery = document.querySelector("#demoGallery");
