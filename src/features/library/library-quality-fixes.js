@@ -25,7 +25,10 @@ function preferredCardSource(id) {
   // Poster is the canonical single-screen browsing asset. `previewImage` is a
   // fallback because a few older preview images are composite boards containing
   // their own phone hardware and large margins.
-  return canonicalCardScreens[id] || guide.poster || guide.previewImage || "";
+  const livePreview = guide.liveDemo
+    ? guide.liveDemo.replace(/index\.html$/, "screenshots/library-preview-2x.png")
+    : "";
+  return canonicalCardScreens[id] || livePreview || guide.previewImage || "";
 }
 
 function fallbackCandidates(id) {
