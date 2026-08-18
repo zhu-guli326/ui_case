@@ -46,6 +46,15 @@ test("the shared header uses the ONDesign logo lockup", () => {
   assert.ok(readFileSync(path.join(root, "assets/branding/ondesign-wordmark.png")).length > 0);
 });
 
+test("the Learn progress navigation stays in document flow", () => {
+  const learn = requireText("learn.html");
+  const learnStyles = requireText("learn.css");
+
+  assert.match(learn, /learn\.css\?v=20260819-progress-nav-v2/);
+  assert.match(learnStyles, /\.learning-map\s*\{[^}]*position:\s*relative/);
+  assert.doesNotMatch(learnStyles, /\.learning-map\s*\{[^}]*position:\s*(?:sticky|fixed)/);
+});
+
 test("the launcher uses the complete shared case catalog through its feature entry", () => {
   const launcher = requireText("launcher.html");
   const entry = requireText("src/features/launcher/launcher-entry.js");
