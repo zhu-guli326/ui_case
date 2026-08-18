@@ -89,6 +89,12 @@
   transform:none !important; background:#fff !important;
 }
 #previewMediaFrame .phone-media[hidden] { display:none !important; visibility:hidden !important; }
+#previewMediaFrame .phone-media:not([hidden]) {
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  z-index:1 !important;
+}
 /* Legacy raw recordings that still include a generous device board get a small
  * case-scoped crop. Most affected cases now use canonical screen sequences. */
 #previewMediaFrame.is-source-video[data-preview-case-id="loy"] #previewDialogVideo,
