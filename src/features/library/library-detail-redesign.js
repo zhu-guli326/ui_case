@@ -95,6 +95,7 @@ const dialog = document.querySelector("#previewDialog");
 const stage = document.querySelector("#previewMediaStage");
 const frame = document.querySelector("#previewMediaFrame");
 const phoneScreen = document.querySelector("#previewPhoneScreen");
+const image = document.querySelector("#previewDialogImage");
 const video = document.querySelector("#previewDialogVideo");
 const sequence = document.querySelector("#previewDialogSequence");
 const demo = document.querySelector("#previewDialogDemo");
@@ -247,6 +248,14 @@ function syncModePresentation() {
   const guide = sourceGuide();
   const mode = currentMode();
   stage.dataset.previewMode = mode;
+
+  // Keep the active media node explicit. Multiple observers update this dialog
+  // during open/mode changes; relying on a previous `hidden` state can leave a
+  // blank white viewport even though the source and thumbnail loaded correctly.
+  if (image) image.hidden = mode !== "image";
+  if (sequence) sequence.hidden = mode !== "video" || !guide?.videoSequence;
+  if (video) video.hidden = mode !== "video" || Boolean(guide?.videoSequence);
+  if (demo) demo.hidden = mode !== "live";
 
   // A sequence is screen-only and uses the neutral Library viewport. Only a raw
   // MP4 receives source-video treatment for the legacy baked-device fallback.

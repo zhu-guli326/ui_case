@@ -137,6 +137,14 @@ nav.site-nav.site-nav > a:focus-visible,
   color: var(--ink, var(--site-ink));
 }
 
+nav.site-nav.site-nav > a.is-navigating,
+.site-nav-links > a.is-navigating,
+.project-workflow a.is-navigating {
+  opacity: .58;
+  pointer-events: none;
+  cursor: progress;
+}
+
 nav.site-nav.site-nav > a[aria-current="page"],
 .site-nav-links > a[aria-current="page"],
 .site-nav-more.is-current > summary {

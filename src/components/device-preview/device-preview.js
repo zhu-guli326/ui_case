@@ -12,6 +12,8 @@ const CARD_SCREEN_ONLY_OVERRIDES = Object.freeze({
   fashion: "./assets/cases/fashion-shopping-app/screen-only/hero.png",
   museum: "./assets/cases/museum-app/video-frames/01-home.png",
   news: "./assets/cases/news-app/screen-only/headlines.png",
+  "signal-grid": "./demo/signal-grid/screenshots/library-preview-2x.png",
+  "still-form": "./demo/still-form/screenshots/library-preview-2x.png",
 });
 
 const DETAIL_IMAGE_OVERRIDES = Object.freeze({

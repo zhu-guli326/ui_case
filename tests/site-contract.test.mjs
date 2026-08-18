@@ -59,7 +59,7 @@ test("the Learn page uses the canonical shared AppShell navigation", () => {
   const learn = requireText("learn.html");
   const appShell = requireText("src/core/app-shell/app-shell.js");
 
-  assert.match(learn, /src\/core\/app-shell\/app-shell\.js\?v=20260819-shell-v4/);
+  assert.match(learn, /src\/core\/app-shell\/app-shell\.js\?v=20260819-shell-v5/);
   assert.doesNotMatch(learn, /<script[^>]+src="\.\/i18n\.js/);
   assert.match(appShell, /href:\s*"\.\/skills\.html",\s*key:\s*"nav\.skills"/);
 });
