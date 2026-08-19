@@ -1,4 +1,6 @@
-const STYLE_VERSION = "20260817-simplified-v5";
+import { fontPresets, normalizeFontPresetId, localizeFontPreset } from "../../../catalog/font-presets.js";
+
+const STYLE_VERSION = "20260819-font-control-v2";
 const q = (selector) => document.querySelector(selector);
 const qa = (selector, root = document) => [...root.querySelectorAll(selector)];
 const locale = () => {
@@ -18,6 +20,7 @@ function installStyles() {
 }
 
 function sectionMarkup() {
+  const fontOptions = fontPresets.map((preset) => `<option value="${preset.id}">${localizeFontPreset(preset, locale()).name}</option>`).join("");
   return `
     <header class="preview-lab-head">
       <div class="preview-lab-head-copy"><h2 id="livePreviewTitle">${localized("页面预览", "Page preview")}</h2><p>${localized("这里只保留一个完整页面预览。平台、Design System 和页面模板会直接同步到这里。", "This is the single full-page preview. Platform, design system, and page template sync here directly.")}</p></div>
@@ -27,6 +30,7 @@ function sectionMarkup() {
       <label class="preview-field"><span>${localized("页面", "Page")}</span><select id="previewPageTemplate"><option value="account">${localized("账户设置 / Account Settings", "Account Settings")}</option><option value="dashboard">${localized("数据面板 / Dashboard", "Dashboard")}</option><option value="commerce">${localized("商品详情 / Product Detail", "Product Detail")}</option><option value="editorial">${localized("内容主页 / Editorial Home", "Editorial Home")}</option></select></label>
       <div class="preview-field"><span>${localized("设备", "Device")}</span><div class="preview-segment" id="previewDeviceSegment" role="group"><button type="button" data-size="desktop" aria-pressed="false">Desktop</button><button type="button" data-size="tablet" aria-pressed="false">Tablet</button><button type="button" data-size="mobile" class="is-active" aria-pressed="true">Mobile</button></div></div>
       <div class="preview-field"><span>${localized("主题", "Theme")}</span><div class="preview-segment" id="previewThemeSegment" role="group"><button type="button" data-theme="light" class="is-active" aria-pressed="true">Light</button><button type="button" data-theme="dark" aria-pressed="false">Dark</button></div></div>
+      <label class="preview-field"><span>${localized("字体方案", "Typography")}</span><select id="previewFontScheme">${fontOptions}</select></label>
       <label class="preview-field"><span>${localized("语言", "Language")}</span><select id="previewLanguage"><option value="zh">简体中文</option><option value="en">English</option></select></label>
       <div class="preview-current">${localized("当前系统：", "System: ")}<b id="previewCurrentSystem">${localized("跟随上方选择", "Follow selection")}</b></div>
     </div>
@@ -88,9 +92,11 @@ function init() {
   const liveDevice = q("#livePreviewDevice");
   const pageSelect = q("#previewPageTemplate");
   const languageSelect = q("#previewLanguage");
+  const fontSelect = q("#previewFontScheme");
   const currentSystem = q("#previewCurrentSystem");
-  if (!stage || !liveDevice || !pageSelect || !languageSelect || !currentSystem) return;
+  if (!stage || !liveDevice || !pageSelect || !languageSelect || !fontSelect || !currentSystem) return;
   languageSelect.value = locale();
+  fontSelect.value = document.querySelector('input[name="fontScheme"]:checked')?.value || normalizeFontPresetId("system-ui-cjk");
 
   function renderPage() {
     const type = pageSelect.value || "account";
@@ -139,11 +145,16 @@ function init() {
 
   pageSelect.addEventListener("change", renderPage);
   languageSelect.addEventListener("change", renderPage);
+  fontSelect.addEventListener("change", () => window.dispatchEvent(new CustomEvent("image2:launcherfontchange", { detail: { fontScheme: fontSelect.value } })));
   qa("#previewDeviceSegment button", section).forEach((button) => button.addEventListener("click", () => setDevice(button.dataset.size)));
   qa("#previewThemeSegment button", section).forEach((button) => button.addEventListener("click", () => setTheme(button.dataset.theme)));
 
   window.addEventListener("image2:launcherdesignchange", (event) => syncDesignMetadata(event.detail));
   window.addEventListener("image2:launcherplatformchange", (event) => setDeviceForPlatform(event.detail?.platform || currentPlatform()));
+  window.addEventListener("image2:launcherfontchange", (event) => {
+    const value = normalizeFontPresetId(event.detail?.fontScheme);
+    if (fontSelect.value !== value) fontSelect.value = value;
+  });
   window.image2I18n?.registerPage?.(() => {
     languageSelect.value = locale();
     renderPage();

@@ -555,6 +555,7 @@ function applyFontPresetChoice(value) {
     },
   });
   syncFontPresetUi(fontPreset);
+  window.dispatchEvent(new CustomEvent("image2:launcherfontchange", { detail: { fontScheme: fontPreset } }));
   updateOutput();
   track("launcher_font_preset_change", { fontPreset, intent: activeIntent() });
 }
