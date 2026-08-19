@@ -7,7 +7,7 @@ const repairedIds = applyLibraryCaseOverrides(styleGuides);
 const canonicalCardScreens = Object.freeze({
   "relay-music": "./demo/relay-music/screenshots/library-preview-2x.png",
   "signal-grid": "./demo/signal-grid/screenshots/01-scan.png",
-  mimo: "./demo/mimo-activities/screenshots/02-walk-focus.png"
+  mimo: "./demo/mimo-activities/screenshots/library-preview-2x.png"
 });
 
 function absolute(src) {
