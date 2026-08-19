@@ -197,6 +197,12 @@
 .preview-dialog-more.case-design-notes > summary::after { color:#777771; content:"+"; font-size:16px; }
 .preview-dialog-more.case-design-notes[open] > summary::after { content:"−"; }
 .case-design-notes-content { padding:2px 0 14px; }
+.preview-dialog-code { margin:0; border-top:1px solid #e7e7e2; border-bottom:1px solid #e7e7e2; }
+.preview-dialog-code > summary { display:flex; min-height:48px; align-items:center; justify-content:space-between; gap:12px; cursor:pointer; list-style:none; }
+.preview-dialog-code > summary::-webkit-details-marker { display:none; }
+.preview-dialog-code > summary span { color:#292925; font-size:12px; font-weight:750; }
+.preview-dialog-code > summary small { color:#777771; font-size:10px; }
+.preview-dialog-code pre { max-height:230px; margin:0 0 14px; padding:14px; overflow:auto; border-radius:10px; background:#172019; color:#e8f5ea; font:500 11px/1.65 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace; white-space:pre-wrap; }
 .case-design-notes-content dl { display:grid; gap:12px; margin:0; }
 .case-design-notes-content dl > div { display:grid; gap:4px; }
 .case-design-notes-content dt { color:#999992; font-size:9px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; }

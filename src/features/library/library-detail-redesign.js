@@ -138,6 +138,13 @@ function currentGuide() {
   return localized(sourceGuide());
 }
 
+function codeContract(guide) {
+  const isFuFu = guide?.id === "fufu";
+  return isFuFu
+    ? `<!-- FuFu Bakery: readable UI stays in code -->\n<header class="statusbar">\n  <time>10:04</time>\n  <span class="status-icons" aria-label="Signal, Wi-Fi and battery">\n    <svg aria-hidden="true"><use href="#i-signal"></use></svg>\n    <svg aria-hidden="true"><use href="#i-wifi"></use></svg>\n    <svg aria-hidden="true"><use href="#i-battery"></use></svg>\n  </span>\n</header>\n<nav class="tabbar" aria-label="Primary navigation">\n  <button class="tab is-active">小店</button>\n  <button class="tab">菜单</button>\n  <button class="tab">会员</button>\n</nav>`
+    : `// ${guide?.name || "UI case"}: coded interface contract\nconst screen = {\n  size: "390 × 844",\n  statusBar: "code-rendered",\n  navigation: "code-rendered",\n  components: "${guide?.recipe?.components || "semantic controls and states"}"\n};`;
+}
+
 function currentMode() {
   return modeSwitch?.querySelector("[data-preview-view].is-active")?.dataset.previewView || "image";
 }
@@ -193,6 +200,10 @@ function renderDetails() {
         <div><dt>${typeLabel}</dt><dd>${escapeHtml(guide.recipe?.type)}</dd></div>
         <div><dt>${imageLabel}</dt><dd>${escapeHtml(guide.recipe?.image)}</dd></div>
       </dl></div>
+    </details>
+    <details class="preview-dialog-code">
+      <summary><span>${isEnglish() ? "Code implementation" : "代码实现"}</span><small>${isEnglish() ? "Readable UI layer" : "可读界面层"}</small></summary>
+      <pre><code>${escapeHtml(codeContract(guide))}</code></pre>
     </details>`;
 }
 
