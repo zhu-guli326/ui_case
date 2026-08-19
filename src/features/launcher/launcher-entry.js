@@ -1,4 +1,4 @@
-const VERSION = "20260817-simplified-v5";
+const VERSION = "20260819-consolidated-controls-v6";
 
 function reportFailure(label, error) {
   console.error(`[launcher] ${label} failed to load`, error);
@@ -24,6 +24,7 @@ async function boot() {
   await load("design-system", `./launcher-design-system.js?v=${VERSION}`);
   await load("final-preview", `./launcher-live-preview.js?v=${VERSION}`);
   await load("runtime", `./launcher-simplified-runtime.js?v=${VERSION}`);
+  await load("consolidated-controls", `./launcher-platform-merge.js?v=${VERSION}`);
 }
 
 boot().catch(() => {});
