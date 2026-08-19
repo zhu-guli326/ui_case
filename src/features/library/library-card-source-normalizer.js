@@ -22,7 +22,7 @@ const canonicalCardScreens = Object.freeze({
   loy: "./demo/loy-wellness/screenshots/03-welcome.png",
   moodly: "./demo/moodly-health/screenshots/01-checkin.png",
   reflect: "./demo/reflect-journal/screenshots/01-home.png",
-  mimo: "./demo/mimo-activities/screenshots/01-carousel.png"
+  mimo: "./demo/mimo-activities/screenshots/library-preview-2x.png"
 });
 
 function normalizeCard(card) {
