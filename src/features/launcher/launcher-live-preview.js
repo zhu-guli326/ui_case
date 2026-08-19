@@ -1,6 +1,6 @@
 import { fontPresets, normalizeFontPresetId, localizeFontPreset } from "../../../catalog/font-presets.js";
 
-const STYLE_VERSION = "20260819-font-control-v2";
+const STYLE_VERSION = "20260819-readable-preview-v3";
 const q = (selector) => document.querySelector(selector);
 const qa = (selector, root = document) => [...root.querySelectorAll(selector)];
 const locale = () => {
@@ -9,6 +9,33 @@ const locale = () => {
   return window.image2I18n?.language === "en" ? "en" : "zh";
 };
 const localized = (zh, en) => locale() === "en" ? en : zh;
+
+function parseHexColor(value) {
+  const match = String(value || "").trim().match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+  if (!match) return null;
+  const hex = match[1].length === 3 ? match[1].split("").map((char) => char + char).join("") : match[1];
+  return [0, 2, 4].map((offset) => parseInt(hex.slice(offset, offset + 2), 16) / 255);
+}
+
+function relativeLuminance(value) {
+  const rgb = parseHexColor(value);
+  if (!rgb) return null;
+  return rgb.reduce((sum, channel, index) => {
+    const linear = channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+    return sum + linear * [0.2126, 0.7152, 0.0722][index];
+  }, 0);
+}
+
+function hasReadableContrast(foreground, background, minimum = 4.5) {
+  const fg = relativeLuminance(foreground);
+  const bg = relativeLuminance(background);
+  if (fg === null || bg === null) return false;
+  return (Math.max(fg, bg) + 0.05) / (Math.min(fg, bg) + 0.05) >= minimum;
+}
+
+function readableColor(candidate, background, fallback) {
+  return hasReadableContrast(candidate, background) ? candidate : fallback;
+}
 
 function installStyles() {
   if (q('link[data-launcher-live-preview]')) return;
@@ -109,11 +136,12 @@ function init() {
   function syncDesignMetadata(state = designStateFromWorkbench()) {
     currentSystem.textContent = state.systemName || localized("跟随上方选择", "Follow selection");
     const colors = state.colors || {};
+    const surface = colors.surface || colors.canvas || "#ffffff";
     const tokens = {
-      "--preview-accent": state.accent,
+      "--preview-accent": readableColor(state.accent, "#ffffff", "#176f43"),
       "--preview-canvas": colors.canvas,
-      "--preview-surface": colors.surface,
-      "--preview-ink": colors.ink,
+      "--preview-surface": surface,
+      "--preview-ink": readableColor(colors.ink, surface, "#172019"),
     };
     Object.entries(tokens).forEach(([name, value]) => {
       if (value) liveDevice.style.setProperty(name, value);

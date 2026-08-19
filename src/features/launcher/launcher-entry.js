@@ -1,4 +1,4 @@
-const VERSION = "20260819-font-control-v7";
+const VERSION = "20260819-readable-preview-v3";
 
 function reportFailure(label, error) {
   console.error(`[launcher] ${label} failed to load`, error);
