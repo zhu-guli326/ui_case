@@ -1205,9 +1205,16 @@ function updatePromptState(generated) {
     updateDraft({ prompt: nextPrompt });
   }
   promptOutput.value = nextPrompt.dirty ? nextPrompt.edited : generated;
+  resizePromptOutput();
   promptEditState.textContent = nextPrompt.dirty ? tr("已手动微调", "Manually edited") : tr("随表单实时更新", "Updates live with the form");
   promptSyncNotice.hidden = !(nextPrompt.dirty && nextPrompt.generated !== nextPrompt.edited);
   applyGeneratedPrompt.hidden = !nextPrompt.dirty;
+}
+
+function resizePromptOutput() {
+  if (!promptOutput) return;
+  promptOutput.style.height = "auto";
+  promptOutput.style.height = `${Math.max(promptOutput.scrollHeight, 210)}px`;
 }
 
 function syncProjectProgress(readiness) {
@@ -1785,6 +1792,7 @@ promptOutput.addEventListener("input", function () {
   promptEditState.textContent = edited === generated ? tr("随表单实时更新", "Updates live with the form") : tr("已手动微调", "Manually edited");
   applyGeneratedPrompt.hidden = edited === generated;
   promptSyncNotice.hidden = edited === generated;
+  resizePromptOutput();
 });
 
 applyGeneratedPrompt.addEventListener("click", function () {
