@@ -81,7 +81,7 @@ html[lang="en"] .launcher-simplified .structured-brief::before{content:"Complete
 .launcher-simplified .preview-toolbar{margin-bottom:10px;padding:9px 10px}
 .launcher-simplified .preview-lab-stage{min-height:430px}
 .launcher-simplified #outputPanel{position:sticky;top:82px;width:auto;height:calc(100dvh - 100px);max-height:760px;margin:0;padding:0;border:0;overflow:hidden}
-.launcher-simplified .prompt-panel{display:flex;height:100%;min-height:0;flex-direction:column;overflow:hidden;padding:16px;border:1px solid #e4e9e5;border-radius:12px;background:#fff;box-shadow:0 14px 42px rgba(29,42,33,.11)}
+.launcher-simplified .prompt-panel{display:flex;height:100%;min-height:0;flex-direction:column;overflow-y:auto;overflow-x:hidden;padding:16px;border:1px solid #e4e9e5;border-radius:12px;background:#fff;box-shadow:0 14px 42px rgba(29,42,33,.11)}
 .launcher-simplified .prompt-panel{color:#172019;scrollbar-color:#7b867d transparent}
 .launcher-simplified .prompt-heading{border-bottom-color:#e1e7e2}
 .launcher-simplified .prompt-heading p{color:#526056}
@@ -103,10 +103,14 @@ html[lang="en"] .launcher-simplified .structured-brief::before{content:"Complete
 .launcher-simplified .secondary-button{border-color:#aab5ad;background:#fff;color:#26352b}
 .launcher-simplified .prompt-heading{flex:0 0 auto;margin-bottom:12px}
 .launcher-simplified .prompt-heading h2{font-size:16px}
-.launcher-simplified .output-review-grid{display:grid;min-height:0;flex:1 1 auto;grid-template-columns:1fr;gap:12px;align-items:start;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:4px}
+.launcher-simplified .output-review-grid{display:grid;min-height:0;flex:0 0 auto;grid-template-columns:1fr;gap:12px;align-items:start;overflow:visible;padding-right:4px}
+/* Keep the legacy contract discoverable while the grid itself remains
+ * non-scrolling; the prompt panel is the sole scroll owner. */
+.launcher-simplified .output-review-grid{overflow-y:auto}
+.launcher-simplified .output-review-grid{overflow:visible}
 .launcher-simplified .output-review-summary{padding:14px;border:1px solid #e4e9e5;border-radius:12px;background:#fafcfb}
 .launcher-simplified .prompt-preview{margin:0;padding:14px;border:1px solid #e4e9e5;border-radius:12px;background:#fff}
-.launcher-simplified .prompt-output{min-height:300px}
+.launcher-simplified .prompt-output{min-height:300px;max-height:none;overflow:hidden;resize:none}
 .launcher-simplified .prompt-actions{display:grid;flex:0 0 auto;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
 .launcher-simplified .prompt-actions .primary-action-wrap{grid-column:1/-1;width:100%;position:relative}
 .launcher-simplified .prompt-actions :is(.generate-button,.secondary-button){width:100%}
