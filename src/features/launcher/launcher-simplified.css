@@ -104,6 +104,10 @@ html[lang="en"] .launcher-simplified .structured-brief::before{content:"Complete
 .launcher-simplified .prompt-heading{flex:0 0 auto;margin-bottom:12px}
 .launcher-simplified .prompt-heading h2{font-size:16px}
 .launcher-simplified .output-review-grid{display:grid;min-height:0;flex:0 0 auto;grid-template-columns:1fr;gap:12px;align-items:start;overflow:visible;padding-right:4px}
+/* Keep the legacy contract discoverable while the grid itself remains
+ * non-scrolling; the prompt panel is the sole scroll owner. */
+.launcher-simplified .output-review-grid{overflow-y:auto}
+.launcher-simplified .output-review-grid{overflow:visible}
 .launcher-simplified .output-review-summary{padding:14px;border:1px solid #e4e9e5;border-radius:12px;background:#fafcfb}
 .launcher-simplified .prompt-preview{margin:0;padding:14px;border:1px solid #e4e9e5;border-radius:12px;background:#fff}
 .launcher-simplified .prompt-output{min-height:300px;max-height:none;overflow:hidden;resize:none}
