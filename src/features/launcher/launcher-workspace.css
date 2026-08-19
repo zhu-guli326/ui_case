@@ -208,7 +208,7 @@
 .platform-hint > span:last-child { white-space: nowrap; color: #176b41; font-weight: 800; }
 
 .color-theme-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
-.color-theme-card { min-height: 84px; grid-template-rows: 1fr; border-radius: 10px; background: #fafbfa; }
+.color-theme-card { min-height: 84px; grid-template-rows: 1fr; border-radius: 10px; background: var(--theme-canvas, #fafbfa); color: var(--theme-ink, #202721); border-color: var(--theme-border, #dfe5e0); }
 .color-theme-choice { grid-template-columns: 54px minmax(0, 1fr); gap: 10px; padding: 11px 30px 11px 10px; }
 .color-theme-palette { width: 54px; height: 44px; border-radius: 6px; }
 .color-theme-copy { gap: 3px; }
