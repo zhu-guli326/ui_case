@@ -58,7 +58,7 @@ html[lang="en"] .launcher-simplified .structured-brief::before{content:"Complete
 .launcher-simplified .platform-icon svg{width:22px;height:22px}
 .launcher-simplified .platform-hint{margin-top:8px;padding:8px 10px}
 .launcher-simplified .color-theme-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
-.launcher-simplified .color-theme-card{min-height:76px}
+.launcher-simplified .color-theme-card{min-height:76px;background:var(--theme-canvas,#fafbfa);color:var(--theme-ink,#202721);border-color:var(--theme-border,#dfe5e0)}
 .launcher-simplified #designSystemWorkbench.design-system-workbench{display:block!important;margin-top:14px;padding:14px;border:1px solid #e4e9e5;border-radius:12px;background:#fafcfb}
 .launcher-simplified .ds-toolbar{margin-bottom:10px}
 .launcher-simplified .ds-toolbar strong{font-size:11px}
