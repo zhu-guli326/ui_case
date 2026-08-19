@@ -1,4 +1,4 @@
-const VERSION = "20260819-readable-preview-v3";
+const VERSION = "20260819-freeze-v1";
 
 function reportFailure(label, error) {
   console.error(`[launcher] ${label} failed to load`, error);

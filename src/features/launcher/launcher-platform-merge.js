@@ -6,8 +6,6 @@
 
   ready(() => {
     if (!document.body.classList.contains("launcher-workspace")) return;
-    const isEnglish = () => new URL(location.href).searchParams.get("lang") === "en" || window.image2I18n?.language === "en";
-    const localize = (zh, en) => isEnglish() ? en : zh;
 
     const style = document.createElement("style");
     style.textContent = `
@@ -164,6 +162,9 @@
       if (!detail) { detail = document.createElement("div"); detail.className = "format-platform-detail"; picker.insertAdjacentElement("afterend", detail); }
       const render = () => {
         const options = platformData(select.value);
+        const signature = JSON.stringify([select.value, options.map((item) => item.slice(0, 3)), localStorage.getItem("image2-ui-target-platform") || ""]);
+        if (detail.dataset.signature === signature) { syncPlatformSummary(''); return; }
+        detail.dataset.signature = signature;
         if (!options.length) { detail.classList.remove("is-visible"); detail.innerHTML = ""; syncPlatformSummary(''); return; }
         const saved = localStorage.getItem("image2-ui-target-platform");
         const validKeys = options.map((x) => x[0]);
@@ -202,7 +203,7 @@
       let field = toolbar.querySelector('#previewColorField');
       if (!field) {
         field = document.createElement('div'); field.id = 'previewColorField'; field.className = 'preview-color-field';
-        field.innerHTML = '<span>' + localize("颜色", "Color") + '</span><div class="preview-color-picker"><button class="preview-color-button" type="button"><i></i><strong>' + localize("选择颜色", "Choose color") + '</strong><span>⌄</span></button><div class="preview-color-menu"></div></div>';
+        field.innerHTML = '<span>颜色</span><div class="preview-color-picker"><button class="preview-color-button" type="button"><i></i><strong>选择颜色</strong><span>⌄</span></button><div class="preview-color-menu"></div></div>';
         const current = toolbar.querySelector('.preview-current');
         toolbar.insertBefore(field, current || null);
         const picker = field.querySelector('.preview-color-picker');
@@ -211,8 +212,7 @@
       const data = sourceCards.map(colorDataFromCard).filter(Boolean);
       const active = data.find((x) => x.checked) || data[0];
       const button = field.querySelector('.preview-color-button');
-      field.querySelector(':scope > span').textContent = localize("颜色", "Color");
-      button.querySelector('strong').textContent = active?.title || localize("选择颜色", "Choose color");
+      button.querySelector('strong').textContent = active?.title || '选择颜色';
       button.querySelector('i').innerHTML = (active?.swatches || []).slice(0,4).map((c) => '<b style="background:'+c+'"></b>').join('');
       const menu = field.querySelector('.preview-color-menu');
       menu.innerHTML = '';
@@ -243,7 +243,10 @@
       const system = valueText("#previewSystemName", valueText("#previewCurrentSystem", "当前设计系统"));
       const font = valueText("#dsFontSample", "System UI"); const radius = valueText("#dsRadius", "—"); const spacing = valueText("#dsSpacing", "—"); const density = valueText("#dsDensity", "—");
       const components = document.querySelector('[data-ds-panel="components"] .component-strip');
-      summary.innerHTML = `<div class="final-brand-main"><div class="final-brand-swatches">${swatches}</div><div class="final-brand-copy"><small>${localize("设计系统", "Brand system")}</small><strong>${system}</strong></div></div><div class="final-brand-item"><small>${localize("字体方案", "Typography")}</small><strong>${font}</strong><span>${localize("当前字体方案", "Current font scheme")}</span></div><div class="final-brand-item"><small>${localize("圆角", "Radius")}</small><strong>${radius}</strong><span>${localize("圆角基准", "Radius baseline")}</span></div><div class="final-brand-item"><small>${localize("间距", "Spacing")}</small><strong>${spacing}</strong><span>${localize("间距基准", "Spacing baseline")}</span></div><div class="final-brand-item"><small>${localize("密度", "Density")}</small><strong>${density}</strong><span>${localize("界面密度", "Interface density")}</span></div><details class="final-brand-details"><summary>${localize("查看当前组件骨架", "View component anatomy")}</summary><div class="final-brand-components"></div></details>`;
+      const signature = [swatches, system, font, radius, spacing, density, components?.innerHTML || ""].join("|");
+      if (summary.dataset.signature === signature) return;
+      summary.dataset.signature = signature;
+      summary.innerHTML = `<div class="final-brand-main"><div class="final-brand-swatches">${swatches}</div><div class="final-brand-copy"><small>Brand system</small><strong>${system}</strong></div></div><div class="final-brand-item"><small>Typography</small><strong>${font}</strong><span>当前字体方案</span></div><div class="final-brand-item"><small>Radius</small><strong>${radius}</strong><span>圆角基准</span></div><div class="final-brand-item"><small>Spacing</small><strong>${spacing}</strong><span>间距基准</span></div><div class="final-brand-item"><small>Density</small><strong>${density}</strong><span>界面密度</span></div><details class="final-brand-details"><summary>查看当前组件骨架</summary><div class="final-brand-components"></div></details>`;
       const target = summary.querySelector(".final-brand-components"); if (components && target) target.innerHTML = components.innerHTML;
     }
 
@@ -257,13 +260,18 @@
     }
     const taskSummary = document.querySelector('#taskSummary');
     if (taskSummary) new MutationObserver(() => syncPlatformSummary()).observe(taskSummary, { childList:true, subtree:true, characterData:true });
-    const componentPickerObserver = new MutationObserver(() => dedupeComponentSystemPicker());
-    componentPickerObserver.observe(document.body, { childList:true, subtree:true });
-    const previewLabObserver = new MutationObserver(() => { const label = document.querySelector("#previewLabSection .flow-label span"); if (label) label.textContent = "4"; syncPreviewColorPicker(); syncBrandSummary(); });
-    previewLabObserver.observe(document.body, { childList: true, subtree: true });
-    const workbench = document.querySelector("#designSystemWorkbench"); if (workbench) new MutationObserver(() => { syncPreviewColorPicker(); syncBrandSummary(); }).observe(workbench, { subtree: true, childList: true, characterData: true, attributes: true });
+    const previewLab = document.querySelector("#previewLabSection");
+    if (previewLab) {
+      const previewLabObserver = new MutationObserver(() => {
+        const label = previewLab.querySelector(".flow-label span");
+        if (label && label.textContent !== "4") label.textContent = "4";
+        syncPreviewColorPicker();
+        syncBrandSummary();
+      });
+      previewLabObserver.observe(previewLab, { childList: true, subtree: true });
+    }
+    const workbench = document.querySelector("#designSystemWorkbench"); if (workbench) new MutationObserver(() => { syncPreviewColorPicker(); syncBrandSummary(); }).observe(workbench, { subtree: true, childList: true, characterData: true });
     document.addEventListener("change", () => setTimeout(() => { moveDeliveryUnderBrief(); dedupeComponentSystemPicker(); syncPreviewColorPicker(); syncBrandSummary(); syncPlatformSummary(); }, 40));
-    window.image2I18n?.registerPage?.(() => { syncPreviewColorPicker(); syncBrandSummary(); syncPlatformSummary(); });
     enhance(); moveDeliveryUnderBrief(); dedupeComponentSystemPicker(); syncPreviewColorPicker(); syncBrandSummary(); syncPlatformSummary();
   });
 })();
