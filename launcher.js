@@ -57,6 +57,7 @@ const form = document.querySelector("#launcherForm");
 const intentForm = document.querySelector("#intentForm");
 const modeTabs = document.querySelector("#modeTabs");
 const styleDirectionGrid = document.querySelector("#styleDirectionGrid");
+const foundationTypography = document.querySelector("#foundationTypography");
 const colorThemeGrid = document.querySelector("#colorThemeGrid");
 const colorThemeTitle = document.querySelector("#colorThemeTitle");
 const colorThemeIntro = document.querySelector("#colorThemeIntro");
@@ -103,15 +104,15 @@ const fontStylesheetStates = new Map();
 const launcherTranslations = {
   "launcher.metaDescription": { zh: "用三个清晰步骤定义任务、选择设计规则并预览输出 IMAGE2 UI 指令。", en: "Define your task, choose design rules, and preview the output prompt in three clear steps." },
   "launcher.pageTitle": { zh: "任务工作区 · IMAGE2 UI", en: "Task workspace · IMAGE2 UI" },
-  "launcher.pageKicker": { zh: "IMAGE2 UI · 工作区", en: "IMAGE2 UI · Workspace" },
-  "launcher.pageTitleH1": { zh: "从零创建界面", en: "Create an interface from scratch" },
-  "launcher.pageIntro": { zh: "先把任务说清楚，再决定设计规则，最后看页面并输出可执行指令。", en: "Describe the task, decide design rules, then review and export an executable prompt." },
+  "launcher.pageKicker": { zh: "需求驱动设计工作台", en: "Brief-led design workspace" },
+  "launcher.pageTitleH1": { zh: "先说清需求，再确定设计基调", en: "Define the brief, then set the design direction" },
+  "launcher.pageIntro": { zh: "先描述产品目标与实现范围，再选择设计规范、字体和样式，最后检查效果并输出。", en: "Describe the product goal and scope, then choose the system, typography, and style before reviewing the result." },
   "launcher.stepNavLabel": { zh: "任务流程", en: "Task flow" },
-  "launcher.stepTask": { zh: "定义任务", en: "Define task" },
-  "launcher.stepDesign": { zh: "设计约束", en: "Design constraints" },
+  "launcher.stepTask": { zh: "描述需求", en: "Describe brief" },
+  "launcher.stepDesign": { zh: "选择样式", en: "Choose style" },
   "launcher.stepOutput": { zh: "预览与输出", en: "Preview & output" },
-  "launcher.taskDefinitionTitle": { zh: "你要完成什么？", en: "What do you want to build?" },
-  "launcher.taskDefinitionIntro": { zh: "先选任务类型，再只填写这个任务真正需要的信息。", en: "Pick a task type, then only fill in what this task really needs." },
+  "launcher.taskDefinitionTitle": { zh: "先把需求描述清楚", en: "Describe the brief first" },
+  "launcher.taskDefinitionIntro": { zh: "先确定任务类型、目标用户、核心任务与交付范围；暂时不讨论视觉样式。", en: "Define the task, audience, core job, and delivery scope before discussing visual style." },
   "launcher.modeTitle": { zh: "任务类型", en: "Task type" },
   "launcher.modeIntro": { zh: "切换任务只改变下面的输入项，不改变后续流程。", en: "Switching tasks only changes the inputs below, not the flow." },
   "launcher.modeTabsLabel": { zh: "任务模式", en: "Task mode" },
@@ -125,8 +126,8 @@ const launcherTranslations = {
   "launcher.modeExploreDetail": { zh: "结构、风险和缺口", en: "Structure, risks, gaps" },
   "launcher.modeSystemTitle": { zh: "比较设计系统", en: "Compare design systems" },
   "launcher.modeSystemDetail": { zh: "同一目标下比较", en: "Compare on the same goal" },
-  "launcher.designDecisionsTitle": { zh: "页面应该怎么做？", en: "How should the page work?" },
-  "launcher.designDecisionsIntro": { zh: "只保留三类设计决定：视觉方向、目标平台、Design System。", en: "Only three design decisions: visual direction, target platform, and design system." },
+  "launcher.designDecisionsTitle": { zh: "再选择设计样式", en: "Then choose the design direction" },
+  "launcher.designDecisionsIntro": { zh: "需求明确后，再组合设计规范、字体、样式与平台，让视觉选择服务于产品目标。", en: "Once the brief is clear, combine system, typography, style, and platform choices around the product goal." },
   "launcher.styleTitle": { zh: "视觉方向", en: "Visual direction" },
   "launcher.styleIntro": { zh: "选整体构图、密度和气质。", en: "Choose overall layout, density, and tone." },
   "launcher.styleGridLabel": { zh: "风格方向", en: "Style direction" },
@@ -143,8 +144,8 @@ const launcherTranslations = {
   "launcher.dsWorkbenchSubtitle": { zh: "字体、Token 和核心组件跟随当前选择。", en: "Type, tokens, and core components follow your selection." },
   "launcher.dsRuleLabel": { zh: "组件规则：", en: "Component rules: " },
   "launcher.dsRuleText": { zh: "优先使用当前系统现成组件；Registry 不存在时才自定义。", en: "Use the current system's existing components first; only customize when the Registry has no match." },
-  "launcher.resultStageTitle": { zh: "看结果，然后输出", en: "See the result, then export" },
-  "launcher.resultStageIntro": { zh: "先检查真实页面效果，再确认任务摘要和最终调用指令。", en: "Check the real page, then confirm the task summary and final prompt." },
+  "launcher.resultStageTitle": { zh: "检查效果，然后输出", en: "Review the result, then export" },
+  "launcher.resultStageIntro": { zh: "切换设备检查字体、密度、组件与整体气质，确认后生成完整执行指令。", en: "Check typography, density, components, and tone across devices, then generate the final prompt." },
   "launcher.promptKicker": { zh: "任务检查", en: "Task check" },
   "launcher.promptTitle": { zh: "输出指令", en: "Output prompt" },
   "launcher.readyState": { zh: "等待输入", en: "Waiting for input" },
@@ -522,7 +523,7 @@ function fontLoadLabel(preset, status) {
 }
 
 function updateFontLoadIndicator(preset, status) {
-  const indicator = intentForm.querySelector("#fontLoadState");
+  const indicator = document.querySelector("#fontLoadState");
   if (!indicator || indicator.dataset.fontPreset !== preset.id) return;
   indicator.dataset.state = status;
   indicator.classList.toggle("is-loading", status === "loading");
@@ -593,24 +594,24 @@ function warmFontPresetSamples() {
 function syncFontPresetUi(value) {
   const preset = findFontPreset(value);
   const localized = localizeFontPreset(preset, language());
-  intentForm.querySelectorAll(".font-preset-card").forEach(function (card) {
+  document.querySelectorAll(".font-preset-card").forEach(function (card) {
     const radio = card.querySelector('input[name="fontScheme"]');
     const selectedPreset = radio?.value === preset.id;
     card.classList.toggle("is-selected", selectedPreset);
     if (radio) radio.checked = selectedPreset;
   });
-  const preview = intentForm.querySelector("[data-font-preview]");
+  const preview = document.querySelector("[data-font-preview]");
   if (!preview) return;
   preview.style.setProperty("--preview-heading-font", preset.roles.display.fontFamily);
   preview.style.setProperty("--preview-body-font", preset.roles.body.fontFamily);
   preview.style.setProperty("--preview-heading-weight", preset.roles.display.weights[preset.roles.display.weights.length - 1] || 700);
   preview.style.setProperty("--preview-body-weight", preset.roles.body.weights[0] || 400);
   preview.style.setProperty("--preview-body-strong-weight", preset.roles.body.weights[preset.roles.body.weights.length - 1] || 600);
-  const name = intentForm.querySelector("#fontPreviewName");
-  const pair = intentForm.querySelector("#fontPreviewPair");
-  const sources = intentForm.querySelector("#fontPreviewSources");
-  const indicator = intentForm.querySelector("#fontLoadState");
-  const description = intentForm.querySelector("#fontPresetDescription");
+  const name = document.querySelector("#fontPreviewName");
+  const pair = document.querySelector("#fontPreviewPair");
+  const sources = document.querySelector("#fontPreviewSources");
+  const indicator = document.querySelector("#fontLoadState");
+  const description = document.querySelector("#fontPresetDescription");
   if (name) name.textContent = localized.name;
   if (pair) pair.textContent = fontFamilyPair(preset);
   if (sources) sources.innerHTML = fontSourceLinksMarkup(preset);
@@ -635,11 +636,8 @@ function applyFontPresetChoice(value) {
 }
 
 function decisionSection(extra) {
-  const decisions = resolveEffectiveDecisions(workspace, activeIntent(), { locale: language() });
-  const body = '<div class="decision-controls">' + currentDecisionOptions("format", "format") +
-    currentDecisionOptions("system", "designSystem") + '</div>' +
-    tokenFoundationMarkup(decisions) + fontPresetMarkup(decisions.fontScheme) + (extra || "");
-  return sectionMarkup("decisionsTitle", tr("交付与实现约束", "Delivery and implementation"), tr("选择本次任务的交付形式与实现约束。", "Choose the deliverable and implementation constraints for this task."), body);
+  const body = '<div class="decision-controls">' + currentDecisionOptions("format", "format") + '</div>' + (extra || "");
+  return sectionMarkup("decisionsTitle", tr("交付与实现深度", "Delivery and implementation depth"), tr("这里先确定交付形式与实现范围；设计规范、字体和样式统一在第二步选择。", "Set delivery format and implementation scope here; system, typography, and style are chosen together in step two."), body);
 }
 
 function referenceMode() {
@@ -891,11 +889,10 @@ function syncDynamicControls() {
 }
 
 function renderIntent() {
-  const copy = intentCopy[activeIntent()][language()];
   document.body.classList.toggle("launcher-intent-create", activeIntent() === "create");
-  pageTitle.textContent = copy[0];
-  pageIntro.textContent = copy[1];
-  pageKicker.textContent = tr("单一任务工作区", "Single task workspace");
+  pageTitle.textContent = tr("先说清需求，再确定设计基调", "Define the brief, then set the design direction");
+  pageIntro.textContent = tr("先描述产品目标与实现范围，再选择设计规范、字体和样式，最后检查效果并输出。", "Describe the product goal and scope, then choose the system, typography, and style before reviewing the result.");
+  pageKicker.textContent = tr("需求驱动设计工作台", "Brief-led design workspace");
   promptKicker.textContent = tr("CODEX 指令准备", "CODEX prompt readiness");
   intentForm.innerHTML = renderers[activeIntent()]();
   intentForm.dataset.intent = activeIntent();
@@ -907,6 +904,13 @@ function renderIntent() {
   });
   syncDynamicControls();
   syncFontPresetUi(resolveEffectiveDecisions(workspace, activeIntent(), { locale: language() }).fontScheme.value);
+}
+
+function renderFoundationTypography() {
+  if (!foundationTypography) return;
+  const decision = resolveEffectiveDecisions(workspace, activeIntent(), { locale: language() }).fontScheme;
+  foundationTypography.innerHTML = fontPresetMarkup(decision);
+  syncFontPresetUi(decision.value);
 }
 
 function styleCardDefinitions() {
@@ -1767,6 +1771,7 @@ function renderAll() {
   renderStyleCards();
   renderColorThemes();
   renderIntent();
+  renderFoundationTypography();
   updateOutput();
 }
 
@@ -1783,6 +1788,10 @@ function applyLanguage() {
 
 styleDirectionGrid.addEventListener("change", function (event) {
   if (event.target.name === "styleDirection") applyStyleChoice(event.target.value);
+});
+
+foundationTypography?.addEventListener("change", function (event) {
+  if (event.target.name === "fontScheme") applyFontPresetChoice(event.target.value);
 });
 
 colorThemeGrid.addEventListener("change", function (event) {

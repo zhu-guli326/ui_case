@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="./src/features/launcher/launcher-workspace.css?v=20260819-heading-unify">
   <link rel="stylesheet" href="./src/features/launcher/launcher-simplified.css?v=20260819-heading-unify">
   <link rel="stylesheet" href="./src/features/launcher/launcher-state-contract.css?v=20260817-state-v1">
+  <link rel="stylesheet" href="./src/features/launcher/launcher-brief-first.css?v=20260820-brief-first-v2">
     <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260819-shell-v5">
     <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260819-shell-v5">
     <script src="./src/core/app-shell/app-shell.js?v=20260819-shell-v5"></script>
@@ -23,13 +24,13 @@
   <main class="launcher-shell" aria-labelledby="pageTitle">
     <header class="page-heading">
       <div class="page-heading-copy">
-        <p class="page-kicker" id="pageKicker" data-i18n="launcher.pageKicker">IMAGE2 UI · 工作区</p>
-        <h1 id="pageTitle" data-i18n="launcher.pageTitleH1">从零创建界面</h1>
-        <p id="pageIntro" data-i18n="launcher.pageIntro">先把任务说清楚，再决定设计规则，最后看页面并输出可执行指令。</p>
+        <p class="page-kicker" id="pageKicker" data-i18n="launcher.pageKicker">需求驱动设计工作台</p>
+        <h1 id="pageTitle" data-i18n="launcher.pageTitleH1">先说清需求，再确定设计基调</h1>
+        <p id="pageIntro" data-i18n="launcher.pageIntro">先描述产品目标与实现范围，再选择设计规范、字体和样式，最后检查效果并输出。</p>
       </div>
       <nav class="launcher-step-nav" aria-label="任务流程" data-i18n-attr="aria-label:launcher.stepNavLabel">
-        <a class="launcher-step-link" href="#taskDefinition" data-launcher-step="task" aria-current="step"><span>01</span><strong data-i18n="launcher.stepTask">定义任务</strong></a>
-        <a class="launcher-step-link" href="#designDecisions" data-launcher-step="design"><span>02</span><strong data-i18n="launcher.stepDesign">设计约束</strong></a>
+        <a class="launcher-step-link" href="#taskDefinition" data-launcher-step="task" aria-current="step"><span>01</span><strong data-i18n="launcher.stepTask">描述需求</strong></a>
+        <a class="launcher-step-link" href="#designDecisions" data-launcher-step="design"><span>02</span><strong data-i18n="launcher.stepDesign">选择样式</strong></a>
         <a class="launcher-step-link" href="#resultStage" data-launcher-step="output"><span>03</span><strong data-i18n="launcher.stepOutput">预览与输出</strong></a>
       </nav>
     </header>
@@ -38,7 +39,7 @@
       <div class="workspace-main">
         <section class="workspace-stage" id="taskDefinition" aria-labelledby="taskDefinitionTitle">
           <header class="stage-heading">
-            <div class="stage-heading-copy"><p class="stage-kicker">STEP 01</p><h2 id="taskDefinitionTitle" data-i18n="launcher.taskDefinitionTitle">你要完成什么？</h2><p data-i18n="launcher.taskDefinitionIntro">先选任务类型，再只填写这个任务真正需要的信息。</p></div>
+            <div class="stage-heading-copy"><p class="stage-kicker">STEP 01</p><h2 id="taskDefinitionTitle" data-i18n="launcher.taskDefinitionTitle">先把需求描述清楚</h2><p data-i18n="launcher.taskDefinitionIntro">先确定任务类型、目标用户、核心任务与交付范围；暂时不讨论视觉样式。</p></div>
           </header>
 
           <section class="mode-picker" aria-labelledby="modeTitle">
@@ -58,11 +59,16 @@
         </section>
 
         <section class="workspace-stage" id="designDecisions" aria-labelledby="designDecisionsTitle">
-          <header class="stage-heading"><div class="stage-heading-copy"><p class="stage-kicker">STEP 02</p><h2 id="designDecisionsTitle" data-i18n="launcher.designDecisionsTitle">页面应该怎么做？</h2><p data-i18n="launcher.designDecisionsIntro">只保留三类设计决定：视觉方向、目标平台、Design System。</p></div></header>
+          <header class="stage-heading"><div class="stage-heading-copy"><p class="stage-kicker">STEP 02</p><h2 id="designDecisionsTitle" data-i18n="launcher.designDecisionsTitle">再选择设计样式</h2><p data-i18n="launcher.designDecisionsIntro">需求明确后，再组合设计规范、字体、样式与平台，让视觉选择服务于产品目标。</p></div></header>
           <div class="design-decisions-body">
             <section class="style-direction" aria-labelledby="styleTitle">
               <div class="section-heading"><div><h2 id="styleTitle" data-i18n="launcher.styleTitle">视觉方向</h2><p id="styleIntro" data-i18n="launcher.styleIntro">选整体构图、密度和气质。</p></div></div>
               <div class="style-card-grid" id="styleDirectionGrid" role="radiogroup" aria-label="风格方向" data-i18n-attr="aria-label:launcher.styleGridLabel"></div>
+            </section>
+
+            <section class="foundation-typography" aria-labelledby="foundationTypographyTitle">
+              <div class="section-heading"><div><h2 id="foundationTypographyTitle">字体方案</h2><p>先比较标题与正文的气质，再把字体作为整个需求的基础规则。</p></div></div>
+              <div id="foundationTypography"></div>
             </section>
 
             <section class="platform-section" aria-labelledby="platformTitle">
@@ -101,7 +107,7 @@
         </section>
 
         <section class="workspace-stage result-stage" id="resultStage" aria-labelledby="resultStageTitle">
-          <header class="stage-heading"><div class="stage-heading-copy"><p class="stage-kicker">STEP 03</p><h2 id="resultStageTitle" data-i18n="launcher.resultStageTitle">看结果，然后输出</h2><p data-i18n="launcher.resultStageIntro">先检查真实页面效果，再确认任务摘要和最终调用指令。</p></div></header>
+          <header class="stage-heading"><div class="stage-heading-copy"><p class="stage-kicker">STEP 03</p><h2 id="resultStageTitle" data-i18n="launcher.resultStageTitle">检查效果，然后输出</h2><p data-i18n="launcher.resultStageIntro">切换设备检查字体、密度、组件与整体气质，确认后生成完整执行指令。</p></div></header>
           <div class="result-stage-body" id="resultStageBody"></div>
         </section>
       </div>
