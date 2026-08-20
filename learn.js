@@ -29,6 +29,7 @@ const SUPPORTED_LANGUAGES = new Set(["zh", "en"]);
 let activeLanguage = null;
 
 function languageFromEvent(event) {
+  if (typeof event === "string" && SUPPORTED_LANGUAGES.has(event)) return event;
   const detail = event?.detail;
   if (typeof detail === "string" && SUPPORTED_LANGUAGES.has(detail)) return detail;
   if (detail && typeof detail === "object") {
@@ -70,8 +71,8 @@ function applyLanguage(event) {
   document.querySelectorAll("[data-zh][data-en]").forEach((el) => {
     const value = el.dataset[lang];
     if (!value) return;
-    if (value.includes("\n") && /^(H1|H2|H3|P|SPAN|STRONG)$/.test(el.tagName)) {
-      el.innerHTML = value.split("\n").map((line) => line.trim()).join("<br>");
+    if (value.includes("\\n") && /^(H1|H2|H3|P|SPAN|STRONG)$/.test(el.tagName)) {
+      el.innerHTML = value.split("\\n").map((line) => line.trim()).join("<br>");
     } else {
       el.textContent = value;
     }
@@ -134,4 +135,12 @@ addEventListener("resize", updateScrollState);
 applyLanguage();
 updateScrollState();
 
-window.addEventListener("image2-language-change", applyLanguage);
+// The global app shell exposes the canonical language lifecycle through
+// image2I18n.registerPage(). Registering here makes the Learn content update in
+// the same tick as the header switch instead of waiting for a page reload.
+if (window.image2I18n?.registerPage) {
+  window.image2I18n.registerPage((lang) => applyLanguage(lang));
+} else {
+  // Fallback for standalone/older shells.
+  window.addEventListener("image2:languagechange", applyLanguage);
+}
