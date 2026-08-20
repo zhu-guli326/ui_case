@@ -431,7 +431,7 @@ const learnTranslations = {
   "learn.caseControlsLabel": { zh: "需要代码实现的控件", en: "Controls to implement in code" },
   "learn.caseDemoLink": { zh: "体验 Demo", en: "Try the demo" },
   "learn.applyCase": { zh: "应用到当前项目", en: "Apply to current project" },
-  "learn.startFromCase": { zh: "用此案例开始任务", en: "Start a task from this case" },
+  "learn.startFromCase": { zh: "用此案例开始设计", en: "Start designing from this case" },
   "learn.copyCasePrompt": { zh: "复制同款结构 Prompt", en: "Copy case prompt" },
   "learn.copyCasePromptSuccess": { zh: "同款结构 Prompt 已复制。", en: "Case prompt copied." },
   "learn.partsTitle": { zh: "想知道背后怎么实现？", en: "Want to know how it works?" },
