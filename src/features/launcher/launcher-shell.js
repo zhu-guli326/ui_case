@@ -32,6 +32,7 @@ const COPY = {
   "platform.intro": ["平台会影响导航、控件尺寸、安全区、字体和交互惯例。", "Platform affects navigation, target sizes, safe areas, typography, and interaction conventions."],
   "system.title": ["Design System", "Design system"],
   "system.intro": ["选择组件与 Token 的来源，再用同一预览检查差异。", "Choose the source of components and tokens, then compare through the same preview."],
+  "system.explorer": ["探索设计系统 ↗", "Explore design systems ↗"],
   "platform.ios.detail": ["iPhone · 原生移动端", "iPhone · native mobile"],
   "platform.android.detail": ["Phone · Material 生态", "Phone · Material ecosystem"],
   "platform.windows.detail": ["Desktop · Fluent 桌面端", "Desktop · Fluent"],
