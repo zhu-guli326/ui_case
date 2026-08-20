@@ -74,7 +74,7 @@ function readImageDimensions(filePath) {
 }
 
 test("all 19 active cases share one explicit Library-owned phone preview contract", () => {
-  assert.equal(previewContractVersion, "20260816-preview-contract-v2");
+  assert.equal(previewContractVersion, "20260820-cover-capture-v1");
   assert.deepEqual(standardPreviewDevice, { width: 390, height: 844 });
   assert.deepEqual(standardCanonicalPreview, { width: 780, height: 1688 });
   assert.equal(standardPreviewDetailWidth, 300);

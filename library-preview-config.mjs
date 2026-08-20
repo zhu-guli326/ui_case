@@ -1,4 +1,4 @@
-export const previewContractVersion = "20260816-preview-contract-v2";
+export const previewContractVersion = "20260820-cover-capture-v1";
 export const libraryPreviewAssetVersion = previewContractVersion;
 
 export const standardPreviewDevice = Object.freeze({ width: 390, height: 844 });
