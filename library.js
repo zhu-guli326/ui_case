@@ -4,83 +4,83 @@ import { styleGuides, styleProfiles } from "./catalog/index.js?v=20260815-artmus
 
 const previewImageSets = Object.freeze({
   museum: [
-    { src: "./assets/cases/museum-app/home-screen.png", label: "首页" },
-    { src: "./assets/cases/museum-app/exhibitions-screen.png", label: "展览列表" },
-    { src: "./assets/cases/museum-app/detail-screen.png", label: "展览详情" }
+    { src: "./assets/cases/museum-app/home-screen.png", label: { zh: "首页", en: "Home" } },
+    { src: "./assets/cases/museum-app/exhibitions-screen.png", label: { zh: "展览列表", en: "Exhibitions" } },
+    { src: "./assets/cases/museum-app/detail-screen.png", label: { zh: "展览详情", en: "Exhibition detail" } }
   ],
   fashion: [
-    { src: "./assets/cases/fashion-shopping-app/hero-screen.png", label: "品牌首页" },
-    { src: "./assets/cases/fashion-shopping-app/catalog-screen.png", label: "商品目录" },
-    { src: "./assets/cases/fashion-shopping-app/favorites-screen.png", label: "收藏页" }
+    { src: "./assets/cases/fashion-shopping-app/hero-screen.png", label: { zh: "品牌首页", en: "Brand home" } },
+    { src: "./assets/cases/fashion-shopping-app/catalog-screen.png", label: { zh: "商品目录", en: "Catalog" } },
+    { src: "./assets/cases/fashion-shopping-app/favorites-screen.png", label: { zh: "收藏页", en: "Favorites" } }
   ],
   fufu: [
-    { src: "./demo/fufu-bakery/screenshots/01-welcome.png", label: "欢迎页" },
-    { src: "./demo/fufu-bakery/screenshots/02-home.png", label: "烘焙首页" },
-    { src: "./demo/fufu-bakery/screenshots/04-menu.png", label: "今日菜单" },
-    { src: "./demo/fufu-bakery/screenshots/03-member.png", label: "会员卡" }
+    { src: "./demo/fufu-bakery/screenshots/01-welcome.png", label: { zh: "欢迎页", en: "Welcome" } },
+    { src: "./demo/fufu-bakery/screenshots/02-home.png", label: { zh: "烘焙首页", en: "Bakery home" } },
+    { src: "./demo/fufu-bakery/screenshots/04-menu.png", label: { zh: "今日菜单", en: "Today's menu" } },
+    { src: "./demo/fufu-bakery/screenshots/03-member.png", label: { zh: "会员卡", en: "Membership" } }
   ],
   organique: [
-    { src: "./demo/organique-food/screenshots/01-choose.png", label: "选择餐食" },
-    { src: "./demo/organique-food/screenshots/02-plan.png", label: "配送计划" },
-    { src: "./demo/organique-food/screenshots/03-confirmation.png", label: "确认页" }
+    { src: "./demo/organique-food/screenshots/01-choose.png", label: { zh: "选择餐食", en: "Choose meals" } },
+    { src: "./demo/organique-food/screenshots/02-plan.png", label: { zh: "配送计划", en: "Delivery plan" } },
+    { src: "./demo/organique-food/screenshots/03-confirmation.png", label: { zh: "确认页", en: "Confirmation" } }
   ],
   "plate-play": [
-    { src: "./demo/plate-play/screenshots/library-preview-2x.png", label: "欢迎页" },
-    { src: "./demo/plate-play/screenshots/recipes.png", label: "食谱列表" },
-    { src: "./demo/plate-play/screenshots/detail.png", label: "食谱详情" }
+    { src: "./demo/plate-play/screenshots/library-preview-2x.png", label: { zh: "欢迎页", en: "Welcome" } },
+    { src: "./demo/plate-play/screenshots/recipes.png", label: { zh: "食谱列表", en: "Recipes" } },
+    { src: "./demo/plate-play/screenshots/detail.png", label: { zh: "食谱详情", en: "Recipe detail" } }
   ],
   "carry-bag": [
-    { src: "./demo/carry-bag/screenshots/03-hero.png", label: "品牌首页" },
-    { src: "./demo/carry-bag/screenshots/01-catalog.png", label: "商品目录" },
-    { src: "./demo/carry-bag/screenshots/02-detail.png", label: "商品详情" }
+    { src: "./demo/carry-bag/screenshots/03-hero.png", label: { zh: "品牌首页", en: "Brand home" } },
+    { src: "./demo/carry-bag/screenshots/01-catalog.png", label: { zh: "商品目录", en: "Catalog" } },
+    { src: "./demo/carry-bag/screenshots/02-detail.png", label: { zh: "商品详情", en: "Product detail" } }
   ],
   fithub: [
-    { src: "./demo/fithub/screenshots/01-discover.png", label: "训练发现" },
-    { src: "./demo/fithub/screenshots/02-activity.png", label: "活动统计" },
-    { src: "./demo/fithub/screenshots/03-focus.png", label: "目标部位" }
+    { src: "./demo/fithub/screenshots/01-discover.png", label: { zh: "训练发现", en: "Discover" } },
+    { src: "./demo/fithub/screenshots/02-activity.png", label: { zh: "活动统计", en: "Activity stats" } },
+    { src: "./demo/fithub/screenshots/03-focus.png", label: { zh: "目标部位", en: "Focus area" } }
   ],
   "still-form": [
-    { src: "./demo/still-form/screenshots/01-intro.png", label: "品牌入口" },
-    { src: "./demo/still-form/screenshots/02-catalog.png", label: "系列目录" },
-    { src: "./demo/still-form/screenshots/03-detail.png", label: "单品详情" }
+    { src: "./demo/still-form/screenshots/01-intro.png", label: { zh: "品牌入口", en: "Brand intro" } },
+    { src: "./demo/still-form/screenshots/02-catalog.png", label: { zh: "系列目录", en: "Collection" } },
+    { src: "./demo/still-form/screenshots/03-detail.png", label: { zh: "单品详情", en: "Product detail" } }
   ],
   news: [
-    { src: "./assets/cases/news-app/headlines-screen.png", label: "头条页" },
-    { src: "./assets/cases/news-app/feed-screen.png", label: "新闻流" },
-    { src: "./assets/cases/news-app/discover-screen.png", label: "发现页" }
+    { src: "./assets/cases/news-app/headlines-screen.png", label: { zh: "头条页", en: "Headlines" } },
+    { src: "./assets/cases/news-app/feed-screen.png", label: { zh: "新闻流", en: "News feed" } },
+    { src: "./assets/cases/news-app/discover-screen.png", label: { zh: "发现页", en: "Discover" } }
   ],
   "signal-grid": [
-    { src: "./demo/signal-grid/screenshots/01-scan.png", label: "扫描页" },
-    { src: "./demo/signal-grid/screenshots/02-plans.png", label: "方案页" },
-    { src: "./demo/signal-grid/screenshots/03-confirmation.png", label: "确认页" }
+    { src: "./demo/signal-grid/screenshots/01-scan.png", label: { zh: "扫描页", en: "Scan" } },
+    { src: "./demo/signal-grid/screenshots/02-plans.png", label: { zh: "方案页", en: "Plans" } },
+    { src: "./demo/signal-grid/screenshots/03-confirmation.png", label: { zh: "确认页", en: "Confirmation" } }
   ],
   "volt-route": [
-    { src: "./demo/volt-route/screenshots/01-dashboard.png", label: "车辆状态" },
-    { src: "./demo/volt-route/screenshots/02-route.png", label: "充电路线" },
-    { src: "./demo/volt-route/screenshots/03-charging.png", label: "充电进度" }
+    { src: "./demo/volt-route/screenshots/01-dashboard.png", label: { zh: "车辆状态", en: "Vehicle status" } },
+    { src: "./demo/volt-route/screenshots/02-route.png", label: { zh: "充电路线", en: "Charging route" } },
+    { src: "./demo/volt-route/screenshots/03-charging.png", label: { zh: "充电进度", en: "Charging progress" } }
   ],
   moe: [
-    { src: "./demo/moe-habits/screenshots/video-2x/01-intro.png", label: "欢迎页" },
-    { src: "./demo/moe-habits/screenshots/video-2x/02-home.png", label: "习惯首页" },
-    { src: "./demo/moe-habits/screenshots/video-2x/03-task.png", label: "任务页" },
-    { src: "./demo/moe-habits/screenshots/video-2x/04-celebration.png", label: "完成反馈" }
+    { src: "./demo/moe-habits/screenshots/video-2x/01-intro.png", label: { zh: "欢迎页", en: "Welcome" } },
+    { src: "./demo/moe-habits/screenshots/video-2x/02-home.png", label: { zh: "习惯首页", en: "Habits home" } },
+    { src: "./demo/moe-habits/screenshots/video-2x/03-task.png", label: { zh: "任务页", en: "Task" } },
+    { src: "./demo/moe-habits/screenshots/video-2x/04-celebration.png", label: { zh: "完成反馈", en: "Completion" } }
   ],
   loy: [
-    { src: "./demo/loy-wellness/screenshots/03-welcome.png", label: "欢迎页" },
-    { src: "./demo/loy-wellness/screenshots/01-home.png", label: "健康首页" },
-    { src: "./demo/loy-wellness/screenshots/02-playlist.png", label: "播放列表" }
+    { src: "./demo/loy-wellness/screenshots/03-welcome.png", label: { zh: "欢迎页", en: "Welcome" } },
+    { src: "./demo/loy-wellness/screenshots/01-home.png", label: { zh: "健康首页", en: "Wellness home" } },
+    { src: "./demo/loy-wellness/screenshots/02-playlist.png", label: { zh: "播放列表", en: "Playlist" } }
   ],
   moodly: [
-    { src: "./demo/moodly-health/screenshots/01-checkin.png", label: "情绪签到" },
-    { src: "./demo/moodly-health/screenshots/02-confirm.png", label: "签到完成" }
+    { src: "./demo/moodly-health/screenshots/01-checkin.png", label: { zh: "情绪签到", en: "Mood check-in" } },
+    { src: "./demo/moodly-health/screenshots/02-confirm.png", label: { zh: "签到完成", en: "Check-in complete" } }
   ],
   reflect: [
-    { src: "./demo/reflect-journal/screenshots/01-home.png", label: "日记首页" },
-    { src: "./demo/reflect-journal/screenshots/02-detail.png", label: "日记详情" }
+    { src: "./demo/reflect-journal/screenshots/01-home.png", label: { zh: "日记首页", en: "Journal home" } },
+    { src: "./demo/reflect-journal/screenshots/02-detail.png", label: { zh: "日记详情", en: "Journal detail" } }
   ],
   mimo: [
-    { src: "./demo/mimo-activities/screenshots/01-carousel.png", label: "日程轮播" },
-    { src: "./demo/mimo-activities/screenshots/02-walk-focus.png", label: "步行任务" }
+    { src: "./demo/mimo-activities/screenshots/01-carousel.png", label: { zh: "日程轮播", en: "Schedule carousel" } },
+    { src: "./demo/mimo-activities/screenshots/02-walk-focus.png", label: { zh: "步行任务", en: "Walking task" } }
   ]
 });
 
@@ -164,7 +164,7 @@ const libraryCopy = Object.freeze({
   zh: {
     modes: { image: "效果图", video: "Demo 视频", live: "可点击 Demo" },
     categories: { all: "全部案例", culture: "文化内容", commerce: "零售电商", editorial: "新闻阅读", travel: "旅行体验", creative: "创意工具", wellness: "健康陪伴" },
-    title: "image2 UI 风格案例库", description: "image2 UI 风格案例库。", skip: "跳到案例列表", sidebarLabel: "案例类型", localDemo: "本地演示", realCases: (count) => `${count} 个真实 UI 案例`, allSkills: "全部浏览", guides: [["使用指南", "从选择到交付"], ["项目原理", "Image2 UI"]], author: "作者动态", profile: "查看主页",
+    title: "image2 UI 风格案例库", description: "image2 UI 风格案例库。", skip: "跳到案例列表", sidebarLabel: "案例类型", localDemo: "本地演示", realCases: (count) => `${count} 个真实 UI 案例`, allSkills: "全部浏览", skills: [["video-shotcraft", "视频与镜头"], ["impeccable", "设计质量"], ["taste-skill", "设计品味"], ["GSAP", "动效系统"]], guides: [["使用指南", "从选择到交付"], ["项目原理", "Image2 UI"]], author: "作者动态", profile: "查看主页",
     heroTitle: "界面风格案例库", heroIntro: "从已有的真实 App 演示中提炼画面、排版与交互方向。选择一个案例，复制它的风格配置，再开始做下一张界面。", heroAuthor: "作者主页", cases: "案例", styles: "风格", search: "搜索案例名称、使用场景或风格...", featured: "精选案例", searchResults: "搜索结果", startVisual: "从画面开始", searchTitle: "匹配的界面方向", count: (count) => `${count} 个案例`, empty: "没有找到匹配的案例。",
     imagePreview: "效果图预览", video: "视频", clickable: "可点击", details: "查看要点", copyConfig: "复制配置", applyProject: "应用到当前项目", localReference: "本地参考图", styleKeywords: "风格关键词", brands: "适用风格档案", openDetails: "查看案例详情", openPreview: "打开预览", unavailable: "效果图不可用",
     previous: "上一张效果图", next: "下一张效果图", loadDemo: "正在加载可点击 Demo...", timeout: "Demo 加载超时，请重试或在新窗口打开。", failed: "Demo 加载失败，请重试或使用下方链接在新窗口打开。", openLive: "新窗口打开可点击 Demo", retry: "重试", previewTitle: "案例预览", previewType: "预览方式", play: "播放视频", pause: "暂停视频", progress: "视频进度", fullscreen: "全屏查看", exitFullscreen: "退出全屏",
@@ -173,7 +173,7 @@ const libraryCopy = Object.freeze({
   en: {
     modes: { image: "Screens", video: "Demo video", live: "Interactive demo" },
     categories: { all: "All cases", culture: "Culture", commerce: "Commerce", editorial: "Editorial", travel: "Travel", creative: "Creative tools", wellness: "Wellness" },
-    title: "image2 UI Style Library", description: "A visual style library of image2 UI cases.", skip: "Skip to case list", sidebarLabel: "Case types", localDemo: "Local demos", realCases: (count) => `${count} real UI cases`, allSkills: "Browse all", guides: [["How to use", "From selection to delivery"], ["Principles", "Image2 UI"]], author: "Creator", profile: "View profile",
+    title: "image2 UI Style Library", description: "A visual style library of image2 UI cases.", skip: "Skip to case list", sidebarLabel: "Case types", localDemo: "Local demos", realCases: (count) => `${count} real UI cases`, allSkills: "Browse all", skills: [["video-shotcraft", "Video & shot craft"], ["impeccable", "Design quality"], ["taste-skill", "Design taste"], ["GSAP", "Motion system"]], guides: [["How to use", "From selection to delivery"], ["Principles", "Image2 UI"]], author: "Creator", profile: "View profile",
     heroTitle: "Interface style library", heroIntro: "Explore visual, typographic, and interaction directions drawn from working app demos. Choose a case, copy its style configuration, and start your next interface.", heroAuthor: "Creator profiles", cases: "Cases", styles: "Styles", search: "Search by case, use case, or visual style...", featured: "Featured cases", searchResults: "Search results", startVisual: "Start with the visual", searchTitle: "Matching interface directions", count: (count) => `${count} cases`, empty: "No matching cases found.",
     imagePreview: "Screen preview", video: "Video", clickable: "Interactive", details: "View notes", copyConfig: "Copy config", applyProject: "Apply to current project", localReference: "Local reference", styleKeywords: "Style keywords", brands: "Compatible style profiles", openDetails: "View case details", openPreview: "Open preview", unavailable: "Screen unavailable",
     previous: "Previous screen", next: "Next screen", loadDemo: "Loading interactive demo...", timeout: "The demo timed out. Retry or open it in a new window.", failed: "The demo failed to load. Retry or use the link below to open it in a new window.", openLive: "Open interactive demo in a new window", retry: "Retry", previewTitle: "Case preview", previewType: "Preview type", play: "Play video", pause: "Pause video", progress: "Video progress", fullscreen: "View full screen", exitFullscreen: "Exit full screen",
@@ -242,8 +242,8 @@ function getPreviewImages(guide) {
   const images = previewImageSets[guide.id];
   if (images?.length) return images.map((image) => ({
     ...image,
-    label: window.image2I18n?.language === "en" ? currentCopy().modes.image : image.label,
-    alt: image.alt || `${guide.style}: ${image.label}`,
+    label: typeof image.label === "object" ? image.label[window.image2I18n?.language === "en" ? "en" : "zh"] : image.label,
+    alt: image.alt || `${guide.style}: ${typeof image.label === "object" ? image.label.en : image.label}`,
     src: withPreviewVersion(image.src)
   }));
   return [{ src: getPreviewPoster(guide), label: currentCopy().modes.image, alt: window.image2I18n?.language === "en" ? `${guide.style} mobile screen` : `${guide.style} 手机效果图` }];
@@ -610,7 +610,7 @@ function renderDemoGallery() {
         <div class="demo-card-meta"><span>${guide.name}</span><span>${guide.bestFor}</span></div>
         <h3>${guide.style}</h3>
         <p class="demo-card-summary">${guide.summary}</p>
-        <div class="case-statuses" aria-label="案例状态"><span>Screenshot</span>${guide.liveDemo ? `<span class="is-live">Clickable</span><span>Code Ready</span>` : ""}</div>
+        <div class="case-statuses" aria-label="${window.image2I18n?.language === "en" ? "Case status" : "案例状态"}"><span>Screenshot</span>${guide.liveDemo ? `<span class="is-live">Clickable</span><span>Code Ready</span>` : ""}</div>
         <div class="style-tags" aria-label="${copy.styleKeywords}">${guide.tags.map((tag, index) => { const stableTag = sourceGuide.tags[index] || tag; return `<a class="style-tag${normalizeTag(stableTag) === normalizeTag(activeTag) ? " is-active" : ""}" href="./library.html?tag=${encodeURIComponent(stableTag)}" data-tag="${stableTag}" aria-pressed="${normalizeTag(stableTag) === normalizeTag(activeTag)}">${tag}</a>`; }).join("")}</div>
         <div class="brand-links" aria-label="${copy.brands}">${getStyleProfiles(sourceGuide).map((profile) => `<span>${profile.name}</span>`).join("")}</div>
         <div class="demo-card-footer"><small title="${copy.localReference}: ${guide.referenceImage}">${copy.localReference}: ${guide.reference}</small><div class="demo-card-actions">${previewActionButtons}<button class="style-details-button" type="button" data-style-details="${guide.id}">${copy.details}</button><button class="copy-style-button" type="button" data-apply-case="${guide.id}">${copy.applyProject}</button></div></div>
@@ -707,7 +707,7 @@ function setPreviewMode(mode, shouldTrack = true) {
     window.clearTimeout(previewLoadTimer);
     previewMediaStatusText.textContent = currentCopy().loadDemo;
     previewMediaStatus.classList.remove("is-error");
-    previewDialogDemo.title = `${guide.style} 可点击 Demo`;
+    previewDialogDemo.title = `${guide.style} ${window.image2I18n?.language === "en" ? "interactive demo" : "可点击 Demo"}`;
     previewDialogDemo.src = getEmbeddedDemoUrl(guide);
     previewLoadTimer = window.setTimeout(() => {
       if (!activePreviewGuide || previewDialogDemo.hidden) return;
@@ -1042,11 +1042,19 @@ function applyLibraryLanguage() {
   document.querySelector(".sidebar-label").textContent = copy.sidebarLabel;
   categoryNav.querySelectorAll("[data-filter]").forEach((button) => { button.querySelector("span").textContent = copy.categories[button.dataset.filter]; });
   document.querySelector(".sidebar-skills-heading a").textContent = copy.allSkills;
+  document.querySelectorAll(".sidebar-skills > a").forEach((link, index) => {
+    const skill = copy.skills[index];
+    if (!skill) return;
+    link.querySelector("span").textContent = skill[0];
+    link.querySelector("small").textContent = skill[1];
+  });
   document.querySelectorAll(".sidebar-resources button").forEach((button, index) => {
     button.querySelector("span").textContent = copy.guides[index][0];
     button.querySelector("small").textContent = copy.guides[index][1];
   });
   document.querySelector(".sidebar-social p").textContent = copy.author;
+  const socialName = document.querySelector(".sidebar-social a:last-child span");
+  if (socialName) socialName.textContent = window.image2I18n?.language === "en" ? "Xiaohongshu" : "小红书";
   const socialProfile = document.querySelector(".sidebar-social a:last-child small");
   if (socialProfile) socialProfile.textContent = copy.profile;
   document.querySelector(".sidebar-note span").textContent = copy.localDemo;
@@ -1063,12 +1071,14 @@ function applyLibraryLanguage() {
   emptyState.textContent = copy.empty;
   previewDialogTitle.textContent = copy.previewTitle;
   previewModeSwitch.setAttribute("aria-label", copy.previewType);
+  document.querySelector("#previewScreenRail")?.setAttribute("aria-label", window.image2I18n?.language === "en" ? "Case screens" : "案例页面");
   previewImagePrevious.setAttribute("aria-label", copy.previous);
   previewImagePrevious.title = copy.previous;
   previewImageNext.setAttribute("aria-label", copy.next);
   previewImageNext.title = copy.next;
   previewMediaRetry.textContent = copy.retry;
   previewDialogOpenLive.textContent = copy.openLive;
+  previewDialogDemo.title = window.image2I18n?.language === "en" ? "Interactive demo preview" : "可点击 demo 预览";
   previewVideoProgress.setAttribute("aria-label", copy.progress);
   previewExpand.setAttribute("aria-label", previewDialog.classList.contains("is-lightbox") ? copy.exitFullscreen : copy.fullscreen);
   previewExpand.title = previewExpand.getAttribute("aria-label");
