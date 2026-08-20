@@ -16,12 +16,12 @@
 .launcher-simplified .workspace-stage{border-radius:18px;box-shadow:0 6px 22px rgba(29,42,33,.03)}
 .launcher-simplified .stage-heading{padding:22px 26px 18px;background:#fbfcfb}
 .launcher-simplified .stage-kicker{margin:0 0 6px;color:#177446;font-size:8px;font-weight:900;letter-spacing:.12em}
-.launcher-simplified .stage-heading h2{font-size:22px}
+.launcher-simplified .stage-heading h2{font-size:20px;letter-spacing:-.02em}
 .launcher-simplified .stage-heading p{font-size:11px}
 .launcher-simplified .stage-number{display:none}
 .launcher-simplified .mode-picker{padding:18px 26px 20px}
 .launcher-simplified .mode-picker-heading{margin-bottom:12px}
-.launcher-simplified .mode-picker-heading h2{font-size:14px}
+.launcher-simplified .mode-picker-heading h2{font-size:16px;letter-spacing:-.02em}
 .launcher-simplified .mode-tabs{gap:8px}
 .launcher-simplified .mode-tabs>button{min-height:66px;padding:12px 13px;border-radius:10px;background:#fafbfa}
 .launcher-simplified .mode-tabs>button[aria-selected="true"],.launcher-simplified .mode-tabs>button.is-active{background:#167543;transform:none;box-shadow:none}
@@ -32,7 +32,7 @@
 .launcher-simplified .intent-form>.config-section{padding:18px 26px!important}
 .launcher-simplified .intent-form>.config-section+.config-section{border-top:1px solid #edf0ed}
 .launcher-simplified .intent-form>.config-section .section-heading{margin-bottom:12px}
-.launcher-simplified .intent-form>.config-section .section-heading h2{font-size:15px!important}
+.launcher-simplified .intent-form>.config-section .section-heading h2{font-size:16px!important;letter-spacing:-.02em}
 .launcher-simplified .intent-form>.config-section .section-heading p{font-size:9px!important}
 .launcher-simplified .intent-form>.config-section:first-child .text-field input,.launcher-simplified .intent-form>.config-section:first-child textarea{font-size:12px}
 .launcher-simplified .structured-brief{align-items:start;padding:14px;border-radius:10px;background:#fafcfb}
@@ -46,7 +46,7 @@ html[lang="en"] .launcher-simplified .structured-brief::before{content:"Complete
 .launcher-simplified .design-decisions-body>section{padding:20px 26px 22px}
 .launcher-simplified .design-decisions-body>section+section{border-top:1px solid #e7ebe8}
 .launcher-simplified .design-decisions-body>.platform-section{border-right:1px solid #e7ebe8}
-.launcher-simplified .section-heading h2{margin:0;font-size:15px}
+.launcher-simplified .section-heading h2{margin:0;font-size:16px;letter-spacing:-.02em}
 .launcher-simplified .section-heading p{margin-top:4px;font-size:9px}
 .launcher-simplified .flow-label{display:none}
 .launcher-simplified .style-card-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
@@ -75,7 +75,7 @@ html[lang="en"] .launcher-simplified .structured-brief::before{content:"Complete
 .launcher-simplified .result-stage-body{grid-column:1;grid-row:auto;padding:20px 26px 26px}
 .launcher-simplified .preview-lab-section{margin:0!important;padding:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important}
 .launcher-simplified .preview-lab-head{align-items:center;margin-bottom:10px}
-.launcher-simplified .preview-lab-head h2{font-size:15px!important}
+.launcher-simplified .preview-lab-head h2{font-size:16px!important;letter-spacing:-.02em}
 .launcher-simplified .preview-lab-head p{font-size:9px!important}
 .launcher-simplified .preview-lab-badge{font-size:8px}
 .launcher-simplified .preview-toolbar{margin-bottom:10px;padding:9px 10px}
@@ -102,7 +102,7 @@ html[lang="en"] .launcher-simplified .structured-brief::before{content:"Complete
 .launcher-simplified .prompt-actions{border-top-color:#e1e7e2;background:#f7faf8}
 .launcher-simplified .secondary-button{border-color:#aab5ad;background:#fff;color:#26352b}
 .launcher-simplified .prompt-heading{flex:0 0 auto;margin-bottom:12px}
-.launcher-simplified .prompt-heading h2{font-size:16px}
+.launcher-simplified .prompt-heading h2{font-size:16px;letter-spacing:-.02em}
 .launcher-simplified .output-review-grid{display:grid;min-height:0;flex:0 0 auto;grid-template-columns:1fr;gap:12px;align-items:start;overflow:visible;padding-right:4px}
 /* Keep the legacy contract discoverable while the grid itself remains
  * non-scrolling; the prompt panel is the sole scroll owner. */

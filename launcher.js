@@ -818,6 +818,7 @@ function syncDynamicControls() {
 
 function renderIntent() {
   const copy = intentCopy[activeIntent()][language()];
+  document.body.classList.toggle("launcher-intent-create", activeIntent() === "create");
   pageTitle.textContent = copy[0];
   pageIntro.textContent = copy[1];
   pageKicker.textContent = tr("单一任务工作区", "Single task workspace");

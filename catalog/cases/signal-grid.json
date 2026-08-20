@@ -5,7 +5,7 @@
   "style": "热成像网络匹配",
   "video": "./demo/signal-grid/signal-grid-demo.mp4",
   "liveDemo": "./demo/signal-grid/index.html",
-  "poster": "./demo/signal-grid/mobile-preview.png",
+  "poster": "./demo/signal-grid/screenshots/01-scan.png",
   "preview": "#f4a078",
   "reference": "深青与热橙渐变覆盖极简网络界面，扫描、设置和套餐组成一套完整连接流程",
   "referenceImage": "./demo/signal-grid/assets/signal-grid-effect-board.png",

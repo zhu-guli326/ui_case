@@ -7,9 +7,16 @@
   ready(() => {
     if (!document.body.classList.contains("launcher-workspace")) return;
 
+    const language = () => {
+      const query = new URL(location.href).searchParams.get("lang");
+      return query === "en" || window.image2I18n?.language === "en" ? "en" : "zh";
+    };
+    const tr = (zh, en) => language() === "en" ? en : zh;
+
     const style = document.createElement("style");
     style.textContent = `
       .platform-section{display:none!important}
+      .launcher-intent-create #intentForm select[name="designSystem"]{display:none!important}
       .format-platform-detail{display:none;margin-top:12px;padding:12px;border:1px solid #dfe5e0;border-radius:10px;background:#f7faf8}
       .format-platform-detail.is-visible{display:block}
       .format-platform-title{margin-bottom:9px;color:#4f5952;font-size:9px;font-weight:850}
@@ -20,24 +27,6 @@
       .format-platform-option svg{width:24px;height:24px;flex:0 0 24px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
       .format-platform-option strong{display:block;font-size:10px}.format-platform-option small{display:block;margin-top:2px;color:#7c857e;font-size:8px}
 
-      body.create-flow-refactored .create-advanced{display:none!important}
-      body.create-flow-refactored .style-direction{display:none!important}
-      body.create-flow-refactored #designSystemWorkbench{display:none!important}
-      body.create-flow-refactored .color-theme-section{display:none!important}
-
-      /* Create / rebuild / improve / explore / compare must share the same launcher shell. */
-      body.create-flow-refactored .page-heading{display:flex!important}
-      body.create-flow-refactored .workspace-flow{margin-top:22px!important}
-      body.create-flow-refactored .mode-picker{padding:22px!important;border-radius:14px!important}
-      body.create-flow-refactored .mode-picker-heading{display:flex!important;align-items:end;justify-content:space-between;gap:18px;margin-bottom:14px}
-      body.create-flow-refactored .mode-tabs{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:8px!important;overflow:visible!important}
-      body.create-flow-refactored .mode-tabs>button{position:relative;display:block;min-height:76px!important;padding:14px 14px 12px!important;border-radius:10px!important;flex:initial!important}
-      body.create-flow-refactored .mode-tabs strong{display:block;font-size:12px!important}
-      body.create-flow-refactored .mode-tabs small{display:block!important;margin-top:6px;font-size:9px;line-height:1.4}
-      @media(max-width:1120px){body.create-flow-refactored .mode-tabs{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
-      @media(max-width:780px){body.create-flow-refactored .mode-picker{padding:16px!important}body.create-flow-refactored .mode-tabs{grid-template-columns:1fr 1fr!important}}
-      @media(max-width:520px){body.create-flow-refactored .mode-tabs{grid-template-columns:1fr!important}}
-
       .brief-delivery-block{margin-top:16px;padding-top:16px;border-top:1px solid #e2e8e3}
       .brief-delivery-head{margin-bottom:10px}
       .brief-delivery-head strong{display:block;font-size:11px;color:#253128}
@@ -45,12 +34,6 @@
       .brief-delivery-block .select-field>span{display:none}
       .brief-delivery-block .format-icon-picker{display:grid!important;margin-top:0}
       .brief-delivery-block .format-platform-detail{margin-top:10px}
-
-      /* The section title already explains this is a component system selector. */
-      body.create-flow-refactored #componentSystemPicker .select-field>span{display:none!important}
-      body.create-flow-refactored #componentSystemPicker{padding:10px!important}
-      body.create-flow-refactored #componentSystemPicker .select-field{display:block!important}
-      body.create-flow-refactored #componentSystemPicker select{width:100%;min-height:44px}
 
       .preview-color-field{display:grid;gap:5px}.preview-color-field>span{font-size:8px;font-weight:800;color:#657067}
       .preview-color-picker{position:relative;min-width:180px}
@@ -120,38 +103,14 @@
       setTimeout(() => syncPlatformSummary(key), 20);
     }
 
-    function moveDeliveryUnderBrief() {
-      if (!document.body.classList.contains('create-flow-refactored')) return;
-      const brief = document.querySelector('#intentForm .config-section[aria-labelledby="briefTitle"]');
-      const select = document.querySelector('#intentForm select[name="format"]');
-      const field = select?.closest('.select-field');
-      const picker = document.querySelector('#intentForm .format-icon-picker');
-      if (!brief || !field || !picker) return;
-      let block = brief.querySelector('#briefDeliveryBlock');
-      if (!block) {
-        block = document.createElement('div');
-        block.id = 'briefDeliveryBlock';
-        block.className = 'brief-delivery-block';
-        block.innerHTML = '<div class="brief-delivery-head"><strong>交付形式</strong><small>先确定要做网页、手机 App、产品后台还是桌面应用。</small></div>';
-        const structured = brief.querySelector('.structured-brief');
-        (structured || brief).insertAdjacentElement('afterend', block);
-      }
-      if (!block.contains(field)) block.append(field);
-      if (!field.contains(picker)) field.append(picker);
-      const detail = document.querySelector('#intentForm .format-platform-detail');
-      if (detail && !field.contains(detail)) field.append(detail);
-    }
-
-    function dedupeComponentSystemPicker() {
-      const picker = document.querySelector('#componentSystemPicker');
+    function syncCreateDuplicate() {
+      const select = document.querySelector('#intentForm select[name="designSystem"]');
+      const picker = select?.closest(".select-field");
       if (!picker) return;
-      const fields = [...picker.querySelectorAll('.select-field')].filter((field) => field.querySelector('select[name="designSystem"]'));
-      if (fields.length > 1) fields.slice(0, -1).forEach((field) => field.remove());
-      const keep = [...picker.querySelectorAll('.select-field')].find((field) => field.querySelector('select[name="designSystem"]'));
-      if (keep) {
-        keep.querySelector(':scope > span')?.remove();
-        [...picker.children].forEach((child) => { if (child !== keep) child.remove(); });
-      }
+      const hidden = document.body.classList.contains("launcher-intent-create");
+      picker.hidden = hidden;
+      picker.setAttribute("aria-hidden", String(hidden));
+      if ("inert" in picker) picker.inert = hidden;
     }
 
     function enhance() {
@@ -170,7 +129,7 @@
         const validKeys = options.map((x) => x[0]);
         const active = validKeys.includes(saved) ? saved : options[0][0];
         if (!validKeys.includes(saved)) selectPlatform(active);
-        detail.innerHTML = '<div class="format-platform-title">' + (select.value === "mobile" ? "选择移动平台" : "选择桌面系统") + '</div><div class="format-platform-options"></div>';
+        detail.innerHTML = '<div class="format-platform-title">' + (select.value === "mobile" ? tr("选择移动平台", "Choose mobile platform") : tr("选择桌面系统", "Choose desktop system")) + '</div><div class="format-platform-options"></div>';
         const wrap = detail.querySelector(".format-platform-options");
         options.forEach(([key, label, hint]) => {
           const button = document.createElement("button"); button.type = "button"; button.className = "format-platform-option" + (key === active ? " is-active" : ""); button.dataset.platform = key;
@@ -183,8 +142,6 @@
       };
       if (detail.dataset.bound !== "true") { detail.dataset.bound = "true"; select.addEventListener("change", render); }
       render();
-      moveDeliveryUnderBrief();
-      dedupeComponentSystemPicker();
     }
 
     function colorDataFromCard(card) {
@@ -204,6 +161,7 @@
       if (!field) {
         field = document.createElement('div'); field.id = 'previewColorField'; field.className = 'preview-color-field';
         field.innerHTML = '<span>颜色</span><div class="preview-color-picker"><button class="preview-color-button" type="button"><i></i><strong>选择颜色</strong><span>⌄</span></button><div class="preview-color-menu"></div></div>';
+        field.innerHTML = '<span>' + tr("颜色", "Color") + '</span><div class="preview-color-picker"><button class="preview-color-button" type="button"><i></i><strong>' + tr("选择颜色", "Choose color") + '</strong><span>⌄</span></button><div class="preview-color-menu"></div></div>';
         const current = toolbar.querySelector('.preview-current');
         toolbar.insertBefore(field, current || null);
         const picker = field.querySelector('.preview-color-picker');
@@ -213,6 +171,8 @@
       const active = data.find((x) => x.checked) || data[0];
       const button = field.querySelector('.preview-color-button');
       button.querySelector('strong').textContent = active?.title || '选择颜色';
+      field.querySelector(':scope > span')?.replaceChildren(document.createTextNode(tr("颜色", "Color")));
+      button.querySelector('strong').textContent = active?.title || tr("选择颜色", "Choose color");
       button.querySelector('i').innerHTML = (active?.swatches || []).slice(0,4).map((c) => '<b style="background:'+c+'"></b>').join('');
       const menu = field.querySelector('.preview-color-menu');
       menu.innerHTML = '';
@@ -247,6 +207,10 @@
       if (summary.dataset.signature === signature) return;
       summary.dataset.signature = signature;
       summary.innerHTML = `<div class="final-brand-main"><div class="final-brand-swatches">${swatches}</div><div class="final-brand-copy"><small>Brand system</small><strong>${system}</strong></div></div><div class="final-brand-item"><small>Typography</small><strong>${font}</strong><span>当前字体方案</span></div><div class="final-brand-item"><small>Radius</small><strong>${radius}</strong><span>圆角基准</span></div><div class="final-brand-item"><small>Spacing</small><strong>${spacing}</strong><span>间距基准</span></div><div class="final-brand-item"><small>Density</small><strong>${density}</strong><span>界面密度</span></div><details class="final-brand-details"><summary>查看当前组件骨架</summary><div class="final-brand-components"></div></details>`;
+      const signature = [language(), swatches, system, font, radius, spacing, density, components?.innerHTML || ""].join("|");
+      if (summary.dataset.signature === signature) return;
+      summary.dataset.signature = signature;
+      summary.innerHTML = `<div class="final-brand-main"><div class="final-brand-swatches">${swatches}</div><div class="final-brand-copy"><small>${tr("设计系统", "Design system")}</small><strong>${system}</strong></div></div><div class="final-brand-item"><small>${tr("字体方案", "Typography")}</small><strong>${font}</strong><span>${tr("当前字体方案", "Current font preset")}</span></div><div class="final-brand-item"><small>${tr("圆角", "Radius")}</small><strong>${radius}</strong><span>${tr("圆角基准", "Radius token")}</span></div><div class="final-brand-item"><small>${tr("间距", "Spacing")}</small><strong>${spacing}</strong><span>${tr("间距基准", "Spacing token")}</span></div><div class="final-brand-item"><small>${tr("密度", "Density")}</small><strong>${density}</strong><span>${tr("界面密度", "Interface density")}</span></div><details class="final-brand-details"><summary>${tr("查看当前组件骨架", "View component anatomy")}</summary><div class="final-brand-components"></div></details>`;
       const target = summary.querySelector(".final-brand-components"); if (components && target) target.innerHTML = components.innerHTML;
     }
 
@@ -255,7 +219,7 @@
       let timer = 0;
       new MutationObserver(() => {
         clearTimeout(timer);
-        timer = setTimeout(() => { enhance(); moveDeliveryUnderBrief(); dedupeComponentSystemPicker(); syncPreviewColorPicker(); syncBrandSummary(); syncPlatformSummary(); }, 50);
+        timer = setTimeout(() => { syncCreateDuplicate(); enhance(); syncPreviewColorPicker(); syncBrandSummary(); syncPlatformSummary(); }, 50);
       }).observe(intentForm, { childList: true, subtree: true });
     }
     const taskSummary = document.querySelector('#taskSummary');
@@ -273,5 +237,11 @@
     const workbench = document.querySelector("#designSystemWorkbench"); if (workbench) new MutationObserver(() => { syncPreviewColorPicker(); syncBrandSummary(); }).observe(workbench, { subtree: true, childList: true, characterData: true });
     document.addEventListener("change", () => setTimeout(() => { moveDeliveryUnderBrief(); dedupeComponentSystemPicker(); syncPreviewColorPicker(); syncBrandSummary(); syncPlatformSummary(); }, 40));
     enhance(); moveDeliveryUnderBrief(); dedupeComponentSystemPicker(); syncPreviewColorPicker(); syncBrandSummary(); syncPlatformSummary();
+    document.addEventListener("change", () => setTimeout(() => { syncCreateDuplicate(); syncPreviewColorPicker(); syncBrandSummary(); syncPlatformSummary(); }, 40));
+    window.addEventListener("image2:languagechange", () => {
+      syncPreviewColorPicker();
+      syncBrandSummary();
+    });
+    syncCreateDuplicate(); enhance(); syncPreviewColorPicker(); syncBrandSummary(); syncPlatformSummary();
   });
 })();
