@@ -6,11 +6,11 @@
   <meta name="color-scheme" content="light dark">
   <meta name="description" content="图文 UI 词典：用人话、真实案例和可复制提示词看懂界面结构。" data-i18n-attr="content:vocabulary.metaDescription">
   <title data-i18n="vocabulary.pageTitle">图文 UI 词典 · IMAGE2 UI</title>
-  <link rel="stylesheet" href="./src/features/vocabulary/vocabulary.css?v=20260819-title-system-v1">
+  <link rel="stylesheet" href="./src/features/vocabulary/vocabulary.css?v=20260820-navigation-depth-v1">
     <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260819-shell-v5">
     <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260819-shell-v5">
     <script src="./src/core/app-shell/app-shell.js?v=20260819-shell-v5"></script>
-  <script type="module" src="./vocabulary.js?v=20260815-vocabulary-30"></script>
+  <script type="module" src="./vocabulary.js?v=20260820-navigation-depth-v1"></script>
 </head>
 <body>
   <a class="skip-link" href="#vocabularyResults" data-i18n="vocabulary.skipResults">跳到词条列表</a>
@@ -31,6 +31,32 @@
         <div class="diagram-arrow" aria-hidden="true">→</div>
         <div class="diagram-step"><span>03</span><strong data-i18n="vocabulary.implementationSplit">实现分工</strong><small>code-ui + external media</small></div>
       </div>
+    </section>
+
+    <section class="navigation-deep-dive" id="navigationDeepDive" aria-labelledby="navigationDeepDiveTitle">
+      <header class="deep-dive-heading">
+        <div>
+          <p class="eyebrow">DEEP DIVE / NAVIGATION PATTERNS</p>
+          <h2 id="navigationDeepDiveTitle" data-i18n="vocabulary.navigationDeepTitle">导航不是只有一种栏</h2>
+        </div>
+        <p data-i18n="vocabulary.navigationDeepIntro">先判断它服务的是全局、局部、层级还是临时任务，再选择位置和样式。下面 8 种模式看起来相似，但承担的导航范围完全不同。</p>
+      </header>
+      <div class="navigation-principles" id="navigationPrinciples"></div>
+      <div class="navigation-pattern-grid" id="navigationPatternGrid"></div>
+      <section class="navigation-matrix" aria-labelledby="navigationMatrixTitle">
+        <div class="matrix-heading">
+          <div><p class="eyebrow">DECISION MATRIX</p><h3 id="navigationMatrixTitle" data-i18n="vocabulary.navigationMatrixTitle">到底该选哪一种？</h3></div>
+          <p data-i18n="vocabulary.navigationMatrixIntro">不要从“哪种更好看”开始，先看信息范围、入口数量、设备和切换频率。</p>
+        </div>
+        <div class="navigation-matrix-table" id="navigationMatrixTable"></div>
+      </section>
+      <footer class="navigation-sources">
+        <span data-i18n="vocabulary.navigationSources">参考规范</span>
+        <a href="https://m3.material.io/components/navigation-bar/overview" target="_blank" rel="noreferrer">Material 3</a>
+        <a href="https://developer.apple.com/design/human-interface-guidelines/tab-bars" target="_blank" rel="noreferrer">Apple HIG</a>
+        <a href="https://carbondesignsystem.com/components/UI-shell-side-nav/usage/" target="_blank" rel="noreferrer">Carbon</a>
+        <a href="https://www.w3.org/WAI/ARIA/apg/patterns/" target="_blank" rel="noreferrer">WAI-ARIA APG</a>
+      </footer>
     </section>
 
     <section class="vocab-toolbar" aria-label="词条搜索和筛选" data-i18n-attr="aria-label:vocabulary.searchAndFilter">
