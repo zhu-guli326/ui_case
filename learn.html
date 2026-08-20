@@ -4,256 +4,245 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="不会前端，也能在 5 分钟内用 Image2 UI 把参考图变成可点击界面。">
-  <title>5 分钟做出第一个可点击界面 · IMAGE2 UI</title>
-  <link rel="stylesheet" href="./learn.css?v=20260819-progress-nav-v2">
+  <meta name="description" content="Learn to see, describe, build and review interfaces with AI.">
+  <title>How to Design with AI · ONDesign</title>
+  <link rel="stylesheet" href="./learn.css?v=20260820-story-v1">
   <link rel="stylesheet" href="./i18n.css">
   <link rel="stylesheet" href="./site-nav.css?v=20260815-ondesign">
-    <script src="./src/core/app-shell/app-shell.js?v=20260819-shell-v5"></script>
+  <script src="./src/core/app-shell/app-shell.js?v=20260819-shell-v5"></script>
   <script src="./analytics.config.js"></script>
   <script src="./analytics.js" defer></script>
-  <script src="./learn.js?v=20260815-flow" defer></script>
+  <script src="./learn.js?v=20260820-story-v1" defer></script>
 </head>
 <body>
   <div class="page-progress" aria-hidden="true"><span id="pageProgressBar"></span></div>
   <image2-site-header data-site-header></image2-site-header>
 
-  <nav class="learning-map" aria-label="本页进度">
-    <div class="learning-map-inner">
-      <strong>你的进度</strong>
-      <div class="learning-map-links">
-        <a class="is-current" href="#fufu-play" data-learn-section="fufu-play">FuFu 小店</a>
-        <a href="#quick-start" data-learn-section="quick-start">快速开始</a>
-        <a href="#input-output" data-learn-section="input-output">输入与结果</a>
-        <a href="#case-study" data-learn-section="case-study">案例拆解</a>
-        <a href="./vocabulary.html">图文词典</a>
-        <a href="#three-parts" data-learn-section="three-parts">实现原理</a>
-        <a href="#beginner-answers" data-learn-section="beginner-answers">常见问题</a>
-        <a href="#start-making" data-learn-section="start-making">开始制作</a>
-      </div>
-    </div>
+  <nav class="chapter-nav" aria-label="学习章节">
+    <a href="#why" data-section-link="why"><span>01</span><b data-zh="为什么" data-en="Why">为什么</b></a>
+    <a href="#see" data-section-link="see"><span>02</span><b data-zh="看懂" data-en="See">看懂</b></a>
+    <a href="#breakdown" data-section-link="breakdown"><span>03</span><b data-zh="拆解" data-en="Break down">拆解</b></a>
+    <a href="#name" data-section-link="name"><span>04</span><b data-zh="命名" data-en="Name">命名</b></a>
+    <a href="#describe" data-section-link="describe"><span>05</span><b data-zh="描述" data-en="Describe">描述</b></a>
+    <a href="#build" data-section-link="build"><span>06</span><b data-zh="实现" data-en="Build">实现</b></a>
+    <a href="#review" data-section-link="review"><span>07</span><b data-zh="判断" data-en="Review">判断</b></a>
+    <a href="#method" data-section-link="method"><span>08</span><b data-zh="方法" data-en="Method">方法</b></a>
   </nav>
 
   <main>
-    <section class="learn-hero" aria-labelledby="heroTitle">
-      <div class="hero-copy">
-        <p class="eyebrow">FROM REFERENCE TO CLICKABLE DEMO</p>
-        <h1 id="heroTitle"><span class="hero-line">不会前端，也能把参考图</span><span class="hero-line hero-line-accent">变成可点击界面。</span></h1>
-        <p class="hero-intro">你只需要看懂页面由哪些部分组成。拆图、生成素材、编写代码和检查交互，可以交给 Image2 UI。</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#quick-start">用一张参考图开始</a>
-          <a class="button button-secondary" href="#case-study">先看案例拆解</a>
+    <header class="story-hero" id="top">
+      <div class="hero-kicker"><span>AI UI LEARNING PATH</span><span>ONDESIGN / 2026</span></div>
+      <h1>
+        <span data-zh="先学会看懂界面。" data-en="Learn to see UI.">先学会看懂界面。</span>
+        <span class="hero-accent" data-zh="再让 AI 把它做出来。" data-en="Then tell AI what to build.">再让 AI 把它做出来。</span>
+      </h1>
+      <div class="hero-bottom">
+        <p data-zh="AI 已经会写界面了。真正需要学习的，是如何看懂设计、说清判断，并知道生成结果哪里不对。" data-en="AI can already write interfaces. The skill now is seeing design clearly, describing your decisions, and knowing when the result is wrong.">AI 已经会写界面了。真正需要学习的，是如何看懂设计、说清判断，并知道生成结果哪里不对。</p>
+        <a href="#why" class="scroll-cue"><span data-zh="开始学习" data-en="Start learning">开始学习</span><i>↓</i></a>
+      </div>
+      <div class="hero-manifesto" aria-hidden="true">
+        <span>SEE</span><span>BREAK DOWN</span><span>NAME</span><span>DESCRIBE</span><span>BUILD</span><span>REVIEW</span>
+      </div>
+    </header>
+
+    <section class="chapter" id="why" data-section="why">
+      <div class="chapter-index">01</div>
+      <div class="chapter-copy">
+        <p class="eyebrow">WHY THIS MATTERS</p>
+        <h2 data-zh="AI 会做 UI，\n但它不知道你想要什么。" data-en="AI can build UI.\nIt still needs your direction.">AI 会做 UI，<br>但它不知道你想要什么。</h2>
+        <p class="lead" data-zh="“高级一点”“简洁一点”“像 Apple 一点”都不是可执行的设计判断。你越能看清界面由什么组成，就越能准确地指挥 AI。" data-en="“Make it premium,” “keep it clean,” and “make it Apple-like” are not executable design decisions. The better you see the interface, the better you can direct AI.">“高级一点”“简洁一点”“像 Apple 一点”都不是可执行的设计判断。你越能看清界面由什么组成，就越能准确地指挥 AI。</p>
+      </div>
+      <div class="translation-board">
+        <div>
+          <span class="board-label" data-zh="人通常会说" data-en="What people say">人通常会说</span>
+          <blockquote>“<span data-zh="这里做高级一点。" data-en="Make this feel more premium.">这里做高级一点。</span>”</blockquote>
+          <blockquote>“<span data-zh="加个下拉框。" data-en="Add a dropdown.">加个下拉框。</span>”</blockquote>
+          <blockquote>“<span data-zh="手机版也适配一下。" data-en="Make it work on mobile too.">手机版也适配一下。</span>”</blockquote>
+        </div>
+        <div class="translation-arrow">→</div>
+        <div>
+          <span class="board-label" data-zh="AI 真正需要" data-en="What AI needs">AI 真正需要</span>
+          <p>Visual hierarchy · Combobox · Responsive reflow · Loading state · Spacing system · Interaction rule</p>
         </div>
       </div>
-      <div class="hero-visual" aria-label="从参考图到可点击 Demo 的过程示意">
-        <img src="./assets/readme/hero.png" alt="多张参考界面组成的 Image2 UI 案例拼贴">
-        <div class="visual-note visual-note-html"><b>01</b><span>上传参考图</span></div>
-        <div class="visual-note visual-note-css"><b>02</b><span>识别结构与资产</span></div>
-        <div class="visual-note visual-note-js"><b>03</b><span>获得可点击 Demo</span></div>
+      <p class="chapter-quote">The better you see design, the better you can direct AI.</p>
+    </section>
+
+    <section class="chapter" id="see" data-section="see">
+      <div class="chapter-index">02</div>
+      <div class="chapter-copy">
+        <p class="eyebrow">LEARN TO SEE</p>
+        <h2 data-zh="一个界面，不是一张图。\n而是一组设计决定。" data-en="A screen is not one picture.\nIt is a system of decisions.">一个界面，不是一张图。<br>而是一组设计决定。</h2>
+        <p class="lead" data-zh="先别管代码。看一个页面时，先学会辨认布局、层级、内容、动作、状态和视觉语言。" data-en="Ignore the code at first. Learn to identify layout, hierarchy, content, actions, states, and visual language.">先别管代码。看一个页面时，先学会辨认布局、层级、内容、动作、状态和视觉语言。</p>
+      </div>
+      <div class="see-lab">
+        <div class="see-controls" role="tablist" aria-label="界面观察维度">
+          <button class="is-active" data-lens="layout" type="button">Layout</button>
+          <button data-lens="hierarchy" type="button">Hierarchy</button>
+          <button data-lens="pattern" type="button">Pattern</button>
+          <button data-lens="action" type="button">Action</button>
+          <button data-lens="state" type="button">State</button>
+          <button data-lens="visual" type="button">Visual</button>
+        </div>
+        <div class="sample-ui" id="sampleUi" data-lens="layout">
+          <div class="sample-topbar"><b>ACME</b><span>Search</span><span>Profile</span></div>
+          <div class="sample-hero"><div><small>NEW COLLECTION</small><h3>Objects for slower mornings.</h3><p>Simple tools for daily rituals.</p><button type="button">Explore collection</button></div><div class="sample-object"></div></div>
+          <div class="sample-cards"><article><span>01</span><strong>Cup No. 4</strong><small>Stoneware</small></article><article><span>02</span><strong>Tray No. 2</strong><small>Oak</small></article></div>
+          <div class="sample-bottom"><span>Home</span><span>Objects</span><span>Journal</span></div>
+        </div>
+        <div class="lens-note"><span id="lensTitle">Layout</span><p id="lensText">页面先分成顶部导航、主视觉、内容卡片和底部导航，再决定它们之间的比例与留白。</p></div>
       </div>
     </section>
 
-    <section class="fufu-play" id="fufu-play" aria-labelledby="fufuPlayTitle">
-      <div class="fufu-play-copy">
-        <p class="eyebrow">PLAY FIRST / LEARN BY DOING</p>
-        <h2 id="fufuPlayTitle">先帮 FuFu 开张今天的小店</h2>
-        <p>选一种店铺气氛，再卖出面包收集印章。你会直接看到颜色、文案和状态怎样一起改变体验。</p>
-        <div class="fufu-theme-picker" role="group" aria-label="选择 FuFu Bakery 店铺气氛">
-          <button class="fufu-theme-button is-active" type="button" data-fufu-theme="morning" aria-pressed="true"><span class="theme-swatch theme-swatch-morning" aria-hidden="true"></span>早晨黄</button>
-          <button class="fufu-theme-button" type="button" data-fufu-theme="picnic" aria-pressed="false"><span class="theme-swatch theme-swatch-picnic" aria-hidden="true"></span>野餐绿</button>
-          <button class="fufu-theme-button" type="button" data-fufu-theme="berry" aria-pressed="false"><span class="theme-swatch theme-swatch-berry" aria-hidden="true"></span>莓果粉</button>
-        </div>
-        <div class="fufu-lesson" aria-live="polite">
-          <strong id="fufuLessonTitle">早晨黄：温暖、醒目，适合主行动</strong>
-          <span id="fufuLessonText">这是 CSS 在改变视觉语气。接着点击购买，让 JavaScript 改变会员状态。</span>
-        </div>
+    <section class="chapter" id="breakdown" data-section="breakdown">
+      <div class="chapter-index">03</div>
+      <div class="chapter-copy">
+        <p class="eyebrow">BREAK IT DOWN</p>
+        <h2 data-zh="不要复刻整张图。\n先把它拆开。" data-en="Don't copy the whole screenshot.\nBreak it down first.">不要复刻整张图。<br>先把它拆开。</h2>
+        <p class="lead" data-zh="AI 最容易在“整张图一起做”时失控。更可靠的方法是从页面到区块，再到组件、元素和状态。" data-en="AI loses control when you ask it to recreate an entire screenshot at once. Move from page to section, component, element, and state.">AI 最容易在“整张图一起做”时失控。更可靠的方法是从页面到区块，再到组件、元素和状态。</p>
       </div>
-
-      <div class="fufu-example">
-        <div class="fufu-example-toolbar">
-          <div class="fufu-view-switch" role="tablist" aria-label="切换效果与代码">
-            <button class="is-active" id="fufu-view-preview" type="button" role="tab" aria-selected="true" aria-controls="fufuPreviewPanel" data-fufu-view="preview">效果</button>
-            <button id="fufu-view-code" type="button" role="tab" aria-selected="false" aria-controls="fufuCodePanel" data-fufu-view="code">代码</button>
-          </div>
-          <span>实时示例</span>
+      <div class="decomposition">
+        <div class="decomp-scale">
+          <span>PAGE</span><i>↓</i><span>SECTION</span><i>↓</i><span>PATTERN</span><i>↓</i><span>COMPONENT</span><i>↓</i><span>ELEMENT</span><i>↓</i><span>STATE</span>
         </div>
-
-        <div class="fufu-preview-panel" id="fufuPreviewPanel" role="tabpanel" aria-labelledby="fufu-view-preview">
-          <div class="fufu-shop" id="fufuShop" data-theme="morning" aria-label="FuFu Bakery 手机样式互动预览">
-            <div class="fufu-phone-frame">
-          <div class="fufu-phone-screen">
-            <div class="fufu-phone-status" aria-hidden="true">
-              <strong>10:04</strong>
-              <span class="dynamic-island"></span>
-              <span class="phone-signals">⌁  ◒  ▱</span>
-            </div>
-            <div class="fufu-shop-head"><span>FU FU BAKERY</span><strong id="fufuShopMood">GOOD MORNING</strong></div>
-            <div class="fufu-shop-main">
-              <div class="fufu-product-copy">
-                <span>今日刚出炉</span>
-                <h3 id="fufuProductName">海盐黄油卷</h3>
-                <p id="fufuProductNote">松软、温热，最后撒一点海盐。</p>
-              </div>
-              <img src="./demo/fufu-bakery/assets/fufu-baker.png" alt="FuFu 狗狗烘焙师抱着法棍">
-            </div>
-            <div class="fufu-member-card">
-              <div class="fufu-member-head"><span>今日会员卡</span><strong><span id="fufuStampCount">0</span> / 4</strong></div>
-              <div class="fufu-stamps" id="fufuStamps" aria-label="已收集 0 枚，共 4 枚印章">
-                <span></span><span></span><span></span><span></span>
-              </div>
-              <p id="fufuRewardText">每买一个面包，就会多一枚印章。</p>
-            </div>
-            <button class="fufu-buy-button" id="fufuBuyButton" type="button">买一个面包，收集印章</button>
-            <button class="fufu-reset-button is-hidden" id="fufuResetButton" type="button" aria-hidden="true" tabindex="-1">再玩一次</button>
-            <p class="fufu-status" id="fufuStatus" role="status" aria-live="polite">烤箱已经热好了。</p>
-            <nav class="fufu-bottom-nav" aria-label="FuFu Bakery 示例底部导航">
-              <button class="is-active" type="button"><span>⌂</span>小店</button>
-              <button type="button"><span>▦</span>菜单</button>
-              <button type="button"><span>♡</span>会员</button>
-            </nav>
-          </div>
-            </div>
-          </div>
+        <div class="decomp-tree">
+          <strong>FuFu Bakery</strong>
+          <ul>
+            <li><b>Header</b><small>Brand · utility action</small></li>
+            <li><b>Hero</b><small>Image · headline · CTA</small></li>
+            <li><b>Membership card</b><small>Progress · reward state</small></li>
+            <li><b>Bottom navigation</b><small>3 destinations · selected state</small></li>
+          </ul>
         </div>
-
-        <div class="fufu-code-panel" id="fufuCodePanel" role="tabpanel" aria-labelledby="fufu-view-code" hidden>
-          <div class="fufu-code-head">
-            <div class="fufu-code-tabs" role="tablist" aria-label="选择代码类型">
-              <button class="is-active" type="button" role="tab" aria-selected="true" data-fufu-code="html">HTML</button>
-              <button type="button" role="tab" aria-selected="false" data-fufu-code="css">CSS</button>
-              <button type="button" role="tab" aria-selected="false" data-fufu-code="js">JavaScript</button>
-            </div>
-            <button class="fufu-copy-code" id="fufuCopyCode" type="button">复制代码</button>
-          </div>
-          <pre class="fufu-code-output" tabindex="0"><code id="fufuCodeOutput"></code></pre>
-          <p class="fufu-code-status" id="fufuCodeStatus" aria-live="polite">HTML 决定页面里有哪些内容。</p>
-        </div>
+        <figure class="decomp-image"><img src="./demo/fufu-bakery/mobile-preview.png" alt="FuFu Bakery 可点击页面预览"><figcaption data-zh="同一张页面，拆成可以单独判断和修改的对象。" data-en="One screen, broken into decisions you can inspect and change independently.">同一张页面，拆成可以单独判断和修改的对象。</figcaption></figure>
       </div>
     </section>
 
-    <section class="quick-start" id="quick-start" aria-labelledby="quickStartTitle">
-      <div class="section-heading section-heading-wide">
-        <p class="eyebrow">5 MINUTE QUICK START</p>
-        <h2 id="quickStartTitle">四步完成第一个界面</h2>
-        <p>准备一张参考图，把下面这句话连同图片发给 Codex。第一次不需要先学 HTML、CSS 或 JavaScript。</p>
+    <section class="chapter" id="name" data-section="name">
+      <div class="chapter-index">04</div>
+      <div class="chapter-copy">
+        <p class="eyebrow">NAME WHAT YOU SEE</p>
+        <h2 data-zh="你不需要背术语。\n但你要知道怎么找到它。" data-en="You don't need to memorize terms.\nYou need to know how to find them.">你不需要背术语。<br>但你要知道怎么找到它。</h2>
+        <p class="lead" data-zh="把模糊的人话翻译成 UI Pattern，是让 AI 生成结果稳定下来的关键一步。" data-en="Translating fuzzy human language into UI patterns is one of the fastest ways to make AI output more reliable.">把模糊的人话翻译成 UI Pattern，是让 AI 生成结果稳定下来的关键一步。</p>
       </div>
-      <ol class="quick-steps">
-        <li><span>01</span><strong>上传参考图</strong><p>截图、设计稿或你喜欢的产品页面都可以。</p></li>
-        <li><span>02</span><strong>选风格规范</strong><p>沿用参考图，或指定案例风格与品牌规范。</p></li>
-        <li><span>03</span><strong>复制 Prompt</strong><p>明确页面数量、可点击范围和检查要求。</p></li>
-        <li><span>04</span><strong>体验 Demo</strong><p>打开结果，检查显示、图片与页面交互。</p></li>
+      <div class="name-grid">
+        <article><span data-zh="“右边滑出来那个面板”" data-en="“The panel that slides in from the right”">“右边滑出来那个面板”</span><i>→</i><strong>Drawer</strong><small>Modal · Sheet · Popover</small></article>
+        <article><span data-zh="“能输入搜索的下拉框”" data-en="“A dropdown I can type into”">“能输入搜索的下拉框”</span><i>→</i><strong>Combobox</strong><small>Select · Autocomplete</small></article>
+        <article><span data-zh="“保存后闪一下的提示”" data-en="“The message that appears after save”">“保存后闪一下的提示”</span><i>→</i><strong>Toast</strong><small>Alert · Banner</small></article>
+        <article><span data-zh="“手机底部几个切页面的图标”" data-en="“Icons at the bottom that switch screens”">“手机底部几个切页面的图标”</span><i>→</i><strong>Bottom Navigation</strong><small>Tabs · Navigation rail</small></article>
+      </div>
+      <div class="inline-cta"><span>Human language → Design language</span><a href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html"><span data-zh="打开 UI Vocabulary" data-en="Open UI Vocabulary">打开 UI Vocabulary</span> ↗</a></div>
+    </section>
+
+    <section class="chapter" id="describe" data-section="describe">
+      <div class="chapter-index">05</div>
+      <div class="chapter-copy">
+        <p class="eyebrow">DESCRIBE IT</p>
+        <h2 data-zh="“做高级一点”\n不是设计指令。" data-en="“Make it premium”\nis not a design instruction.">“做高级一点”<br>不是设计指令。</h2>
+        <p class="lead" data-zh="好的 Prompt 不一定更长，但一定更具体：布局、组件、层级、状态、响应式和视觉方向都能被明确描述。" data-en="A good prompt is not necessarily longer. It is more specific about layout, components, hierarchy, states, responsiveness, and visual direction.">好的 Prompt 不一定更长，但一定更具体：布局、组件、层级、状态、响应式和视觉方向都能被明确描述。</p>
+      </div>
+      <div class="prompt-ladder">
+        <article class="prompt-step bad"><span>01 / VAGUE</span><p data-zh="做一个高级一点的登录页。" data-en="Make a premium login page.">做一个高级一点的登录页。</p></article>
+        <article class="prompt-step better"><span>02 / BETTER</span><p data-zh="左侧用大幅品牌图片，右侧放一个紧凑的登录表单，只有一个主按钮。" data-en="Use a large brand image on the left and a compact login form on the right with one primary action.">左侧用大幅品牌图片，右侧放一个紧凑的登录表单，只有一个主按钮。</p></article>
+        <article class="prompt-step precise"><span>03 / PRECISE</span><p>Use a responsive <mark>split-screen authentication layout</mark>. Keep the form column narrow, use one <mark>primary CTA</mark>, add <mark>focus / error / loading states</mark>, and stack the layout on mobile while preserving visual hierarchy.</p></article>
+      </div>
+      <p class="chapter-quote">A good AI prompt is not longer. It is more specific.</p>
+    </section>
+
+    <section class="chapter" id="build" data-section="build">
+      <div class="chapter-index">06</div>
+      <div class="chapter-copy">
+        <p class="eyebrow">BUILD IT</p>
+        <h2 data-zh="不是所有看见的东西，\n都应该变成图片。" data-en="Not everything you see\nshould become an image.">不是所有看见的东西，<br>都应该变成图片。</h2>
+        <p class="lead" data-zh="文字、按钮、表单和导航需要保持可编辑、可交互、可响应；摄影、复杂插画和材质更适合作为媒体资产。" data-en="Text, controls, forms, and navigation should stay editable, interactive, and responsive. Photography, complex illustration, and texture work better as media assets.">文字、按钮、表单和导航需要保持可编辑、可交互、可响应；摄影、复杂插画和材质更适合作为媒体资产。</p>
+      </div>
+      <div class="code-media-board">
+        <article><span class="board-label">CODE UI</span><h3>Text · Button · Input · Navigation · Card · Chart · State</h3><p>Editable · Interactive · Responsive · Accessible</p></article>
+        <article><span class="board-label">MEDIA</span><h3>Photography · Illustration · Texture · 3D · Complex visual</h3><p>Replaceable · Art-directed · Asset-managed</p></article>
+        <article><span class="board-label">IT DEPENDS</span><h3>Logo · Icon · Decorative background</h3><p data-zh="取决于是否需要交互、缩放、主题切换和品牌资产约束。" data-en="Depends on interaction, scaling, theming, and brand-asset constraints.">取决于是否需要交互、缩放、主题切换和品牌资产约束。</p></article>
+      </div>
+      <div class="workflow">
+        <span>REFERENCE</span><i>→</i><span>DECOMPOSE</span><i>→</i><span>CODE / MEDIA</span><i>→</i><span>BUILD</span><i>→</i><span>VERIFY</span>
+      </div>
+      <div class="case-strip" aria-label="案例">
+        <a href="./demo/fufu-bakery/index.html"><img src="./demo/fufu-bakery/mobile-preview.png" alt="FuFu Bakery"><span>FuFu Bakery</span></a>
+        <a href="./demo/plate-play/index.html"><img src="./demo/plate-play/mobile-preview.png" alt="Plate Play"><span>Plate Play</span></a>
+        <a href="./demo/relay/index.html"><img src="./demo/relay/mobile-preview.png" alt="RELAY"><span>RELAY</span></a>
+      </div>
+    </section>
+
+    <section class="chapter" id="review" data-section="review">
+      <div class="chapter-index">07</div>
+      <div class="chapter-copy">
+        <p class="eyebrow">REVIEW IT</p>
+        <h2 data-zh="AI 做出来了，\n不代表它做对了。" data-en="AI built it.\nThat doesn't mean it's right.">AI 做出来了，<br>不代表它做对了。</h2>
+        <p class="lead" data-zh="设计也包括知道什么应该拒绝。检查层级、间距、组件一致性、状态和响应式，比单纯问“好不好看”更有用。" data-en="Design also means knowing what to reject. Review hierarchy, spacing, component consistency, states, and responsiveness instead of asking only whether it looks good.">设计也包括知道什么应该拒绝。检查层级、间距、组件一致性、状态和响应式，比单纯问“好不好看”更有用。</p>
+      </div>
+      <div class="review-compare">
+        <article class="review-card generic">
+          <span>GENERIC AI UI</span>
+          <div class="mini-dashboard">
+            <header><b>Analytics</b><button>New report</button></header>
+            <div class="kpis"><i></i><i></i><i></i></div>
+            <div class="chart-bad"></div>
+            <div class="cards-bad"><i></i><i></i><i></i><i></i></div>
+          </div>
+          <ul><li data-zh="所有卡片同权重" data-en="Every card has equal weight">所有卡片同权重</li><li data-zh="按钮层级混乱" data-en="Button hierarchy is unclear">按钮层级混乱</li><li data-zh="状态缺失" data-en="Missing states">状态缺失</li><li data-zh="间距没有系统" data-en="No spacing system">间距没有系统</li></ul>
+        </article>
+        <article class="review-card considered">
+          <span>CONSIDERED UI</span>
+          <div class="mini-dashboard refined">
+            <header><b>Analytics</b><button>New report</button></header>
+            <div class="summary-line"><strong>+18.4%</strong><small>vs last month</small></div>
+            <div class="chart-good"></div>
+            <div class="table-lines"><i></i><i></i><i></i></div>
+          </div>
+          <ul><li>Clear hierarchy</li><li>Consistent spacing</li><li>Complete states</li><li>Responsive decisions</li></ul>
+        </article>
+      </div>
+      <p class="chapter-quote">Design is also knowing what to reject.</p>
+    </section>
+
+    <section class="chapter method-chapter" id="method" data-section="method">
+      <div class="chapter-index">08</div>
+      <div class="chapter-copy">
+        <p class="eyebrow">THE METHOD</p>
+        <h2 data-zh="最终，你只需要记住\n这一条路径。" data-en="In the end, remember\nthis one path.">最终，你只需要记住<br>这一条路径。</h2>
+      </div>
+      <ol class="method-list">
+        <li><span>01</span><strong>SEE</strong><small data-zh="看懂界面" data-en="See the interface">看懂界面</small></li>
+        <li><span>02</span><strong>BREAK DOWN</strong><small data-zh="拆成可判断的对象" data-en="Break it into decisions">拆成可判断的对象</small></li>
+        <li><span>03</span><strong>NAME</strong><small data-zh="找到正确 Pattern" data-en="Find the right pattern">找到正确 Pattern</small></li>
+        <li><span>04</span><strong>DESCRIBE</strong><small data-zh="把意图说清楚" data-en="Describe the intent">把意图说清楚</small></li>
+        <li><span>05</span><strong>BUILD</strong><small data-zh="让 AI 实现" data-en="Let AI build it">让 AI 实现</small></li>
+        <li><span>06</span><strong>REVIEW</strong><small data-zh="判断哪里不对" data-en="Know what's wrong">判断哪里不对</small></li>
+        <li><span>07</span><strong>ITERATE</strong><small data-zh="局部修改并验证" data-en="Change and verify">局部修改并验证</small></li>
       </ol>
-      <div class="prompt-tool" aria-label="可复制的 Image2 UI Prompt">
-        <div class="prompt-tool-head"><span>直接使用这句话</span><span>IMAGE2-TO-UI.PROMPT</span></div>
-        <pre id="quickPrompt">使用 image-to-ui-skill，参考我上传的图片，
-拆分代码 UI 和图片资产，生成一个包含三个页面的可点击手机 Demo，
-并检查页面显示、图片加载和交互是否正常。</pre>
-        <div class="prompt-actions">
-          <button class="button button-primary" id="copyQuickPrompt" type="button">复制这段 Prompt</button>
-          <a class="button button-secondary" href="./demo/fufu-bakery/index.html">查看生成结果示例</a>
-        </div>
-        <p class="copy-status" id="copyStatus" aria-live="polite"></p>
+      <div class="method-statement">
+        <p data-zh="你不需要先成为前端工程师。" data-en="You don't need to become a frontend engineer first.">你不需要先成为前端工程师。</p>
+        <strong data-zh="你需要更会看、更会说，也更会判断。" data-en="You need to get better at seeing, describing, and judging design.">你需要更会看、更会说，也更会判断。</strong>
       </div>
     </section>
 
-    <section class="input-output" id="input-output" aria-labelledby="inputOutputTitle">
-      <div class="section-heading section-heading-wide">
-        <p class="eyebrow">WHAT YOU GIVE / WHAT YOU GET</p>
-        <h2 id="inputOutputTitle">你提供方向，Skill 负责落地</h2>
-      </div>
-      <div class="io-flow">
-        <div class="io-column">
-          <span class="io-label">你的输入</span>
-          <h3>参考图 + 一句话要求</h3>
-          <ul><li>一张或多张参考图</li><li>想做几个页面</li><li>品牌、内容和交互要求</li></ul>
-        </div>
-        <div class="io-arrow" aria-hidden="true">→</div>
-        <div class="io-column io-output">
-          <span class="io-label">最终结果</span>
-          <h3>可打开、可点击、可继续修改</h3>
-          <ul><li>代码实现的 UI 与交互</li><li>单独生成和管理的图片资产</li><li>经过显示、加载与交互检查的 Demo</li></ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="case-study" id="case-study" aria-labelledby="caseTitle">
-      <div class="section-heading section-heading-wide">
-        <p class="eyebrow">INPUT → DECISIONS → OUTPUT</p>
-        <h2 id="caseTitle">看 Skill 如何拆解一个案例</h2>
-        <p>切换案例，比较原始参考、拆解决策和最终可点击页面。这里关注的是工作流，不是要求你先会写代码。</p>
-      </div>
-      <div class="case-tabs" role="tablist" aria-label="选择教学案例">
-        <button class="case-tab is-selected" id="case-tab-fufu" type="button" role="tab" aria-selected="true" aria-controls="casePanel" tabindex="0" data-case="fufu">FuFu Bakery <small>手绘烘焙会员</small></button>
-        <button class="case-tab" id="case-tab-plate" type="button" role="tab" aria-selected="false" aria-controls="casePanel" tabindex="-1" data-case="plate">Plate Play <small>食谱插画</small></button>
-        <button class="case-tab" id="case-tab-relay" type="button" role="tab" aria-selected="false" aria-controls="casePanel" tabindex="-1" data-case="relay">RELAY <small>音乐发现</small></button>
-      </div>
-      <div class="case-board" id="casePanel" role="tabpanel" aria-labelledby="case-tab-fufu">
-        <div class="case-compare">
-          <figure><figcaption>原始参考图</figcaption><img id="caseReferenceImage" src="./demo/fufu-bakery/assets/reference-overview.png" alt="FuFu Bakery 原始参考图"></figure>
-          <figure><figcaption>最终可点击页面</figcaption><img id="caseImage" src="./demo/fufu-bakery/mobile-preview.png" alt="FuFu Bakery 手绘烘焙会员案例预览"></figure>
-        </div>
-        <div class="case-analysis">
-          <div class="analysis-block"><span class="analysis-label">识别出的页面结构</span><p id="caseStructure">欢迎页、烘焙首页、今日菜单和会员卡组成轻量门店流程。</p></div>
-          <div class="analysis-block"><span class="analysis-label">需要生成的图片资产</span><p id="caseAssets">狗狗烘焙师插画和烘焙氛围参考图。</p></div>
-          <div class="analysis-block"><span class="analysis-label">需要代码实现的控件</span><div class="implementation-tags" id="caseControls"><span>进入按钮</span><span>菜单切换</span><span>会员卡</span><span>底部导航</span></div></div>
-          <div class="case-actions">
-            <a class="button button-primary" id="caseDemoLink" href="./demo/fufu-bakery/index.html">体验 Demo</a>
-            <button class="button button-secondary" id="applyLearningCase" type="button">应用到当前项目</button>
-            <a class="button button-secondary" id="caseTaskLink" href="./launcher.html?intent=rebuild&source=library&case=fufu">用此案例开始设计</a>
-            <button class="button button-secondary" id="copyCasePrompt" type="button">复制同款结构 Prompt</button>
-          </div>
-          <p class="copy-status" id="caseCopyStatus" aria-live="polite"></p>
-        </div>
-      </div>
-    </section>
-
-    <section class="three-parts" id="three-parts" aria-labelledby="partsTitle">
-      <div class="section-heading section-heading-wide">
-        <p class="eyebrow">OPTIONAL / BEHIND THE SCENES</p>
-        <h2 id="partsTitle">想知道背后怎么实现？</h2>
-        <p>这些知识不是使用 Skill 的前置条件。等你想继续修改生成结果时，再展开了解前端三件套。</p>
-      </div>
-      <details class="frontend-details">
-        <summary>展开了解 HTML、CSS 和 JavaScript</summary>
-        <div class="parts-grid">
-          <article class="part-card part-html"><span class="part-label">01 / STRUCTURE</span><h3>HTML</h3><p>决定页面有什么：标题、段落、图片、按钮和页面结构。</p><small>关键词：内容、结构、语义</small></article>
-          <article class="part-card part-css"><span class="part-label">02 / STYLE</span><h3>CSS</h3><p>决定页面长什么样：颜色、字体、间距、布局和响应式。</p><small>关键词：外观、布局、适配</small></article>
-          <article class="part-card part-js"><span class="part-label">03 / BEHAVIOR</span><h3>JavaScript</h3><p>决定页面怎么回应：点击、切换、校验和动态状态。</p><small>关键词：交互、状态、反馈</small></article>
-        </div>
+    <section class="behind-scenes">
+      <details>
+        <summary><span data-zh="Behind the scenes · AI 背后到底在写什么？" data-en="Behind the scenes · What is AI actually writing?">Behind the scenes · AI 背后到底在写什么？</span><i>+</i></summary>
+        <div class="behind-grid"><article><b>HTML</b><p>Structure · content · semantics</p></article><article><b>CSS</b><p>Layout · visual · responsive</p></article><article><b>JavaScript</b><p>Behavior · state · feedback</p></article></div>
       </details>
     </section>
 
-    <section class="beginner-answers" id="beginner-answers" aria-labelledby="answersTitle">
-      <div class="section-heading section-heading-wide">
-        <p class="eyebrow">IMAGE2 UI / FAQ</p>
-        <h2 id="answersTitle">实际使用时最常遇到的问题</h2>
-      </div>
-      <div class="faq-list">
-        <details open><summary>完全不会写代码可以使用吗？</summary><p>可以。你负责提供参考图、目标和反馈；Skill 会拆解页面、实现代码、生成所需图片并检查结果。你只需要能打开 Demo 并说出哪里需要调整。</p></details>
-        <details><summary>每个页面都必须调用 Image2 吗？</summary><p>不需要。Image2 只用于更适合位图的插画、照片和复杂视觉资产。按钮、文字、导航、表单和大多数图标应由代码实现。</p></details>
-        <details><summary>效果图和可点击 Demo 有什么区别？</summary><p>效果图只展示某个静态画面；可点击 Demo 包含真实页面结构和交互，可以切换页面、点击按钮，并在不同屏幕尺寸下运行。</p></details>
-        <details><summary>可以应用自己的品牌规范吗？</summary><p>可以。提供 Logo、字体、颜色、间距和组件要求，或从品牌规范库选一套基础规则。对于商业字体和品牌资产，请同时说明你拥有使用权限。</p></details>
-        <details><summary>生成结果还能继续修改吗？</summary><p>可以。你可以直接用自然语言提出修改，例如“主按钮改成品牌绿、卡片圆角减小、保留当前交互”，也可以让 Skill 只重做指定页面。</p></details>
-        <details><summary>为什么有些内容必须由代码实现？</summary><p>文字、按钮和控件需要清晰、可访问且能响应交互。把它们画进图片会导致无法点击、难以修改，也无法适配不同屏幕。</p></details>
-      </div>
-      <details class="further-learning"><summary>进一步学习：前端与体验设计资料</summary><div><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website" target="_blank" rel="noreferrer">MDN：第一个网站 ↗</a><a href="https://web.dev/learn/" target="_blank" rel="noreferrer">web.dev：学习路径 ↗</a><a href="https://www.nngroup.com/articles/what-is-user-experience/" target="_blank" rel="noreferrer">NN/g：UI 与 UX ↗</a></div></details>
-    </section>
-
-    <section class="start-making" id="start-making" aria-labelledby="startMakingTitle">
-      <p class="eyebrow">YOUR FIRST DEMO</p>
-      <h2 id="startMakingTitle">现在，用一张你喜欢的参考图开始。</h2>
-      <p>五分钟后，你应该拿到一个可以打开、点击和继续修改的界面，而不是多学一门课。</p>
-      <div class="final-actions">
-        <a class="button button-accent" href="#quick-start">开始制作第一个界面</a>
-        <a class="button button-dark-outline" href="./library.html">打开案例库</a>
-        <a class="button button-dark-outline" href="./brands.html">打开设计系统实验室</a>
+    <section class="final-cta">
+      <p class="eyebrow">NOW BUILD SOMETHING</p>
+      <h2 data-zh="现在，拿一个你喜欢的界面开始。" data-en="Now start with an interface you like.">现在，拿一个你喜欢的界面开始。</h2>
+      <div class="final-links">
+        <a href="./launcher.html?intent=rebuild"><span data-zh="从参考图开始" data-en="Start from a reference">从参考图开始</span> ↗</a>
+        <a data-smart-lang-link="./vocabulary.html" href="./vocabulary.html?lang=zh"><span data-zh="探索 UI Vocabulary" data-en="Explore UI Vocabulary">探索 UI Vocabulary</span> ↗</a>
+        <a data-smart-lang-link="./library.html" href="./library.html?lang=zh"><span data-zh="浏览案例库" data-en="Browse the library">浏览案例库</span> ↗</a>
+        <a data-smart-lang-link="./brands.html" href="./brands.html?lang=zh"><span data-zh="查看设计系统" data-en="Explore design systems">查看设计系统</span> ↗</a>
       </div>
     </section>
   </main>
 
-  <footer class="learn-footer">
-    <p><strong>IMAGE2 UI</strong> · 从参考图到经过检查的可点击 Demo</p>
-    <nav aria-label="页脚链接"><a href="./library.html">案例库</a><a href="./brands.html">设计系统</a><a href="./skills.html">设计 Skill</a><a href="https://x.com/JGuli49724" target="_blank" rel="noopener noreferrer">X</a><a href="https://www.xiaohongshu.com/user/profile/57b3456c82ec3947f79496e9" target="_blank" rel="noopener noreferrer">小红书</a></nav>
-  </footer>
+  <footer class="learn-footer"><span>ONDesign · AI UI Learning Path</span><a href="#top">Back to top ↑</a></footer>
 </body>
 </html>
