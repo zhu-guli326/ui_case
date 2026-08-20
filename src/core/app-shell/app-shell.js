@@ -98,8 +98,8 @@
   function resourceNavigationItems() {
     return [
       { href: "https://github.com/zhu-guli326/image2_UI_skill", label: `GitHub <span class="site-nav-stars">${githubStars ?? "…"}</span>`, external: true, className: "site-nav-github" },
-      { href: "https://x.com/JGuli49724", label: "X", external: true, ariaLabel: "在 X 查看 JGuli49724 的主页" },
-      { href: "https://www.xiaohongshu.com/user/profile/57b3456c82ec3947f79496e9", label: "小红书", external: true },
+      { href: "https://x.com/JGuli49724", label: "X", external: true, ariaLabel: language === "en" ? "Open JGuli49724's profile on X" : "在 X 查看 JGuli49724 的主页" },
+      { href: "https://www.xiaohongshu.com/user/profile/57b3456c82ec3947f79496e9", label: language === "en" ? "Xiaohongshu" : "小红书", external: true, ariaLabel: language === "en" ? "Open the creator profile on Xiaohongshu" : "打开作者的小红书主页" },
     ];
   }
 
@@ -130,14 +130,14 @@
     lastStep: ""
   };
   const projectLabels = {
-    template: { dashboard: "SaaS Dashboard", commerce: "电商页面", landing: "产品落地页", social: "社交 App", login: "登录页", "account-settings": "账户设置", "list-detail": "列表详情" },
-    system: { ant: "Ant Design", material: "Material 3", apple: "Apple HIG 风格", fluent: "Fluent 2", polaris: "Polaris", tdesign: "TDesign", carbon: "Carbon" },
+    template: { dashboard: { zh: "SaaS Dashboard", en: "SaaS dashboard" }, commerce: { zh: "电商页面", en: "Commerce page" }, landing: { zh: "产品落地页", en: "Product landing page" }, social: { zh: "社交 App", en: "Social app" }, login: { zh: "登录页", en: "Login page" }, "account-settings": { zh: "账户设置", en: "Account settings" }, "list-detail": { zh: "列表详情", en: "List detail" } },
+    system: { ant: "Ant Design", material: "Material 3", apple: { zh: "Apple HIG 风格", en: "Apple HIG" }, fluent: "Fluent 2", polaris: "Polaris", tdesign: "TDesign", carbon: "Carbon" },
     brand: { linear: "Linear", apple: "Apple", stripe: "Stripe", notion: "Notion", airbnb: "Airbnb" },
-    theme: { "minimal-tech": "极简科技", "editorial-commerce": "编辑感", "soft-lifestyle": "柔和生活", "dense-tool": "高密度工具型", "future-tech": "未来科技", "neo-brutal": "Neo Brutalism", glass: "Glassmorphism", retro: "复古数字" },
-    device: { desktop: "桌面端", responsive: "响应式网页", iphone: "iPhone", android: "Android" },
-    density: { compact: "高密度工具型", balanced: "平衡密度", spacious: "低密度呼吸感" },
-    spacingBase: { "4pt": "4pt 间距基数", "8pt": "8pt 间距基数" },
-    fontScheme: { "system-cjk": "中西文系统字体", "humanist-cjk": "人文西文 + 中文黑体", "serif-cjk": "西文衬线 + 中文宋体" },
+    theme: { "minimal-tech": { zh: "极简科技", en: "Minimal tech" }, "editorial-commerce": { zh: "编辑感", en: "Editorial commerce" }, "soft-lifestyle": { zh: "柔和生活", en: "Soft lifestyle" }, "dense-tool": { zh: "高密度工具型", en: "Dense tool" }, "future-tech": { zh: "未来科技", en: "Future tech" }, "neo-brutal": "Neo Brutalism", glass: "Glassmorphism", retro: { zh: "复古数字", en: "Retro digital" } },
+    device: { desktop: { zh: "桌面端", en: "Desktop" }, responsive: { zh: "响应式网页", en: "Responsive web" }, iphone: "iPhone", android: "Android" },
+    density: { compact: { zh: "高密度工具型", en: "Compact tool" }, balanced: { zh: "平衡密度", en: "Balanced density" }, spacious: { zh: "低密度呼吸感", en: "Spacious" } },
+    spacingBase: { "4pt": { zh: "4pt 间距基数", en: "4pt spacing base" }, "8pt": { zh: "8pt 间距基数", en: "8pt spacing base" } },
+    fontScheme: { "system-cjk": { zh: "中西文系统字体", en: "System Latin + CJK" }, "humanist-cjk": { zh: "人文西文 + 中文黑体", en: "Humanist Latin + CJK sans" }, "serif-cjk": { zh: "西文衬线 + 中文宋体", en: "Serif Latin + CJK serif" } },
   };
 
   function readCurrentProject() {
@@ -145,7 +145,11 @@
     catch { return { ...projectDefaults }; }
   }
 
-  function projectLabel(group, value) { return projectLabels[group]?.[value] || value; }
+  function projectLabel(group, value) {
+    const label = projectLabels[group]?.[value];
+    if (label && typeof label === "object") return label[language] ?? label.en ?? label.zh ?? value;
+    return label || value;
+  }
 
   const workflowPages = [
     { id: "library", page: "library.html", number: "01", zh: "选择案例", en: "Choose case" },
