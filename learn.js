@@ -25,14 +25,48 @@ const translations = {
   }
 };
 
-function currentLanguage() {
-  const param = new URLSearchParams(location.search).get("lang");
-  return param === "en" ? "en" : "zh";
+const SUPPORTED_LANGUAGES = new Set(["zh", "en"]);
+let activeLanguage = null;
+
+function languageFromEvent(event) {
+  const detail = event?.detail;
+  if (typeof detail === "string" && SUPPORTED_LANGUAGES.has(detail)) return detail;
+  if (detail && typeof detail === "object") {
+    const candidate = detail.language || detail.lang || detail.value;
+    if (SUPPORTED_LANGUAGES.has(candidate)) return candidate;
+  }
+  return null;
 }
 
-function applyLanguage() {
-  const lang = currentLanguage();
+function currentLanguage(event) {
+  const eventLanguage = languageFromEvent(event);
+  if (eventLanguage) return eventLanguage;
+
+  const appLanguage = window.image2I18n?.language;
+  if (SUPPORTED_LANGUAGES.has(appLanguage)) return appLanguage;
+
+  const param = new URLSearchParams(location.search).get("lang");
+  if (SUPPORTED_LANGUAGES.has(param)) return param;
+
+  return activeLanguage || "zh";
+}
+
+function syncDocumentMeta(lang) {
   document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+  document.title = lang === "en" ? "How to Design with AI · ONDesign" : "如何与 AI 一起做 UI · ONDesign";
+  const description = document.querySelector('meta[name="description"]');
+  if (description) {
+    description.content = lang === "en"
+      ? "Learn to see, describe, build and review interfaces with AI."
+      : "学习如何看懂、拆解、描述、生成并判断 AI UI。";
+  }
+}
+
+function applyLanguage(event) {
+  const lang = currentLanguage(event);
+  activeLanguage = lang;
+  syncDocumentMeta(lang);
+
   document.querySelectorAll("[data-zh][data-en]").forEach((el) => {
     const value = el.dataset[lang];
     if (!value) return;
@@ -42,14 +76,25 @@ function applyLanguage() {
       el.textContent = value;
     }
   });
+
   document.querySelectorAll("[data-smart-lang-link]").forEach((link) => {
-    link.href = `${link.dataset.smartLangLink}?lang=${lang}`;
+    const target = new URL(link.dataset.smartLangLink, location.href);
+    target.searchParams.set("lang", lang);
+    link.href = `${target.pathname.split("/").pop()}${target.search}${target.hash}`;
   });
-  updateLens(document.querySelector("[data-lens].is-active")?.dataset.lens || "layout");
+
+  const rebuildLink = document.querySelector('.final-links a[href*="launcher.html"]');
+  if (rebuildLink) {
+    const target = new URL(rebuildLink.href, location.href);
+    target.searchParams.set("lang", lang);
+    rebuildLink.href = target.href;
+  }
+
+  updateLens(document.querySelector("[data-lens].is-active")?.dataset.lens || "layout", lang);
 }
 
-function updateLens(lens) {
-  const lang = currentLanguage();
+function updateLens(lens, forcedLanguage) {
+  const lang = forcedLanguage || activeLanguage || currentLanguage();
   const note = translations[lens]?.[lang] || translations.layout[lang];
   const sample = document.querySelector("#sampleUi");
   if (sample) sample.dataset.lens = lens;
