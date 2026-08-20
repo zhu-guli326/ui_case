@@ -761,7 +761,7 @@ function openPreview(id, mode = "auto") {
   previewDialogCopy.textContent = copy.copyFull;
   previewDialogApply.textContent = copy.applyProject;
   previewDialogStartTask.href = taskUrlForGuide(sourceGuide);
-  previewDialogStartTask.textContent = window.image2I18n?.language === "en" ? "Start a task from this case" : "基于此案例开始任务";
+  previewDialogStartTask.textContent = window.image2I18n?.language === "en" ? "Start designing from this case" : "基于此案例开始设计";
   previewDialogMoreActionsSummary.textContent = isEnglish ? "More actions" : "更多操作";
   previewDialogMoreActionsSummary.closest("details").open = false;
   previewDialogComponents.href = labUrlForGuide(sourceGuide);

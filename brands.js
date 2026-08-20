@@ -1,5 +1,5 @@
 /**
- * brands.js — 设计实验室主入口
+ * brands.js — 设计系统探索器入口
  * 职责仅限协调：初始化、事件绑定、UI 渲染编排
  * 状态管理 → brands-state.js
  * 预览渲染 → brands-preview.js
@@ -96,7 +96,7 @@ function bindEvents() {
     if (quick) {
       state.theme = normalizeTheme(quick.dataset.themeQuick);
       update(true);
-      showToast(`${brandsT("已应用 ", "Applied ")}${findTheme(state.theme).name}`);
+      showToast(`已应用 ${findTheme(state.theme).name}`);
       return;
     }
     const explain = event.target.closest("[data-explain]");
@@ -104,27 +104,35 @@ function bindEvents() {
   });
   $("#saveProject").addEventListener("click", () => {
     persist(state);
-    showToast(brandsT("当前设计项目已保存", "Current project saved"));
+    showToast("当前设计项目已保存");
   });
   $("#generateDemo").addEventListener("click", () => {
     persist(state);
     const url = previewUrl(state, state.system);
     window.open(url, "_blank", "noopener");
-    showToast(brandsT("已打开可点击 Demo", "Clickable demo opened"));
+    showToast("已打开可点击 Demo");
   });
+  const applyToTask = $("#applyToTask");
+  if (applyToTask && applyToTask.dataset.bound !== "1") {
+    applyToTask.dataset.bound = "1";
+    applyToTask.addEventListener("click", () => {
+      state.lastStep = "brands";
+      persist(state);
+    });
+  }
   addEventListener("resize", fitFrames);
 }
 
 function toggleCompare(id) {
   if (state.compare.includes(id)) {
     if (state.compare.length <= 2) {
-      showToast(brandsT("对比模式至少保留 2 个系统", "Compare mode needs at least 2 systems"));
+      showToast("对比模式至少保留 2 个系统");
       return;
     }
     state.compare = state.compare.filter((item) => item !== id);
   } else {
     if (state.compare.length >= 3) {
-      showToast(brandsT("一次最多比较 3 个系统", "Maximum 3 systems for comparison"));
+      showToast("一次最多比较 3 个系统");
       return;
     }
     state.compare = [...state.compare, id];
@@ -150,6 +158,7 @@ function render() {
   $("#previewStage").hidden = state.view === "differences";
 
   renderProjectOrigin();
+  renderTaskActions();
   renderOverview(template, system, brand, theme, intensity, device);
   const result = renderPreview($("#previewStage"), state, { fitFrames, observer: frameObserver, previewLoaderObserver: previewLoadObserver });
   frameObserver = result.observer;
@@ -180,6 +189,27 @@ function renderProjectOrigin() {
   origin.innerHTML = `<span>${brandsT("任务参考", "Task reference")}</span><strong>${escapeHtml(source)}</strong><div><a href="${localize(libraryUrl.href)}">${hasTaskCase ? brandsT("查看任务案例", "View case") : brandsT("选择案例", "Select case")}</a><a href="${localize(taskUrl.href)}">${state.taskIntent ? brandsT("调整任务", "Adjust task") : brandsT("定义任务", "Define task")}</a></div>`;
 }
 
+function taskUrl() {
+  const url = new URL("./launcher.html", location.href);
+  url.searchParams.set("intent", state.taskIntent || "create");
+  ["template", "system", "brand", "theme", "intensity", "device", "appearance"].forEach((key) => {
+    if (state[key]) url.searchParams.set(key, state[key]);
+  });
+  if (state.taskReferenceMode === "case" && state.taskReferenceCaseId) {
+    url.searchParams.set("source", "library");
+    url.searchParams.set("case", state.taskReferenceCaseId);
+  }
+  return window.image2I18n?.localizeUrl?.(url.href) || url.href;
+}
+
+function renderTaskActions() {
+  const href = taskUrl();
+  ["#backToTask", "#applyToTask"].forEach((selector) => {
+    const link = $(selector);
+    if (link) link.href = href;
+  });
+}
+
 function renderOverview(template, system, brand, theme, intensity, device) {
   const colors = theme.colors || {};
   const isEn = window.image2I18n?.language === "en";
@@ -207,22 +237,13 @@ function renderSummary() {
 }
 
 const explainCopy = {
-  system: {
-    zh: { kicker: "DESIGN SYSTEM", title: "设计系统决定组件怎么工作", body: "它定义按钮、输入框、卡片、导航等组件的结构、尺寸、间距、状态和可访问性。切换它，应该看到真正的组件规范差异，而不是只换颜色。", items: ["Material 3：强调状态层级与跨平台一致性", "Ant Design：适合信息密集的企业级 Web 产品", "Apple HIG：此处是规则模拟预览，不是苹果官方 Web 组件库"] },
-    en: { kicker: "DESIGN SYSTEM", title: "A design system decides how components work", body: "It defines the structure, size, spacing, states, and accessibility of buttons, inputs, cards, navigation, and more. Switching it should surface real component spec differences, not just a color change.", items: ["Material 3: emphasizes state layers and cross-platform consistency", "Ant Design: built for information-dense enterprise web products", "Apple HIG: a rules simulation here, not Apple's official web component library"] },
-  },
-  brand: {
-    zh: { kicker: "BRAND REFERENCE", title: "品牌参考决定页面怎么说话", body: "它用于表达气质、强调方式和排版倾向，不会替换当前设计系统的组件。", items: ["Linear：冷静、精确、效率优先", "Stripe：明亮、技术可信、商业表达强", "Airbnb：温暖、人本、生活方式感更强"] },
-    en: { kicker: "BRAND REFERENCE", title: "A brand reference decides how the page speaks", body: "It shapes expression, emphasis, and typography preferences without replacing the current design system's components.", items: ["Linear: calm, precise, efficiency first", "Stripe: bright, technically credible, strong business voice", "Airbnb: warm, human-centered, lifestyle-forward"] },
-  },
-  theme: {
-    zh: { kicker: "COLOR THEME", title: "配色主题只负责色彩与表面", body: "这里的主题来自公开设计规范中的色彩体系，用来改变画布、表面、文字、强调色与状态色。", items: ["可以让 Ant Design 组件使用 Apple HIG 配色做实验", "可以固定品牌参考，只比较不同配色系统", "不会因为换配色而改变按钮或表单组件结构"] },
-    en: { kicker: "COLOR THEME", title: "Color themes handle color and surface only", body: "These themes come from the color systems of public design guidelines, changing canvas, surface, text, accent, and state colors.", items: ["Try Apple HIG colors on Ant Design components", "Lock the brand reference and compare color systems", "Switching colors never changes button or form component structure"] },
-  },
+  system: { kicker: "DESIGN SYSTEM", title: "设计系统决定组件怎么工作", body: "它定义按钮、输入框、卡片、导航等组件的结构、尺寸、间距、状态和可访问性。切换它，应该看到真正的组件规范差异，而不是只换颜色。", items: ["Material 3：强调状态层级与跨平台一致性", "Ant Design：适合信息密集的企业级 Web 产品", "Apple HIG：此处是规则模拟预览，不是苹果官方 Web 组件库"] },
+  brand: { kicker: "BRAND REFERENCE", title: "品牌参考决定页面怎么说话", body: "它用于表达气质、强调方式和排版倾向，不会替换当前设计系统的组件。", items: ["Linear：冷静、精确、效率优先", "Stripe：明亮、技术可信、商业表达强", "Airbnb：温暖、人本、生活方式感更强"] },
+  theme: { kicker: "COLOR THEME", title: "配色主题只负责色彩与表面", body: "这里的主题来自公开设计规范中的色彩体系，用来改变画布、表面、文字、强调色与状态色。", items: ["可以让 Ant Design 组件使用 Apple HIG 配色做实验", "可以固定品牌参考，只比较不同配色系统", "不会因为换配色而改变按钮或表单组件结构"] },
 };
 
 function openExplanation(id) {
-  const copy = explainCopy[id]?.[window.image2I18n?.language === "en" ? "en" : "zh"];
+  const copy = explainCopy[id];
   if (!copy) return;
   $("#explainContent").innerHTML = `<p class="eyebrow">${copy.kicker}</p><h2>${copy.title}</h2><p>${copy.body}</p><ul>${copy.items.map((item) => `<li>${item}</li>`).join("")}</ul>`;
   $("#explainDialog").showModal();
@@ -306,19 +327,21 @@ function localizeItem(item, type) {
 }
 
 const brandsTranslations = {
-  "brands.metaDescription": { zh: "组合页面类型、设计系统、品牌参考和配色主题，实时比较并生成可编辑 UI Demo。", en: "Combine page types, design systems, brand references, and color themes. Compare live and generate editable UI demos." },
-  "brands.pageTitle": { zh: "设计实验室 · ONDesign", en: "Design Lab · ONDesign" },
+  "brands.metaDescription": { zh: "比较设计系统、品牌参考和配色主题，并将选择应用到当前设计任务。", en: "Compare design systems, brand references, and color themes, then apply a choice to the current design task." },
+  "brands.pageTitle": { zh: "设计系统探索器 · ONDesign", en: "Design System Explorer · ONDesign" },
   "brands.skipLink": { zh: "跳转到实时预览", en: "Skip to live preview" },
-  "brands.heroTitle": { zh: "同一个页面，", en: "One page," },
-  "brands.heroEm": { zh: "看清每一种选择。", en: "see every choice clearly." },
-  "brands.heroIntro": { zh: "先固定页面内容，再分别切换设计系统、品牌表达和配色主题。变化直接反映到组件、信息层级与视觉气质上。", en: "Fix the page content first, then switch design systems, brand expression, and color themes. Changes reflect in components, hierarchy, and visual tone." },
+  "brands.heroTitle": { zh: "比较设计系统，", en: "Compare systems," },
+  "brands.heroEm": { zh: "看清每一种选择。", en: "see what changes." },
+  "brands.heroIntro": { zh: "固定同一个页面目标，比较不同设计系统、品牌表达和配色主题。变化会直接反映到组件、信息层级与视觉气质上。", en: "Keep one page goal fixed while comparing design systems, brand expression, and color themes. Changes appear directly in components, hierarchy, and visual tone." },
+  "brands.backToTask": { zh: "返回设计任务", en: "Back to design task" },
+  "brands.applyToTask": { zh: "应用到当前任务", en: "Use in current task" },
   "brands.conceptSystem": { zh: "设计系统", en: "Design system" },
   "brands.conceptSystemSmall": { zh: "组件 · 间距 · 状态", en: "Components · Spacing · States" },
   "brands.conceptBrand": { zh: "品牌参考", en: "Brand reference" },
   "brands.conceptBrandSmall": { zh: "语气 · 排版倾向", en: "Tone · Typography" },
   "brands.conceptTheme": { zh: "配色主题", en: "Color theme" },
   "brands.conceptThemeSmall": { zh: "色彩 · 对比 · 表面", en: "Color · Contrast · Surface" },
-  "brands.composerTitle": { zh: "配置当前设计项目", en: "Configure current design project" },
+  "brands.composerTitle": { zh: "设置比较基准", en: "Set comparison baseline" },
   "brands.projectName": { zh: "项目名称", en: "Project name" },
   "brands.selectorTemplate": { zh: "页面类型", en: "Page type" },
   "brands.selectorTemplateSmall": { zh: "决定内容骨架与任务流程", en: "Defines the content skeleton and task flow" },
@@ -336,8 +359,8 @@ const brandsTranslations = {
   "brands.viewSingle": { zh: "单页", en: "Single" },
   "brands.viewCompare": { zh: "并排对比", en: "Compare" },
   "brands.viewDifferences": { zh: "差异清单", en: "Differences" },
-  "brands.saveProject": { zh: "保存当前方案", en: "Save current project" },
-  "brands.generateDemo": { zh: "打开可点击 Demo", en: "Open clickable demo" },
+  "brands.saveProject": { zh: "保存当前比较", en: "Save comparison" },
+  "brands.generateDemo": { zh: "打开比较 Demo", en: "Open comparison demo" },
   "brands.compareTitle": { zh: "选择 2–3 个设计系统进行比较", en: "Choose 2–3 design systems to compare" },
   "brands.compareIntro": { zh: "页面内容、品牌参考和配色保持一致，只比较组件规范差异", en: "Same content, brand, and colors; compare only component specs" },
   "brands.decisionTitle": { zh: "当前选择改变了什么", en: "What your choices changed" },

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light" />
   <meta name="description" content="" data-i18n-attr="content:brands.metaDescription" />
-  <title data-i18n="brands.pageTitle">设计实验室 · ONDesign</title>
+  <title data-i18n="brands.pageTitle">设计系统探索器 · ONDesign</title>
   <link rel="stylesheet" href="./src/features/brands/brands.css?v=20260820" />
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260820" />
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260820" />
@@ -19,16 +19,17 @@
   <main class="lab-shell">
     <header class="lab-intro">
       <div>
-        <p class="eyebrow">DESIGN LAB</p>
-        <h1><span data-i18n="brands.heroTitle">同一个页面，</span><br /><em data-i18n="brands.heroEm">看清每一种选择。</em></h1>
+        <p class="eyebrow">DESIGN SYSTEM EXPLORER</p>
+        <h1><span data-i18n="brands.heroTitle">比较设计系统，</span><br /><em data-i18n="brands.heroEm">看清每一种选择。</em></h1>
       </div>
       <div class="intro-copy">
-        <p data-i18n="brands.heroIntro">先固定页面内容，再分别切换设计系统、品牌表达和配色主题。变化直接反映到组件、信息层级与视觉气质上。</p>
+        <p data-i18n="brands.heroIntro">固定同一个页面目标，比较不同设计系统、品牌表达和配色主题。变化会直接反映到组件、信息层级与视觉气质上。</p>
        <div class="concept-legend" aria-label="概念说明">
           <button type="button" data-explain="system"><i>01</i><span><strong data-i18n="brands.conceptSystem">设计系统</strong><small data-i18n="brands.conceptSystemSmall">组件 · 间距 · 状态</small></span></button>
           <button type="button" data-explain="brand"><i>02</i><span><strong data-i18n="brands.conceptBrand">品牌参考</strong><small data-i18n="brands.conceptBrandSmall">语气 · 排版倾向</small></span></button>
           <button type="button" data-explain="theme"><i>03</i><span><strong data-i18n="brands.conceptTheme">配色主题</strong><small data-i18n="brands.conceptThemeSmall">色彩 · 对比 · 表面</small></span></button>
        </div>
+       <div class="lab-intro-actions"><a class="secondary-action" id="backToTask" href="./launcher.html?intent=create" data-i18n="brands.backToTask">返回设计任务</a><a class="primary-action" id="applyToTask" href="./launcher.html?intent=create" data-i18n="brands.applyToTask">应用到当前任务</a></div>
       </div>
     </header>
 
@@ -68,7 +69,7 @@
       </header>
 
       <div class="compare-picker" id="comparePicker" hidden>
-        <div><strong>选择 2–3 个设计系统进行比较</strong><span>页面内容、品牌参考和配色保持一致，只比较组件规范差异</span></div>
+        <div><strong data-i18n="brands.compareTitle">选择 2–3 个设计系统进行比较</strong><span data-i18n="brands.compareIntro">页面内容、品牌参考和配色保持一致，只比较组件规范差异</span></div>
         <div id="compareSystems"></div>
       </div>
 
