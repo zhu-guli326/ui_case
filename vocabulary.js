@@ -45,12 +45,82 @@ i18n?.addTranslations({
   "vocabulary.fullGuideBody": { zh: "保留了原来的 Markdown 版词典，适合复制到项目文档和 code review。", en: "The original Markdown vocabulary remains available for project documentation and code reviews." },
   "vocabulary.readGuide": { zh: "阅读规范版", en: "Read the guide" },
   "vocabulary.closeDetails": { zh: "关闭词条详情", en: "Close term details" },
+  "vocabulary.navigationDeepTitle": { zh: "导航不是只有一种栏", en: "Navigation is more than one bar" },
+  "vocabulary.navigationDeepIntro": { zh: "先判断它服务的是全局、局部、层级还是临时任务，再选择位置和样式。下面 8 种模式看起来相似，但承担的导航范围完全不同。", en: "First decide whether the pattern serves global, local, hierarchical, or temporary navigation. These eight patterns may look similar, but they operate at very different scopes." },
+  "vocabulary.navigationMatrixTitle": { zh: "到底该选哪一种？", en: "Which pattern should you choose?" },
+  "vocabulary.navigationMatrixIntro": { zh: "不要从“哪种更好看”开始，先看信息范围、入口数量、设备和切换频率。", en: "Do not begin with visual preference. Start with information scope, destination count, device, and switching frequency." },
+  "vocabulary.navigationSources": { zh: "参考规范", en: "Reference guidelines" },
 });
 
 const tr = (zh, en) => currentLanguage === "en" ? en : zh;
 const localizedEntry = (entry, language = currentLanguage) => localizeVocabularyEntry(entry, language);
 const localizedEntryById = (id) => localizedEntry(vocabularyById[id]);
 const termAliasMarkup = (entry) => currentLanguage === "zh" ? ` <em>${escapeHtml(entry.en)}</em>` : "";
+
+const navigationPrinciples = [
+  { number: "01", title: ["先分导航层级", "Define the scope"], body: ["全局导航连接产品主要区域；局部导航只切换当前对象或内容。", "Global navigation connects product areas; local navigation switches views within the current context."] },
+  { number: "02", title: ["再看入口数量", "Count destinations"], body: ["3–5 个移动端一级入口适合底部标签；大量桌面入口更适合分组侧栏。", "Three to five mobile destinations fit a bottom bar; many desktop destinations need a grouped sidebar."] },
+  { number: "03", title: ["最后决定位置", "Choose placement last"], body: ["位置由设备、切换频率和内容密度决定，不是由视觉偏好决定。", "Placement follows device, switching frequency, and content density—not visual taste."] },
+];
+
+const navigationPatterns = [
+  {
+    number: "01", preview: "top", termId: "top-nav", name: ["顶部导航", "Top navigation"], en: "Navbar",
+    scope: ["全局一级", "Global primary"], count: "3–7",
+    fit: ["品牌官网、内容站和入口较少的桌面产品。横向空间充足，用户需要频繁跨主栏目。", "Marketing sites, content sites, and desktop products with a small number of primary areas."],
+    avoid: ["入口超过一行，或高频工作台需要展示多级目录时。", "Avoid when destinations wrap or a dense workspace needs multiple levels."],
+    mobile: ["折叠为抽屉，或将 3–5 个最高频入口改成底部标签。", "Collapse into a drawer, or move the top three to five destinations into a bottom bar."],
+  },
+  {
+    number: "02", preview: "side", termId: "sidebar", name: ["侧边导航", "Side navigation"], en: "Sidebar",
+    scope: ["全局 / 工作区", "Global / workspace"], count: "5–20+",
+    fit: ["后台、创作工具和企业工作台。需要分组、二级入口和持续可见的工作区上下文。", "Admin panels, creation tools, and enterprise workspaces that need groups and nested destinations."],
+    avoid: ["内容需要全宽沉浸，或产品只有三四个简单页面时。", "Avoid for immersive full-width content or products with only a few simple pages."],
+    mobile: ["转成可关闭抽屉；不要把整条桌面侧栏硬压窄。", "Convert it into a dismissible drawer instead of squeezing the desktop sidebar."],
+  },
+  {
+    number: "03", preview: "rail", termId: "sidebar", name: ["导航轨道", "Navigation rail"], en: "Navigation Rail",
+    scope: ["全局一级", "Global primary"], count: "3–7",
+    fit: ["平板、宽屏移动设备或需要给内容让出空间的桌面工具。图标入口高频且稳定。", "Tablets, wide mobile layouts, and desktop tools that need compact, persistent navigation."],
+    avoid: ["图标含义不熟悉、入口经常变化或需要多级分组时。", "Avoid when icons are unfamiliar, destinations change often, or nested groups are required."],
+    mobile: ["窄屏切换为底部标签；宽屏时可扩展成带文字的侧栏。", "Become a bottom bar on narrow screens or expand into a labeled sidebar on wider screens."],
+  },
+  {
+    number: "04", preview: "bottom", termId: "bottom-tabs", name: ["底部标签栏", "Bottom tab bar"], en: "Bottom Navigation",
+    scope: ["移动端全局一级", "Mobile global primary"], count: "3–5",
+    fit: ["移动 App 的最高频目的地。入口必须长期稳定，用户需要单手快速切换。", "The most frequent, stable destinations in a mobile app, optimized for one-handed switching."],
+    avoid: ["超过 5 个入口、临时操作，或把“发布”之外的普通按钮混入导航。", "Avoid more than five destinations, temporary actions, or mixing ordinary actions into navigation."],
+    mobile: ["保持图标和短标签，适配安全区；选中态不能只依赖颜色。", "Keep icons and short labels above the safe area; selection cannot rely on color alone."],
+  },
+  {
+    number: "05", preview: "drawer", termId: "drawer", name: ["抽屉导航", "Navigation drawer"], en: "Navigation Drawer",
+    scope: ["全局补充 / 临时", "Global overflow / temporary"], count: "5–20",
+    fit: ["移动端入口较多，但不需要持续展示；也适合放账户、设置等低频入口。", "Mobile products with many destinations that do not need to remain visible, plus low-frequency account areas."],
+    avoid: ["最高频的 3–5 个核心页面全部藏进去，会降低发现和切换效率。", "Avoid hiding every high-frequency primary destination because discoverability and switching suffer."],
+    mobile: ["从屏幕边缘覆盖出现，保留明确关闭方式、焦点管理和背景遮罩。", "Open from an edge with a clear close action, focus management, and backdrop."],
+  },
+  {
+    number: "06", preview: "tabs", termId: "tabs", name: ["标签页导航", "Tab navigation"], en: "Tabs",
+    scope: ["当前对象的局部导航", "Local object navigation"], count: "2–6",
+    fit: ["同一页面、同一对象下的并列内容，例如概览、评论、版本和设置。", "Peer views within the same page or object, such as overview, comments, versions, and settings."],
+    avoid: ["用它连接完全不同的产品区域，或标签多到需要记忆和滚动寻找。", "Avoid connecting unrelated product areas or creating more tabs than users can scan."],
+    mobile: ["标签可横向滚动，但当前项必须可见；不要让整个页面横向溢出。", "Tabs may scroll horizontally, but the active tab must remain visible without page-level overflow."],
+  },
+  {
+    number: "07", preview: "crumbs", termId: "breadcrumbs", name: ["面包屑导航", "Breadcrumb navigation"], en: "Breadcrumbs",
+    scope: ["层级定位", "Hierarchy and location"], count: "2–5 层",
+    fit: ["文档、文件系统、电商分类和后台详情。用户可能从搜索或深链接直接进入。", "Documentation, file systems, commerce categories, and deep admin pages entered from search or links."],
+    avoid: ["线性步骤、浏览历史返回，或本来只有一层内容时。", "Avoid for linear steps, browser-history back behavior, or flat information structures."],
+    mobile: ["折叠中间层级，至少保留父级返回和当前页面位置。", "Collapse middle ancestors while preserving the parent path and current location."],
+  },
+  {
+    number: "08", preview: "mega", termId: "top-nav", name: ["大型菜单", "Mega menu"], en: "Mega Menu",
+    scope: ["全局分类发现", "Global category discovery"], count: "20–100+",
+    fit: ["电商、教育、媒体等栏目很多的站点。需要同时展示分组、层级和精选入口。", "Commerce, education, and media sites with many grouped destinations and highlighted entry points."],
+    avoid: ["产品入口少、分类不稳定，或仅靠 hover 才能操作时。", "Avoid for small or unstable taxonomies, and never make hover the only way to operate it."],
+    mobile: ["改成分层抽屉或手风琴列表，不要缩小桌面大面板。", "Convert it into a layered drawer or accordion instead of shrinking the desktop panel."],
+  },
+];
 const componentCaption = (entry) => currentLanguage === "en"
   ? `${entry.en} is rendered as a reusable UI component; external imagery is used only as replaceable media.`
   : `${entry.name}由可复用 UI 组件渲染；外部图片只作为可替换的媒体占位。`;
@@ -90,6 +160,41 @@ const toast = $("#toast");
 let dialogReturnEntryId = null;
 
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[character]));
+const navText = (pair) => tr(pair[0], pair[1]);
+
+function navigationPreviewMarkup(type) {
+  const line = '<i class="nav-demo-line"></i>';
+  if (type === "top") return `<div class="nav-demo nav-demo--top"><div class="nav-demo-topbar"><b>ON</b><span class="is-active"></span><span></span><span></span><span></span><em></em></div><div class="nav-demo-content">${line.repeat(4)}</div></div>`;
+  if (type === "side") return `<div class="nav-demo nav-demo--side"><aside><b>ON</b><span class="is-active"></span><span></span><span></span><small></small><span></span><span></span></aside><div class="nav-demo-content">${line.repeat(5)}</div></div>`;
+  if (type === "rail") return `<div class="nav-demo nav-demo--rail"><aside><b>+</b><span class="is-active">●</span><span>◇</span><span>□</span><span>○</span></aside><div class="nav-demo-content">${line.repeat(5)}</div></div>`;
+  if (type === "bottom") return `<div class="nav-demo nav-demo--bottom"><div class="nav-demo-phone"><div class="nav-demo-content">${line.repeat(4)}</div><nav><span class="is-active">●<small>Home</small></span><span>◇<small>Explore</small></span><span>□<small>Saved</small></span><span>○<small>Me</small></span></nav></div></div>`;
+  if (type === "drawer") return `<div class="nav-demo nav-demo--drawer"><div class="nav-demo-content">${line.repeat(4)}</div><div class="nav-demo-backdrop"></div><aside><b>Menu</b><span class="is-active"></span><span></span><span></span><span></span></aside></div>`;
+  if (type === "tabs") return `<div class="nav-demo nav-demo--tabs"><b>Project Alpha</b><nav><span class="is-active">Overview</span><span>Activity</span><span>Files</span><span>Settings</span></nav><div class="nav-demo-content">${line.repeat(4)}</div></div>`;
+  if (type === "crumbs") return `<div class="nav-demo nav-demo--crumbs"><nav><span>Workspace</span><i>›</i><span>Projects</span><i>›</i><b>Alpha</b></nav><h4>Project Alpha</h4><div class="nav-demo-content">${line.repeat(4)}</div></div>`;
+  return `<div class="nav-demo nav-demo--mega"><div class="nav-demo-topbar"><b>SHOP</b><span class="is-active">Products</span><span>Solutions</span><span>Learn</span></div><div class="nav-demo-mega-panel"><div><b>By team</b>${line.repeat(3)}</div><div><b>By use case</b>${line.repeat(3)}</div><div><b>Featured</b><em></em></div></div></div>`;
+}
+
+function renderNavigationDeepDive() {
+  const principles = $("#navigationPrinciples");
+  const grid = $("#navigationPatternGrid");
+  const matrix = $("#navigationMatrixTable");
+  if (!principles || !grid || !matrix) return;
+
+  principles.innerHTML = navigationPrinciples.map((item) => `<article><span>${item.number}</span><div><h3>${escapeHtml(navText(item.title))}</h3><p>${escapeHtml(navText(item.body))}</p></div></article>`).join("");
+  grid.innerHTML = navigationPatterns.map((pattern) => `<article class="navigation-pattern-card">
+    <div class="navigation-pattern-preview">${navigationPreviewMarkup(pattern.preview)}<span>${pattern.number}</span></div>
+    <div class="navigation-pattern-body">
+      <div class="navigation-pattern-title"><div><p>${escapeHtml(navText(pattern.scope))}</p><h3>${escapeHtml(navText(pattern.name))} <em>${escapeHtml(pattern.en)}</em></h3></div><strong>${escapeHtml(pattern.count)}</strong></div>
+      <p class="navigation-pattern-fit"><b>${escapeHtml(tr("适合：", "Use when: "))}</b>${escapeHtml(navText(pattern.fit))}</p>
+      <dl><div><dt>${escapeHtml(tr("不要这样用", "Avoid"))}</dt><dd>${escapeHtml(navText(pattern.avoid))}</dd></div><div><dt>${escapeHtml(tr("移动端变化", "On mobile"))}</dt><dd>${escapeHtml(navText(pattern.mobile))}</dd></div></dl>
+      <button type="button" data-open-navigation-term="${escapeHtml(pattern.termId)}">${escapeHtml(tr("查看对应词条", "Open related term"))}<span aria-hidden="true">↗</span></button>
+    </div>
+  </article>`).join("");
+
+  matrix.innerHTML = `<table><thead><tr><th>${escapeHtml(tr("模式", "Pattern"))}</th><th>${escapeHtml(tr("导航范围", "Scope"))}</th><th>${escapeHtml(tr("入口数量", "Destinations"))}</th><th>${escapeHtml(tr("最适合", "Best for"))}</th><th>${escapeHtml(tr("移动端策略", "Mobile strategy"))}</th></tr></thead><tbody>${navigationPatterns.map((pattern) => `<tr><th><span>${pattern.number}</span>${escapeHtml(navText(pattern.name))}</th><td>${escapeHtml(navText(pattern.scope))}</td><td>${escapeHtml(pattern.count)}</td><td>${escapeHtml(navText(pattern.fit).split("。")[0].split(".")[0])}</td><td>${escapeHtml(navText(pattern.mobile))}</td></tr>`).join("")}</tbody></table>`;
+
+  document.querySelectorAll("[data-open-navigation-term]").forEach((button) => button.addEventListener("click", () => openTerm(button.dataset.openNavigationTerm)));
+}
 
 function persistFavorites() {
   writeStoredValue(STORAGE_KEY, JSON.stringify([...state.favorites]));
@@ -193,6 +298,7 @@ function renderEntries() {
 }
 
 function render() {
+  renderNavigationDeepDive();
   renderCategories();
   renderEntries();
   $("#entryCount").textContent = vocabularyEntries.length;
