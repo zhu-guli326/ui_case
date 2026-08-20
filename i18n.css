@@ -28,6 +28,118 @@
 .global-language-switch button:focus-visible { background: var(--site-nav-hover, #ecefea); color: var(--ink, #24231f); }
 .global-language-switch button[aria-pressed="true"] { background: var(--site-nav-active, #171a18); color: #fff; }
 
+/* Learn / Build: keep case previews compact and phone-like instead of letting
+   screenshots dominate the whole viewport. This lives here because i18n.css is
+   loaded after learn.css, so the rules also work as a small layout override. */
+#build .case-strip {
+  grid-template-columns: repeat(3, minmax(0, 224px));
+  justify-content: start;
+  align-items: start;
+  gap: 28px;
+  max-width: 780px;
+  margin-top: 36px;
+}
+
+#build .case-strip a {
+  position: relative;
+  min-height: 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  color: var(--ink, #111713);
+}
+
+#build .case-strip img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  object-position: top center;
+  opacity: 1;
+  border: 1px solid var(--line, rgba(17,23,19,.16));
+  border-radius: 22px;
+  background: #111;
+  box-shadow: 0 14px 36px rgba(17,23,19,.10);
+  transition: transform .24s ease, box-shadow .24s ease;
+}
+
+#build .case-strip a:hover img {
+  transform: translateY(-4px);
+  opacity: 1;
+  box-shadow: 0 18px 42px rgba(17,23,19,.14);
+}
+
+#build .case-strip span {
+  position: static;
+  display: block;
+  margin-top: 11px;
+  color: var(--ink, #111713);
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.2;
+}
+
+#build .case-strip a::after {
+  top: 12px;
+  right: 12px;
+  left: auto;
+  bottom: auto;
+  padding: 7px 9px;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(17,23,19,.10);
+}
+
+/* RELAY currently has no mobile-preview.png in the repo. Keep the missing
+   asset from rendering as a giant broken-image label until a real cover lands. */
+#build .case-strip a:nth-child(3) img {
+  color: transparent;
+  background:
+    radial-gradient(circle at 62% 28%, rgba(216,255,103,.22), transparent 28%),
+    linear-gradient(160deg, #161b18 0%, #0c0f0d 100%);
+}
+
+#build .case-strip a:nth-child(3)::before {
+  content: "RELAY\A INTERFACE STUDY";
+  white-space: pre;
+  position: absolute;
+  z-index: 2;
+  top: 44%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #f4f1e9;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.35;
+  letter-spacing: .08em;
+  text-align: center;
+  pointer-events: none;
+}
+
+@media (max-width: 980px) {
+  #build .case-strip {
+    grid-template-columns: repeat(3, minmax(0, 190px));
+    gap: 20px;
+    max-width: 650px;
+  }
+}
+
+@media (max-width: 700px) {
+  #build .case-strip {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(190px, 68vw);
+    grid-template-columns: none;
+    justify-content: start;
+    max-width: none;
+    overflow-x: auto;
+    gap: 16px;
+    padding: 4px 20px 18px 0;
+    scroll-snap-type: x mandatory;
+  }
+  #build .case-strip a { scroll-snap-align: start; }
+}
+
 @media (max-width: 620px) {
   .global-language-switch button { min-width: 40px; padding-inline: 5px; font-size: 10px; }
 }
