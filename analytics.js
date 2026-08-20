@@ -38,11 +38,22 @@
     }
   };
 
-  // Learn page compatibility: learn.js mounts the interactive CSS lab into
-  // `.breakdown-board`. The authored markup still uses `.decomposition`, so
-  // expose the same element under both class names before learn.js executes.
   if (/\/learn\.html$/.test(location.pathname)) {
+    // Learn page compatibility: learn.js mounts the interactive CSS lab into
+    // `.breakdown-board`. The authored markup also keeps `.decomposition` for
+    // the base layout, so expose both names before learn.js executes.
     document.querySelector("#breakdown .decomposition")?.classList.add("breakdown-board");
+
+    // Stronger boxed overlays for Pattern / Hierarchy / Action inspection.
+    // Loaded separately so these teaching annotations can evolve without
+    // disturbing the main page stylesheet.
+    if (!document.querySelector('link[data-learn-lens-overrides]')) {
+      const lensStyles = document.createElement("link");
+      lensStyles.rel = "stylesheet";
+      lensStyles.href = "./learn-lens-overrides.css?v=20260820-boxed-v1";
+      lensStyles.dataset.learnLensOverrides = "true";
+      document.head.append(lensStyles);
+    }
   }
 
   if (/\/library\.html$/.test(location.pathname) || location.pathname.endsWith("/")) {
