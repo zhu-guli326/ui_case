@@ -96,7 +96,7 @@ function bindEvents() {
     if (quick) {
       state.theme = normalizeTheme(quick.dataset.themeQuick);
       update(true);
-      showToast(`已应用 ${findTheme(state.theme).name}`);
+      showToast(`${brandsT("已应用 ", "Applied ")}${findTheme(state.theme).name}`);
       return;
     }
     const explain = event.target.closest("[data-explain]");
@@ -104,13 +104,13 @@ function bindEvents() {
   });
   $("#saveProject").addEventListener("click", () => {
     persist(state);
-    showToast("当前设计项目已保存");
+    showToast(brandsT("当前设计项目已保存", "Current project saved"));
   });
   $("#generateDemo").addEventListener("click", () => {
     persist(state);
     const url = previewUrl(state, state.system);
     window.open(url, "_blank", "noopener");
-    showToast("已打开可点击 Demo");
+    showToast(brandsT("已打开可点击 Demo", "Clickable demo opened"));
   });
   addEventListener("resize", fitFrames);
 }
@@ -118,13 +118,13 @@ function bindEvents() {
 function toggleCompare(id) {
   if (state.compare.includes(id)) {
     if (state.compare.length <= 2) {
-      showToast("对比模式至少保留 2 个系统");
+      showToast(brandsT("对比模式至少保留 2 个系统", "Compare mode needs at least 2 systems"));
       return;
     }
     state.compare = state.compare.filter((item) => item !== id);
   } else {
     if (state.compare.length >= 3) {
-      showToast("一次最多比较 3 个系统");
+      showToast(brandsT("一次最多比较 3 个系统", "Maximum 3 systems for comparison"));
       return;
     }
     state.compare = [...state.compare, id];
@@ -207,13 +207,22 @@ function renderSummary() {
 }
 
 const explainCopy = {
-  system: { kicker: "DESIGN SYSTEM", title: "设计系统决定组件怎么工作", body: "它定义按钮、输入框、卡片、导航等组件的结构、尺寸、间距、状态和可访问性。切换它，应该看到真正的组件规范差异，而不是只换颜色。", items: ["Material 3：强调状态层级与跨平台一致性", "Ant Design：适合信息密集的企业级 Web 产品", "Apple HIG：此处是规则模拟预览，不是苹果官方 Web 组件库"] },
-  brand: { kicker: "BRAND REFERENCE", title: "品牌参考决定页面怎么说话", body: "它用于表达气质、强调方式和排版倾向，不会替换当前设计系统的组件。", items: ["Linear：冷静、精确、效率优先", "Stripe：明亮、技术可信、商业表达强", "Airbnb：温暖、人本、生活方式感更强"] },
-  theme: { kicker: "COLOR THEME", title: "配色主题只负责色彩与表面", body: "这里的主题来自公开设计规范中的色彩体系，用来改变画布、表面、文字、强调色与状态色。", items: ["可以让 Ant Design 组件使用 Apple HIG 配色做实验", "可以固定品牌参考，只比较不同配色系统", "不会因为换配色而改变按钮或表单组件结构"] },
+  system: {
+    zh: { kicker: "DESIGN SYSTEM", title: "设计系统决定组件怎么工作", body: "它定义按钮、输入框、卡片、导航等组件的结构、尺寸、间距、状态和可访问性。切换它，应该看到真正的组件规范差异，而不是只换颜色。", items: ["Material 3：强调状态层级与跨平台一致性", "Ant Design：适合信息密集的企业级 Web 产品", "Apple HIG：此处是规则模拟预览，不是苹果官方 Web 组件库"] },
+    en: { kicker: "DESIGN SYSTEM", title: "A design system decides how components work", body: "It defines the structure, size, spacing, states, and accessibility of buttons, inputs, cards, navigation, and more. Switching it should surface real component spec differences, not just a color change.", items: ["Material 3: emphasizes state layers and cross-platform consistency", "Ant Design: built for information-dense enterprise web products", "Apple HIG: a rules simulation here, not Apple's official web component library"] },
+  },
+  brand: {
+    zh: { kicker: "BRAND REFERENCE", title: "品牌参考决定页面怎么说话", body: "它用于表达气质、强调方式和排版倾向，不会替换当前设计系统的组件。", items: ["Linear：冷静、精确、效率优先", "Stripe：明亮、技术可信、商业表达强", "Airbnb：温暖、人本、生活方式感更强"] },
+    en: { kicker: "BRAND REFERENCE", title: "A brand reference decides how the page speaks", body: "It shapes expression, emphasis, and typography preferences without replacing the current design system's components.", items: ["Linear: calm, precise, efficiency first", "Stripe: bright, technically credible, strong business voice", "Airbnb: warm, human-centered, lifestyle-forward"] },
+  },
+  theme: {
+    zh: { kicker: "COLOR THEME", title: "配色主题只负责色彩与表面", body: "这里的主题来自公开设计规范中的色彩体系，用来改变画布、表面、文字、强调色与状态色。", items: ["可以让 Ant Design 组件使用 Apple HIG 配色做实验", "可以固定品牌参考，只比较不同配色系统", "不会因为换配色而改变按钮或表单组件结构"] },
+    en: { kicker: "COLOR THEME", title: "Color themes handle color and surface only", body: "These themes come from the color systems of public design guidelines, changing canvas, surface, text, accent, and state colors.", items: ["Try Apple HIG colors on Ant Design components", "Lock the brand reference and compare color systems", "Switching colors never changes button or form component structure"] },
+  },
 };
 
 function openExplanation(id) {
-  const copy = explainCopy[id];
+  const copy = explainCopy[id]?.[window.image2I18n?.language === "en" ? "en" : "zh"];
   if (!copy) return;
   $("#explainContent").innerHTML = `<p class="eyebrow">${copy.kicker}</p><h2>${copy.title}</h2><p>${copy.body}</p><ul>${copy.items.map((item) => `<li>${item}</li>`).join("")}</ul>`;
   $("#explainDialog").showModal();
