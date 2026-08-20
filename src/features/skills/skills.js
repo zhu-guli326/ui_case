@@ -90,9 +90,40 @@ function renderRepositories(items) {
       <div class="repo-main"><a href="https://github.com/${item.slug}" target="_blank" rel="noreferrer" data-repo-link="${item.slug}">${escapeHtml(item.title)}</a><p>${escapeHtml(currentLanguage === "en" ? (item.description || item.fallback) : item.fallback)}</p></div>
       <p class="repo-focus">${escapeHtml(item.focus)}</p>
       <div class="repo-stats"><span title="GitHub Stars">Star <b>${formatNumber(item.stars)}</b></span><span title="Forks">Fork <b>${formatNumber(item.forks)}</b></span><small>${formatDate(item.updatedAt)}</small></div>
-    </article>
+      <button class="repo-copy-btn" type="button" data-copy-repo="${item.slug}" title="${currentLanguage === "en" ? "Copy repo slug" : "复制仓库名"}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>${currentLanguage === "en" ? "Copy" : "复制"}</span></button>
+      </article>
   `).join("");
   repoList.querySelectorAll("[data-repo-link]").forEach((link) => link.addEventListener("click", () => track("skill_repo_open", { repository: link.dataset.repoLink })));
+  repoList.querySelectorAll("[data-copy-repo]").forEach((btn) => btn.addEventListener("click", () => copyRepoSlug(btn)));
+}
+
+function copyRepoSlug(btn) {
+  const slug = btn.dataset.copyRepo;
+  const span = btn.querySelector("span");
+  const doneLabel = currentLanguage === "en" ? "Copied!" : "已复制";
+  const failLabel = currentLanguage === "en" ? "Failed" : "复制失败";
+  const write = () => navigator.clipboard.writeText(slug);
+  const succeed = () => {
+    btn.classList.add("is-copied");
+    if (span) span.textContent = doneLabel;
+    window.setTimeout(() => {
+      btn.classList.remove("is-copied");
+      if (span) span.textContent = currentLanguage === "en" ? "Copy" : "复制";
+    }, 1800);
+  };
+  const fail = () => { if (span) span.textContent = failLabel; };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    write().then(succeed).catch(fail);
+  } else {
+    const textarea = document.createElement("textarea");
+    textarea.value = slug;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+    try { document.execCommand("copy"); succeed(); } catch { fail(); }
+    textarea.remove();
+  }
 }
 
 function renderDesignWebsites() {

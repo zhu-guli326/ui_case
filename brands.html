@@ -1,54 +1,53 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
-  <meta name="description" content="组合页面类型、设计系统、品牌参考和配色主题，实时比较并生成可编辑 UI Demo。">
-  <title>设计实验室 · ONDesign</title>
-  <link rel="stylesheet" href="./src/features/brands/brands.css?v=20260819-title-system-v1">
-  <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260819-shell-v5">
-  <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260819-shell-v5">
-  <script src="./src/core/app-shell/app-shell.js?v=20260819-shell-v5"></script>
-  <script src="./brands-runtime-fix.js?v=20260817-runtime-fix"></script>
-  <script type="module" src="./brands.js?v=20260817-lab-v2"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <meta name="description" content="" data-i18n-attr="content:brands.metaDescription" />
+  <title data-i18n="brands.pageTitle">设计实验室 · ONDesign</title>
+  <link rel="stylesheet" href="./src/features/brands/brands.css?v=20260820" />
+  <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260820" />
+  <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260820" />
+  <script src="./src/core/app-shell/app-shell.js?v=20260820"></script>
+  <script type="module" src="./brands.js?v=20260820"></script>
 </head>
 <body data-site-page="brands.html">
-  <a class="skip-link" href="#previewStage">跳到实时预览</a>
+  <a class="skip-link" href="#previewStage" data-i18n="brands.skipLink">跳转到实时预览</a>
   <image2-site-header data-site-header></image2-site-header>
 
   <main class="lab-shell">
     <header class="lab-intro">
       <div>
-        <p class="eyebrow">DESIGN LAB / LIVE WORKSPACE</p>
-        <h1>同一个页面，<br><em>看清每一种选择。</em></h1>
+        <p class="eyebrow">DESIGN LAB</p>
+        <h1><span data-i18n="brands.heroTitle">同一个页面，</span><br /><em data-i18n="brands.heroEm">看清每一种选择。</em></h1>
       </div>
       <div class="intro-copy">
-        <p>先固定页面内容，再分别切换设计系统、品牌表达和配色主题。你看到的变化会直接反映到组件、信息层级与视觉气质上。</p>
-        <div class="concept-legend" aria-label="概念说明">
-          <button type="button" data-explain="system"><i>01</i><span><strong>设计系统</strong><small>组件 · 间距 · 状态</small></span></button>
-          <button type="button" data-explain="brand"><i>02</i><span><strong>品牌参考</strong><small>语气 · 排版倾向</small></span></button>
-          <button type="button" data-explain="theme"><i>03</i><span><strong>配色主题</strong><small>色彩 · 对比 · 表面</small></span></button>
-        </div>
+        <p data-i18n="brands.heroIntro">先固定页面内容，再分别切换设计系统、品牌表达和配色主题。变化直接反映到组件、信息层级与视觉气质上。</p>
+       <div class="concept-legend" aria-label="概念说明">
+          <button type="button" data-explain="system"><i>01</i><span><strong data-i18n="brands.conceptSystem">设计系统</strong><small data-i18n="brands.conceptSystemSmall">组件 · 间距 · 状态</small></span></button>
+          <button type="button" data-explain="brand"><i>02</i><span><strong data-i18n="brands.conceptBrand">品牌参考</strong><small data-i18n="brands.conceptBrandSmall">语气 · 排版倾向</small></span></button>
+          <button type="button" data-explain="theme"><i>03</i><span><strong data-i18n="brands.conceptTheme">配色主题</strong><small data-i18n="brands.conceptThemeSmall">色彩 · 对比 · 表面</small></span></button>
+       </div>
       </div>
     </header>
 
     <section class="project-composer" aria-labelledby="composerTitle">
       <header>
-        <div><p class="eyebrow">CURRENT DESIGN PROJECT</p><h2 id="composerTitle">配置当前设计项目</h2></div>
-        <div class="project-name"><span>项目名称</span><input id="projectName" value="Atlas Dashboard" aria-label="项目名称"></div>
+        <div><p class="eyebrow">DESIGN PROJECT</p><h2 id="composerTitle" data-i18n="brands.composerTitle">配置当前设计项目</h2></div>
+        <div class="project-name"><span data-i18n="brands.projectName">项目名称</span><input id="projectName" value="Atlas Dashboard" aria-label="项目名称" data-i18n-attr="aria-label:brands.projectName" /></div>
       </header>
       <div class="project-origin" id="projectOrigin"></div>
       <div class="selector-grid">
-        <label><span><b>01</b> 页面类型</span><select id="templateSelect"></select><small>决定内容骨架与任务流程</small></label>
-        <label><span><b>02</b> 设计系统</span><select id="systemSelect"></select><small id="systemHelp">决定组件、状态与交互规范</small></label>
-        <label><span><b>03</b> 品牌参考</span><select id="brandSelect"></select><small>只参考表达气质，不调用品牌组件</small></label>
-        <label><span><b>04</b> 配色主题</span><select id="themeSelect"></select><small>控制页面色彩、表面与对比关系</small></label>
+        <label><span><b>01</b> <span data-i18n="brands.selectorTemplate">页面类型</span></span><select id="templateSelect"></select><small data-i18n="brands.selectorTemplateSmall">决定内容骨架与任务流程</small></label>
+        <label><span><b>02</b> <span data-i18n="brands.selectorSystem">设计系统</span></span><select id="systemSelect"></select><small id="systemHelp" data-i18n="brands.selectorSystemSmall">决定组件、状态与交互规范</small></label>
+        <label><span><b>03</b> <span data-i18n="brands.selectorBrand">品牌参考</span></span><select id="brandSelect"></select><small data-i18n="brands.selectorBrandSmall">只参考表达气质，不调用品牌组件</small></label>
+        <label><span><b>04</b> <span data-i18n="brands.selectorTheme">配色主题</span></span><select id="themeSelect"></select><small data-i18n="brands.selectorThemeSmall">控制页面色彩、表面与对比关系</small></label>
       </div>
       <div class="fine-controls">
-        <fieldset><legend>改造深度</legend><div class="intensity-options" id="intensityOptions"></div></fieldset>
-        <fieldset><legend>设备</legend><div class="compact-options" id="deviceOptions"></div></fieldset>
-        <fieldset><legend>外观</legend><div class="compact-options" id="appearanceOptions"></div></fieldset>
+        <fieldset><legend data-i18n="brands.fieldsetIntensity">改造深度</legend><div class="intensity-options" id="intensityOptions"></div></fieldset>
+        <fieldset><legend data-i18n="brands.fieldsetDevice">设备尺寸</legend><div class="compact-options" id="deviceOptions"></div></fieldset>
+        <fieldset><legend data-i18n="brands.fieldsetAppearance">外观</legend><div class="compact-options" id="appearanceOptions"></div></fieldset>
       </div>
       <p class="selection-sentence" id="selectionSentence" aria-live="polite"></p>
       <div class="selection-overview" id="selectionOverview" aria-live="polite"></div>
@@ -56,45 +55,51 @@
 
     <section class="workspace" aria-labelledby="previewTitle">
       <header class="workspace-bar">
-        <div><p class="eyebrow">LIVE PREVIEW</p><h2 id="previewTitle">实时页面</h2></div>
-        <div class="view-controls" role="group" aria-label="预览模式">
-          <button class="is-active" type="button" data-view="single">单页</button>
-          <button type="button" data-view="compare">并排对比</button>
-          <button type="button" data-view="differences">差异清单</button>
+        <div><p class="eyebrow">LIVE PREVIEW</p><h2 id="previewTitle" data-i18n="brands.previewTitle">实时预览</h2></div>
+        <div class="view-controls" role="group" aria-label="预览模式" data-i18n-attr="aria-label:brands.viewControlsLabel">
+          <button class="is-active" type="button" data-view="single" data-i18n="brands.viewSingle">单页</button>
+          <button type="button" data-view="compare" data-i18n="brands.viewCompare">并排对比</button>
+          <button type="button" data-view="differences" data-i18n="brands.viewDifferences">差异清单</button>
         </div>
         <div class="workspace-actions">
-          <button class="secondary-action" id="saveProject" type="button">保存当前方案</button>
-          <button class="primary-action" id="generateDemo" type="button">打开可点击 Demo <span>↗</span></button>
+          <button class="secondary-action" type="button" id="saveProject" data-i18n="brands.saveProject">保存当前方案</button>
+          <button class="primary-action" type="button" id="generateDemo" data-i18n="brands.generateDemo">打开可点击 Demo <span>↗</span></button>
         </div>
       </header>
 
       <div class="compare-picker" id="comparePicker" hidden>
-        <div><strong>选择 2–3 个设计系统并排比较</strong><span>页面内容、品牌参考和配色保持一致，只比较组件规范差异</span></div>
+        <div><strong>选择 2–3 个设计系统进行比较</strong><span>页面内容、品牌参考和配色保持一致，只比较组件规范差异</span></div>
         <div id="compareSystems"></div>
       </div>
 
       <div class="preview-stage" id="previewStage" tabindex="-1"></div>
       <div class="difference-panel" id="differencePanel" hidden></div>
     </section>
-
-    <aside class="decision-panel" aria-labelledby="decisionTitle">
-      <div>
-        <p class="eyebrow">WHY IT CHANGED</p>
-        <h2 id="decisionTitle">这次选择具体改变了什么</h2>
-      </div>
-      <dl id="differenceSummary"></dl>
-      <div class="vocab-assist">
-        <span>快速换配色</span>
-        <p>这些按钮只改变页面的配色与表面关系，不会更换设计系统组件。</p>
-        <div><button type="button" data-theme-quick="adobe-spectrum">Spectrum</button><button type="button" data-theme-quick="fluent-2">Fluent</button><button type="button" data-theme-quick="tdesign">TDesign</button><button type="button" data-theme-quick="apple-hig">Apple</button></div>
-      </div>
-    </aside>
   </main>
 
   <dialog class="explain-dialog" id="explainDialog">
-    <form method="dialog"><button aria-label="关闭">×</button></form>
+    <form method="dialog"><button aria-label="关闭" data-i18n-attr="aria-label:common.close">×</button></form>
     <div id="explainContent"></div>
   </dialog>
+
+  <aside class="decision-panel" aria-labelledby="decisionTitle">
+    <div>
+      <p class="eyebrow">WHY IT CHANGED</p>
+      <h2 id="decisionTitle" data-i18n="brands.decisionTitle">当前选择改变了什么</h2>
+    </div>
+    <dl id="differenceSummary"></dl>
+    <div class="vocab-assist">
+      <span data-i18n="brands.quickColorLabel">快速换配色</span>
+      <p data-i18n="brands.quickColorIntro">这些按钮只改变页面的配色与表面关系，不会更换设计系统组件。</p>
+      <div>
+        <button type="button" data-theme-quick="adobe-spectrum">Spectrum</button>
+        <button type="button" data-theme-quick="fluent-2">Fluent</button>
+        <button type="button" data-theme-quick="tdesign">TDesign</button>
+        <button type="button" data-theme-quick="apple-hig">Apple</button>
+      </div>
+    </div>
+  </aside>
+
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 </body>
 </html>

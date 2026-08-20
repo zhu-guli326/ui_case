@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="用三个清晰步骤定义任务、选择设计规则并预览输出 IMAGE2 UI 指令。">
-  <title>任务工作区 · IMAGE2 UI</title>
+  <meta name="description" content="" data-i18n-attr="content:launcher.metaDescription">
+  <title data-i18n="launcher.pageTitle">任务工作区 · IMAGE2 UI</title>
   <link rel="stylesheet" href="./src/features/launcher/launcher.css?v=20260819-heading-unify">
   <link rel="stylesheet" href="./src/features/launcher/launcher-workspace.css?v=20260819-heading-unify">
   <link rel="stylesheet" href="./src/features/launcher/launcher-simplified.css?v=20260819-heading-unify">
@@ -23,14 +23,14 @@
   <main class="launcher-shell" aria-labelledby="pageTitle">
     <header class="page-heading">
       <div class="page-heading-copy">
-        <p class="page-kicker" id="pageKicker">IMAGE2 UI · 工作区</p>
-        <h1 id="pageTitle">从零创建界面</h1>
-        <p id="pageIntro">先把任务说清楚，再决定设计规则，最后看页面并输出可执行指令。</p>
+        <p class="page-kicker" id="pageKicker" data-i18n="launcher.pageKicker">IMAGE2 UI · 工作区</p>
+        <h1 id="pageTitle" data-i18n="launcher.pageTitleH1">从零创建界面</h1>
+        <p id="pageIntro" data-i18n="launcher.pageIntro">先把任务说清楚，再决定设计规则，最后看页面并输出可执行指令。</p>
       </div>
-      <nav class="launcher-step-nav" aria-label="任务流程">
-        <a class="launcher-step-link" href="#taskDefinition" data-launcher-step="task" aria-current="step"><span>01</span><strong data-launcher-copy="steps.task.title">定义任务</strong></a>
-        <a class="launcher-step-link" href="#designDecisions" data-launcher-step="design"><span>02</span><strong data-launcher-copy="steps.design.title">设计约束</strong></a>
-        <a class="launcher-step-link" href="#resultStage" data-launcher-step="output"><span>03</span><strong>预览与输出</strong></a>
+      <nav class="launcher-step-nav" aria-label="任务流程" data-i18n-attr="aria-label:launcher.stepNavLabel">
+        <a class="launcher-step-link" href="#taskDefinition" data-launcher-step="task" aria-current="step"><span>01</span><strong data-i18n="launcher.stepTask">定义任务</strong></a>
+        <a class="launcher-step-link" href="#designDecisions" data-launcher-step="design"><span>02</span><strong data-i18n="launcher.stepDesign">设计约束</strong></a>
+        <a class="launcher-step-link" href="#resultStage" data-launcher-step="output"><span>03</span><strong data-i18n="launcher.stepOutput">预览与输出</strong></a>
       </nav>
     </header>
 
@@ -38,17 +38,17 @@
       <div class="workspace-main">
         <section class="workspace-stage" id="taskDefinition" aria-labelledby="taskDefinitionTitle">
           <header class="stage-heading">
-            <div class="stage-heading-copy"><p class="stage-kicker">STEP 01</p><h2 id="taskDefinitionTitle">你要完成什么？</h2><p>先选任务类型，再只填写这个任务真正需要的信息。</p></div>
+            <div class="stage-heading-copy"><p class="stage-kicker">STEP 01</p><h2 id="taskDefinitionTitle" data-i18n="launcher.taskDefinitionTitle">你要完成什么？</h2><p data-i18n="launcher.taskDefinitionIntro">先选任务类型，再只填写这个任务真正需要的信息。</p></div>
           </header>
 
           <section class="mode-picker" aria-labelledby="modeTitle">
-            <div class="mode-picker-heading"><div><h2 id="modeTitle">任务类型</h2><p id="modeIntro">切换任务只改变下面的输入项，不改变后续流程。</p></div></div>
-            <div class="intent-nav mode-tabs" id="modeTabs" role="tablist" aria-label="任务模式">
-              <button type="button" role="tab" id="tab-create" aria-controls="intentForm" data-intent="create"><strong data-launcher-copy="mode.create.title">从零创建</strong><small data-launcher-copy="mode.create.detail">产品、用户和页面</small></button>
-              <button type="button" role="tab" id="tab-rebuild" aria-controls="intentForm" data-intent="rebuild"><strong data-launcher-copy="mode.rebuild.title">参考图还原</strong><small data-launcher-copy="mode.rebuild.detail">页面、状态和交互</small></button>
-              <button type="button" role="tab" id="tab-improve" aria-controls="intentForm" data-intent="improve"><strong data-launcher-copy="mode.improve.title">优化现有页面</strong><small data-launcher-copy="mode.improve.detail">诊断并直接优化</small></button>
-              <button type="button" role="tab" id="tab-explore" aria-controls="intentForm" data-intent="explore"><strong data-launcher-copy="mode.explore.title">探索现有项目</strong><small data-launcher-copy="mode.explore.detail">结构、风险和缺口</small></button>
-              <button type="button" role="tab" id="tab-design-system" aria-controls="intentForm" data-intent="design-system"><strong data-launcher-copy="mode.system.title">比较设计系统</strong><small data-launcher-copy="mode.system.detail">同一目标下比较</small></button>
+            <div class="mode-picker-heading"><div><h2 id="modeTitle" data-i18n="launcher.modeTitle">任务类型</h2><p id="modeIntro" data-i18n="launcher.modeIntro">切换任务只改变下面的输入项，不改变后续流程。</p></div></div>
+            <div class="intent-nav mode-tabs" id="modeTabs" role="tablist" aria-label="任务模式" data-i18n-attr="aria-label:launcher.modeTabsLabel">
+              <button type="button" role="tab" id="tab-create" aria-controls="intentForm" data-intent="create"><strong data-i18n="launcher.modeCreateTitle">从零创建</strong><small data-i18n="launcher.modeCreateDetail">产品、用户和页面</small></button>
+              <button type="button" role="tab" id="tab-rebuild" aria-controls="intentForm" data-intent="rebuild"><strong data-i18n="launcher.modeRebuildTitle">参考图还原</strong><small data-i18n="launcher.modeRebuildDetail">页面、状态和交互</small></button>
+              <button type="button" role="tab" id="tab-improve" aria-controls="intentForm" data-intent="improve"><strong data-i18n="launcher.modeImproveTitle">优化现有页面</strong><small data-i18n="launcher.modeImproveDetail">诊断并直接优化</small></button>
+              <button type="button" role="tab" id="tab-explore" aria-controls="intentForm" data-intent="explore"><strong data-i18n="launcher.modeExploreTitle">探索现有项目</strong><small data-i18n="launcher.modeExploreDetail">结构、风险和缺口</small></button>
+              <button type="button" role="tab" id="tab-design-system" aria-controls="intentForm" data-intent="design-system"><strong data-i18n="launcher.modeSystemTitle">比较设计系统</strong><small data-i18n="launcher.modeSystemDetail">同一目标下比较</small></button>
             </div>
           </section>
 
@@ -58,30 +58,30 @@
         </section>
 
         <section class="workspace-stage" id="designDecisions" aria-labelledby="designDecisionsTitle">
-          <header class="stage-heading"><div class="stage-heading-copy"><p class="stage-kicker">STEP 02</p><h2 id="designDecisionsTitle">页面应该怎么做？</h2><p>只保留三类设计决定：视觉方向、目标平台、Design System。</p></div></header>
+          <header class="stage-heading"><div class="stage-heading-copy"><p class="stage-kicker">STEP 02</p><h2 id="designDecisionsTitle" data-i18n="launcher.designDecisionsTitle">页面应该怎么做？</h2><p data-i18n="launcher.designDecisionsIntro">只保留三类设计决定：视觉方向、目标平台、Design System。</p></div></header>
           <div class="design-decisions-body">
             <section class="style-direction" aria-labelledby="styleTitle">
-              <div class="section-heading"><div><h2 id="styleTitle">视觉方向</h2><p id="styleIntro">选整体构图、密度和气质。</p></div></div>
-              <div class="style-card-grid" id="styleDirectionGrid" role="radiogroup" aria-label="风格方向"></div>
+              <div class="section-heading"><div><h2 id="styleTitle" data-i18n="launcher.styleTitle">视觉方向</h2><p id="styleIntro" data-i18n="launcher.styleIntro">选整体构图、密度和气质。</p></div></div>
+              <div class="style-card-grid" id="styleDirectionGrid" role="radiogroup" aria-label="风格方向" data-i18n-attr="aria-label:launcher.styleGridLabel"></div>
             </section>
 
             <section class="platform-section" aria-labelledby="platformTitle">
-              <div class="section-heading"><div><h2 id="platformTitle">目标平台</h2><p>平台会自动带入导航、字号、安全区和交互惯例。</p></div></div>
-              <div class="platform-grid" id="platformGrid" role="radiogroup" aria-label="目标平台">
-                <button class="platform-card is-active" type="button" data-platform="ios" role="radio" aria-checked="true" tabindex="0"><span class="platform-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="9" y="3" width="14" height="26" rx="4"></rect><path d="M13 6h6"></path><path d="M14 26h4"></path></svg></span><span class="platform-copy"><strong>iOS</strong><small>iPhone · Apple 原生</small></span></button>
+              <div class="section-heading"><div><h2 id="platformTitle" data-i18n="launcher.platformTitle">目标平台</h2><p data-i18n="launcher.platformIntro">平台会自动带入导航、字号、安全区和交互惯例。</p></div></div>
+              <div class="platform-grid" id="platformGrid" role="radiogroup" aria-label="目标平台" data-i18n-attr="aria-label:launcher.platformGridLabel">
+                <button class="platform-card is-active" type="button" data-platform="ios" role="radio" aria-checked="true" tabindex="0"><span class="platform-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="9" y="3" width="14" height="26" rx="4"></rect><path d="M13 6h6"></path><path d="M14 26h4"></path></svg></span><span class="platform-copy"><strong>iOS</strong><small data-i18n="launcher.platformIos">iPhone · Apple 原生</small></span></button>
                 <button class="platform-card" type="button" data-platform="android" role="radio" aria-checked="false" tabindex="-1"><span class="platform-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 12h14v10H9z"></path><path d="M11 12a5 5 0 0 1 10 0"></path><path d="M12 7 10 4M20 7l2-3"></path><path d="M7 13v7M25 13v7M12 22v5M20 22v5"></path></svg></span><span class="platform-copy"><strong>Android</strong><small>Phone · Material</small></span></button>
                 <button class="platform-card" type="button" data-platform="windows" role="radio" aria-checked="false" tabindex="-1"><span class="platform-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6l11-1.5V15H4zM17 4.2 28 2.7V15H17zM4 17h11v10.5L4 26zM17 17h11v12.3L17 27.8z"></path></svg></span><span class="platform-copy"><strong>Windows</strong><small>Desktop · Fluent</small></span></button>
-                <button class="platform-card" type="button" data-platform="macos" role="radio" aria-checked="false" tabindex="-1"><span class="platform-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="5" width="22" height="16" rx="2"></rect><path d="M2.5 25h27M12 25h8"></path><circle cx="16" cy="13" r="2.2"></circle></svg></span><span class="platform-copy"><strong>macOS</strong><small>Mac · Apple 原生</small></span></button>
+                <button class="platform-card" type="button" data-platform="macos" role="radio" aria-checked="false" tabindex="-1"><span class="platform-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="5" width="22" height="16" rx="2"></rect><path d="M2.5 25h27M12 25h8"></path><circle cx="16" cy="13" r="2.2"></circle></svg></span><span class="platform-copy"><strong>macOS</strong><small data-i18n="launcher.platformMac">Mac · Apple 原生</small></span></button>
               </div>
-              <div class="platform-hint" aria-live="polite"><span><b id="platformHintTitle">iOS 推荐：</b><span id="platformHintText">Apple HIG + SF Pro + iOS 原生组件，并自动遵守 Safe Area。</span></span><span id="platformBadge">Mobile</span></div>
+              <div class="platform-hint" aria-live="polite"><span><b id="platformHintTitle" data-i18n="launcher.platformHintTitle">iOS 推荐：</b><span id="platformHintText" data-i18n="launcher.platformHintText">Apple HIG + SF Pro + iOS 原生组件，并自动遵守 Safe Area。</span></span><span id="platformBadge">Mobile</span></div>
             </section>
 
             <section class="color-theme-section" aria-labelledby="colorThemeTitle">
-              <div class="section-heading"><div><h2 id="colorThemeTitle">Design System</h2><p id="colorThemeIntro">选择组件与 Token 来源；系统摘要直接显示，不再打开第二层 Tab。</p></div></div>
-              <div class="color-theme-grid" id="colorThemeGrid" role="radiogroup" aria-label="品牌设计规范"></div>
+              <div class="section-heading"><div><h2 id="colorThemeTitle">Design System</h2><p id="colorThemeIntro" data-i18n="launcher.colorThemeIntro">选择组件与 Token 来源；系统摘要直接显示，不再打开第二层 Tab。</p></div></div>
+              <div class="color-theme-grid" id="colorThemeGrid" role="radiogroup" aria-label="品牌设计规范" data-i18n-attr="aria-label:launcher.themeGridLabel"></div>
 
               <div class="design-system-workbench" id="designSystemWorkbench">
-                <div class="ds-toolbar"><div><strong id="dsWorkbenchTitle">Design System 摘要</strong><br><span id="dsWorkbenchSubtitle">字体、Token 和核心组件跟随当前选择。</span></div></div>
+                <div class="ds-toolbar"><div><strong id="dsWorkbenchTitle" data-i18n="launcher.dsWorkbenchTitle">Design System 摘要</strong><br><span id="dsWorkbenchSubtitle" data-i18n="launcher.dsWorkbenchSubtitle">字体、Token 和核心组件跟随当前选择。</span></div></div>
                 <div class="ds-summary-grid">
                   <div class="ds-panel is-active" id="ds-panel-foundation" role="region" aria-label="Foundation" data-ds-panel="foundation">
                     <div class="ds-foundation-grid">
@@ -92,7 +92,7 @@
                   </div>
                   <div class="ds-panel is-active" id="ds-panel-components" role="region" aria-label="Components" data-ds-panel="components">
                     <div class="component-strip"><article class="component-demo"><span>Button</span><button class="demo-button" id="dsDemoButton" type="button">Continue</button></article><article class="component-demo"><span>Text field</span><div class="demo-input">Search or enter text</div></article><article class="component-demo"><span>Segmented</span><div class="demo-segmented"><i>Today</i><i>Week</i><i>Month</i></div></article><article class="component-demo"><span>List</span><div class="demo-list"><div><b>Account</b><span>›</span></div><div><b>Notifications</b><span>›</span></div></div></article></div>
-                    <div class="ds-rule-note"><b>组件规则：</b><span>优先使用当前系统现成组件；Registry 不存在时才自定义。</span></div>
+                    <div class="ds-rule-note"><b data-i18n="launcher.dsRuleLabel">组件规则：</b><span data-i18n="launcher.dsRuleText">优先使用当前系统现成组件；Registry 不存在时才自定义。</span></div>
                   </div>
                 </div>
               </div>
@@ -101,27 +101,27 @@
         </section>
 
         <section class="workspace-stage result-stage" id="resultStage" aria-labelledby="resultStageTitle">
-          <header class="stage-heading"><div class="stage-heading-copy"><p class="stage-kicker">STEP 03</p><h2 id="resultStageTitle">看结果，然后输出</h2><p>先检查真实页面效果，再确认任务摘要和最终调用指令。</p></div></header>
+          <header class="stage-heading"><div class="stage-heading-copy"><p class="stage-kicker">STEP 03</p><h2 id="resultStageTitle" data-i18n="launcher.resultStageTitle">看结果，然后输出</h2><p data-i18n="launcher.resultStageIntro">先检查真实页面效果，再确认任务摘要和最终调用指令。</p></div></header>
           <div class="result-stage-body" id="resultStageBody"></div>
         </section>
       </div>
       <aside class="workspace-side prompt-column" id="outputPanel" aria-labelledby="promptTitle">
         <div class="prompt-panel">
-          <div class="prompt-heading"><div><p id="promptKicker">任务检查</p><h2 id="promptTitle">输出指令</h2></div><span class="ready-state" id="readyState"><i></i><span>等待输入</span></span></div>
+          <div class="prompt-heading"><div><p id="promptKicker" data-i18n="launcher.promptKicker">任务检查</p><h2 id="promptTitle" data-i18n="launcher.promptTitle">输出指令</h2></div><span class="ready-state" id="readyState"><i></i><span data-i18n="launcher.readyState">等待输入</span></span></div>
           <div class="output-review-grid">
-            <div class="output-review-summary"><ol class="summary-progress" id="summaryProgress" aria-label="任务进度"></ol><div class="missing-state" id="missingState" role="status" aria-live="polite"></div><dl class="task-summary" id="taskSummary"></dl></div>
-            <section class="prompt-preview" aria-labelledby="promptPreviewTitle"><div class="prompt-preview-heading"><div><h3 id="promptPreviewTitle">完整调用指令</h3><span id="promptEditState">随表单实时更新</span></div><button class="text-button" id="applyGeneratedPrompt" type="button" hidden>应用最新生成</button></div><p class="prompt-sync-notice" id="promptSyncNotice" hidden>表单内容已更新；你的手动修改仍保留。</p><textarea class="prompt-output" id="promptOutput" rows="13" aria-label="可编辑的完整调用指令" spellcheck="false"></textarea></section>
+            <div class="output-review-summary"><ol class="summary-progress" id="summaryProgress" aria-label="任务进度" data-i18n-attr="aria-label:launcher.summaryProgressLabel"></ol><div class="missing-state" id="missingState" role="status" aria-live="polite"></div><dl class="task-summary" id="taskSummary"></dl></div>
+            <section class="prompt-preview" aria-labelledby="promptPreviewTitle"><div class="prompt-preview-heading"><div><h3 id="promptPreviewTitle" data-i18n="launcher.promptPreviewTitle">完整调用指令</h3><span id="promptEditState" data-i18n="launcher.promptEditState">随表单实时更新</span></div><button class="text-button" id="applyGeneratedPrompt" type="button" hidden data-i18n="launcher.applyGenerated">应用最新生成</button></div><p class="prompt-sync-notice" id="promptSyncNotice" hidden data-i18n="launcher.promptSyncNotice">表单内容已更新；你的手动修改仍保留。</p><textarea class="prompt-output" id="promptOutput" rows="13" aria-label="可编辑的完整调用指令" spellcheck="false" data-i18n-attr="aria-label:launcher.promptOutputLabel"></textarea></section>
           </div>
-          <div class="prompt-actions"><span class="primary-action-wrap" id="generatePromptWrap"><button class="generate-button" id="generatePrompt" type="button" aria-describedby="missingState" disabled>生成指令</button></span><button class="secondary-button" id="copyPrompt" type="button">复制指令</button><button class="secondary-button" id="savePreset" type="button">保存快照</button></div>
+          <div class="prompt-actions"><span class="primary-action-wrap" id="generatePromptWrap"><button class="generate-button" id="generatePrompt" type="button" aria-describedby="missingState" disabled data-i18n="launcher.generatePrompt">生成指令</button></span><button class="secondary-button" id="copyPrompt" type="button" data-i18n="launcher.copyPrompt">复制指令</button><button class="secondary-button" id="savePreset" type="button" data-i18n="launcher.savePreset">保存快照</button></div>
         </div>
       </aside>
     </div>
   </main>
 
-  <dialog class="case-picker" id="casePicker" aria-labelledby="casePickerTitle" aria-describedby="casePickerHelp" aria-modal="true"><div class="case-picker-shell"><header class="case-picker-header"><div><p>参考案例</p><h2 id="casePickerTitle">从案例库选择</h2></div><button class="icon-button" id="closeCasePicker" type="button" aria-label="关闭案例选择器" title="关闭">&times;</button></header><p class="sr-only" id="casePickerHelp">搜索、筛选并选择一个参考案例。按 Escape 可关闭。</p><div class="case-picker-tools"><label class="search-field"><span>搜索案例</span><input id="caseSearch" type="search" placeholder="名称、风格或标签" autocomplete="off"></label><div class="filter-group" id="caseStyleFilters" aria-label="按风格筛选"></div><div class="filter-group" id="caseCategoryFilters" aria-label="按类型筛选"></div></div><div class="case-grid" id="caseGrid"></div><div class="case-empty" id="caseEmpty" hidden>没有符合当前条件的案例。</div></div></dialog>
+  <dialog class="case-picker" id="casePicker" aria-labelledby="casePickerTitle" aria-describedby="casePickerHelp" aria-modal="true"><div class="case-picker-shell"><header class="case-picker-header"><div><p data-i18n="launcher.pickerRefLabel">参考案例</p><h2 id="casePickerTitle" data-i18n="launcher.pickerTitle">从案例库选择</h2></div><button class="icon-button" id="closeCasePicker" type="button" aria-label="关闭案例选择器" title="关闭" data-i18n-attr="aria-label:launcher.pickerCloseLabel,title:common.close">&times;</button></header><p class="sr-only" id="casePickerHelp" data-i18n="launcher.pickerHelp">搜索、筛选并选择一个参考案例。按 Escape 可关闭。</p><div class="case-picker-tools"><label class="search-field"><span data-i18n="launcher.pickerSearchLabel">搜索案例</span><input id="caseSearch" type="search" placeholder="名称、风格或标签" autocomplete="off" data-i18n-attr="placeholder:launcher.pickerSearchPlaceholder"></label><div class="filter-group" id="caseStyleFilters" aria-label="按风格筛选" data-i18n-attr="aria-label:launcher.pickerStyleFilter"></div><div class="filter-group" id="caseCategoryFilters" aria-label="按类型筛选" data-i18n-attr="aria-label:launcher.pickerCategoryFilter"></div></div><div class="case-grid" id="caseGrid"></div><div class="case-empty" id="caseEmpty" hidden data-i18n="launcher.pickerEmpty">没有符合当前条件的案例。</div></div></dialog>
 
-  <button class="assistant-trigger" id="assistantToggle" type="button" aria-expanded="false" aria-controls="assistantPanel"><span aria-hidden="true">?</span><span>任务助手</span></button>
-  <aside class="assistant-panel" id="assistantPanel" aria-labelledby="assistantTitle" hidden><header><div><p>工作区助手</p><h2 id="assistantTitle">下一步建议</h2></div><button class="icon-button" id="assistantClose" type="button" aria-label="关闭任务助手" title="关闭">&times;</button></header><div class="assistant-content" id="assistantContent"></div></aside>
+  <button class="assistant-trigger" id="assistantToggle" type="button" aria-expanded="false" aria-controls="assistantPanel"><span aria-hidden="true">?</span><span data-i18n="launcher.assistantToggle">任务助手</span></button>
+  <aside class="assistant-panel" id="assistantPanel" aria-labelledby="assistantTitle" hidden><header><div><p data-i18n="launcher.assistantLabel">工作区助手</p><h2 id="assistantTitle" data-i18n="launcher.assistantTitle">下一步建议</h2></div><button class="icon-button" id="assistantClose" type="button" aria-label="关闭任务助手" title="关闭" data-i18n-attr="aria-label:launcher.assistantCloseLabel,title:common.close">&times;</button></header><div class="assistant-content" id="assistantContent"></div></aside>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 </body>
 </html>
