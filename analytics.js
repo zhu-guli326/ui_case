@@ -45,14 +45,23 @@
     document.querySelector("#breakdown .decomposition")?.classList.add("breakdown-board");
 
     // Stronger boxed overlays for Pattern / Hierarchy / Action inspection.
-    // Loaded separately so these teaching annotations can evolve without
-    // disturbing the main page stylesheet.
     if (!document.querySelector('link[data-learn-lens-overrides]')) {
       const lensStyles = document.createElement("link");
       lensStyles.rel = "stylesheet";
       lensStyles.href = "./learn-lens-overrides.css?v=20260820-boxed-v1";
       lensStyles.dataset.learnLensOverrides = "true";
       document.head.append(lensStyles);
+    }
+
+    // Desktop learning rail: fixed to the right edge and vertically centered,
+    // matching the Design Skills-style chapter index while preserving the
+    // existing mobile horizontal navigation below 981px.
+    if (!document.querySelector('link[data-learn-nav-rail]')) {
+      const railStyles = document.createElement("link");
+      railStyles.rel = "stylesheet";
+      railStyles.href = "./learn-nav-rail.css?v=20260820-centered-v1";
+      railStyles.dataset.learnNavRail = "true";
+      document.head.append(railStyles);
     }
   }
 
