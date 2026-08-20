@@ -118,6 +118,16 @@ test("the global workflow is collapsed into the launcher summary", () => {
   assert.doesNotMatch(shell, /current-project-bar|mountProjectBar|项目契约/);
 });
 
+test("create flow has one visible design-system owner and refreshes merged copy on language changes", () => {
+  const script = read("launcher.js");
+  const merge = read("src/features/launcher/launcher-platform-merge.js");
+  assert.match(script, /launcher-intent-create/);
+  assert.match(merge, /launcher-intent-create #intentForm select\[name="designSystem"\]/);
+  assert.match(merge, /function syncCreateDuplicate\(\)/);
+  assert.match(merge, /picker\.setAttribute\("aria-hidden", String\(hidden\)\)/);
+  assert.match(merge, /image2:languagechange/);
+});
+
 test("cross-page task routes never reuse a previously browsed case", () => {
   const shell = read("src/core/app-shell/app-shell.js");
   const brands = read("brands.js");

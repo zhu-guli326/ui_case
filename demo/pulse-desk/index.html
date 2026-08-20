@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Pulse Desk｜智能设备服务预约</title>
+  <meta name="description" content="面向首次用户的智能设备检测、预约与支付工作台。">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <svg class="sprite" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M4 8h16l-1 13H5L4 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.7 9a2.5 2.5 0 1 1 3.2 2.4c-.9.4-.9 1.1-.9 1.6M12 17h.01"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 2.9 8.3 7 10 4.1-1.7 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <button class="brand" data-route="home" aria-label="返回首页"><span class="brand-mark"><i></i><i></i><i></i><i></i></span><span>PULSE<small>服务预约台</small></span></button>
+      <nav aria-label="主导航">
+        <button class="nav-item is-active" data-route="home"><svg><use href="#i-grid"/></svg><span>概览</span><kbd>01</kbd></button>
+        <button class="nav-item" data-route="menu"><svg><use href="#i-bag"/></svg><span>服务菜单</span><kbd>02</kbd></button>
+        <button class="nav-item" data-route="orders"><svg><use href="#i-clock"/></svg><span>我的订单</span><kbd>03</kbd></button>
+      </nav>
+      <div class="sidebar-meta">
+        <div class="system-state"><span></span><p>服务系统正常<small>3 家门店可预约</small></p></div>
+        <button class="nav-item subtle"><svg><use href="#i-help"/></svg><span>帮助中心</span></button>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button class="mobile-menu" aria-label="打开导航">☰</button>
+        <div class="crumb"><span>服务工作台</span><b>/</b><strong id="crumbCurrent">概览</strong></div>
+        <div class="top-actions"><label class="search"><svg><use href="#i-search"/></svg><input placeholder="搜索服务或订单" aria-label="搜索服务或订单"></label><button class="icon-button" aria-label="通知">●<span class="notification-dot"></span></button><button class="profile"><span>Z</span><b>新用户<small>个人账户</small></b></button></div>
+      </header>
+
+      <div class="content">
+        <section class="page is-active" data-page="home">
+          <div class="page-heading"><div><p class="eyebrow">SERVICE CONTROL / 01</p><h1>让设备恢复最佳状态。</h1><p>选择服务、锁定到店时间，在线完成付款。首次预约预计只需 3 分钟。</p></div><div class="heading-state"><span>今日可约</span><strong>18<small>个时段</small></strong></div></div>
+          <div class="hero-grid">
+            <article class="hero-card">
+              <div class="hero-copy"><span class="status-chip"><i></i>快速预约通道</span><h2>全设备<br>深度诊断</h2><p>40 项硬件检测与系统健康报告，工程师当面解读。</p><div class="hero-price"><strong>¥ 199</strong><small>约 45 分钟</small></div><button class="primary" data-open-service="diagnostic">立即预约 <svg><use href="#i-arrow"/></svg></button></div>
+              <img src="./assets/device-diagnostics.png" alt="银色智能手机与耳机置于精密检测台上">
+              <div class="scan-lines" aria-hidden="true"></div><span class="hero-index">P–01</span>
+            </article>
+            <aside class="quick-panel"><div class="panel-title"><span>预约雷达</span><b>实时</b></div><div class="radar"><div class="radar-ring r1"></div><div class="radar-ring r2"></div><div class="radar-ring r3"></div><i class="blip b1"></i><i class="blip b2"></i><i class="blip b3"></i><span>3</span><small>附近门店</small></div><div class="quick-stats"><div><span>最快到店</span><b>14:30</b></div><div><span>平均等待</span><b>08 min</b></div></div></aside>
+          </div>
+          <div class="section-row"><div><p class="eyebrow">POPULAR SERVICES</p><h2>常用服务</h2></div><button class="text-button" data-route="menu">查看完整菜单 <svg><use href="#i-arrow"/></svg></button></div>
+          <div class="service-grid" id="homeServices"></div>
+        </section>
+
+        <section class="page" data-page="menu">
+          <div class="page-heading compact"><div><p class="eyebrow">SERVICE MENU / 02</p><h1>选择服务项目。</h1><p>透明定价，现场确认后才会产生额外费用。</p></div></div>
+          <div class="menu-toolbar"><div class="filter-tabs" role="tablist"><button class="is-active" data-filter="all">全部服务 <span>06</span></button><button data-filter="phone">手机 <span>03</span></button><button data-filter="computer">电脑 <span>02</span></button><button data-filter="audio">音频 <span>01</span></button></div><select id="sortServices" aria-label="服务排序"><option value="default">推荐排序</option><option value="price">价格从低到高</option><option value="duration">用时从短到长</option></select></div>
+          <div class="menu-layout"><div class="menu-list" id="menuList"></div><aside class="detail-panel" id="detailPanel"></aside></div>
+        </section>
+
+        <section class="page" data-page="checkout">
+          <div class="step-line"><span class="done">1 <b>选择服务</b></span><i></i><span class="active">2 <b>确认并支付</b></span><i></i><span>3 <b>预约完成</b></span></div>
+          <div class="page-heading compact"><div><p class="eyebrow">SECURE CHECKOUT</p><h1>确认预约。</h1><p>请选择门店和时间，付款后预约立即生效。</p></div><span class="secure"><svg><use href="#i-shield"/></svg>加密支付</span></div>
+          <div class="checkout-layout">
+            <div class="checkout-main">
+              <section class="form-card"><div class="card-head"><span>01</span><div><h2>服务门店</h2><p>已按距离为你排序</p></div></div><div class="location-options"><button class="choice is-selected"><span class="radio"></span><div><b>Pulse Lab · 徐汇店</b><small>徐汇区衡山路 880 号 · 1.2 km</small></div><em>最快</em></button><button class="choice"><span class="radio"></span><div><b>Pulse Lab · 静安店</b><small>静安区南京西路 1288 号 · 3.6 km</small></div></button></div></section>
+              <section class="form-card"><div class="card-head"><span>02</span><div><h2>预约时间</h2><p>8 月 20 日，星期四</p></div></div><div class="date-strip"><button>19<small>今天</small></button><button class="is-selected">20<small>周四</small></button><button>21<small>周五</small></button><button>22<small>周六</small></button><button>23<small>周日</small></button></div><div class="time-grid"><button>10:00</button><button>11:30</button><button class="is-selected">14:30</button><button>16:00</button><button disabled>17:30</button><button>19:00</button></div></section>
+              <section class="form-card"><div class="card-head"><span>03</span><div><h2>支付方式</h2><p>支持安全快捷支付</p></div></div><div class="payment-options"><button class="choice is-selected"><span class="radio"></span><svg><use href="#i-card"/></svg><b>微信支付</b><small>推荐</small></button><button class="choice"><span class="radio"></span><svg><use href="#i-card"/></svg><b>支付宝</b></button></div></section>
+            </div>
+            <aside class="order-summary"><p class="eyebrow">ORDER SUMMARY</p><h2>订单明细</h2><div class="summary-service"><span id="summaryIcon">DX</span><div><b id="summaryName">全设备深度诊断</b><small id="summaryDuration">约 45 分钟</small></div></div><dl><div><dt>服务费</dt><dd id="summaryPrice">¥199</dd></div><div><dt>新客优惠</dt><dd class="discount">− ¥30</dd></div><div><dt>到店时间</dt><dd>8 月 20 日 14:30</dd></div></dl><div class="total"><span>应付总额<small>已含税费</small></span><strong id="summaryTotal">¥169</strong></div><label class="agreement"><input type="checkbox" checked> <span>我已阅读并同意预约规则与退款政策</span></label><button class="primary pay-button" id="payButton">确认支付 ¥169 <svg><use href="#i-arrow"/></svg></button><p class="pay-note"><svg><use href="#i-shield"/></svg>支付信息经端到端加密保护</p></aside>
+          </div>
+        </section>
+
+        <section class="page" data-page="orders">
+          <div class="page-heading compact"><div><p class="eyebrow">ORDER STATUS / 03</p><h1>预约已确认。</h1><p>订单 <span id="orderNumber">PL202608190028</span> · 状态将在这里实时更新。</p></div><span class="success-badge"><svg><use href="#i-check"/></svg>支付成功</span></div>
+          <div class="order-layout"><section class="status-card"><div class="status-visual"><div class="pulse-circle"><svg><use href="#i-check"/></svg></div><span class="code">CONFIRMED / 100%</span><h2>我们已为你锁定<br>8 月 20 日 14:30</h2><p>请提前 5 分钟到店，工程师将核对设备并开始检测。</p></div><div class="appointment-ticket"><div><span>门店</span><b>Pulse Lab · 徐汇店</b><small>衡山路 880 号</small></div><div><span>服务</span><b id="ticketService">全设备深度诊断</b><small id="ticketDuration">预计 45 分钟</small></div><div><span>到店码</span><strong>8F2A</strong></div></div></section><aside class="timeline-card"><p class="eyebrow">LIVE STATUS</p><h2>订单进度</h2><ol><li class="done"><i><svg><use href="#i-check"/></svg></i><div><b>预约已提交</b><small>08 月 19 日 10:32</small></div></li><li class="done"><i><svg><use href="#i-check"/></svg></i><div><b>支付成功</b><small>微信支付 · ¥169</small></div></li><li class="active"><i></i><div><b>等待到店</b><small>08 月 20 日 14:30</small></div></li><li><i></i><div><b>开始服务</b><small>到店后自动更新</small></div></li></ol><button class="secondary" data-route="home">返回服务首页</button><button class="danger-link" id="cancelOrder">取消预约</button></aside></div>
+        </section>
+      </div>
+      <div class="toast" role="status" aria-live="polite"></div>
+    </main>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>

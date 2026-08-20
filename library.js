@@ -94,7 +94,7 @@ const cardPreviewImages = Object.freeze({
 // are valid for detail/reference views only.
 const canonicalCardScreens = Object.freeze({
   "relay-music": "./demo/relay-music/screenshots/library-preview-2x.png",
-  "signal-grid": "./demo/signal-grid/screenshots/01-scan.png",
+  "signal-grid": "./demo/signal-grid/screenshots/library-preview-2x.png",
   mimo: "./demo/mimo-activities/screenshots/library-preview-2x.png"
 });
 const fittedCardPreviewIds = new Set(["museum", "fashion", "news"]);
