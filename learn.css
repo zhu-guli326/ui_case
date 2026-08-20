@@ -287,4 +287,61 @@ body .project-workflow{display:none!important}
   .learn-footer{flex-direction:column}
 }
 
+/* Desktop chapter navigation: fixed right-side rail inspired by the supplied reference. */
+@media (min-width:981px){
+  :root{--chapter-h:0px}
+  .chapter-nav{
+    position:fixed;
+    top:50%;
+    right:clamp(18px,2.4vw,34px);
+    left:auto;
+    z-index:55;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:2px;
+    width:auto;
+    min-height:0;
+    padding:12px 14px;
+    overflow:visible;
+    border:1px solid rgba(15,21,17,.08);
+    border-radius:18px;
+    background:rgba(247,245,239,.82);
+    box-shadow:0 10px 30px rgba(15,21,17,.06);
+    backdrop-filter:blur(16px);
+    transform:translateY(-50%);
+  }
+  .chapter-nav a{
+    display:grid;
+    grid-template-columns:auto 14px;
+    align-items:center;
+    gap:10px;
+    min-height:31px;
+    padding:0;
+    border-radius:0;
+    color:#8d938f;
+    font-size:11px;
+    letter-spacing:.04em;
+    transition:color .18s ease,transform .18s ease;
+  }
+  .chapter-nav a:hover{background:transparent;color:var(--ink);transform:translateX(-2px)}
+  .chapter-nav a b{grid-column:1;font-weight:720}
+  .chapter-nav a span{
+    grid-column:2;
+    grid-row:1;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#a7aba8;
+    color:transparent;
+    font-size:0;
+    opacity:1;
+    transition:width .18s ease,height .18s ease,background .18s ease,box-shadow .18s ease;
+  }
+  .chapter-nav a.is-current{background:transparent;color:var(--green);transform:none}
+  .chapter-nav a.is-current span{width:14px;height:14px;background:var(--green);box-shadow:0 0 0 4px rgba(11,107,59,.12)}
+  .story-hero{min-height:calc(100vh - var(--header-h))}
+  .chapter{scroll-margin-top:calc(var(--header-h) + 12px)}
+}
+
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
