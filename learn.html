@@ -6,13 +6,13 @@
   <meta name="color-scheme" content="light">
   <meta name="description" content="Learn to see, describe, build and review interfaces with AI.">
   <title>How to Design with AI · ONDesign</title>
-  <link rel="stylesheet" href="./learn.css?v=20260820-story-v1">
+  <link rel="stylesheet" href="./learn.css?v=20260820-story-v2">
   <link rel="stylesheet" href="./i18n.css">
   <link rel="stylesheet" href="./site-nav.css?v=20260815-ondesign">
   <script src="./src/core/app-shell/app-shell.js?v=20260819-shell-v5"></script>
   <script src="./analytics.config.js"></script>
   <script src="./analytics.js" defer></script>
-  <script src="./learn.js?v=20260820-story-v1" defer></script>
+  <script src="./learn.js?v=20260820-story-v2" defer></script>
 </head>
 <body>
   <div class="page-progress" aria-hidden="true"><span id="pageProgressBar"></span></div>
@@ -73,24 +73,24 @@
       <div class="chapter-copy">
         <p class="eyebrow">LEARN TO SEE</p>
         <h2 data-zh="一个界面，不是一张图。\n而是一组设计决定。" data-en="A screen is not one picture.\nIt is a system of decisions.">一个界面，不是一张图。<br>而是一组设计决定。</h2>
-        <p class="lead" data-zh="先别管代码。看一个页面时，先学会辨认布局、层级、内容、动作、状态和视觉语言。" data-en="Ignore the code at first. Learn to identify layout, hierarchy, content, actions, states, and visual language.">先别管代码。看一个页面时，先学会辨认布局、层级、内容、动作、状态和视觉语言。</p>
+        <p class="lead" data-zh="先别管代码。看一个页面时，先学会辨认布局、层级、模式、动作、状态和视觉语言。下面点击 6 个观察维度，看同一张界面会暴露出完全不同的问题。" data-en="Ignore the code at first. Learn to identify layout, hierarchy, patterns, actions, states, and visual language. Switch between the six lenses below to inspect the same interface in different ways.">先别管代码。看一个页面时，先学会辨认布局、层级、模式、动作、状态和视觉语言。下面点击 6 个观察维度，看同一张界面会暴露出完全不同的问题。</p>
       </div>
       <div class="see-lab">
         <div class="see-controls" role="tablist" aria-label="界面观察维度">
-          <button class="is-active" data-lens="layout" type="button">Layout</button>
-          <button data-lens="hierarchy" type="button">Hierarchy</button>
-          <button data-lens="pattern" type="button">Pattern</button>
-          <button data-lens="action" type="button">Action</button>
-          <button data-lens="state" type="button">State</button>
-          <button data-lens="visual" type="button">Visual</button>
+          <button class="is-active" data-lens="layout" data-index="01" type="button" role="tab" aria-selected="true"><span class="lens-label"><strong data-zh="布局 · Layout" data-en="Layout">布局 · Layout</strong><small data-zh="页面如何分区" data-en="How regions are arranged">页面如何分区</small></span></button>
+          <button data-lens="hierarchy" data-index="02" type="button" role="tab" aria-selected="false"><span class="lens-label"><strong data-zh="层级 · Hierarchy" data-en="Hierarchy">层级 · Hierarchy</strong><small data-zh="先看什么、后看什么" data-en="What gets attention first">先看什么、后看什么</small></span></button>
+          <button data-lens="pattern" data-index="03" type="button" role="tab" aria-selected="false"><span class="lens-label"><strong data-zh="模式 · Pattern" data-en="Pattern">模式 · Pattern</strong><small data-zh="熟悉的 UI 结构" data-en="Reusable UI structures">熟悉的 UI 结构</small></span></button>
+          <button data-lens="action" data-index="04" type="button" role="tab" aria-selected="false"><span class="lens-label"><strong data-zh="动作 · Action" data-en="Action">动作 · Action</strong><small data-zh="用户真正要做什么" data-en="What the user should do">用户真正要做什么</small></span></button>
+          <button data-lens="state" data-index="05" type="button" role="tab" aria-selected="false"><span class="lens-label"><strong data-zh="状态 · State" data-en="State">状态 · State</strong><small data-zh="操作前后发生什么" data-en="What changes over time">操作前后发生什么</small></span></button>
+          <button data-lens="visual" data-index="06" type="button" role="tab" aria-selected="false"><span class="lens-label"><strong data-zh="视觉 · Visual" data-en="Visual">视觉 · Visual</strong><small data-zh="字体、颜色与节奏" data-en="Type, color and rhythm">字体、颜色与节奏</small></span></button>
         </div>
         <div class="sample-ui" id="sampleUi" data-lens="layout">
-          <div class="sample-topbar"><b>ACME</b><span>Search</span><span>Profile</span></div>
-          <div class="sample-hero"><div><small>NEW COLLECTION</small><h3>Objects for slower mornings.</h3><p>Simple tools for daily rituals.</p><button type="button">Explore collection</button></div><div class="sample-object"></div></div>
-          <div class="sample-cards"><article><span>01</span><strong>Cup No. 4</strong><small>Stoneware</small></article><article><span>02</span><strong>Tray No. 2</strong><small>Oak</small></article></div>
-          <div class="sample-bottom"><span>Home</span><span>Objects</span><span>Journal</span></div>
+          <div class="sample-topbar"><b>ACME</b><span data-zh="搜索" data-en="Search">搜索</span><span data-zh="我的" data-en="Profile">我的</span></div>
+          <div class="sample-hero"><div><small data-zh="全新系列" data-en="NEW COLLECTION">全新系列</small><h3 data-zh="慢一点的早晨，也值得好好生活。" data-en="Objects for slower mornings.">慢一点的早晨，也值得好好生活。</h3><p data-zh="为每天的小仪式，留一点更好的设计。" data-en="Simple tools for daily rituals.">为每天的小仪式，留一点更好的设计。</p><button type="button" data-zh="浏览系列" data-en="Explore collection">浏览系列</button></div><div class="sample-object"></div></div>
+          <div class="sample-cards"><article><span>01</span><strong data-zh="4 号杯" data-en="Cup No. 4">4 号杯</strong><small data-zh="炻器" data-en="Stoneware">炻器</small></article><article><span>02</span><strong data-zh="2 号托盘" data-en="Tray No. 2">2 号托盘</strong><small data-zh="橡木" data-en="Oak">橡木</small></article></div>
+          <div class="sample-bottom"><span data-zh="首页" data-en="Home">首页</span><span data-zh="器物" data-en="Objects">器物</span><span data-zh="日志" data-en="Journal">日志</span></div>
         </div>
-        <div class="lens-note"><span id="lensTitle">Layout</span><p id="lensText">页面先分成顶部导航、主视觉、内容卡片和底部导航，再决定它们之间的比例与留白。</p></div>
+        <div class="lens-note"><span id="lensTitle">布局 Layout</span><p id="lensText">页面先分成顶部导航、主视觉、内容卡片和底部导航，再决定它们之间的比例与留白。</p></div>
       </div>
     </section>
 
@@ -197,7 +197,7 @@
             <div class="chart-good"></div>
             <div class="table-lines"><i></i><i></i><i></i></div>
           </div>
-          <ul><li>Clear hierarchy</li><li>Consistent spacing</li><li>Complete states</li><li>Responsive decisions</li></ul>
+          <ul><li data-zh="层级清楚" data-en="Clear hierarchy">层级清楚</li><li data-zh="间距一致" data-en="Consistent spacing">间距一致</li><li data-zh="状态完整" data-en="Complete states">状态完整</li><li data-zh="响应式有明确判断" data-en="Responsive decisions">响应式有明确判断</li></ul>
         </article>
       </div>
       <p class="chapter-quote">Design is also knowing what to reject.</p>
