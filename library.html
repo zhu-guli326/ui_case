@@ -6,6 +6,16 @@
   <meta name="color-scheme" content="light">
   <meta name="description" content="image2 UI 风格案例库。">
   <title>image2 UI 风格案例库</title>
+  <script>
+    (() => {
+      const params = new URLSearchParams(location.search);
+      const language = params.get("lang") || localStorage.getItem("image2-ui-language") || ((navigator.language || "").toLowerCase().startsWith("en") ? "en" : "zh");
+      const isEnglish = language === "en";
+      document.documentElement.lang = isEnglish ? "en" : "zh-CN";
+      document.title = isEnglish ? "image2 UI Style Library" : "image2 UI 风格案例库";
+      document.querySelector('meta[name="description"]').content = isEnglish ? "A visual style library of image2 UI cases." : "image2 UI 风格案例库。";
+    })();
+  </script>
   <link rel="stylesheet" href="./src/features/library/library.css?v=20260819-title-system-v1">
   <link rel="stylesheet" href="./src/components/device-preview/device-preview.css?v=20260816-arch-v1">
   <link rel="stylesheet" href="./src/features/library/library-density-fixes.css?v=20260818-compact-card-v1">
