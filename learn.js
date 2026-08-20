@@ -1,27 +1,27 @@
 const translations = {
   layout: {
-    zh: ["Layout", "页面先分成顶部导航、主视觉、内容卡片和底部导航，再决定它们之间的比例与留白。"],
-    en: ["Layout", "Start by dividing the page into navigation, hero, content cards, and bottom navigation, then decide their proportions and spacing."]
+    zh: ["布局 · Layout", "先看页面被分成哪些区域：顶部导航、主视觉、内容卡片和底部导航。布局关注的是区域之间的关系、比例、对齐和留白，而不是颜色好不好看。"],
+    en: ["Layout", "Start by dividing the page into navigation, hero, content cards, and bottom navigation. Layout is about relationships, proportions, alignment, and spacing before visual styling."]
   },
   hierarchy: {
-    zh: ["Hierarchy", "先看什么最重要：标题、主视觉和主行动要明显高于辅助信息。"],
-    en: ["Hierarchy", "Decide what matters most first: headline, hero visual, and primary action should clearly outrank supporting information."]
+    zh: ["层级 · Hierarchy", "先看什么最重要：标题、主视觉和主行动要明显高于辅助信息。可以用字号、位置、对比和留白建立阅读顺序。"],
+    en: ["Hierarchy", "Decide what matters most first. Headline, hero visual, and primary action should clearly outrank supporting information through scale, position, contrast, and space."]
   },
   pattern: {
-    zh: ["Pattern", "辨认熟悉的 UI Pattern：导航、Hero、Card、CTA。识别 Pattern 后，AI 更容易实现稳定结构。"],
-    en: ["Pattern", "Recognize familiar UI patterns such as navigation, hero, cards, and CTA. Naming patterns makes AI output more reliable."]
+    zh: ["模式 · Pattern", "辨认熟悉的 UI Pattern：导航、Hero、Card、CTA。识别 Pattern 后，你就不是在描述像素，而是在告诉 AI 应该使用什么结构。"],
+    en: ["Pattern", "Recognize familiar UI patterns such as navigation, hero, cards, and CTA. Naming patterns lets you describe structure instead of pixels."]
   },
   action: {
-    zh: ["Action", "找到用户真正要做的动作，并确保主行动只有一个明显的视觉优先级。"],
-    en: ["Action", "Find the action the user actually needs to take and give the primary action one clear visual priority."]
+    zh: ["动作 · Action", "找到用户真正要做的动作。主行动应该只有一个明确视觉优先级，其余操作退到次级，不要让所有按钮同时喊得很大声。"],
+    en: ["Action", "Find the action the user actually needs to take. Give one primary action clear visual priority and let secondary actions step back."]
   },
   state: {
-    zh: ["State", "不要只看默认画面。还要问：Hover、Pressed、Loading、Success、Error、Empty 时会发生什么？"],
-    en: ["State", "Do not inspect only the default screen. Ask what happens in hover, pressed, loading, success, error, and empty states."]
+    zh: ["状态 · State", "不要只看默认画面。还要问：Hover、Pressed、Loading、Success、Error、Empty 时会发生什么？完整的界面是时间中的界面。"],
+    en: ["State", "Do not inspect only the default screen. Ask what happens in hover, pressed, loading, success, error, and empty states. A complete interface exists over time."]
   },
   visual: {
-    zh: ["Visual", "最后再看字体、颜色、圆角、边框和间距。这些决定视觉语气，但不能替代结构和层级。"],
-    en: ["Visual", "Only then inspect type, color, radius, borders, and spacing. They shape visual tone but cannot replace structure and hierarchy."]
+    zh: ["视觉 · Visual", "最后再看字体、颜色、圆角、边框、材质和间距节奏。它们决定视觉语气，但不能替代清楚的结构、层级和交互。"],
+    en: ["Visual", "Only then inspect type, color, radius, borders, texture, and spacing rhythm. They shape visual tone but cannot replace structure, hierarchy, and interaction."]
   }
 };
 
@@ -61,6 +61,9 @@ function syncDocumentMeta(lang) {
       ? "Learn to see, describe, build and review interfaces with AI."
       : "学习如何看懂、拆解、描述、生成并判断 AI UI。";
   }
+
+  const tablist = document.querySelector(".see-controls");
+  if (tablist) tablist.setAttribute("aria-label", lang === "en" ? "Interface inspection lenses" : "界面观察维度");
 }
 
 function applyLanguage(event) {
@@ -98,17 +101,35 @@ function updateLens(lens, forcedLanguage) {
   const lang = forcedLanguage || activeLanguage || currentLanguage();
   const note = translations[lens]?.[lang] || translations.layout[lang];
   const sample = document.querySelector("#sampleUi");
-  if (sample) sample.dataset.lens = lens;
+  if (sample) {
+    sample.dataset.lens = lens;
+    sample.dataset.lang = lang;
+  }
   const title = document.querySelector("#lensTitle");
   const text = document.querySelector("#lensText");
   if (title) title.textContent = note[0];
   if (text) text.textContent = note[1];
 }
 
-document.querySelectorAll("[data-lens]").forEach((button) => {
+const lensButtons = [...document.querySelectorAll("[data-lens]")];
+lensButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    document.querySelectorAll("[data-lens]").forEach((item) => item.classList.toggle("is-active", item === button));
+    lensButtons.forEach((item) => {
+      const selected = item === button;
+      item.classList.toggle("is-active", selected);
+      item.setAttribute("aria-selected", String(selected));
+    });
     updateLens(button.dataset.lens);
+  });
+
+  button.addEventListener("keydown", (event) => {
+    if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'].includes(event.key)) return;
+    event.preventDefault();
+    const direction = event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1;
+    const currentIndex = lensButtons.indexOf(button);
+    const nextButton = lensButtons[(currentIndex + direction + lensButtons.length) % lensButtons.length];
+    nextButton.focus();
+    nextButton.click();
   });
 });
 
@@ -135,12 +156,8 @@ addEventListener("resize", updateScrollState);
 applyLanguage();
 updateScrollState();
 
-// The global app shell exposes the canonical language lifecycle through
-// image2I18n.registerPage(). Registering here makes the Learn content update in
-// the same tick as the header switch instead of waiting for a page reload.
 if (window.image2I18n?.registerPage) {
   window.image2I18n.registerPage((lang) => applyLanguage(lang));
 } else {
-  // Fallback for standalone/older shells.
   window.addEventListener("image2:languagechange", applyLanguage);
 }
