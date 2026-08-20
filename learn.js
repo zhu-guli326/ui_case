@@ -161,3 +161,5 @@ if (window.image2I18n?.registerPage) {
 } else {
   window.addEventListener("image2:languagechange", applyLanguage);
 }
+
+// deployment touch: 2026-08-20 21:08 +08:00
