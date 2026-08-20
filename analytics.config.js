@@ -3,3 +3,95 @@ window.IMAGE2_ANALYTICS = {
   endpoint: "/api/analytics/events",
   site: "image2-ui-library"
 };
+
+// Learn page hard override: keep the chapter index fixed on the right side
+// and vertically centered on desktop. This is intentionally injected from
+// the config file so the latest rail positioning does not depend on a stale
+// cached learn.css bundle.
+if (/\/learn\.html$/.test(location.pathname)) {
+  const railStyle = document.createElement("style");
+  railStyle.id = "learn-right-center-rail-hotfix";
+  railStyle.textContent = `
+    @media (min-width: 981px) {
+      .chapter-nav {
+        position: fixed !important;
+        top: 50% !important;
+        right: 24px !important;
+        left: auto !important;
+        bottom: auto !important;
+        transform: translateY(-50%) !important;
+        z-index: 80 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+        width: 158px !important;
+        min-height: 0 !important;
+        padding: 22px 18px !important;
+        overflow: visible !important;
+        border: 1px solid rgba(15,21,17,.08) !important;
+        border-radius: 20px !important;
+        background: rgba(250,249,245,.92) !important;
+        box-shadow: 0 18px 42px rgba(15,21,17,.07) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+      }
+      .chapter-nav a {
+        display: grid !important;
+        grid-template-columns: minmax(0,1fr) 18px !important;
+        align-items: center !important;
+        gap: 12px !important;
+        width: 100% !important;
+        min-height: 30px !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        color: #9a9f9b !important;
+        font-size: 12px !important;
+        letter-spacing: .025em !important;
+        text-decoration: none !important;
+        white-space: nowrap !important;
+        transform: none !important;
+      }
+      .chapter-nav a:hover {
+        color: #5d655f !important;
+        background: transparent !important;
+        transform: translateX(-2px) !important;
+      }
+      .chapter-nav a b {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+        justify-self: end !important;
+        font-weight: 760 !important;
+      }
+      .chapter-nav a span {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+        justify-self: center !important;
+        display: block !important;
+        width: 8px !important;
+        height: 8px !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+        background: #a8adaa !important;
+        color: transparent !important;
+        font-size: 0 !important;
+        line-height: 0 !important;
+        opacity: 1 !important;
+        box-shadow: none !important;
+      }
+      .chapter-nav a.is-current {
+        color: #0b6b3b !important;
+        background: transparent !important;
+        transform: none !important;
+      }
+      .chapter-nav a.is-current span {
+        width: 16px !important;
+        height: 16px !important;
+        background: #0b6b3b !important;
+        box-shadow: 0 0 0 5px rgba(11,107,59,.12) !important;
+      }
+    }
+  `;
+  document.head.appendChild(railStyle);
+}
