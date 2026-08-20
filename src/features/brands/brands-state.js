@@ -143,7 +143,6 @@ export function readState() {
  * 持久化到 localStorage 并触发 projectchange 事件。
  */
 export function persist(state) {
-  state.lastStep = "brands";
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   } catch {}
