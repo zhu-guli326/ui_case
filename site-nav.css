@@ -257,6 +257,21 @@ nav.site-nav.site-nav > a[aria-current="page"]::after,
 }
 .project-workflow-deliver i { color: #c8ff39; font-style: normal; }
 
+/* Learn is a reading/learning surface, not a project-execution step. Keep only
+   the global site navigation plus the chapter navigation on that page. */
+body:has(> .chapter-nav) > .project-workflow {
+  display: none !important;
+}
+
+body:has(> .chapter-nav) > .chapter-nav {
+  top: 64px;
+  z-index: 39;
+}
+
+body:has(> .chapter-nav) .chapter {
+  scroll-margin-top: 118px;
+}
+
 .local-preview-help {
   position: sticky;
   z-index: 1000;
@@ -374,6 +389,14 @@ body.site-shell-active > .project-workflow { flex: 0 0 auto; }
     left: 12px;
     width: auto;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body:has(> .chapter-nav) > .chapter-nav {
+    top: 0;
+  }
+
+  body:has(> .chapter-nav) .chapter {
+    scroll-margin-top: 56px;
   }
 
   .project-workflow { min-height: 48px; grid-template-columns: minmax(0, 1fr) auto; gap: 6px; padding-inline: 10px; }
