@@ -66,6 +66,38 @@ function syncDocumentMeta(lang) {
   if (tablist) tablist.setAttribute("aria-label", lang === "en" ? "Interface inspection lenses" : "界面观察维度");
 }
 
+function syncWhySection(lang) {
+  const why = document.querySelector("#why");
+  if (!why) return;
+
+  const eyebrow = why.querySelector(".eyebrow");
+  if (eyebrow) eyebrow.textContent = lang === "en" ? "WHY THIS MATTERS" : "为什么这很重要";
+
+  const systemCopy = why.querySelector(".translation-board > div:last-child p");
+  if (systemCopy) {
+    systemCopy.textContent = lang === "en"
+      ? "Visual hierarchy · Combobox · Responsive reflow · Loading state · Spacing system · Interaction rule"
+      : "视觉层级 · 组合框 · 响应式重排 · 加载状态 · 间距系统 · 交互规则";
+  }
+
+  const quote = why.querySelector(".chapter-quote");
+  if (quote) {
+    quote.textContent = lang === "en"
+      ? "The better you see design, the better you can direct AI."
+      : "你越能看懂设计，就越能准确地指挥 AI。";
+  }
+
+  let roleStyle = document.querySelector("#learn-role-label-style");
+  if (!roleStyle) {
+    roleStyle = document.createElement("style");
+    roleStyle.id = "learn-role-label-style";
+    document.head.append(roleStyle);
+  }
+  roleStyle.textContent = lang === "en"
+    ? '#why .translation-board>div:first-child::before{content:"HUMAN"}#why .translation-board>div:last-child::before{content:"SYSTEM"}'
+    : '#why .translation-board>div:first-child::before{content:"人"}#why .translation-board>div:last-child::before{content:"系统"}';
+}
+
 function applyLanguage(event) {
   const lang = currentLanguage(event);
   activeLanguage = lang;
@@ -94,6 +126,7 @@ function applyLanguage(event) {
     rebuildLink.href = target.href;
   }
 
+  syncWhySection(lang);
   updateLens(document.querySelector("[data-lens].is-active")?.dataset.lens || "layout", lang);
 }
 
@@ -123,9 +156,9 @@ lensButtons.forEach((button) => {
   });
 
   button.addEventListener("keydown", (event) => {
-    if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'].includes(event.key)) return;
+    if (!["ArrowDown", "ArrowRight", "ArrowUp", "ArrowLeft"].includes(event.key)) return;
     event.preventDefault();
-    const direction = event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1;
+    const direction = event.key === "ArrowDown" || event.key === "ArrowRight" ? 1 : -1;
     const currentIndex = lensButtons.indexOf(button);
     const nextButton = lensButtons[(currentIndex + direction + lensButtons.length) % lensButtons.length];
     nextButton.focus();
@@ -161,5 +194,3 @@ if (window.image2I18n?.registerPage) {
 } else {
   window.addEventListener("image2:languagechange", applyLanguage);
 }
-
-// deployment touch: 2026-08-20 21:08 +08:00
