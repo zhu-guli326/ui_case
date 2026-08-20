@@ -25,8 +25,8 @@
   const translations = {
     "nav.library": { zh: "案例库", en: "Library" },
     "nav.learn": { zh: "使用指南", en: "Guide" },
-    "nav.brands": { zh: "设计实验室", en: "Design lab" },
-    "nav.launcher": { zh: "开始任务", en: "Start a task" },
+    "nav.brands": { zh: "设计系统", en: "Design systems" },
+    "nav.launcher": { zh: "开始设计", en: "Start designing" },
     "nav.skills": { zh: "设计 Skill", en: "Design skills" },
     "nav.vocabulary": { zh: "UI 词典", en: "UI vocabulary" },
     "nav.resources": { zh: "更多", en: "More" },
@@ -149,7 +149,7 @@
   const workflowPages = [
     { id: "library", page: "library.html", number: "01", zh: "选择案例", en: "Choose case" },
     { id: "launcher", page: "launcher.html", number: "02", zh: "定义任务", en: "Define task" },
-    { id: "brands", page: "brands.html", number: "03", zh: "设计与对比", en: "Design & compare" },
+    { id: "brands", page: "brands.html", number: "03", zh: "设计与预览", en: "Design & preview" },
   ];
 
   function projectRoute(page, project, extra = {}) {
