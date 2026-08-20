@@ -38,6 +38,13 @@
     }
   };
 
+  // Learn page compatibility: learn.js mounts the interactive CSS lab into
+  // `.breakdown-board`. The authored markup still uses `.decomposition`, so
+  // expose the same element under both class names before learn.js executes.
+  if (/\/learn\.html$/.test(location.pathname)) {
+    document.querySelector("#breakdown .decomposition")?.classList.add("breakdown-board");
+  }
+
   if (/\/library\.html$/.test(location.pathname) || location.pathname.endsWith("/")) {
     const previewRuntime = document.createElement("script");
     previewRuntime.type = "module";
