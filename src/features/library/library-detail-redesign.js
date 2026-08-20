@@ -1,4 +1,4 @@
-import { styleGuides } from "../../../catalog/index.js?v=20260815-artmuse-sequence";
+import { styleGuides } from "../../../catalog/index.js?v=20260820-media-assets-v2";
 import { getLibraryPreviewDevice } from "../../../library-preview-config.mjs";
 
 const SCREEN_RAILS = Object.freeze({});

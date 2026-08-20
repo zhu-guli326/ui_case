@@ -4,14 +4,6 @@
   "name": "Organique Food",
   "style": "编辑式有机餐食",
   "video": "./demo/organique-food/organique-food-demo.mp4",
-  "videoSequence": {
-    "duration": 6,
-    "frames": [
-      { "at": 0, "src": "./demo/organique-food/screenshots/01-choose.png", "label": "选择餐食" },
-      { "at": 2, "src": "./demo/organique-food/screenshots/02-plan.png", "label": "配送计划" },
-      { "at": 4, "src": "./demo/organique-food/screenshots/03-confirmation.png", "label": "确认页" }
-    ]
-  },
   "liveDemo": "./demo/organique-food/index.html",
   "poster": "./demo/organique-food/mobile-preview.png",
   "preview": "#ede8d5",

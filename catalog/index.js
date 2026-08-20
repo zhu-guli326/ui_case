@@ -351,8 +351,8 @@ export const styleGuides = [
     "style": "插画式习惯养成",
     "video": "./demo/moe-habits/moe-habits-demo.mp4",
     "liveDemo": "./demo/moe-habits/index.html",
-    "poster": "./demo/moe-habits/screenshots/video-2x/01-intro.png?v=sharp-3x",
-    "previewImage": "./demo/moe-habits/screenshots/video-2x/01-intro.png?v=sharp-3x",
+    "poster": "./demo/moe-habits/screenshots/library-preview-2x.png",
+    "previewImage": "./demo/moe-habits/screenshots/library-preview-2x.png",
     "preview": "#d5efd0",
     "reference": "友好角色、温和提醒和单一下一步，让习惯养成没有压力",
     "referenceImage": "./demo/moe-habits/assets/reference-overview.png",
@@ -600,10 +600,10 @@ export const styleGuides = [
     "style": "手账式创意工作台",
     "video": "./demo/marble-note/marble-note-demo.mp4",
     "liveDemo": "./demo/marble-note/index.html",
-    "poster": "./demo/marble-note/screenshots/marble-note-mobile.png",
+    "poster": "./demo/marble-note/screenshots/library-preview-2x.png",
     "preview": "#f0eac6",
     "reference": "手绘线条、彩色贴纸和真实纸张节奏，让工作台更像创作空间",
-    "referenceImage": "./demo/marble-note/screenshots/marble-note-mobile.png",
+    "referenceImage": "./demo/marble-note/screenshots/library-preview-2x.png",
     "prompt": "创意笔记 App 视觉参考：柔和纸色底、手绘线稿、糖果色标签和文件夹形状，信息结构依然清楚可读；让插画性细节限定在封面与少量空白区域，不用每张卡片都铺满 emoji、渐变和厚重阴影。",
     "summary": "把笔记、文件夹和日程放进一套有手感的创作语言，保留清晰的任务和内容层级。",
     "bestFor": "创意笔记、学生工具、家庭规划、轻量项目整理",
@@ -656,26 +656,6 @@ export const styleGuides = [
     "name": "Organique Food",
     "style": "编辑式有机餐食",
     "video": "./demo/organique-food/organique-food-demo.mp4",
-    "videoSequence": {
-      "duration": 6,
-      "frames": [
-        {
-          "at": 0,
-          "src": "./demo/organique-food/screenshots/01-choose.png",
-          "label": "选择餐食"
-        },
-        {
-          "at": 2,
-          "src": "./demo/organique-food/screenshots/02-plan.png",
-          "label": "配送计划"
-        },
-        {
-          "at": 4,
-          "src": "./demo/organique-food/screenshots/03-confirmation.png",
-          "label": "确认页"
-        }
-      ]
-    },
     "liveDemo": "./demo/organique-food/index.html",
     "poster": "./demo/organique-food/mobile-preview.png",
     "preview": "#ede8d5",
@@ -906,10 +886,10 @@ export const styleGuides = [
     "style": "热成像网络匹配",
     "video": "./demo/signal-grid/signal-grid-demo.mp4",
     "liveDemo": "./demo/signal-grid/index.html",
-    "poster": "./demo/signal-grid/mobile-preview.png",
+    "poster": "./demo/signal-grid/screenshots/library-preview-2x.png",
     "preview": "#f4a078",
     "reference": "深青与热橙渐变覆盖极简网络界面，扫描、设置和套餐组成一套完整连接流程",
-    "referenceImage": "./demo/signal-grid/assets/signal-grid-effect-board.png",
+    "referenceImage": "./demo/signal-grid/screenshots/library-preview-2x.png",
     "prompt": "Signal Grid 网络匹配 App 视觉参考：深青、暖灰和热橙构成热成像式连续背景，三台完整黑色 iPhone 分别展示网络扫描、参数设置与套餐选择；线框球只存在于扫描页手机内部。所有真实标题、状态栏、菜单、设置行、开关、套餐 tab、价格、购买和底部导航均由代码呈现。",
     "summary": "用完整三屏效果图展示扫描、设置与套餐决策，让线框网络球回到扫描页内部承担视觉焦点。",
     "bestFor": "网络服务、设备连接、套餐配置、科技品牌、数据匹配",

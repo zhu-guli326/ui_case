@@ -1,12 +1,12 @@
-import { styleGuides } from "../../../catalog/index.js?v=20260815-artmuse-sequence";
+import { styleGuides } from "../../../catalog/index.js?v=20260820-media-assets-v2";
 import { applyLibraryCaseOverrides, libraryCaseOverrides } from "./library-case-overrides.mjs";
 
-const REPAIR_VERSION = "20260819-library-qa-v7";
+const REPAIR_VERSION = "20260820-library-qa-v8";
 const guideById = new Map(styleGuides.map((guide) => [guide.id, guide]));
 const repairedIds = applyLibraryCaseOverrides(styleGuides);
 const canonicalCardScreens = Object.freeze({
   "relay-music": "./demo/relay-music/screenshots/library-preview-2x.png",
-  "signal-grid": "./demo/signal-grid/screenshots/01-scan.png",
+  "signal-grid": "./demo/signal-grid/screenshots/library-preview-2x.png",
   mimo: "./demo/mimo-activities/screenshots/library-preview-2x.png"
 });
 

@@ -10,6 +10,7 @@ const css = readFileSync(path.join(root, "src", "features", "library", "library.
 const phoneShellCss = readFileSync(path.join(root, "src", "components", "device-preview", "phone-shell.css"), "utf8");
 const devicePreviewCss = readFileSync(path.join(root, "src", "components", "device-preview", "device-preview.css"), "utf8");
 const devicePreviewScript = readFileSync(path.join(root, "src", "components", "device-preview", "device-preview.js"), "utf8");
+const screenBalanceCss = readFileSync(path.join(root, "src", "components", "device-preview", "screen-balance.css"), "utf8");
 const script = readFileSync(path.join(root, "library.js"), "utf8");
 
 test("library cards and detail media reuse one visible 390 by 844 PhoneShell", () => {
@@ -95,22 +96,21 @@ test("ArtMuse video mode uses current artwork frames instead of the stale record
   assert.match(script, /seekPreviewSequence/);
 });
 
-test("Organique video mode uses canonical screen frames instead of the mismatched recording canvas", () => {
+test("Organique media never advertises missing flow frames", () => {
   const organique = JSON.parse(readFileSync(path.join(root, "catalog", "cases", "organique.json"), "utf8"));
-  assert.equal(organique.videoSequence.duration, 6);
-  assert.deepEqual(
-    organique.videoSequence.frames.map((frame) => frame.src),
-    [
-      "./demo/organique-food/screenshots/01-choose.png",
-      "./demo/organique-food/screenshots/02-plan.png",
-      "./demo/organique-food/screenshots/03-confirmation.png",
-    ],
-  );
-  for (const frame of organique.videoSequence.frames) {
-    assert.ok(existsSync(path.join(root, frame.src.replace(/^\.\//, ""))), `missing Organique frame: ${frame.src}`);
-  }
+  assert.equal(organique.videoSequence, undefined);
+  assert.ok(existsSync(path.join(root, organique.video.replace(/^\.\//, ""))), "missing Organique video");
+  assert.ok(existsSync(path.join(root, "demo/organique-food/screenshots/library-preview-2x.png")), "missing Organique screen capture");
   assert.match(script, /const videoSequence = isVideo \? getVideoSequence\(guide\) : null/);
   assert.match(script, /if \(videoSequence\)[\s\S]*?activeVideoSequence = videoSequence[\s\S]*?playPreviewSequence\(\)/);
+});
+
+test("shared embed balancing never overrides a hidden app view", () => {
+  assert.match(screenBalanceCss, /\.view\.playlist:not\(\[hidden\]\)/);
+  assert.match(screenBalanceCss, /\.view\.explore:not\(\[hidden\]\)/);
+  assert.match(screenBalanceCss, /\.view\.trips:not\(\[hidden\]\)/);
+  assert.match(screenBalanceCss, /\.view\.profile:not\(\[hidden\]\)/);
+  assert.doesNotMatch(screenBalanceCss, /\.view\.(?:playlist|explore|trips|profile)\s*\{\s*display:\s*flex/);
 });
 
 test("fullscreen fallback keeps the same dialog and cleans up on close", () => {

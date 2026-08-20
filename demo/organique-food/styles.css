@@ -704,6 +704,7 @@ button:focus-visible {
 .embed-mode .phone {
   width: 390px;
   height:844px;
+  transform: none;
 }
 @media (max-width: 760px) {
   .stage {

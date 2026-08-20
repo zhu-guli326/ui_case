@@ -3,4 +3,4 @@
  * DevicePreview component so cases only own their screen content.
  */
 @import url("../src/components/device-preview/phone-shell.css");
-@import url("../src/components/device-preview/screen-balance.css");
+@import url("../src/components/device-preview/screen-balance.css?v=20260820-hidden-state-v2");

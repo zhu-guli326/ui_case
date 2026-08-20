@@ -9,7 +9,7 @@
  */
 
 /* Buddy travel planner ----------------------------------------------------- */
-.embed-mode .screen:has(.destination-list) .view.explore {
+.embed-mode .screen:has(.destination-list) .view.explore:not([hidden]) {
   display: flex;
   flex-direction: column;
 }
@@ -32,7 +32,7 @@
   margin-top: 16px;
 }
 
-.embed-mode .screen:has(.destination-list) .view.trips {
+.embed-mode .screen:has(.destination-list) .view.trips:not([hidden]) {
   display: flex;
   flex-direction: column;
 }
@@ -43,7 +43,7 @@
   align-content: center;
 }
 
-.embed-mode .screen:has(.destination-list) .view.profile {
+.embed-mode .screen:has(.destination-list) .view.profile:not([hidden]) {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,7 +73,7 @@
 }
 
 /* Loy / Brightly ---------------------------------------------------------- */
-.embed-mode .screen:has(.playlist-art) .view.playlist {
+.embed-mode .screen:has(.playlist-art) .view.playlist:not([hidden]) {
   display: flex;
   flex-direction: column;
 }
@@ -92,7 +92,7 @@
   height: 92px;
 }
 
-.embed-mode .screen:has(.playlist-art) .view.welcome {
+.embed-mode .screen:has(.playlist-art) .view.welcome:not([hidden]) {
   align-content: center;
   padding-bottom: 92px;
 }

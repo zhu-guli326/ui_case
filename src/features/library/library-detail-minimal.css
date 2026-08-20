@@ -85,7 +85,7 @@
 #previewMediaFrame.is-source-video .phone-media:not(iframe) {
   position:absolute !important; inset:0 !important; display:block;
   width:100% !important; height:100% !important; max-width:none !important; max-height:none !important;
-  border:0 !important; object-fit:cover !important; object-position:top center !important;
+  border:0 !important; object-fit:contain !important; object-position:center !important;
   transform:none !important; background:#fff !important;
 }
 #previewMediaFrame .phone-media[hidden] { display:none !important; visibility:hidden !important; }
@@ -208,7 +208,9 @@
 .case-design-notes-content dt { color:#999992; font-size:9px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; }
 .case-design-notes-content dd { margin:0; color:#5f5f59; font-size:11px; line-height:1.58; }
 
-.preview-dialog-footer { display:grid !important; gap:8px !important; margin-top:auto !important; padding-top:2px !important; }
+.preview-dialog-footer {
+  display:grid !important; gap:8px !important; margin-top:0 !important; padding-top:2px !important;
+}
 .preview-dialog-primary-actions { display:grid !important; grid-template-columns:1fr !important; gap:8px !important; }
 .dialog-copy-button,.preview-dialog-footer .dialog-action-link {
   width:100% !important; min-height:44px !important; border-radius:10px !important;

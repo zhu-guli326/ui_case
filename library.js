@@ -1,6 +1,6 @@
 import { getLibraryPreviewDevice, getLibraryPreviewProfile, libraryPreviewAssetVersion } from "./library-preview-config.mjs";
 import { searchGuides } from "./library-search.mjs?v=20260813-search-v5";
-import { styleGuides, styleProfiles } from "./catalog/index.js?v=20260815-artmuse-sequence";
+import { styleGuides, styleProfiles } from "./catalog/index.js?v=20260820-media-assets-v2";
 
 const previewImageSets = Object.freeze({
   museum: [
@@ -14,35 +14,19 @@ const previewImageSets = Object.freeze({
     { src: "./assets/cases/fashion-shopping-app/favorites-screen.png", label: { zh: "收藏页", en: "Favorites" } }
   ],
   fufu: [
-    { src: "./demo/fufu-bakery/screenshots/01-welcome.png", label: { zh: "欢迎页", en: "Welcome" } },
-    { src: "./demo/fufu-bakery/screenshots/02-home.png", label: { zh: "烘焙首页", en: "Bakery home" } },
-    { src: "./demo/fufu-bakery/screenshots/04-menu.png", label: { zh: "今日菜单", en: "Today's menu" } },
-    { src: "./demo/fufu-bakery/screenshots/03-member.png", label: { zh: "会员卡", en: "Membership" } }
+    { src: "./demo/fufu-bakery/screenshots/library-preview-2x.png", label: { zh: "烘焙首页", en: "Bakery home" } }
   ],
   organique: [
-    { src: "./demo/organique-food/screenshots/01-choose.png", label: { zh: "选择餐食", en: "Choose meals" } },
-    { src: "./demo/organique-food/screenshots/02-plan.png", label: { zh: "配送计划", en: "Delivery plan" } },
-    { src: "./demo/organique-food/screenshots/03-confirmation.png", label: { zh: "确认页", en: "Confirmation" } }
+    { src: "./demo/organique-food/screenshots/library-preview-2x.png", label: { zh: "选择餐食", en: "Choose meals" } }
   ],
   "plate-play": [
-    { src: "./demo/plate-play/screenshots/library-preview-2x.png", label: { zh: "欢迎页", en: "Welcome" } },
-    { src: "./demo/plate-play/screenshots/recipes.png", label: { zh: "食谱列表", en: "Recipes" } },
-    { src: "./demo/plate-play/screenshots/detail.png", label: { zh: "食谱详情", en: "Recipe detail" } }
-  ],
-  "carry-bag": [
-    { src: "./demo/carry-bag/screenshots/03-hero.png", label: { zh: "品牌首页", en: "Brand home" } },
-    { src: "./demo/carry-bag/screenshots/01-catalog.png", label: { zh: "商品目录", en: "Catalog" } },
-    { src: "./demo/carry-bag/screenshots/02-detail.png", label: { zh: "商品详情", en: "Product detail" } }
+    { src: "./demo/plate-play/screenshots/library-preview-2x.png", label: { zh: "食谱首页", en: "Recipes home" } }
   ],
   fithub: [
-    { src: "./demo/fithub/screenshots/01-discover.png", label: { zh: "训练发现", en: "Discover" } },
-    { src: "./demo/fithub/screenshots/02-activity.png", label: { zh: "活动统计", en: "Activity stats" } },
-    { src: "./demo/fithub/screenshots/03-focus.png", label: { zh: "目标部位", en: "Focus area" } }
+    { src: "./demo/fithub/screenshots/library-preview-2x.png", label: { zh: "训练发现", en: "Discover" } }
   ],
   "still-form": [
-    { src: "./demo/still-form/screenshots/01-intro.png", label: { zh: "品牌入口", en: "Brand intro" } },
-    { src: "./demo/still-form/screenshots/02-catalog.png", label: { zh: "系列目录", en: "Collection" } },
-    { src: "./demo/still-form/screenshots/03-detail.png", label: { zh: "单品详情", en: "Product detail" } }
+    { src: "./demo/still-form/screenshots/library-preview-2x.png", label: { zh: "系列目录", en: "Collection" } }
   ],
   news: [
     { src: "./assets/cases/news-app/headlines-screen.png", label: { zh: "头条页", en: "Headlines" } },
@@ -50,20 +34,13 @@ const previewImageSets = Object.freeze({
     { src: "./assets/cases/news-app/discover-screen.png", label: { zh: "发现页", en: "Discover" } }
   ],
   "signal-grid": [
-    { src: "./demo/signal-grid/screenshots/01-scan.png", label: { zh: "扫描页", en: "Scan" } },
-    { src: "./demo/signal-grid/screenshots/02-plans.png", label: { zh: "方案页", en: "Plans" } },
-    { src: "./demo/signal-grid/screenshots/03-confirmation.png", label: { zh: "确认页", en: "Confirmation" } }
+    { src: "./demo/signal-grid/screenshots/library-preview-2x.png", label: { zh: "扫描页", en: "Scan" } }
   ],
   "volt-route": [
-    { src: "./demo/volt-route/screenshots/01-dashboard.png", label: { zh: "车辆状态", en: "Vehicle status" } },
-    { src: "./demo/volt-route/screenshots/02-route.png", label: { zh: "充电路线", en: "Charging route" } },
-    { src: "./demo/volt-route/screenshots/03-charging.png", label: { zh: "充电进度", en: "Charging progress" } }
+    { src: "./demo/volt-route/screenshots/library-preview-2x.png", label: { zh: "车辆状态", en: "Vehicle status" } }
   ],
   moe: [
-    { src: "./demo/moe-habits/screenshots/video-2x/01-intro.png", label: { zh: "欢迎页", en: "Welcome" } },
-    { src: "./demo/moe-habits/screenshots/video-2x/02-home.png", label: { zh: "习惯首页", en: "Habits home" } },
-    { src: "./demo/moe-habits/screenshots/video-2x/03-task.png", label: { zh: "任务页", en: "Task" } },
-    { src: "./demo/moe-habits/screenshots/video-2x/04-celebration.png", label: { zh: "完成反馈", en: "Completion" } }
+    { src: "./demo/moe-habits/screenshots/library-preview-2x.png", label: { zh: "习惯首页", en: "Habits home" } }
   ],
   loy: [
     { src: "./demo/loy-wellness/screenshots/03-welcome.png", label: { zh: "欢迎页", en: "Welcome" } },
@@ -71,16 +48,13 @@ const previewImageSets = Object.freeze({
     { src: "./demo/loy-wellness/screenshots/02-playlist.png", label: { zh: "播放列表", en: "Playlist" } }
   ],
   moodly: [
-    { src: "./demo/moodly-health/screenshots/01-checkin.png", label: { zh: "情绪签到", en: "Mood check-in" } },
-    { src: "./demo/moodly-health/screenshots/02-confirm.png", label: { zh: "签到完成", en: "Check-in complete" } }
+    { src: "./demo/moodly-health/screenshots/library-preview-2x.png", label: { zh: "情绪签到", en: "Mood check-in" } }
   ],
   reflect: [
-    { src: "./demo/reflect-journal/screenshots/01-home.png", label: { zh: "日记首页", en: "Journal home" } },
-    { src: "./demo/reflect-journal/screenshots/02-detail.png", label: { zh: "日记详情", en: "Journal detail" } }
+    { src: "./demo/reflect-journal/screenshots/library-preview-2x.png", label: { zh: "日记首页", en: "Journal home" } }
   ],
   mimo: [
-    { src: "./demo/mimo-activities/screenshots/01-carousel.png", label: { zh: "日程轮播", en: "Schedule carousel" } },
-    { src: "./demo/mimo-activities/screenshots/02-walk-focus.png", label: { zh: "步行任务", en: "Walking task" } }
+    { src: "./demo/mimo-activities/screenshots/library-preview-2x.png", label: { zh: "日程轮播", en: "Schedule carousel" } }
   ]
 });
 
