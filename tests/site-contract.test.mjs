@@ -46,13 +46,14 @@ test("the shared header uses the ONDesign logo lockup", () => {
   assert.ok(readFileSync(path.join(root, "assets/branding/ondesign-wordmark.png")).length > 0);
 });
 
-test("the Learn progress navigation stays in document flow", () => {
+test("the Learn chapter navigation uses the cache-busted bare rail", () => {
   const learn = requireText("learn.html");
   const learnStyles = requireText("learn.css");
 
-  assert.match(learn, /learn\.css\?v=20260819-progress-nav-v2/);
-  assert.match(learnStyles, /\.learning-map\s*\{[^}]*position:\s*relative/);
-  assert.doesNotMatch(learnStyles, /\.learning-map\s*\{[^}]*position:\s*(?:sticky|fixed)/);
+  assert.match(learn, /learn\.css\?v=20260821-bare-rail-v5/);
+  assert.match(learnStyles, /\.chapter-nav\{[^}]*position:fixed/);
+  assert.match(learnStyles, /\.chapter-nav\{[^}]*background:transparent/);
+  assert.doesNotMatch(learnStyles, /\.chapter-nav\{[^}]*border-radius:18px/);
 });
 
 test("the Learn page uses the canonical shared AppShell navigation", () => {

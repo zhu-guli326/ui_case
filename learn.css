@@ -287,7 +287,7 @@ body .project-workflow{display:none!important}
   .learn-footer{flex-direction:column}
 }
 
-/* Desktop chapter navigation: fixed right-side rail inspired by the supplied reference. */
+/* Desktop chapter navigation: bare text-and-dot rail, without a card shell. */
 @media (min-width:981px){
   :root{--chapter-h:0px}
   .chapter-nav{
@@ -299,38 +299,41 @@ body .project-workflow{display:none!important}
     display:flex;
     flex-direction:column;
     align-items:flex-end;
-    gap:2px;
+    gap:7px;
     width:auto;
     min-height:0;
-    padding:12px 14px;
+    padding:0;
     overflow:visible;
-    border:1px solid rgba(15,21,17,.08);
-    border-radius:18px;
-    background:rgba(247,245,239,.82);
-    box-shadow:0 10px 30px rgba(15,21,17,.06);
-    backdrop-filter:blur(16px);
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    backdrop-filter:none;
     transform:translateY(-50%);
   }
   .chapter-nav a{
     display:grid;
-    grid-template-columns:auto 14px;
+    grid-template-columns:minmax(0,1fr) 20px;
     align-items:center;
-    gap:10px;
+    gap:11px;
+    width:118px;
     min-height:31px;
     padding:0;
     border-radius:0;
-    color:#8d938f;
+    color:#a4aaa6;
     font-size:11px;
-    letter-spacing:.04em;
-    transition:color .18s ease,transform .18s ease;
+    letter-spacing:.055em;
+    text-transform:uppercase;
+    opacity:.62;
+    transition:color .2s ease,opacity .2s ease,transform .2s ease,font-size .2s ease;
   }
   .chapter-nav a:hover{background:transparent;color:var(--ink);transform:translateX(-2px)}
   .chapter-nav a b{grid-column:1;font-weight:720}
   .chapter-nav a span{
     grid-column:2;
     grid-row:1;
-    width:8px;
-    height:8px;
+    width:5px;
+    height:5px;
     border-radius:50%;
     background:#a7aba8;
     color:transparent;
@@ -338,8 +341,13 @@ body .project-workflow{display:none!important}
     opacity:1;
     transition:width .18s ease,height .18s ease,background .18s ease,box-shadow .18s ease;
   }
-  .chapter-nav a.is-current{background:transparent;color:var(--green);transform:none}
-  .chapter-nav a.is-current span{width:14px;height:14px;background:var(--green);box-shadow:0 0 0 4px rgba(11,107,59,.12)}
+  .chapter-nav a.rail-near-2{opacity:.72;font-size:11.5px}
+  .chapter-nav a.rail-near-2 span{width:7px;height:7px}
+  .chapter-nav a.rail-near-1{color:#7d8580;opacity:.86;font-size:12px}
+  .chapter-nav a.rail-near-1 span{width:10px;height:10px;background:#8f9792}
+  .chapter-nav a.is-current{background:transparent;color:var(--green);opacity:1;font-size:13px;transform:none}
+  .chapter-nav a.is-current b{font-weight:820}
+  .chapter-nav a.is-current span{width:17px;height:17px;background:var(--green);box-shadow:0 0 0 5px rgba(11,107,59,.12)}
   .story-hero{min-height:calc(100vh - var(--header-h))}
   .chapter{scroll-margin-top:calc(var(--header-h) + 12px)}
 }

@@ -298,7 +298,15 @@ const chapterLinks = [...document.querySelectorAll("[data-section-link]")];
 const chapters = [...document.querySelectorAll("[data-section]")];
 function updateScrollState() {
   const max = document.documentElement.scrollHeight - innerHeight; const progress = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0; if (progressBar) progressBar.style.width = `${progress * 100}%`;
-  let current = chapters[0]?.dataset.section; chapters.forEach(chapter => { const rect = chapter.getBoundingClientRect(); if (rect.top <= innerHeight * .34) current = chapter.dataset.section; }); chapterLinks.forEach(link => link.classList.toggle("is-current", link.dataset.sectionLink === current));
+  let current = chapters[0]?.dataset.section;
+  chapters.forEach(chapter => { const rect = chapter.getBoundingClientRect(); if (rect.top <= innerHeight * .34) current = chapter.dataset.section; });
+  const activeIndex = chapterLinks.findIndex(link => link.dataset.sectionLink === current);
+  chapterLinks.forEach((link, index) => {
+    const distance = Math.abs(index - activeIndex);
+    link.classList.toggle("is-current", distance === 0);
+    link.classList.toggle("rail-near-1", distance === 1);
+    link.classList.toggle("rail-near-2", distance === 2);
+  });
 }
 addEventListener("scroll", updateScrollState, { passive: true });
 addEventListener("resize", updateScrollState);

@@ -59,7 +59,7 @@
     if (!document.querySelector('link[data-learn-nav-rail]')) {
       const railStyles = document.createElement("link");
       railStyles.rel = "stylesheet";
-      railStyles.href = "./learn-nav-rail.css?v=20260820-centered-v1";
+      railStyles.href = "./learn-nav-rail.css?v=20260821-bare-v2";
       railStyles.dataset.learnNavRail = "true";
       document.head.append(railStyles);
     }
