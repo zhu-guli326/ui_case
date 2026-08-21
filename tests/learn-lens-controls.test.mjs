@@ -25,6 +25,6 @@ test("inspection lens tags float at the horizontal center of the canvas", () => 
   assert.match(learn, /\.see-controls button\[data-lens\]/);
 });
 
-test("learn script cache key includes centered lens update", () => {
-  assert.match(html, /learn\.js\?v=20260821-centered-lenses-v1/);
+test("learn script cache key includes the current layout update", () => {
+  assert.match(html, /learn\.js\?v=20260821-breakdown-layout-v2/);
 });

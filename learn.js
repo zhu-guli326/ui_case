@@ -186,15 +186,31 @@ function mountBreakdownLab() {
   const board = document.querySelector("#breakdown .breakdown-board");
   if (!board) return;
   board.innerHTML = `
-    <div class="breakdown-stack">
-      <strong>PAGE</strong><span>↓</span><strong>SECTION</strong><span>↓</span><strong>PATTERN</strong><span>↓</span><strong>COMPONENT</strong><span>↓</span><strong>ELEMENT</strong><span>↓</span><strong>STATE</strong>
-    </div>
-    <div class="anatomy-card">
-      <h3>FuFu Bakery</h3>
-      <div><b>↳ Header</b><span data-zh="品牌 · 辅助操作" data-en="Brand · utility action">品牌 · 辅助操作</span></div>
-      <div><b>↳ Hero</b><span data-zh="图片 · 标题 · CTA" data-en="Image · headline · CTA">图片 · 标题 · CTA</span></div>
-      <div><b data-zh="↳ 会员卡" data-en="↳ Membership card">↳ 会员卡</b><span data-zh="进度 · 奖励状态" data-en="Progress · reward state">进度 · 奖励状态</span></div>
-      <div><b data-zh="↳ 底部导航" data-en="↳ Bottom navigation">↳ 底部导航</b><span data-zh="3 个目的地 · 选中状态" data-en="3 destinations · selected state">3 个目的地 · 选中状态</span></div>
+    <div class="breakdown-guide">
+      <div class="breakdown-guide-head">
+        <span>01 / DECOMPOSE</span>
+        <p data-zh="先确定观察尺度，再进入具体组件。" data-en="Choose the scale first, then inspect the components.">先确定观察尺度，再进入具体组件。</p>
+      </div>
+      <div class="breakdown-stack" aria-label="Page decomposition levels">
+        <div><small>01</small><strong>PAGE</strong></div>
+        <i>→</i>
+        <div><small>02</small><strong>SECTION</strong></div>
+        <i>→</i>
+        <div><small>03</small><strong>PATTERN</strong></div>
+        <i>→</i>
+        <div><small>04</small><strong>COMPONENT</strong></div>
+        <i>→</i>
+        <div><small>05</small><strong>ELEMENT</strong></div>
+        <i>→</i>
+        <div><small>06</small><strong>STATE</strong></div>
+      </div>
+      <div class="anatomy-card">
+        <div class="anatomy-title"><span>02 / STRUCTURE</span><h3>FuFu Bakery</h3></div>
+        <div><small>01</small><b>Header</b><span data-zh="品牌与辅助操作" data-en="Brand and utility actions">品牌与辅助操作</span></div>
+        <div><small>02</small><b>Hero</b><span data-zh="图片、标题与主行动" data-en="Image, headline, and primary CTA">图片、标题与主行动</span></div>
+        <div><small>03</small><b data-zh="会员卡" data-en="Membership card">会员卡</b><span data-zh="进度与奖励状态" data-en="Progress and reward state">进度与奖励状态</span></div>
+        <div><small>04</small><b data-zh="底部导航" data-en="Bottom navigation">底部导航</b><span data-zh="3 个入口与选中状态" data-en="Three destinations and selected state">3 个入口与选中状态</span></div>
+      </div>
     </div>
     <div class="breakdown-css-lab" id="breakdownCssLab">
       <div class="breakdown-lab-head"><span>CSS / LIVE</span><small data-zh="只改颜色变量，结构不动" data-en="Change color variables, keep structure">只改颜色变量，结构不动</small></div>
@@ -215,14 +231,49 @@ function mountBreakdownLab() {
   let style = document.querySelector("#learn-breakdown-lab-style");
   if (!style) { style = document.createElement("style"); style.id = "learn-breakdown-lab-style"; document.head.append(style); }
   style.textContent = `
-    #breakdown .breakdown-board{grid-template-columns:minmax(190px,.58fr) minmax(280px,1fr) minmax(330px,1.08fr)!important;align-items:stretch}
-    #breakdown .breakdown-css-lab{padding:20px;background:#111713;color:#fff;display:flex;flex-direction:column;gap:14px;min-width:0}
-    #breakdown .breakdown-lab-head{display:flex;justify-content:space-between;gap:14px;align-items:center}.breakdown-lab-head>span{font-size:10px;font-weight:900;letter-spacing:.13em;color:#d7ff42}.breakdown-lab-head small{color:#8f9992;font-size:10px}
-    #breakdown .breakdown-theme-tabs{display:flex;gap:6px;flex-wrap:wrap}.breakdown-theme-tabs button{display:inline-flex;align-items:center;gap:6px;min-height:30px;padding:0 9px;border:1px solid rgba(255,255,255,.18);background:transparent;color:#cbd1cd;font-size:9px;font-weight:800}.breakdown-theme-tabs button.is-active{background:#fff;color:#111}.breakdown-theme-tabs i{width:9px;height:9px;border-radius:50%;background:var(--chip)}
-    #breakdown .mini-bakery{--accent:#f1c957;--soft:#f8ead2;--label:#46647c;background:#fffefa;color:#111;border:1px solid rgba(255,255,255,.15);transition:background .2s ease}.mini-bakery-top{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:9px 10px;background:var(--accent);font-size:9px}.mini-bakery-top b{font-size:13px}.mini-bakery-body{display:grid;grid-template-columns:1fr 94px;min-height:120px;background:var(--soft);padding:12px;gap:8px;overflow:hidden}.mini-bakery-body>div{display:flex;flex-direction:column;align-items:flex-start}.mini-bakery-body small{color:var(--label);font-weight:850}.mini-bakery-body strong{font-size:19px;line-height:1.08;margin:5px 0 10px}.mini-bakery-body button{margin-top:auto;border:1px solid #111;background:var(--accent);padding:7px 9px;font-size:9px;font-weight:850}.mini-bakery-body img{width:100%;height:108px;object-fit:contain;align-self:end}.mini-bakery-stamps{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:8px 10px}.mini-bakery-stamps span{height:7px;border:1px solid rgba(0,0,0,.28)}.mini-bakery-stamps span.is-stamped{background:var(--accent);border-color:var(--accent)}
-    #breakdown .breakdown-css-code{margin:0;padding:11px 12px;background:#080b09;border:1px solid rgba(255,255,255,.11);color:#c7d1ca;min-height:104px;overflow:auto;font:10px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap}
-    @media(max-width:1050px){#breakdown .breakdown-board{grid-template-columns:1fr 1.35fr!important}.breakdown-css-lab{grid-column:1/-1}}
-    @media(max-width:700px){#breakdown .breakdown-board{grid-template-columns:1fr!important}.breakdown-css-lab{grid-column:auto}.mini-bakery-body{grid-template-columns:1fr 80px}}
+    #breakdown .chapter-copy{max-width:1160px}
+    #breakdown .chapter-copy h2{max-width:1160px;font-size:clamp(48px,5.2vw,72px);white-space:pre-line}
+    #breakdown .breakdown-board{display:grid!important;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr)!important;gap:16px!important;align-items:stretch}
+    #breakdown .breakdown-guide{display:flex;min-width:0;flex-direction:column;border:1px solid var(--line-strong);background:rgba(255,255,255,.42)}
+    #breakdown .breakdown-guide-head{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 22px;border-bottom:1px solid var(--line)}
+    #breakdown .breakdown-guide-head>span,#breakdown .anatomy-title>span{color:var(--green);font-size:9px;font-weight:900;letter-spacing:.14em}
+    #breakdown .breakdown-guide-head p{margin:0;color:var(--muted);font-size:11px}
+    #breakdown .breakdown-stack{display:grid;grid-template-columns:repeat(11,auto);align-items:center;gap:8px;padding:22px;border-bottom:1px solid var(--line);overflow-x:auto}
+    #breakdown .breakdown-stack div{display:grid;gap:5px;min-width:max-content}
+    #breakdown .breakdown-stack small{color:#89918b;font-size:8px;font-weight:850}
+    #breakdown .breakdown-stack strong{font-size:clamp(12px,1.05vw,15px);letter-spacing:-.01em}
+    #breakdown .breakdown-stack i{color:var(--green);font-size:12px;font-style:normal}
+    #breakdown .anatomy-card{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0 22px 22px}
+    #breakdown .anatomy-title{grid-column:1/-1;display:flex;justify-content:space-between;align-items:end;gap:18px;padding:22px 0 18px}
+    #breakdown .anatomy-title h3{margin:0;font-size:clamp(23px,2.2vw,32px);letter-spacing:-.04em}
+    #breakdown .anatomy-card>div:not(.anatomy-title){display:grid;grid-template-columns:24px 1fr;gap:4px 10px;min-height:94px;padding:18px 16px;border-top:1px solid var(--line)}
+    #breakdown .anatomy-card>div:nth-child(even){border-right:1px solid var(--line)}
+    #breakdown .anatomy-card>div:not(.anatomy-title)>small{grid-row:1/3;color:var(--green);font-size:9px;font-weight:900}
+    #breakdown .anatomy-card b{font-size:16px;letter-spacing:-.02em}
+    #breakdown .anatomy-card>div:not(.anatomy-title)>span{color:var(--muted);font-size:12px;line-height:1.45}
+    #breakdown .breakdown-css-lab{display:flex;min-width:0;flex-direction:column;gap:14px;padding:22px;border:1px solid #111713;background:#111713;color:#fff}
+    #breakdown .breakdown-lab-head{display:flex;justify-content:space-between;gap:14px;align-items:center}
+    #breakdown .breakdown-lab-head>span{font-size:10px;font-weight:900;letter-spacing:.13em;color:#d7ff42}
+    #breakdown .breakdown-lab-head small{color:#8f9992;font-size:10px}
+    #breakdown .breakdown-theme-tabs{display:flex;gap:6px;flex-wrap:wrap}
+    #breakdown .breakdown-theme-tabs button{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 10px;border:1px solid rgba(255,255,255,.18);background:transparent;color:#cbd1cd;font-size:9px;font-weight:800;cursor:pointer}
+    #breakdown .breakdown-theme-tabs button.is-active{background:#fff;color:#111}
+    #breakdown .breakdown-theme-tabs i{width:9px;height:9px;border-radius:50%;background:var(--chip)}
+    #breakdown .mini-bakery{--accent:#f1c957;--soft:#f8ead2;--label:#46647c;background:#fffefa;color:#111;border:1px solid rgba(255,255,255,.15);transition:background .2s ease}
+    #breakdown .mini-bakery-top{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 12px;background:var(--accent);font-size:9px}
+    #breakdown .mini-bakery-top b{font-size:14px}
+    #breakdown .mini-bakery-body{display:grid;grid-template-columns:1fr 106px;min-height:142px;background:var(--soft);padding:14px;gap:12px;overflow:hidden}
+    #breakdown .mini-bakery-body>div{display:flex;flex-direction:column;align-items:flex-start}
+    #breakdown .mini-bakery-body small{color:var(--label);font-weight:850}
+    #breakdown .mini-bakery-body strong{font-size:21px;line-height:1.08;margin:5px 0 10px}
+    #breakdown .mini-bakery-body button{margin-top:auto;border:1px solid #111;background:var(--accent);padding:8px 10px;font-size:9px;font-weight:850;cursor:pointer}
+    #breakdown .mini-bakery-body img{width:100%;height:118px;object-fit:contain;align-self:end;background:rgba(255,255,255,.7)}
+    #breakdown .mini-bakery-stamps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:9px 12px}
+    #breakdown .mini-bakery-stamps span{height:7px;border:1px solid rgba(0,0,0,.28)}
+    #breakdown .mini-bakery-stamps span.is-stamped{background:var(--accent);border-color:var(--accent)}
+    #breakdown .breakdown-css-code{flex:1;margin:0;padding:13px 14px;background:#080b09;border:1px solid rgba(255,255,255,.11);color:#c7d1ca;min-height:124px;overflow:auto;font:10px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap}
+    @media(max-width:1050px){#breakdown .breakdown-board{grid-template-columns:1fr!important}#breakdown .breakdown-css-lab{min-height:430px}}
+    @media(max-width:700px){#breakdown .breakdown-guide-head,#breakdown .anatomy-title{align-items:flex-start;flex-direction:column}#breakdown .anatomy-card{grid-template-columns:1fr}#breakdown .anatomy-card>div:nth-child(even){border-right:0}#breakdown .mini-bakery-body{grid-template-columns:1fr 84px}}
   `;
 }
 
@@ -270,7 +321,7 @@ function syncFashionFrame(lang) {
 
 function applyLanguage(event) {
   const lang = currentLanguage(event); activeLanguage = lang; syncDocumentMeta(lang);
-  document.querySelectorAll("[data-zh][data-en]").forEach(el => { const value = el.dataset[lang]; if (value) el.textContent = value; });
+  document.querySelectorAll("[data-zh][data-en]").forEach(el => { const value = el.dataset[lang]; if (value) el.textContent = value.replace(/\\n/g, "\n"); });
   document.querySelectorAll("[data-smart-lang-link]").forEach(link => { const target = new URL(link.dataset.smartLangLink, location.href); target.searchParams.set("lang", lang); link.href = `${target.pathname.split("/").pop()}${target.search}${target.hash}`; });
   const rebuildLink = document.querySelector('.final-links a[href*="launcher.html"]'); if (rebuildLink) { const target = new URL(rebuildLink.href, location.href); target.searchParams.set("lang", lang); rebuildLink.href = target.href; }
   syncWhySection(lang); syncFashionFrame(lang); updateLens(document.querySelector("[data-lens].is-active")?.dataset.lens || "layout", lang); renderBreakdownTheme(activeBreakdownTheme);
