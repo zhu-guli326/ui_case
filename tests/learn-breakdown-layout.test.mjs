@@ -14,6 +14,7 @@ test("breakdown lesson uses a balanced guide and live-lab layout", () => {
   assert.match(learn, /grid-template-columns:minmax\(0,1\.08fr\) minmax\(360px,\.92fr\)/);
   assert.match(learn, /class="anatomy-title"/);
   assert.match(learn, /#breakdown \.anatomy-card>div:not\(\.anatomy-title\)/);
+  assert.match(learn, /#breakdown \.breakdown-board\{margin-right:140px\}/);
 });
 
 test("decomposition levels and component rows stay visually separated", () => {
@@ -26,5 +27,5 @@ test("decomposition levels and component rows stay visually separated", () => {
 test("localized heading line breaks render instead of showing escaped text", () => {
   assert.match(learn, /value\.replace\(\/\\\\n\/g, "\\n"\)/);
   assert.match(learn, /white-space:pre-line/);
-  assert.match(html, /learn\.js\?v=20260821-breakdown-layout-v2/);
+  assert.match(html, /learn\.js\?v=20260821-breakdown-layout-v3/);
 });

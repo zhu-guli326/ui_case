@@ -272,6 +272,7 @@ function mountBreakdownLab() {
     #breakdown .mini-bakery-stamps span{height:7px;border:1px solid rgba(0,0,0,.28)}
     #breakdown .mini-bakery-stamps span.is-stamped{background:var(--accent);border-color:var(--accent)}
     #breakdown .breakdown-css-code{flex:1;margin:0;padding:13px 14px;background:#080b09;border:1px solid rgba(255,255,255,.11);color:#c7d1ca;min-height:124px;overflow:auto;font:10px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap}
+    @media(min-width:1051px){#breakdown .breakdown-board{margin-right:140px}}
     @media(max-width:1050px){#breakdown .breakdown-board{grid-template-columns:1fr!important}#breakdown .breakdown-css-lab{min-height:430px}}
     @media(max-width:700px){#breakdown .breakdown-guide-head,#breakdown .anatomy-title{align-items:flex-start;flex-direction:column}#breakdown .anatomy-card{grid-template-columns:1fr}#breakdown .anatomy-card>div:nth-child(even){border-right:0}#breakdown .mini-bakery-body{grid-template-columns:1fr 84px}}
   `;
