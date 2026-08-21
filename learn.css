@@ -321,7 +321,7 @@ body .project-workflow{display:none!important}
     padding:0;
     border-radius:0;
     color:#a4aaa6;
-    font-size:11px;
+    font-size:10px;
     letter-spacing:.055em;
     text-transform:uppercase;
     opacity:.62;
@@ -332,8 +332,8 @@ body .project-workflow{display:none!important}
   .chapter-nav a span{
     grid-column:2;
     grid-row:1;
-    width:5px;
-    height:5px;
+    width:4px;
+    height:4px;
     border-radius:50%;
     background:#a7aba8;
     color:transparent;
@@ -341,13 +341,13 @@ body .project-workflow{display:none!important}
     opacity:1;
     transition:width .18s ease,height .18s ease,background .18s ease,box-shadow .18s ease;
   }
-  .chapter-nav a.rail-near-2{opacity:.72;font-size:11.5px}
-  .chapter-nav a.rail-near-2 span{width:7px;height:7px}
+  .chapter-nav a.rail-near-2{opacity:.72;font-size:10.5px}
+  .chapter-nav a.rail-near-2 span{width:6px;height:6px}
   .chapter-nav a.rail-near-1{color:#7d8580;opacity:.86;font-size:12px}
-  .chapter-nav a.rail-near-1 span{width:10px;height:10px;background:#8f9792}
+  .chapter-nav a.rail-near-1 span{width:12px;height:12px;background:#8f9792}
   .chapter-nav a.is-current{background:transparent;color:var(--green);opacity:1;font-size:13px;transform:none}
   .chapter-nav a.is-current b{font-weight:820}
-  .chapter-nav a.is-current span{width:17px;height:17px;background:var(--green);box-shadow:0 0 0 5px rgba(11,107,59,.12)}
+  .chapter-nav a.is-current span{width:20px;height:20px;background:var(--green);box-shadow:0 0 0 6px rgba(11,107,59,.12)}
   .story-hero{min-height:calc(100vh - var(--header-h))}
   .chapter{scroll-margin-top:calc(var(--header-h) + 12px)}
 }
