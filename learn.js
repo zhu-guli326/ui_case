@@ -66,14 +66,6 @@ function mountSeeLab() {
         <span class="see-toolbar-kicker" data-zh="真实网页观察实验" data-en="LIVE INTERFACE LENS">真实网页观察实验</span>
         <p data-zh="下面不是截图，而是一张真正可点击的响应式网页。先操作它，再切换观察维度。" data-en="This is a real responsive webpage, not a screenshot. Interact with it first, then switch inspection lenses.">下面不是截图，而是一张真正可点击的响应式网页。先操作它，再切换观察维度。</p>
       </div>
-      <div class="see-controls" role="tablist" aria-label="界面观察维度">
-        <button class="is-active" data-lens="layout" type="button" role="tab" aria-selected="true"><span data-zh="布局" data-en="Layout">布局</span></button>
-        <button data-lens="hierarchy" type="button" role="tab" aria-selected="false"><span data-zh="层级" data-en="Hierarchy">层级</span></button>
-        <button data-lens="pattern" type="button" role="tab" aria-selected="false"><span data-zh="模式" data-en="Pattern">模式</span></button>
-        <button data-lens="action" type="button" role="tab" aria-selected="false"><span data-zh="动作" data-en="Action">动作</span></button>
-        <button data-lens="state" type="button" role="tab" aria-selected="false"><span data-zh="状态" data-en="State">状态</span></button>
-        <button data-lens="visual" type="button" role="tab" aria-selected="false"><span data-zh="视觉" data-en="Visual">视觉</span></button>
-      </div>
     </div>
 
     <div class="see-stage">
@@ -114,6 +106,14 @@ function mountSeeLab() {
             <span data-zh="紧凑商品网格" data-en="Compact product grid">紧凑商品网格</span>
           </div>
         </div>
+        <div class="see-controls" role="tablist" aria-label="界面观察维度">
+          <button class="is-active" data-lens="layout" type="button" role="tab" aria-selected="true"><span data-zh="布局" data-en="Layout">布局</span></button>
+          <button data-lens="hierarchy" type="button" role="tab" aria-selected="false"><span data-zh="层级" data-en="Hierarchy">层级</span></button>
+          <button data-lens="pattern" type="button" role="tab" aria-selected="false"><span data-zh="模式" data-en="Pattern">模式</span></button>
+          <button data-lens="action" type="button" role="tab" aria-selected="false"><span data-zh="动作" data-en="Action">动作</span></button>
+          <button data-lens="state" type="button" role="tab" aria-selected="false"><span data-zh="状态" data-en="State">状态</span></button>
+          <button data-lens="visual" type="button" role="tab" aria-selected="false"><span data-zh="视觉" data-en="Visual">视觉</span></button>
+        </div>
       </div>
       <aside class="lens-note">
         <span class="lens-note-index">02 / SEE</span>
@@ -138,11 +138,11 @@ function mountSeeLab() {
     #see .chapter-index,#see .eyebrow{color:var(--green)!important}
     #see .lead{color:var(--muted)!important}
     #see .see-lab{display:block!important;margin:64px 0 0 min(10vw,140px)!important;border:1px solid rgba(15,21,17,.14)!important;background:#fff!important;box-shadow:0 24px 70px rgba(15,21,17,.07)!important;overflow:hidden!important}
-    #see .see-toolbar{display:grid;grid-template-columns:minmax(260px,.8fr) minmax(0,1.4fr);gap:28px;align-items:end;padding:22px 24px 20px;border-bottom:1px solid rgba(15,21,17,.12);background:#fbfaf7}
+    #see .see-toolbar{display:block;padding:22px 24px 20px;border-bottom:1px solid rgba(15,21,17,.12);background:#fbfaf7}
     #see .see-toolbar-copy{display:grid;gap:8px}
     #see .see-toolbar-kicker{font-size:10px;font-weight:900;letter-spacing:.14em;color:var(--green)}
     #see .see-toolbar-copy p{margin:0;max-width:480px;color:#6a716c;font-size:13px;line-height:1.55}
-    #see .see-controls{display:flex!important;flex-direction:row!important;justify-content:flex-end;gap:6px;padding:0!important;border:0!important;background:transparent!important;overflow-x:auto}
+    #see .see-controls{position:absolute;z-index:5;left:50%;bottom:18px;display:flex!important;flex-direction:row!important;justify-content:center;gap:6px;width:max-content;max-width:calc(100% - 32px);padding:6px!important;border:1px solid rgba(15,21,17,.14)!important;border-radius:999px;background:rgba(251,250,247,.92)!important;box-shadow:0 12px 32px rgba(15,21,17,.18);backdrop-filter:blur(12px);overflow-x:auto;transform:translateX(-50%)}
     #see .see-controls::before{display:none!important}
     #see .see-controls button{display:block!important;min-height:36px!important;padding:0 13px!important;border:1px solid rgba(15,21,17,.14)!important;border-radius:999px!important;background:#fff!important;color:#555d58!important;text-align:center!important;font-size:11px!important;font-weight:780!important;white-space:nowrap;transition:.18s ease}
     #see .see-controls button::before{display:none!important}
@@ -177,8 +177,8 @@ function mountSeeLab() {
     #see .lens-note-index{color:#d7ff42;font-size:9px;font-weight:900;letter-spacing:.14em}#see .lens-note strong{font-size:30px;line-height:1;letter-spacing:-.035em;color:#fff}#see .lens-note p{margin:0!important;color:#c4cbc6!important;font-size:14px!important;line-height:1.72!important}#see .lens-note-rule{height:1px;background:rgba(255,255,255,.15);margin-top:auto}#see .lens-note small{color:#929d96;font-size:11px;line-height:1.6}
     #see .open-live-demo{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 12px;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:10px;font-weight:800;text-decoration:none}
     #see .open-live-demo:hover{background:#d7ff42;color:#111;border-color:#d7ff42}
-    @media(max-width:980px){#see .see-lab{margin-left:0!important}#see .see-toolbar{grid-template-columns:1fr}#see .see-controls{justify-content:flex-start}#see .see-stage{grid-template-columns:1fr}#see .lens-note{border-left:0!important;border-top:1px solid rgba(255,255,255,.12)!important}#see .fashion-preview{aspect-ratio:16/11}}
-    @media(max-width:640px){#see .see-toolbar{padding:18px}#see .fashion-preview{aspect-ratio:4/5}#see .lens-note{padding:22px 18px!important}#see .lens-note strong{font-size:24px}#see .visual-notes{width:42%;right:2%;top:4%}#see .pattern-tag,#see .state-pointer,#see .action-box{transform:scale(.82);transform-origin:top left}}
+    @media(max-width:980px){#see .see-lab{margin-left:0!important}#see .see-stage{grid-template-columns:1fr}#see .lens-note{border-left:0!important;border-top:1px solid rgba(255,255,255,.12)!important}#see .fashion-preview{aspect-ratio:16/11}}
+    @media(max-width:640px){#see .see-toolbar{padding:18px}#see .fashion-preview{aspect-ratio:4/5}#see .see-controls{left:12px;right:12px;bottom:12px;justify-content:flex-start;width:auto;max-width:none;border-radius:18px;transform:none}#see .see-controls button{min-height:34px!important;padding:0 11px!important}#see .lens-note{padding:22px 18px!important}#see .lens-note strong{font-size:24px}#see .visual-notes{width:42%;right:2%;top:4%}#see .pattern-tag,#see .state-pointer,#see .action-box{transform:scale(.82);transform-origin:top left}}
   `;
 }
 
@@ -287,7 +287,7 @@ mountSeeLab();
 mountBreakdownLab();
 bindBreakdownLab();
 
-const lensButtons = [...document.querySelectorAll("[data-lens]")];
+const lensButtons = [...document.querySelectorAll(".see-controls button[data-lens]")];
 lensButtons.forEach(button => {
   button.addEventListener("click", () => { lensButtons.forEach(item => { const selected = item === button; item.classList.toggle("is-active", selected); item.setAttribute("aria-selected", String(selected)); }); updateLens(button.dataset.lens); });
   button.addEventListener("keydown", event => { if (!["ArrowDown","ArrowRight","ArrowUp","ArrowLeft"].includes(event.key)) return; event.preventDefault(); const direction = event.key === "ArrowDown" || event.key === "ArrowRight" ? 1 : -1; const currentIndex = lensButtons.indexOf(button); const nextButton = lensButtons[(currentIndex + direction + lensButtons.length) % lensButtons.length]; nextButton.focus(); nextButton.click(); });
