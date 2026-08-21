@@ -151,9 +151,11 @@ const $ = (selector) => document.querySelector(selector);
 const categoryChips = $("#categoryChips");
 const taxonomyNav = $("#taxonomyNav");
 const entryGrid = $("#entryGrid");
+const resultsHeading = $(".results-heading");
 const resultCount = $("#resultCount");
 const resultsSummary = $("#resultsSummary");
 const emptyState = $("#emptyState");
+const navigationDeepDive = $("#navigationDeepDive");
 const termDialog = $("#termDialog");
 const termDialogContent = $("#termDialogContent");
 const toast = $("#toast");
@@ -161,6 +163,7 @@ let dialogReturnEntryId = null;
 
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[character]));
 const navText = (pair) => tr(pair[0], pair[1]);
+const showsNavigationDeepDive = () => state.category === "navigation" && !state.query.trim();
 
 function navigationPreviewMarkup(type) {
   const line = '<i class="nav-demo-line"></i>';
@@ -178,7 +181,10 @@ function renderNavigationDeepDive() {
   const principles = $("#navigationPrinciples");
   const grid = $("#navigationPatternGrid");
   const matrix = $("#navigationMatrixTable");
-  if (!principles || !grid || !matrix) return;
+  if (!navigationDeepDive || !principles || !grid || !matrix) return;
+
+  navigationDeepDive.hidden = !showsNavigationDeepDive();
+  if (navigationDeepDive.hidden) return;
 
   principles.innerHTML = navigationPrinciples.map((item) => `<article><span>${item.number}</span><div><h3>${escapeHtml(navText(item.title))}</h3><p>${escapeHtml(navText(item.body))}</p></div></article>`).join("");
   grid.innerHTML = navigationPatterns.map((pattern) => `<article class="navigation-pattern-card">
@@ -275,8 +281,12 @@ function cardMarkup(entry) {
 
 function renderEntries() {
   const list = filteredEntries();
-  entryGrid.innerHTML = list.map(cardMarkup).join("");
-  emptyState.hidden = list.length > 0;
+  const navigationMode = showsNavigationDeepDive();
+  resultsHeading.hidden = navigationMode;
+  resultsSummary.hidden = navigationMode;
+  entryGrid.hidden = navigationMode;
+  entryGrid.innerHTML = navigationMode ? "" : list.map(cardMarkup).join("");
+  emptyState.hidden = navigationMode || list.length > 0;
   resultCount.textContent = currentLanguage === "en" ? `${list.length} ${list.length === 1 ? "term" : "terms"}` : `${list.length} 条`;
   resultsSummary.textContent = state.query
     ? currentLanguage === "en" ? `${list.length} ${list.length === 1 ? "term matches" : "terms match"} “${state.query}”` : `“${state.query}”匹配 ${list.length} 个词条`
@@ -380,7 +390,7 @@ function showToast(message) {
   toastTimer = setTimeout(() => { toast.hidden = true; }, 2200);
 }
 
-$("#vocabularySearch").addEventListener("input", (event) => { state.query = event.target.value; renderEntries(); });
+$("#vocabularySearch").addEventListener("input", (event) => { state.query = event.target.value; renderNavigationDeepDive(); renderEntries(); });
 $("#sortSelect").addEventListener("change", (event) => { state.sort = event.target.value; renderEntries(); });
 $("#clearSearch").addEventListener("click", () => { state.query = ""; state.category = "all"; $("#vocabularySearch").value = ""; render(); $("#vocabularySearch").focus(); });
 termDialog.addEventListener("close", () => {
@@ -389,7 +399,7 @@ termDialog.addEventListener("close", () => {
   if (!document.activeElement || document.activeElement === document.body) focusCategory(state.category);
   dialogReturnEntryId = null;
 });
-document.addEventListener("keydown", (event) => { if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); $("#vocabularySearch").focus(); } if (event.key === "Escape" && !termDialog.open) { state.query = ""; $("#vocabularySearch").value = ""; renderEntries(); } });
+document.addEventListener("keydown", (event) => { if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); $("#vocabularySearch").focus(); } if (event.key === "Escape" && !termDialog.open) { state.query = ""; $("#vocabularySearch").value = ""; renderNavigationDeepDive(); renderEntries(); } });
 window.addEventListener("image2:languagechange", (event) => {
   currentLanguage = event.detail?.language === "en" ? "en" : "zh";
   render();
