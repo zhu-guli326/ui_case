@@ -51,7 +51,7 @@ test("the shared capsule navigation follows the product information architecture
   const navigation = requireText("src/components/site-header/site-header.css");
   const vocabulary = requireText("vocabulary.html");
 
-  assert.match(appShell, /href:\s*"\.\/library\.html",\s*key:\s*"nav\.explore"/);
+  assert.match(appShell, /href:\s*"\.\/learn\.html",\s*key:\s*"nav\.explore"/);
   assert.match(appShell, /function libraryNavigationItems\(\)/);
   assert.match(appShell, /href:\s*"\.\/library\.html",\s*key:\s*"nav\.caseLibrary"/);
   assert.match(appShell, /href:\s*"\.\/vocabulary\.html",\s*key:\s*"nav\.uiVocabulary"/);
@@ -60,6 +60,10 @@ test("the shared capsule navigation follows the product information architecture
   assert.match(appShell, /site-nav-start.*siteNavigationItems\(\)\.map\(renderLink\).*libraryMenu.*resources\.map\(renderLink\)/s);
   assert.match(appShell, /class="site-brand" href="\$\{resolveLocalHref\("\.\/learn\.html"\)\}"/);
   assert.match(appShell, /site-nav-xhs/);
+  assert.match(appShell, /switcher\.innerHTML = SUPPORTED\.map/);
+  assert.doesNotMatch(appShell, /language-glyph|switcher\.classList\.add\("is-compact"\)/);
+  assert.match(appShell, /navigator\.languages/);
+  assert.match(appShell, /Asia\\\/\(\?:Shanghai/);
   assert.match(appShell, /site-nav-stars">\$\{githubStars \?\? "…"\}/);
   assert.match(navigation, /\.site-header\s*\{[^}]*border-radius:\s*999px/s);
   assert.match(navigation, /\.site-nav-community > \.site-nav-start::after/);
@@ -81,7 +85,7 @@ test("the Learn page uses the canonical shared AppShell navigation", () => {
   const learn = requireText("learn.html");
   const appShell = requireText("src/core/app-shell/app-shell.js");
 
-  assert.match(learn, /src\/core\/app-shell\/app-shell\.js\?v=20260821-capsule-nav-v4/);
+  assert.match(learn, /src\/core\/app-shell\/app-shell\.js\?v=20260821-capsule-nav-v5/);
   assert.doesNotMatch(learn, /<script[^>]+src="\.\/i18n\.js/);
   assert.match(appShell, /function libraryNavigationItems\(\)/);
 });

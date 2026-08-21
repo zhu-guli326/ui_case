@@ -60,7 +60,16 @@
       const saved = localStorage.getItem(STORAGE_KEY);
       if (isSupported(saved)) return saved;
     } catch {}
-    return navigator.language?.toLowerCase().startsWith("en") ? "en" : "zh";
+    const browserLanguages = [...(navigator.languages || []), navigator.language]
+      .filter(Boolean)
+      .map((value) => String(value).toLowerCase());
+    if (browserLanguages.some((value) => /^(?:zh|yue)(?:-|$)/.test(value))) return "zh";
+    if (browserLanguages.some((value) => /^en(?:-|$)/.test(value))) return "en";
+    try {
+      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+      if (/^(?:Asia\/(?:Shanghai|Chongqing|Harbin|Urumqi|Hong_Kong|Macau|Taipei))$/i.test(timeZone)) return "zh";
+    } catch {}
+    return "en";
   }
 
   let language = readLanguage();
@@ -94,7 +103,7 @@
 
   function siteNavigationItems() {
     return [
-      { href: "./library.html", key: "nav.explore" },
+      { href: "./learn.html", key: "nav.explore" },
     ];
   }
 
@@ -110,7 +119,7 @@
     return [
       { href: "https://x.com/JGuli49724", label: '<svg class="site-social-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.967 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/></svg>', external: true, className: "site-nav-social site-nav-x", ariaLabel: language === "en" ? "Open JGuli49724's profile on X" : "在 X 查看 JGuli49724 的主页" },
       { href: "https://github.com/zhu-guli326/image2_UI_skill", label: `GitHub <span class="site-nav-star-glyph" aria-hidden="true">★</span><span class="site-nav-stars">${githubStars ?? "…"}</span>`, external: true, className: "site-nav-github", ariaLabel: language === "en" ? "Open GitHub repository" : "打开 GitHub 仓库" },
-      { href: "https://www.xiaohongshu.com/user/profile/57b3456c82ec3947f79496e9", label: '<svg class="site-social-svg site-xhs-svg" viewBox="0 0 32 24" aria-hidden="true"><rect x="1" y="3" width="30" height="18" rx="6"/><text x="16" y="15.3" text-anchor="middle">RED</text></svg>', external: true, className: "site-nav-social site-nav-xhs", ariaLabel: language === "en" ? "Open the creator profile on Xiaohongshu" : "打开作者的小红书主页" },
+      { href: "https://www.xiaohongshu.com/user/profile/57b3456c82ec3947f79496e9", label: '<svg class="site-social-svg site-xhs-svg" viewBox="0 0 42 28" aria-hidden="true"><rect x="1" y="3" width="40" height="22" rx="8"/><text x="21" y="18.2" text-anchor="middle">RED</text></svg>', external: true, className: "site-nav-social site-nav-xhs", ariaLabel: language === "en" ? "Open the creator profile on Xiaohongshu" : "打开作者的小红书主页" },
     ];
   }
 
@@ -259,12 +268,8 @@
     switcher.classList.add("global-language-switch");
     switcher.setAttribute("role", "group");
     switcher.setAttribute("aria-label", t("common.language"));
-    if (switcher.closest(".site-header")) {
-      const nextLanguage = language === "en" ? "zh" : "en";
-      const label = nextLanguage === "zh" ? t("common.chinese") : t("common.english");
-      switcher.classList.add("is-compact");
-      switcher.innerHTML = `<button type="button" data-language="${nextLanguage}" aria-label="${t("common.language")}: ${label}" title="${label}"><span class="language-glyph" aria-hidden="true"></span><span class="sr-only">${label}</span></button>`;
-    } else switcher.innerHTML = SUPPORTED.map((item) => {
+    switcher.classList.remove("is-compact");
+    switcher.innerHTML = SUPPORTED.map((item) => {
       const selected = item === language;
       const label = item === "zh" ? t("common.chinese") : t("common.english");
       return `<button type="button" data-language="${item}" aria-pressed="${selected}" title="${label}">${label}</button>`;
