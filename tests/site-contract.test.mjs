@@ -52,12 +52,18 @@ test("the shared capsule navigation follows the product information architecture
   const vocabulary = requireText("vocabulary.html");
 
   assert.match(appShell, /href:\s*"\.\/library\.html",\s*key:\s*"nav\.explore"/);
-  assert.match(appShell, /href:\s*"\.\/vocabulary\.html",\s*key:\s*"nav\.library"/);
+  assert.match(appShell, /function libraryNavigationItems\(\)/);
+  assert.match(appShell, /href:\s*"\.\/library\.html",\s*key:\s*"nav\.caseLibrary"/);
+  assert.match(appShell, /href:\s*"\.\/vocabulary\.html",\s*key:\s*"nav\.uiVocabulary"/);
+  assert.match(appShell, /href:\s*"\.\/skills\.html",\s*key:\s*"nav\.designSkills"/);
   assert.match(appShell, /"nav\.launcher":\s*\{\s*zh:\s*"开始设计",\s*en:\s*"Start Designing"\s*\}/);
-  assert.match(appShell, /site-nav-start.*siteNavigationItems\(\)\.map\(renderLink\).*resources\.map\(renderLink\)/s);
-  assert.match(appShell, /class="site-brand" href="\$\{resolveLocalHref\("\.\/index\.html"\)\}"/);
+  assert.match(appShell, /site-nav-start.*siteNavigationItems\(\)\.map\(renderLink\).*libraryMenu.*resources\.map\(renderLink\)/s);
+  assert.match(appShell, /class="site-brand" href="\$\{resolveLocalHref\("\.\/learn\.html"\)\}"/);
+  assert.match(appShell, /site-nav-xhs/);
+  assert.match(appShell, /site-nav-stars">\$\{githubStars \?\? "…"\}/);
   assert.match(navigation, /\.site-header\s*\{[^}]*border-radius:\s*999px/s);
-  assert.match(navigation, /\.site-nav-community > \.site-nav-start::before/);
+  assert.match(navigation, /\.site-nav-community > \.site-nav-start::after/);
+  assert.match(navigation, /background:\s*#121512/);
   assert.ok(vocabulary.indexOf("<image2-site-header data-site-header>") < vocabulary.indexOf("<main>"));
 });
 
@@ -75,9 +81,16 @@ test("the Learn page uses the canonical shared AppShell navigation", () => {
   const learn = requireText("learn.html");
   const appShell = requireText("src/core/app-shell/app-shell.js");
 
-  assert.match(learn, /src\/core\/app-shell\/app-shell\.js\?v=20260821-capsule-nav-v2/);
+  assert.match(learn, /src\/core\/app-shell\/app-shell\.js\?v=20260821-capsule-nav-v3/);
   assert.doesNotMatch(learn, /<script[^>]+src="\.\/i18n\.js/);
-  assert.match(appShell, /href:\s*"\.\/vocabulary\.html",\s*key:\s*"nav\.library"/);
+  assert.match(appShell, /function libraryNavigationItems\(\)/);
+});
+
+test("the root route opens the Learn homepage", () => {
+  const index = requireText("index.html");
+  assert.match(index, /url=\.\/learn\.html/);
+  assert.match(index, /new URL\('\.\/learn\.html'/);
+  assert.doesNotMatch(index, /url=\.\/library\.html/);
 });
 
 test("top-level navigation does not reuse a page-specific iframe shell", () => {

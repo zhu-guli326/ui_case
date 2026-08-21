@@ -25,6 +25,12 @@
   const translations = {
     "nav.library": { zh: "案例库", en: "Library" },
     "nav.explore": { zh: "探索", en: "Explore" },
+    "nav.caseLibrary": { zh: "案例库", en: "Case Library" },
+    "nav.caseLibraryHint": { zh: "浏览可点击 UI 案例", en: "Browse clickable UI cases" },
+    "nav.uiVocabulary": { zh: "UI 词库", en: "UI Vocabulary" },
+    "nav.uiVocabularyHint": { zh: "看图理解界面语言", en: "Learn interface language visually" },
+    "nav.designSkills": { zh: "设计 Skill", en: "Design Skills" },
+    "nav.designSkillsHint": { zh: "查找可调用的设计能力", en: "Find reusable design capabilities" },
     "nav.learn": { zh: "使用指南", en: "Guide" },
     "nav.brands": { zh: "设计系统", en: "Design systems" },
     "nav.launcher": { zh: "开始设计", en: "Start Designing" },
@@ -89,14 +95,22 @@
   function siteNavigationItems() {
     return [
       { href: "./library.html", key: "nav.explore" },
-      { href: "./vocabulary.html", key: "nav.library" },
+    ];
+  }
+
+  function libraryNavigationItems() {
+    return [
+      { href: "./library.html", key: "nav.caseLibrary", hintKey: "nav.caseLibraryHint" },
+      { href: "./vocabulary.html", key: "nav.uiVocabulary", hintKey: "nav.uiVocabularyHint" },
+      { href: "./skills.html", key: "nav.designSkills", hintKey: "nav.designSkillsHint" },
     ];
   }
 
   function resourceNavigationItems() {
     return [
-      { href: "https://x.com/JGuli49724", label: "X", external: true, ariaLabel: language === "en" ? "Open JGuli49724's profile on X" : "在 X 查看 JGuli49724 的主页" },
-      { href: "https://github.com/zhu-guli326/image2_UI_skill", label: 'GitHub <span class="site-nav-star-glyph" aria-hidden="true">★</span><span class="site-nav-stars" hidden></span>', external: true, className: "site-nav-github", ariaLabel: language === "en" ? "Open GitHub repository" : "打开 GitHub 仓库" },
+      { href: "https://x.com/JGuli49724", label: '<svg class="site-social-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.967 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/></svg>', external: true, className: "site-nav-social site-nav-x", ariaLabel: language === "en" ? "Open JGuli49724's profile on X" : "在 X 查看 JGuli49724 的主页" },
+      { href: "https://github.com/zhu-guli326/image2_UI_skill", label: `GitHub <span class="site-nav-star-glyph" aria-hidden="true">★</span><span class="site-nav-stars">${githubStars ?? "…"}</span>`, external: true, className: "site-nav-github", ariaLabel: language === "en" ? "Open GitHub repository" : "打开 GitHub 仓库" },
+      { href: "https://www.xiaohongshu.com/user/profile/57b3456c82ec3947f79496e9", label: '<svg class="site-social-svg site-xhs-svg" viewBox="0 0 32 24" aria-hidden="true"><rect x="1" y="3" width="30" height="18" rx="6"/><text x="16" y="15.3" text-anchor="middle">RED</text></svg>', external: true, className: "site-nav-social site-nav-xhs", ariaLabel: language === "en" ? "Open the creator profile on Xiaohongshu" : "打开作者的小红书主页" },
     ];
   }
 
@@ -250,7 +264,14 @@
     };
     const resources = resourceNavigationItems();
     const start = renderLink({ href: "./launcher.html", key: "nav.launcher", className: "site-nav-start" });
-    nav.innerHTML = `<div class="site-nav-primary">${siteNavigationItems().map(renderLink).join("")}</div><div class="site-nav-community">${resources.map(renderLink).join("")}${start}</div><div class="site-nav-utility" data-language-switch></div>`;
+    const libraryPages = new Set(libraryNavigationItems().map((item) => item.href.replace(/^\.\//, "")));
+    const libraryCurrent = libraryPages.has(activePage);
+    const libraryMenu = `<details class="site-nav-more site-nav-library${libraryCurrent ? " is-current" : ""}"><summary${libraryCurrent ? ' aria-current="page"' : ""}>${t("nav.library")}</summary><div class="site-nav-menu">${libraryNavigationItems().map((item) => {
+      const file = item.href.replace(/^\.\//, "");
+      return `<a href="${resolveLocalHref(item.href)}"${file === activePage ? ' aria-current="page"' : ""}><span><strong data-i18n="${item.key}">${t(item.key)}</strong><small data-i18n="${item.hintKey}">${t(item.hintKey)}</small></span><i aria-hidden="true">↗</i></a>`;
+    }).join("")}</div></details>`;
+    nav.innerHTML = `<div class="site-nav-community">${siteNavigationItems().map(renderLink).join("")}${libraryMenu}${resources.map(renderLink).join("")}${start}</div><div class="site-nav-utility" data-language-switch></div>`;
+    nav.querySelectorAll(".site-nav-menu a").forEach((link) => link.addEventListener("click", () => link.closest("details")?.removeAttribute("open")));
   }
 
   function renderSiteHeader(target) {
@@ -263,7 +284,7 @@
     header.hidden = false;
     header.className = "site-header";
     header.innerHTML = `
-      <a class="site-brand" href="${resolveLocalHref("./index.html")}" aria-label="${language === "en" ? "Back to ONDesign home" : "返回 ONDesign 首页"}">
+      <a class="site-brand" href="${resolveLocalHref("./learn.html")}" aria-label="${language === "en" ? "Back to ONDesign home" : "返回 ONDesign 首页"}">
         <img class="site-brand-logo" src="${resolveLocalHref("./assets/branding/ondesign-mark.png")}" width="322" height="348" alt="">
         <span class="site-brand-copy">
           <img class="site-brand-wordmark" src="${resolveLocalHref("./assets/branding/ondesign-wordmark.png")}" width="837" height="150" alt="">
