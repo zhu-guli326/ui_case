@@ -331,6 +331,65 @@ function relatedEntries(entry) {
   return [...ids].map(localizedEntryById).filter(Boolean).slice(0, 8);
 }
 
+function tabsDetailMarkup(entry, related, favorite) {
+  const variants = [
+    {
+      className: "line",
+      number: "01",
+      name: tr("下划线标签", "Underline tabs"),
+      fit: tr("内容阅读与对象详情", "Content and object details"),
+      labels: [tr("概览", "Overview"), tr("动态", "Activity"), tr("文件", "Files")],
+    },
+    {
+      className: "pill",
+      number: "02",
+      name: tr("胶囊标签", "Pill tabs"),
+      fit: tr("筛选与轻量视图切换", "Filters and lightweight views"),
+      labels: [tr("全部", "All"), tr("设计", "Design"), tr("研究", "Research")],
+    },
+    {
+      className: "segment",
+      number: "03",
+      name: tr("分段标签", "Segmented tabs"),
+      fit: tr("少量互斥模式", "A few exclusive modes"),
+      labels: [tr("日", "Day"), tr("周", "Week"), tr("月", "Month")],
+    },
+    {
+      className: "scroll",
+      number: "04",
+      name: tr("滚动标签", "Scrollable tabs"),
+      fit: tr("移动端多分类内容", "Many mobile categories"),
+      labels: [tr("推荐", "For you"), tr("设计", "Design"), "AI", tr("商业", "Business"), tr("文化", "Culture")],
+    },
+  ];
+
+  const variantMarkup = variants.map((variant, index) => `<article class="tabs-variant-card${index === 0 ? " is-recommended" : ""}">
+    <div class="tabs-variant-preview tabs-variant-preview--${variant.className}">
+      <div class="tabs-variant-bar">${variant.labels.map((label, labelIndex) => `<span class="${labelIndex === 0 ? "is-active" : ""}">${escapeHtml(label)}</span>`).join("")}</div>
+      <div class="tabs-variant-content"><small>${escapeHtml(tr("本月表现", "This month"))}</small><strong>${index === 1 ? "24" : index === 2 ? "12,480" : index === 3 ? tr("设计团队如何使用 AI", "How design teams use AI") : tr("项目概览", "Project overview")}</strong>${index < 3 ? `<div class="tabs-mini-chart"><i></i><i></i><i></i><i></i><i></i></div>` : `<p>${escapeHtml(tr("真实内容摘要会跟随当前分类切换。", "Real article content follows the selected category."))}</p>`}</div>
+    </div>
+    <div class="tabs-variant-copy"><span>${variant.number}${index === 0 ? ` · ${escapeHtml(tr("推荐", "Recommended"))}` : ""}</span><h3>${escapeHtml(variant.name)}</h3><p>${escapeHtml(variant.fit)}</p></div>
+  </article>`).join("");
+
+  return `<div class="term-detail tabs-solution-detail">
+    <div class="detail-topline"><span>${escapeHtml(categoryLabel(entry.category))} · ${escapeHtml(entry.level)}</span><button class="favorite-detail-button" type="button" data-detail-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}">${favorite ? tr("★ 已收藏", "★ Saved") : tr("☆ 收藏词条", "☆ Save term")}</button></div>
+    <header class="tabs-solution-hero">
+      <div class="tabs-solution-intro"><p class="tabs-kicker">UI PATTERN / TABS</p><h2 id="termDialogTitle" tabindex="-1">${escapeHtml(entry.name)} <em>Tabs</em></h2><blockquote>“${escapeHtml(entry.ask)}”</blockquote><p>${escapeHtml(entry.definition)} ${escapeHtml(entry.role)}</p><div class="detail-tags">${entry.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div></div>
+      <div class="tabs-solution-example" role="img" aria-label="${escapeHtml(tr("标签页完整产品示例", "Complete tabs product example"))}"><div class="tabs-product-head"><span><i></i>ATLAS</span><b>Mei Lin</b></div><div class="tabs-product-title"><div><small>${escapeHtml(tr("工作区 / 产品团队", "Workspace / Product team"))}</small><strong>${escapeHtml(tr("项目概览", "Project overview"))}</strong></div><span class="tabs-product-action">${escapeHtml(tr("新建报告", "New report"))}</span></div><div class="tabs-product-tabs"><span class="is-active">${escapeHtml(tr("概览", "Overview"))}</span><span>${escapeHtml(tr("动态", "Activity"))}</span><span>${escapeHtml(tr("文件", "Files"))}</span></div><div class="tabs-product-panel"><div><small>${escapeHtml(tr("本月访问", "Monthly visits"))}</small><strong>12,480</strong><em>+18.4%</em></div><div class="tabs-product-graph"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
+    </header>
+
+    <section class="tabs-choice-section"><div class="tabs-section-heading"><div><span>01 / ${escapeHtml(tr("选择类型", "Choose a type"))}</span><h2>${escapeHtml(tr("先看样式，再决定用哪一种", "See the patterns before choosing"))}</h2></div><p>${escapeHtml(tr("四种常见 Tabs 都给出完整内容场景。重点不是哪个更好看，而是哪一种匹配你的信息结构。", "Each common Tabs pattern is shown in a complete content scenario. Choose by information structure, not decoration."))}</p></div><div class="tabs-variant-grid">${variantMarkup}</div></section>
+
+    <section class="tabs-decision-section"><div class="tabs-section-heading"><div><span>02 / ${escapeHtml(tr("快速判断", "Quick decision"))}</span><h2>${escapeHtml(tr("什么时候应该使用 Tabs？", "When should you use Tabs?"))}</h2></div></div><div class="tabs-decision-grid"><article class="is-positive"><span>✓</span><div><h3>${escapeHtml(tr("适合使用", "Use Tabs"))}</h3><ul><li>${escapeHtml(tr("同一个对象下有 2–5 组并列内容", "Two to five peer views of the same object"))}</li><li>${escapeHtml(tr("用户需要在同一语境内快速对比", "Users compare content within one context"))}</li><li>${escapeHtml(tr("切换后保留标题、操作和页面位置", "The page title and actions stay in place"))}</li></ul></div></article><article class="is-negative"><span>×</span><div><h3>${escapeHtml(tr("不要使用", "Avoid Tabs"))}</h3><ul><li>${escapeHtml(tr("每一项其实是完全独立的任务", "Each destination is a separate task"))}</li><li>${escapeHtml(tr("分类超过 5 个且用户必须逐个扫描", "More than five categories must be scanned"))}</li><li>${escapeHtml(tr("需要表达前后步骤或完成进度", "The flow represents ordered steps or progress"))}</li></ul></div></article></div></section>
+
+    <section class="tabs-build-section"><div class="tabs-section-heading"><div><span>03 / ${escapeHtml(tr("落地规则", "Build rules"))}</span><h2>${escapeHtml(tr("交给设计与开发的必要信息", "What design and engineering need"))}</h2></div></div><div class="tabs-build-grid"><article><b>01</b><h3>${escapeHtml(tr("标签与面板一一对应", "One tab, one panel"))}</h3><p>${escapeHtml(tr("选中状态、aria-controls 和面板内容必须同步。", "Selected state, aria-controls, and panel content stay synchronized."))}</p></article><article><b>02</b><h3>${escapeHtml(tr("保留键盘操作", "Keep keyboard support"))}</h3><p>${escapeHtml(tr("左右键移动焦点，Tab 键进入当前面板。", "Arrow keys move focus; Tab enters the active panel."))}</p></article><article><b>03</b><h3>${escapeHtml(tr("移动端允许横向滚动", "Allow horizontal scroll"))}</h3><p>${escapeHtml(tr("不要把标签压成两行，也不要隐藏当前选中项。", "Do not wrap tabs or hide the active item."))}</p></article></div></section>
+
+    <section class="prompt-panel tabs-prompt-panel"><div class="prompt-heading"><div><span>04 / AGENT PROMPT</span><h3>${tr("把选中的方案直接交给 AI", "Give the chosen pattern to AI")}</h3></div><button class="copy-prompt-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}">${tr("复制 prompt", "Copy prompt")}</button></div><pre id="prompt-${escapeHtml(entry.id)}"><code>${escapeHtml(entry.prompt)}</code></pre></section>
+    <section class="confusion-panel tabs-related-panel"><h3>${tr("容易混淆", "Commonly confused")}</h3><p>${escapeHtml(entry.confusedWith)}</p><p class="related-terms"><strong>${tr("相关词：", "Related terms: ")}</strong>${related.map((relatedEntry) => `<button type="button" data-related-term="${escapeHtml(relatedEntry.id)}">${escapeHtml(relatedEntry.name)}</button>`).join(" ")}</p></section>
+    <footer class="detail-footer"><a href="${escapeHtml(entry.source)}" target="_blank" rel="noreferrer">${tr("查看权威出处 ↗", "View authoritative source ↗")}</a><span>${tr("标签页详情 · 完整样式与选择方案", "Tabs detail · complete patterns and selection guidance")}</span></footer>
+  </div>`;
+}
+
 function openTerm(id, { focusTitle = false } = {}) {
   const baseEntry = vocabularyById[id];
   if (!baseEntry) return;
@@ -338,7 +397,8 @@ function openTerm(id, { focusTitle = false } = {}) {
   const related = relatedEntries(baseEntry);
   if (!termDialog.open) dialogReturnEntryId = id;
   const favorite = state.favorites.has(entry.id);
-  termDialogContent.innerHTML = `<div class="term-detail">
+  termDialog.classList.toggle("term-dialog--tabs", entry.id === "tabs");
+  termDialogContent.innerHTML = entry.id === "tabs" ? tabsDetailMarkup(entry, related, favorite) : `<div class="term-detail">
     <div class="detail-topline"><span>${escapeHtml(categoryLabel(entry.category))} · ${escapeHtml(entry.level)}</span><button class="favorite-detail-button" type="button" data-detail-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}">${favorite ? tr("★ 已收藏", "★ Saved") : tr("☆ 收藏词条", "☆ Save term")}</button></div>
     <h2 id="termDialogTitle" tabindex="-1">${escapeHtml(entry.name)}${termAliasMarkup(baseEntry)}</h2>
     <div class="detail-tags">${entry.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
