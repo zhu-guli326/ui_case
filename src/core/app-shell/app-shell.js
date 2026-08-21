@@ -24,6 +24,7 @@
   const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
   const translations = {
     "nav.library": { zh: "案例库", en: "Library" },
+    "nav.explore": { zh: "探索", en: "Explore" },
     "nav.learn": { zh: "使用指南", en: "Guide" },
     "nav.brands": { zh: "设计系统", en: "Design systems" },
     "nav.launcher": { zh: "开始设计", en: "Start designing" },
@@ -87,18 +88,15 @@
 
   function siteNavigationItems() {
     return [
-      { href: "./library.html", key: "nav.library" },
-      { href: "./launcher.html", key: "nav.launcher" },
-      { href: "./learn.html", key: "nav.learn" },
-      { href: "./skills.html", key: "nav.skills" },
+      { href: "./library.html", key: "nav.explore" },
+      { href: "./vocabulary.html", key: "nav.library" },
     ];
   }
 
   function resourceNavigationItems() {
     return [
-      { href: "https://github.com/zhu-guli326/image2_UI_skill", label: `GitHub <span class="site-nav-stars">${githubStars ?? "…"}</span>`, external: true, className: "site-nav-github" },
       { href: "https://x.com/JGuli49724", label: "X", external: true, ariaLabel: language === "en" ? "Open JGuli49724's profile on X" : "在 X 查看 JGuli49724 的主页" },
-      { href: "https://www.xiaohongshu.com/user/profile/57b3456c82ec3947f79496e9", label: language === "en" ? "Xiaohongshu" : "小红书", external: true, ariaLabel: language === "en" ? "Open the creator profile on Xiaohongshu" : "打开作者的小红书主页" },
+      { href: "https://github.com/zhu-guli326/image2_UI_skill", label: 'GitHub <span class="site-nav-star-glyph" aria-hidden="true">★</span><span class="site-nav-stars" hidden></span>', external: true, className: "site-nav-github", ariaLabel: language === "en" ? "Open GitHub repository" : "打开 GitHub 仓库" },
     ];
   }
 
@@ -248,11 +246,11 @@
       const ariaLabel = item.ariaLabel ? ` aria-label="${item.ariaLabel}"` : "";
       const className = item.className ? ` class="${item.className}"` : "";
       const label = item.key ? `<span data-i18n="${item.key}">${t(item.key)}</span>` : item.label;
-      const arrow = item.external ? ' <span class="site-nav-external" aria-hidden="true">↗</span>' : "";
-      return `<a href="${resolveLocalHref(item.href)}"${className}${current}${external}${ariaLabel}>${label}${arrow}</a>`;
+      return `<a href="${resolveLocalHref(item.href)}"${className}${current}${external}${ariaLabel}>${label}</a>`;
     };
     const resources = resourceNavigationItems();
-    nav.innerHTML = `<div class="site-nav-links">${[...siteNavigationItems(), ...resources].map(renderLink).join("")}</div><div data-language-switch></div>`;
+    const start = renderLink({ href: "./launcher.html", key: "nav.launcher", className: "site-nav-start" });
+    nav.innerHTML = `<div class="site-nav-primary">${siteNavigationItems().map(renderLink).join("")}</div><div class="site-nav-community">${resources.map(renderLink).join("")}${start}</div><div class="site-nav-utility" data-language-switch></div>`;
   }
 
   function renderSiteHeader(target) {
@@ -265,7 +263,7 @@
     header.hidden = false;
     header.className = "site-header";
     header.innerHTML = `
-      <a class="site-brand" href="${resolveLocalHref("./index.html")}" aria-label="${language === "en" ? "Open ONDesign home" : "打开 ONDesign 首页"}">
+      <a class="site-brand" href="${resolveLocalHref("./index.html")}" aria-label="${language === "en" ? "Back to ONDesign home" : "返回 ONDesign 首页"}">
         <img class="site-brand-logo" src="${resolveLocalHref("./assets/branding/ondesign-mark.png")}" width="322" height="348" alt="">
         <span class="site-brand-copy">
           <img class="site-brand-wordmark" src="${resolveLocalHref("./assets/branding/ondesign-wordmark.png")}" width="837" height="150" alt="">
@@ -331,7 +329,12 @@
     switcher.classList.add("global-language-switch");
     switcher.setAttribute("role", "group");
     switcher.setAttribute("aria-label", t("common.language"));
-    switcher.innerHTML = SUPPORTED.map((item) => {
+    if (switcher.closest(".site-header")) {
+      const nextLanguage = language === "en" ? "zh" : "en";
+      const label = nextLanguage === "zh" ? t("common.chinese") : t("common.english");
+      switcher.classList.add("is-compact");
+      switcher.innerHTML = `<button type="button" data-language="${nextLanguage}" aria-label="${t("common.language")}: ${label}" title="${label}"><span class="language-glyph" aria-hidden="true"></span><span class="sr-only">${label}</span></button>`;
+    } else switcher.innerHTML = SUPPORTED.map((item) => {
       const selected = item === language;
       const label = item === "zh" ? t("common.chinese") : t("common.english");
       return `<button type="button" data-language="${item}" aria-pressed="${selected}" title="${label}">${label}</button>`;

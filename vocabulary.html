@@ -7,13 +7,14 @@
   <meta name="description" content="图文 UI 词典：用人话、真实案例和可复制提示词看懂界面结构。" data-i18n-attr="content:vocabulary.metaDescription">
   <title data-i18n="vocabulary.pageTitle">图文 UI 词典 · IMAGE2 UI</title>
   <link rel="stylesheet" href="./src/features/vocabulary/vocabulary.css?v=20260821-navigation-category-v1">
-    <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260819-shell-v5">
-    <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260819-shell-v5">
-    <script src="./src/core/app-shell/app-shell.js?v=20260819-shell-v5"></script>
+    <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v1">
+    <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v1">
+    <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v1"></script>
   <script type="module" src="./vocabulary.js?v=20260821-navigation-category-v1"></script>
 </head>
 <body>
   <a class="skip-link" href="#vocabularyResults" data-i18n="vocabulary.skipResults">跳到词条列表</a>
+  <image2-site-header data-site-header></image2-site-header>
   <main>
     <section class="vocab-hero" aria-labelledby="pageTitle" hidden>
       <div class="hero-copy">
@@ -89,9 +90,6 @@
     </div>
 
   </main>
-
-  <image2-site-header data-site-header></image2-site-header>
-
   <footer class="vocab-footer"><p><strong data-i18n="vocabulary.fullGuide">完整规范：</strong><span data-i18n="vocabulary.fullGuideBody">保留了原来的 Markdown 版词典，适合复制到项目文档和 code review。</span></p><a href="./reference.html?doc=ui-section-vocabulary"><span data-i18n="vocabulary.readGuide">阅读规范版</span> <span aria-hidden="true">↗</span></a></footer>
 
   <dialog class="term-dialog" id="termDialog" aria-labelledby="termDialogTitle">

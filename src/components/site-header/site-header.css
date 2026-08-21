@@ -29,16 +29,19 @@ body {
 .site-header {
   position: sticky;
   z-index: 40;
-  top: 0;
+  top: 8px;
   display: flex;
-  min-height: 64px;
+  width: calc(100% - 32px);
+  min-height: 68px;
   align-items: center;
-  justify-content: space-between;
-  gap: 28px;
-  padding: 0 clamp(20px, 3vw, 44px);
-  border-bottom: 1px solid var(--line, var(--site-line));
-  background: color-mix(in srgb, var(--surface, var(--site-surface)) 96%, transparent);
-  backdrop-filter: blur(16px);
+  gap: clamp(24px, 4vw, 56px);
+  margin: 8px auto 16px;
+  padding: 7px 18px 7px 24px;
+  border: 1px solid color-mix(in srgb, var(--line, var(--site-line)) 58%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface, var(--site-surface)) 72%, #ededed);
+  box-shadow: 0 8px 30px rgba(25, 28, 25, .045);
+  backdrop-filter: blur(20px);
   view-transition-name: image2-site-header;
 }
 
@@ -46,16 +49,16 @@ body {
   display: inline-flex;
   min-width: max-content;
   align-items: center;
-  gap: 9px;
+  gap: 7px;
   color: var(--ink, var(--site-ink));
   text-decoration: none;
 }
 
 .site-brand-logo {
   display: block;
-  width: 34px;
-  height: 37px;
-  flex: 0 0 34px;
+  width: 28px;
+  height: 30px;
+  flex: 0 0 28px;
   object-fit: contain;
 }
 
@@ -67,60 +70,60 @@ body {
 
 .site-brand-wordmark {
   display: block;
-  width: 116px;
+  width: 98px;
   height: auto;
 }
 
-.site-brand-copy small {
-  color: var(--muted, var(--site-muted));
-  font-size: 8px;
-  font-weight: 750;
-  letter-spacing: 0;
-  line-height: 1;
-}
+.site-brand-copy small { display: none; }
 
 .site-nav.site-nav {
   position: relative;
   display: flex;
   min-width: 0;
   align-items: center;
-  justify-content: flex-end;
-  gap: 6px;
+  flex: 1 1 auto;
+  justify-content: space-between;
+  gap: 24px;
   overflow: visible;
   padding: 0;
 }
 
-.site-nav-links {
+.site-nav-primary,
+.site-nav-community {
   display: flex;
   min-width: 0;
   align-items: center;
-  justify-content: flex-end;
-  gap: 6px;
+  gap: clamp(14px, 2.2vw, 34px);
 }
 
+.site-nav-community { margin-left: auto; }
+
 nav.site-nav.site-nav > a,
-.site-nav-links > a,
+.site-nav-primary > a,
+.site-nav-community > a,
 .site-nav-more > summary {
   position: relative;
   display: inline-flex;
-  min-height: 36px;
+  min-height: 42px;
   flex: 0 0 auto;
   align-items: center;
   gap: 5px;
-  padding: 0 12px;
+  padding: 0 4px;
   border: 0;
-  border-radius: 7px;
+  border-radius: 0;
   background: transparent;
   box-shadow: none;
-  color: var(--muted, var(--site-muted));
-  font-size: 13px;
-  font-weight: 650;
+  color: var(--ink, var(--site-ink));
+  font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: .015em;
   line-height: 1;
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
   list-style: none;
-  transition: background-color .16s ease, color .16s ease;
+  transition: color .18s ease, opacity .18s ease, transform .18s ease;
 }
 
 .site-nav-more > summary::-webkit-details-marker { display: none; }
@@ -129,16 +132,20 @@ nav.site-nav.site-nav > a,
 
 nav.site-nav.site-nav > a:hover,
 nav.site-nav.site-nav > a:focus-visible,
-.site-nav-links > a:hover,
-.site-nav-links > a:focus-visible,
+.site-nav-primary > a:hover,
+.site-nav-primary > a:focus-visible,
+.site-nav-community > a:hover,
+.site-nav-community > a:focus-visible,
 .site-nav-more > summary:hover,
 .site-nav-more > summary:focus-visible {
-  background: var(--site-nav-hover);
-  color: var(--ink, var(--site-ink));
+  background: transparent;
+  color: var(--accent, var(--site-accent));
+  transform: translateY(-1px);
 }
 
 nav.site-nav.site-nav > a.is-navigating,
-.site-nav-links > a.is-navigating,
+.site-nav-primary > a.is-navigating,
+.site-nav-community > a.is-navigating,
 .project-workflow a.is-navigating {
   opacity: .58;
   pointer-events: none;
@@ -146,15 +153,17 @@ nav.site-nav.site-nav > a.is-navigating,
 }
 
 nav.site-nav.site-nav > a[aria-current="page"],
-.site-nav-links > a[aria-current="page"],
+.site-nav-primary > a[aria-current="page"],
+.site-nav-community > a[aria-current="page"],
 .site-nav-more.is-current > summary {
-  background: var(--site-nav-active);
-  color: #fff;
-  font-weight: 800;
+  background: transparent;
+  color: var(--accent, var(--site-accent));
+  font-weight: 700;
 }
 
 nav.site-nav.site-nav > a[aria-current="page"]::after,
-.site-nav-links > a[aria-current="page"]::after,
+.site-nav-primary > a[aria-current="page"]::after,
+.site-nav-community > a[aria-current="page"]::after,
 .site-nav-more.is-current > summary::before {
   display: none;
 }
@@ -196,8 +205,13 @@ nav.site-nav.site-nav > a[aria-current="page"]::after,
   color: var(--ink, var(--site-ink));
 }
 
-.site-nav .site-nav-external { color: var(--accent, var(--site-accent)); font-size: 10px; }
-.site-nav-github .site-nav-stars { color:var(--ink,var(--site-ink)); font-weight:850; }
+.site-nav-star-glyph { font-size: 16px; line-height: 1; }
+.site-nav-community > .site-nav-start {
+  padding-inline: 8px;
+  font-weight: 600;
+}
+.site-nav-community > .site-nav-start::before { content: "[ "; }
+.site-nav-community > .site-nav-start::after { content: " ]"; }
 .site-nav .global-language-switch { flex: 0 0 auto; }
 
 .project-workflow {
@@ -322,58 +336,49 @@ body.site-shell-active > .project-workflow { flex: 0 0 auto; }
 .site-shell-frame.is-current { view-transition-name: image2-page-content; }
 
 @media (max-width: 940px) {
-  .site-brand-copy small { display: none; }
-  .site-nav.site-nav { gap: 4px; }
-  .site-nav-links { gap:2px; }
-  nav.site-nav.site-nav > a, .site-nav-links > a, .site-nav-more > summary { padding-inline:9px; font-size: 12px; }
+  .site-header { gap: 22px; padding-left: 18px; }
+  .site-brand-wordmark { width: 88px; }
+  .site-nav.site-nav { gap: 16px; }
+  .site-nav-primary, .site-nav-community { gap: 13px; }
+  nav.site-nav.site-nav > a, .site-nav-primary > a, .site-nav-community > a, .site-nav-more > summary { font-size: 12px; }
 }
 
 @media (max-width: 700px) {
   .site-header {
-    position: static;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 7px 14px;
-    padding: 11px 16px 7px;
+    top: 6px;
+    display: flex;
+    width: calc(100% - 16px);
+    min-height: 58px;
+    gap: 14px;
+    margin: 6px auto 10px;
+    padding: 6px 8px 6px 14px;
   }
 
-  .site-brand {
-    grid-column: 1;
+  .site-brand { gap: 6px; }
+  .site-brand-logo { width: 25px; height: 27px; flex-basis: 25px; }
+  .site-brand-wordmark { width: 76px; }
+
+  .site-nav.site-nav {
+    justify-content: flex-end;
     gap: 8px;
   }
 
-  .site-brand-logo { width: 32px; height: 35px; flex-basis: 32px; }
-  .site-brand-wordmark { width: 106px; }
-
-  .site-nav.site-nav {
-    grid-column: 1 / -1;
-    width: 100%;
-    justify-content: flex-start;
-    gap: 4px;
-    padding-right: 0;
-  }
-
-  .site-nav-links {
-    overflow-x:auto;
-    justify-content:flex-start;
-    padding-right:8px;
-    scrollbar-width:none;
-  }
-  .site-nav-links::-webkit-scrollbar { display:none; }
+  .site-nav-primary { margin-left: auto; }
+  .site-nav-community { margin-left: 0; }
+  .site-nav-community > a:not(.site-nav-start) { display: none; }
 
   nav.site-nav.site-nav > a,
-  .site-nav-links > a,
+  .site-nav-primary > a,
+  .site-nav-community > a,
   .site-nav-more > summary {
-    min-height: 34px;
-    padding-inline: 9px;
-    font-size: 11px;
+    min-height: 36px;
+    padding-inline: 3px;
+    font-size: 10px;
   }
 
-  .site-nav .global-language-switch {
-    position: absolute;
-    right: 0;
-    bottom: calc(100% + 10px);
-  }
+  .site-nav-community > .site-nav-start { padding-inline: 4px; }
+  .site-nav .global-language-switch { position: static; }
+  .site-nav .global-language-switch.is-compact button { width: 36px; min-width: 36px; height: 36px; min-height: 36px; }
 
   .site-nav-menu {
     position: fixed;
@@ -397,8 +402,10 @@ body.site-shell-active > .project-workflow { flex: 0 0 auto; }
 }
 
 @media (max-width: 390px) {
-  .site-nav.site-nav { gap: 2px; }
-  nav.site-nav.site-nav > a, .site-nav-links > a, .site-nav-more > summary { font-size: 10px; }
+  .site-brand-copy { display: none; }
+  .site-nav.site-nav { gap: 6px; }
+  .site-nav-primary, .site-nav-community { gap: 7px; }
+  nav.site-nav.site-nav > a, .site-nav-primary > a, .site-nav-community > a, .site-nav-more > summary { font-size: 9px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

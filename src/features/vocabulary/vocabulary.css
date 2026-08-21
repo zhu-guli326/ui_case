@@ -217,7 +217,6 @@ html.dark-mode .vp-overlay { background: #17201a; }
 html.dark-mode .vp-overlay::before { background: var(--vp-panel); }
 .empty-state { display: grid; justify-items: start; max-width: 460px; padding: 54px 0; }
 /* Navigation bar is secondary on this page — moved below content */
-main + image2-site-header.site-header { position: static; border-top: 1px solid var(--line, var(--site-line)); border-bottom: none; }
 .empty-mark { display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid var(--line-strong); border-radius: 50%; color: var(--accent); }
 .empty-state h3 { margin: 15px 0 0; font-size: 22px; }
 .empty-state p { margin: 8px 0 18px; color: var(--muted); font-size: 14px; }

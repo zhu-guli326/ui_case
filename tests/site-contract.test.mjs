@@ -46,6 +46,20 @@ test("the shared header uses the ONDesign logo lockup", () => {
   assert.ok(readFileSync(path.join(root, "assets/branding/ondesign-wordmark.png")).length > 0);
 });
 
+test("the shared capsule navigation follows the product information architecture", () => {
+  const appShell = requireText("src/core/app-shell/app-shell.js");
+  const navigation = requireText("src/components/site-header/site-header.css");
+  const vocabulary = requireText("vocabulary.html");
+
+  assert.match(appShell, /href:\s*"\.\/library\.html",\s*key:\s*"nav\.explore"/);
+  assert.match(appShell, /href:\s*"\.\/vocabulary\.html",\s*key:\s*"nav\.library"/);
+  assert.match(appShell, /site-nav-start.*siteNavigationItems\(\)\.map\(renderLink\).*resources\.map\(renderLink\)/s);
+  assert.match(appShell, /class="site-brand" href="\$\{resolveLocalHref\("\.\/index\.html"\)\}"/);
+  assert.match(navigation, /\.site-header\s*\{[^}]*border-radius:\s*999px/s);
+  assert.match(navigation, /\.site-nav-community > \.site-nav-start::before/);
+  assert.ok(vocabulary.indexOf("<image2-site-header data-site-header>") < vocabulary.indexOf("<main>"));
+});
+
 test("the Learn chapter navigation uses the cache-busted bare rail", () => {
   const learn = requireText("learn.html");
   const learnStyles = requireText("learn.css");
@@ -60,9 +74,9 @@ test("the Learn page uses the canonical shared AppShell navigation", () => {
   const learn = requireText("learn.html");
   const appShell = requireText("src/core/app-shell/app-shell.js");
 
-  assert.match(learn, /src\/core\/app-shell\/app-shell\.js\?v=20260819-shell-v5/);
+  assert.match(learn, /src\/core\/app-shell\/app-shell\.js\?v=20260821-capsule-nav-v1/);
   assert.doesNotMatch(learn, /<script[^>]+src="\.\/i18n\.js/);
-  assert.match(appShell, /href:\s*"\.\/skills\.html",\s*key:\s*"nav\.skills"/);
+  assert.match(appShell, /href:\s*"\.\/vocabulary\.html",\s*key:\s*"nav\.library"/);
 });
 
 test("top-level navigation does not reuse a page-specific iframe shell", () => {
