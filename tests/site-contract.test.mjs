@@ -53,6 +53,7 @@ test("the shared capsule navigation follows the product information architecture
 
   assert.match(appShell, /href:\s*"\.\/library\.html",\s*key:\s*"nav\.explore"/);
   assert.match(appShell, /href:\s*"\.\/vocabulary\.html",\s*key:\s*"nav\.library"/);
+  assert.match(appShell, /"nav\.launcher":\s*\{\s*zh:\s*"开始设计",\s*en:\s*"Start Designing"\s*\}/);
   assert.match(appShell, /site-nav-start.*siteNavigationItems\(\)\.map\(renderLink\).*resources\.map\(renderLink\)/s);
   assert.match(appShell, /class="site-brand" href="\$\{resolveLocalHref\("\.\/index\.html"\)\}"/);
   assert.match(navigation, /\.site-header\s*\{[^}]*border-radius:\s*999px/s);
@@ -74,7 +75,7 @@ test("the Learn page uses the canonical shared AppShell navigation", () => {
   const learn = requireText("learn.html");
   const appShell = requireText("src/core/app-shell/app-shell.js");
 
-  assert.match(learn, /src\/core\/app-shell\/app-shell\.js\?v=20260821-capsule-nav-v1/);
+  assert.match(learn, /src\/core\/app-shell\/app-shell\.js\?v=20260821-capsule-nav-v2/);
   assert.doesNotMatch(learn, /<script[^>]+src="\.\/i18n\.js/);
   assert.match(appShell, /href:\s*"\.\/vocabulary\.html",\s*key:\s*"nav\.library"/);
 });

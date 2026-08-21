@@ -27,7 +27,7 @@
     "nav.explore": { zh: "探索", en: "Explore" },
     "nav.learn": { zh: "使用指南", en: "Guide" },
     "nav.brands": { zh: "设计系统", en: "Design systems" },
-    "nav.launcher": { zh: "开始设计", en: "Start designing" },
+    "nav.launcher": { zh: "开始设计", en: "Start Designing" },
     "nav.skills": { zh: "设计 Skill", en: "Design skills" },
     "nav.vocabulary": { zh: "UI 词典", en: "UI vocabulary" },
     "nav.resources": { zh: "更多", en: "More" },
