@@ -140,100 +140,9 @@
     taskReferenceCaseImage: "",
     lastStep: ""
   };
-  const projectLabels = {
-    template: { dashboard: { zh: "SaaS Dashboard", en: "SaaS dashboard" }, commerce: { zh: "电商页面", en: "Commerce page" }, landing: { zh: "产品落地页", en: "Product landing page" }, social: { zh: "社交 App", en: "Social app" }, login: { zh: "登录页", en: "Login page" }, "account-settings": { zh: "账户设置", en: "Account settings" }, "list-detail": { zh: "列表详情", en: "List detail" } },
-    system: { ant: "Ant Design", material: "Material 3", apple: { zh: "Apple HIG 风格", en: "Apple HIG" }, fluent: "Fluent 2", polaris: "Polaris", tdesign: "TDesign", carbon: "Carbon" },
-    brand: { linear: "Linear", apple: "Apple", stripe: "Stripe", notion: "Notion", airbnb: "Airbnb" },
-    theme: { "minimal-tech": { zh: "极简科技", en: "Minimal tech" }, "editorial-commerce": { zh: "编辑感", en: "Editorial commerce" }, "soft-lifestyle": { zh: "柔和生活", en: "Soft lifestyle" }, "dense-tool": { zh: "高密度工具型", en: "Dense tool" }, "future-tech": { zh: "未来科技", en: "Future tech" }, "neo-brutal": "Neo Brutalism", glass: "Glassmorphism", retro: { zh: "复古数字", en: "Retro digital" } },
-    device: { desktop: { zh: "桌面端", en: "Desktop" }, responsive: { zh: "响应式网页", en: "Responsive web" }, iphone: "iPhone", android: "Android" },
-    density: { compact: { zh: "高密度工具型", en: "Compact tool" }, balanced: { zh: "平衡密度", en: "Balanced density" }, spacious: { zh: "低密度呼吸感", en: "Spacious" } },
-    spacingBase: { "4pt": { zh: "4pt 间距基数", en: "4pt spacing base" }, "8pt": { zh: "8pt 间距基数", en: "8pt spacing base" } },
-    fontScheme: { "system-cjk": { zh: "中西文系统字体", en: "System Latin + CJK" }, "humanist-cjk": { zh: "人文西文 + 中文黑体", en: "Humanist Latin + CJK sans" }, "serif-cjk": { zh: "西文衬线 + 中文宋体", en: "Serif Latin + CJK serif" } },
-  };
-
   function readCurrentProject() {
     try { return { ...projectDefaults, ...(JSON.parse(localStorage.getItem(PROJECT_KEY) || "{}") || {}) }; }
     catch { return { ...projectDefaults }; }
-  }
-
-  function projectLabel(group, value) {
-    const label = projectLabels[group]?.[value];
-    if (label && typeof label === "object") return label[language] ?? label.en ?? label.zh ?? value;
-    return label || value;
-  }
-
-  const workflowPages = [
-    { id: "library", page: "library.html", number: "01", zh: "选择案例", en: "Choose case" },
-    { id: "launcher", page: "launcher.html", number: "02", zh: "定义任务", en: "Define task" },
-    { id: "brands", page: "brands.html", number: "03", zh: "设计与预览", en: "Design & preview" },
-  ];
-
-  function projectRoute(page, project, extra = {}) {
-    const url = new URL(resolveLocalHref(`./${page}`), window.location.href);
-    url.searchParams.set("lang", language);
-    if (page === "library.html" && project.sourceCaseId) url.searchParams.set("case", project.sourceCaseId);
-    if (page === "launcher.html") {
-      url.searchParams.set("intent", project.taskIntent || "create");
-      if (project.taskReferenceMode === "case" && project.taskReferenceCaseId) {
-        url.searchParams.set("source", "library");
-        url.searchParams.set("case", project.taskReferenceCaseId);
-      }
-    }
-    if (page === "brands.html") {
-      ["template", "system", "brand", "theme", "intensity", "device"].forEach((key) => project[key] && url.searchParams.set(key, project[key]));
-    }
-    Object.entries(extra).forEach(([key, value]) => value == null ? url.searchParams.delete(key) : url.searchParams.set(key, value));
-    return url.href;
-  }
-
-  function workflowDetail(step, project) {
-    if (step.id === "library") {
-      if (project.taskReferenceMode === "none") return language === "en" ? "Skipped for this task" : "本次任务已跳过";
-      if (project.taskReferenceMode === "upload") return language === "en" ? "Local image selected" : "已选择本地图片";
-      if (project.taskReferenceCaseName) return `${project.taskReferenceCaseName}${project.taskReferenceCaseStyle ? ` · ${project.taskReferenceCaseStyle}` : ""}`;
-      return language === "en" ? "No reference selected" : "尚未选择参考案例";
-    }
-    if (step.id === "launcher") {
-      const labels = { explore: ["探索项目", "Explore"], create: ["从零创建", "Create"], rebuild: ["参考图还原", "Rebuild"], improve: ["优化页面", "Improve"], "design-system": ["切换系统", "Switch system"] };
-      const label = labels[project.taskIntent];
-      if (!project.taskReady) return language === "en" ? "Task incomplete" : "任务尚未完成";
-      return label ? label[language === "en" ? 1 : 0] : (language === "en" ? "Task not configured" : "尚未配置任务");
-    }
-    return `${projectLabel("system", project.system)} · ${projectLabel("theme", project.theme)}`;
-  }
-
-  function mountWorkflowBar() {
-    if (new URL(window.location.href).searchParams.get("embed") === "1") return;
-    if (currentPage() === "launcher.html") {
-      document.querySelector(".project-workflow")?.remove();
-      return;
-    }
-    const header = document.querySelector(".site-header");
-    if (!header) return;
-    let workflow = document.querySelector(".project-workflow");
-    if (!workflow) {
-      workflow = document.createElement("nav");
-      workflow.className = "project-workflow";
-      workflow.setAttribute("aria-label", language === "en" ? "Current project workflow" : "当前项目工作流");
-      header.insertAdjacentElement("afterend", workflow);
-    }
-    const project = readCurrentProject();
-    const active = currentPage();
-    const caseSkipped = project.taskReferenceMode === "none";
-    const caseChosen = caseSkipped || project.taskReferenceMode === "upload" || Boolean(project.taskReferenceCaseId);
-    const taskReady = Boolean(project.taskReady);
-    const deliverUrl = new URL(resolveLocalHref("./lab/preview.html"), window.location.href);
-    deliverUrl.searchParams.set("lang", language);
-    ["template", "system", "brand", "theme", "intensity", "device"].forEach((key) => project[key] && deliverUrl.searchParams.set(key, project[key]));
-    deliverUrl.searchParams.set("appearance", project.appearance || "light");
-    const steps = workflowPages.map((step, index) => {
-      const complete = step.id === "library" ? caseChosen : step.id === "launcher" ? taskReady : project.lastStep === "brands" || active === "brands.html";
-      const href = projectRoute(step.page, project);
-      const current = active === step.page;
-      const skipped = step.id === "library" && caseSkipped;
-      return `<a href="${href}" class="project-workflow-step${complete ? " is-complete" : ""}${skipped ? " is-skipped" : ""}${current ? " is-current" : ""}"${current ? ' aria-current="step"' : ""}><span>${complete ? "✓" : step.number}</span><strong>${language === "en" ? step.en : step.zh}</strong><small>${workflowDetail(step, project)}</small>${index < workflowPages.length - 1 ? '<i aria-hidden="true">→</i>' : ""}</a>`;
-    }).join("");
-    workflow.innerHTML = `<span class="project-workflow-label">${language === "en" ? "PROJECT FLOW" : "项目流程"}</span><div class="project-workflow-steps">${steps}</div><a class="project-workflow-deliver" href="${deliverUrl.href}" target="_blank" rel="noopener"><span>${language === "en" ? "Open clickable demo" : "打开可点击 Demo"}</span><i aria-hidden="true">↗</i></a>`;
   }
 
   function currentPage() {
@@ -419,7 +328,6 @@
     mountSwitches();
     applyDataTranslations(header);
     localizeLinks(header);
-    mountWorkflowBar();
     updateSiteStars(githubStars);
   }
 
@@ -524,7 +432,7 @@
 
   document.addEventListener("click", (event) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    const link = event.target.closest?.(".site-header a[href], .project-workflow a[href]");
+    const link = event.target.closest?.(".site-header a[href]");
     if (!link || link.target === "_blank") return;
     link.classList.add("is-navigating");
     link.setAttribute("aria-busy", "true");
@@ -535,11 +443,11 @@
     if (ENABLE_EMBEDDED_SHELL && navigateInShell(link.href)) event.preventDefault();
   });
   document.addEventListener("pointerover", (event) => {
-    const link = event.target.closest?.(".site-header a[href], .project-workflow a[href]");
+    const link = event.target.closest?.(".site-header a[href]");
     if (link) prefetchPage(link.href);
   }, { passive: true });
   document.addEventListener("focusin", (event) => {
-    const link = event.target.closest?.(".site-header a[href], .project-workflow a[href]");
+    const link = event.target.closest?.(".site-header a[href]");
     if (link) prefetchPage(link.href);
   });
 
@@ -561,7 +469,6 @@
     mountSwitches();
     applyDataTranslations();
     localizeLinks();
-    mountWorkflowBar();
     updateSiteStars(githubStars);
     requestGitHubStars();
     pageHandlers.forEach((handler) => handler(language));
@@ -611,15 +518,12 @@
     save(patch) {
       const next = { ...readCurrentProject(), ...(patch || {}) };
       try { localStorage.setItem(PROJECT_KEY, JSON.stringify(next)); } catch {}
-      mountWorkflowBar();
       window.dispatchEvent(new CustomEvent("image2:projectchange", { detail: next }));
       return next;
     },
   });
 
-  window.addEventListener("image2:projectchange", mountWorkflowBar);
   window.addEventListener("storage", (event) => {
-    if (event.key === PROJECT_KEY) mountWorkflowBar();
     if (event.key === STAR_CACHE_KEY && event.newValue) {
       try {
         const cached = JSON.parse(event.newValue);

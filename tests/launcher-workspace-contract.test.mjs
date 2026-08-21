@@ -111,10 +111,9 @@ test("font presets provide a live, resilient page specimen", () => {
   assert.match(css, /@media \(max-width:\s*560px\)[\s\S]*?\.font-preview-toolbar\s*\{[^}]*display:\s*grid/s);
 });
 
-test("the global workflow is collapsed into the launcher summary", () => {
+test("the global workflow is removed and the launcher keeps its own summary", () => {
   const shell = read("src/core/app-shell/app-shell.js");
-  assert.match(shell, /currentPage\(\) === "launcher\.html"/);
-  assert.match(shell, /document\.querySelector\("\.project-workflow"\)\?\.remove\(\)/);
+  assert.doesNotMatch(shell, /project-workflow|mountWorkflowBar/);
   assert.doesNotMatch(shell, /current-project-bar|mountProjectBar|项目契约/);
 });
 
@@ -132,15 +131,14 @@ test("cross-page task routes never reuse a previously browsed case", () => {
   const shell = read("src/core/app-shell/app-shell.js");
   const brands = read("brands.js");
 
-  assert.match(shell, /project\.taskReferenceMode === "case" && project\.taskReferenceCaseId/);
-  assert.match(shell, /url\.searchParams\.set\("case", project\.taskReferenceCaseId\)/);
+  assert.doesNotMatch(shell, /function projectRoute|function workflowDetail/);
   assert.doesNotMatch(shell, /project\.taskIntent \|\| \(project\.sourceCaseId \? "rebuild" : "create"\)/);
   assert.doesNotMatch(shell, /Boolean\(project\.taskReferenceCaseId \|\| project\.sourceCaseId/);
-  assert.match(brands, /state\.taskReferenceMode==="case"&&Boolean\(state\.taskReferenceCaseId\)/);
-  assert.match(brands, /taskUrl\.searchParams\.set\("case",state\.taskReferenceCaseId\)/);
+  assert.match(brands, /state\.taskReferenceMode\s*===\s*"case"\s*&&\s*Boolean\(state\.taskReferenceCaseId\)/);
+  assert.match(brands, /taskUrl\.searchParams\.set\("case",\s*state\.taskReferenceCaseId\)/);
   assert.doesNotMatch(brands, /state\.taskIntent\|\| \(state\.sourceCaseId\?"rebuild":"create"\)/);
   assert.doesNotMatch(brands, /const source=state\.sourceCaseName/);
-  assert.match(brands, /<span>任务参考<\/span>/);
+  assert.match(brands, /brandsT\("任务参考",\s*"Task reference"\)/);
 });
 
 test("the Lab consumes the shared branded theme default", () => {

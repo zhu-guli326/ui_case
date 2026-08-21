@@ -24,7 +24,6 @@ body{margin:0;background:var(--page);color:var(--ink);text-rendering:optimizeLeg
 a{color:inherit}
 button{font:inherit}
 main{overflow:hidden}
-body .project-workflow{display:none!important}
 
 ::selection{background:var(--lime);color:var(--ink)}
 

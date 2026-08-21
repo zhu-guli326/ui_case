@@ -71,7 +71,7 @@ test("the Learn chapter navigation uses the cache-busted bare rail", () => {
   const learn = requireText("learn.html");
   const learnStyles = requireText("learn.css");
 
-  assert.match(learn, /learn\.css\?v=20260821-bare-rail-v6/);
+  assert.match(learn, /learn\.css\?v=20260821-bare-rail-v7/);
   assert.match(learnStyles, /\.chapter-nav\{[^}]*position:fixed/);
   assert.match(learnStyles, /\.chapter-nav\{[^}]*background:transparent/);
   assert.doesNotMatch(learnStyles, /\.chapter-nav\{[^}]*border-radius:18px/);
@@ -81,7 +81,7 @@ test("the Learn page uses the canonical shared AppShell navigation", () => {
   const learn = requireText("learn.html");
   const appShell = requireText("src/core/app-shell/app-shell.js");
 
-  assert.match(learn, /src\/core\/app-shell\/app-shell\.js\?v=20260821-capsule-nav-v3/);
+  assert.match(learn, /src\/core\/app-shell\/app-shell\.js\?v=20260821-capsule-nav-v4/);
   assert.doesNotMatch(learn, /<script[^>]+src="\.\/i18n\.js/);
   assert.match(appShell, /function libraryNavigationItems\(\)/);
 });
@@ -91,6 +91,13 @@ test("the root route opens the Learn homepage", () => {
   assert.match(index, /url=\.\/learn\.html/);
   assert.match(index, /new URL\('\.\/learn\.html'/);
   assert.doesNotMatch(index, /url=\.\/library\.html/);
+});
+
+test("the shared shell never inserts a global project workflow bar", () => {
+  const appShell = requireText("src/core/app-shell/app-shell.js");
+  const navigation = requireText("src/components/site-header/site-header.css");
+  assert.doesNotMatch(appShell, /project-workflow|mountWorkflowBar|PROJECT FLOW/);
+  assert.doesNotMatch(navigation, /\.project-workflow/);
 });
 
 test("top-level navigation does not reuse a page-specific iframe shell", () => {
