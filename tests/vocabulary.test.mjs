@@ -9,6 +9,7 @@ const contentCategories = vocabularyCategories.filter((category) => !["all", "fa
 const requiredCoverage = ["sidebar", "breadcrumbs", "data-table", "checkbox", "menu", "skeleton"];
 const vocabularyCss = readFileSync(new URL("../src/features/vocabulary/vocabulary.css", import.meta.url), "utf8");
 const vocabularyScript = readFileSync(new URL("../vocabulary.js", import.meta.url), "utf8");
+const vocabularyHtml = readFileSync(new URL("../vocabulary.html", import.meta.url), "utf8");
 
 test("illustrated vocabulary entries stay complete and internally linked", () => {
   const allCategory = vocabularyCategories.find((category) => category.id === "all");
@@ -84,4 +85,11 @@ test("term details keep exactly one vertical scroll owner", () => {
   assert.match(vocabularyCss, /html\.term-dialog-open\s*\{[^}]*overflow:\s*hidden;/s);
   assert.match(vocabularyScript, /classList\.add\("term-dialog-open"\)/);
   assert.match(vocabularyScript, /classList\.remove\("term-dialog-open"\)/);
+});
+
+test("navigation deep dive is owned by the navigation category", () => {
+  assert.match(vocabularyHtml, /id="navigationDeepDive"[^>]*hidden/);
+  assert.match(vocabularyScript, /state\.category === "navigation" && !state\.query\.trim\(\)/);
+  assert.match(vocabularyScript, /navigationDeepDive\.hidden = !showsNavigationDeepDive\(\)/);
+  assert.match(vocabularyScript, /entryGrid\.hidden = navigationMode/);
 });
