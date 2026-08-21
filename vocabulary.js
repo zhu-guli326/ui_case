@@ -1,5 +1,5 @@
 import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries, vocabularyById } from "./vocabulary-data.js?v=20260815-vocabulary-30";
-import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260815-vocabulary-30";
+import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260821-solution-prototypes-v1";
 
 document.querySelectorAll(".reference-link").forEach((link) => link.remove());
 
@@ -8,15 +8,15 @@ const i18n = window.image2I18n;
 let currentLanguage = i18n?.language || "zh";
 
 i18n?.addTranslations({
-  "vocabulary.metaDescription": { zh: "图文 UI 词典：用人话、真实案例和可复制提示词看懂界面结构。", en: "An illustrated UI vocabulary for understanding interface structure through plain-language requests, real examples, and copyable prompts." },
+  "vocabulary.metaDescription": { zh: "UI 方案目录：用完整原型、真实内容和详细变体选择合适的界面模式。", en: "A UI solution catalog for choosing patterns through complete prototypes, real content, and detailed variants." },
   "vocabulary.pageTitle": { zh: "图文 UI 词典 · IMAGE2 UI", en: "Illustrated UI Vocabulary · IMAGE2 UI" },
   "vocabulary.skipResults": { zh: "跳到词条列表", en: "Skip to term list" },
   "vocabulary.backLibrary": { zh: "返回 image2 UI 案例库", en: "Back to the image2 UI library" },
   "vocabulary.mainNav": { zh: "主要导航", en: "Main navigation" },
   "vocabulary.heading": { zh: "图文 UI 词典", en: "Illustrated UI Vocabulary" },
-  "vocabulary.intro": { zh: "像看图鉴一样认识界面：先用大白话描述需求，再看它在屏幕上长什么样、由哪些部件组成，以及应该怎样交给 AI 实现。", en: "Learn interfaces like a visual field guide: start with a plain-language request, see how the pattern appears on screen, inspect its parts, and hand it to an AI agent for implementation." },
+  "vocabulary.intro": { zh: "按设计元素浏览完整方案：先看真实页面效果，再比较组成、类型、状态与适用场景，直接选出可以落地的样式。", en: "Browse complete solutions by UI element, then compare anatomy, variants, states, and use cases to choose an implementation-ready pattern." },
   "vocabulary.keyTerms": { zh: "个重点词条", en: "key terms" },
-  "vocabulary.localExamples": { zh: "代码组件预览", en: "Code-rendered component previews" },
+  "vocabulary.localExamples": { zh: "完整方案原型", en: "Complete solution prototypes" },
   "vocabulary.copyablePrompts": { zh: "可复制 Agent prompt", en: "Copyable agent prompts" },
   "vocabulary.diagramLabel": { zh: "从用户需求到界面实现的三步示意", en: "Three steps from a user request to interface implementation" },
   "vocabulary.plainRequest": { zh: "人话需求", en: "Plain request" },
@@ -259,7 +259,7 @@ function renderCategories() {
 function previewMarkup(entry) {
   const localized = localizedEntry(entry);
   const preview = vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
-  return `<div class="entry-visual" role="img" aria-label="${escapeHtml(tr(`${localized.name}的代码组件预览`, `Code-rendered component preview for ${localized.name}`))}">${preview}<div class="visual-label"><span>${escapeHtml(entry.en)}</span><span>${escapeHtml(entry.category === "visual" ? tr("视觉", "VISUAL") : tr("UI 角色", "UI ROLE"))}</span></div></div>`;
+  return `<div class="entry-visual" role="img" aria-label="${escapeHtml(tr(`${localized.name}的完整解决方案原型`, `Complete solution prototype for ${localized.name}`))}">${preview}<div class="visual-label"><span>${escapeHtml(entry.en)}</span><span>${escapeHtml(tr("解决方案", "SOLUTION"))}</span></div></div>`;
 }
 
 function cardMarkup(entry) {
@@ -344,7 +344,7 @@ function openTerm(id, { focusTitle = false } = {}) {
     <div class="detail-tags">${entry.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
     <blockquote class="detail-ask">“${escapeHtml(entry.ask)}”</blockquote>
     <p class="detail-definition"><strong>${escapeHtml(entry.definition)}</strong> ${escapeHtml(entry.role)}</p>
-    <figure class="detail-figure"><div class="detail-preview" role="img" aria-label="${escapeHtml(tr(`${entry.name}的代码组件预览`, `Code-rendered component preview for ${entry.name}`))}">${vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage })}</div><figcaption>${escapeHtml(componentCaption(entry))}</figcaption></figure>
+    <figure class="detail-figure"><div class="detail-preview" role="img" aria-label="${escapeHtml(tr(`${entry.name}的完整解决方案原型`, `Complete solution prototype for ${entry.name}`))}">${vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage })}</div><figcaption>${escapeHtml(componentCaption(entry))}</figcaption></figure>
     <div class="detail-columns">
       <section><h3>${tr("组成结构 · Anatomy", "Anatomy")}</h3>${tableMarkup(entry.anatomy, [tr("部件", "Part"), tr("它负责什么", "Responsibility")])}</section>
       <section><h3>${tr("常见变体 · Variants", "Common variants")}</h3>${tableMarkup(entry.variants, [tr("变体", "Variant"), tr("什么时候用", "When to use")])}</section>
@@ -353,10 +353,10 @@ function openTerm(id, { focusTitle = false } = {}) {
       <section><h3>${tr("状态与响应式", "States and responsive behavior")}</h3>${tableMarkup(entry.states, [tr("状态", "State"), tr("实现提示", "Implementation hint")])}</section>
       <section><h3>${tr("什么时候用 / 不用", "When to use or avoid")}</h3><h4>${tr("适合", "Use when")}</h4>${listMarkup(entry.useWhen)}<h4>${tr("不要硬用", "Avoid when")}</h4>${listMarkup(entry.avoidWhen)}</section>
     </div>
-    <section class="split-panel"><div><h3>code-ui</h3>${listMarkup(entry.codeUI, "compact-list")}</div><div><h3>${tr("外部媒体占位", "External media placeholders")}</h3>${listMarkup(entry.media, "compact-list")}</div></section>
+    <section class="split-panel"><div><h3>code-ui</h3>${listMarkup(entry.codeUI, "compact-list")}</div><div><h3>${tr("真实媒体建议", "Real media guidance")}</h3>${listMarkup(entry.media, "compact-list")}</div></section>
     <section class="prompt-panel"><div class="prompt-heading"><h3>${tr("你可以这样告诉 AI Agent", "Tell your AI agent this")}</h3><button class="copy-prompt-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}">${tr("复制 prompt", "Copy prompt")}</button></div><pre id="prompt-${escapeHtml(entry.id)}"><code>${escapeHtml(entry.prompt)}</code></pre></section>
     <section class="confusion-panel"><h3>${tr("容易混淆", "Commonly confused")}</h3><p>${escapeHtml(entry.confusedWith)}</p><p class="related-terms"><strong>${tr("相关词：", "Related terms: ")}</strong>${related.map((relatedEntry) => `<button type="button" data-related-term="${escapeHtml(relatedEntry.id)}">${escapeHtml(relatedEntry.name)}</button>`).join(" ")}</p></section>
-    <footer class="detail-footer"><a href="${escapeHtml(entry.source)}" target="_blank" rel="noreferrer">${tr("查看权威出处 ↗", "View authoritative source ↗")}</a><span>${tr("组件由代码渲染 · 图片使用外部占位", "Code-rendered components · external image placeholders")}</span></footer>
+    <footer class="detail-footer"><a href="${escapeHtml(entry.source)}" target="_blank" rel="noreferrer">${tr("查看权威出处 ↗", "View authoritative source ↗")}</a><span>${tr("完整方案由代码渲染 · 使用真实内容与项目图片", "Complete code-rendered solution · real content and project media")}</span></footer>
   </div>`;
   termDialogContent.scrollTop = 0;
   if (!termDialog.open) {
