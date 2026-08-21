@@ -89,6 +89,11 @@ test("term details keep exactly one vertical scroll owner", () => {
 
 test("navigation deep dive is owned by the navigation category", () => {
   assert.match(vocabularyHtml, /id="navigationDeepDive"[^>]*hidden/);
+  assert.match(
+    vocabularyHtml,
+    /<section class="results-column"[^>]*>[\s\S]*?<section class="navigation-deep-dive"[^>]*>[\s\S]*?<div class="entry-grid"/,
+    "the navigation guide must stay embedded in the results column before the regular term grid",
+  );
   assert.match(vocabularyScript, /state\.category === "navigation" && !state\.query\.trim\(\)/);
   assert.match(vocabularyScript, /navigationDeepDive\.hidden = !showsNavigationDeepDive\(\)/);
   assert.match(vocabularyScript, /entryGrid\.hidden = navigationMode/);
