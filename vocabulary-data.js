@@ -1,8 +1,8 @@
 export const vocabularyCategories = [
-  { id: "all", label: "全部词条", en: "All terms", countLabel: "37" },
+  { id: "all", label: "全部词条", en: "All terms", countLabel: "44" },
   { id: "foundation", label: "页面基础", en: "Page foundations", countLabel: "12" },
   { id: "navigation", label: "导航与发现", en: "Navigation and discovery", countLabel: "8" },
-  { id: "content", label: "内容展示", en: "Content display", countLabel: "6" },
+  { id: "content", label: "内容展示", en: "Content display", countLabel: "13" },
   { id: "controls", label: "控件与表单", en: "Controls and forms", countLabel: "5" },
   { id: "feedback", label: "反馈与浮层", en: "Feedback and overlays", countLabel: "5" },
   { id: "visual", label: "视觉与实现", en: "Visual design", countLabel: "1" },
@@ -104,6 +104,30 @@ const layoutVocabularyEntries = layoutPatternSpecs.map((spec) => ({
   confusedWith: `${spec.name}决定整页的空间组织，不等同于其中某一张卡片或某个首屏区块。`,
   codeUI: ["语义区域、CSS Grid/Flex、容器查询、稳定阅读顺序"], media: ["图片和视频是可替换内容，标题、控件和状态必须由代码渲染"],
   prompt: spec.prompt[0], related: spec.related, source: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout",
+}));
+
+const carouselSpecs = [
+  ["carousel-fade", "淡入式轮播", "Fade Carousel", "图片交叉淡化，适合品牌感强的大图展示。", "Use cross-fade transitions between full-bleed images for a calm, brand-led carousel.", "品牌官网、作品集首屏"],
+  ["carousel-3d", "3D 旋转木马", "3D Carousel", "中间卡片最大，两侧卡片缩小并带透视，像一个展示橱窗。", "Make the center slide larger while side slides recede with perspective, like a visual showcase.", "作品集、产品陈列"],
+  ["carousel-stack", "卡片堆叠轮播", "Stacked Cards", "像一摞扑克牌一样，划走最上面一张露出下一张。", "Stack slides like a deck of cards so swiping the top card reveals the next one.", "推荐流、移动端内容卡片"],
+  ["carousel-page", "翻页式轮播", "Page-turn Carousel", "左右两页带 3D 翻面和卷边效果，适合杂志或品牌画册。", "Turn two pages with a 3D fold and curled edge for an editorial, magazine-like rhythm.", "电子杂志、品牌画册"],
+  ["carousel-accordion", "手风琴画廊", "Accordion Gallery", "一排图片只露出窄边，鼠标移入哪张哪张展开。", "Expose a narrow edge for each image and expand the one under the pointer.", "作品墙、案例浏览"],
+  ["carousel-360", "360° 旋转展示", "360° Product Spin", "按住拖动一圈查看产品不同角度，适合商品展示。", "Let users drag around a full rotation to inspect a product from every angle.", "电商产品、家具、鞋包"],
+  ["carousel-parallax", "视差轮播", "Parallax Carousel", "前景图片与背景以不同速度滚动，形成有层次的活动首屏。", "Move foreground and background layers at different speeds to create depth in a campaign hero.", "品牌页、活动主页"],
+];
+
+const carouselVocabularyEntries = carouselSpecs.map(([id, name, en, ask, askEn, fit]) => ({
+  id, name, en, category: "content", level: "进阶", tags: ["轮播形式", "动效", "内容展示"], ask,
+  definition: `${name}是一种有明确过渡逻辑的图片轮播，不只是默认的左右滑加圆点。`,
+  role: "先根据内容场景选择运动方式，再明确手势、速度、层级和可访问的静态降级。",
+  example: image(`${name}代码组件预览`),
+  anatomy: [["内容层", "每张图片或产品帧保持清晰主体"], ["过渡方式", ask], ["交互提示", "支持拖拽、键盘和触摸，并让当前状态可感知"], ["降级方案", "减弱动效时仍能按顺序浏览全部内容"]],
+  variants: [["默认", fit], ["窄屏", "保留主体与操作，不让卡片被裁切"], ["减弱动效", "关闭 3D、视差或自动播放，改为直接切换"]],
+  states: [["默认", "第一张内容和当前状态清晰可见"], ["交互中", "拖拽或悬停时有明确反馈"], ["结束/暂停", "可继续浏览，不依赖自动播放"]],
+  useWhen: [fit, "需要让多张视觉内容形成连续叙事"], avoidWhen: ["用户需要同时比较所有内容，或动效会影响任务效率"],
+  confusedWith: "轮播形式决定内容如何移动与切换，不等同于图片本身或页面整体布局。",
+  codeUI: ["真实图片、状态类名、pointer/touch 事件、键盘控制、prefers-reduced-motion"], media: ["图片只提供视觉内容，轮播结构、标题、指示器和状态由代码渲染"],
+  prompt: `${ask} 请同时定义当前索引、拖拽/键盘操作、自动播放暂停规则、触摸目标和 reduced-motion 降级，不要只做左右箭头和圆点。`, related: ["media-tile", "card", "responsive", ...carouselSpecs.filter(([otherId]) => otherId !== id).map(([otherId]) => otherId)], source: "https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-type",
 }));
 
 export const vocabularyEntries = [
@@ -798,6 +822,7 @@ export const vocabularyEntries = [
     source: "https://www.w3.org/WAI/tips/designing.html",
   },
   ...layoutVocabularyEntries,
+  ...carouselVocabularyEntries,
 ];
 
 export const vocabularyEnglishById = {
@@ -1360,6 +1385,15 @@ Object.assign(vocabularyEnglishById, Object.fromEntries(layoutPatternSpecs.map((
   codeUI: ["Semantic regions, CSS Grid or Flexbox, container queries, and stable source order"],
   media: ["Images and video remain replaceable content; headings, controls, and states stay code-rendered"],
   prompt: spec.prompt[1],
+}])));
+
+Object.assign(vocabularyEnglishById, Object.fromEntries(carouselSpecs.map(([id, , en, , askEn, fit]) => [id, {
+  name: en, level: "Advanced", tags: ["Carousel", "Motion", "Content display"], ask: askEn,
+  definition: "A carousel pattern defines how a sequence of visual items moves, transitions, and remains navigable.",
+  role: "Choose the motion model for the content scenario, then specify gestures, timing, hierarchy, and an accessible static fallback.",
+  example: image(`${en} code component preview`), useWhen: [fit, "When several visual items need a continuous story"], avoidWhen: ["When users must compare every item at once or motion harms task efficiency"],
+  confusedWith: "A carousel pattern controls movement and transition; it is not the image asset or the page layout.",
+  prompt: `${askEn} Define the active index, drag and keyboard behavior, autoplay pause rules, touch targets, and a reduced-motion fallback instead of only adding arrows and dots.`,
 }])));
 
 export function localizeVocabularyEntry(entry, language = "zh") {
