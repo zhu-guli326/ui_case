@@ -13,11 +13,11 @@ let currentLanguage = i18n?.language || "zh";
 
 i18n?.addTranslations({
   "vocabulary.metaDescription": { zh: "UI 词典：按类别浏览页面结构、导航、内容、控件和反馈形式。", en: "A UI dictionary for browsing page structures, navigation, content, controls, and feedback patterns." },
-  "vocabulary.pageTitle": { zh: "图文 UI 词典 · IMAGE2 UI", en: "Illustrated UI Vocabulary · IMAGE2 UI" },
+  "vocabulary.pageTitle": { zh: "UI 词典 · IMAGE2 UI", en: "UI Vocabulary · IMAGE2 UI" },
   "vocabulary.skipResults": { zh: "跳到词条列表", en: "Skip to term list" },
   "vocabulary.backLibrary": { zh: "返回 image2 UI 案例库", en: "Back to the image2 UI library" },
   "vocabulary.mainNav": { zh: "主要导航", en: "Main navigation" },
-  "vocabulary.heading": { zh: "图文 UI 词典", en: "Illustrated UI Vocabulary" },
+  "vocabulary.heading": { zh: "UI 词典", en: "UI Vocabulary" },
   "vocabulary.intro": { zh: "把页面基础、导航、内容、控件和反馈整理成一套可搜索的 UI 词典，先看结构，再选择适合的形式和实现方式。", en: "Browse one searchable UI dictionary covering foundations, navigation, content, controls, and feedback." },
   "vocabulary.keyTerms": { zh: "个词典条目", en: "dictionary entries" },
   "vocabulary.localExamples": { zh: "完整方案原型", en: "Complete solution prototypes" },
@@ -264,8 +264,16 @@ function renderCategories() {
 
 function previewMarkup(entry) {
   const localized = localizedEntry(entry);
-  const preview = vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
+  const preview = entry.category === "navigation"
+    ? navigationPreviewMarkup(entry.preview)
+    : vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
   return `<div class="entry-visual" role="img" aria-label="${escapeHtml(tr(`${localized.name}的完整解决方案原型`, `Complete solution prototype for ${localized.name}`))}">${preview}<div class="visual-label"><span>${escapeHtml(entry.en)}</span><span>${escapeHtml(tr("解决方案", "SOLUTION"))}</span></div></div>`;
+}
+
+function detailPreviewMarkup(entry) {
+  return entry.category === "navigation"
+    ? navigationPreviewMarkup(entry.preview)
+    : vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
 }
 
 function cardMarkup(entry) {
@@ -317,7 +325,6 @@ function render() {
   renderNavigationDeepDive();
   renderCategories();
   renderEntries();
-  $("#entryCount").textContent = vocabularyEntries.length;
 }
 
 function listMarkup(items, className = "detail-list") {
@@ -410,7 +417,7 @@ function openTerm(id, { focusTitle = false } = {}) {
     <div class="detail-tags">${entry.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
     <blockquote class="detail-ask">“${escapeHtml(entry.ask)}”</blockquote>
     <p class="detail-definition"><strong>${escapeHtml(entry.definition)}</strong> ${escapeHtml(entry.role)}</p>
-    <figure class="detail-figure"><div class="detail-preview" role="img" aria-label="${escapeHtml(tr(`${entry.name}的完整解决方案原型`, `Complete solution prototype for ${entry.name}`))}">${vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage })}</div><figcaption>${escapeHtml(componentCaption(entry))}</figcaption></figure>
+    <figure class="detail-figure"><div class="detail-preview" role="img" aria-label="${escapeHtml(tr(`${entry.name}的完整解决方案原型`, `Complete solution prototype for ${entry.name}`))}">${detailPreviewMarkup(baseEntry)}</div><figcaption>${escapeHtml(componentCaption(entry))}</figcaption></figure>
     <div class="detail-columns">
       <section><h3>${tr("组成结构 · Anatomy", "Anatomy")}</h3>${tableMarkup(entry.anatomy, [tr("部件", "Part"), tr("它负责什么", "Responsibility")])}</section>
       <section><h3>${tr("常见形式 · Forms", "Common forms")}</h3>${tableMarkup(entry.variants, [tr("形式", "Form"), tr("什么时候用", "When to use")])}</section>
