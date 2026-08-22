@@ -1,6 +1,7 @@
 export const vocabularyCategories = [
   { id: "all", label: "全部词条", en: "All terms", countLabel: "44" },
-  { id: "foundation", label: "页面基础", en: "Page foundations", countLabel: "12" },
+  { id: "foundation", label: "页面基础", en: "Page foundations", countLabel: "5" },
+  { id: "layout", label: "页面布局", en: "Page layouts", countLabel: "7" },
   { id: "navigation", label: "导航与发现", en: "Navigation and discovery", countLabel: "8" },
   { id: "content", label: "内容展示", en: "Content display", countLabel: "13" },
   { id: "controls", label: "控件与表单", en: "Controls and forms", countLabel: "5" },
@@ -94,7 +95,7 @@ const layoutPatternSpecs = [
 ];
 
 const layoutVocabularyEntries = layoutPatternSpecs.map((spec) => ({
-  id: spec.id, name: spec.name, en: spec.en, category: "foundation", level: "进阶",
+  id: spec.id, name: spec.name, en: spec.en, category: "layout", level: "进阶",
   tags: ["页面布局", "结构选择", "响应式"], ask: spec.ask[0], definition: spec.definition[0], role: spec.role[0],
   example: image(`${spec.name}的代码组件预览`),
   anatomy: [["内容骨架", "先确定主要区域、顺序和视觉重心"], ["空间规则", "明确列数、宽度、间距和内容比例"], ["响应式变化", "说明窄屏如何重排而不是简单缩小"], ["交互与状态", "覆盖加载、空内容和必要的操作反馈"]],
