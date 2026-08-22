@@ -199,7 +199,7 @@
 
   .chapter-nav a:hover{
     color:var(--ink) !important;
-    background:rgba(15,21,17,.055) !important;
+    background:transparent !important;
     transform:none !important;
   }
 
