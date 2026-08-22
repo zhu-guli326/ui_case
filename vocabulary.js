@@ -304,13 +304,11 @@ function cardMarkup(entry) {
           <h3>${escapeHtml(localized.name)}${termAliasMarkup(entry)}</h3>
           <p class="entry-ask">“${escapeHtml(localized.ask)}”</p>
           ${previewMarkup(entry)}
-          <div class="entry-card-footer"><span class="entry-flip-hint"><b aria-hidden="true">↻</b>${escapeHtml(tr("点击卡片，体验不同状态", "Click the card to explore another state"))}</span></div>
         </div>
       </section>
       <section class="entry-card-face entry-card-back" aria-hidden="true" inert>
         <button class="entry-flip-hitarea entry-flip-hitarea--back" type="button" data-flip-card aria-pressed="false" aria-label="${escapeHtml(tr(`翻回 ${localized.name} 的介绍`, `Flip back to the ${localized.name} introduction`))}"></button>
         <div class="entry-card-back-shell">
-          <div class="entry-card-back-topline"><span>${escapeHtml(tr("完整方案 · 已翻转", "FULL PATTERN · FLIPPED"))}</span><b>${escapeHtml(localized.name)}</b></div>
           <div class="entry-card-back-preview" role="img" aria-label="${escapeHtml(tr(`${localized.name}的完整样式`, `Complete ${localized.name} pattern`))}">${detailPreviewMarkup(entry)}</div>
           <div class="entry-card-back-insight"><span>${escapeHtml(tr("适用场景", "BEST FOR"))}</span><p>${escapeHtml(useWhen)}</p><div>${tags.map((tag) => `<i>${escapeHtml(tag)}</i>`).join("")}</div></div>
           <div class="entry-card-back-actions"><button class="entry-copy-prompt-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}"><span>${escapeHtml(tr("复制 Prompt", "Copy prompt"))}</span><b aria-hidden="true">⧉</b></button></div>

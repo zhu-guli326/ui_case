@@ -111,25 +111,22 @@ test("component cards render copy before their visual specimen", () => {
   const titleIndex = cardFunction.indexOf("<h3>");
   const askIndex = cardFunction.indexOf("entry-ask");
   const previewIndex = cardFunction.indexOf("${previewMarkup(entry)}");
-  const footerIndex = cardFunction.indexOf("entry-card-footer");
 
   assert.ok(metaIndex >= 0 && metaIndex < titleIndex, "category and favorite must appear before the title");
   assert.ok(titleIndex < askIndex, "title must appear before the plain-language request");
   assert.ok(askIndex < previewIndex, "copy must appear before the visual specimen");
-  assert.ok(previewIndex < footerIndex, "the detail action must follow the specimen");
+  assert.ok(previewIndex >= 0, "the visual specimen must be rendered on the card");
 });
 
 test("every component card exposes an accessible two-sided flip interaction", () => {
   const cardFunction = vocabularyScript.slice(vocabularyScript.indexOf("function cardMarkup"), vocabularyScript.indexOf("function setCardFlipped"));
   assert.match(cardFunction, /entry-card-front/);
   assert.match(cardFunction, /entry-card-back/);
-  assert.match(cardFunction, /FULL PATTERN/);
   assert.match(cardFunction, /entry-card-back-insight/);
   assert.match(cardFunction, /data-copy-prompt/);
   assert.doesNotMatch(cardFunction, /entry-open-button|data-open-term|打开详情/);
   assert.match(cardFunction, /data-flip-card/g);
-  assert.match(cardFunction, /entry-flip-hint/);
-  assert.doesNotMatch(cardFunction, /entry-flip-button/);
+  assert.doesNotMatch(cardFunction, /entry-flip-hint|entry-flip-button|完整方案 · 已翻转/);
   assert.match(cardFunction, /aria-pressed="false"/);
   assert.match(cardFunction, /entry-card-back[^>]*aria-hidden="true"[^>]*inert/);
   assert.match(vocabularyScript, /function setCardFlipped/);
