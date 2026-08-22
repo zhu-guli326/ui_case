@@ -127,6 +127,8 @@ test("every component card exposes an accessible two-sided flip interaction", ()
   assert.doesNotMatch(cardFunction, /visual-label/);
   assert.match(vocabularyScript, /entry-variant-panel/);
   assert.match(vocabularyScript, /data-variant-state/);
+  assert.match(vocabularyScript, /data-variant-tone/);
+  assert.match(vocabularyScript, /setAttribute\("data-variant-tone"/);
   assert.match(cardFunction, /data-copy-prompt/);
   assert.doesNotMatch(cardFunction, /entry-open-button|data-open-term|打开详情/);
   assert.match(cardFunction, /data-flip-card/g);
