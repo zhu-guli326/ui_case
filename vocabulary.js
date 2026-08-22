@@ -156,7 +156,6 @@ const state = {
 };
 
 const $ = (selector) => document.querySelector(selector);
-const categoryChips = $("#categoryChips");
 const taxonomyNav = $("#taxonomyNav");
 const entryGrid = $("#entryGrid");
 const resultsHeading = $(".results-heading");
@@ -165,10 +164,7 @@ const resultCount = $("#resultCount");
 const resultsSummary = $("#resultsSummary");
 const emptyState = $("#emptyState");
 const navigationDeepDive = $("#navigationDeepDive");
-const termDialog = $("#termDialog");
-const termDialogContent = $("#termDialogContent");
 const toast = $("#toast");
-let dialogReturnEntryId = null;
 
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[character]));
 const navText = (pair) => tr(pair[0], pair[1]);
@@ -204,13 +200,11 @@ function renderNavigationDeepDive() {
       <div class="navigation-pattern-title"><div><p>${escapeHtml(navText(pattern.scope))}</p><h3>${escapeHtml(navText(pattern.name))} <em>${escapeHtml(pattern.en)}</em></h3></div><strong>${escapeHtml(pattern.count)}</strong></div>
       <p class="navigation-pattern-fit"><b>${escapeHtml(tr("适合：", "Use when: "))}</b>${escapeHtml(navText(pattern.fit))}</p>
       <dl><div><dt>${escapeHtml(tr("不要这样用", "Avoid"))}</dt><dd>${escapeHtml(navText(pattern.avoid))}</dd></div><div><dt>${escapeHtml(tr("移动端变化", "On mobile"))}</dt><dd>${escapeHtml(navText(pattern.mobile))}</dd></div></dl>
-      <button type="button" data-open-navigation-term="${escapeHtml(pattern.termId)}">${escapeHtml(tr("查看对应词条", "Open related term"))}<span aria-hidden="true">↗</span></button>
     </div>
   </article>`).join("");
 
   matrix.innerHTML = `<table><thead><tr><th>${escapeHtml(tr("模式", "Pattern"))}</th><th>${escapeHtml(tr("导航范围", "Scope"))}</th><th>${escapeHtml(tr("入口数量", "Destinations"))}</th><th>${escapeHtml(tr("最适合", "Best for"))}</th><th>${escapeHtml(tr("移动端策略", "Mobile strategy"))}</th></tr></thead><tbody>${navigationPatterns.map((pattern) => `<tr><th><span>${pattern.number}</span>${escapeHtml(navText(pattern.name))}</th><td>${escapeHtml(navText(pattern.scope))}</td><td>${escapeHtml(pattern.count)}</td><td>${escapeHtml(navText(pattern.fit).split("。")[0].split(".")[0])}</td><td>${escapeHtml(navText(pattern.mobile))}</td></tr>`).join("")}</tbody></table>`;
 
-  document.querySelectorAll("[data-open-navigation-term]").forEach((button) => button.addEventListener("click", () => openTerm(button.dataset.openNavigationTerm)));
 }
 
 function persistFavorites() {
@@ -275,16 +269,14 @@ function renderCategories() {
   const html = vocabularyCategories.map((category) => {
     const selected = state.category === category.id;
     const count = categoryDisplayCount(category.id);
-    return `<button class="category-chip${selected ? " is-selected" : ""}" type="button" data-category="${category.id}" aria-pressed="${selected}"><span>${escapeHtml(tr(category.label, category.en))}</span><b>${count}</b></button>`;
+    return `<button class="taxonomy-link${selected ? " is-selected" : ""}" type="button" data-category="${category.id}" aria-pressed="${selected}"><span>${escapeHtml(tr(category.label, category.en))}</span><b>${count}</b></button>`;
   }).join("");
-  categoryChips.innerHTML = html;
-  taxonomyNav.innerHTML = html.replaceAll("category-chip", "taxonomy-link");
+  taxonomyNav.innerHTML = html;
   [...document.querySelectorAll("[data-category]")].forEach((button) => button.addEventListener("click", () => {
     const category = button.dataset.category;
-    const selector = button.classList.contains("taxonomy-link") ? ".taxonomy-link" : ".category-chip";
     state.category = category;
     render();
-    focusCategory(category, selector);
+    focusCategory(category, ".taxonomy-link");
   }));
 }
 
@@ -559,17 +551,10 @@ function showToast(message) {
 $("#vocabularySearch").addEventListener("input", (event) => { state.query = event.target.value; renderNavigationDeepDive(); renderEntries(); });
 $("#sortSelect").addEventListener("change", (event) => { state.sort = event.target.value; renderEntries(); });
 $("#clearSearch").addEventListener("click", () => { state.query = ""; state.category = "all"; $("#vocabularySearch").value = ""; render(); $("#vocabularySearch").focus(); });
-termDialog.addEventListener("close", () => {
-  document.documentElement.classList.remove("term-dialog-open");
-  if (dialogReturnEntryId) focusDataAttribute("data-open-term", dialogReturnEntryId);
-  if (!document.activeElement || document.activeElement === document.body) focusCategory(state.category);
-  dialogReturnEntryId = null;
-});
-document.addEventListener("keydown", (event) => { if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); $("#vocabularySearch").focus(); } if (event.key === "Escape" && !termDialog.open) { state.query = ""; $("#vocabularySearch").value = ""; renderNavigationDeepDive(); renderEntries(); } });
+document.addEventListener("keydown", (event) => { if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); $("#vocabularySearch").focus(); } if (event.key === "Escape") { state.query = ""; $("#vocabularySearch").value = ""; renderNavigationDeepDive(); renderEntries(); } });
 window.addEventListener("image2:languagechange", (event) => {
   currentLanguage = event.detail?.language === "en" ? "en" : "zh";
   render();
-  if (termDialog.open && dialogReturnEntryId) openTerm(dialogReturnEntryId);
 });
 
 render();

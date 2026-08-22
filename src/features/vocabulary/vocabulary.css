@@ -341,13 +341,10 @@ img { max-width: 100%; }
 .search-field input { min-width: 0; flex: 1; border: 0; outline: 0; background: transparent; color: var(--ink); font-size: 15px; }
 .search-field input::placeholder { color: var(--quiet); }
 kbd { padding: 4px 7px; border: 1px solid var(--line); border-radius: 5px; color: var(--quiet); font-size: 10px; }
-.category-chips { display: flex; gap: 8px; overflow-x: auto; margin-top: 16px; padding-bottom: 3px; scrollbar-width: none; }
-.category-chips::-webkit-scrollbar { display: none; }
-.category-chip, .taxonomy-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); transition: border-color .18s ease, background .18s ease, color .18s ease; }
-.category-chip { flex: 0 0 auto; min-height: 36px; padding: 0 12px; border-radius: 7px; font-size: 12px; white-space: nowrap; }
-.category-chip b, .taxonomy-link b { color: var(--quiet); font-size: 10px; font-weight: 700; }
-.category-chip:hover, .category-chip.is-selected, .taxonomy-link:hover, .taxonomy-link.is-selected { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
-.category-chip.is-selected b, .taxonomy-link.is-selected b { color: var(--accent); }
+.taxonomy-link { display: flex; width: 100%; min-height: 52px; align-items: center; justify-content: space-between; gap: 12px; padding: 0 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--muted); font-size: 13px; text-align: left; transition: border-color .18s ease, background .18s ease, color .18s ease; }
+.taxonomy-link b { color: var(--quiet); font-size: 10px; font-weight: 700; }
+.taxonomy-link:hover, .taxonomy-link.is-selected { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.taxonomy-link.is-selected b { color: var(--accent); }
 .vocab-layout { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: clamp(48px, 5vw, 88px); width: min(var(--content-width), calc(100% - 48px)); margin: 0 auto; padding: 12px 0 90px; }
 .taxonomy { position: sticky; top: 90px; align-self: start; }
 .taxonomy-heading { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; color: var(--ink); font-size: 13px; font-weight: 800; }
@@ -597,7 +594,7 @@ html.dark-mode .vp-overlay::before { background: var(--vp-panel); }
 .hero-intro { max-width: 700px; margin-top: 16px; font-size: 16px; line-height: 1.65; }
 .vocab-toolbar { width: min(1650px, calc(100% - 96px)); padding: 20px 0 30px; }
 .search-field { min-height: 58px; border-radius: 10px; box-shadow: 0 5px 18px rgba(24, 39, 29, .04); }
-.category-chips { margin-top: 12px; }
+.vocab-toolbar { padding-bottom: 18px; }
 .vocab-layout { width: min(1650px, calc(100% - 96px)); grid-template-columns: 230px minmax(0, 1fr); gap: clamp(34px, 4vw, 72px); padding-top: 8px; }
 .taxonomy { top: 88px; }
 .taxonomy-heading { padding-bottom: 10px; border-bottom: 1px solid var(--line); }

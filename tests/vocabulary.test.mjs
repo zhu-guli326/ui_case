@@ -79,13 +79,16 @@ test("every vocabulary entry has a code-rendered component preview", () => {
   assert.match(insecureMarkup, /referrerpolicy="no-referrer"/);
 });
 
-test("term details keep exactly one vertical scroll owner", () => {
-  assert.match(vocabularyCss, /\.term-dialog\s*\{[^}]*overflow:\s*hidden;/s);
-  assert.match(vocabularyCss, /\.term-dialog-shell\s*\{[^}]*overflow:\s*hidden;/s);
-  assert.match(vocabularyCss, /\.term-dialog-content\s*\{[^}]*overflow-y:\s*auto;/s);
-  assert.match(vocabularyCss, /html\.term-dialog-open\s*\{[^}]*overflow:\s*hidden;/s);
-  assert.match(vocabularyScript, /classList\.add\("term-dialog-open"\)/);
-  assert.match(vocabularyScript, /classList\.remove\("term-dialog-open"\)/);
+test("vocabulary has no separate detail-page route", () => {
+  assert.doesNotMatch(vocabularyHtml, /termDialog|term-dialog/);
+  assert.doesNotMatch(vocabularyScript, /data-open-navigation-term|打开详情|Open related term/);
+});
+
+test("category filtering has one visible navigation owner", () => {
+  assert.doesNotMatch(vocabularyHtml, /categoryChips|category-chips/);
+  assert.doesNotMatch(vocabularyScript, /categoryChips|category-chip/);
+  assert.match(vocabularyHtml, /id="taxonomyNav"/);
+  assert.match(vocabularyScript, /taxonomyNav\.innerHTML = html/);
 });
 
 test("navigation deep dive is owned by the navigation category", () => {

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
     <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
-  <script type="module" src="./vocabulary.js?v=20260822-flip-cards-v9"></script>
+  <script type="module" src="./vocabulary.js?v=20260822-flip-cards-v10"></script>
   <style>
     body { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; line-height: 1.65; }
   </style>
@@ -33,7 +33,6 @@
         <input id="vocabularySearch" type="search" autocomplete="off" aria-label="搜索 UI 词条" placeholder="搜索术语、英文名或你想说的话…" data-i18n-attr="aria-label:vocabulary.searchLabel,placeholder:vocabulary.searchPlaceholder">
         <kbd aria-hidden="true">⌘ K</kbd>
       </label>
-      <div class="category-chips" id="categoryChips" role="group" aria-label="按分类筛选" data-i18n-attr="aria-label:vocabulary.filterByCategory"></div>
     </section>
 
     <div class="vocab-layout">
@@ -87,12 +86,6 @@
   </main>
   <footer class="vocab-footer"><p><strong data-i18n="vocabulary.fullGuide">完整规范：</strong><span data-i18n="vocabulary.fullGuideBody">保留了原来的 Markdown 版词典，适合复制到项目文档和 code review。</span></p><a href="./reference.html?doc=ui-section-vocabulary"><span data-i18n="vocabulary.readGuide">阅读规范版</span> <span aria-hidden="true">↗</span></a></footer>
 
-  <dialog class="term-dialog" id="termDialog" aria-labelledby="termDialogTitle">
-    <div class="term-dialog-shell">
-      <form method="dialog" class="dialog-close-form"><button class="icon-button dialog-close" type="submit" aria-label="关闭词条详情" title="关闭" data-i18n-attr="aria-label:vocabulary.closeDetails,title:common.close">×</button></form>
-      <div class="term-dialog-content" id="termDialogContent"></div>
-    </div>
-  </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 </body>
 </html>
