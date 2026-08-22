@@ -123,11 +123,15 @@ test("every component card exposes an accessible two-sided flip interaction", ()
   assert.match(cardFunction, /FULL PATTERN/);
   assert.match(cardFunction, /entry-card-back-insight/);
   assert.match(cardFunction, /data-copy-prompt/);
+  assert.doesNotMatch(cardFunction, /entry-open-button|data-open-term|打开详情/);
   assert.match(cardFunction, /data-flip-card/g);
+  assert.match(cardFunction, /entry-flip-hint/);
+  assert.doesNotMatch(cardFunction, /entry-flip-button/);
   assert.match(cardFunction, /aria-pressed="false"/);
   assert.match(cardFunction, /entry-card-back[^>]*aria-hidden="true"[^>]*inert/);
   assert.match(vocabularyScript, /function setCardFlipped/);
   assert.match(vocabularyScript, /front\.inert = flipped/);
+  assert.match(vocabularyScript, /back\.querySelector\("\.entry-flip-hitarea"\)/);
   assert.match(vocabularyScript, /back\.inert = !flipped/);
   assert.match(vocabularyCss, /\.entry-card\.is-flipped \.entry-card-inner\s*\{[^}]*rotateY\(180deg\)/s);
   assert.match(vocabularyCss, /\.entry-card-front\s*\{[^}]*linear-gradient/s);

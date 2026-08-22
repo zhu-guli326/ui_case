@@ -312,7 +312,7 @@ function cardMarkup(entry) {
           <h3>${escapeHtml(localized.name)}${termAliasMarkup(entry)}</h3>
           <p class="entry-ask">“${escapeHtml(localized.ask)}”</p>
           ${previewMarkup(entry)}
-          <div class="entry-card-footer"><button class="entry-flip-button" type="button" data-flip-card aria-pressed="false"><span>${escapeHtml(tr("翻转查看完整样式", "Flip to explore the pattern"))}</span><b aria-hidden="true">↻</b></button></div>
+          <div class="entry-card-footer"><span class="entry-flip-hint"><b aria-hidden="true">↻</b>${escapeHtml(tr("点击卡片，体验不同状态", "Click the card to explore another state"))}</span></div>
         </div>
       </section>
       <section class="entry-card-face entry-card-back" aria-hidden="true" inert>
@@ -321,11 +321,7 @@ function cardMarkup(entry) {
           <div class="entry-card-back-topline"><span>${escapeHtml(tr("完整方案 · 已翻转", "FULL PATTERN · FLIPPED"))}</span><b>${escapeHtml(localized.name)}</b></div>
           <div class="entry-card-back-preview" role="img" aria-label="${escapeHtml(tr(`${localized.name}的完整样式`, `Complete ${localized.name} pattern`))}">${detailPreviewMarkup(entry)}</div>
           <div class="entry-card-back-insight"><span>${escapeHtml(tr("适用场景", "BEST FOR"))}</span><p>${escapeHtml(useWhen)}</p><div>${tags.map((tag) => `<i>${escapeHtml(tag)}</i>`).join("")}</div></div>
-          <div class="entry-card-back-actions">
-            <button class="entry-copy-prompt-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}"><span>${escapeHtml(tr("一键复制 Prompt", "Copy prompt"))}</span><b aria-hidden="true">⧉</b></button>
-            <button class="entry-flip-button entry-flip-button--back" type="button" data-flip-card aria-pressed="false"><b aria-hidden="true">↶</b><span>${escapeHtml(tr("返回介绍", "Back"))}</span></button>
-            <button class="entry-open-button entry-open-button--back" type="button" data-open-term="${escapeHtml(entry.id)}">${escapeHtml(tr("打开详情", "Open details"))}<span aria-hidden="true">↗</span></button>
-          </div>
+          <div class="entry-card-back-actions"><button class="entry-copy-prompt-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}"><span>${escapeHtml(tr("复制 Prompt", "Copy prompt"))}</span><b aria-hidden="true">⧉</b></button></div>
         </div>
       </section>
     </div>
@@ -344,8 +340,8 @@ function setCardFlipped(card, flipped, { moveFocus = true } = {}) {
   if (!moveFocus) return;
   requestAnimationFrame(() => {
     const target = flipped
-      ? back.querySelector(".entry-flip-button")
-      : front.querySelector(".entry-flip-button");
+      ? back.querySelector(".entry-flip-hitarea")
+      : front.querySelector(".entry-flip-hitarea");
     target?.focus({ preventScroll: true });
   });
 }
@@ -366,7 +362,6 @@ function renderEntries() {
     : state.category === "favorites"
       ? currentLanguage === "en" ? `You saved ${list.length} ${list.length === 1 ? "term" : "terms"}` : `你收藏了 ${list.length} 个词条`
       : currentLanguage === "en" ? `${categoryLabel(state.category)} · ${list.length} ${list.length === 1 ? "term" : "terms"}` : `${categoryLabel(state.category)} · ${list.length} 个词条`;
-  document.querySelectorAll("[data-open-term]").forEach((button) => button.addEventListener("click", () => openTerm(button.dataset.openTerm)));
   document.querySelectorAll("[data-flip-card]").forEach((button) => button.addEventListener("click", (event) => {
     event.stopPropagation();
     const card = button.closest(".entry-card");
