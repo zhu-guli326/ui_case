@@ -35,6 +35,9 @@ const solutionMediaSets = Object.freeze({
     projectMediaUrl("photo-1549490349-8643362247b5"),
     projectMediaUrl("photo-1518005020951-eccb494ad742"),
     projectMediaUrl("photo-1455390582262-044cdead277a"),
+    projectMediaUrl("photo-1497366216548-37526070297c"),
+    projectMediaUrl("photo-1500534623283-312aade485b7"),
+    projectMediaUrl("photo-1497366754035-f200968a6e72"),
   ],
   "card-grid": [
     projectMediaUrl("photo-1455390582262-044cdead277a"),
@@ -96,7 +99,7 @@ const previewFactories = Object.freeze({
   "layout-landing-page": ({ copy, imageUrl }) => `
     <div class="vp-layout vp-layout--landing"><section>${media(imageUrl, "layout-landing")}<div><small>NEW PRODUCT</small><strong>${copy.heroTitle}</strong><p>${copy.heroBody}</p><b>${copy.explore} →</b></div></section><footer><span><i>01</i>${copy.design}</span><span><i>02</i>${copy.product}</span><span><i>03</i>${copy.research}</span></footer></div>`,
   "layout-masonry": ({ copy, mediaUrls }) => `
-    <div class="vp-layout vp-layout--masonry"><header><b>FRAME</b><small>${copy.featured}　${copy.collections}</small></header><div>${[0,1,2,0,1,2].map((index, order) => `<figure class="tile-${order + 1}">${media(mediaUrls[index], `masonry-${order + 1}`)}<figcaption>${escapeHtml(copy.productNames[index])}</figcaption></figure>`).join("")}</div></div>`,
+    <div class="vp-layout vp-layout--masonry"><header><b>FRAME</b><small>${copy.featured}　${copy.collections}</small></header><div>${[0,1,2,3,4,5,0,1,2].map((index, order) => `<figure class="tile-${order + 1}">${media(mediaUrls[index], `masonry-${order + 1}`)}<figcaption>${escapeHtml(copy.productNames[index % copy.productNames.length])}</figcaption></figure>`).join("")}</div></div>`,
   "layout-fullscreen": ({ copy, imageUrl }) => `
     <div class="vp-layout vp-layout--fullscreen">${media(imageUrl, "layout-fullscreen")}<header><b>NOCTURNE</b><small>${copy.about}　${copy.work}</small></header><div><small>IMMERSIVE STORY / 01</small><strong>${copy.heroTitle}</strong><span>${copy.explore} ↘</span></div></div>`,
   "layout-split-pane": ({ copy, imageUrl }) => `
