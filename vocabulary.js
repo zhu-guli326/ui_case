@@ -1,6 +1,6 @@
 import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./vocabulary-data.js?v=20260815-vocabulary-30";
-import { vocabularyComponentEntries } from "./src/features/vocabulary/vocabulary-component-data.js?v=20260822-language-fix-v1";
-import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-distinct-component-content-v1";
+import { vocabularyComponentEntries } from "./src/features/vocabulary/vocabulary-component-data.js?v=20260822-form-details-v1";
+import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-distinct-previews-v3";
 
 const vocabularyEntries = [...baseVocabularyEntries, ...vocabularyComponentEntries];
 const vocabularyById = Object.fromEntries(vocabularyEntries.map((entry) => [entry.id, entry]));
@@ -290,14 +290,14 @@ function renderCategories() {
 
 function previewMarkup(entry) {
   const localized = localizedEntry(entry);
-  const preview = entry.category === "navigation"
+  const preview = entry.category === "navigation" && !entry.componentKind
     ? navigationPreviewMarkup(entry.preview)
     : vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
   return `<div class="entry-visual" role="img" aria-label="${escapeHtml(tr(`${localized.name}的完整解决方案原型`, `Complete solution prototype for ${localized.name}`))}">${preview}</div>`;
 }
 
 function detailPreviewMarkup(entry) {
-  return entry.category === "navigation"
+  return entry.category === "navigation" && !entry.componentKind
     ? navigationPreviewMarkup(entry.preview)
     : vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
 }
@@ -307,11 +307,11 @@ function cardMarkup(entry) {
   const favorite = state.favorites.has(entry.id);
   return `<article class="entry-card" data-entry-id="${escapeHtml(entry.id)}">
     <button class="entry-card-hitarea" type="button" data-open-term="${escapeHtml(entry.id)}" aria-label="${escapeHtml(tr("查看", "View"))} ${escapeHtml(localized.name)} ${escapeHtml(tr("详情", "details"))}"></button>
-    ${previewMarkup(entry)}
     <div class="entry-card-body">
       <div class="entry-card-meta"><span>${escapeHtml(categoryLabel(entry.category))}</span><button class="favorite-button${favorite ? " is-favorite" : ""}" type="button" data-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}" aria-label="${escapeHtml(favorite ? `${tr("取消收藏", "Remove from favorites")} ${localized.name}` : `${tr("收藏", "Add to favorites")} ${localized.name}`)}" title="${escapeHtml(favorite ? tr("取消收藏", "Remove from favorites") : tr("收藏", "Add to favorites"))}">${favorite ? "★" : "☆"}</button></div>
       <h3>${escapeHtml(localized.name)}${termAliasMarkup(entry)}</h3>
       <p class="entry-ask">“${escapeHtml(localized.ask)}”</p>
+      ${previewMarkup(entry)}
       <div class="entry-card-footer"><button class="entry-open-button" type="button" data-open-term="${escapeHtml(entry.id)}">${escapeHtml(tr("打开词条详情", "Open term details"))}<span aria-hidden="true">↗</span></button></div>
     </div>
   </article>`;
@@ -358,7 +358,7 @@ function listMarkup(items, className = "detail-list") {
 }
 
 function tableMarkup(rows, headings) {
-  const visibleRows = rows.slice(0, 3);
+  const visibleRows = rows;
   return `<div class="detail-table-wrap"><table><thead><tr>${headings.map((heading) => `<th>${escapeHtml(heading)}</th>`).join("")}</tr></thead><tbody>${visibleRows.map((row) => `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
 }
 
@@ -430,6 +430,33 @@ function tabsDetailMarkup(entry, related, favorite) {
   </div>`;
 }
 
+function formDetailMarkup(entry, baseEntry, related, favorite) {
+  const anatomy = entry.anatomy.map(([title, body], index) => `<article><b>${String(index + 1).padStart(2, "0")}</b><div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div></article>`).join("");
+  const states = entry.states.map(([title, body]) => `<article><span></span><div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div></article>`).join("");
+  const variants = entry.variants.map(([title, body]) => `<article><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></article>`).join("");
+  const relatedMarkup = related.length ? `<p class="related-terms"><strong>${tr("相关词：", "Related terms: ")}</strong>${related.map((relatedEntry) => `<button type="button" data-related-term="${escapeHtml(relatedEntry.id)}">${escapeHtml(relatedEntry.name)}</button>`).join(" ")}</p>` : "";
+
+  return `<div class="term-detail form-solution-detail">
+    <div class="detail-topline"><span>${escapeHtml(categoryLabel(entry.category))} · ${escapeHtml(entry.level)}</span><button class="favorite-detail-button" type="button" data-detail-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}">${favorite ? tr("★ 已收藏", "★ Saved") : tr("☆ 收藏词条", "☆ Save term")}</button></div>
+    <header class="form-solution-hero">
+      <div class="form-solution-intro"><p class="form-kicker">${escapeHtml(tr("UI 模式 / 表单", "UI PATTERN / FORM"))}</p><h2 id="termDialogTitle" tabindex="-1">${escapeHtml(entry.name)}${termAliasMarkup(baseEntry)}</h2><blockquote>“${escapeHtml(entry.ask)}”</blockquote><p><strong>${escapeHtml(entry.definition)}</strong> ${escapeHtml(entry.role)}</p><div class="detail-tags">${entry.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div></div>
+      <figure class="form-solution-preview"><div class="detail-preview" role="img" aria-label="${escapeHtml(tr(`${entry.name}完整界面示例`, `Complete ${entry.name} example`))}">${detailPreviewMarkup(baseEntry)}</div><figcaption>${escapeHtml(tr("先看真实任务结构，再决定字段数量、校验和响应式规则。", "Start from the task structure, then decide fields, validation, and responsive rules."))}</figcaption></figure>
+    </header>
+
+    <section class="form-decision-section"><div class="form-section-heading"><span>01 / ${escapeHtml(tr("使用判断", "DECISION"))}</span><h2>${escapeHtml(tr("先确认它是否匹配任务", "Check whether it fits the task"))}</h2></div><div class="form-decision-grid"><article class="is-positive"><span>✓</span><div><h3>${escapeHtml(tr("适合使用", "Use when"))}</h3>${listMarkup(entry.useWhen)}</div></article><article class="is-negative"><span>×</span><div><h3>${escapeHtml(tr("不要这样用", "Avoid when"))}</h3>${listMarkup(entry.avoidWhen)}</div></article></div></section>
+
+    <section class="form-blueprint-section"><div class="form-section-heading"><span>02 / ${escapeHtml(tr("信息结构", "ANATOMY"))}</span><h2>${escapeHtml(tr("表单应该由什么组成", "What the form needs"))}</h2></div><div class="form-blueprint-grid">${anatomy}</div></section>
+
+    <section class="form-behavior-section"><div class="form-section-heading"><span>03 / ${escapeHtml(tr("形式与状态", "PATTERNS & STATES"))}</span><h2>${escapeHtml(tr("把正常填写和出错都设计完整", "Design the happy path and recovery"))}</h2></div><div class="form-behavior-layout"><div><h3>${escapeHtml(tr("常见形式", "Common forms"))}</h3><div class="form-variant-list">${variants}</div></div><div><h3>${escapeHtml(tr("必须覆盖的状态", "Required states"))}</h3><div class="form-state-list">${states}</div></div></div></section>
+
+    <section class="form-build-section"><div class="form-section-heading"><span>04 / ${escapeHtml(tr("实现规则", "BUILD RULES"))}</span><h2>${escapeHtml(tr("交给设计和开发的检查项", "Checks for design and engineering"))}</h2></div><div class="form-build-grid"><article><h3>${escapeHtml(tr("代码与交互", "Code and interaction"))}</h3>${listMarkup(entry.codeUI, "compact-list")}</article><article><h3>${escapeHtml(tr("内容与媒体", "Content and media"))}</h3>${listMarkup(entry.media, "compact-list")}</article></div></section>
+
+    <section class="prompt-panel form-prompt-panel"><div class="prompt-heading"><div><span>05 / AGENT PROMPT</span><h3>${tr("这段可以直接交给 AI", "Give this directly to AI")}</h3></div><button class="copy-prompt-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}">${tr("复制提示词", "Copy prompt")}</button></div><pre id="prompt-${escapeHtml(entry.id)}"><code>${escapeHtml(entry.prompt)}</code></pre></section>
+    <section class="confusion-panel form-related-panel"><h3>${tr("容易混淆", "Commonly confused")}</h3><p>${escapeHtml(entry.confusedWith)}</p>${relatedMarkup}</section>
+    <footer class="detail-footer"><a href="${escapeHtml(entry.source)}" target="_blank" rel="noreferrer">${tr("查看权威出处 ↗", "View authoritative source ↗")}</a><span>${tr("表单详情 · 任务、结构、状态与实现", "Form detail · task, structure, states, and implementation")}</span></footer>
+  </div>`;
+}
+
 function openTerm(id, { focusTitle = false } = {}) {
   const baseEntry = vocabularyById[id];
   if (!baseEntry) return;
@@ -437,8 +464,10 @@ function openTerm(id, { focusTitle = false } = {}) {
   const related = relatedEntries(baseEntry);
   if (!termDialog.open) dialogReturnEntryId = id;
   const favorite = state.favorites.has(entry.id);
+  const isFormComponent = baseEntry.componentKind === "form";
   termDialog.classList.toggle("term-dialog--tabs", entry.id === "tabs");
-  termDialogContent.innerHTML = entry.id === "tabs" ? tabsDetailMarkup(entry, related, favorite) : `<div class="term-detail">
+  termDialog.classList.toggle("term-dialog--form", isFormComponent);
+  termDialogContent.innerHTML = entry.id === "tabs" ? tabsDetailMarkup(entry, related, favorite) : isFormComponent ? formDetailMarkup(entry, baseEntry, related, favorite) : `<div class="term-detail">
     <div class="detail-topline"><span>${escapeHtml(categoryLabel(entry.category))} · ${escapeHtml(entry.level)}</span><button class="favorite-detail-button" type="button" data-detail-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}">${favorite ? tr("★ 已收藏", "★ Saved") : tr("☆ 收藏词条", "☆ Save term")}</button></div>
     <h2 id="termDialogTitle" tabindex="-1">${escapeHtml(entry.name)}${termAliasMarkup(baseEntry)}</h2>
     <div class="detail-tags">${entry.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>

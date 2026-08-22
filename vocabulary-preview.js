@@ -46,6 +46,25 @@ const solutionMediaSets = Object.freeze({
   ],
 });
 
+const componentHeroMedia = Object.freeze({
+  centered: projectMediaUrl("photo-1494438639946-1ebd1d20bf85"),
+  split: projectMediaUrl("photo-1497366811353-6870744d04b2"),
+  fullbleed: projectMediaUrl("photo-1500530855697-b586d89ba3ee"),
+  video: projectMediaUrl("photo-1518005020951-eccb494ad742"),
+  mockup: projectMediaUrl("photo-1523275335684-37898b6baf30"),
+  search: projectMediaUrl("photo-1455390582262-044cdead277a"),
+  bento: projectMediaUrl("photo-1497366216548-37526070297c"),
+});
+
+const componentCardMedia = Object.freeze({
+  "image-top": projectMediaUrl("photo-1494438639946-1ebd1d20bf85"),
+  "image-side": projectMediaUrl("photo-1500530855697-b586d89ba3ee"),
+  overlay: projectMediaUrl("photo-1518005020951-eccb494ad742"),
+  product: projectMediaUrl("photo-1523275335684-37898b6baf30"),
+  article: projectMediaUrl("photo-1455390582262-044cdead277a"),
+  borderless: projectMediaUrl("photo-1497366216548-37526070297c"),
+});
+
 const previewFactories = Object.freeze({
   "app-shell": ({ copy, imageUrl }) => `
     <div class="vp-shell">
@@ -177,13 +196,22 @@ const componentKindFactories = Object.freeze({
     const variant = entry.id.replace("component-hero-", "");
     const labels = { centered: ["居中主视觉", "Centered hero"], split: ["左右分栏", "Split hero"], fullbleed: ["全屏图片", "Full-bleed hero"], video: ["视频背景", "Video hero"], mockup: ["产品展示", "Product mockup"], search: ["搜索主导", "Search-led hero"], bento: ["Bento 网格", "Bento hero"] };
     const label = labels[variant]?.[language === "en" ? 1 : 0] || (language === "en" ? "Hero layout" : "首屏布局");
-    return `<div class="vp-variant-scene vp-variant-scene--hero vp-variant-scene--${escapeHtml(variant)}"><div class="vp-variant-kicker">${escapeHtml(label)}</div><strong>${escapeHtml(title)}</strong><span class="vp-variant-line"></span><div class="vp-variant-action">${language === "en" ? "Explore" : "开始探索"}</div></div>`;
+    const imageUrl = componentHeroMedia[variant] || componentHeroMedia.centered;
+    const image = `<img class="vp-hero-real-image" src="${escapeHtml(imageUrl)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
+    if (variant === "bento") return `<div class="vp-variant-scene vp-variant-scene--hero vp-variant-scene--bento"><div class="vp-hero-bento-main">${image}<div><small>${escapeHtml(label)}</small><strong>${escapeHtml(title)}</strong></div></div><div class="vp-hero-bento-side"><img src="${escapeHtml(componentHeroMedia.mockup)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span>${language === "en" ? "Product" : "产品"}</span><img src="${escapeHtml(componentHeroMedia.search)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"></div></div>`;
+    return `<div class="vp-variant-scene vp-variant-scene--hero vp-variant-scene--${escapeHtml(variant)}">${image}<div class="vp-hero-real-overlay"></div><div class="vp-hero-real-copy"><div class="vp-variant-kicker">${escapeHtml(label)}</div><strong>${escapeHtml(title)}</strong>${variant === "search" ? `<div class="vp-hero-search-field">⌕ <span>${language === "en" ? "Search ideas, places, products…" : "搜索灵感、目的地或产品…"}</span></div>` : `<span class="vp-variant-line"></span><div class="vp-variant-action">${language === "en" ? "Explore" : "开始探索"}</div>`}${variant === "video" ? `<span class="vp-hero-play">▶</span>` : ""}</div></div>`;
   },
   card: ({ entry, language }) => {
     const title = language === "en" ? entry.en : entry.name;
     const variant = entry.id.replace("component-card-", "");
-    const label = language === "en" ? `${variant} card` : `${title}布局`;
-    return `<div class="vp-variant-scene vp-variant-scene--card vp-variant-scene--${escapeHtml(variant)}"><div class="vp-card-variant-media"></div><div class="vp-card-variant-copy"><small>${escapeHtml(label)}</small><strong>${escapeHtml(title)}</strong><span>${language === "en" ? "View details" : "查看详情"} ↗</span></div></div>`;
+    const zh = language !== "en";
+    const label = zh ? `${title}布局` : `${variant} card`;
+    const imageUrl = componentCardMedia[variant] || componentCardMedia["image-top"];
+    const image = `<img class="vp-card-real-image" src="${escapeHtml(imageUrl)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
+    if (variant === "data") return `<div class="vp-variant-scene vp-variant-scene--card vp-variant-scene--data"><div class="vp-data-card-head"><small>${zh ? "本月收入" : "Monthly revenue"}</small><span>•••</span></div><strong class="vp-data-card-value">¥428,600</strong><em>+18.4%</em><div class="vp-data-card-chart"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>`;
+    if (variant === "pricing") return `<div class="vp-variant-scene vp-variant-scene--card vp-variant-scene--pricing"><small>${zh ? "专业版" : "PRO"}</small><strong>¥168<em>/${zh ? "月" : "mo"}</em></strong><p>${zh ? "适合需要完整协作能力的团队" : "For teams that need full collaboration"}</p><ul><li>✓ ${zh ? "无限项目" : "Unlimited projects"}</li><li>✓ ${zh ? "团队工作区" : "Team workspace"}</li><li>✓ ${zh ? "版本历史" : "Version history"}</li></ul><span>${zh ? "开始使用" : "Get started"}</span></div>`;
+    if (variant === "borderless") return `<div class="vp-variant-scene vp-variant-scene--card vp-variant-scene--borderless"><div>${image}<span><small>${zh ? "空间" : "SPACE"}</small><strong>${zh ? "安静的材料研究" : "Quiet material study"}</strong></span></div><div><img src="${escapeHtml(componentCardMedia.product)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span><small>${zh ? "产品" : "PRODUCT"}</small><strong>${zh ? "每日器物精选" : "Everyday objects"}</strong></span></div></div>`;
+    return `<div class="vp-variant-scene vp-variant-scene--card vp-variant-scene--${escapeHtml(variant)}">${image}<div class="vp-card-variant-copy"><small>${escapeHtml(label)}</small><strong>${escapeHtml(title)}</strong><p>${variant === "product" ? (zh ? "轻量腕表 · 雾灰" : "Minimal watch · Fog grey") : variant === "article" ? (zh ? "从真实案例开始理解界面结构。" : "Learn interface structure from real cases.") : (zh ? "完整内容摘要与真实媒体。" : "Real media with a complete content summary.")}</p><span>${variant === "product" ? "¥1,280" : (zh ? "查看详情" : "View details")} ↗</span></div></div>`;
   },
   modal: ({ entry, language }) => {
     const title = language === "en" ? entry.en : entry.name;
@@ -193,13 +221,35 @@ const componentKindFactories = Object.freeze({
   form: ({ entry, language }) => {
     const title = language === "en" ? entry.en : entry.name;
     const variant = entry.id.replace("component-form-", "");
-    return `<div class="vp-variant-scene vp-variant-scene--form vp-variant-scene--${escapeHtml(variant)}"><div class="vp-form-variant-head"><small>${escapeHtml(variant)}</small><strong>${escapeHtml(title)}</strong></div><div class="vp-form-variant-body"><span>${language === "en" ? "Email address" : "邮箱地址"}</span><i></i><span>${language === "en" ? "Password" : "密码"}</span><i></i>${variant === "stepper" ? `<b class="vp-form-variant-step">01　02　03</b>` : `<em>${language === "en" ? "Continue" : "继续"} →</em>`}</div></div>`;
+    const zh = language !== "en";
+    const fields = {
+      single: zh ? ["姓名", "工作邮箱", "职位", "需求说明"] : ["Name", "Work email", "Role", "Project brief"],
+      multi: zh ? ["公司名称", "官网", "国家 / 地区", "城市"] : ["Company", "Website", "Country", "City"],
+      login: zh ? ["邮箱地址", "密码"] : ["Email address", "Password"],
+      checkout: zh ? ["联系邮箱", "配送地址", "付款方式"] : ["Contact email", "Shipping address", "Payment method"],
+    };
+    const fieldMarkup = (items) => items.map((label) => `<label><span>${escapeHtml(label)}</span><i></i></label>`).join("");
+    let body = "";
+    if (variant === "stepper") body = `<div class="vp-form-progress"><span class="is-done">1</span><i></i><span class="is-active">2</span><i></i><span>3</span><i></i><span>4</span></div><div class="vp-form-step-copy"><small>${zh ? "第 2 / 4 步" : "Step 2 of 4"}</small><b>${zh ? "公司资料" : "Company details"}</b></div>${fieldMarkup((fields.multi || []).slice(0, 2))}<em>${zh ? "继续" : "Continue"} →</em>`;
+    else if (variant === "inline") body = `<div class="vp-inline-display"><small>${zh ? "项目标题" : "Project title"}</small><div><b>Atlas Design System</b><span>${zh ? "编辑" : "Edit"}</span></div></div><div class="vp-inline-edit"><input value="Atlas Design System" readonly><div><button>${zh ? "取消" : "Cancel"}</button><b>${zh ? "保存" : "Save"}</b></div></div>`;
+    else if (variant === "conversational") body = `<div class="vp-conversation-progress"><span style="width:50%"></span></div><small>${zh ? "第 2 / 4 题" : "Question 2 of 4"}</small><b class="vp-conversation-question">${zh ? "这个产品主要给谁使用？" : "Who is this product for?"}</b><div class="vp-conversation-options"><span>${zh ? "个人用户" : "Individuals"}</span><span class="is-active">${zh ? "产品团队" : "Product teams"}</span><span>${zh ? "企业客户" : "Enterprises"}</span></div>`;
+    else if (variant === "checkout") body = `<div class="vp-checkout-layout"><div>${fieldMarkup(fields.checkout)}</div><aside><small>${zh ? "订单摘要" : "Order summary"}</small><p><span>${zh ? "专业版年付" : "Pro annual"}</span><b>¥1,688</b></p><p><span>${zh ? "税费" : "Tax"}</span><b>¥0</b></p><strong><span>${zh ? "总计" : "Total"}</span><b>¥1,688</b></strong></aside></div>`;
+    else {
+      const selectedFields = fields[variant] || fields.single;
+      body = `${fieldMarkup(selectedFields)}${variant === "login" ? `<div class="vp-login-options"><span>□ ${zh ? "记住我" : "Remember me"}</span><b>${zh ? "忘记密码？" : "Forgot password?"}</b></div>` : ""}<em>${variant === "login" ? (zh ? "登录" : "Sign in") : (zh ? "继续" : "Continue")} →</em>`;
+    }
+    return `<div class="vp-variant-scene vp-variant-scene--form vp-variant-scene--${escapeHtml(variant)}"><div class="vp-form-variant-head"><small>${escapeHtml(variant)}</small><strong>${escapeHtml(title)}</strong><p>${escapeHtml(entry.role)}</p></div><div class="vp-form-variant-body">${body}</div></div>`;
   },
   tabs: ({ entry, language }) => {
     const title = language === "en" ? entry.en : entry.name;
     const variant = entry.id.replace("component-tabs-", "");
-    const labels = language === "en" ? ["Overview", "Activity", "Files"] : ["概览", "动态", "文件"];
-    return `<div class="vp-variant-scene vp-variant-scene--tabs vp-variant-scene--${escapeHtml(variant)}"><div class="vp-tabs-variant-title">${escapeHtml(title)}</div><div class="vp-tabs-variant-bar">${labels.map((label, index) => `<span class="${index === 0 ? "is-active" : ""}">${label}</span>`).join("")}</div><div class="vp-tabs-variant-panel"><strong>${language === "en" ? "Current view" : "当前视图"}</strong><i></i><i></i></div></div>`;
+    const zh = language !== "en";
+    const labels = zh ? ["概览", "动态", "文件"] : ["Overview", "Activity", "Files"];
+    const icons = ["⌂", "◇", "□"];
+    const tabItems = labels.map((label, index) => `<span class="${index === 0 ? "is-active" : ""}">${variant === "icon" ? `<b>${icons[index]}</b>` : ""}${label}</span>`).join("");
+    if (variant === "vertical") return `<div class="vp-variant-scene vp-variant-scene--tabs vp-variant-scene--vertical"><aside><small>${zh ? "工作区设置" : "WORKSPACE SETTINGS"}</small>${[zh ? "常规" : "General", zh ? "成员" : "Members", zh ? "通知" : "Notifications", zh ? "账单" : "Billing"].map((label, index) => `<span class="${index === 0 ? "is-active" : ""}">${label}</span>`).join("")}</aside><div class="vp-tabs-variant-panel"><small>${zh ? "常规" : "GENERAL"}</small><strong>${zh ? "工作区资料" : "Workspace profile"}</strong><i></i><i></i><button>${zh ? "保存更改" : "Save changes"}</button></div></div>`;
+    if (variant === "scroll") return `<div class="vp-variant-scene vp-variant-scene--tabs vp-variant-scene--scroll"><div class="vp-tabs-scroll-head"><strong>${zh ? "发现" : "Discover"}</strong><span>⌕</span></div><div class="vp-tabs-variant-bar">${(zh ? ["推荐", "设计", "AI", "商业", "文化", "旅行"] : ["For you", "Design", "AI", "Business", "Culture", "Travel"]).map((label, index) => `<span class="${index === 0 ? "is-active" : ""}">${label}</span>`).join("")}</div><div class="vp-tabs-article"><b>${zh ? "设计团队如何使用 AI" : "How design teams use AI"}</b><p>${zh ? "当前分类的真实内容摘要。" : "A real summary for the active category."}</p></div></div>`;
+    return `<div class="vp-variant-scene vp-variant-scene--tabs vp-variant-scene--${escapeHtml(variant)}"><div class="vp-tabs-variant-title">${escapeHtml(title)}</div><div class="vp-tabs-variant-bar">${tabItems}</div><div class="vp-tabs-variant-panel"><small>${zh ? "本月表现" : "THIS MONTH"}</small><strong>12,480</strong><em>+18.4%</em><div class="vp-tabs-mini-bars"><i></i><i></i><i></i><i></i><i></i></div></div></div>`;
   },
 });
 

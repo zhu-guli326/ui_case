@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 
 import { localizeVocabularyEntry, vocabularyById, vocabularyCategories, vocabularyEnglishById, vocabularyEntries } from "../vocabulary-data.js";
 import { DEFAULT_VOCABULARY_PREVIEW_IMAGE, SUPPORTED_VOCABULARY_PREVIEW_IDS, vocabularyPreviewMarkup } from "../vocabulary-preview.js";
+import { vocabularyComponentEntries } from "../src/features/vocabulary/vocabulary-component-data.js";
 
 const contentCategories = vocabularyCategories.filter((category) => !["all", "favorites"].includes(category.id));
 const requiredCoverage = ["sidebar", "breadcrumbs", "data-table", "checkbox", "menu", "skeleton"];
@@ -99,4 +100,35 @@ test("navigation deep dive is owned by the navigation category", () => {
   assert.match(vocabularyScript, /entryGrid\.innerHTML = navigationMode \? "" : list\.map\(cardMarkup\)\.join\(""\);/);
   assert.match(vocabularyScript, /const displayedCount = list\.length;/);
   assert.match(vocabularyScript, /return vocabularyEntries\.filter\(\(entry\) => entry\.category === id\)\.length;/);
+});
+
+test("component cards render copy before their visual specimen", () => {
+  const cardFunction = vocabularyScript.slice(vocabularyScript.indexOf("function cardMarkup"), vocabularyScript.indexOf("function renderEntries"));
+  const metaIndex = cardFunction.indexOf("entry-card-meta");
+  const titleIndex = cardFunction.indexOf("<h3>");
+  const askIndex = cardFunction.indexOf("entry-ask");
+  const previewIndex = cardFunction.indexOf("${previewMarkup(entry)}");
+  const footerIndex = cardFunction.indexOf("entry-card-footer");
+
+  assert.ok(metaIndex >= 0 && metaIndex < titleIndex, "category and favorite must appear before the title");
+  assert.ok(titleIndex < askIndex, "title must appear before the plain-language request");
+  assert.ok(askIndex < previewIndex, "copy must appear before the visual specimen");
+  assert.ok(previewIndex < footerIndex, "the detail action must follow the specimen");
+});
+
+test("navigation components use their own distinct preview factories", () => {
+  assert.match(vocabularyScript, /entry\.category === "navigation" && !entry\.componentKind/g);
+
+  for (const kind of ["hero", "card", "tabs"]) {
+    const entries = vocabularyComponentEntries.filter((entry) => entry.componentKind === kind);
+    const previews = entries.map((entry) => vocabularyPreviewMarkup(entry, { language: "zh" }));
+    assert.equal(new Set(previews).size, entries.length, `${kind} component previews must be distinct`);
+  }
+
+  const tabPreviews = vocabularyComponentEntries
+    .filter((entry) => entry.componentKind === "tabs")
+    .map((entry) => vocabularyPreviewMarkup(entry, { language: "zh" }));
+  assert.ok(tabPreviews.some((markup) => markup.includes("vp-variant-scene--vertical")), "vertical tabs need a vertical specimen");
+  assert.ok(tabPreviews.some((markup) => markup.includes("vp-variant-scene--scroll")), "scrollable tabs need a scrolling specimen");
+  assert.ok(tabPreviews.every((markup) => !markup.includes("让复杂界面变得清楚")), "tab specimens must not fall back to the navigation marketing page");
 });
