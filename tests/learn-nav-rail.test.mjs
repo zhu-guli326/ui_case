@@ -39,7 +39,7 @@ test("rail transitions and current-dot motion make chapter changes visible", () 
 });
 
 test("cache-busted formal assets replace the runtime hotfix", () => {
-  assert.match(html, /learn\.css\?v=20260821-bare-rail-v7/);
+  assert.match(html, /learn\.css\?v=20260822-path-rail-v1/);
   assert.match(html, /analytics\.config\.js\?v=20260821-bare-rail-v2/);
   assert.doesNotMatch(analyticsConfig, /learn-right-center-rail-hotfix|rail-near/);
 });

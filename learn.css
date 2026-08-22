@@ -19,8 +19,8 @@
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--page);color:var(--ink);text-rendering:optimizeLegibility}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{margin:0;background:var(--page);color:var(--ink);text-rendering:optimizeLegibility;overflow-x:clip}
 a{color:inherit}
 button{font:inherit}
 main{overflow:hidden}
@@ -352,3 +352,119 @@ main{overflow:hidden}
 }
 
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Keep the learning path visible without letting it compete with the lesson. */
+@media (min-width:981px){
+  .story-hero,.chapter,.behind-scenes,.final-cta,.learn-footer{
+    width:min(var(--max),calc(100% - 260px));
+    margin-left:clamp(28px,5vw,76px);
+    margin-right:auto;
+  }
+
+  .chapter-nav{
+    top:calc(var(--header-h) + 22px);
+    right:clamp(18px,3vw,44px);
+    width:144px;
+    gap:2px;
+    padding:15px 0 15px 18px;
+    transform:none;
+    border-left:1px solid rgba(15,21,17,.16);
+  }
+
+  .chapter-nav::before{
+    content:"LEARNING PATH / 08";
+    display:block;
+    margin:0 0 11px;
+    color:rgba(15,21,17,.42);
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:.14em;
+    line-height:1.2;
+  }
+
+  .chapter-nav a{
+    position:relative;
+    display:grid;
+    grid-template-columns:24px minmax(0,1fr);
+    gap:8px;
+    width:126px;
+    min-height:34px;
+    padding:0 10px 0 0;
+    color:rgba(15,21,17,.46);
+    font-size:11px;
+    letter-spacing:.015em;
+    text-transform:none;
+    opacity:1;
+    transform:none;
+    transition:color .2s ease,background .2s ease,padding-left .2s ease;
+  }
+
+  .chapter-nav a::before{
+    content:"";
+    position:absolute;
+    left:-19px;
+    top:0;
+    bottom:0;
+    width:1px;
+    background:transparent;
+    transition:background .2s ease;
+  }
+
+  .chapter-nav a:hover{
+    color:var(--ink);
+    background:rgba(15,21,17,.055);
+    transform:none;
+  }
+
+  .chapter-nav a b{
+    grid-column:2;
+    justify-self:start;
+    align-self:center;
+    font-weight:720;
+  }
+
+  .chapter-nav a span{
+    grid-column:1;
+    grid-row:1;
+    justify-self:start;
+    align-self:center;
+    width:auto;
+    height:auto;
+    border-radius:0;
+    background:none;
+    color:rgba(15,21,17,.34);
+    font-size:9px;
+    line-height:1;
+    font-variant-numeric:tabular-nums;
+    opacity:1;
+    box-shadow:none;
+    transform:none;
+    transition:color .2s ease,font-weight .2s ease;
+  }
+
+  .chapter-nav a.rail-near-2,
+  .chapter-nav a.rail-near-1,
+  .chapter-nav a.is-current{
+    font-size:11px;
+    opacity:1;
+    transform:none;
+  }
+
+  .chapter-nav a.rail-near-1{color:rgba(15,21,17,.72)}
+  .chapter-nav a.rail-near-1 span{width:auto;height:auto;background:none}
+  .chapter-nav a.rail-near-2 span{width:auto;height:auto}
+
+  .chapter-nav a.is-current{
+    color:var(--ink);
+    padding-left:8px;
+    background:var(--lime);
+    font-size:12px;
+  }
+
+  .chapter-nav a.is-current::before{background:var(--green)}
+  .chapter-nav a.is-current b{font-weight:850}
+  .chapter-nav a.is-current span{width:auto;height:auto;background:none;color:var(--green);box-shadow:none;font-weight:900;animation:none}
+
+  .story-hero{min-height:calc(100vh - var(--header-h) - 32px);padding-top:62px}
+  .chapter{scroll-margin-top:calc(var(--header-h) + 24px)}
+}
