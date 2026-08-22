@@ -291,27 +291,21 @@ function detailPreviewMarkup(entry) {
   return vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
 }
 
+const interactiveVariantIds = new Set([
+  "top-nav", "sidebar", "breadcrumbs", "bottom-tabs", "tabs", "segmented", "search", "filter-chips",
+  "card", "card-grid", "list", "media-tile", "detail-panel", "data-table", "button", "checkbox", "form", "toggle", "menu",
+  "modal", "drawer", "toast", "skeleton", "empty-state",
+  "layout-single-column", "layout-landing-page", "layout-masonry", "layout-fullscreen", "layout-split-pane", "layout-dashboard", "layout-modular",
+  "carousel-fade", "carousel-3d", "carousel-stack", "carousel-page", "carousel-accordion", "carousel-360", "carousel-parallax",
+]);
+
 function variantStateMarkup(entry) {
   const localized = localizedEntry(entry);
   const states = localized.states || [];
-  const tones = ["info", "success", "warning", "error"];
-  const kind = entry.category === "navigation" ? "navigation" : entry.category === "controls" ? "control" : entry.category === "feedback" ? "feedback" : entry.category === "content" ? "content" : entry.category === "layout" ? "layout" : "foundation";
-  const specimen = kind === "navigation"
-    ? `<div class="entry-variant-specimen is-navigation"><b>ON</b><span>产品</span><span>案例</span><span>方法</span></div>`
-    : kind === "control"
-      ? `<div class="entry-variant-specimen is-control"><span class="variant-control-dot"></span><b>${escapeHtml(localized.name)}</b><i>${escapeHtml(tr("继续", "Continue"))}</i></div>`
-      : kind === "content"
-        ? `<div class="entry-variant-specimen is-content"><span></span><span></span><span></span><span></span></div>`
-        : kind === "layout"
-          ? `<div class="entry-variant-specimen is-layout"><span></span><span></span><span></span></div>`
-          : `<div class="entry-variant-specimen is-generic"><b>${escapeHtml(localized.name)}</b><span>${escapeHtml(tr("状态预览", "State preview"))}</span></div>`;
-  return `<div class="entry-variant-panel variant-kind-${kind}" data-variant-panel data-variant-kind="${kind}" data-variant-index="0">
-    <div class="entry-variant-heading"><strong>${escapeHtml(localized.name)} · ${escapeHtml(tr("变体", "Variants"))}</strong><span>${escapeHtml(tr("点击切换", "Click to switch"))}</span></div>
-    ${specimen}
-    <div class="entry-variant-grid">${states.slice(0, 4).map((state, index) => {
-      const tone = tones[index % tones.length];
-      return `<button class="entry-variant-card is-${tone}${index === 0 ? " is-active" : ""}" type="button" data-variant-state="${index}" aria-pressed="${index === 0}"><span class="entry-variant-card-head"><b>${escapeHtml(state[0])}</b><em>${index + 1}</em></span><span class="entry-variant-message"><strong>${escapeHtml(state[1])}</strong></span></button>`;
-    }).join("")}</div>
+  return `<div class="entry-variant-panel" data-variant-panel data-entry-variant="${escapeHtml(entry.id)}" data-variant-index="0">
+    <div class="entry-variant-heading"><strong>${escapeHtml(localized.name)} · ${escapeHtml(tr("状态变体", "State variants"))}</strong></div>
+    <div class="entry-state-preview" data-variant-preview>${detailPreviewMarkup(entry)}</div>
+    <div class="entry-state-tabs" role="group" aria-label="${escapeHtml(tr(`${localized.name}状态`, `${localized.name} states`))}">${states.slice(0, 4).map((state, index) => `<button class="${index === 0 ? "is-active" : ""}" type="button" data-variant-state="${index}" data-variant-copy="${escapeHtml(state[1])}" aria-pressed="${index === 0}">${escapeHtml(state[0])}</button>`).join("")}</div>
     <div class="entry-variant-active" data-variant-active aria-live="polite">${escapeHtml(states[0]?.[1] || localized.role)}</div>
   </div>`;
 }
@@ -340,26 +334,25 @@ const cardMediaUrl = (entry) => layoutCardMedia[entry.id] || cardMediaPool[[...e
 function cardMarkup(entry) {
   const localized = localizedEntry(entry);
   const favorite = state.favorites.has(entry.id);
-  const useWhen = localized.useWhen?.[0] || localized.role;
-  const tags = (localized.tags || []).slice(0, 2);
-  return `<article class="entry-card" data-entry-id="${escapeHtml(entry.id)}">
+  const hasVariants = interactiveVariantIds.has(entry.id);
+  return `<article class="entry-card${hasVariants ? " has-variants" : " is-static"}" data-entry-id="${escapeHtml(entry.id)}">
     <div class="entry-card-inner">
       <section class="entry-card-face entry-card-front" aria-hidden="false">
-        <button class="entry-flip-hitarea" type="button" data-flip-card aria-pressed="false" aria-label="${escapeHtml(tr(`翻转 ${localized.name}，查看样式`, `Flip ${localized.name} to see the pattern`))}"></button>
+        ${hasVariants ? `<button class="entry-flip-hitarea" type="button" data-flip-card aria-pressed="false" aria-label="${escapeHtml(tr(`翻转 ${localized.name}，查看状态变体`, `Flip ${localized.name} to see state variants`))}"></button>` : ""}
         <div class="entry-card-body">
-          <div class="entry-card-meta"><span>${escapeHtml(categoryLabel(entry.category))}</span><span class="entry-flip-tag" aria-hidden="true">${escapeHtml(tr("可翻转", "FLIP"))} ↻</span><button class="favorite-button${favorite ? " is-favorite" : ""}" type="button" data-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}" aria-label="${escapeHtml(favorite ? `${tr("取消收藏", "Remove from favorites")} ${localized.name}` : `${tr("收藏", "Add to favorites")} ${localized.name}`)}" title="${escapeHtml(favorite ? tr("取消收藏", "Remove from favorites") : tr("收藏", "Add to favorites"))}">${favorite ? "★" : "☆"}</button></div>
+          <div class="entry-card-meta"><span>${escapeHtml(categoryLabel(entry.category))}</span>${hasVariants ? `<span class="entry-flip-tag" aria-hidden="true">${escapeHtml(tr("可切换状态", "STATE VARIANTS"))} ↻</span>` : ""}<button class="favorite-button${favorite ? " is-favorite" : ""}" type="button" data-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}" aria-label="${escapeHtml(favorite ? `${tr("取消收藏", "Remove from favorites")} ${localized.name}` : `${tr("收藏", "Add to favorites")} ${localized.name}`)}" title="${escapeHtml(favorite ? tr("取消收藏", "Remove from favorites") : tr("收藏", "Add to favorites"))}">${favorite ? "★" : "☆"}</button></div>
           <h3>${escapeHtml(localized.name)}${termAliasMarkup(entry)}</h3>
           <p class="entry-ask">“${escapeHtml(localized.ask)}”</p>
           ${previewMarkup(entry)}
         </div>
       </section>
-      <section class="entry-card-face entry-card-back" aria-hidden="true" inert>
+      ${hasVariants ? `<section class="entry-card-face entry-card-back" aria-hidden="true" inert>
         <button class="entry-flip-hitarea entry-flip-hitarea--back" type="button" data-flip-card aria-pressed="false" aria-label="${escapeHtml(tr(`翻回 ${localized.name} 的介绍`, `Flip back to the ${localized.name} introduction`))}"></button>
         <div class="entry-card-back-shell">
           ${variantStateMarkup(entry)}
           <div class="entry-card-back-actions"><button class="entry-copy-prompt-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}"><span>${escapeHtml(tr("复制 Prompt", "Copy prompt"))}</span><b aria-hidden="true">⧉</b></button></div>
         </div>
-      </section>
+      </section>` : ""}
     </div>
   </article>`;
 }
@@ -418,8 +411,7 @@ function renderEntries() {
       item.classList.toggle("is-active", active);
       item.setAttribute("aria-pressed", String(active));
     });
-    const states = [...panel.querySelectorAll("[data-variant-state]")];
-    const activeCopy = states[Number(button.dataset.variantState)]?.querySelector(".entry-variant-message small")?.textContent;
+    const activeCopy = button.dataset.variantCopy;
     const output = panel.querySelector("[data-variant-active]");
     if (output && activeCopy) output.textContent = activeCopy;
   }));
