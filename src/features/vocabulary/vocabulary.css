@@ -486,6 +486,14 @@ kbd { padding: 4px 7px; border: 1px solid var(--line); border-radius: 5px; color
 .entry-variant-panel[data-entry-variant="search"][data-variant-index="1"] .vp-search-field::after { width: 11px; height: 11px; margin-left: auto; border: 2px solid #cbd6ce; border-top-color: var(--vp-green); border-radius: 50%; content: ""; animation: variant-spin .8s linear infinite; }
 .entry-variant-panel[data-entry-variant="search"][data-variant-index="2"] .vp-search-results span { display: none; }
 .entry-variant-panel[data-entry-variant="search"][data-variant-index="2"] .vp-search-results::after { display: grid; min-height: 80px; place-items: center; color: var(--vp-muted); content: "没有匹配结果"; }
+.entry-variant-panel[data-entry-variant="top-nav"][data-variant-index="1"] .vp-nav-links b { color: inherit; }
+.entry-variant-panel[data-entry-variant="top-nav"][data-variant-index="1"] .vp-nav-links b:nth-child(2) { color: var(--vp-green); font-weight: 850; }
+.entry-variant-panel[data-entry-variant="sidebar"][data-variant-index="1"] .vp-side-links span { background: transparent; color: inherit; }
+.entry-variant-panel[data-entry-variant="sidebar"][data-variant-index="1"] .vp-side-links span:nth-child(2) { background: #dff5e8; color: #168143; }
+.entry-variant-panel[data-entry-variant="filter-chips"][data-variant-index="1"] .vp-filter-row .vp-pill { border-color: var(--vp-line); background: transparent; color: var(--vp-muted); }
+.entry-variant-panel[data-entry-variant="filter-chips"][data-variant-index="1"] .vp-filter-row .vp-pill:nth-child(2) { border-color: var(--vp-green); background: var(--vp-green); color: #fff; }
+.entry-variant-panel[data-entry-variant="data-table"][data-variant-index="1"] .vp-data-table tbody tr:nth-child(2) { background: #edf8f0; outline: 1px solid #8fcda3; }
+.entry-variant-panel[data-entry-variant="data-table"][data-variant-index="2"] .vp-data-table tbody { opacity: .48; }
 .entry-variant-panel[data-entry-variant="button"][data-variant-index="1"] .vp-button.is-primary { color: transparent; }
 .entry-variant-panel[data-entry-variant="button"][data-variant-index="1"] .vp-button.is-primary::after { position: absolute; width: 10px; height: 10px; border: 2px solid rgba(255,255,255,.48); border-top-color: #fff; border-radius: 50%; content: ""; animation: variant-spin .8s linear infinite; }
 .entry-variant-panel[data-entry-variant="button"][data-variant-index="2"] .vp-button.is-primary { background: #2a9d59; color: transparent; }
@@ -498,8 +506,12 @@ kbd { padding: 4px 7px; border: 1px solid var(--line); border-radius: 5px; color
 .entry-variant-panel[data-entry-variant="modal"][data-variant-index="2"] .vp-modal,
 .entry-variant-panel[data-entry-variant="drawer"][data-variant-index="2"] .vp-drawer,
 .entry-variant-panel[data-entry-variant="toast"][data-variant-index="2"] .vp-toast { transform: translateY(14px); opacity: .35; }
-.entry-variant-panel[data-entry-variant^="layout-"][data-variant-index="1"] .entry-state-preview > .vocabulary-preview { width: 72%; margin-inline: auto; }
-.entry-variant-panel[data-entry-variant^="layout-"][data-variant-index="2"] .entry-state-preview { opacity: .58; filter: grayscale(.25); }
+.entry-variant-panel[data-entry-variant="layout-split-pane"][data-variant-index="1"] .vp-layout--split .vp-layout-divider { transform: translateX(12px); }
+.entry-variant-panel[data-entry-variant="layout-dashboard"][data-variant-index="1"] .vp-layout-kpis i:nth-child(2) { outline: 2px solid #58c57b; }
+.entry-variant-panel[data-entry-variant="layout-modular"][data-variant-index="1"] .vp-layout--modular main { grid-template-columns: 1fr 1fr; }
+.entry-variant-panel[data-entry-variant="skeleton"][data-variant-index="1"] .vp-skeleton { opacity: .56; }
+.entry-variant-panel[data-entry-variant="skeleton"][data-variant-index="2"] .vp-skeleton { width: 82%; margin-inline: auto; }
+.entry-variant-panel[data-entry-variant="empty-state"][data-variant-index="1"] .vp-empty-action { background: var(--vp-green); color: #fff; }
 .entry-variant-panel[data-entry-variant^="carousel-"][data-variant-index="1"] .vp-carousel { transform: translateX(-4%); }
 .entry-variant-panel[data-entry-variant^="carousel-"][data-variant-index="2"] .vp-carousel { transform: scale(.96); opacity: .72; }
 @keyframes variant-spin { to { transform: rotate(1turn); } }
