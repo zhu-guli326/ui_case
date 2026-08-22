@@ -330,7 +330,7 @@ function cardMarkup(entry) {
       <section class="entry-card-face entry-card-back" aria-hidden="true" inert>
         <button class="entry-flip-hitarea entry-flip-hitarea--back" type="button" data-flip-card aria-pressed="false" aria-label="${escapeHtml(tr(`翻回 ${localized.name} 的介绍`, `Flip back to the ${localized.name} introduction`))}"></button>
         <div class="entry-card-back-shell">
-          <div class="entry-card-back-visual"><img class="entry-card-back-media" src="${escapeHtml(cardMediaUrl(entry))}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"></div>
+          <div class="entry-card-back-visual">${detailPreviewMarkup(entry)}</div>
           <div class="entry-card-back-insight"><span>${escapeHtml(tr("适用场景", "BEST FOR"))}</span><p>${escapeHtml(useWhen)}</p><div>${tags.map((tag) => `<i>${escapeHtml(tag)}</i>`).join("")}</div></div>
           <div class="entry-card-back-actions"><button class="entry-copy-prompt-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}"><span>${escapeHtml(tr("复制 Prompt", "Copy prompt"))}</span><b aria-hidden="true">⧉</b></button></div>
         </div>
