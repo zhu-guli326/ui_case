@@ -14,7 +14,7 @@ const vocabularyHtml = readFileSync(new URL("../vocabulary.html", import.meta.ur
 
 test("illustrated vocabulary entries stay complete and internally linked", () => {
   const allCategory = vocabularyCategories.find((category) => category.id === "all");
-  assert.equal(vocabularyEntries.length, 37);
+  assert.equal(vocabularyEntries.length, 44);
   assert.equal(vocabularyEntries.length, Number(allCategory?.countLabel));
   assert.equal(new Set(vocabularyEntries.map((entry) => entry.id)).size, vocabularyEntries.length);
   assert.equal(Object.keys(vocabularyById).length, vocabularyEntries.length);
