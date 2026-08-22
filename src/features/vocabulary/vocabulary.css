@@ -19,7 +19,7 @@
 html.dark-mode { --page: #15161a; --surface: #202126; --surface-soft: #292b31; --ink: #f4f4f5; --muted: #b5b7bf; --quiet: #aeb3bf; --line: #353740; --line-strong: #50535e; --accent: #61d98b; --accent-soft: #203b2a; --mint: #254333; --coral: #4b302b; --dark: #f4f4f5; }
 * { box-sizing: border-box; }
 html { max-width: 100%; overflow-x: clip; scroll-behavior: smooth; }
-body { max-width: 100%; margin: 0; overflow-x: clip; background: var(--page); color: var(--ink); font-family: inherit; font-size: 16px; line-height: 1.65; }
+body { max-width: 100%; margin: 0; overflow-x: clip; background: var(--page); color: var(--ink); font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; line-height: 1.65; }
 html.term-dialog-open { overflow: hidden; }
 a { color: inherit; }
 button, input, select { font: inherit; }
