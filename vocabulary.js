@@ -321,7 +321,7 @@ function cardMarkup(entry) {
       <section class="entry-card-face entry-card-front" aria-hidden="false">
         <button class="entry-flip-hitarea" type="button" data-flip-card aria-pressed="false" aria-label="${escapeHtml(tr(`翻转 ${localized.name}，查看样式`, `Flip ${localized.name} to see the pattern`))}"></button>
         <div class="entry-card-body">
-          <div class="entry-card-meta"><span>${escapeHtml(categoryLabel(entry.category))}</span><button class="favorite-button${favorite ? " is-favorite" : ""}" type="button" data-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}" aria-label="${escapeHtml(favorite ? `${tr("取消收藏", "Remove from favorites")} ${localized.name}` : `${tr("收藏", "Add to favorites")} ${localized.name}`)}" title="${escapeHtml(favorite ? tr("取消收藏", "Remove from favorites") : tr("收藏", "Add to favorites"))}">${favorite ? "★" : "☆"}</button></div>
+          <div class="entry-card-meta"><span>${escapeHtml(categoryLabel(entry.category))}</span><span class="entry-flip-tag" aria-hidden="true">${escapeHtml(tr("可翻转", "FLIP"))} ↻</span><button class="favorite-button${favorite ? " is-favorite" : ""}" type="button" data-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}" aria-label="${escapeHtml(favorite ? `${tr("取消收藏", "Remove from favorites")} ${localized.name}` : `${tr("收藏", "Add to favorites")} ${localized.name}`)}" title="${escapeHtml(favorite ? tr("取消收藏", "Remove from favorites") : tr("收藏", "Add to favorites"))}">${favorite ? "★" : "☆"}</button></div>
           <h3>${escapeHtml(localized.name)}${termAliasMarkup(entry)}</h3>
           <p class="entry-ask">“${escapeHtml(localized.ask)}”</p>
           ${previewMarkup(entry)}

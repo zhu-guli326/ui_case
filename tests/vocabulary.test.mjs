@@ -123,6 +123,7 @@ test("every component card exposes an accessible two-sided flip interaction", ()
   const cardFunction = vocabularyScript.slice(vocabularyScript.indexOf("function cardMarkup"), vocabularyScript.indexOf("function setCardFlipped"));
   assert.match(cardFunction, /entry-card-front/);
   assert.match(cardFunction, /entry-card-back/);
+  assert.match(cardFunction, /entry-flip-tag/);
   assert.match(cardFunction, /entry-card-back-insight/);
   assert.match(cardFunction, /entry-card-back-visual/);
   assert.match(cardFunction, /detailPreviewMarkup\(entry\)/);
