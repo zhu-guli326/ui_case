@@ -28,6 +28,13 @@ const solutionMedia = Object.freeze({
   "layout-split-pane": projectMediaUrl("photo-1518005020951-eccb494ad742"),
   "layout-dashboard": projectMediaUrl("photo-1497366811353-6870744d04b2"),
   "layout-modular": projectMediaUrl("photo-1497366216548-37526070297c"),
+  "carousel-fade": projectMediaUrl("photo-1500534623283-312aade485b7"),
+  "carousel-3d": projectMediaUrl("photo-1523275335684-37898b6baf30"),
+  "carousel-stack": projectMediaUrl("photo-1455390582262-044cdead277a"),
+  "carousel-page": projectMediaUrl("photo-1497366754035-f200968a6e72"),
+  "carousel-accordion": projectMediaUrl("photo-1549490349-8643362247b5"),
+  "carousel-360": projectMediaUrl("photo-1518005020951-eccb494ad742"),
+  "carousel-parallax": projectMediaUrl("photo-1500530855697-b586d89ba3ee"),
 });
 
 const solutionMediaSets = Object.freeze({
@@ -59,6 +66,13 @@ const solutionMediaSets = Object.freeze({
     projectMediaUrl("photo-1518005020951-eccb494ad742"),
     projectMediaUrl("photo-1455390582262-044cdead277a"),
   ],
+  "carousel-fade": [projectMediaUrl("photo-1500534623283-312aade485b7"), projectMediaUrl("photo-1497366754035-f200968a6e72")],
+  "carousel-3d": [projectMediaUrl("photo-1455390582262-044cdead277a"), projectMediaUrl("photo-1523275335684-37898b6baf30"), projectMediaUrl("photo-1518005020951-eccb494ad742")],
+  "carousel-stack": [projectMediaUrl("photo-1497366216548-37526070297c"), projectMediaUrl("photo-1549490349-8643362247b5"), projectMediaUrl("photo-1494438639946-1ebd1d20bf85")],
+  "carousel-page": [projectMediaUrl("photo-1497366754035-f200968a6e72"), projectMediaUrl("photo-1455390582262-044cdead277a")],
+  "carousel-accordion": [projectMediaUrl("photo-1549490349-8643362247b5"), projectMediaUrl("photo-1518005020951-eccb494ad742"), projectMediaUrl("photo-1497366216548-37526070297c"), projectMediaUrl("photo-1500534623283-312aade485b7")],
+  "carousel-360": [projectMediaUrl("photo-1523275335684-37898b6baf30")],
+  "carousel-parallax": [projectMediaUrl("photo-1500530855697-b586d89ba3ee"), projectMediaUrl("photo-1497366754035-f200968a6e72")],
 });
 
 const componentHeroMedia = Object.freeze({
@@ -108,6 +122,13 @@ const previewFactories = Object.freeze({
     <div class="vp-layout vp-layout--dashboard"><aside><b>AXIS</b><span>⌂</span><span>◇</span><span>□</span></aside><main><header><div><small>${copy.dashboard}</small><strong>${copy.project}</strong></div><b>${copy.thisMonth}</b></header><div class="vp-layout-kpis"><i><small>${copy.visitors}</small><strong>12.4k</strong><em>+18%</em></i><i><small>${copy.projects}</small><strong>24</strong><em>+4</em></i><i><small>${copy.status}</small><strong>98%</strong><em>${copy.active}</em></i></div><div class="vp-layout-chart"><span></span><i></i><i></i><i></i><i></i><i></i></div></main></div>`,
   "layout-modular": ({ copy, imageUrl }) => `
     <div class="vp-layout vp-layout--modular"><header><b>MY SPACE</b><small>＋ ${copy.create}</small></header><main><section class="is-profile"><span class="vp-avatar"></span><strong>${copy.account}</strong><small>${copy.online}</small></section><section class="is-feature">${media(imageUrl, "layout-module")}<div><small>${copy.featured}</small><strong>${copy.cardTitle}</strong></div></section><section class="is-stat"><small>${copy.projects}</small><strong>24</strong></section><section class="is-note"><small>${copy.today}</small><p>${copy.listSummaries[2]}</p></section></main></div>`,
+  "carousel-fade": ({ mediaUrls }) => `<div class="vp-carousel vp-carousel--fade"><div>${media(mediaUrls[0], "carousel-main")}<div><b>01</b><span>FADE</span></div></div><i></i><i></i><i></i></div>`,
+  "carousel-3d": ({ mediaUrls }) => `<div class="vp-carousel vp-carousel--3d"><div>${media(mediaUrls[0], "carousel-side")}</div><div class="is-active">${media(mediaUrls[1], "carousel-main")}</div><div>${media(mediaUrls[2], "carousel-side")}</div></div>`,
+  "carousel-stack": ({ mediaUrls }) => `<div class="vp-carousel vp-carousel--stack"><div>${media(mediaUrls[0], "carousel-main")}</div><div>${media(mediaUrls[1], "carousel-main")}</div><div>${media(mediaUrls[2], "carousel-main")}</div><b>SWIPE</b></div>`,
+  "carousel-page": ({ mediaUrls }) => `<div class="vp-carousel vp-carousel--page"><div>${media(mediaUrls[0], "carousel-main")}</div><div>${media(mediaUrls[1], "carousel-main")}</div><span>‹　›</span></div>`,
+  "carousel-accordion": ({ mediaUrls }) => `<div class="vp-carousel vp-carousel--accordion">${mediaUrls.slice(0, 4).map((url, index) => `<div class="${index === 1 ? "is-active" : ""}">${media(url, "carousel-main")}<b>0${index + 1}</b></div>`).join("")}</div>`,
+  "carousel-360": ({ mediaUrls }) => `<div class="vp-carousel vp-carousel--360"><div>${media(mediaUrls[0], "carousel-main")}<span>↔ DRAG TO ROTATE</span></div><b>360°</b></div>`,
+  "carousel-parallax": ({ mediaUrls }) => `<div class="vp-carousel vp-carousel--parallax">${media(mediaUrls[0], "carousel-back")}${media(mediaUrls[1], "carousel-main")}<strong>MOVE THROUGH<br>THE STORY</strong></div>`,
   "top-nav": ({ copy }) => `
     <div class="vp-navbar"><span class="vp-wordmark"><i></i>${copy.studio}</span><div class="vp-nav-links"><b class="is-active">${copy.home}</b><b>${copy.work}</b><b>${copy.about}</b></div><span class="vp-nav-action">${copy.contact}</span></div>`,
   sidebar: ({ copy }) => `
