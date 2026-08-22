@@ -290,6 +290,18 @@ function detailPreviewMarkup(entry) {
   return vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
 }
 
+const cardMediaPool = [
+  "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=82",
+  "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=82",
+  "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=82",
+  "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=82",
+  "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=82",
+  "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=1200&q=82",
+  "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=82",
+  "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=1200&q=82",
+];
+const cardMediaUrl = (entry) => cardMediaPool[[...entry.id].reduce((sum, character) => sum + character.charCodeAt(0), 0) % cardMediaPool.length];
+
 function cardMarkup(entry) {
   const localized = localizedEntry(entry);
   const favorite = state.favorites.has(entry.id);
@@ -309,7 +321,7 @@ function cardMarkup(entry) {
       <section class="entry-card-face entry-card-back" aria-hidden="true" inert>
         <button class="entry-flip-hitarea entry-flip-hitarea--back" type="button" data-flip-card aria-pressed="false" aria-label="${escapeHtml(tr(`翻回 ${localized.name} 的介绍`, `Flip back to the ${localized.name} introduction`))}"></button>
         <div class="entry-card-back-shell">
-          <div class="entry-card-back-visual"><img class="entry-card-back-media" src="${escapeHtml(entry.example.src || "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=1200&q=80")}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"></div>
+          <div class="entry-card-back-visual"><img class="entry-card-back-media" src="${escapeHtml(cardMediaUrl(entry))}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"></div>
           <div class="entry-card-back-insight"><span>${escapeHtml(tr("适用场景", "BEST FOR"))}</span><p>${escapeHtml(useWhen)}</p><div>${tags.map((tag) => `<i>${escapeHtml(tag)}</i>`).join("")}</div></div>
           <div class="entry-card-back-actions"><button class="entry-copy-prompt-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}"><span>${escapeHtml(tr("复制 Prompt", "Copy prompt"))}</span><b aria-hidden="true">⧉</b></button></div>
         </div>
