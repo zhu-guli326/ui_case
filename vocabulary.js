@@ -1,6 +1,6 @@
 import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./vocabulary-data.js?v=20260815-vocabulary-30";
 import { vocabularyComponentEntries } from "./src/features/vocabulary/vocabulary-component-data.js?v=20260822-unified-dictionary-v1";
-import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260821-solution-prototypes-v1";
+import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-component-preview-v1";
 
 const vocabularyEntries = [...baseVocabularyEntries, ...vocabularyComponentEntries];
 const vocabularyById = Object.fromEntries(vocabularyEntries.map((entry) => [entry.id, entry]));
@@ -18,6 +18,7 @@ i18n?.addTranslations({
   "vocabulary.backLibrary": { zh: "返回 image2 UI 案例库", en: "Back to the image2 UI library" },
   "vocabulary.mainNav": { zh: "主要导航", en: "Main navigation" },
   "vocabulary.heading": { zh: "UI 词典", en: "UI Vocabulary" },
+  "vocabulary.heroEyebrow": { zh: "UI 词汇 / 从需求到代码", en: "UI WORDS / FROM REQUEST TO CODE" },
   "vocabulary.intro": { zh: "把页面基础、导航、内容、控件和反馈整理成一套可搜索的 UI 词典，先看结构，再选择适合的形式和实现方式。", en: "Browse one searchable UI dictionary covering foundations, navigation, content, controls, and feedback." },
   "vocabulary.keyTerms": { zh: "个词典条目", en: "dictionary entries" },
   "vocabulary.localExamples": { zh: "完整方案原型", en: "Complete solution prototypes" },
@@ -36,6 +37,7 @@ i18n?.addTranslations({
   "vocabulary.termHelpBody": { zh: "先点开卡片看“你可能会说”，再对照组成结构和容易混淆。", en: "Open a card and start with the plain-language request, then compare its anatomy and commonly confused patterns." },
   "vocabulary.openGuide": { zh: "打开规范长文", en: "Open the full guide" },
   "vocabulary.allTerms": { zh: "所有词条", en: "All terms" },
+  "vocabulary.resultsEyebrow": { zh: "按界面作用浏览", en: "BROWSE BY ROLE" },
   "vocabulary.sort": { zh: "排序", en: "Sort" },
   "vocabulary.sortRecommended": { zh: "推荐顺序", en: "Recommended" },
   "vocabulary.sortName": { zh: "中文名称", en: "Term name" },
@@ -50,8 +52,10 @@ i18n?.addTranslations({
   "vocabulary.readGuide": { zh: "阅读规范版", en: "Read the guide" },
   "vocabulary.closeDetails": { zh: "关闭词条详情", en: "Close term details" },
   "vocabulary.navigationDeepTitle": { zh: "导航不是只有一种栏", en: "Navigation is more than one bar" },
+  "vocabulary.navigationEyebrow": { zh: "深入了解 / 导航模式", en: "DEEP DIVE / NAVIGATION PATTERNS" },
   "vocabulary.navigationDeepIntro": { zh: "先判断它服务的是全局、局部、层级还是临时任务，再选择位置和样式。下面 8 种模式看起来相似，但承担的导航范围完全不同。", en: "First decide whether the pattern serves global, local, hierarchical, or temporary navigation. These eight patterns may look similar, but they operate at very different scopes." },
   "vocabulary.navigationMatrixTitle": { zh: "到底该选哪一种？", en: "Which pattern should you choose?" },
+  "vocabulary.matrixEyebrow": { zh: "选择判断", en: "DECISION MATRIX" },
   "vocabulary.navigationMatrixIntro": { zh: "不要从“哪种更好看”开始，先看信息范围、入口数量、设备和切换频率。", en: "Do not begin with visual preference. Start with information scope, destination count, device, and switching frequency." },
   "vocabulary.navigationSources": { zh: "参考规范", en: "Reference guidelines" },
 });
@@ -273,7 +277,7 @@ function previewMarkup(entry) {
   const preview = entry.category === "navigation"
     ? navigationPreviewMarkup(entry.preview)
     : vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
-  return `<div class="entry-visual" role="img" aria-label="${escapeHtml(tr(`${localized.name}的完整解决方案原型`, `Complete solution prototype for ${localized.name}`))}">${preview}<div class="visual-label"><span>${escapeHtml(entry.en)}</span><span>${escapeHtml(tr("解决方案", "SOLUTION"))}</span></div></div>`;
+  return `<div class="entry-visual" role="img" aria-label="${escapeHtml(tr(`${localized.name}的完整解决方案原型`, `Complete solution prototype for ${localized.name}`))}">${preview}<div class="visual-label"><span>${escapeHtml(currentLanguage === "en" ? entry.en : localized.name)}</span><span>${escapeHtml(tr("解决方案", "SOLUTION"))}</span></div></div>`;
 }
 
 function detailPreviewMarkup(entry) {
@@ -292,8 +296,6 @@ function cardMarkup(entry) {
       <div class="entry-card-meta"><span>${escapeHtml(categoryLabel(entry.category))}</span><button class="favorite-button${favorite ? " is-favorite" : ""}" type="button" data-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}" aria-label="${escapeHtml(favorite ? `${tr("取消收藏", "Remove from favorites")} ${localized.name}` : `${tr("收藏", "Add to favorites")} ${localized.name}`)}" title="${escapeHtml(favorite ? tr("取消收藏", "Remove from favorites") : tr("收藏", "Add to favorites"))}">${favorite ? "★" : "☆"}</button></div>
       <h3>${escapeHtml(localized.name)}${termAliasMarkup(entry)}</h3>
       <p class="entry-ask">“${escapeHtml(localized.ask)}”</p>
-      <p class="entry-definition">${escapeHtml(localized.definition)}</p>
-      <div class="entry-tags">${localized.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
       <div class="entry-card-footer"><button class="entry-open-button" type="button" data-open-term="${escapeHtml(entry.id)}">${escapeHtml(tr("打开词条详情", "Open term details"))}<span aria-hidden="true">↗</span></button></div>
     </div>
   </article>`;

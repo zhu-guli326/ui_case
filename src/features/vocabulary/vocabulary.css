@@ -24,6 +24,34 @@ html.dark-mode { --page: #15161a; --surface: #202126; --surface-soft: #292b31; -
 .vp-component-entry__layout { display: flex; gap: 5px; }
 .vp-component-entry__layout i { display: block; width: 34px; height: 5px; border-radius: 3px; background: var(--vp-line); }
 .vp-component-entry__layout i:first-child { width: 58px; background: var(--vp-green); }
+.vp-component-button-preview { min-height: 164px; align-content: start; }
+.vp-component-button-preview strong { min-height: 24px; }
+.vp-component-button-stage, .vp-component-toolbar, .vp-component-text-row, .vp-component-icon-row, .vp-component-phone-scene { position: relative; display: flex; min-height: 54px; align-items: center; gap: 8px; padding: 9px; overflow: hidden; border: 1px solid var(--vp-line); border-radius: 6px; background: color-mix(in srgb, var(--vp-panel) 72%, var(--vp-soft)); }
+.vp-component-btn { display: inline-flex; min-height: 30px; align-items: center; justify-content: center; padding: 0 12px; border-radius: 5px; color: var(--vp-ink); font-size: 9px; font-weight: 800; white-space: nowrap; }
+.vp-component-btn.is-solid { background: var(--vp-green); color: #fff; box-shadow: 0 7px 14px color-mix(in srgb, var(--vp-green) 22%, transparent); }
+.vp-component-btn.is-outline { border: 1px solid var(--vp-green); color: var(--vp-green); }
+.vp-component-btn.is-muted { border: 1px solid var(--vp-line); color: var(--vp-muted); }
+.vp-component-btn.is-ghost { background: color-mix(in srgb, var(--vp-green) 10%, transparent); color: var(--vp-green); }
+.vp-component-btn.is-text { min-height: auto; padding: 0; color: var(--vp-green); }
+.vp-component-btn.is-danger { background: #b84a3a; color: #fff; }
+.vp-component-button-stage > i { width: 38px; height: 5px; border-radius: 3px; background: var(--vp-line); }
+.vp-component-toolbar { justify-content: flex-end; }
+.vp-component-toolbar > span:not(.vp-component-btn) { width: 24px; height: 24px; border-radius: 4px; background: var(--vp-line); opacity: .72; }
+.vp-component-text-row { justify-content: space-between; }
+.vp-component-text-row > i { width: 58%; height: 7px; border-radius: 4px; background: var(--vp-line); }
+.vp-component-icon-row { justify-content: center; }
+.vp-component-icon-btn { display: grid; width: 30px; height: 30px; place-items: center; border: 1px solid var(--vp-line); border-radius: 50%; color: var(--vp-muted); font-size: 13px; }
+.vp-component-icon-btn.is-active { border-color: var(--vp-green); background: var(--vp-green); color: #fff; }
+.vp-component-phone-scene { display: grid; align-content: start; min-height: 76px; padding: 10px 44px 10px 10px; }
+.vp-component-phone-scene i { display: block; height: 7px; border-radius: 4px; background: var(--vp-line); }
+.vp-component-phone-scene i:nth-child(1) { width: 76%; }
+.vp-component-phone-scene i:nth-child(2) { width: 58%; }
+.vp-component-phone-scene i:nth-child(3) { width: 68%; margin-top: 12px; }
+.vp-component-fab { position: absolute; right: 12px; bottom: 12px; display: grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; background: var(--vp-green); color: #fff; font-size: 22px; box-shadow: 0 10px 18px color-mix(in srgb, var(--vp-green) 26%, transparent); }
+.vp-component-split-btn { display: inline-grid; grid-template-columns: minmax(0, 1fr) 34px; width: 156px; min-height: 34px; overflow: hidden; border: 1px solid var(--vp-green); border-radius: 5px; color: #fff; font-size: 9px; font-weight: 850; }
+.vp-component-split-btn span, .vp-component-split-btn b { display: grid; place-items: center; background: var(--vp-green); }
+.vp-component-split-btn b { border-left: 1px solid color-mix(in srgb, #fff 38%, transparent); font-size: 13px; }
+.vp-component-warning { width: 24px; height: 24px; border-radius: 50%; background: color-mix(in srgb, #b84a3a 18%, var(--vp-panel)); }
 * { box-sizing: border-box; }
 html { max-width: 100%; overflow-x: clip; scroll-behavior: smooth; }
 body { max-width: 100%; margin: 0; overflow-x: clip; background: var(--page); color: var(--ink); font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; line-height: 1.65; }

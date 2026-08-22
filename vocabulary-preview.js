@@ -112,6 +112,76 @@ const previewFactories = Object.freeze({
     <div class="vp-type"><small>DISPLAY / 56</small><h2>${copy.typeTitle}</h2><div><span>01</span><h3>${copy.typeHeading}</h3></div><p>${copy.typeBody}</p><blockquote>${copy.typeQuote}</blockquote><footer><b>Label</b><span>Supporting text</span><code>Mono 12</code></footer></div>`,
 });
 
+const componentPreviewFactories = Object.freeze({
+  "component-btn-solid": ({ entry, language }) => `
+    <div class="vp-component-entry vp-component-button-preview vp-component-button-preview--solid">
+      <span class="vp-component-entry__type">${escapeHtml(entry.componentKind)}</span>
+      <strong>${escapeHtml(language === "en" ? entry.en : entry.name)}</strong>
+      <div class="vp-component-button-stage"><span class="vp-component-btn is-solid">${language === "en" ? "Save changes" : "保存更改"}</span><i></i></div>
+      <small>${escapeHtml(entry.role)}</small>
+    </div>`,
+  "component-btn-outline": ({ entry, language }) => `
+    <div class="vp-component-entry vp-component-button-preview vp-component-button-preview--outline">
+      <span class="vp-component-entry__type">${escapeHtml(entry.componentKind)}</span>
+      <strong>${escapeHtml(language === "en" ? entry.en : entry.name)}</strong>
+      <div class="vp-component-button-stage"><span class="vp-component-btn is-outline">${language === "en" ? "Back" : "返回"}</span><span class="vp-component-btn is-muted">${language === "en" ? "Cancel" : "取消"}</span></div>
+      <small>${escapeHtml(entry.role)}</small>
+    </div>`,
+  "component-btn-ghost": ({ entry, language }) => `
+    <div class="vp-component-entry vp-component-button-preview vp-component-button-preview--ghost">
+      <span class="vp-component-entry__type">${escapeHtml(entry.componentKind)}</span>
+      <strong>${escapeHtml(language === "en" ? entry.en : entry.name)}</strong>
+      <div class="vp-component-toolbar"><span></span><span></span><span class="vp-component-btn is-ghost">${language === "en" ? "Duplicate" : "复制"}</span></div>
+      <small>${escapeHtml(entry.role)}</small>
+    </div>`,
+  "component-btn-text": ({ entry, language }) => `
+    <div class="vp-component-entry vp-component-button-preview vp-component-button-preview--text">
+      <span class="vp-component-entry__type">${escapeHtml(entry.componentKind)}</span>
+      <strong>${escapeHtml(language === "en" ? entry.en : entry.name)}</strong>
+      <div class="vp-component-text-row"><i></i><span class="vp-component-btn is-text">${language === "en" ? "View details" : "查看详情"} ↗</span></div>
+      <small>${escapeHtml(entry.role)}</small>
+    </div>`,
+  "component-btn-icon": ({ entry, language }) => `
+    <div class="vp-component-entry vp-component-button-preview vp-component-button-preview--icon">
+      <span class="vp-component-entry__type">${escapeHtml(entry.componentKind)}</span>
+      <strong>${escapeHtml(language === "en" ? entry.en : entry.name)}</strong>
+      <div class="vp-component-icon-row"><span class="vp-component-icon-btn">⌕</span><span class="vp-component-icon-btn is-active">＋</span><span class="vp-component-icon-btn">♡</span><span class="vp-component-icon-btn">⋯</span></div>
+      <small>${escapeHtml(entry.role)}</small>
+    </div>`,
+  "component-btn-fab": ({ entry, language }) => `
+    <div class="vp-component-entry vp-component-button-preview vp-component-button-preview--fab">
+      <span class="vp-component-entry__type">${escapeHtml(entry.componentKind)}</span>
+      <strong>${escapeHtml(language === "en" ? entry.en : entry.name)}</strong>
+      <div class="vp-component-phone-scene"><i></i><i></i><i></i><span class="vp-component-fab">＋</span></div>
+      <small>${escapeHtml(entry.role)}</small>
+    </div>`,
+  "component-btn-split": ({ entry, language }) => `
+    <div class="vp-component-entry vp-component-button-preview vp-component-button-preview--split">
+      <span class="vp-component-entry__type">${escapeHtml(entry.componentKind)}</span>
+      <strong>${escapeHtml(language === "en" ? entry.en : entry.name)}</strong>
+      <div class="vp-component-split-btn"><span>${language === "en" ? "Export" : "导出"}</span><b>⌄</b></div>
+      <small>${escapeHtml(entry.role)}</small>
+    </div>`,
+  "component-btn-destructive": ({ entry, language }) => `
+    <div class="vp-component-entry vp-component-button-preview vp-component-button-preview--danger">
+      <span class="vp-component-entry__type">${escapeHtml(entry.componentKind)}</span>
+      <strong>${escapeHtml(language === "en" ? entry.en : entry.name)}</strong>
+      <div class="vp-component-button-stage"><span class="vp-component-btn is-danger">${language === "en" ? "Delete item" : "删除项目"}</span><span class="vp-component-warning"></span></div>
+      <small>${escapeHtml(entry.role)}</small>
+    </div>`,
+});
+
+function componentPreviewFactory(entry) {
+  if (!entry?.componentKind) return null;
+  return componentPreviewFactories[entry.id] || (({ entry: currentEntry, language }) => `
+    <div class="vp-component-entry vp-component-entry--${escapeHtml(currentEntry.componentKind)}">
+      <span class="vp-component-entry__type">${escapeHtml(currentEntry.componentKind)}</span>
+      <strong>${escapeHtml(language === "en" ? currentEntry.en : currentEntry.name)}</strong>
+      <div class="vp-component-entry__layout"><i></i><i></i><i></i></div>
+      <small>${escapeHtml(currentEntry.role)}</small>
+    </div>`);
+}
+
 const vocabularyPreviewCopy = {
   zh: { dashboard: "数据看板", workspace: "工作区", project: "项目概览", overview: "概览", updated: "刚刚更新", share: "分享", create: "新建", newCollection: "新系列", heroTitle: "为日常留出空间", heroBody: "克制、清晰，并为真正重要的内容保留焦点。", explore: "浏览系列", learn: "了解更多", nextStep: "下一步", ctaTitle: "准备好开始了吗？", ctaBody: "创建第一个项目，并邀请团队一起协作。", start: "开始创建", studio: "NORTH STUDIO", home: "首页", work: "作品", about: "关于", contact: "联系", mainMenu: "主菜单", projects: "项目", analytics: "数据分析", team: "团队", account: "林清", online: "在线", library: "资料库", collections: "系列", summerEdit: "夏日精选", breadcrumbHint: "沿层级返回上级，快速确认当前位置。", today: "今天", yesterday: "昨天", saved: "收藏", profile: "我的", activity: "动态", files: "文件", thisMonth: "本月表现", day: "日", week: "周", month: "月", visitors: "访问人数", search: "搜索项目或文件", recent: "最近访问", all: "全部", design: "设计", product: "产品", research: "研究", results: "项结果", featured: "精选", cardTitle: "Quiet Forms", cardBody: "材质、光线与克制的空间秩序。", view: "查看详情", listOne: "设计系统更新", listTwo: "夏季产品研究", listThree: "团队工作纪要", read: "阅读", collection: "系列", objects: "对象", detailTitle: "Calm Interior No. 04", detailBody: "一组关于材质、结构和自然光的空间研究。", date: "日期", status: "状态", available: "可浏览", open: "打开详情", allProjects: "全部项目", records: "条记录", filter: "筛选", updatedShort: "更新", atlas: "Atlas 设计系统", orbit: "Orbit 研究", fieldNotes: "田野笔记", review: "待审核", draft: "草稿", primary: "主要按钮", secondary: "次要按钮", icon: "图标按钮", disabled: "禁用", continue: "继续", saveDraft: "保存草稿", submit: "提交", permissions: "权限", chooseAccess: "选择成员权限", viewAccess: "查看", viewAccessHint: "可以浏览和评论", editAccess: "编辑", editAccessHint: "部分成员可编辑", adminAccess: "管理", adminAccessHint: "可以管理权限", name: "姓名", nameValue: "林清", email: "邮箱", password: "密码", passwordHint: "至少需要 8 个字符", remember: "记住我的选择", createAccount: "创建账户", preferences: "偏好设置", notifications: "通知提醒", weekly: "每周摘要", autoSave: "自动保存", projectActions: "项目操作", actions: "操作", duplicate: "创建副本", move: "移动到…", delete: "移至回收站", confirmation: "确认操作", modalTitle: "发布这个项目？", modalBody: "发布后，拥有链接的人都可以查看。", cancel: "取消", confirm: "确认发布", details: "详情", drawerTitle: "项目设置", owner: "负责人", active: "进行中", savedTitle: "更改已保存", savedBody: "所有内容已同步", loading: "正在载入", emptyTitle: "还没有内容", emptyBody: "调整筛选条件，或创建第一个项目。", clear: "清除筛选", typeTitle: "清晰先于装饰", typeHeading: "建立可读的层级", typeBody: "稳定的字号、行高与内容宽度，让信息自然形成阅读顺序。", typeQuote: "设计不是增加，而是决定什么值得被看见。" },
   en: { dashboard: "Dashboard", workspace: "Workspace", project: "Project overview", overview: "Overview", updated: "Updated just now", share: "Share", create: "Create", newCollection: "New collection", heroTitle: "Make room for everyday life", heroBody: "Quiet, clear, and focused on what matters most.", explore: "Explore", learn: "Learn more", nextStep: "Next step", ctaTitle: "Ready to begin?", ctaBody: "Create your first project and invite the team.", start: "Get started", studio: "NORTH STUDIO", home: "Home", work: "Work", about: "About", contact: "Contact", mainMenu: "Main menu", projects: "Projects", analytics: "Analytics", team: "Team", account: "Lin Qing", online: "Online", library: "Library", collections: "Collections", summerEdit: "Summer edit", breadcrumbHint: "Move up the hierarchy and confirm the current location.", today: "Today", yesterday: "Yesterday", saved: "Saved", profile: "Profile", activity: "Activity", files: "Files", thisMonth: "This month", day: "Day", week: "Week", month: "Month", visitors: "Visitors", search: "Search projects or files", recent: "Recent", all: "All", design: "Design", product: "Product", research: "Research", results: "results", featured: "Featured", cardTitle: "Quiet Forms", cardBody: "Material, light, and restrained spatial order.", view: "View details", listOne: "Design system update", listTwo: "Summer product research", listThree: "Team working notes", read: "read", collection: "Collection", objects: "Objects", detailTitle: "Calm Interior No. 04", detailBody: "A study of material, structure, and natural light.", date: "Date", status: "Status", available: "Available", open: "Open details", allProjects: "All projects", records: "records", filter: "Filter", updatedShort: "Updated", atlas: "Atlas design system", orbit: "Orbit research", fieldNotes: "Field notes", review: "Review", draft: "Draft", primary: "Primary", secondary: "Secondary", icon: "Icon", disabled: "Disabled", continue: "Continue", saveDraft: "Save draft", submit: "Submit", permissions: "Permissions", chooseAccess: "Choose member access", viewAccess: "View", viewAccessHint: "Can browse and comment", editAccess: "Edit", editAccessHint: "Some members can edit", adminAccess: "Admin", adminAccessHint: "Can manage access", name: "Name", nameValue: "Lin Qing", email: "Email", password: "Password", passwordHint: "Use at least 8 characters", remember: "Remember my choice", createAccount: "Create account", preferences: "Preferences", notifications: "Notifications", weekly: "Weekly summary", autoSave: "Auto save", projectActions: "Project actions", actions: "Actions", duplicate: "Duplicate", move: "Move to…", delete: "Move to trash", confirmation: "Confirmation", modalTitle: "Publish this project?", modalBody: "Anyone with the link will be able to view it.", cancel: "Cancel", confirm: "Publish", details: "Details", drawerTitle: "Project settings", owner: "Owner", active: "Active", savedTitle: "Changes saved", savedBody: "Everything is in sync", loading: "Loading", emptyTitle: "Nothing here yet", emptyBody: "Adjust the filters or create your first project.", clear: "Clear filters", typeTitle: "Clarity before decoration", typeHeading: "Build a readable hierarchy", typeBody: "Stable type sizes, line heights, and content widths create a natural reading order.", typeQuote: "Design is deciding what deserves to be seen." },
@@ -155,20 +225,14 @@ function externalImageUrl(value) {
 export function vocabularyPreviewMarkup(entryOrId, { imageUrl = DEFAULT_IMAGE_URL, language = "zh" } = {}) {
   const id = typeof entryOrId === "string" ? entryOrId : entryOrId?.id;
   const entry = typeof entryOrId === "object" ? entryOrId : null;
-  const factory = previewFactories[id] || (entry?.componentKind ? ({ copy }) => `
-    <div class="vp-component-entry">
-      <span class="vp-component-entry__type">${escapeHtml(entry.componentKind)}</span>
-      <strong>${escapeHtml(language === "en" ? entry.en : entry.name)}</strong>
-      <div class="vp-component-entry__layout"><i></i><i></i><i></i></div>
-      <small>${escapeHtml(language === "en" ? entry.role : entry.role)}</small>
-    </div>` : null);
+  const factory = previewFactories[id] || componentPreviewFactory(entry);
   if (!factory) throw new RangeError(`Unsupported vocabulary preview: ${id || "(missing id)"}`);
   const copy = vocabularyPreviewCopy[language === "en" ? "en" : "zh"];
   const safeRequestedImage = externalImageUrl(imageUrl);
   const rejectedImage = Boolean(imageUrl) && safeRequestedImage === DEFAULT_IMAGE_URL && imageUrl !== DEFAULT_IMAGE_URL;
   const resolvedImage = rejectedImage ? DEFAULT_IMAGE_URL : solutionMedia[id] || safeRequestedImage;
   const mediaUrls = solutionMediaSets[id] || [resolvedImage, resolvedImage, resolvedImage];
-  return `<div class="vocabulary-preview vocabulary-preview--${id}" data-vocabulary-preview="${id}" aria-hidden="true"><div class="vp-canvas">${factory({ copy, imageUrl: resolvedImage, mediaUrls })}</div></div>`;
+  return `<div class="vocabulary-preview vocabulary-preview--${id}" data-vocabulary-preview="${id}" aria-hidden="true"><div class="vp-canvas">${factory({ copy, entry, imageUrl: resolvedImage, language, mediaUrls })}</div></div>`;
 }
 
 export function renderVocabularyPreview(target, entryOrId, options) {
