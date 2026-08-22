@@ -124,6 +124,7 @@ test("every component card exposes an accessible two-sided flip interaction", ()
   assert.match(cardFunction, /entry-card-front/);
   assert.match(cardFunction, /entry-card-back/);
   assert.match(cardFunction, /entry-flip-tag/);
+  assert.doesNotMatch(cardFunction, /visual-label/);
   assert.match(cardFunction, /entry-card-back-insight/);
   assert.match(cardFunction, /entry-card-back-visual/);
   assert.match(cardFunction, /detailPreviewMarkup\(entry\)/);

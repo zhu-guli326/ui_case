@@ -1,6 +1,6 @@
 import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./vocabulary-data.js?v=20260822-layout-patterns-v1";
 import { vocabularyComponentEntries } from "./src/features/vocabulary/vocabulary-component-data.js?v=20260822-form-details-v1";
-import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-layout-patterns-v1";
+import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-layout-patterns-v2";
 
 const vocabularyEntries = [...baseVocabularyEntries, ...vocabularyComponentEntries];
 const vocabularyById = Object.fromEntries(vocabularyEntries.map((entry) => [entry.id, entry]));
@@ -283,7 +283,7 @@ function renderCategories() {
 function previewMarkup(entry) {
   const localized = localizedEntry(entry);
   const preview = vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
-  return `<div class="entry-visual" role="img" aria-label="${escapeHtml(tr(`${localized.name}的界面缩略图`, `Thumbnail for ${localized.name}`))}">${preview}<span class="visual-label"><span>${escapeHtml(tr("快速识别", "QUICK LOOK"))}</span><span>${escapeHtml(tr("点击翻转", "FLIP"))} ↻</span></span></div>`;
+  return `<div class="entry-visual" role="img" aria-label="${escapeHtml(tr(`${localized.name}的界面缩略图`, `Thumbnail for ${localized.name}`))}">${preview}</div>`;
 }
 
 function detailPreviewMarkup(entry) {
