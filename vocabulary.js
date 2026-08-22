@@ -1,6 +1,6 @@
-import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./vocabulary-data.js?v=20260822-carousel-v1";
+import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./vocabulary-data.js?v=20260822-variants-v1";
 import { vocabularyComponentEntries } from "./src/features/vocabulary/vocabulary-component-data.js?v=20260822-form-details-v1";
-import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-carousel-v1";
+import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-variants-v1";
 
 const vocabularyEntries = [...baseVocabularyEntries, ...vocabularyComponentEntries];
 const vocabularyById = Object.fromEntries(vocabularyEntries.map((entry) => [entry.id, entry]));
@@ -290,6 +290,22 @@ function detailPreviewMarkup(entry) {
   return vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
 }
 
+function variantStateMarkup(entry) {
+  const localized = localizedEntry(entry);
+  const states = localized.states || [];
+  const labels = currentLanguage === "en"
+    ? [["Info", "info"], ["Success", "success"], ["Warning", "warning"], ["Error", "error"]]
+    : [["提示", "info"], ["成功", "success"], ["警告", "warning"], ["错误", "error"]];
+  return `<div class="entry-variant-panel" data-variant-panel>
+    <div class="entry-variant-heading"><strong>${escapeHtml(tr("常见变体", "Common variants"))}</strong><span>Variants</span></div>
+    <div class="entry-variant-grid">${labels.map(([label, tone], index) => {
+      const state = states[index % Math.max(states.length, 1)] || [localized.name, localized.role];
+      return `<button class="entry-variant-card is-${tone}${index === 0 ? " is-active" : ""}" type="button" data-variant-state="${index}" aria-pressed="${index === 0}"><span class="entry-variant-card-head"><b>${escapeHtml(label)}</b><em>${tone}</em></span><span class="entry-variant-message"><i>${["ⓘ", "✓", "△", "×"][index]}</i><strong>${escapeHtml(state[0])}</strong><small>${escapeHtml(state[1])}</small></span></button>`;
+    }).join("")}</div>
+    <div class="entry-variant-active" data-variant-active>${escapeHtml(states[0]?.[1] || localized.role)}</div>
+  </div>`;
+}
+
 const cardMediaPool = [
   "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=82",
   "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=82",
@@ -330,8 +346,7 @@ function cardMarkup(entry) {
       <section class="entry-card-face entry-card-back" aria-hidden="true" inert>
         <button class="entry-flip-hitarea entry-flip-hitarea--back" type="button" data-flip-card aria-pressed="false" aria-label="${escapeHtml(tr(`翻回 ${localized.name} 的介绍`, `Flip back to the ${localized.name} introduction`))}"></button>
         <div class="entry-card-back-shell">
-          <div class="entry-card-back-visual">${detailPreviewMarkup(entry)}</div>
-          <div class="entry-card-back-insight"><span>${escapeHtml(tr("适用场景", "BEST FOR"))}</span><p>${escapeHtml(useWhen)}</p><div>${tags.map((tag) => `<i>${escapeHtml(tag)}</i>`).join("")}</div></div>
+          ${variantStateMarkup(entry)}
           <div class="entry-card-back-actions"><button class="entry-copy-prompt-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}"><span>${escapeHtml(tr("复制 Prompt", "Copy prompt"))}</span><b aria-hidden="true">⧉</b></button></div>
         </div>
       </section>
@@ -381,6 +396,19 @@ function renderEntries() {
   document.querySelectorAll("[data-copy-prompt]").forEach((button) => button.addEventListener("click", (event) => {
     event.stopPropagation();
     copyPrompt(button.dataset.copyPrompt);
+  }));
+  document.querySelectorAll("[data-variant-state]").forEach((button) => button.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const panel = button.closest("[data-variant-panel]");
+    panel?.querySelectorAll("[data-variant-state]").forEach((item) => {
+      const active = item === button;
+      item.classList.toggle("is-active", active);
+      item.setAttribute("aria-pressed", String(active));
+    });
+    const states = [...panel.querySelectorAll("[data-variant-state]")];
+    const activeCopy = states[Number(button.dataset.variantState)]?.querySelector(".entry-variant-message small")?.textContent;
+    const output = panel.querySelector("[data-variant-active]");
+    if (output && activeCopy) output.textContent = activeCopy;
   }));
   document.querySelectorAll("[data-favorite]").forEach((button) => button.addEventListener("click", (event) => {
     event.stopPropagation();
