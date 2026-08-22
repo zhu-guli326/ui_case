@@ -1,6 +1,6 @@
-import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./vocabulary-data.js?v=20260822-variants-v1";
+import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./vocabulary-data.js?v=20260822-variants-v2";
 import { vocabularyComponentEntries } from "./src/features/vocabulary/vocabulary-component-data.js?v=20260822-form-details-v1";
-import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-variants-v1";
+import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-variants-v2";
 
 const vocabularyEntries = [...baseVocabularyEntries, ...vocabularyComponentEntries];
 const vocabularyById = Object.fromEntries(vocabularyEntries.map((entry) => [entry.id, entry]));
@@ -296,13 +296,13 @@ function variantStateMarkup(entry) {
   const labels = currentLanguage === "en"
     ? [["Info", "info"], ["Success", "success"], ["Warning", "warning"], ["Error", "error"]]
     : [["提示", "info"], ["成功", "success"], ["警告", "warning"], ["错误", "error"]];
-  return `<div class="entry-variant-panel" data-variant-panel>
+  return `<div class="entry-variant-panel" data-variant-panel data-variant-tone="info">
     <div class="entry-variant-heading"><strong>${escapeHtml(tr("常见变体", "Common variants"))}</strong><span>Variants</span></div>
     <div class="entry-variant-grid">${labels.map(([label, tone], index) => {
       const state = states[index % Math.max(states.length, 1)] || [localized.name, localized.role];
       return `<button class="entry-variant-card is-${tone}${index === 0 ? " is-active" : ""}" type="button" data-variant-state="${index}" aria-pressed="${index === 0}"><span class="entry-variant-card-head"><b>${escapeHtml(label)}</b><em>${tone}</em></span><span class="entry-variant-message"><i>${["ⓘ", "✓", "△", "×"][index]}</i><strong>${escapeHtml(state[0])}</strong><small>${escapeHtml(state[1])}</small></span></button>`;
     }).join("")}</div>
-    <div class="entry-variant-active" data-variant-active>${escapeHtml(states[0]?.[1] || localized.role)}</div>
+    <div class="entry-variant-active" data-variant-active aria-live="polite">${escapeHtml(states[0]?.[1] || localized.role)}</div>
   </div>`;
 }
 
@@ -400,6 +400,8 @@ function renderEntries() {
   document.querySelectorAll("[data-variant-state]").forEach((button) => button.addEventListener("click", (event) => {
     event.stopPropagation();
     const panel = button.closest("[data-variant-panel]");
+    const tone = [...button.classList].find((name) => name.startsWith("is-") && name !== "is-active")?.replace("is-", "") || "info";
+    panel?.setAttribute("data-variant-tone", tone);
     panel?.querySelectorAll("[data-variant-state]").forEach((item) => {
       const active = item === button;
       item.classList.toggle("is-active", active);
