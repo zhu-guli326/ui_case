@@ -130,8 +130,13 @@ test("every component card exposes an accessible two-sided flip interaction", ()
   assert.match(vocabularyCss, /@media \(prefers-reduced-motion:\s*reduce\)[\s\S]{0,240}\.entry-card-inner/);
 });
 
-test("navigation components use their own distinct preview factories", () => {
-  assert.match(vocabularyScript, /entry\.category === "navigation" && !entry\.componentKind/g);
+test("navigation terms use their own distinct preview factories", () => {
+  assert.doesNotMatch(vocabularyScript, /entry\.category === "navigation" && !entry\.componentKind/g);
+
+  const navigationPreviews = vocabularyEntries
+    .filter((entry) => entry.category === "navigation")
+    .map((entry) => vocabularyPreviewMarkup(entry, { language: "zh" }));
+  assert.equal(new Set(navigationPreviews).size, navigationPreviews.length, "navigation terms must not share one generic preview");
 
   for (const kind of ["hero", "card", "tabs"]) {
     const entries = vocabularyComponentEntries.filter((entry) => entry.componentKind === kind);

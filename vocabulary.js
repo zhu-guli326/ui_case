@@ -290,16 +290,12 @@ function renderCategories() {
 
 function previewMarkup(entry) {
   const localized = localizedEntry(entry);
-  const preview = entry.category === "navigation" && !entry.componentKind
-    ? navigationPreviewMarkup(entry.preview)
-    : vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
+  const preview = vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
   return `<div class="entry-visual" role="img" aria-label="${escapeHtml(tr(`${localized.name}的完整解决方案原型`, `Complete solution prototype for ${localized.name}`))}">${preview}</div>`;
 }
 
 function detailPreviewMarkup(entry) {
-  return entry.category === "navigation" && !entry.componentKind
-    ? navigationPreviewMarkup(entry.preview)
-    : vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
+  return vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
 }
 
 function cardMarkup(entry) {
