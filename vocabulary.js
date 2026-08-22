@@ -292,10 +292,10 @@ function detailPreviewMarkup(entry) {
 }
 
 const interactiveVariantIds = new Set([
-  "top-nav", "sidebar", "breadcrumbs", "bottom-tabs", "tabs", "segmented", "search", "filter-chips",
-  "card", "card-grid", "list", "media-tile", "detail-panel", "data-table", "button", "checkbox", "form", "toggle", "menu",
+  "top-nav", "sidebar", "bottom-tabs", "tabs", "segmented", "search", "filter-chips", "data-table",
+  "button", "checkbox", "form", "toggle", "menu",
   "modal", "drawer", "toast", "skeleton", "empty-state",
-  "layout-single-column", "layout-landing-page", "layout-masonry", "layout-fullscreen", "layout-split-pane", "layout-dashboard", "layout-modular",
+  "layout-split-pane", "layout-dashboard", "layout-modular",
   "carousel-fade", "carousel-3d", "carousel-stack", "carousel-page", "carousel-accordion", "carousel-360", "carousel-parallax",
 ]);
 
