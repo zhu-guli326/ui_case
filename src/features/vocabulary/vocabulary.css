@@ -393,7 +393,7 @@ kbd { padding: 4px 7px; border: 1px solid var(--line); border-radius: 5px; color
 .entry-card-back-shell { position: relative; z-index: 2; display: grid; height: 100%; grid-template-rows: minmax(0, 1fr) auto auto; gap: 11px; padding: 16px; pointer-events: none; }
 .entry-card-back-visual { position: relative; min-height: 0; overflow: hidden; border-radius: 11px; background: #1a2b21; }
 .entry-card-back-visual > .vocabulary-preview { width: 100%; height: 100%; }
-.entry-card-back-visual > .vocabulary-preview > .vp-canvas { min-height: 100%; }
+.entry-card-back-visual > .vocabulary-preview > .vp-canvas { height: 100%; min-height: 100%; }
 .entry-card-back-media { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(.9) contrast(1.02); }
 .entry-card-back-topline { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 12px; color: rgba(255,255,255,.58); font: 750 9px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .65px; text-transform: uppercase; }
 .entry-card-back-topline b { overflow: hidden; color: #fff; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
@@ -505,7 +505,7 @@ kbd { padding: 4px 7px; border: 1px solid var(--line); border-radius: 5px; color
 .vp-layout-browser main p { margin: 0; color: var(--vp-muted); font-size: 4px; line-height: 1.35; }
 .vp-layout-browser main img { height: 35px; margin: 2px 0; border-radius: 2px; }
 .vp-layout-browser main > span { width: 100%; height: 3px; border-radius: 2px; background: var(--vp-line); }
-.vp-layout-browser main > span.is-short { width: 66%; }
+.vp-layout-browser main > span.is-short { width: 66%; }.vp-layout-browser main > span:nth-last-child(2) { width: 82%; }.vp-layout-browser main > span:nth-last-child(3) { width: 92%; }
 .vp-layout--landing { display: grid; grid-template-rows: 1fr 38px; }
 .vp-layout--landing section { position: relative; overflow: hidden; }
 .vp-layout--landing section::after { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,24,17,.84), rgba(8,24,17,.08)); content: ""; }
