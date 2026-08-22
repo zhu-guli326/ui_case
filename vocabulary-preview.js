@@ -154,7 +154,14 @@ function externalImageUrl(value) {
 
 export function vocabularyPreviewMarkup(entryOrId, { imageUrl = DEFAULT_IMAGE_URL, language = "zh" } = {}) {
   const id = typeof entryOrId === "string" ? entryOrId : entryOrId?.id;
-  const factory = previewFactories[id];
+  const entry = typeof entryOrId === "object" ? entryOrId : null;
+  const factory = previewFactories[id] || (entry?.componentKind ? ({ copy }) => `
+    <div class="vp-component-entry">
+      <span class="vp-component-entry__type">${escapeHtml(entry.componentKind)}</span>
+      <strong>${escapeHtml(language === "en" ? entry.en : entry.name)}</strong>
+      <div class="vp-component-entry__layout"><i></i><i></i><i></i></div>
+      <small>${escapeHtml(language === "en" ? entry.role : entry.role)}</small>
+    </div>` : null);
   if (!factory) throw new RangeError(`Unsupported vocabulary preview: ${id || "(missing id)"}`);
   const copy = vocabularyPreviewCopy[language === "en" ? "en" : "zh"];
   const safeRequestedImage = externalImageUrl(imageUrl);

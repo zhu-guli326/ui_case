@@ -1,5 +1,9 @@
-import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries, vocabularyById } from "./vocabulary-data.js?v=20260815-vocabulary-30";
+import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./vocabulary-data.js?v=20260815-vocabulary-30";
+import { vocabularyComponentEntries } from "./src/features/vocabulary/vocabulary-component-data.js?v=20260822-unified-dictionary-v1";
 import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260821-solution-prototypes-v1";
+
+const vocabularyEntries = [...baseVocabularyEntries, ...vocabularyComponentEntries];
+const vocabularyById = Object.fromEntries(vocabularyEntries.map((entry) => [entry.id, entry]));
 
 document.querySelectorAll(".reference-link").forEach((link) => link.remove());
 
@@ -8,14 +12,14 @@ const i18n = window.image2I18n;
 let currentLanguage = i18n?.language || "zh";
 
 i18n?.addTranslations({
-  "vocabulary.metaDescription": { zh: "UI 方案目录：用完整原型、真实内容和详细变体选择合适的界面模式。", en: "A UI solution catalog for choosing patterns through complete prototypes, real content, and detailed variants." },
+  "vocabulary.metaDescription": { zh: "UI 词典：按类别浏览页面结构、导航、内容、控件和反馈形式。", en: "A UI dictionary for browsing page structures, navigation, content, controls, and feedback patterns." },
   "vocabulary.pageTitle": { zh: "图文 UI 词典 · IMAGE2 UI", en: "Illustrated UI Vocabulary · IMAGE2 UI" },
   "vocabulary.skipResults": { zh: "跳到词条列表", en: "Skip to term list" },
   "vocabulary.backLibrary": { zh: "返回 image2 UI 案例库", en: "Back to the image2 UI library" },
   "vocabulary.mainNav": { zh: "主要导航", en: "Main navigation" },
   "vocabulary.heading": { zh: "图文 UI 词典", en: "Illustrated UI Vocabulary" },
-  "vocabulary.intro": { zh: "按设计元素浏览完整方案：先看真实页面效果，再比较组成、类型、状态与适用场景，直接选出可以落地的样式。", en: "Browse complete solutions by UI element, then compare anatomy, variants, states, and use cases to choose an implementation-ready pattern." },
-  "vocabulary.keyTerms": { zh: "个重点词条", en: "key terms" },
+  "vocabulary.intro": { zh: "把页面基础、导航、内容、控件和反馈整理成一套可搜索的 UI 词典，先看结构，再选择适合的形式和实现方式。", en: "Browse one searchable UI dictionary covering foundations, navigation, content, controls, and feedback." },
+  "vocabulary.keyTerms": { zh: "个词典条目", en: "dictionary entries" },
   "vocabulary.localExamples": { zh: "完整方案原型", en: "Complete solution prototypes" },
   "vocabulary.copyablePrompts": { zh: "可复制 Agent prompt", en: "Copyable agent prompts" },
   "vocabulary.diagramLabel": { zh: "从用户需求到界面实现的三步示意", en: "Three steps from a user request to interface implementation" },
@@ -166,15 +170,17 @@ const navText = (pair) => tr(pair[0], pair[1]);
 const showsNavigationDeepDive = () => state.category === "navigation" && !state.query.trim();
 
 function navigationPreviewMarkup(type) {
-  const line = '<i class="nav-demo-line"></i>';
-  if (type === "top") return `<div class="nav-demo nav-demo--top"><div class="nav-demo-topbar"><b>ON</b><span class="is-active"></span><span></span><span></span><span></span><em></em></div><div class="nav-demo-content">${line.repeat(4)}</div></div>`;
-  if (type === "side") return `<div class="nav-demo nav-demo--side"><aside><b>ON</b><span class="is-active"></span><span></span><span></span><small></small><span></span><span></span></aside><div class="nav-demo-content">${line.repeat(5)}</div></div>`;
-  if (type === "rail") return `<div class="nav-demo nav-demo--rail"><aside><b>+</b><span class="is-active">●</span><span>◇</span><span>□</span><span>○</span></aside><div class="nav-demo-content">${line.repeat(5)}</div></div>`;
-  if (type === "bottom") return `<div class="nav-demo nav-demo--bottom"><div class="nav-demo-phone"><div class="nav-demo-content">${line.repeat(4)}</div><nav><span class="is-active">●<small>Home</small></span><span>◇<small>Explore</small></span><span>□<small>Saved</small></span><span>○<small>Me</small></span></nav></div></div>`;
-  if (type === "drawer") return `<div class="nav-demo nav-demo--drawer"><div class="nav-demo-content">${line.repeat(4)}</div><div class="nav-demo-backdrop"></div><aside><b>Menu</b><span class="is-active"></span><span></span><span></span><span></span></aside></div>`;
-  if (type === "tabs") return `<div class="nav-demo nav-demo--tabs"><b>Project Alpha</b><nav><span class="is-active">Overview</span><span>Activity</span><span>Files</span><span>Settings</span></nav><div class="nav-demo-content">${line.repeat(4)}</div></div>`;
-  if (type === "crumbs") return `<div class="nav-demo nav-demo--crumbs"><nav><span>Workspace</span><i>›</i><span>Projects</span><i>›</i><b>Alpha</b></nav><h4>Project Alpha</h4><div class="nav-demo-content">${line.repeat(4)}</div></div>`;
-  return `<div class="nav-demo nav-demo--mega"><div class="nav-demo-topbar"><b>SHOP</b><span class="is-active">Products</span><span>Solutions</span><span>Learn</span></div><div class="nav-demo-mega-panel"><div><b>By team</b>${line.repeat(3)}</div><div><b>By use case</b>${line.repeat(3)}</div><div><b>Featured</b><em></em></div></div></div>`;
+  const image = (src, alt) => `<img class="nav-demo-image" src="${src}" alt="${alt}" loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
+  const media = "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=640&q=80";
+  const portrait = "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=640&q=80";
+  if (type === "top") return `<div class="nav-demo nav-demo--top"><div class="nav-demo-topbar"><b>ON</b><span class="is-active">产品</span><span>案例</span><span>方法</span><span>词典</span><em aria-label="用户头像">林</em></div><div class="nav-demo-content"><small>本周精选</small><h4>让复杂界面变得清楚</h4><p>从真实案例开始学习 UI 结构。</p><button>浏览词典 →</button>${image(media, "桌面上的设计资料与界面草图")}</div></div>`;
+  if (type === "side") return `<div class="nav-demo nav-demo--side"><aside><b>ON DESIGN</b><strong>工作区</strong><span class="is-active">⌂ 总览</span><span>▣ 项目</span><span>◇ 资源库</span><small>团队</small><span>○ 成员</span><span>⚙ 设置</span></aside><div class="nav-demo-content"><small>工作区 / 总览</small><h4>产品团队本周进展</h4><p>8 个项目正在进行，3 个需要关注。</p><div class="nav-demo-stat-row"><b>24</b><span>活跃项目</span><b>92%</b><span>按时交付</span></div></div></div>`;
+  if (type === "rail") return `<div class="nav-demo nav-demo--rail"><aside><b>+</b><span class="is-active">⌂</span><span>▣</span><span>◇</span><span>○</span><small>帮助</small></aside><div class="nav-demo-content"><small>项目 / Atlas</small><h4>设计系统更新</h4><p>组件、令牌和发布记录集中在这里。</p><div class="nav-demo-progress"><span style="width:72%"></span></div><small>72% 已完成</small></div></div>`;
+  if (type === "bottom") return `<div class="nav-demo nav-demo--bottom"><div class="nav-demo-phone"><div class="nav-demo-content"><small>今日推荐</small><h4>沿海慢旅行</h4>${image(portrait, "海边旅行照片") }<p>6 个安静、适合散步的目的地。</p></div><nav><span class="is-active">●<small>首页</small></span><span>◇<small>探索</small></span><span>□<small>收藏</small></span><span>○<small>我的</small></span></nav></div></div>`;
+  if (type === "drawer") return `<div class="nav-demo nav-demo--drawer"><div class="nav-demo-content"><small>设置</small><h4>通知偏好</h4><p>选择你希望收到的更新。</p><div class="nav-demo-toggle-row"><span>产品更新</span><b>开</b></div><div class="nav-demo-toggle-row"><span>每周摘要</span><b>关</b></div></div><div class="nav-demo-backdrop"></div><aside><b>菜单</b><span class="is-active">⌂ 首页</span><span>▣ 项目</span><span>◇ 收藏</span><span>⚙ 设置</span></aside></div>`;
+  if (type === "tabs") return `<div class="nav-demo nav-demo--tabs"><b>Atlas 项目</b><nav><span class="is-active">概览</span><span>动态</span><span>文件</span><span>设置</span></nav><div class="nav-demo-content"><small>本月访问</small><strong class="nav-demo-number">12,480</strong><p>较上月增长 18.4%</p><div class="nav-demo-chart"><i></i><i></i><i></i><i></i><i></i></div></div></div>`;
+  if (type === "crumbs") return `<div class="nav-demo nav-demo--crumbs"><nav><span>工作区</span><i>›</i><span>项目</span><i>›</i><b>Atlas</b></nav><h4>设计系统更新</h4><div class="nav-demo-content"><p>组件库与页面规范</p><div class="nav-demo-file-row"><span>▤</span><b>release-notes.md</b><small>刚刚更新</small></div><div class="nav-demo-file-row"><span>▤</span><b>tokens.css</b><small>昨天</small></div></div></div>`;
+  return `<div class="nav-demo nav-demo--mega"><div class="nav-demo-topbar"><b>ON</b><span class="is-active">产品</span><span>资源</span><span>学习</span></div><div class="nav-demo-mega-panel"><div><b>按团队</b><span>设计团队</span><span>产品团队</span><span>工程团队</span></div><div><b>按场景</b><span>建立品牌</span><span>做工作台</span><span>优化移动端</span></div><div><b>精选案例</b>${image(media, "设计团队在桌面前协作")}</div></div></div>`;
 }
 
 function renderNavigationDeepDive() {
@@ -407,7 +413,7 @@ function openTerm(id, { focusTitle = false } = {}) {
     <figure class="detail-figure"><div class="detail-preview" role="img" aria-label="${escapeHtml(tr(`${entry.name}的完整解决方案原型`, `Complete solution prototype for ${entry.name}`))}">${vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage })}</div><figcaption>${escapeHtml(componentCaption(entry))}</figcaption></figure>
     <div class="detail-columns">
       <section><h3>${tr("组成结构 · Anatomy", "Anatomy")}</h3>${tableMarkup(entry.anatomy, [tr("部件", "Part"), tr("它负责什么", "Responsibility")])}</section>
-      <section><h3>${tr("常见变体 · Variants", "Common variants")}</h3>${tableMarkup(entry.variants, [tr("变体", "Variant"), tr("什么时候用", "When to use")])}</section>
+      <section><h3>${tr("常见形式 · Forms", "Common forms")}</h3>${tableMarkup(entry.variants, [tr("形式", "Form"), tr("什么时候用", "When to use")])}</section>
     </div>
     <div class="detail-columns">
       <section><h3>${tr("状态与响应式", "States and responsive behavior")}</h3>${tableMarkup(entry.states, [tr("状态", "State"), tr("实现提示", "Implementation hint")])}</section>
