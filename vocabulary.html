@@ -4,33 +4,625 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <meta name="description" content="UI 方案目录：用完整原型、真实内容和详细变体选择合适的界面模式。" data-i18n-attr="content:vocabulary.metaDescription">
-  <title data-i18n="vocabulary.pageTitle">图文 UI 词典 · IMAGE2 UI</title>
-  <link rel="stylesheet" href="./src/features/vocabulary/vocabulary.css?v=20260821-tabs-detail-v1">
-    <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
-    <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
-    <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
-  <script type="module" src="./vocabulary.js?v=20260821-tabs-detail-v1"></script>
+  <meta name="description" content="图文 UI 词典：30 个 UI 词汇、代码组件预览和可复制的 Agent prompt。">
+  <title>图文 UI 词典 · IMAGE2 UI</title>
+  <!-- 原版 site-header 样式和脚本（保持导航栏一致） -->
+  <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-redesign">
+  <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-redesign">
+  <link rel="stylesheet" href="./src/features/vocabulary/vocabulary.css?v=20260821-combined">
+  <script src="./src/core/app-shell/app-shell.js?v=20260821-redesign"></script>
+  <script type="module" src="./vocabulary.js?v=20260821-combined"></script>
+  <style>
+/* ------------------------------------------------------------
+   UI Component Variants Atlas — Redesign Stylesheet
+   6 categories · 41 variants · 100% code-rendered
+   ------------------------------------------------------------ */
+
+:root {
+  /* Color tokens */
+  --page: #f7f6f2;
+  --surface: #ffffff;
+  --surface-soft: #f5f4f0;
+  --surface-sunk: #eeedea;
+  --ink: #18181b;
+  --ink-soft: #3f3f46;
+  --muted: #6f727a;
+  --quiet: #9ca0a8;
+  --line: #e6e7eb;
+  --line-strong: #cfd2da;
+  --accent: #168143;
+  --accent-hover: #0f6b34;
+  --accent-soft: #ebf8ef;
+  --accent-tint: #dff5e8;
+  --coral: #d9534f;
+  --coral-soft: #ffe6df;
+  --amber: #c77d12;
+  --amber-soft: #fff3e0;
+  --indigo: #4f46e5;
+  --indigo-soft: #ede9fe;
+  --dark: #202127;
+  --shadow-sm: 0 1px 2px rgba(20, 20, 25, 0.04);
+  --shadow-md: 0 4px 12px rgba(20, 20, 25, 0.06), 0 1px 3px rgba(20, 20, 25, 0.04);
+  --shadow-lg: 0 12px 32px rgba(20, 20, 25, 0.10), 0 4px 8px rgba(20, 20, 25, 0.06);
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --content-width: 1280px;
+  --header-height: 64px;
+  --catbar-height: 56px;
+  --font-sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Fira Code", Consolas, monospace;
+}
+
+html.dark-mode {
+  --page: #15161a;
+  --surface: #202126;
+  --surface-soft: #292b31;
+  --surface-sunk: #1c1d22;
+  --ink: #f4f4f5;
+  --ink-soft: #d4d4d8;
+  --muted: #b5b7bf;
+  --quiet: #8b8e96;
+  --line: #353740;
+  --line-strong: #50535e;
+  --accent: #61d98b;
+  --accent-hover: #7fe8a4;
+  --accent-soft: #1f3b2a;
+  --accent-tint: #254333;
+  --coral: #f06a64;
+  --coral-soft: #4b302b;
+  --amber: #e8a44a;
+  --amber-soft: #3d2e16;
+  --indigo: #8b80f7;
+  --indigo-soft: #2a2547;
+  --dark: #f4f4f5;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+* { box-sizing: border-box; }
+html { max-width: 100%; overflow-x: clip; scroll-behavior: smooth; }
+body {
+  max-width: 100%;
+  margin: 0;
+  overflow-x: clip;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body { display: flex; flex-direction: column; }
+body > image2-site-header { order: 1; }
+body > .page-hero { order: 2; }
+body > .combined-vocabulary { order: 3; }
+body > .category-bar { order: 4; }
+body > main.main-content { order: 5; }
+body > .vocab-footer { order: 6; }
+body > .site-footer { order: 7; }
+html.dialog-open { overflow: hidden; }
+a { color: inherit; text-decoration: none; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: none; padding: 0; }
+img { max-width: 100%; display: block; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* ------------------------------------------------------------
+   Skip Link
+   ------------------------------------------------------------ */
+.skip-link {
+  position: fixed; top: 10px; left: 12px; z-index: 100;
+  padding: 8px 14px; background: var(--dark); color: var(--page);
+  border-radius: var(--radius-sm); font-size: 13px;
+  transform: translateY(-160%); transition: transform 0.2s;
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* ------------------------------------------------------------
+   Site Header — 使用原版 image2-site-header 组件
+   此处仅保留页面顶部间距适配
+   ------------------------------------------------------------ */
+body { padding-top: 8px; }
+.page-hero { margin-top: 16px; }
+
+/* ------------------------------------------------------------
+   Page Hero
+   ------------------------------------------------------------ */
+.page-hero {
+  padding: 56px 24px 48px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--surface) 0%, var(--page) 100%);
+}
+.hero-inner {
+  max-width: var(--content-width); margin: 0 auto; text-align: center;
+}
+.eyebrow {
+  font-size: 13px; font-weight: 650; letter-spacing: 0.16em;
+  color: var(--accent); margin: 0 0 20px; text-transform: uppercase;
+}
+.page-hero h1 {
+  font-size: clamp(42px, 5.3vw, 68px); font-weight: 800; line-height: 1.12;
+  margin: 0 0 24px; letter-spacing: -0.03em;
+}
+.hero-intro {
+  font-size: clamp(18px, 2.1vw, 26px); color: var(--ink-soft);
+  max-width: 980px; margin: 0 auto 42px; line-height: 1.7;
+}
+.hero-stats {
+  display: flex; justify-content: center; gap: clamp(48px, 7vw, 96px); flex-wrap: wrap;
+}
+.stat { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 76px; }
+.stat strong {
+  font-size: clamp(42px, 4.2vw, 56px); font-weight: 800; color: var(--accent);
+  font-variant-numeric: tabular-nums; line-height: .98;
+}
+.stat span { font-size: 15px; color: var(--muted); letter-spacing: 0; }
+
+/* ------------------------------------------------------------
+   Category Bar (Sticky)
+   ------------------------------------------------------------ */
+.category-bar {
+  position: sticky; top: var(--header-height); z-index: 30;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+.category-bar-inner {
+  max-width: var(--content-width); margin: 0 auto; padding: 10px 24px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.cat-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; font-size: 13px; font-weight: 600;
+  color: var(--muted); background: transparent;
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  transition: all 0.15s; white-space: nowrap;
+}
+.cat-chip em {
+  font-style: normal; font-size: 11px; color: var(--quiet);
+  background: var(--surface-sunk); padding: 1px 6px; border-radius: 999px;
+  font-variant-numeric: tabular-nums;
+}
+.cat-chip:hover { color: var(--ink); border-color: var(--ink-soft); }
+.cat-chip.is-active {
+  color: var(--surface); background: var(--ink); border-color: var(--ink);
+}
+.cat-chip.is-active em { color: var(--ink); background: rgba(255,255,255,0.2); }
+
+.cat-search { margin-left: auto; }
+.cat-search input {
+  width: 220px; padding: 7px 14px; font-size: 13px;
+  background: var(--surface-soft); border: 1px solid var(--line-strong);
+  border-radius: 999px; color: var(--ink); transition: all 0.15s;
+}
+.cat-search input:focus {
+  outline: none; border-color: var(--accent); background: var(--surface);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.cat-search input::placeholder { color: var(--quiet); }
+
+/* ------------------------------------------------------------
+   Main Content
+   ------------------------------------------------------------ */
+.main-content {
+  max-width: var(--content-width); margin: 0 auto; padding: 32px 24px 64px;
+}
+.variant-section-heading {
+  max-width: 760px;
+  margin: 0 0 28px;
+}
+.variant-section-heading h2 {
+  margin: 10px 0 0;
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.1;
+}
+.variant-section-heading > p:last-child {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+.results-summary {
+  font-size: 13px; color: var(--muted); margin-bottom: 20px;
+  padding: 0 4px;
+}
+
+/* ------------------------------------------------------------
+   Variants Grid
+   ------------------------------------------------------------ */
+.variants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+/* Variant Card */
+.variant-card {
+  background: var(--surface); border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg); overflow: hidden;
+  display: flex; flex-direction: column;
+  box-shadow: 0 6px 18px rgba(24, 24, 27, 0.06);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.variant-card:hover {
+  border-color: var(--accent); box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.variant-preview {
+  position: relative; background: var(--surface);
+  border-bottom: 1px solid var(--line-strong);
+  min-height: 200px; display: flex; align-items: center; justify-content: center;
+  padding: 24px; overflow: hidden;
+}
+.variant-preview-label {
+  position: absolute; top: 10px; left: 12px; z-index: 2;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+  color: var(--muted); text-transform: uppercase;
+}
+.variant-preview-label em {
+  font-style: normal; color: var(--accent); margin-left: 6px;
+}
+
+.variant-body { padding: 16px 18px 18px; }
+.variant-meta {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px;
+}
+.variant-category {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  color: var(--accent); text-transform: uppercase;
+}
+.variant-number {
+  font-size: 11px; color: var(--quiet); font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+}
+.variant-card h3 {
+  font-size: 16px; font-weight: 700; margin: 0 0 4px; line-height: 1.3;
+}
+.variant-en {
+  font-size: 12px; color: var(--muted); margin: 0 0 10px;
+  font-style: italic;
+}
+.variant-fit {
+  font-size: 13px; color: var(--ink-soft); line-height: 1.5; margin: 0 0 14px;
+}
+.variant-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 12px; border-top: 1px solid var(--line);
+}
+.variant-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.variant-tag {
+  font-size: 11px; color: var(--muted); background: var(--surface-sunk);
+  padding: 2px 8px; border-radius: 999px;
+}
+.variant-open {
+  font-size: 12px; font-weight: 600; color: var(--accent);
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 8px; border-radius: var(--radius-sm);
+  transition: background 0.15s;
+}
+.variant-open:hover { background: var(--accent-soft); }
+
+/* ------------------------------------------------------------
+   Empty State
+   ------------------------------------------------------------ */
+.empty-state {
+  text-align: center; padding: 64px 24px;
+}
+.empty-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--surface-sunk); color: var(--quiet);
+  font-size: 28px; margin-bottom: 16px;
+}
+.empty-state h3 { font-size: 18px; margin: 0 0 8px; }
+.empty-state p { color: var(--muted); margin: 0 0 20px; }
+
+/* ------------------------------------------------------------
+   Buttons (shared)
+   ------------------------------------------------------------ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 8px 16px; font-size: 13px; font-weight: 600;
+  border-radius: var(--radius-sm); border: 1px solid transparent;
+  transition: all 0.15s; white-space: nowrap;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-outline { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+.btn-outline:hover { border-color: var(--ink); background: var(--surface-soft); }
+
+/* ------------------------------------------------------------
+   Footer
+   ------------------------------------------------------------ */
+.site-footer {
+  border-top: 1px solid var(--line); background: var(--surface);
+  padding: 32px 24px;
+}
+.site-footer p { max-width: var(--content-width); margin: 0 auto 8px; font-size: 13px; color: var(--muted); }
+.site-footer p strong { color: var(--ink); }
+.footer-meta {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  font-size: 11px !important; color: var(--quiet) !important;
+  letter-spacing: 0.04em; margin-top: 16px !important;
+}
+
+/* ------------------------------------------------------------
+   Detail Dialog
+   ------------------------------------------------------------ */
+.variant-dialog {
+  width: min(720px, 92vw); max-height: 88vh;
+  padding: 0; border: 1px solid var(--line-strong); border-radius: var(--radius-lg);
+  background: var(--surface); box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.variant-dialog::backdrop { background: rgba(20, 20, 25, 0.5); backdrop-filter: blur(4px); }
+.dialog-shell { position: relative; max-height: 88vh; overflow-y: auto; }
+.dialog-close-form { position: absolute; top: 12px; right: 12px; z-index: 10; }
+.dialog-close {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; color: var(--muted); background: var(--surface-soft);
+  border: 1px solid var(--line); transition: all 0.15s;
+}
+.dialog-close:hover { color: var(--ink); background: var(--surface-sunk); }
+
+.dialog-content { padding: 32px; }
+.dialog-content .dialog-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+  color: var(--accent); text-transform: uppercase; margin: 0 0 8px;
+}
+.dialog-content h2 { font-size: 24px; font-weight: 800; margin: 0 0 4px; }
+.dialog-content .dialog-en { font-size: 14px; color: var(--muted); font-style: italic; margin: 0 0 24px; }
+
+.dialog-preview {
+  background: var(--surface-soft); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 32px; margin-bottom: 24px;
+  min-height: 180px; display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+
+.dialog-section { margin-bottom: 24px; }
+.dialog-section h4 {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+  color: var(--muted); text-transform: uppercase; margin: 0 0 10px;
+}
+.dialog-section p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; margin: 0; }
+.dialog-section ul { margin: 0; padding-left: 18px; }
+.dialog-section ul li { font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
+
+.dialog-anatomy {
+  display: grid; grid-template-columns: 1fr; gap: 8px;
+}
+.dialog-anatomy-row {
+  display: grid; grid-template-columns: 120px 1fr; gap: 12px;
+  padding: 10px 14px; background: var(--surface-soft);
+  border-radius: var(--radius-sm); font-size: 13px;
+}
+.dialog-anatomy-row strong { color: var(--ink); font-weight: 600; }
+.dialog-anatomy-row span { color: var(--muted); }
+
+.dialog-code {
+  background: var(--surface-sunk); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); padding: 14px 16px;
+  font-family: var(--font-mono); font-size: 12px; line-height: 1.6;
+  color: var(--ink-soft); overflow-x: auto;
+  white-space: pre-wrap; word-break: break-word;
+}
+
+/* ------------------------------------------------------------
+   Toast
+   ------------------------------------------------------------ */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  z-index: 100; padding: 10px 20px; background: var(--dark); color: var(--page);
+  border-radius: var(--radius); font-size: 13px; font-weight: 500;
+  box-shadow: var(--shadow-lg);
+  animation: toast-in 0.2s ease-out;
+}
+@keyframes toast-in {
+  from { opacity: 0; transform: translate(-50%, 10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ------------------------------------------------------------
+   Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 768px) {
+  :root { --header-height: 56px; }
+  .header-nav { display: none; }
+  .header-inner { gap: 12px; }
+  .page-hero { padding: 44px 20px 36px; }
+  .hero-stats { gap: 24px; }
+  .stat strong { font-size: 24px; }
+  .category-bar-inner { gap: 6px; padding: 8px 16px; }
+  .cat-search { margin-left: 0; width: 100%; }
+  .cat-search input { width: 100%; }
+  .variants-grid { grid-template-columns: 1fr; gap: 16px; }
+  .main-content { padding: 24px 16px 48px; }
+  .dialog-content { padding: 24px 20px; }
+  .dialog-preview { padding: 20px; }
+  .dialog-anatomy-row { grid-template-columns: 1fr; gap: 4px; }
+}
+
+@media (max-width: 480px) {
+  .page-hero h1 { font-size: 36px; }
+  .hero-intro { font-size: 17px; line-height: 1.7; }
+  .hero-stats { gap: 16px; }
+  .stat strong { font-size: 20px; }
+}
+
+/* ------------------------------------------------------------
+   Variant Preview Shared Utilities
+   ------------------------------------------------------------ */
+.vp-canvas {
+  width: 100%; max-width: 320px; min-height: 140px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.vp-line {
+  display: block; height: 8px; border-radius: 4px;
+  background: var(--line-strong); margin-bottom: 8px;
+}
+.vp-line--sm { height: 6px; width: 60%; }
+.vp-line--md { height: 8px; width: 80%; }
+.vp-line--lg { height: 10px; width: 100%; }
+.vp-pill {
+  display: inline-flex; align-items: center; padding: 6px 14px;
+  font-size: 12px; font-weight: 600; border-radius: 999px;
+  background: var(--surface-sunk); color: var(--ink-soft);
+  border: 1px solid var(--line);
+}
+.vp-pill.is-active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.vp-media {
+  width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--accent-tint), var(--surface-sunk));
+}
+
+/* Print-safe */
+@media print {
+  .site-header, .category-bar, .site-footer, .variant-dialog { display: none; }
+  .variant-card { break-inside: avoid; box-shadow: none; border: 1px solid var(--line); }
+}
+  .combined-vocabulary {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 76px 24px 0;
+    border-top: 1px solid var(--line);
+  }
+  .combined-vocabulary-heading {
+    display: grid;
+    grid-template-columns: minmax(0, .78fr) minmax(320px, 1fr);
+    gap: clamp(30px, 7vw, 110px);
+    align-items: end;
+    padding: 0 0 8px;
+  }
+  .combined-vocabulary-heading h2 {
+    margin: 12px 0 0;
+    font-size: clamp(36px, 5vw, 62px);
+    line-height: 1;
+    letter-spacing: -.03em;
+  }
+  .combined-vocabulary-intro > p {
+    max-width: 680px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+  .combined-vocabulary .vocab-toolbar,
+  .combined-vocabulary .vocab-layout {
+    width: 100%;
+  }
+  .combined-vocabulary .vocab-toolbar { padding-top: 30px; }
+  @media (max-width: 780px) {
+    .combined-vocabulary { padding: 52px 18px 0; }
+    .combined-vocabulary-heading { grid-template-columns: 1fr; gap: 20px; }
+    .combined-vocabulary-heading h2 { font-size: 42px; }
+  }
+  </style>
 </head>
 <body>
-  <a class="skip-link" href="#vocabularyResults" data-i18n="vocabulary.skipResults">跳到词条列表</a>
+  <a class="skip-link" href="#vocabularyResults">跳到词条列表</a>
+
+  <!-- ------------ Header (与原版 vocabulary.html 保持一致) ------------ -->
   <image2-site-header data-site-header></image2-site-header>
-  <main>
-    <section class="vocab-hero" aria-labelledby="pageTitle" hidden>
-      <div class="hero-copy">
-        <p class="eyebrow">UI WORDS / FROM HUMAN REQUEST TO CODE</p>
-        <h1 id="pageTitle" data-i18n="vocabulary.heading">图文 UI 词典</h1>
-        <p class="hero-intro" data-i18n="vocabulary.intro">按设计元素浏览完整方案：先看真实页面效果，再比较组成、类型、状态与适用场景，直接选出可以落地的样式。</p>
-        <div class="hero-meta"><span><strong id="entryCount">30</strong> <span data-i18n="vocabulary.keyTerms">个重点词条</span></span><span data-i18n="vocabulary.localExamples">完整方案原型</span><span data-i18n="vocabulary.copyablePrompts">可复制 Agent prompt</span></div>
+
+  <!-- ------------ Hero ------------ -->
+  <section class="page-hero" aria-labelledby="pageTitle">
+    <div class="hero-inner">
+      <p class="eyebrow">UI VOCABULARY · 30 TERMS</p>
+      <h1 id="pageTitle">图文 UI 词典</h1>
+      <p class="hero-intro">
+        像看图鉴一样认识界面：先用大白话描述需求，再看它在屏幕上长什么样、由哪些部件组成，以及应该怎样交给 AI 实现。
+      </p>
+      <div class="hero-stats">
+        <div class="stat">
+          <strong>6</strong>
+          <span>大类别</span>
+        </div>
+        <div class="stat">
+          <strong>30</strong>
+          <span>个词条</span>
+        </div>
+        <div class="stat">
+          <strong>100%</strong>
+          <span>代码渲染</span>
+        </div>
+        <div class="stat">
+          <strong>0</strong>
+          <span>张截图</span>
+        </div>
       </div>
-      <div class="hero-diagram" aria-label="从用户需求到界面实现的三步示意" data-i18n-attr="aria-label:vocabulary.diagramLabel">
-        <div class="diagram-step"><span>01</span><strong data-i18n="vocabulary.plainRequest">人话需求</strong><small data-i18n="vocabulary.plainRequestExample">“帮我加个按钮”</small></div>
-        <div class="diagram-arrow" aria-hidden="true">→</div>
-        <div class="diagram-step is-accent"><span>02</span><strong data-i18n="vocabulary.visualRole">视觉角色</strong><small>Button / CTA</small></div>
-        <div class="diagram-arrow" aria-hidden="true">→</div>
-        <div class="diagram-step"><span>03</span><strong data-i18n="vocabulary.implementationSplit">实现分工</strong><small>code-ui + external media</small></div>
+    </div>
+  </section>
+
+  <!-- ------------ Sticky Category Nav ------------ -->
+  <nav class="category-bar" id="categoryBar" aria-label="按组件类别筛选">
+    <div class="category-bar-inner">
+      <button class="cat-chip is-active" data-variant-category="all" type="button">
+        <span data-i18n="cat.all">全部</span>
+        <em>41</em>
+      </button>
+      <button class="cat-chip" data-variant-category="hero" type="button">
+        <span>Hero</span><em>7</em>
+      </button>
+      <button class="cat-chip" data-variant-category="card" type="button">
+        <span>Card</span><em>8</em>
+      </button>
+      <button class="cat-chip" data-variant-category="button" type="button">
+        <span>Button</span><em>8</em>
+      </button>
+      <button class="cat-chip" data-variant-category="modal" type="button">
+        <span>Modal</span><em>5</em>
+      </button>
+      <button class="cat-chip" data-variant-category="form" type="button">
+        <span>Form</span><em>7</em>
+      </button>
+      <button class="cat-chip" data-variant-category="tabs" type="button">
+        <span>Tabs</span><em>6</em>
+      </button>
+      <div class="cat-search">
+        <input type="search" id="variantSearch" placeholder="搜索变体名称或场景…" autocomplete="off" aria-label="搜索变体">
       </div>
-    </section>
+    </div>
+  </nav>
+
+  <!-- ------------ Main Content ------------ -->
+  <main class="main-content">
+    <header class="variant-section-heading">
+      <p class="eyebrow">UI COMPONENT VARIANTS · 41 PATTERNS</p>
+      <h2>组件变体图鉴</h2>
+      <p>在 UI 词汇之后继续查看 Hero、Card、Button、Modal、Form 和 Tabs 的代码变体。</p>
+    </header>
+    <div class="results-summary" id="variantResultsSummary" role="status" aria-live="polite">
+      浏览全部 41 种变体
+    </div>
+    <div class="variants-grid" id="variantsGrid"></div>
+    <div class="empty-state" id="variantEmptyState" hidden>
+      <span class="empty-mark" aria-hidden="true">?</span>
+      <h3 data-i18n="empty.title">没有匹配的变体</h3>
+      <p data-i18n="empty.hint">试试更短的关键词，或切换到其他类别。</p>
+      <button class="btn btn-outline" id="variantClearSearch" type="button" data-i18n="empty.clear">清除筛选</button>
+    </div>
+  </main>
+
+  <section class="combined-vocabulary" id="vocabularyAtlas" aria-labelledby="illustratedVocabularyTitle">
+    <header class="combined-vocabulary-heading">
+      <div>
+        <p class="eyebrow">BROWSE UI VOCABULARY · 30 TERMS</p>
+        <h2 id="illustratedVocabularyTitle">浏览 UI 词条</h2>
+      </div>
+      <div class="combined-vocabulary-intro">
+        <p>按分类、英文名或你实际想表达的需求搜索，先看代码预览，再打开词条了解结构、状态和实现提示。</p>
+        <div class="hero-meta"><span><strong id="entryCount">30</strong> <span data-i18n="vocabulary.keyTerms">个重点词条</span></span><span data-i18n="vocabulary.localExamples">代码组件预览</span><span data-i18n="vocabulary.copyablePrompts">可复制 Agent prompt</span></div>
+      </div>
+    </header>
 
     <section class="vocab-toolbar" aria-label="词条搜索和筛选" data-i18n-attr="aria-label:vocabulary.searchAndFilter">
       <label class="search-field" for="vocabularySearch">
@@ -48,48 +640,25 @@
         <div class="taxonomy-note"><strong data-i18n="vocabulary.termHelpTitle">看不懂一个词？</strong><p data-i18n="vocabulary.termHelpBody">先点开卡片看“你可能会说”，再对照组成结构和容易混淆。</p><a href="./reference.html?doc=ui-section-vocabulary"><span data-i18n="vocabulary.openGuide">打开规范长文</span> <span aria-hidden="true">↗</span></a></div>
       </aside>
 
-      <section class="results-column" id="vocabularyResults" aria-labelledby="resultsTitle">
+      <section class="results-column" id="vocabularyResults" aria-labelledby="vocabularyResultsTitle">
         <div class="results-heading">
-          <div><p class="eyebrow">BROWSE BY ROLE</p><h2 id="resultsTitle" data-i18n="vocabulary.allTerms">所有词条</h2></div>
+          <div><p class="eyebrow">BROWSE BY ROLE</p><h2 id="vocabularyResultsTitle" data-i18n="vocabulary.allTerms">所有词条</h2></div>
           <label class="sort-control" for="sortSelect"><span data-i18n="vocabulary.sort">排序</span><select id="sortSelect" data-i18n-attr="aria-label:vocabulary.sort"><option value="recommended" data-i18n="vocabulary.sortRecommended">推荐顺序</option><option value="az" data-i18n="vocabulary.sortName">中文名称</option><option value="category" data-i18n="vocabulary.sortCategory">分类</option><option value="favorites" data-i18n="vocabulary.sortFavorites">我的收藏</option></select></label>
         </div>
         <p class="results-summary" id="resultsSummary" role="status" aria-live="polite" aria-atomic="true" data-i18n="vocabulary.resultsIntro">从页面基础开始，逐步看到控件、内容和反馈状态。</p>
         <section class="navigation-deep-dive" id="navigationDeepDive" aria-labelledby="navigationDeepDiveTitle" hidden>
-          <header class="deep-dive-heading">
-            <div>
-              <p class="eyebrow">DEEP DIVE / NAVIGATION PATTERNS</p>
-              <h2 id="navigationDeepDiveTitle" data-i18n="vocabulary.navigationDeepTitle">导航不是只有一种栏</h2>
-            </div>
-            <p data-i18n="vocabulary.navigationDeepIntro">先判断它服务的是全局、局部、层级还是临时任务，再选择位置和样式。下面 8 种模式看起来相似，但承担的导航范围完全不同。</p>
-          </header>
+          <header class="deep-dive-heading"><div><p class="eyebrow">DEEP DIVE / NAVIGATION PATTERNS</p><h2 id="navigationDeepDiveTitle" data-i18n="vocabulary.navigationDeepTitle">导航不是只有一种栏</h2></div><p data-i18n="vocabulary.navigationDeepIntro">先判断它服务的是全局、局部、层级还是临时任务，再选择位置和样式。下面 8 种模式看起来相似，但承担的导航范围完全不同。</p></header>
           <div class="navigation-principles" id="navigationPrinciples"></div>
           <div class="navigation-pattern-grid" id="navigationPatternGrid"></div>
-          <section class="navigation-matrix" aria-labelledby="navigationMatrixTitle">
-            <div class="matrix-heading">
-              <div><p class="eyebrow">DECISION MATRIX</p><h3 id="navigationMatrixTitle" data-i18n="vocabulary.navigationMatrixTitle">到底该选哪一种？</h3></div>
-              <p data-i18n="vocabulary.navigationMatrixIntro">不要从“哪种更好看”开始，先看信息范围、入口数量、设备和切换频率。</p>
-            </div>
-            <div class="navigation-matrix-table" id="navigationMatrixTable"></div>
-          </section>
-          <footer class="navigation-sources">
-            <span data-i18n="vocabulary.navigationSources">参考规范</span>
-            <a href="https://m3.material.io/components/navigation-bar/overview" target="_blank" rel="noreferrer">Material 3</a>
-            <a href="https://developer.apple.com/design/human-interface-guidelines/tab-bars" target="_blank" rel="noreferrer">Apple HIG</a>
-            <a href="https://carbondesignsystem.com/components/UI-shell-side-nav/usage/" target="_blank" rel="noreferrer">Carbon</a>
-            <a href="https://www.w3.org/WAI/ARIA/apg/patterns/" target="_blank" rel="noreferrer">WAI-ARIA APG</a>
-          </footer>
+          <section class="navigation-matrix" aria-labelledby="navigationMatrixTitle"><div class="matrix-heading"><div><p class="eyebrow">DECISION MATRIX</p><h3 id="navigationMatrixTitle" data-i18n="vocabulary.navigationMatrixTitle">到底该选哪一种？</h3></div><p data-i18n="vocabulary.navigationMatrixIntro">不要从“哪种更好看”开始，先看信息范围、入口数量、设备和切换频率。</p></div><div class="navigation-matrix-table" id="navigationMatrixTable"></div></section>
+          <footer class="navigation-sources"><span data-i18n="vocabulary.navigationSources">参考规范</span><a href="https://m3.material.io/components/navigation-bar/overview" target="_blank" rel="noreferrer">Material 3</a><a href="https://developer.apple.com/design/human-interface-guidelines/tab-bars" target="_blank" rel="noreferrer">Apple HIG</a><a href="https://carbondesignsystem.com/components/UI-shell-side-nav/usage/" target="_blank" rel="noreferrer">Carbon</a><a href="https://www.w3.org/WAI/ARIA/apg/patterns/" target="_blank" rel="noreferrer">WAI-ARIA APG</a></footer>
         </section>
         <div class="entry-grid" id="entryGrid"></div>
-        <div class="empty-state" id="emptyState" hidden>
-          <span class="empty-mark" aria-hidden="true">?</span>
-          <h3 data-i18n="vocabulary.noMatches">暂时没有匹配的词条</h3>
-          <p data-i18n="vocabulary.noMatchesHint">试试更短的关键词，或清除当前分类筛选。</p>
-          <button class="secondary-button" id="clearSearch" type="button" data-i18n="vocabulary.clearFilters">清除筛选</button>
-        </div>
+        <div class="empty-state" id="emptyState" hidden><span class="empty-mark" aria-hidden="true">?</span><h3 data-i18n="vocabulary.noMatches">暂时没有匹配的词条</h3><p data-i18n="vocabulary.noMatchesHint">试试更短的关键词，或清除当前分类筛选。</p><button class="secondary-button" id="clearSearch" type="button" data-i18n="vocabulary.clearFilters">清除筛选</button></div>
       </section>
     </div>
+  </section>
 
-  </main>
   <footer class="vocab-footer"><p><strong data-i18n="vocabulary.fullGuide">完整规范：</strong><span data-i18n="vocabulary.fullGuideBody">保留了原来的 Markdown 版词典，适合复制到项目文档和 code review。</span></p><a href="./reference.html?doc=ui-section-vocabulary"><span data-i18n="vocabulary.readGuide">阅读规范版</span> <span aria-hidden="true">↗</span></a></footer>
 
   <dialog class="term-dialog" id="termDialog" aria-labelledby="termDialogTitle">
@@ -99,5 +668,1412 @@
     </div>
   </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <!-- ------------ Footer ------------ -->
+  <footer class="site-footer">
+    <p>
+      <strong data-i18n="footer.note">设计说明：</strong>
+      <span data-i18n="footer.body">所有变体预览均由 HTML + CSS 实时渲染，未使用任何截图。可直接复制结构到项目中使用。</span>
+    </p>
+    <p class="footer-meta">
+      <span>IMAGE2 UI · Component Variants Atlas</span>
+      <span>41 patterns · 6 categories · 100% code-rendered</span>
+    </p>
+  </footer>
+
+  <!-- ------------ Detail Dialog ------------ -->
+  <dialog class="variant-dialog" id="variantDialog" aria-labelledby="dialogTitle">
+    <div class="dialog-shell">
+      <form method="dialog" class="dialog-close-form">
+        <button class="dialog-close" type="submit" aria-label="关闭详情" title="关闭">×</button>
+      </form>
+      <div class="dialog-content" id="dialogContent"></div>
+    </div>
+  </dialog>
+
+  <!-- ------------ Toast ------------ -->
+  <div class="toast" id="variantToast" role="status" aria-live="polite" hidden></div>
+
+  <script type="module">
+/* ------------------------------------------------------------
+   UI Component Variants Atlas — Main Logic
+   6 categories · 41 variants · 100% code-rendered
+   ------------------------------------------------------------ */
+
+// ------------------------------------------------------------
+// i18n
+// ------------------------------------------------------------
+const I18N = {
+  zh: {
+    "page.title": "UI 组件变体图鉴",
+    "page.intro": "6 大组件类别，41 种变体，全部用真实代码渲染。从「帮我加个按钮」到「该用哪种 Hero」——先看效果，再读结构，直接选出可落地的样式。",
+    "page.statCategories": "大类别",
+    "page.statVariants": "种变体",
+    "page.statCode": "代码渲染",
+    "page.statImages": "张截图",
+    "cat.all": "全部",
+    "empty.title": "没有匹配的变体",
+    "empty.hint": "试试更短的关键词，或切换到其他类别。",
+    "empty.clear": "清除筛选",
+    "footer.note": "设计说明：",
+    "footer.body": "所有变体预览均由 HTML + CSS 实时渲染，未使用任何截图。可直接复制结构到项目中使用。",
+    "results.all": "浏览全部 {n} 种变体",
+    "results.category": "{cat} · {n} 种变体",
+    "results.search": "“{q}” 匹配 {n} 种变体",
+    "results.favorites": "你收藏了 {n} 种变体",
+    "dialog.fit": "适用场景",
+    "dialog.anatomy": "组成结构",
+    "dialog.codeHints": "实现要点",
+    "dialog.useWhen": "何时使用",
+    "dialog.avoidWhen": "避免使用",
+    "dialog.copyPrompt": "复制 Agent Prompt",
+    "dialog.copied": "已复制到剪贴板",
+  },
+  en: {
+    "page.title": "UI Component Variants Atlas",
+    "page.intro": "6 component categories, 41 variants, all rendered with real code. From \"add a button\" to \"which Hero should I use\" — see the effect first, then read the structure, and pick an implementation-ready pattern.",
+    "page.statCategories": "categories",
+    "page.statVariants": "variants",
+    "page.statCode": "code-rendered",
+    "page.statImages": "screenshots",
+    "cat.all": "All",
+    "empty.title": "No matching variants",
+    "empty.hint": "Try a shorter query or switch to another category.",
+    "empty.clear": "Clear filters",
+    "footer.note": "Design note: ",
+    "footer.body": "All variant previews are rendered live with HTML + CSS, with zero screenshots. You can copy the structure directly into your project.",
+    "results.all": "Browse all {n} variants",
+    "results.category": "{cat} · {n} variants",
+    "results.search": "{n} variants match \"{q}\"",
+    "results.favorites": "You saved {n} variants",
+    "dialog.fit": "Best for",
+    "dialog.anatomy": "Anatomy",
+    "dialog.codeHints": "Implementation notes",
+    "dialog.useWhen": "Use when",
+    "dialog.avoidWhen": "Avoid when",
+    "dialog.copyPrompt": "Copy Agent Prompt",
+    "dialog.copied": "Copied to clipboard",
+  },
+};
+
+// 接入原版 i18n 系统
+window.image2I18n?.addTranslations?.(Object.fromEntries(
+  Object.entries(I18N.zh).map(([key, val]) => [key, { zh: val, en: I18N.en[key] || val }])
+));
+
+let currentLang = window.image2I18n?.language || "zh";
+const tr = (key, vars = {}) => {
+  let s = I18N[currentLang]?.[key] ?? I18N.zh[key] ?? key;
+  for (const [k, v] of Object.entries(vars)) s = s.replace(`{${k}}`, v);
+  return s;
+};
+
+// ------------------------------------------------------------
+// Variant Data — 41 variants across 6 categories
+// ------------------------------------------------------------
+const variants = [
+  // ─────────────────────────────────────────────
+  // HERO (7)
+  // ─────────────────────────────────────────────
+  {
+    id: "hero-centered",
+    category: "hero",
+    number: "01",
+    name: { zh: "居中型 Hero", en: "Centered Hero" },
+    fit: { zh: "品牌叙事、产品发布、活动落地页", en: "Brand storytelling, product launches, event landing pages" },
+    useWhen: { zh: ["需要建立强烈的第一印象", "主视觉和标题同等重要", "只有一个核心 CTA"] },
+    avoidWhen: { zh: ["需要并置多个信息块", "桌面端空间需要高效利用"] },
+    anatomy: [
+      ["主题标题", "一句话说清产品价值，字号最大"],
+      ["支持说明", "补足对象、场景或可信度"],
+      ["主行动按钮", "单一 CTA，避免多个同权重按钮"],
+      ["主视觉", "图片或插画作为背景或下方装饰"],
+    ],
+    codeHints: "max-width: 720px; margin: 0 auto; text-align: center; 单列垂直堆叠，标题 → 说明 → CTA → 媒体",
+    preview: () => `
+      <div style="width:100%;text-align:center;">
+        <div style="font-size:9px;letter-spacing:0.12em;color:var(--accent);font-weight:600;margin-bottom:6px;">NEW COLLECTION</div>
+        <div style="font-size:18px;font-weight:800;line-height:1.2;margin-bottom:6px;">Make room for<br>everyday life</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:10px;">Quiet, clear, and focused on what matters.</div>
+        <div style="display:flex;gap:6px;justify-content:center;">
+          <span class="vp-pill is-active" style="font-size:10px;padding:4px 10px;">Explore</span>
+          <span class="vp-pill" style="font-size:10px;padding:4px 10px;">Learn more</span>
+        </div>
+      </div>`,
+  },
+  {
+    id: "hero-split",
+    category: "hero",
+    number: "02",
+    name: { zh: "左右分栏 Hero", en: "Split Hero" },
+    fit: { zh: "SaaS 产品页、工具型产品、功能介绍", en: "SaaS product pages, tool products, feature intros" },
+    useWhen: { zh: ["桌面端有充足横向空间", "文案和产品截图并重", "需要展示产品界面"] },
+    avoidWhen: { zh: ["移动端为主", "纯品牌叙事不需要产品展示"] },
+    anatomy: [
+      ["左栏文案", "标题 + 说明 + CTA，垂直居中"],
+      ["右栏媒体", "产品截图、Mockup 或插画"],
+      ["断点", "移动端改为上下堆叠，文案在上"],
+    ],
+    codeHints: "display: grid; grid-template-columns: 1fr 1fr; gap: 48px; @media (max-width: 768px) { grid-template-columns: 1fr; }",
+    preview: () => `
+      <div style="width:100%;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center;">
+        <div>
+          <div style="font-size:14px;font-weight:800;line-height:1.2;margin-bottom:4px;">Build faster<br>ship calmer</div>
+          <div style="font-size:9px;color:var(--muted);margin-bottom:8px;">The workspace for teams who ship.</div>
+          <span class="vp-pill is-active" style="font-size:9px;padding:3px 8px;">Start free</span>
+        </div>
+        <div style="background:linear-gradient(135deg,var(--accent-tint),var(--surface-sunk));border-radius:8px;height:80px;display:flex;align-items:center;justify-content:center;">
+          <div style="width:70%;height:50px;background:var(--surface);border-radius:4px;box-shadow:var(--shadow-sm);"></div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "hero-fullbleed",
+    category: "hero",
+    number: "03",
+    name: { zh: "全屏图片 Hero", en: "Full-bleed Image Hero" },
+    fit: { zh: "摄影作品、旅行、时尚、酒店", en: "Photography, travel, fashion, hospitality" },
+    useWhen: { zh: ["有高质量的全屏图片", "文字简洁，不抢主视觉", "品牌调性强烈"] },
+    avoidWhen: { zh: ["图片质量一般", "需要展示大量文字信息"] },
+    anatomy: [
+      ["全屏背景图", "object-fit: cover，预留文案安全区"],
+      ["遮罩层", "半透明黑色渐变，保证文字可读"],
+      ["叠加文案", "白色文字，左下或居中定位"],
+    ],
+    codeHints: "background-image: url(...); background-size: cover; 配合 ::before 遮罩 linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6))",
+    preview: () => `
+      <div style="width:100%;height:140px;border-radius:8px;overflow:hidden;position:relative;background:linear-gradient(135deg,#2a3a4a,#1a2530);">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.7));"></div>
+        <div style="position:absolute;bottom:12px;left:12px;color:#fff;">
+          <div style="font-size:14px;font-weight:800;">North Atlantic</div>
+          <div style="font-size:9px;opacity:0.85;">A journey through cold light</div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "hero-video",
+    category: "hero",
+    number: "04",
+    name: { zh: "视频背景 Hero", en: "Video Background Hero" },
+    fit: { zh: "品牌片、产品演示、活动宣传", en: "Brand films, product demos, event promos" },
+    useWhen: { zh: ["有高质量短视频素材", "需要动态氛围", "提供减弱动效选项"] },
+    avoidWhen: { zh: ["网络环境差", "无 fallback 静态图"] },
+    anatomy: [
+      ["video 元素", "autoplay muted loop playsinline"],
+      ["poster 图", "视频加载前的静态占位"],
+      ["叠加文案", "白色文字 + 遮罩保证可读性"],
+      ["减弱动效", "prefers-reduced-motion 时停止播放"],
+    ],
+    codeHints: "<video autoplay muted loop playsinline poster=\"cover.jpg\"> 配合 @media (prefers-reduced-motion: reduce) { video { display: none; } }",
+    preview: () => `
+      <div style="width:100%;height:140px;border-radius:8px;overflow:hidden;position:relative;background:linear-gradient(135deg,#1a3a2a,#0f2a1f);">
+        <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 40%,rgba(97,217,139,0.3),transparent 60%);"></div>
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--ink);">▶</div>
+        <div style="position:absolute;bottom:8px;left:10px;color:#fff;font-size:10px;font-weight:600;">Bloom Rewards · 0:32</div>
+      </div>`,
+  },
+  {
+    id: "hero-mockup",
+    category: "hero",
+    number: "05",
+    name: { zh: "产品 Mockup Hero", en: "Product Mockup Hero" },
+    fit: { zh: "App 下载页、工具产品、桌面应用", en: "App download pages, tool products, desktop apps" },
+    useWhen: { zh: ["需要展示真实产品界面", "有设备框 Mockup 素材", "强调「看得见的产品」"] },
+    avoidWhen: { zh: ["产品界面未完成", "纯品牌叙事"] },
+    anatomy: [
+      ["文案区", "标题 + 说明 + 下载按钮"],
+      ["设备 Mockup", "手机/笔记本框架 + 产品截图"],
+      ["浮动元素", "可选的徽章、评分、社交证明"],
+    ],
+    codeHints: "用 CSS transform: perspective() 制造设备倾斜；截图用 <img> 嵌入设备框架内",
+    preview: () => `
+      <div style="width:100%;display:flex;align-items:center;gap:12px;">
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:800;line-height:1.2;margin-bottom:4px;">Your pocket<br>field guide</div>
+          <div style="font-size:9px;color:var(--muted);margin-bottom:8px;">Identify 10,000+ species.</div>
+          <div style="display:flex;gap:4px;">
+            <span class="vp-pill is-active" style="font-size:8px;padding:3px 7px;">iOS</span>
+            <span class="vp-pill" style="font-size:8px;padding:3px 7px;">Android</span>
+          </div>
+        </div>
+        <div style="width:60px;height:110px;background:var(--ink);border-radius:10px;padding:4px;box-shadow:var(--shadow-md);">
+          <div style="width:100%;height:100%;background:linear-gradient(180deg,var(--accent-tint),var(--surface-sunk));border-radius:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--accent);"></div>
+            <div style="width:30px;height:4px;background:var(--line-strong);border-radius:2px;"></div>
+            <div style="width:20px;height:4px;background:var(--line-strong);border-radius:2px;"></div>
+          </div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "hero-search",
+    category: "hero",
+    number: "06",
+    name: { zh: "搜索主导 Hero", en: "Search-led Hero" },
+    fit: { zh: "搜索引擎、知识库、招聘、电商首页", en: "Search engines, knowledge bases, job boards, commerce homepages" },
+    useWhen: { zh: ["用户带着明确意图进入", "核心动作就是搜索", "减少品牌叙事，直奔主题"] },
+    avoidWhen: { zh: ["需要建立品牌认知", "用户不知道要搜什么"] },
+    anatomy: [
+      ["大标题", "一句话说明能搜到什么"],
+      ["搜索框", "居中、大尺寸、placeholder 明确"],
+      ["热门搜索", "搜索框下方提供快捷入口"],
+    ],
+    codeHints: "搜索框 width: min(640px, 92vw); 配合下方 chips 展示热门关键词；支持 ⌘K 快捷键",
+    preview: () => `
+      <div style="width:100%;text-align:center;">
+        <div style="font-size:14px;font-weight:800;margin-bottom:8px;">Find your next role</div>
+        <div style="background:var(--surface);border:1px solid var(--line-strong);border-radius:999px;padding:6px 12px;display:flex;align-items:center;gap:6px;max-width:240px;margin:0 auto 8px;">
+          <span style="font-size:10px;color:var(--quiet);">⌕</span>
+          <span style="font-size:9px;color:var(--quiet);flex:1;text-align:left;">Search 12,000+ jobs…</span>
+          <span style="font-size:8px;background:var(--surface-sunk);padding:1px 5px;border-radius:4px;color:var(--muted);">⌘K</span>
+        </div>
+        <div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;">
+          <span class="vp-pill" style="font-size:8px;padding:2px 6px;">Remote</span>
+          <span class="vp-pill" style="font-size:8px;padding:2px 6px;">Senior</span>
+          <span class="vp-pill" style="font-size:8px;padding:2px 6px;">Design</span>
+        </div>
+      </div>`,
+  },
+  {
+    id: "hero-bento",
+    category: "hero",
+    number: "07",
+    name: { zh: "Bento Hero", en: "Bento Hero" },
+    fit: { zh: "产品功能矩阵、特性总览、Apple 风格发布", en: "Feature matrices, capability overviews, Apple-style launches" },
+    useWhen: { zh: ["有多个并列功能要展示", "桌面端有充足空间", "每个功能块都有视觉支撑"] },
+    avoidWhen: { zh: ["功能少于 4 个", "移动端为主（Bento 在窄屏会退化）"] },
+    anatomy: [
+      ["网格容器", "CSS Grid，不等大格子"],
+      ["主格", "1-2 个大格放核心功能"],
+      ["次格", "小格放辅助功能或数据"],
+      ["间距", "gap: 12-16px，圆角统一"],
+    ],
+    codeHints: "display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); 配合 grid-column: span 2 制造不等大",
+    preview: () => `
+      <div style="width:100%;display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:6px;height:120px;">
+        <div style="grid-row:span 2;background:linear-gradient(135deg,var(--accent),var(--accent-hover));border-radius:8px;padding:10px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-size:11px;font-weight:700;">AI Studio</div>
+          <div style="font-size:8px;opacity:0.85;">Build · Train · Ship</div>
+        </div>
+        <div style="background:var(--surface-sunk);border-radius:6px;padding:8px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-size:9px;font-weight:600;">Analytics</div>
+          <div style="font-size:7px;color:var(--muted);">Real-time</div>
+        </div>
+        <div style="background:var(--indigo-soft);border-radius:6px;padding:8px;display:flex;flex-direction:column;justify-content:flex-end;">
+          <div style="font-size:9px;font-weight:600;">Collab</div>
+          <div style="font-size:7px;color:var(--indigo);">Live cursors</div>
+        </div>
+      </div>`,
+  },
+
+  // ─────────────────────────────────────────────
+  // CARD (8)
+  // ─────────────────────────────────────────────
+  {
+    id: "card-image-top",
+    category: "card",
+    number: "08",
+    name: { zh: "图片上置卡片", en: "Image Top Card" },
+    fit: { zh: "商品列表、文章流、作品集", en: "Product listings, article feeds, portfolios" },
+    useWhen: { zh: ["图片是主要识别信息", "需要重复展示一组相似对象"] },
+    avoidWhen: { zh: ["内容是连续长文", "每项只有一行文字"] },
+    anatomy: [
+      ["封面图", "固定宽高比，避免加载抖动"],
+      ["标题", "对象名称，视觉权重最高"],
+      ["摘要", "1-2 行短描述"],
+      ["操作区", "可选的按钮或链接"],
+    ],
+    codeHints: "article > img + div；图片用 aspect-ratio: 16/9；整体可点击时用 stretched-link 模式",
+    preview: () => `
+      <div style="width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden;">
+        <div style="height:60px;background:linear-gradient(135deg,var(--accent-tint),var(--surface-sunk));"></div>
+        <div style="padding:8px;">
+          <div style="font-size:10px;font-weight:700;margin-bottom:2px;">Linen Shirt</div>
+          <div style="font-size:8px;color:var(--muted);margin-bottom:4px;">Material, light, restrained.</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:10px;font-weight:600;color:var(--accent);">¥280</span>
+            <span style="font-size:8px;color:var(--muted);">View →</span>
+          </div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "card-image-side",
+    category: "card",
+    number: "09",
+    name: { zh: "图片侧置卡片", en: "Image Side Card" },
+    fit: { zh: "搜索结果、推荐列表、通知中心", en: "Search results, recommendation lists, notification centers" },
+    useWhen: { zh: ["需要更高信息密度", "图片和文字同等重要", "横向排列节省垂直空间"] },
+    avoidWhen: { zh: ["图片需要大尺寸展示", "移动端窄屏"] },
+    anatomy: [
+      ["横向布局", "左图右文或左文右图"],
+      ["缩略图", "固定正方形或 4:3"],
+      ["文字区", "标题 + 摘要 + 元信息"],
+    ],
+    codeHints: "display: flex; gap: 12px; 图片 width: 96px; height: 96px; object-fit: cover;",
+    preview: () => `
+      <div style="width:100%;display:flex;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px;">
+        <div style="width:50px;height:50px;border-radius:6px;background:linear-gradient(135deg,var(--accent-tint),var(--surface-sunk));flex-shrink:0;"></div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:10px;font-weight:700;margin-bottom:2px;">North Atlantic Trip</div>
+          <div style="font-size:8px;color:var(--muted);line-height:1.4;">A 7-day journey through cold light and quiet harbors.</div>
+          <div style="font-size:7px;color:var(--quiet);margin-top:3px;">5 photos · 2 days ago</div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "card-overlay",
+    category: "card",
+    number: "10",
+    name: { zh: "文字覆盖卡片", en: "Text Overlay Card" },
+    fit: { zh: "视频缩略图、分类入口、Hero 模块", en: "Video thumbnails, category entries, hero modules" },
+    useWhen: { zh: ["图片质量高且需要文字叠加", "视觉冲击力优先"] },
+    avoidWhen: { zh: ["图片复杂度高导致文字不可读", "需要展示长文本"] },
+    anatomy: [
+      ["背景图", "全卡片覆盖"],
+      ["遮罩", "底部渐变保证文字可读"],
+      ["叠加文字", "白色，定位在底部"],
+    ],
+    codeHints: "position: relative; 图片 absolute inset:0; 文字 position:absolute; bottom:0; 配合 background: linear-gradient(transparent, rgba(0,0,0,0.7))",
+    preview: () => `
+      <div style="width:100%;height:100px;border-radius:8px;overflow:hidden;position:relative;background:linear-gradient(135deg,#3a4a5a,#2a3540);">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.8));"></div>
+        <div style="position:absolute;bottom:8px;left:10px;right:10px;color:#fff;">
+          <div style="font-size:10px;font-weight:700;">Museum Explorer</div>
+          <div style="font-size:7px;opacity:0.85;">12 collections · 4.2k artifacts</div>
+        </div>
+        <div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.5);color:#fff;font-size:7px;padding:2px 6px;border-radius:4px;">02:14</div>
+      </div>`,
+  },
+  {
+    id: "card-product",
+    category: "card",
+    number: "11",
+    name: { zh: "商品卡", en: "Product Card" },
+    fit: { zh: "电商商品列表、比价、购物车推荐", en: "E-commerce listings, price comparison, cart recommendations" },
+    useWhen: { zh: ["有价格、库存、评分等结构化信息", "需要加入购物车操作"] },
+    avoidWhen: { zh: ["非交易场景", "商品信息不完整"] },
+    anatomy: [
+      ["商品图", "白底或场景图，固定比例"],
+      ["标题 + 规格", "颜色、尺码等可选项"],
+      ["价格区", "原价 + 折扣价 + 促销标签"],
+      ["操作", "加入购物车 / 立即购买"],
+    ],
+    codeHints: "结构化数据用 schema.org/Product；价格用 <data value=\"280\">¥280</data>；库存状态用 aria-label",
+    preview: () => `
+      <div style="width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden;">
+        <div style="height:70px;background:#fafafa;display:flex;align-items:center;justify-content:center;position:relative;">
+          <div style="width:40px;height:50px;background:linear-gradient(135deg,var(--coral-soft),var(--amber-soft));border-radius:4px;"></div>
+          <div style="position:absolute;top:6px;left:6px;background:var(--coral);color:#fff;font-size:7px;padding:1px 4px;border-radius:3px;font-weight:600;">-30%</div>
+        </div>
+        <div style="padding:8px;">
+          <div style="font-size:9px;font-weight:700;margin-bottom:2px;">Ceramic Mug</div>
+          <div style="font-size:7px;color:var(--muted);margin-bottom:4px;">★ 4.8 · 326 reviews</div>
+          <div style="display:flex;align-items:center;gap:4px;margin-bottom:6px;">
+            <span style="font-size:11px;font-weight:700;color:var(--coral);">¥48</span>
+            <span style="font-size:8px;color:var(--quiet);text-decoration:line-through;">¥68</span>
+          </div>
+          <div style="background:var(--accent);color:#fff;font-size:8px;font-weight:600;padding:3px;border-radius:4px;text-align:center;">Add to cart</div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "card-data",
+    category: "card",
+    number: "12",
+    name: { zh: "数据卡", en: "Data Card" },
+    fit: { zh: "仪表盘、报表、KPI 展示", en: "Dashboards, reports, KPI displays" },
+    useWhen: { zh: ["需要突出单一指标", "有趋势对比", "数据实时更新"] },
+    avoidWhen: { zh: ["数据维度过多", "需要详细分析（用表格更合适）"] },
+    anatomy: [
+      ["指标标签", "说明这是什么数据"],
+      ["主数值", "大字号，视觉中心"],
+      ["趋势", "同比/环比 + 上下箭头"],
+      ["迷你图", "可选的 sparkline"],
+    ],
+    codeHints: "用 font-variant-numeric: tabular-nums 保证数字对齐；趋势用语义色（绿涨红跌）",
+    preview: () => `
+      <div style="width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px;">
+        <div style="font-size:8px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px;">Monthly Revenue</div>
+        <div style="font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;margin-bottom:4px;">¥48,290</div>
+        <div style="display:flex;align-items:center;gap:4px;">
+          <span style="font-size:9px;color:var(--accent);font-weight:600;">↑ 12.4%</span>
+          <span style="font-size:8px;color:var(--muted);">vs last month</span>
+        </div>
+        <div style="margin-top:8px;display:flex;align-items:flex-end;gap:2px;height:20px;">
+          <div style="flex:1;height:40%;background:var(--accent-tint);border-radius:1px;"></div>
+          <div style="flex:1;height:60%;background:var(--accent-tint);border-radius:1px;"></div>
+          <div style="flex:1;height:45%;background:var(--accent-tint);border-radius:1px;"></div>
+          <div style="flex:1;height:80%;background:var(--accent);border-radius:1px;"></div>
+          <div style="flex:1;height:70%;background:var(--accent-tint);border-radius:1px;"></div>
+          <div style="flex:1;height:90%;background:var(--accent);border-radius:1px;"></div>
+          <div style="flex:1;height:75%;background:var(--accent-tint);border-radius:1px;"></div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "card-article",
+    category: "card",
+    number: "13",
+    name: { zh: "文章卡", en: "Article Card" },
+    fit: { zh: "博客、新闻流、内容聚合", en: "Blogs, news feeds, content aggregators" },
+    useWhen: { zh: ["内容以阅读为主", "需要展示作者、时间、标签"] },
+    avoidWhen: { zh: ["内容是商品或数据", "需要快速操作"] },
+    anatomy: [
+      ["封面图", "可选，16:9 或 2:1"],
+      ["标签", "分类或主题"],
+      ["标题", "2-3 行，吸引点击"],
+      ["元信息", "作者 · 日期 · 阅读时长"],
+    ],
+    codeHints: "用 <article> + <time datetime>; 标题用 heading; 标签用 chip 样式",
+    preview: () => `
+      <div style="width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden;">
+        <div style="height:50px;background:linear-gradient(135deg,var(--indigo-soft),var(--surface-sunk));"></div>
+        <div style="padding:8px;">
+          <div style="font-size:7px;color:var(--indigo);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px;">Design</div>
+          <div style="font-size:10px;font-weight:700;line-height:1.3;margin-bottom:4px;">The quiet power of restrained interfaces</div>
+          <div style="font-size:7px;color:var(--muted);">Lin Qing · 6 min · Aug 21</div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "card-pricing",
+    category: "card",
+    number: "14",
+    name: { zh: "定价卡", en: "Pricing Card" },
+    fit: { zh: "SaaS 定价页、订阅方案、套餐对比", en: "SaaS pricing pages, subscription plans, tier comparison" },
+    useWhen: { zh: ["有 2-4 个套餐需要对比", "需要突出推荐方案"] },
+    avoidWhen: { zh: ["单一价格", "价格需要复杂计算"] },
+    anatomy: [
+      ["方案名", "Starter / Pro / Enterprise"],
+      ["价格", "大字号 + 周期说明"],
+      ["功能列表", "✓ / ✗ 对照"],
+      ["CTA", "推荐方案高亮"],
+    ],
+    codeHints: "推荐方案用 scale(1.05) + 边框高亮 + \"Most Popular\" 徽章；功能列表用 ✓ 符号",
+    preview: () => `
+      <div style="width:100%;background:var(--surface);border:2px solid var(--accent);border-radius:8px;padding:10px;position:relative;">
+        <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:7px;padding:2px 8px;border-radius:999px;font-weight:600;">POPULAR</div>
+        <div style="font-size:10px;font-weight:700;margin-bottom:2px;">Pro</div>
+        <div style="display:flex;align-items:baseline;gap:2px;margin-bottom:6px;">
+          <span style="font-size:18px;font-weight:800;">¥99</span>
+          <span style="font-size:8px;color:var(--muted);">/mo</span>
+        </div>
+        <div style="font-size:7px;color:var(--ink-soft);line-height:1.6;">
+          <div>✓ Unlimited projects</div>
+          <div>✓ 10 GB storage</div>
+          <div>✓ Priority support</div>
+          <div style="color:var(--quiet);">✗ Custom domain</div>
+        </div>
+        <div style="background:var(--accent);color:#fff;font-size:8px;font-weight:600;padding:4px;border-radius:4px;text-align:center;margin-top:6px;">Choose Pro</div>
+      </div>`,
+  },
+  {
+    id: "card-borderless",
+    category: "card",
+    number: "15",
+    name: { zh: "无边框卡片", en: "Borderless Card" },
+    fit: { zh: "极简风格、内容流、移动端", en: "Minimalist designs, content feeds, mobile" },
+    useWhen: { zh: ["整体页面已经有很多边框", "需要轻盈感", "内容自身有清晰边界"] },
+    avoidWhen: { zh: ["卡片之间需要明确分隔", "信息密度高且无其他分隔手段"] },
+    anatomy: [
+      ["无外边框", "靠间距和背景色区分"],
+      ["悬停反馈", "hover 时显示淡背景或阴影"],
+      ["可选圆角", "保持视觉柔和"],
+    ],
+    codeHints: "border: none; background: transparent; hover: background: var(--surface-soft); transition: background 0.15s",
+    preview: () => `
+      <div style="width:100%;padding:10px;border-radius:8px;background:transparent;">
+        <div style="display:flex;gap:8px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent-tint),var(--surface-sunk));flex-shrink:0;"></div>
+          <div style="flex:1;">
+            <div style="font-size:10px;font-weight:700;margin-bottom:2px;">Softly Reflections</div>
+            <div style="font-size:8px;color:var(--muted);line-height:1.4;">A quiet journaling companion.</div>
+          </div>
+        </div>
+      </div>`,
+  },
+
+  // ─────────────────────────────────────────────
+  // BUTTON (8)
+  // ─────────────────────────────────────────────
+  {
+    id: "btn-solid",
+    category: "button",
+    number: "16",
+    name: { zh: "实心按钮", en: "Solid Button" },
+    fit: { zh: "主操作：提交、保存、确认、购买", en: "Primary actions: submit, save, confirm, purchase" },
+    useWhen: { zh: ["当前页面最重要的动作", "需要强引导"] },
+    avoidWhen: { zh: ["页面有多个同等重要操作", "次要操作"] },
+    anatomy: [["填充色", "品牌主色"], ["文字", "白色，明确结果"], ["状态", "hover/active/focus/disabled/loading"]],
+    codeHints: "background: var(--accent); color: #fff; border: none; :hover { background: var(--accent-hover); } :disabled { opacity: 0.5; cursor: not-allowed; }",
+    preview: () => `
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">
+        <div style="background:var(--accent);color:#fff;font-size:11px;font-weight:600;padding:7px 18px;border-radius:6px;">Continue</div>
+        <div style="background:var(--accent-hover);color:#fff;font-size:11px;font-weight:600;padding:7px 18px;border-radius:6px;opacity:0.6;">Hover</div>
+        <div style="background:var(--surface-sunk);color:var(--quiet);font-size:11px;font-weight:600;padding:7px 18px;border-radius:6px;cursor:not-allowed;">Disabled</div>
+      </div>`,
+  },
+  {
+    id: "btn-outline",
+    category: "button",
+    number: "17",
+    name: { zh: "描边按钮", en: "Outlined Button" },
+    fit: { zh: "次要操作：取消、返回、了解更多", en: "Secondary actions: cancel, back, learn more" },
+    useWhen: { zh: ["次要操作", "与实心按钮搭配形成层级"] },
+    avoidWhen: { zh: ["主操作", "深色背景上对比度不足"] },
+    anatomy: [["透明背景", "无填充"], ["边框", "1px 实线"], ["文字", "与正文同色"]],
+    codeHints: "background: transparent; border: 1px solid var(--line-strong); color: var(--ink); :hover { border-color: var(--ink); background: var(--surface-soft); }",
+    preview: () => `
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">
+        <div style="background:transparent;border:1px solid var(--line-strong);color:var(--ink);font-size:11px;font-weight:600;padding:6px 17px;border-radius:6px;">Save draft</div>
+        <div style="background:var(--surface-soft);border:1px solid var(--ink);color:var(--ink);font-size:11px;font-weight:600;padding:6px 17px;border-radius:6px;">Hover</div>
+      </div>`,
+  },
+  {
+    id: "btn-ghost",
+    category: "button",
+    number: "18",
+    name: { zh: "Ghost 按钮", en: "Ghost Button" },
+    fit: { zh: "工具栏操作、图标按钮、低优先级动作", en: "Toolbar actions, icon buttons, low-priority actions" },
+    useWhen: { zh: ["操作频繁但不抢焦点", "空间紧凑"] },
+    avoidWhen: { zh: ["主操作", "需要明确视觉边界"] },
+    anatomy: [["无背景无边框", "完全透明"], ["hover 反馈", "淡背景出现"], ["padding", "比描边按钮更紧凑"]],
+    codeHints: "background: transparent; border: none; padding: 6px 10px; :hover { background: var(--surface-soft); border-radius: 4px; }",
+    preview: () => `
+      <div style="display:flex;gap:6px;align-items:center;">
+        <div style="background:var(--surface-soft);font-size:11px;font-weight:500;padding:6px 10px;border-radius:4px;color:var(--ink);">Filter</div>
+        <div style="background:transparent;font-size:11px;font-weight:500;padding:6px 10px;border-radius:4px;color:var(--muted);">Sort</div>
+        <div style="background:transparent;font-size:11px;font-weight:500;padding:6px 10px;border-radius:4px;color:var(--muted);">Share</div>
+      </div>`,
+  },
+  {
+    id: "btn-text",
+    category: "button",
+    number: "19",
+    name: { zh: "文字按钮", en: "Text Button" },
+    fit: { zh: "内联操作、链接式跳转、次要动作", en: "Inline actions, link-style navigation, minor actions" },
+    useWhen: { zh: ["操作嵌入在文本流中", "视觉权重最低"] },
+    avoidWhen: { zh: ["需要明确按钮形态", "主操作"] },
+    anatomy: [["纯文字", "无背景无边框"], ["颜色", "主色或链接色"], ["下划线", "hover 时出现"]],
+    codeHints: "background: none; border: none; color: var(--accent); padding: 0; :hover { text-decoration: underline; }",
+    preview: () => `
+      <div style="text-align:center;font-size:11px;">
+        <span style="color:var(--muted);">Don't have an account? </span>
+        <span style="color:var(--accent);font-weight:600;text-decoration:underline;">Sign up</span>
+      </div>`,
+  },
+  {
+    id: "btn-icon",
+    category: "button",
+    number: "20",
+    name: { zh: "图标按钮", en: "Icon Button" },
+    fit: { zh: "工具栏、操作栏、紧凑界面", en: "Toolbars, action bars, compact interfaces" },
+    useWhen: { zh: ["空间紧张", "动作含义明确（搜索、关闭、分享）"] },
+    avoidWhen: { zh: ["图标含义不明确", "无 aria-label"] },
+    anatomy: [["正方形", "40×40 或 32×32"], ["图标", "SVG 居中"], ["aria-label", "必须提供无障碍名称"]],
+    codeHints: "width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; 必须有 aria-label",
+    preview: () => `
+      <div style="display:flex;gap:8px;align-items:center;">
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-soft);display:flex;align-items:center;justify-content:center;font-size:13px;">⌕</div>
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-soft);display:flex;align-items:center;justify-content:center;font-size:13px;">⚙</div>
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-soft);display:flex;align-items:center;justify-content:center;font-size:13px;">⋯</div>
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-soft);display:flex;align-items:center;justify-content:center;font-size:13px;">×</div>
+      </div>`,
+  },
+  {
+    id: "btn-fab",
+    category: "button",
+    number: "21",
+    name: { zh: "浮动操作按钮 (FAB)", en: "Floating Action Button" },
+    fit: { zh: "移动端主操作、创建、发布、新建", en: "Mobile primary actions: create, publish, add new" },
+    useWhen: { zh: ["移动端有一个最高频主操作", "需要始终可见"] },
+    avoidWhen: { zh: ["桌面端（用顶部按钮更自然）", "多个同等重要操作"] },
+    anatomy: [["固定定位", "position: fixed; bottom: 24px; right: 24px"], ["圆形", "56×56 圆形"], ["阴影", "强阴影制造悬浮感"], ["图标", "加号或主操作图标"]],
+    codeHints: "position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; border-radius: 50%; box-shadow: var(--shadow-lg); z-index: 20;",
+    preview: () => `
+      <div style="position:relative;width:100%;height:100px;background:var(--surface-soft);border-radius:8px;overflow:hidden;">
+        <div style="padding:8px;">
+          <div style="font-size:8px;color:var(--muted);">Page content…</div>
+        </div>
+        <div style="position:absolute;bottom:10px;right:10px;width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:300;box-shadow:var(--shadow-lg);">+</div>
+      </div>`,
+  },
+  {
+    id: "btn-split",
+    category: "button",
+    number: "22",
+    name: { zh: "Split Button", en: "Split Button" },
+    fit: { zh: "保存/另存为、发送/定时发送、导出多种格式", en: "Save/Save as, Send/Schedule, Export multiple formats" },
+    useWhen: { zh: ["主操作 + 次要变体", "需要快速访问相关动作"] },
+    avoidWhen: { zh: ["操作完全独立", "移动端窄屏"] },
+    anatomy: [["主按钮", "左侧，触发默认动作"], ["分隔线", "1px 竖线"], ["下拉箭头", "右侧，打开菜单"]],
+    codeHints: "display: inline-flex; 主按钮 + button(下拉) 共享边框；用 aria-haspopup=\"menu\"",
+    preview: () => `
+      <div style="display:inline-flex;border-radius:6px;overflow:hidden;border:1px solid var(--accent);">
+        <div style="background:var(--accent);color:#fff;font-size:10px;font-weight:600;padding:6px 12px;">Save</div>
+        <div style="background:var(--accent);color:#fff;font-size:10px;padding:6px 8px;border-left:1px solid rgba(255,255,255,0.3);">▾</div>
+      </div>`,
+  },
+  {
+    id: "btn-destructive",
+    category: "button",
+    number: "23",
+    name: { zh: "危险操作按钮", en: "Destructive Button" },
+    fit: { zh: "删除、清空、撤销、注销账户", en: "Delete, clear, revoke, deactivate account" },
+    useWhen: { zh: ["操作不可逆", "需要明确警示"] },
+    avoidWhen: { zh: ["可恢复操作", "常规操作"] },
+    anatomy: [["红色填充", "danger 色"], ["确认弹窗", "点击后二次确认"], ["文案", "明确说「删除」而非「确定」"]],
+    codeHints: "background: var(--coral); color: #fff; 点击后弹出确认 Modal；aria-label 包含「删除」字样",
+    preview: () => `
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">
+        <div style="background:var(--coral);color:#fff;font-size:11px;font-weight:600;padding:7px 18px;border-radius:6px;">Delete project</div>
+        <div style="background:transparent;border:1px solid var(--coral);color:var(--coral);font-size:11px;font-weight:600;padding:6px 17px;border-radius:6px;">Outline variant</div>
+      </div>`,
+  },
+
+  // ─────────────────────────────────────────────
+  // MODAL (5)
+  // ─────────────────────────────────────────────
+  {
+    id: "modal-confirm",
+    category: "modal",
+    number: "24",
+    name: { zh: "确认弹窗", en: "Confirmation Modal" },
+    fit: { zh: "删除、退出、覆盖未保存修改", en: "Delete, exit, overwrite unsaved changes" },
+    useWhen: { zh: ["操作不可逆", "需要明确警示"] },
+    avoidWhen: { zh: ["可恢复操作（用 Toast 即可）", "只是查看详情"] },
+    anatomy: [["标题", "说明动作后果"], ["正文", "补充影响范围"], ["按钮", "取消（次要）+ 确认（危险色）"]],
+    codeHints: "<dialog> + focus trap + Escape 关闭 + 焦点回到触发按钮；危险确认用红色按钮",
+    preview: () => `
+      <div style="width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px;box-shadow:var(--shadow-md);">
+        <div style="font-size:11px;font-weight:700;margin-bottom:4px;">Delete this project?</div>
+        <div style="font-size:9px;color:var(--muted);margin-bottom:10px;line-height:1.4;">This will permanently remove 12 files and 3 collaborators.</div>
+        <div style="display:flex;gap:6px;justify-content:flex-end;">
+          <div style="background:transparent;border:1px solid var(--line-strong);font-size:9px;padding:4px 10px;border-radius:4px;">Cancel</div>
+          <div style="background:var(--coral);color:#fff;font-size:9px;font-weight:600;padding:4px 10px;border-radius:4px;">Delete</div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "modal-form",
+    category: "modal",
+    number: "25",
+    name: { zh: "表单弹窗", en: "Form Modal" },
+    fit: { zh: "新建项目、编辑资料、邀请成员", en: "Create project, edit profile, invite members" },
+    useWhen: { zh: ["少量字段的集中编辑", "需要短暂打断主流程"] },
+    avoidWhen: { zh: ["表单很长（用独立页面）", "需要上下文参考"] },
+    anatomy: [["标题", "说明任务"], ["表单字段", "2-5 个，单列"], ["按钮", "取消 + 提交（含 loading 状态）"]],
+    codeHints: "<dialog> 内嵌 <form method=\"dialog\">; 提交时显示 loading; 关闭后焦点恢复",
+    preview: () => `
+      <div style="width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px;box-shadow:var(--shadow-md);">
+        <div style="font-size:11px;font-weight:700;margin-bottom:8px;">Invite member</div>
+        <div style="margin-bottom:6px;">
+          <div style="font-size:8px;color:var(--muted);margin-bottom:2px;">Email</div>
+          <div style="background:var(--surface-soft);border:1px solid var(--line);border-radius:4px;padding:4px 6px;font-size:9px;color:var(--quiet);">name@example.com</div>
+        </div>
+        <div style="margin-bottom:8px;">
+          <div style="font-size:8px;color:var(--muted);margin-bottom:2px;">Role</div>
+          <div style="background:var(--surface-soft);border:1px solid var(--line);border-radius:4px;padding:4px 6px;font-size:9px;color:var(--quiet);">Editor ▾</div>
+        </div>
+        <div style="display:flex;gap:6px;justify-content:flex-end;">
+          <div style="background:transparent;border:1px solid var(--line-strong);font-size:9px;padding:4px 10px;border-radius:4px;">Cancel</div>
+          <div style="background:var(--accent);color:#fff;font-size:9px;font-weight:600;padding:4px 10px;border-radius:4px;">Send invite</div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "modal-media",
+    category: "modal",
+    number: "26",
+    name: { zh: "媒体弹窗", en: "Media Modal" },
+    fit: { zh: "图片放大、视频播放、文档预览", en: "Image zoom, video playback, document preview" },
+    useWhen: { zh: ["需要聚焦查看单个媒体", "背景内容暂时不需要"] },
+    avoidWhen: { zh: ["需要同时查看多个媒体", "媒体需要上下文说明"] },
+    anatomy: [["全屏遮罩", "深色背景"], ["媒体居中", "max-width: 90vw; max-height: 90vh"], ["关闭按钮", "右上角"], ["键盘", "Escape 关闭"]],
+    codeHints: "dialog { background: rgba(0,0,0,0.9); padding: 0; } img { max-width: 90vw; max-height: 90vh; object-fit: contain; }",
+    preview: () => `
+      <div style="width:100%;height:120px;background:rgba(0,0,0,0.85);border-radius:8px;position:relative;display:flex;align-items:center;justify-content:center;">
+        <div style="width:80px;height:60px;background:linear-gradient(135deg,var(--accent-tint),var(--indigo-soft));border-radius:4px;"></div>
+        <div style="position:absolute;top:6px;right:6px;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;">×</div>
+      </div>`,
+  },
+  {
+    id: "modal-fullscreen",
+    category: "modal",
+    number: "27",
+    name: { zh: "全屏弹窗", en: "Full-screen Modal" },
+    fit: { zh: "移动端复杂表单、多步骤流程、编辑器", en: "Mobile complex forms, multi-step flows, editors" },
+    useWhen: { zh: ["移动端内容超出常规弹窗", "需要沉浸式操作"] },
+    avoidWhen: { zh: ["桌面端（用侧边抽屉更自然）", "内容简短"] },
+    anatomy: [["全屏覆盖", "width: 100vw; height: 100vh"], ["顶部栏", "标题 + 关闭按钮"], ["内容区", "可滚动"], ["底部操作", "固定在底部"]],
+    codeHints: "dialog { width: 100vw; height: 100vh; max-width: none; max-height: none; border-radius: 0; }",
+    preview: () => `
+      <div style="width:100%;height:120px;background:var(--surface);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--line);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 8px;border-bottom:1px solid var(--line);background:var(--surface-soft);">
+          <div style="font-size:9px;font-weight:600;">Edit profile</div>
+          <div style="font-size:12px;color:var(--muted);">×</div>
+        </div>
+        <div style="flex:1;padding:8px;display:flex;flex-direction:column;gap:4px;">
+          <div style="height:8px;background:var(--surface-sunk);border-radius:2px;width:80%;"></div>
+          <div style="height:8px;background:var(--surface-sunk);border-radius:2px;width:60%;"></div>
+          <div style="height:8px;background:var(--surface-sunk);border-radius:2px;width:70%;"></div>
+        </div>
+        <div style="padding:6px 8px;border-top:1px solid var(--line);background:var(--surface-soft);display:flex;justify-content:flex-end;gap:4px;">
+          <div style="background:var(--accent);color:#fff;font-size:8px;padding:3px 8px;border-radius:3px;">Save</div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "modal-bottom-sheet",
+    category: "modal",
+    number: "28",
+    name: { zh: "Bottom Sheet", en: "Bottom Sheet" },
+    fit: { zh: "移动端操作菜单、分享、筛选", en: "Mobile action menus, share, filters" },
+    useWhen: { zh: ["移动端", "单手操作", "快速选择"] },
+    avoidWhen: { zh: ["桌面端", "需要长时间停留"] },
+    anatomy: [["底部滑出", "position: fixed; bottom: 0"], ["圆角顶部", "border-radius: 16px 16px 0 0"], ["拖拽手柄", "顶部小横条"], ["遮罩", "半透明"]],
+    codeHints: "position: fixed; bottom: 0; left: 0; right: 0; border-radius: 16px 16px 0 0; transform: translateY(100%); transition: transform 0.3s;",
+    preview: () => `
+      <div style="width:100%;height:120px;background:rgba(0,0,0,0.4);border-radius:8px;position:relative;overflow:hidden;">
+        <div style="position:absolute;bottom:0;left:0;right:0;background:var(--surface);border-radius:12px 12px 0 0;padding:10px;box-shadow:var(--shadow-lg);">
+          <div style="width:30px;height:3px;background:var(--line-strong);border-radius:2px;margin:0 auto 8px;"></div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="display:flex;align-items:center;gap:6px;padding:6px;background:var(--surface-soft);border-radius:6px;font-size:9px;">📤 Share</div>
+            <div style="display:flex;align-items:center;gap:6px;padding:6px;background:var(--surface-soft);border-radius:6px;font-size:9px;">📋 Copy link</div>
+            <div style="display:flex;align-items:center;gap:6px;padding:6px;background:var(--surface-soft);border-radius:6px;font-size:9px;color:var(--coral);">🗑 Delete</div>
+          </div>
+        </div>
+      </div>`,
+  },
+
+  // ─────────────────────────────────────────────
+  // FORM (7)
+  // ─────────────────────────────────────────────
+  {
+    id: "form-single",
+    category: "form",
+    number: "29",
+    name: { zh: "单列表单", en: "Single Column Form" },
+    fit: { zh: "注册、联系、简单收集", en: "Sign-up, contact, simple collection" },
+    useWhen: { zh: ["移动端优先", "字段少于 8 个", "新手流程"] },
+    avoidWhen: { zh: ["字段多且有关联", "桌面端空间充足"] },
+    anatomy: [["标签在上", "label 在 input 上方"], ["全宽输入", "width: 100%"], ["垂直堆叠", "字段从上到下"]],
+    codeHints: "display: flex; flex-direction: column; gap: 16px; label { display: block; margin-bottom: 4px; }",
+    preview: () => `
+      <div style="width:100%;display:flex;flex-direction:column;gap:6px;">
+        <div>
+          <div style="font-size:8px;color:var(--muted);margin-bottom:2px;">Name</div>
+          <div style="background:var(--surface);border:1px solid var(--line-strong);border-radius:4px;padding:4px 6px;font-size:9px;">Lin Qing</div>
+        </div>
+        <div>
+          <div style="font-size:8px;color:var(--muted);margin-bottom:2px;">Email</div>
+          <div style="background:var(--surface);border:1px solid var(--line-strong);border-radius:4px;padding:4px 6px;font-size:9px;">hello@example.com</div>
+        </div>
+        <div style="background:var(--accent);color:#fff;font-size:9px;font-weight:600;padding:5px;border-radius:4px;text-align:center;margin-top:2px;">Create account</div>
+      </div>`,
+  },
+  {
+    id: "form-multi",
+    category: "form",
+    number: "30",
+    name: { zh: "多列表单", en: "Multi Column Form" },
+    fit: { zh: "桌面端复杂表单、地址、账单", en: "Desktop complex forms, addresses, billing" },
+    useWhen: { zh: ["桌面端", "字段多但可分组", "字段间有关联（如姓+名）"] },
+    avoidWhen: { zh: ["移动端", "字段少于 4 个"] },
+    anatomy: [["Grid 布局", "2-3 列"], ["字段分组", "相关字段并置"], ["响应式", "窄屏退化为单列"]],
+    codeHints: "display: grid; grid-template-columns: 1fr 1fr; gap: 16px; @media (max-width: 640px) { grid-template-columns: 1fr; }",
+    preview: () => `
+      <div style="width:100%;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+        <div>
+          <div style="font-size:7px;color:var(--muted);margin-bottom:2px;">First name</div>
+          <div style="background:var(--surface);border:1px solid var(--line-strong);border-radius:3px;padding:3px 5px;font-size:8px;">Lin</div>
+        </div>
+        <div>
+          <div style="font-size:7px;color:var(--muted);margin-bottom:2px;">Last name</div>
+          <div style="background:var(--surface);border:1px solid var(--line-strong);border-radius:3px;padding:3px 5px;font-size:8px;">Qing</div>
+        </div>
+        <div style="grid-column:span 2;">
+          <div style="font-size:7px;color:var(--muted);margin-bottom:2px;">Address</div>
+          <div style="background:var(--surface);border:1px solid var(--line-strong);border-radius:3px;padding:3px 5px;font-size:8px;">123 Quiet St</div>
+        </div>
+        <div>
+          <div style="font-size:7px;color:var(--muted);margin-bottom:2px;">City</div>
+          <div style="background:var(--surface);border:1px solid var(--line-strong);border-radius:3px;padding:3px 5px;font-size:8px;">Hangzhou</div>
+        </div>
+        <div>
+          <div style="font-size:7px;color:var(--muted);margin-bottom:2px;">ZIP</div>
+          <div style="background:var(--surface);border:1px solid var(--line-strong);border-radius:3px;padding:3px 5px;font-size:8px;">310000</div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "form-stepper",
+    category: "form",
+    number: "31",
+    name: { zh: "分步骤表单", en: "Stepper Form" },
+    fit: { zh: "结账、入驻、复杂注册", en: "Checkout, onboarding, complex sign-up" },
+    useWhen: { zh: ["任务有明确顺序", "每步可独立验证", "总步骤 3-6 步"] },
+    avoidWhen: { zh: ["字段少于 5 个", "步骤间无依赖"] },
+    anatomy: [["步骤指示器", "顶部进度条或圆点"], ["当前步骤", "只显示当前字段"], ["导航", "上一步 + 下一步"]],
+    codeHints: "状态机管理 currentStep; 每步独立校验; 进度条用 aria-valuenow; 最后一步显示「完成」",
+    preview: () => `
+      <div style="width:100%;">
+        <div style="display:flex;align-items:center;gap:2px;margin-bottom:10px;">
+          <div style="flex:1;height:3px;background:var(--accent);border-radius:2px;"></div>
+          <div style="flex:1;height:3px;background:var(--accent);border-radius:2px;"></div>
+          <div style="flex:1;height:3px;background:var(--surface-sunk);border-radius:2px;"></div>
+          <div style="flex:1;height:3px;background:var(--surface-sunk);border-radius:2px;"></div>
+        </div>
+        <div style="font-size:8px;color:var(--accent);font-weight:600;margin-bottom:6px;">STEP 2 OF 4</div>
+        <div style="font-size:11px;font-weight:700;margin-bottom:8px;">Shipping address</div>
+        <div style="margin-bottom:4px;">
+          <div style="font-size:7px;color:var(--muted);margin-bottom:2px;">Street</div>
+          <div style="background:var(--surface);border:1px solid var(--line-strong);border-radius:3px;padding:3px 5px;font-size:8px;">123 Quiet St</div>
+        </div>
+        <div style="display:flex;gap:4px;justify-content:space-between;margin-top:8px;">
+          <div style="background:transparent;border:1px solid var(--line-strong);font-size:8px;padding:3px 8px;border-radius:3px;">← Back</div>
+          <div style="background:var(--accent);color:#fff;font-size:8px;font-weight:600;padding:3px 8px;border-radius:3px;">Next →</div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "form-inline",
+    category: "form",
+    number: "32",
+    name: { zh: "内联编辑表单", en: "Inline Form" },
+    fit: { zh: "详情页编辑、任务标题、备注", en: "Detail page editing, task titles, notes" },
+    useWhen: { zh: ["只改 1-2 个字段", "不需要跳转页面"] },
+    avoidWhen: { zh: ["字段多", "需要分组"] },
+    anatomy: [["原地编辑", "点击文字变输入框"], ["保存/取消", "Enter 保存，Esc 取消"], ["无标签", "用 placeholder 提示"]],
+    codeHints: "点击触发 contenteditable 或 input; blur 时保存; Enter 提交, Escape 取消",
+    preview: () => `
+      <div style="width:100%;background:var(--surface);border:1px solid var(--accent);border-radius:6px;padding:6px 8px;box-shadow:0 0 0 3px var(--accent-soft);">
+        <div style="font-size:9px;color:var(--ink);margin-bottom:4px;">Project title</div>
+        <div style="font-size:10px;font-weight:600;">North Atlantic Trip|</div>
+        <div style="display:flex;gap:4px;margin-top:6px;">
+          <div style="background:var(--accent);color:#fff;font-size:8px;padding:2px 6px;border-radius:3px;">Save</div>
+          <div style="background:transparent;font-size:8px;color:var(--muted);padding:2px 6px;">Cancel</div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "form-conversational",
+    category: "form",
+    number: "33",
+    name: { zh: "对话式表单", en: "Conversational Form" },
+    fit: { zh: "问卷、引导式注册、反馈收集", en: "Surveys, guided sign-up, feedback collection" },
+    useWhen: { zh: ["问题有逻辑顺序", "需要降低填写压力", "每步只问一件事"] },
+    avoidWhen: { zh: ["需要并置多个字段", "用户需要回顾已填内容"] },
+    anatomy: [["单问题展示", "一次只显示一个问题"], ["大字号", "像聊天一样"], ["进度提示", "1/5, 2/5…"], ["输入区", "大输入框或选项"]],
+    codeHints: "一次只渲染一个问题; Enter 进入下一题; 支持返回上一题; 用 aria-live 通知屏幕阅读器",
+    preview: () => `
+      <div style="width:100%;">
+        <div style="font-size:7px;color:var(--muted);margin-bottom:6px;">Question 3 of 8</div>
+        <div style="font-size:13px;font-weight:700;line-height:1.3;margin-bottom:10px;">What brings you here today?</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="display:flex;align-items:center;gap:6px;padding:6px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:6px;font-size:9px;">
+            <div style="width:10px;height:10px;border-radius:50%;border:2px solid var(--accent);background:var(--accent);"></div>
+            Just exploring
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:6px;font-size:9px;">
+            <div style="width:10px;height:10px;border-radius:50%;border:2px solid var(--line-strong);"></div>
+            Looking for a specific tool
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:6px;font-size:9px;">
+            <div style="width:10px;height:10px;border-radius:50%;border:2px solid var(--line-strong);"></div>
+            Comparing alternatives
+          </div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "form-login",
+    category: "form",
+    number: "34",
+    name: { zh: "登录表单", en: "Login Form" },
+    fit: { zh: "登录、注册、找回密码", en: "Sign in, sign up, password recovery" },
+    useWhen: { zh: ["已有账户用户", "需要快速进入"] },
+    avoidWhen: { zh: ["首次注册需要更多信息"] },
+    anatomy: [["标题", "Welcome back"], ["邮箱/手机", "主输入"], ["密码", "可显示/隐藏"], ["忘记密码", "右下链接"], ["第三方登录", "Google/GitHub 按钮"], ["提交", "全宽主按钮"]],
+    codeHints: "input type=\"email\" + autocomplete=\"email\"; 密码用 type=\"password\" + 显示/隐藏切换; 第三方登录用 OAuth",
+    preview: () => `
+      <div style="width:100%;max-width:200px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:8px;">
+          <div style="font-size:12px;font-weight:800;">Welcome back</div>
+          <div style="font-size:8px;color:var(--muted);">Sign in to continue</div>
+        </div>
+        <div style="margin-bottom:4px;">
+          <div style="background:var(--surface);border:1px solid var(--line-strong);border-radius:4px;padding:4px 6px;font-size:8px;color:var(--quiet);">name@example.com</div>
+        </div>
+        <div style="margin-bottom:6px;">
+          <div style="background:var(--surface);border:1px solid var(--line-strong);border-radius:4px;padding:4px 6px;font-size:8px;color:var(--quiet);display:flex;justify-content:space-between;">•••••••• <span style="color:var(--muted);">👁</span></div>
+        </div>
+        <div style="background:var(--accent);color:#fff;font-size:9px;font-weight:600;padding:5px;border-radius:4px;text-align:center;margin-bottom:6px;">Sign in</div>
+        <div style="text-align:center;font-size:7px;color:var(--muted);">or</div>
+        <div style="background:var(--surface);border:1px solid var(--line-strong);font-size:8px;padding:4px;border-radius:4px;text-align:center;margin-top:4px;">Continue with Google</div>
+      </div>`,
+  },
+  {
+    id: "form-checkout",
+    category: "form",
+    number: "35",
+    name: { zh: "结账表单", en: "Checkout Form" },
+    fit: { zh: "电商结账、订阅升级、订单确认", en: "E-commerce checkout, subscription upgrade, order confirmation" },
+    useWhen: { zh: ["需要支付信息", "有订单摘要", "多步骤但顺序明确"] },
+    avoidWhen: { zh: ["非交易场景", "字段无法分组"] },
+    anatomy: [["左侧表单", "地址 + 支付 + 联系"], ["右侧摘要", "商品列表 + 总价"], ["步骤指示", "1 地址 → 2 支付 → 3 确认"], ["安全提示", "SSL/PCI 徽章"]],
+    codeHints: "grid: 2fr 1fr; 左侧表单分步骤; 右侧 sticky 摘要; 总价用 font-variant-numeric: tabular-nums",
+    preview: () => `
+      <div style="width:100%;display:grid;grid-template-columns:1.5fr 1fr;gap:8px;">
+        <div style="background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:8px;">
+          <div style="font-size:8px;color:var(--accent);font-weight:600;margin-bottom:4px;">1. SHIPPING</div>
+          <div style="margin-bottom:3px;">
+            <div style="background:var(--surface-soft);border:1px solid var(--line);border-radius:3px;padding:3px 5px;font-size:7px;color:var(--quiet);">Full name</div>
+          </div>
+          <div style="margin-bottom:3px;">
+            <div style="background:var(--surface-soft);border:1px solid var(--line);border-radius:3px;padding:3px 5px;font-size:7px;color:var(--quiet);">Address</div>
+          </div>
+          <div style="font-size:8px;color:var(--muted);margin-top:6px;">2. PAYMENT →</div>
+        </div>
+        <div style="background:var(--surface-soft);border:1px solid var(--line);border-radius:6px;padding:8px;">
+          <div style="font-size:8px;font-weight:600;margin-bottom:4px;">Order summary</div>
+          <div style="display:flex;justify-content:space-between;font-size:7px;color:var(--muted);margin-bottom:2px;"><span>Subtotal</span><span>¥280</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:7px;color:var(--muted);margin-bottom:2px;"><span>Shipping</span><span>¥12</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:9px;font-weight:700;margin-top:4px;padding-top:4px;border-top:1px solid var(--line);"><span>Total</span><span>¥292</span></div>
+        </div>
+      </div>`,
+  },
+
+  // ─────────────────────────────────────────────
+  // TABS (6)
+  // ─────────────────────────────────────────────
+  {
+    id: "tabs-underline",
+    category: "tabs",
+    number: "36",
+    name: { zh: "下划线标签页", en: "Underline Tabs" },
+    fit: { zh: "内容阅读、对象详情、设置页", en: "Content reading, object details, settings" },
+    useWhen: { zh: ["内容以阅读为主", "需要轻量切换", "标签 2-5 个"] },
+    avoidWhen: { zh: ["需要强视觉分隔", "标签是筛选操作"] },
+    anatomy: [["标签列表", "水平排列，无背景"], ["下划线", "当前项底部 2px 实线"], ["面板", "下方内容区切换"]],
+    codeHints: "button[role=tab] + aria-selected; 下划线用 ::after 或 border-bottom; 支持键盘左右切换",
+    preview: () => `
+      <div style="width:100%;">
+        <div style="display:flex;gap:12px;border-bottom:1px solid var(--line);margin-bottom:8px;">
+          <div style="font-size:10px;font-weight:600;padding:4px 0;border-bottom:2px solid var(--accent);color:var(--accent);">Overview</div>
+          <div style="font-size:10px;color:var(--muted);padding:4px 0;">Activity</div>
+          <div style="font-size:10px;color:var(--muted);padding:4px 0;">Files</div>
+        </div>
+        <div style="padding:4px 0;">
+          <div style="height:6px;background:var(--surface-sunk);border-radius:2px;width:90%;margin-bottom:4px;"></div>
+          <div style="height:6px;background:var(--surface-sunk);border-radius:2px;width:70%;"></div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "tabs-pill",
+    category: "tabs",
+    number: "37",
+    name: { zh: "胶囊标签页", en: "Pill Tabs" },
+    fit: { zh: "筛选、视图切换、分类", en: "Filters, view switching, categories" },
+    useWhen: { zh: ["标签是筛选操作", "需要明显选中态", "标签 3-6 个"] },
+    avoidWhen: { zh: ["内容阅读场景", "标签很多"] },
+    anatomy: [["胶囊容器", "圆角 999px"], ["选中态", "填充背景"], ["未选中", "透明背景"]],
+    codeHints: "button + border-radius: 999px; [aria-selected=true] { background: var(--accent); color: #fff; }",
+    preview: () => `
+      <div style="display:flex;gap:4px;justify-content:center;">
+        <div style="background:var(--accent);color:#fff;font-size:9px;font-weight:600;padding:4px 10px;border-radius:999px;">All</div>
+        <div style="background:var(--surface-soft);color:var(--muted);font-size:9px;padding:4px 10px;border-radius:999px;">Design</div>
+        <div style="background:var(--surface-soft);color:var(--muted);font-size:9px;padding:4px 10px;border-radius:999px;">Research</div>
+        <div style="background:var(--surface-soft);color:var(--muted);font-size:9px;padding:4px 10px;border-radius:999px;">Code</div>
+      </div>`,
+  },
+  {
+    id: "tabs-segmented",
+    category: "tabs",
+    number: "38",
+    name: { zh: "分段控件", en: "Segmented Control" },
+    fit: { zh: "视图模式切换、少量互斥选项", en: "View mode switching, few exclusive options" },
+    useWhen: { zh: ["2-4 个互斥选项", "切换视图模式（日/周/月）"] },
+    avoidWhen: { zh: ["选项超过 5 个", "需要文字描述"] },
+    anatomy: [["容器", "圆角背景"], ["分段", "等宽"], ["选中态", "白色填充 + 阴影"]],
+    codeHints: "display: inline-flex; background: var(--surface-sunk); border-radius: 8px; padding: 2px; button[aria-selected=true] { background: var(--surface); box-shadow: var(--shadow-sm); }",
+    preview: () => `
+      <div style="display:inline-flex;background:var(--surface-sunk);border-radius:6px;padding:2px;">
+        <div style="background:var(--surface);box-shadow:var(--shadow-sm);font-size:9px;font-weight:600;padding:4px 10px;border-radius:4px;">Day</div>
+        <div style="font-size:9px;color:var(--muted);padding:4px 10px;">Week</div>
+        <div style="font-size:9px;color:var(--muted);padding:4px 10px;">Month</div>
+      </div>`,
+  },
+  {
+    id: "tabs-vertical",
+    category: "tabs",
+    number: "39",
+    name: { zh: "垂直标签页", en: "Vertical Tabs" },
+    fit: { zh: "设置页、文档侧边栏、长列表分类", en: "Settings pages, doc sidebars, long category lists" },
+    useWhen: { zh: ["标签多（6+）", "桌面端有侧边空间", "设置类页面"] },
+    avoidWhen: { zh: ["移动端", "标签少于 4 个"] },
+    anatomy: [["左侧列表", "垂直排列"], ["选中态", "左 border 或背景"], ["右侧面板", "flex: 1"]],
+    codeHints: "display: grid; grid-template-columns: 200px 1fr; 左侧 nav 垂直; button[aria-selected=true] { border-left: 3px solid var(--accent); }",
+    preview: () => `
+      <div style="width:100%;display:grid;grid-template-columns:80px 1fr;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:8px;">
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <div style="font-size:8px;font-weight:600;padding:3px 4px;border-left:2px solid var(--accent);color:var(--accent);">General</div>
+          <div style="font-size:8px;color:var(--muted);padding:3px 4px;">Account</div>
+          <div style="font-size:8px;color:var(--muted);padding:3px 4px;">Privacy</div>
+          <div style="font-size:8px;color:var(--muted);padding:3px 4px;">Notifications</div>
+        </div>
+        <div style="border-left:1px solid var(--line);padding-left:8px;">
+          <div style="font-size:9px;font-weight:600;margin-bottom:4px;">General settings</div>
+          <div style="height:5px;background:var(--surface-sunk);border-radius:2px;width:90%;margin-bottom:3px;"></div>
+          <div style="height:5px;background:var(--surface-sunk);border-radius:2px;width:70%;"></div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "tabs-scroll",
+    category: "tabs",
+    number: "40",
+    name: { zh: "滚动式标签页", en: "Scrollable Tabs" },
+    fit: { zh: "移动端多分类、新闻、视频", en: "Mobile categories, news, video" },
+    useWhen: { zh: ["标签超过 6 个", "移动端", "当前项必须可见"] },
+    avoidWhen: { zh: ["桌面端（用其他形式更自然）", "标签少于 5 个"] },
+    anatomy: [["横向滚动", "overflow-x: auto"], ["隐藏滚动条", "::-webkit-scrollbar { display: none }"], ["当前项", "始终滚动到可见位置"]],
+    codeHints: "overflow-x: auto; scroll-snap-type: x; 当前项用 scrollIntoView({ behavior: 'smooth', inline: 'center' })",
+    preview: () => `
+      <div style="width:100%;overflow:hidden;">
+        <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;">
+          <div style="background:var(--accent);color:#fff;font-size:8px;font-weight:600;padding:3px 8px;border-radius:999px;white-space:nowrap;flex-shrink:0;">For you</div>
+          <div style="background:var(--surface-soft);color:var(--muted);font-size:8px;padding:3px 8px;border-radius:999px;white-space:nowrap;flex-shrink:0;">Design</div>
+          <div style="background:var(--surface-soft);color:var(--muted);font-size:8px;padding:3px 8px;border-radius:999px;white-space:nowrap;flex-shrink:0;">AI</div>
+          <div style="background:var(--surface-soft);color:var(--muted);font-size:8px;padding:3px 8px;border-radius:999px;white-space:nowrap;flex-shrink:0;">Business</div>
+          <div style="background:var(--surface-soft);color:var(--muted);font-size:8px;padding:3px 8px;border-radius:999px;white-space:nowrap;flex-shrink:0;">Culture</div>
+          <div style="background:var(--surface-soft);color:var(--muted);font-size:8px;padding:3px 8px;border-radius:999px;white-space:nowrap;flex-shrink:0;">Tech</div>
+        </div>
+      </div>`,
+  },
+  {
+    id: "tabs-icon",
+    category: "tabs",
+    number: "41",
+    name: { zh: "图标式标签页", en: "Icon Tabs" },
+    fit: { zh: "工具栏、编辑器、底部导航", en: "Toolbars, editors, bottom navigation" },
+    useWhen: { zh: ["图标含义明确", "空间紧张", "用户熟悉图标"] },
+    avoidWhen: { zh: ["图标含义不明确", "无 aria-label"] },
+    anatomy: [["纯图标", "无文字或 tooltip"], ["选中态", "颜色或背景"], ["aria-label", "必须提供"]],
+    codeHints: "button + aria-label=\"Overview\"; 选中态用 color: var(--accent); hover 显示 tooltip",
+    preview: () => `
+      <div style="display:flex;gap:4px;justify-content:center;border-bottom:1px solid var(--line);padding-bottom:6px;">
+        <div style="width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--accent);border-bottom:2px solid var(--accent);">☰</div>
+        <div style="width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--muted);">⚙</div>
+        <div style="width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--muted);">⌕</div>
+        <div style="width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--muted);">⊙</div>
+      </div>`,
+  },
+];
+
+// ------------------------------------------------------------
+// Category metadata
+// ------------------------------------------------------------
+const categories = [
+  { id: "all", label: { zh: "全部", en: "All" }, count: 41 },
+  { id: "hero", label: { zh: "Hero 首屏", en: "Hero" }, count: 7 },
+  { id: "card", label: { zh: "Card 卡片", en: "Card" }, count: 8 },
+  { id: "button", label: { zh: "Button 按钮", en: "Button" }, count: 8 },
+  { id: "modal", label: { zh: "Modal 弹窗", en: "Modal" }, count: 5 },
+  { id: "form", label: { zh: "Form 表单", en: "Form" }, count: 7 },
+  { id: "tabs", label: { zh: "Tabs 标签页", en: "Tabs" }, count: 6 },
+];
+
+// ------------------------------------------------------------
+// State
+// ------------------------------------------------------------
+const state = {
+  category: "all",
+  query: "",
+};
+
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
+
+const unsplashMedia = Object.freeze({
+  landscape: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=85",
+  studio: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=85",
+  interior: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=85",
+  product: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=85",
+  editorial: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=1200&q=85",
+});
+
+const unsplashTargets = [
+  ["hero-split", ".variant-preview > div > div:nth-child(2)", "studio"],
+  ["hero-fullbleed", ".variant-preview > div", "landscape"],
+  ["hero-video", ".variant-preview > div", "interior"],
+  ["hero-mockup", ".variant-preview > div > div:nth-child(2) > div", "product"],
+  ["hero-bento", ".variant-preview > div > div:first-child", "studio"],
+  ["card-image-top", ".variant-preview > div > div:first-child", "editorial"],
+  ["card-image-side", ".variant-preview > div > div:first-child", "landscape"],
+  ["card-overlay", ".variant-preview > div", "landscape"],
+  ["card-product", ".variant-preview > div > div:first-child", "product"],
+  ["card-article", ".variant-preview > div > div:first-child", "editorial"],
+  ["card-borderless", ".variant-preview > div > div > div:first-child", "interior"],
+  ["modal-media", ".variant-preview > div > div:first-child", "landscape"],
+];
+
+function applyUnsplashMedia() {
+  unsplashTargets.forEach(([id, previewSelector, image]) => {
+    const url = unsplashMedia[image];
+    const selectors = [
+      `[data-variant-id="${id}"] ${previewSelector}`,
+      `#dialogContent[data-variant-id="${id}"] .dialog-preview ${previewSelector.replace(".variant-preview", "")}`,
+    ];
+    selectors.forEach((selector) => {
+      $$(selector).forEach((element) => {
+        element.style.backgroundImage = `url("${url}")`;
+        element.style.backgroundSize = "cover";
+        element.style.backgroundPosition = "center";
+      });
+    });
+  });
+}
+
+const grid = $("#variantsGrid");
+const emptyState = $("#variantEmptyState");
+const resultsSummary = $("#variantResultsSummary");
+const dialog = $("#variantDialog");
+const dialogContent = $("#dialogContent");
+const toast = $("#variantToast");
+
+// ------------------------------------------------------------
+// Helpers
+// ------------------------------------------------------------
+const escapeHtml = (v) => String(v ?? "").replace(/[&<>'"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[c]));
+
+const tr2 = (obj) => (currentLang === "en" ? obj?.en : obj?.zh) || obj?.zh || obj?.en || "";
+
+// ------------------------------------------------------------
+// Filter
+// ------------------------------------------------------------
+function filterVariants() {
+  const q = state.query.trim().toLowerCase();
+  return variants.filter((v) => {
+    if (state.category !== "all" && v.category !== state.category) return false;
+    if (!q) return true;
+    const haystack = [
+      v.name.zh, v.name.en, v.fit.zh, v.fit.en,
+      ...(v.useWhen?.zh || []), ...(v.avoidWhen?.zh || []),
+      ...(v.anatomy?.flat() || []),
+      v.codeHints,
+    ].join(" ").toLowerCase();
+    return haystack.includes(q);
+  });
+}
+
+// ------------------------------------------------------------
+// Card Markup
+// ------------------------------------------------------------
+function cardMarkup(v) {
+  const cat = categories.find((c) => c.id === v.category);
+  return `
+    <article class="variant-card" data-variant-id="${v.id}">
+      <div class="variant-preview">
+        <span class="variant-preview-label">${v.category}<em>#${v.number}</em></span>
+        ${v.preview()}
+      </div>
+      <div class="variant-body">
+        <div class="variant-meta">
+          <span class="variant-category">${tr2(cat.label)}</span>
+          <span class="variant-number">${v.number}</span>
+        </div>
+        <h3>${tr2(v.name)}</h3>
+        <p class="variant-en">${currentLang === "en" ? v.name.zh : v.name.en}</p>
+        <p class="variant-fit">${tr2(v.fit)}</p>
+        <div class="variant-footer">
+          <div class="variant-tags">
+            ${(v.useWhen?.zh || []).slice(0, 2).map((t) => `<span class="variant-tag">${escapeHtml(t)}</span>`).join("")}
+          </div>
+          <button class="variant-open" type="button" data-open-variant="${v.id}">
+            ${currentLang === "en" ? "Details" : "详情"} <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </div>
+    </article>`;
+}
+
+// ------------------------------------------------------------
+// Render
+// ------------------------------------------------------------
+function render() {
+  const list = filterVariants();
+  grid.innerHTML = list.map(cardMarkup).join("");
+  applyUnsplashMedia();
+  emptyState.hidden = list.length > 0;
+  grid.hidden = list.length === 0;
+
+  // Update summary
+  const cat = categories.find((c) => c.id === state.category);
+  const catLabel = state.category === "all" ? tr("cat.all") : tr2(cat.label);
+  if (state.query) {
+    resultsSummary.textContent = tr("results.search", { n: list.length, q: state.query });
+  } else {
+    resultsSummary.textContent = tr("results.all", { n: list.length });
+  }
+
+  // Wire up open buttons
+  $$("[data-open-variant]").forEach((btn) => {
+    btn.addEventListener("click", () => openVariant(btn.dataset.openVariant));
+  });
+}
+
+// ------------------------------------------------------------
+// Detail Dialog
+// ------------------------------------------------------------
+function openVariant(id) {
+  const v = variants.find((x) => x.id === id);
+  if (!v) return;
+  const cat = categories.find((c) => c.id === v.category);
+
+  const anatomyRows = (v.anatomy || []).map(([k, val]) => `
+    <div class="dialog-anatomy-row">
+      <strong>${escapeHtml(k)}</strong>
+      <span>${escapeHtml(val)}</span>
+    </div>`).join("");
+
+  const useWhenList = (v.useWhen?.[currentLang] || v.useWhen?.zh || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("");
+  const avoidWhenList = (v.avoidWhen?.[currentLang] || v.avoidWhen?.zh || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("");
+
+  dialogContent.innerHTML = `
+    <p class="dialog-eyebrow">${tr2(cat.label)} · #${v.number}</p>
+    <h2 id="dialogTitle">${tr2(v.name)}</h2>
+    <p class="dialog-en">${currentLang === "en" ? v.name.zh : v.name.en}</p>
+
+    <div class="dialog-preview">${v.preview()}</div>
+
+    <div class="dialog-section">
+      <h4>${tr("dialog.fit")}</h4>
+      <p>${escapeHtml(tr2(v.fit))}</p>
+    </div>
+
+    ${anatomyRows ? `
+    <div class="dialog-section">
+      <h4>${tr("dialog.anatomy")}</h4>
+      <div class="dialog-anatomy">${anatomyRows}</div>
+    </div>` : ""}
+
+    ${useWhenList ? `
+    <div class="dialog-section">
+      <h4>${tr("dialog.useWhen")}</h4>
+      <ul>${useWhenList}</ul>
+    </div>` : ""}
+
+    ${avoidWhenList ? `
+    <div class="dialog-section">
+      <h4>${tr("dialog.avoidWhen")}</h4>
+      <ul>${avoidWhenList}</ul>
+    </div>` : ""}
+
+    <div class="dialog-section">
+      <h4>${tr("dialog.codeHints")}</h4>
+      <pre class="dialog-code">${escapeHtml(v.codeHints)}</pre>
+    </div>
+  `;
+  dialogContent.dataset.variantId = id;
+  applyUnsplashMedia();
+
+  document.documentElement.classList.add("dialog-open");
+  dialog.showModal();
+}
+
+dialog.addEventListener("close", () => {
+  document.documentElement.classList.remove("dialog-open");
+});
+
+// ------------------------------------------------------------
+// Event Handlers
+// ------------------------------------------------------------
+$$(".cat-chip").forEach((chip) => {
+  chip.addEventListener("click", () => {
+    $$(".cat-chip").forEach((c) => c.classList.remove("is-active"));
+    chip.classList.add("is-active");
+    state.category = chip.dataset.variantCategory;
+    render();
+  });
+});
+
+$("#variantSearch").addEventListener("input", (e) => {
+  state.query = e.target.value;
+  render();
+});
+
+$("#variantClearSearch").addEventListener("click", () => {
+  state.query = "";
+  state.category = "all";
+  $("#variantSearch").value = "";
+  $$(".cat-chip").forEach((c) => c.classList.toggle("is-active", c.dataset.variantCategory === "all"));
+  render();
+  $("#variantSearch").focus();
+});
+
+// Keyboard shortcuts
+document.addEventListener("keydown", (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+    e.preventDefault();
+    $("#variantSearch").focus();
+  }
+  if (e.key === "Escape" && !dialog.open) {
+    state.query = "";
+    $("#variantSearch").value = "";
+    render();
+  }
+});
+
+// Language toggle — 使用原版 i18n 系统
+$("#langToggle")?.addEventListener("change", (e) => {
+  const newLang = e.target.checked ? "en" : "zh";
+  if (window.image2I18n?.setLanguage) {
+    window.image2I18n.setLanguage(newLang);
+  } else {
+    currentLang = newLang;
+    document.documentElement.lang = newLang === "en" ? "en" : "zh-CN";
+    applyI18n();
+    render();
+  }
+});
+
+// 监听原版语言切换事件
+window.addEventListener("image2:languagechange", (event) => {
+  currentLang = event.detail?.language === "en" ? "en" : "zh";
+  applyI18n();
+  render();
+  if (dialog.open && dialogReturnId) openVariant(dialogReturnId);
+});
+
+function applyI18n() {
+  $$("[data-i18n]").forEach((el) => {
+    const key = el.dataset.i18n;
+    if (I18N[currentLang]?.[key]) el.textContent = I18N[currentLang][key];
+  });
+}
+
+// ------------------------------------------------------------
+// Init
+// ------------------------------------------------------------
+applyI18n();
+render();
+
+  </script>
+  <script>
+    (() => {
+      const view = new URLSearchParams(window.location.search).get("view");
+      const targetSelector = view === "illustrated" ? "#vocabularySearch" : view === "variants" ? "#variantsGrid" : "";
+      if (!targetSelector) return;
+      const focusLegacyView = () => {
+        const target = document.querySelector(targetSelector);
+        if (!target) return;
+        window.scrollTo({ top: Math.max(0, target.getBoundingClientRect().top + window.scrollY - 16), behavior: "auto" });
+      };
+      window.addEventListener("load", () => window.setTimeout(focusLegacyView, 300), { once: true });
+    })();
+  </script>
 </body>
 </html>
