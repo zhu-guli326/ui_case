@@ -306,15 +306,48 @@ function cardMarkup(entry) {
   const localized = localizedEntry(entry);
   const favorite = state.favorites.has(entry.id);
   return `<article class="entry-card" data-entry-id="${escapeHtml(entry.id)}">
-    <button class="entry-card-hitarea" type="button" data-open-term="${escapeHtml(entry.id)}" aria-label="${escapeHtml(tr("查看", "View"))} ${escapeHtml(localized.name)} ${escapeHtml(tr("详情", "details"))}"></button>
-    <div class="entry-card-body">
-      <div class="entry-card-meta"><span>${escapeHtml(categoryLabel(entry.category))}</span><button class="favorite-button${favorite ? " is-favorite" : ""}" type="button" data-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}" aria-label="${escapeHtml(favorite ? `${tr("取消收藏", "Remove from favorites")} ${localized.name}` : `${tr("收藏", "Add to favorites")} ${localized.name}`)}" title="${escapeHtml(favorite ? tr("取消收藏", "Remove from favorites") : tr("收藏", "Add to favorites"))}">${favorite ? "★" : "☆"}</button></div>
-      <h3>${escapeHtml(localized.name)}${termAliasMarkup(entry)}</h3>
-      <p class="entry-ask">“${escapeHtml(localized.ask)}”</p>
-      ${previewMarkup(entry)}
-      <div class="entry-card-footer"><button class="entry-open-button" type="button" data-open-term="${escapeHtml(entry.id)}">${escapeHtml(tr("打开词条详情", "Open term details"))}<span aria-hidden="true">↗</span></button></div>
+    <div class="entry-card-inner">
+      <section class="entry-card-face entry-card-front" aria-hidden="false">
+        <button class="entry-flip-hitarea" type="button" data-flip-card aria-pressed="false" aria-label="${escapeHtml(tr(`翻转 ${localized.name}，查看样式`, `Flip ${localized.name} to see the pattern`))}"></button>
+        <div class="entry-card-body">
+          <div class="entry-card-meta"><span>${escapeHtml(categoryLabel(entry.category))}</span><button class="favorite-button${favorite ? " is-favorite" : ""}" type="button" data-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}" aria-label="${escapeHtml(favorite ? `${tr("取消收藏", "Remove from favorites")} ${localized.name}` : `${tr("收藏", "Add to favorites")} ${localized.name}`)}" title="${escapeHtml(favorite ? tr("取消收藏", "Remove from favorites") : tr("收藏", "Add to favorites"))}">${favorite ? "★" : "☆"}</button></div>
+          <h3>${escapeHtml(localized.name)}${termAliasMarkup(entry)}</h3>
+          <p class="entry-ask">“${escapeHtml(localized.ask)}”</p>
+          ${previewMarkup(entry)}
+          <div class="entry-card-footer"><button class="entry-flip-button" type="button" data-flip-card aria-pressed="false"><span>${escapeHtml(tr("翻转查看完整样式", "Flip to explore the pattern"))}</span><b aria-hidden="true">↻</b></button></div>
+        </div>
+      </section>
+      <section class="entry-card-face entry-card-back" aria-hidden="true" inert>
+        <button class="entry-flip-hitarea entry-flip-hitarea--back" type="button" data-flip-card aria-pressed="false" aria-label="${escapeHtml(tr(`翻回 ${localized.name} 的介绍`, `Flip back to the ${localized.name} introduction`))}"></button>
+        <div class="entry-card-back-shell">
+          <div class="entry-card-back-topline"><span>${escapeHtml(tr("样式预览", "PATTERN PREVIEW"))}</span><b>${escapeHtml(localized.name)}</b></div>
+          <div class="entry-card-back-preview" role="img" aria-label="${escapeHtml(tr(`${localized.name}的完整样式`, `Complete ${localized.name} pattern`))}">${detailPreviewMarkup(entry)}</div>
+          <div class="entry-card-back-actions">
+            <button class="entry-flip-button entry-flip-button--back" type="button" data-flip-card aria-pressed="false"><b aria-hidden="true">↶</b><span>${escapeHtml(tr("返回介绍", "Back"))}</span></button>
+            <button class="entry-open-button entry-open-button--back" type="button" data-open-term="${escapeHtml(entry.id)}">${escapeHtml(tr("打开详情", "Open details"))}<span aria-hidden="true">↗</span></button>
+          </div>
+        </div>
+      </section>
     </div>
   </article>`;
+}
+
+function setCardFlipped(card, flipped, { moveFocus = true } = {}) {
+  const front = card.querySelector(".entry-card-front");
+  const back = card.querySelector(".entry-card-back");
+  card.classList.toggle("is-flipped", flipped);
+  front.setAttribute("aria-hidden", String(flipped));
+  back.setAttribute("aria-hidden", String(!flipped));
+  front.inert = flipped;
+  back.inert = !flipped;
+  card.querySelectorAll("[data-flip-card]").forEach((button) => button.setAttribute("aria-pressed", String(flipped)));
+  if (!moveFocus) return;
+  requestAnimationFrame(() => {
+    const target = flipped
+      ? back.querySelector(".entry-flip-button")
+      : front.querySelector(".entry-flip-button");
+    target?.focus({ preventScroll: true });
+  });
 }
 
 function renderEntries() {
@@ -334,6 +367,11 @@ function renderEntries() {
       ? currentLanguage === "en" ? `You saved ${list.length} ${list.length === 1 ? "term" : "terms"}` : `你收藏了 ${list.length} 个词条`
       : currentLanguage === "en" ? `${categoryLabel(state.category)} · ${list.length} ${list.length === 1 ? "term" : "terms"}` : `${categoryLabel(state.category)} · ${list.length} 个词条`;
   document.querySelectorAll("[data-open-term]").forEach((button) => button.addEventListener("click", () => openTerm(button.dataset.openTerm)));
+  document.querySelectorAll("[data-flip-card]").forEach((button) => button.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const card = button.closest(".entry-card");
+    setCardFlipped(card, !card.classList.contains("is-flipped"));
+  }));
   document.querySelectorAll("[data-favorite]").forEach((button) => button.addEventListener("click", (event) => {
     event.stopPropagation();
     const id = button.dataset.favorite;

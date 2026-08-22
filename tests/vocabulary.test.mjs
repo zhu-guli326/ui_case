@@ -116,6 +116,20 @@ test("component cards render copy before their visual specimen", () => {
   assert.ok(previewIndex < footerIndex, "the detail action must follow the specimen");
 });
 
+test("every component card exposes an accessible two-sided flip interaction", () => {
+  const cardFunction = vocabularyScript.slice(vocabularyScript.indexOf("function cardMarkup"), vocabularyScript.indexOf("function setCardFlipped"));
+  assert.match(cardFunction, /entry-card-front/);
+  assert.match(cardFunction, /entry-card-back/);
+  assert.match(cardFunction, /data-flip-card/g);
+  assert.match(cardFunction, /aria-pressed="false"/);
+  assert.match(cardFunction, /entry-card-back[^>]*aria-hidden="true"[^>]*inert/);
+  assert.match(vocabularyScript, /function setCardFlipped/);
+  assert.match(vocabularyScript, /front\.inert = flipped/);
+  assert.match(vocabularyScript, /back\.inert = !flipped/);
+  assert.match(vocabularyCss, /\.entry-card\.is-flipped \.entry-card-inner\s*\{[^}]*rotateY\(180deg\)/s);
+  assert.match(vocabularyCss, /@media \(prefers-reduced-motion:\s*reduce\)[\s\S]{0,240}\.entry-card-inner/);
+});
+
 test("navigation components use their own distinct preview factories", () => {
   assert.match(vocabularyScript, /entry\.category === "navigation" && !entry\.componentKind/g);
 
