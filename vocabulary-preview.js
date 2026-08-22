@@ -171,9 +171,41 @@ const componentPreviewFactories = Object.freeze({
     </div>`,
 });
 
+const componentKindFactories = Object.freeze({
+  hero: ({ entry, language }) => {
+    const title = language === "en" ? entry.en : entry.name;
+    const variant = entry.id.replace("component-hero-", "");
+    const labels = { centered: ["居中主视觉", "Centered hero"], split: ["左右分栏", "Split hero"], fullbleed: ["全屏图片", "Full-bleed hero"], video: ["视频背景", "Video hero"], mockup: ["产品展示", "Product mockup"], search: ["搜索主导", "Search-led hero"], bento: ["Bento 网格", "Bento hero"] };
+    const label = labels[variant]?.[language === "en" ? 1 : 0] || (language === "en" ? "Hero layout" : "首屏布局");
+    return `<div class="vp-variant-scene vp-variant-scene--hero vp-variant-scene--${escapeHtml(variant)}"><div class="vp-variant-kicker">${escapeHtml(label)}</div><strong>${escapeHtml(title)}</strong><span class="vp-variant-line"></span><div class="vp-variant-action">${language === "en" ? "Explore" : "开始探索"}</div></div>`;
+  },
+  card: ({ entry, language }) => {
+    const title = language === "en" ? entry.en : entry.name;
+    const variant = entry.id.replace("component-card-", "");
+    const label = language === "en" ? `${variant} card` : `${title}布局`;
+    return `<div class="vp-variant-scene vp-variant-scene--card vp-variant-scene--${escapeHtml(variant)}"><div class="vp-card-variant-media"></div><div class="vp-card-variant-copy"><small>${escapeHtml(label)}</small><strong>${escapeHtml(title)}</strong><span>${language === "en" ? "View details" : "查看详情"} ↗</span></div></div>`;
+  },
+  modal: ({ entry, language }) => {
+    const title = language === "en" ? entry.en : entry.name;
+    const variant = entry.id.replace("component-modal-", "");
+    return `<div class="vp-variant-scene vp-variant-scene--modal vp-variant-scene--${escapeHtml(variant)}"><div class="vp-modal-variant-backdrop"></div><div class="vp-modal-variant-box"><small>${escapeHtml(variant)}</small><strong>${escapeHtml(title)}</strong><p>${language === "en" ? "Keep the task focused and make the next action clear." : "让当前任务保持聚焦，并明确下一步操作。"}</p><div><span>${language === "en" ? "Cancel" : "取消"}</span><b>${language === "en" ? "Confirm" : "确认"}</b></div></div></div>`;
+  },
+  form: ({ entry, language }) => {
+    const title = language === "en" ? entry.en : entry.name;
+    const variant = entry.id.replace("component-form-", "");
+    return `<div class="vp-variant-scene vp-variant-scene--form vp-variant-scene--${escapeHtml(variant)}"><div class="vp-form-variant-head"><small>${escapeHtml(variant)}</small><strong>${escapeHtml(title)}</strong></div><div class="vp-form-variant-body"><span>${language === "en" ? "Email address" : "邮箱地址"}</span><i></i><span>${language === "en" ? "Password" : "密码"}</span><i></i>${variant === "stepper" ? `<b class="vp-form-variant-step">01　02　03</b>` : `<em>${language === "en" ? "Continue" : "继续"} →</em>`}</div></div>`;
+  },
+  tabs: ({ entry, language }) => {
+    const title = language === "en" ? entry.en : entry.name;
+    const variant = entry.id.replace("component-tabs-", "");
+    const labels = language === "en" ? ["Overview", "Activity", "Files"] : ["概览", "动态", "文件"];
+    return `<div class="vp-variant-scene vp-variant-scene--tabs vp-variant-scene--${escapeHtml(variant)}"><div class="vp-tabs-variant-title">${escapeHtml(title)}</div><div class="vp-tabs-variant-bar">${labels.map((label, index) => `<span class="${index === 0 ? "is-active" : ""}">${label}</span>`).join("")}</div><div class="vp-tabs-variant-panel"><strong>${language === "en" ? "Current view" : "当前视图"}</strong><i></i><i></i></div></div>`;
+  },
+});
+
 function componentPreviewFactory(entry) {
   if (!entry?.componentKind) return null;
-  return componentPreviewFactories[entry.id] || (({ entry: currentEntry, language }) => `
+  return componentPreviewFactories[entry.id] || componentKindFactories[entry.componentKind] || (({ entry: currentEntry, language }) => `
     <div class="vp-component-entry vp-component-entry--${escapeHtml(currentEntry.componentKind)}">
       <span class="vp-component-entry__type">${escapeHtml(currentEntry.componentKind)}</span>
       <strong>${escapeHtml(language === "en" ? currentEntry.en : currentEntry.name)}</strong>

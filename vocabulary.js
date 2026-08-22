@@ -1,6 +1,6 @@
 import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./vocabulary-data.js?v=20260815-vocabulary-30";
 import { vocabularyComponentEntries } from "./src/features/vocabulary/vocabulary-component-data.js?v=20260822-language-fix-v1";
-import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-visual-refresh-v1";
+import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-distinct-component-content-v1";
 
 const vocabularyEntries = [...baseVocabularyEntries, ...vocabularyComponentEntries];
 const vocabularyById = Object.fromEntries(vocabularyEntries.map((entry) => [entry.id, entry]));
