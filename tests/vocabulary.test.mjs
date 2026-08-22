@@ -177,7 +177,7 @@ test("page foundation includes seven distinct layout choices", () => {
   const layoutIds = ["layout-single-column", "layout-landing-page", "layout-masonry", "layout-fullscreen", "layout-split-pane", "layout-dashboard", "layout-modular"];
   const entries = layoutIds.map((id) => vocabularyById[id]);
   assert.ok(entries.every(Boolean), "all seven layout terms must exist");
-  assert.ok(entries.every((entry) => entry.category === "foundation"), "layout terms belong to page foundations");
+  assert.ok(entries.every((entry) => entry.category === "layout"), "layout terms belong to page layouts");
   assert.equal(new Set(entries.map((entry) => entry.prompt)).size, layoutIds.length, "every layout needs a distinct prompt");
   const previews = entries.map((entry) => vocabularyPreviewMarkup(entry, { language: "zh" }));
   assert.equal(new Set(previews).size, layoutIds.length, "every layout needs a distinct visual specimen");
