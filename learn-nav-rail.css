@@ -147,12 +147,12 @@
   }
 
   .chapter-nav{
-    top:calc(var(--header-h) + 22px) !important;
+    top:calc(var(--header-h) + (100vh - var(--header-h)) / 2) !important;
     right:clamp(18px,3vw,44px) !important;
     width:144px !important;
     gap:2px !important;
     padding:15px 0 15px 18px !important;
-    transform:none !important;
+    transform:translateY(-50%) !important;
     border-left:1px solid rgba(15,21,17,.16) !important;
   }
 

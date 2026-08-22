@@ -318,7 +318,7 @@ kbd { padding: 4px 7px; border: 1px solid var(--line); border-radius: 5px; color
 .vp-toast-page > strong { margin-top: 4px; font-size: 13px; }
 .vp-toast-page > p { max-width: 70%; margin: 0; color: var(--vp-muted); font-size: 7px; }
 .vp-toast-page > span { width: max-content; margin-top: 3px; padding: 5px 8px; border-radius: 4px; background: var(--vp-green); color: #fff; font-size: 7px; }
-.detail-preview .vocabulary-preview { aspect-ratio: 16 / 10; }
+.detail-preview .vocabulary-preview { height: clamp(260px, 32vw, 360px); min-height: 0; aspect-ratio: auto; }
 html.dark-mode .vocabulary-preview { --vp-ink: #eef4ef; --vp-muted: #a4b0a8; --vp-line: #3c4a42; --vp-panel: #202a24; --vp-soft: #28352d; background: #18201b; }
 html.dark-mode .vp-overlay { background: #17201a; }
 html.dark-mode .vp-overlay::before { background: var(--vp-panel); }
@@ -351,16 +351,16 @@ html.dark-mode .vp-overlay::before { background: var(--vp-panel); }
 .detail-definition strong { color: var(--ink); }
 .detail-figure { margin: 30px 0 0; }
 .detail-preview { overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-soft); }
-.detail-preview .vocabulary-preview { min-height: 360px; }
+.detail-preview .vocabulary-preview { min-height: 0; }
 .detail-figure figcaption { margin-top: 9px; color: var(--muted); font-size: 11px; line-height: 1.5; }
-.detail-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: 30px; }
+.detail-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 26px; }
 .detail-columns > section { min-width: 0; }
 .term-detail h3 { margin: 0 0 12px; font-size: 17px; }
 .term-detail h4 { margin: 16px 0 7px; color: var(--muted); font-size: 11px; letter-spacing: .4px; }
 .detail-table-wrap { max-width: 100%; overflow-x: auto; }
-.detail-table-wrap table { width: 100%; min-width: 0; table-layout: fixed; border-collapse: collapse; font-size: 12px; }
-.detail-table-wrap th, .detail-table-wrap td { overflow-wrap: anywhere; padding: 9px 10px; border: 1px solid var(--line); text-align: left; vertical-align: top; line-height: 1.5; }
-.detail-table-wrap th { background: var(--surface-soft); font-size: 11px; }
+.detail-table-wrap table { width: 100%; min-width: 0; table-layout: fixed; border-collapse: collapse; font-size: 11px; }
+.detail-table-wrap th, .detail-table-wrap td { overflow-wrap: anywhere; padding: 8px 9px; border: 1px solid var(--line); text-align: left; vertical-align: top; line-height: 1.35; }
+.detail-table-wrap th { background: var(--surface-soft); font-size: 10px; }
 .detail-table-wrap td { color: var(--muted); }
 .detail-list { display: grid; gap: 7px; margin: 0; padding-left: 18px; color: var(--muted); font-size: 12px; line-height: 1.55; }
 .compact-list { display: grid; gap: 7px; margin: 0; padding-left: 18px; color: var(--muted); font-size: 12px; line-height: 1.55; }

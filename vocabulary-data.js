@@ -1258,6 +1258,28 @@ export const vocabularyEnglishById = {
 
 export function localizeVocabularyEntry(entry, language = "zh") {
   if (!entry || language !== "en") return entry;
+  if (entry.componentKind) {
+    const categoryNames = { hero: "hero", card: "card", button: "button", modal: "modal", form: "form", tabs: "tabs" };
+    const categoryName = categoryNames[entry.componentKind] || "UI";
+    return {
+      ...entry,
+      name: entry.en,
+      level: "Component term",
+      tags: [categoryName[0].toUpperCase() + categoryName.slice(1), "Reusable pattern"],
+      ask: `I need a ${entry.en} for a product interface.`,
+      definition: `A ${entry.en} is a reusable ${categoryName} interface pattern.`,
+      role: "It gives the page a clear, reusable structure.",
+      anatomy: [["Structure", "Keep content, actions, and states clearly organized"], ["Responsive behavior", "Adapt the layout and size to the available space"], ["Interaction states", "Cover default, hover, focus, loading, and error states"]],
+      variants: [["Default form", "Use the standard version for the main scenario"], ["Small-screen form", "Keep content readable and actions reachable on mobile"]],
+      states: [["Default", "Content and the main action are visible"], ["Focused", "Keyboard users can see the current position"], ["Loading or error", "Feedback appears without shifting the layout"]],
+      useWhen: ["The interface needs this reusable structure", "You need a clear term for design or engineering collaboration"],
+      avoidWhen: ["The content goal does not match the pattern"],
+      confusedWith: `A ${entry.en} is a reusable interface structure, not an entire page or business workflow.`,
+      codeUI: ["Semantic HTML, stable dimensions, responsive layout, and keyboard focus"],
+      media: ["Images, video, and illustration remain replaceable content media"],
+      prompt: `Build a ${entry.en} for a product interface. Keep it responsive, accessible, and complete with default, focus, loading, and error states.`,
+    };
+  }
   return { ...entry, ...vocabularyEnglishById[entry.id], en: entry.en };
 }
 

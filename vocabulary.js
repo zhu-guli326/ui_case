@@ -1,6 +1,6 @@
 import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./vocabulary-data.js?v=20260815-vocabulary-30";
-import { vocabularyComponentEntries } from "./src/features/vocabulary/vocabulary-component-data.js?v=20260822-unified-dictionary-v1";
-import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-component-preview-v1";
+import { vocabularyComponentEntries } from "./src/features/vocabulary/vocabulary-component-data.js?v=20260822-language-fix-v1";
+import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-visual-refresh-v1";
 
 const vocabularyEntries = [...baseVocabularyEntries, ...vocabularyComponentEntries];
 const vocabularyById = Object.fromEntries(vocabularyEntries.map((entry) => [entry.id, entry]));
@@ -160,6 +160,7 @@ const categoryChips = $("#categoryChips");
 const taxonomyNav = $("#taxonomyNav");
 const entryGrid = $("#entryGrid");
 const resultsHeading = $(".results-heading");
+const resultsEyebrow = $("#resultsEyebrow");
 const resultCount = $("#resultCount");
 const resultsSummary = $("#resultsSummary");
 const emptyState = $("#emptyState");
@@ -229,6 +230,21 @@ function categoryLabel(id) {
   return category ? tr(category.label, category.en) : tr("词条", "Term");
 }
 
+function categoryEyebrow(id) {
+  const labels = {
+    all: ["按界面作用浏览", "BROWSE BY ROLE"],
+    foundation: ["页面基础", "PAGE FOUNDATIONS"],
+    navigation: ["导航与发现", "NAVIGATION & DISCOVERY"],
+    content: ["内容展示", "CONTENT & MEDIA"],
+    controls: ["控件与表单", "CONTROLS & FORMS"],
+    feedback: ["反馈与浮层", "FEEDBACK & OVERLAYS"],
+    visual: ["视觉与实现", "VISUAL DESIGN"],
+    favorites: ["我的收藏", "MY FAVORITES"],
+  };
+  const pair = labels[id] || labels.all;
+  return tr(pair[0], pair[1]);
+}
+
 function categoryDisplayCount(id) {
   if (id === "favorites") return state.favorites.size;
   if (id === "all") return vocabularyEntries.length;
@@ -277,7 +293,7 @@ function previewMarkup(entry) {
   const preview = entry.category === "navigation"
     ? navigationPreviewMarkup(entry.preview)
     : vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
-  return `<div class="entry-visual" role="img" aria-label="${escapeHtml(tr(`${localized.name}的完整解决方案原型`, `Complete solution prototype for ${localized.name}`))}">${preview}<div class="visual-label"><span>${escapeHtml(currentLanguage === "en" ? entry.en : localized.name)}</span><span>${escapeHtml(tr("解决方案", "SOLUTION"))}</span></div></div>`;
+  return `<div class="entry-visual" role="img" aria-label="${escapeHtml(tr(`${localized.name}的完整解决方案原型`, `Complete solution prototype for ${localized.name}`))}">${preview}</div>`;
 }
 
 function detailPreviewMarkup(entry) {
@@ -305,6 +321,7 @@ function renderEntries() {
   const list = filteredEntries();
   const navigationMode = showsNavigationDeepDive();
   const displayedCount = list.length;
+  resultsEyebrow.textContent = categoryEyebrow(state.category);
   resultsHeading.hidden = navigationMode;
   resultsSummary.hidden = navigationMode;
   entryGrid.hidden = navigationMode;
@@ -341,7 +358,8 @@ function listMarkup(items, className = "detail-list") {
 }
 
 function tableMarkup(rows, headings) {
-  return `<div class="detail-table-wrap"><table><thead><tr>${headings.map((heading) => `<th>${escapeHtml(heading)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  const visibleRows = rows.slice(0, 3);
+  return `<div class="detail-table-wrap"><table><thead><tr>${headings.map((heading) => `<th>${escapeHtml(heading)}</th>`).join("")}</tr></thead><tbody>${visibleRows.map((row) => `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
 }
 
 function relatedEntries(entry) {
@@ -396,7 +414,7 @@ function tabsDetailMarkup(entry, related, favorite) {
   return `<div class="term-detail tabs-solution-detail">
     <div class="detail-topline"><span>${escapeHtml(categoryLabel(entry.category))} · ${escapeHtml(entry.level)}</span><button class="favorite-detail-button" type="button" data-detail-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}">${favorite ? tr("★ 已收藏", "★ Saved") : tr("☆ 收藏词条", "☆ Save term")}</button></div>
     <header class="tabs-solution-hero">
-      <div class="tabs-solution-intro"><p class="tabs-kicker">UI PATTERN / TABS</p><h2 id="termDialogTitle" tabindex="-1">${escapeHtml(entry.name)} <em>Tabs</em></h2><blockquote>“${escapeHtml(entry.ask)}”</blockquote><p>${escapeHtml(entry.definition)} ${escapeHtml(entry.role)}</p><div class="detail-tags">${entry.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div></div>
+      <div class="tabs-solution-intro"><p class="tabs-kicker">${escapeHtml(tr("UI 模式 / 标签页", "UI PATTERN / TABS"))}</p><h2 id="termDialogTitle" tabindex="-1">${escapeHtml(entry.name)} <em>Tabs</em></h2><blockquote>“${escapeHtml(entry.ask)}”</blockquote><p>${escapeHtml(entry.definition)} ${escapeHtml(entry.role)}</p><div class="detail-tags">${entry.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div></div>
       <div class="tabs-solution-example" role="img" aria-label="${escapeHtml(tr("标签页完整产品示例", "Complete tabs product example"))}"><div class="tabs-product-head"><span><i></i>ATLAS</span><b>Mei Lin</b></div><div class="tabs-product-title"><div><small>${escapeHtml(tr("工作区 / 产品团队", "Workspace / Product team"))}</small><strong>${escapeHtml(tr("项目概览", "Project overview"))}</strong></div><span class="tabs-product-action">${escapeHtml(tr("新建报告", "New report"))}</span></div><div class="tabs-product-tabs"><span class="is-active">${escapeHtml(tr("概览", "Overview"))}</span><span>${escapeHtml(tr("动态", "Activity"))}</span><span>${escapeHtml(tr("文件", "Files"))}</span></div><div class="tabs-product-panel"><div><small>${escapeHtml(tr("本月访问", "Monthly visits"))}</small><strong>12,480</strong><em>+18.4%</em></div><div class="tabs-product-graph"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
     </header>
 
@@ -427,6 +445,7 @@ function openTerm(id, { focusTitle = false } = {}) {
     <blockquote class="detail-ask">“${escapeHtml(entry.ask)}”</blockquote>
     <p class="detail-definition"><strong>${escapeHtml(entry.definition)}</strong> ${escapeHtml(entry.role)}</p>
     <figure class="detail-figure"><div class="detail-preview" role="img" aria-label="${escapeHtml(tr(`${entry.name}的完整解决方案原型`, `Complete solution prototype for ${entry.name}`))}">${detailPreviewMarkup(baseEntry)}</div><figcaption>${escapeHtml(componentCaption(entry))}</figcaption></figure>
+    <section class="prompt-panel"><div class="prompt-heading"><h3>${tr("你可以这样告诉 AI Agent", "Tell your AI agent this")}</h3><button class="copy-prompt-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}">${tr("复制提示词", "Copy prompt")}</button></div><pre id="prompt-${escapeHtml(entry.id)}"><code>${escapeHtml(entry.prompt)}</code></pre></section>
     <div class="detail-columns">
       <section><h3>${tr("组成结构 · Anatomy", "Anatomy")}</h3>${tableMarkup(entry.anatomy, [tr("部件", "Part"), tr("它负责什么", "Responsibility")])}</section>
       <section><h3>${tr("常见形式 · Forms", "Common forms")}</h3>${tableMarkup(entry.variants, [tr("形式", "Form"), tr("什么时候用", "When to use")])}</section>
@@ -435,8 +454,7 @@ function openTerm(id, { focusTitle = false } = {}) {
       <section><h3>${tr("状态与响应式", "States and responsive behavior")}</h3>${tableMarkup(entry.states, [tr("状态", "State"), tr("实现提示", "Implementation hint")])}</section>
       <section><h3>${tr("什么时候用 / 不用", "When to use or avoid")}</h3><h4>${tr("适合", "Use when")}</h4>${listMarkup(entry.useWhen)}<h4>${tr("不要硬用", "Avoid when")}</h4>${listMarkup(entry.avoidWhen)}</section>
     </div>
-    <section class="split-panel"><div><h3>code-ui</h3>${listMarkup(entry.codeUI, "compact-list")}</div><div><h3>${tr("真实媒体建议", "Real media guidance")}</h3>${listMarkup(entry.media, "compact-list")}</div></section>
-    <section class="prompt-panel"><div class="prompt-heading"><h3>${tr("你可以这样告诉 AI Agent", "Tell your AI agent this")}</h3><button class="copy-prompt-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}">${tr("复制 prompt", "Copy prompt")}</button></div><pre id="prompt-${escapeHtml(entry.id)}"><code>${escapeHtml(entry.prompt)}</code></pre></section>
+    <section class="split-panel"><div><h3>${tr("代码界面", "Code UI")}</h3>${listMarkup(entry.codeUI, "compact-list")}</div><div><h3>${tr("真实媒体建议", "Real media guidance")}</h3>${listMarkup(entry.media, "compact-list")}</div></section>
     <section class="confusion-panel"><h3>${tr("容易混淆", "Commonly confused")}</h3><p>${escapeHtml(entry.confusedWith)}</p><p class="related-terms"><strong>${tr("相关词：", "Related terms: ")}</strong>${related.map((relatedEntry) => `<button type="button" data-related-term="${escapeHtml(relatedEntry.id)}">${escapeHtml(relatedEntry.name)}</button>`).join(" ")}</p></section>
     <footer class="detail-footer"><a href="${escapeHtml(entry.source)}" target="_blank" rel="noreferrer">${tr("查看权威出处 ↗", "View authoritative source ↗")}</a><span>${tr("完整方案由代码渲染 · 使用真实内容与项目图片", "Complete code-rendered solution · real content and project media")}</span></footer>
   </div>`;

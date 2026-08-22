@@ -8,41 +8,41 @@ const line = (size = "medium") => `<span class="vp-line vp-line--${size}"></span
 const pill = (label, active = false) => `<span class="vp-pill${active ? " is-active" : ""}">${escapeHtml(label)}</span>`;
 const media = (imageUrl, modifier = "") => `<img class="vp-media${modifier ? ` vp-media--${modifier}` : ""}" src="${escapeHtml(imageUrl)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
 
-// Project-owned media turns each specimen into a believable solution instead
-// of a grey placeholder, while remaining stable on GitHub Pages.
-const projectMediaUrl = (path) => `https://zhu-guli326.github.io/ui_case/${path}`;
+// Keep preview media external and use a restrained editorial set so unrelated
+// product photos do not compete with the component being explained.
+const projectMediaUrl = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1200&q=82`;
 
 const solutionMedia = Object.freeze({
-  "app-shell": projectMediaUrl("demo/pulse-desk/assets/device-diagnostics.png"),
-  "bottom-tabs": projectMediaUrl("demo/northline-travel/assets/north-atlantic-hero.png"),
-  hero: projectMediaUrl("demo/northline-travel/assets/north-atlantic-hero.png"),
-  card: projectMediaUrl("demo/still-form/assets/linen-shirt.png"),
-  "card-grid": projectMediaUrl("demo/still-form/assets/linen-shirt.png"),
-  list: projectMediaUrl("demo/northline-travel/assets/north-atlantic-hero.png"),
-  "media-tile": projectMediaUrl("demo/artmuse-ios/assets/starry-night-youtoken.png"),
-  "detail-panel": projectMediaUrl("demo/artmuse-ios/assets/starry-night-youtoken.png"),
+  "app-shell": projectMediaUrl("photo-1497366811353-6870744d04b2"),
+  "bottom-tabs": projectMediaUrl("photo-1500534623283-312aade485b7"),
+  hero: projectMediaUrl("photo-1497366754035-f200968a6e72"),
+  card: projectMediaUrl("photo-1455390582262-044cdead277a"),
+  "card-grid": projectMediaUrl("photo-1518005020951-eccb494ad742"),
+  list: projectMediaUrl("photo-1494438639946-1ebd1d20bf85"),
+  "media-tile": projectMediaUrl("photo-1549490349-8643362247b5"),
+  "detail-panel": projectMediaUrl("photo-1497366216548-37526070297c"),
 });
 
 const solutionMediaSets = Object.freeze({
   "card-grid": [
-    projectMediaUrl("demo/still-form/assets/linen-shirt.png"),
-    projectMediaUrl("demo/carry-bag/assets/outdoor-backpack.png"),
-    projectMediaUrl("demo/terra-elix/assets/herbix-capsules.png"),
+    projectMediaUrl("photo-1455390582262-044cdead277a"),
+    projectMediaUrl("photo-1518005020951-eccb494ad742"),
+    projectMediaUrl("photo-1497366216548-37526070297c"),
   ],
   "filter-chips": [
-    projectMediaUrl("demo/still-form/assets/linen-shirt.png"),
-    projectMediaUrl("demo/carry-bag/assets/outdoor-backpack.png"),
-    projectMediaUrl("demo/terra-elix/assets/herbix-capsules.png"),
+    projectMediaUrl("photo-1455390582262-044cdead277a"),
+    projectMediaUrl("photo-1549490349-8643362247b5"),
+    projectMediaUrl("photo-1497366754035-f200968a6e72"),
   ],
   list: [
-    projectMediaUrl("demo/northline-travel/assets/north-atlantic-hero.png"),
-    projectMediaUrl("demo/signal-grid/assets/network-orb.png"),
-    projectMediaUrl("demo/volt-route/assets/night-street-grid.png"),
+    projectMediaUrl("photo-1494438639946-1ebd1d20bf85"),
+    projectMediaUrl("photo-1497366811353-6870744d04b2"),
+    projectMediaUrl("photo-1497366216548-37526070297c"),
   ],
   "media-tile": [
-    projectMediaUrl("demo/artmuse-ios/assets/starry-night-youtoken.png"),
-    projectMediaUrl("demo/artmuse-ios/assets/exhibition-modern-visions-youtoken.png"),
-    projectMediaUrl("demo/artmuse-ios/assets/exhibition-impressionists-youtoken.png"),
+    projectMediaUrl("photo-1549490349-8643362247b5"),
+    projectMediaUrl("photo-1518005020951-eccb494ad742"),
+    projectMediaUrl("photo-1455390582262-044cdead277a"),
   ],
 });
 
