@@ -346,6 +346,7 @@ function cardMarkup(entry) {
           <p class="entry-ask">“${escapeHtml(localized.ask)}”</p>
           ${previewMarkup(entry)}
           <div class="entry-tags" aria-label="${escapeHtml(tr("词条标签", "Term tags"))}">${(localized.tags || []).slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
+          ${!hasVariants ? `<button class="entry-front-copy-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}"><span>${escapeHtml(tr("复制 Prompt", "Copy prompt"))}</span><b aria-hidden="true">⧉</b></button>` : ""}
         </div>
       </section>
       ${hasVariants ? `<section class="entry-card-face entry-card-back" aria-hidden="true" inert>
