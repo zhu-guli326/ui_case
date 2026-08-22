@@ -153,8 +153,11 @@ test("only cards with dedicated state experiences expose the flip interaction", 
 
 test("flipped cards expose a one-click prompt copy action", () => {
   const renderEntriesFunction = vocabularyScript.slice(vocabularyScript.indexOf("function renderEntries"), vocabularyScript.indexOf("function render()"));
+  const cardFunction = vocabularyScript.slice(vocabularyScript.indexOf("function cardMarkup"), vocabularyScript.indexOf("function setCardFlipped"));
   assert.match(renderEntriesFunction, /\[data-copy-prompt\]/);
   assert.match(renderEntriesFunction, /copyPrompt\(button\.dataset\.copyPrompt\)/);
+  assert.match(cardFunction, /entry-front-copy-button/);
+  assert.match(cardFunction, /!hasVariants \? .*data-copy-prompt/s);
 });
 
 test("navigation terms use their own distinct preview factories", () => {
