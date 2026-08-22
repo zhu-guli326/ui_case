@@ -291,7 +291,7 @@ function renderCategories() {
 function previewMarkup(entry) {
   const localized = localizedEntry(entry);
   const preview = vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: currentLanguage });
-  return `<div class="entry-visual" role="img" aria-label="${escapeHtml(tr(`${localized.name}的完整解决方案原型`, `Complete solution prototype for ${localized.name}`))}">${preview}</div>`;
+  return `<div class="entry-visual" role="img" aria-label="${escapeHtml(tr(`${localized.name}的界面缩略图`, `Thumbnail for ${localized.name}`))}">${preview}<span class="visual-label"><span>${escapeHtml(tr("快速识别", "QUICK LOOK"))}</span><span>${escapeHtml(tr("点击翻转", "FLIP"))} ↻</span></span></div>`;
 }
 
 function detailPreviewMarkup(entry) {
@@ -301,6 +301,8 @@ function detailPreviewMarkup(entry) {
 function cardMarkup(entry) {
   const localized = localizedEntry(entry);
   const favorite = state.favorites.has(entry.id);
+  const useWhen = localized.useWhen?.[0] || localized.role;
+  const tags = (localized.tags || []).slice(0, 2);
   return `<article class="entry-card" data-entry-id="${escapeHtml(entry.id)}">
     <div class="entry-card-inner">
       <section class="entry-card-face entry-card-front" aria-hidden="false">
@@ -316,9 +318,11 @@ function cardMarkup(entry) {
       <section class="entry-card-face entry-card-back" aria-hidden="true" inert>
         <button class="entry-flip-hitarea entry-flip-hitarea--back" type="button" data-flip-card aria-pressed="false" aria-label="${escapeHtml(tr(`翻回 ${localized.name} 的介绍`, `Flip back to the ${localized.name} introduction`))}"></button>
         <div class="entry-card-back-shell">
-          <div class="entry-card-back-topline"><span>${escapeHtml(tr("样式预览", "PATTERN PREVIEW"))}</span><b>${escapeHtml(localized.name)}</b></div>
+          <div class="entry-card-back-topline"><span>${escapeHtml(tr("完整方案 · 已翻转", "FULL PATTERN · FLIPPED"))}</span><b>${escapeHtml(localized.name)}</b></div>
           <div class="entry-card-back-preview" role="img" aria-label="${escapeHtml(tr(`${localized.name}的完整样式`, `Complete ${localized.name} pattern`))}">${detailPreviewMarkup(entry)}</div>
+          <div class="entry-card-back-insight"><span>${escapeHtml(tr("适用场景", "BEST FOR"))}</span><p>${escapeHtml(useWhen)}</p><div>${tags.map((tag) => `<i>${escapeHtml(tag)}</i>`).join("")}</div></div>
           <div class="entry-card-back-actions">
+            <button class="entry-copy-prompt-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}"><span>${escapeHtml(tr("一键复制 Prompt", "Copy prompt"))}</span><b aria-hidden="true">⧉</b></button>
             <button class="entry-flip-button entry-flip-button--back" type="button" data-flip-card aria-pressed="false"><b aria-hidden="true">↶</b><span>${escapeHtml(tr("返回介绍", "Back"))}</span></button>
             <button class="entry-open-button entry-open-button--back" type="button" data-open-term="${escapeHtml(entry.id)}">${escapeHtml(tr("打开详情", "Open details"))}<span aria-hidden="true">↗</span></button>
           </div>
@@ -367,6 +371,10 @@ function renderEntries() {
     event.stopPropagation();
     const card = button.closest(".entry-card");
     setCardFlipped(card, !card.classList.contains("is-flipped"));
+  }));
+  document.querySelectorAll("[data-copy-prompt]").forEach((button) => button.addEventListener("click", (event) => {
+    event.stopPropagation();
+    copyPrompt(button.dataset.copyPrompt);
   }));
   document.querySelectorAll("[data-favorite]").forEach((button) => button.addEventListener("click", (event) => {
     event.stopPropagation();
@@ -534,8 +542,8 @@ function openTerm(id, { focusTitle = false } = {}) {
     render();
     $("[data-detail-favorite]")?.focus({ preventScroll: true });
   });
-  document.querySelectorAll("[data-copy-prompt]").forEach((button) => button.addEventListener("click", () => copyPrompt(button.dataset.copyPrompt)));
-  document.querySelectorAll("[data-related-term]").forEach((button) => button.addEventListener("click", () => openTerm(button.dataset.relatedTerm, { focusTitle: true })));
+  termDialogContent.querySelectorAll("[data-copy-prompt]").forEach((button) => button.addEventListener("click", () => copyPrompt(button.dataset.copyPrompt)));
+  termDialogContent.querySelectorAll("[data-related-term]").forEach((button) => button.addEventListener("click", () => openTerm(button.dataset.relatedTerm, { focusTitle: true })));
 }
 
 async function copyPrompt(id) {

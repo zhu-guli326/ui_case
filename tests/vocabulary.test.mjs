@@ -120,6 +120,9 @@ test("every component card exposes an accessible two-sided flip interaction", ()
   const cardFunction = vocabularyScript.slice(vocabularyScript.indexOf("function cardMarkup"), vocabularyScript.indexOf("function setCardFlipped"));
   assert.match(cardFunction, /entry-card-front/);
   assert.match(cardFunction, /entry-card-back/);
+  assert.match(cardFunction, /FULL PATTERN/);
+  assert.match(cardFunction, /entry-card-back-insight/);
+  assert.match(cardFunction, /data-copy-prompt/);
   assert.match(cardFunction, /data-flip-card/g);
   assert.match(cardFunction, /aria-pressed="false"/);
   assert.match(cardFunction, /entry-card-back[^>]*aria-hidden="true"[^>]*inert/);
@@ -127,7 +130,15 @@ test("every component card exposes an accessible two-sided flip interaction", ()
   assert.match(vocabularyScript, /front\.inert = flipped/);
   assert.match(vocabularyScript, /back\.inert = !flipped/);
   assert.match(vocabularyCss, /\.entry-card\.is-flipped \.entry-card-inner\s*\{[^}]*rotateY\(180deg\)/s);
+  assert.match(vocabularyCss, /\.entry-card-front\s*\{[^}]*linear-gradient/s);
+  assert.match(vocabularyCss, /\.entry-card-back-insight/);
   assert.match(vocabularyCss, /@media \(prefers-reduced-motion:\s*reduce\)[\s\S]{0,240}\.entry-card-inner/);
+});
+
+test("flipped cards expose a one-click prompt copy action", () => {
+  const renderEntriesFunction = vocabularyScript.slice(vocabularyScript.indexOf("function renderEntries"), vocabularyScript.indexOf("function render()"));
+  assert.match(renderEntriesFunction, /\[data-copy-prompt\]/);
+  assert.match(renderEntriesFunction, /copyPrompt\(button\.dataset\.copyPrompt\)/);
 });
 
 test("navigation terms use their own distinct preview factories", () => {
