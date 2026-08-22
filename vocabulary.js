@@ -167,7 +167,7 @@ let dialogReturnEntryId = null;
 
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[character]));
 const navText = (pair) => tr(pair[0], pair[1]);
-const showsNavigationDeepDive = () => state.category === "navigation" && !state.query.trim();
+const showsNavigationDeepDive = () => false;
 
 function navigationPreviewMarkup(type) {
   const image = (src, alt) => `<img class="nav-demo-image" src="${src}" alt="${alt}" loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
@@ -225,6 +225,12 @@ function categoryLabel(id) {
   return category ? tr(category.label, category.en) : tr("词条", "Term");
 }
 
+function categoryDisplayCount(id) {
+  if (id === "favorites") return state.favorites.size;
+  if (id === "all") return vocabularyEntries.length;
+  return vocabularyEntries.filter((entry) => entry.category === id).length;
+}
+
 function matches(entry) {
   if (state.category === "favorites" && !state.favorites.has(entry.id)) return false;
   if (state.category !== "all" && state.category !== "favorites" && entry.category !== state.category) return false;
@@ -248,7 +254,7 @@ function filteredEntries() {
 function renderCategories() {
   const html = vocabularyCategories.map((category) => {
     const selected = state.category === category.id;
-    const count = category.id === "favorites" ? state.favorites.size : category.id === "all" ? vocabularyEntries.length : vocabularyEntries.filter((entry) => entry.category === category.id).length;
+    const count = categoryDisplayCount(category.id);
     return `<button class="category-chip${selected ? " is-selected" : ""}" type="button" data-category="${category.id}" aria-pressed="${selected}"><span>${escapeHtml(tr(category.label, category.en))}</span><b>${count}</b></button>`;
   }).join("");
   categoryChips.innerHTML = html;
@@ -296,12 +302,13 @@ function cardMarkup(entry) {
 function renderEntries() {
   const list = filteredEntries();
   const navigationMode = showsNavigationDeepDive();
+  const displayedCount = list.length;
   resultsHeading.hidden = navigationMode;
   resultsSummary.hidden = navigationMode;
   entryGrid.hidden = navigationMode;
   entryGrid.innerHTML = navigationMode ? "" : list.map(cardMarkup).join("");
   emptyState.hidden = navigationMode || list.length > 0;
-  resultCount.textContent = currentLanguage === "en" ? `${list.length} ${list.length === 1 ? "term" : "terms"}` : `${list.length} 条`;
+  resultCount.textContent = currentLanguage === "en" ? `${displayedCount} ${displayedCount === 1 ? "term" : "terms"}` : `${displayedCount} 条`;
   resultsSummary.textContent = state.query
     ? currentLanguage === "en" ? `${list.length} ${list.length === 1 ? "term matches" : "terms match"} “${state.query}”` : `“${state.query}”匹配 ${list.length} 个词条`
     : state.category === "favorites"

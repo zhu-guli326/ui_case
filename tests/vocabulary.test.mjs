@@ -94,7 +94,9 @@ test("navigation deep dive is owned by the navigation category", () => {
     /<section class="results-column"[^>]*>[\s\S]*?<section class="navigation-deep-dive"[^>]*>[\s\S]*?<div class="entry-grid"/,
     "the navigation guide must stay embedded in the results column before the regular term grid",
   );
-  assert.match(vocabularyScript, /state\.category === "navigation" && !state\.query\.trim\(\)/);
+  assert.match(vocabularyScript, /const showsNavigationDeepDive = \(\) => false;/);
   assert.match(vocabularyScript, /navigationDeepDive\.hidden = !showsNavigationDeepDive\(\)/);
-  assert.match(vocabularyScript, /entryGrid\.hidden = navigationMode/);
+  assert.match(vocabularyScript, /entryGrid\.innerHTML = navigationMode \? "" : list\.map\(cardMarkup\)\.join\(""\);/);
+  assert.match(vocabularyScript, /const displayedCount = list\.length;/);
+  assert.match(vocabularyScript, /return vocabularyEntries\.filter\(\(entry\) => entry\.category === id\)\.length;/);
 });
