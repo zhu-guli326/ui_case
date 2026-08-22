@@ -1,6 +1,6 @@
 export const vocabularyCategories = [
-  { id: "all", label: "全部词条", en: "All terms", countLabel: "30" },
-  { id: "foundation", label: "页面基础", en: "Page foundations", countLabel: "5" },
+  { id: "all", label: "全部词条", en: "All terms", countLabel: "37" },
+  { id: "foundation", label: "页面基础", en: "Page foundations", countLabel: "12" },
   { id: "navigation", label: "导航与发现", en: "Navigation and discovery", countLabel: "8" },
   { id: "content", label: "内容展示", en: "Content display", countLabel: "6" },
   { id: "controls", label: "控件与表单", en: "Controls and forms", countLabel: "5" },
@@ -19,6 +19,92 @@ const image = (alt) => ({
     : "Layout, copy, and controls are rendered in code; photos use replaceable external placeholders only.",
   source: "external-placeholder",
 });
+
+const layoutPatternSpecs = [
+  {
+    id: "layout-single-column", name: "单栏布局", en: "Single Column Layout",
+    ask: ["内容一列通到底，让用户顺着读完，不要被侧栏打断。", "Keep the content in one continuous column so readers can move through it without sidebar distractions."],
+    definition: ["单栏布局把主要内容放进一条受控宽度的垂直阅读流。", "A single-column layout places primary content in one controlled-width vertical reading flow."],
+    role: ["用稳定的行宽和段落节奏降低阅读负担，突出连续叙事。", "It reduces reading effort with stable line length and pacing while emphasizing continuous narrative."],
+    fit: ["博客、长文、产品介绍页", "Blogs, long-form articles, and product introductions"],
+    avoid: ["需要同时比较多组数据或频繁跨区操作", "Avoid when users must compare several data groups or act across regions"],
+    prompt: ["请使用单栏布局制作长内容页面：正文容器限制在 680–760px，标题、摘要、正文和文末行动纵向排列；桌面与手机都保持自然阅读顺序，并用段落间距而不是卡片边框区分章节。", "Build a long-form page with a single-column layout. Keep the reading container between 680 and 760px, stack the title, summary, body, and final action vertically, preserve natural source order on desktop and mobile, and separate sections with spacing rather than card borders."],
+    related: ["layout-landing-page", "typography", "responsive"],
+  },
+  {
+    id: "layout-landing-page", name: "落地页布局", en: "Landing Page Layout",
+    ask: ["先用大图和一句话讲清价值，再介绍功能，最后把行动收住。", "Open with one strong value statement and image, explain the benefits, then close with a focused action."],
+    definition: ["落地页布局按认知、证明和转化组织连续区段。", "A landing-page layout sequences sections around understanding, proof, and conversion."],
+    role: ["让用户沿着一条明确叙事从看懂产品走到采取行动。", "It moves visitors through a clear narrative from understanding the offer to taking action."],
+    fit: ["SaaS 官网、App 下载页、活动推广页", "SaaS sites, app download pages, and campaign pages"],
+    avoid: ["高频工具、复杂后台或没有单一转化目标的页面", "Avoid for frequent-use tools, complex admin products, or pages without one conversion goal"],
+    prompt: ["请设计一页完整落地页：大图首屏只保留一个主 CTA，之后依次放价值点、产品截图、使用场景、社会证明和结尾 CTA；每个区段承担一个问题，移动端保持相同叙事顺序。", "Design a complete landing page with a large hero and one primary CTA, followed by value points, product proof, use cases, social proof, and a final CTA. Give each section one job and preserve the narrative order on mobile."],
+    related: ["layout-fullscreen", "hero", "cta"],
+  },
+  {
+    id: "layout-masonry", name: "瀑布流布局", en: "Masonry Layout",
+    ask: ["图片高矮不一也要紧密排下去，继续滚动时不要出现大片空白。", "Pack images of different heights tightly and keep the feed flowing without large gaps."],
+    definition: ["瀑布流布局把不同高度的内容按列紧密排列，弱化严格的横向行对齐。", "A masonry layout packs variable-height content into columns without enforcing strict horizontal rows."],
+    role: ["最大化视觉内容密度，同时保留每张图片原本的比例和差异。", "It maximizes visual density while preserving each item's natural ratio and variation."],
+    fit: ["灵感采集站、作品墙、电商内容流", "Inspiration boards, portfolios, and commerce content feeds"],
+    avoid: ["需要逐行比较、严格排序或键盘阅读顺序必须完全可见", "Avoid when row comparison, strict ordering, or obvious keyboard reading order is essential"],
+    prompt: ["请实现响应式瀑布流：桌面 4 列、平板 3 列、手机 2 列，卡片保持图片原始比例并使用稳定间距；懒加载时预留尺寸，新增内容不能造成页面跳动，DOM 阅读顺序保持可预测。", "Implement a responsive masonry feed with four desktop columns, three tablet columns, and two mobile columns. Preserve image ratios and stable gaps, reserve dimensions during lazy loading, prevent layout shift, and keep DOM reading order predictable."],
+    related: ["layout-modular", "media-tile", "card-grid"],
+  },
+  {
+    id: "layout-fullscreen", name: "全屏沉浸式", en: "Fullscreen Immersive Layout",
+    ask: ["首屏让画面占满，只留一句主标题，用户一进来就进入氛围。", "Let the visual fill the first screen and keep only one headline so visitors enter the atmosphere immediately."],
+    definition: ["全屏沉浸式布局让一个视觉场景占据完整视口，并把界面控制降到最低。", "A fullscreen immersive layout gives one visual scene the entire viewport and minimizes interface chrome."],
+    role: ["先建立情绪、世界观或发布瞬间，再引导用户进入后续内容。", "It establishes mood, world-building, or a launch moment before guiding users into deeper content."],
+    fit: ["品牌官网、发布会页、游戏站", "Brand sites, launch pages, and game sites"],
+    avoid: ["用户需要立即扫读大量信息或完成高频任务", "Avoid when users must scan dense information or complete frequent tasks immediately"],
+    prompt: ["请制作一个 100dvh 的全屏沉浸式首屏：背景图片或视频完整铺满，页面只保留一句主标题、一个低干扰入口和向下滚动提示；为文字设置安全区与遮罩，并支持 reduced-motion 和移动端裁切。", "Create a 100dvh immersive hero with full-bleed image or video, one headline, one low-noise entry action, and a scroll cue. Protect the text with a safe area and overlay, and support reduced motion plus mobile cropping."],
+    related: ["layout-split-pane", "hero", "layout-landing-page"],
+  },
+  {
+    id: "layout-split-pane", name: "分隔面板", en: "Split Pane Layout",
+    ask: ["左右两边都要一直看得到，中间的线还能拖动改变宽度。", "Keep both sides visible and let users drag the divider to change their widths."],
+    definition: ["分隔面板用可调整的分隔线把同一工作区划成两个相互关联的区域。", "A split-pane layout divides one workspace into two related regions with an adjustable separator."],
+    role: ["让用户同时查看来源与结果、编辑与预览，减少来回切换。", "It keeps source and result, or editor and preview, visible together to reduce context switching."],
+    fit: ["代码编辑器、BI 看板、文件与详情对照", "Code editors, BI workspaces, and file-detail comparison"],
+    avoid: ["手机窄屏或两个区域没有直接任务关系", "Avoid on narrow phones or when the two regions do not support one shared task"],
+    prompt: ["请实现可拖动分隔面板：左侧最小 280px、右侧最小 360px，分隔线支持鼠标、触摸和键盘调整并提供 aria-valuenow；记住用户宽度，窄屏时切换为标签页或上下布局。", "Implement an adjustable split pane with a 280px minimum left side and 360px minimum right side. Support pointer, touch, and keyboard resizing with aria-valuenow, remember the chosen ratio, and switch to tabs or a stacked layout on narrow screens."],
+    related: ["layout-dashboard", "detail-panel", "responsive"],
+  },
+  {
+    id: "layout-dashboard", name: "仪表盘布局", en: "Dashboard Layout",
+    ask: ["把关键数字、趋势和待办排成卡片，让人进来一眼扫完。", "Arrange key metrics, trends, and tasks into cards so the important state is scannable at a glance."],
+    definition: ["仪表盘布局用网格组织指标、图表、状态和操作，并建立清晰的数据优先级。", "A dashboard layout uses a grid to organize metrics, charts, status, and actions with clear data priority."],
+    role: ["把最重要的变化与异常放在首屏，支持快速监控和进一步下钻。", "It surfaces important changes and exceptions first, supporting fast monitoring and drill-down."],
+    fit: ["数据看板、监控台、B 端工作台", "Analytics dashboards, monitoring consoles, and enterprise workspaces"],
+    avoid: ["内容以连续阅读为主，或指标之间没有明确优先级", "Avoid when content is primarily narrative or metrics have no defined priority"],
+    prompt: ["请设计响应式仪表盘：第一行放 4 个核心 KPI，第二行放主趋势图和异常列表，第三行放明细表；使用 12 列网格，标出时间范围和数据更新时间，并提供加载、空数据、错误和异常状态。", "Design a responsive dashboard with four core KPIs first, a primary trend and exception list second, and a detail table third. Use a 12-column grid, show the time range and freshness, and include loading, empty, error, and alert states."],
+    related: ["layout-modular", "data-table", "card-grid"],
+  },
+  {
+    id: "layout-modular", name: "模块化布局", en: "Modular Layout",
+    ask: ["页面像积木一样，每个模块能换位置、改大小，还能保存自己的排列。", "Make the page behave like building blocks whose modules can move, resize, and remember each user's arrangement."],
+    definition: ["模块化布局把页面拆成可独立排列、缩放和配置的内容单元。", "A modular layout breaks a page into content units that can be independently arranged, resized, and configured."],
+    role: ["让不同用户围绕自己的任务重新组织首页或工作台。", "It lets different users organize a home page or workspace around their own tasks."],
+    fit: ["个人主页、工作台、可定制博客首页", "Personal pages, workspaces, and customizable blog homepages"],
+    avoid: ["内容顺序必须固定，或自由拖动会破坏关键流程", "Avoid when content order is mandatory or free arrangement would break a critical flow"],
+    prompt: ["请实现模块化工作台：模块支持拖拽排序、跨列移动、尺寸切换、隐藏和恢复；使用可访问的键盘移动操作，显示放置预览，保存用户布局，并提供一键恢复默认排列。", "Build a modular workspace whose blocks support drag reordering, column movement, size changes, hiding, and restoration. Add accessible keyboard movement, show placement previews, persist the user's layout, and provide one-click reset."],
+    related: ["layout-single-column", "layout-masonry", "layout-dashboard"],
+  },
+];
+
+const layoutVocabularyEntries = layoutPatternSpecs.map((spec) => ({
+  id: spec.id, name: spec.name, en: spec.en, category: "foundation", level: "进阶",
+  tags: ["页面布局", "结构选择", "响应式"], ask: spec.ask[0], definition: spec.definition[0], role: spec.role[0],
+  example: image(`${spec.name}的代码组件预览`),
+  anatomy: [["内容骨架", "先确定主要区域、顺序和视觉重心"], ["空间规则", "明确列数、宽度、间距和内容比例"], ["响应式变化", "说明窄屏如何重排而不是简单缩小"], ["交互与状态", "覆盖加载、空内容和必要的操作反馈"]],
+  variants: [["桌面方案", spec.fit[0]], ["窄屏方案", "保留任务顺序并重新组织列与模块"], ["增强方案", "在不破坏阅读顺序的前提下加入交互"]],
+  states: [["默认", "核心内容与主要操作完整可见"], ["窄屏", "列数减少，操作仍可触达"], ["加载/空状态", "保持布局稳定并说明下一步"]],
+  useWhen: [spec.fit[0], "页面需要明确的整体结构而不是零散组件"], avoidWhen: [spec.avoid[0]],
+  confusedWith: `${spec.name}决定整页的空间组织，不等同于其中某一张卡片或某个首屏区块。`,
+  codeUI: ["语义区域、CSS Grid/Flex、容器查询、稳定阅读顺序"], media: ["图片和视频是可替换内容，标题、控件和状态必须由代码渲染"],
+  prompt: spec.prompt[0], related: spec.related, source: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout",
+}));
 
 export const vocabularyEntries = [
   {
@@ -711,6 +797,7 @@ export const vocabularyEntries = [
     related: ["header", "card", "responsive"],
     source: "https://www.w3.org/WAI/tips/designing.html",
   },
+  ...layoutVocabularyEntries,
 ];
 
 export const vocabularyEnglishById = {
@@ -1255,6 +1342,25 @@ export const vocabularyEnglishById = {
     prompt: "Create fixed typography tokens for page titles, section headings, body copy, supporting text, and code, each with an appropriate size and line height. Keep body text near 16px, let long mobile headings wrap, and do not use negative letter spacing.",
   },
 };
+
+Object.assign(vocabularyEnglishById, Object.fromEntries(layoutPatternSpecs.map((spec) => [spec.id, {
+  name: spec.en,
+  level: "Advanced",
+  tags: ["Page layout", "Structure choice", "Responsive"],
+  ask: spec.ask[1],
+  definition: spec.definition[1],
+  role: spec.role[1],
+  example: image(`${spec.en} code component preview`),
+  anatomy: [["Content skeleton", "Define the primary regions, sequence, and visual focus"], ["Spatial rules", "Specify columns, width, gaps, and content ratios"], ["Responsive change", "Explain narrow-screen reflow instead of simply shrinking"], ["Interaction and state", "Cover loading, empty content, and necessary feedback"]],
+  variants: [["Desktop", spec.fit[1]], ["Narrow screen", "Preserve task order while reorganizing columns and modules"], ["Enhanced", "Add interaction without breaking reading order"]],
+  states: [["Default", "Core content and the primary action are visible"], ["Narrow", "Columns reduce while actions remain reachable"], ["Loading or empty", "The layout stays stable and explains the next step"]],
+  useWhen: [spec.fit[1], "The page needs a deliberate overall structure rather than isolated components"],
+  avoidWhen: [spec.avoid[1]],
+  confusedWith: `${spec.en} defines the spatial organization of a whole page, not one card or hero section inside it.`,
+  codeUI: ["Semantic regions, CSS Grid or Flexbox, container queries, and stable source order"],
+  media: ["Images and video remain replaceable content; headings, controls, and states stay code-rendered"],
+  prompt: spec.prompt[1],
+}])));
 
 export function localizeVocabularyEntry(entry, language = "zh") {
   if (!entry || language !== "en") return entry;

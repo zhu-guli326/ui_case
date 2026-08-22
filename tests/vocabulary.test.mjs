@@ -14,7 +14,7 @@ const vocabularyHtml = readFileSync(new URL("../vocabulary.html", import.meta.ur
 
 test("illustrated vocabulary entries stay complete and internally linked", () => {
   const allCategory = vocabularyCategories.find((category) => category.id === "all");
-  assert.equal(vocabularyEntries.length, 30);
+  assert.equal(vocabularyEntries.length, 37);
   assert.equal(vocabularyEntries.length, Number(allCategory?.countLabel));
   assert.equal(new Set(vocabularyEntries.map((entry) => entry.id)).size, vocabularyEntries.length);
   assert.equal(Object.keys(vocabularyById).length, vocabularyEntries.length);
@@ -61,7 +61,8 @@ test("illustrated vocabulary entries stay complete and internally linked", () =>
 });
 
 test("every vocabulary entry has a code-rendered component preview", () => {
-  assert.deepEqual(SUPPORTED_VOCABULARY_PREVIEW_IDS, vocabularyEntries.map((entry) => entry.id));
+  assert.deepEqual(new Set(SUPPORTED_VOCABULARY_PREVIEW_IDS), new Set(vocabularyEntries.map((entry) => entry.id)));
+  assert.equal(SUPPORTED_VOCABULARY_PREVIEW_IDS.length, vocabularyEntries.length);
 
   for (const entry of vocabularyEntries) {
     const markup = vocabularyPreviewMarkup(entry, { imageUrl: entry.example.src, language: "zh" });
@@ -167,4 +168,14 @@ test("navigation terms use their own distinct preview factories", () => {
   assert.ok(tabPreviews.some((markup) => markup.includes("vp-variant-scene--vertical")), "vertical tabs need a vertical specimen");
   assert.ok(tabPreviews.some((markup) => markup.includes("vp-variant-scene--scroll")), "scrollable tabs need a scrolling specimen");
   assert.ok(tabPreviews.every((markup) => !markup.includes("让复杂界面变得清楚")), "tab specimens must not fall back to the navigation marketing page");
+});
+
+test("page foundation includes seven distinct layout choices", () => {
+  const layoutIds = ["layout-single-column", "layout-landing-page", "layout-masonry", "layout-fullscreen", "layout-split-pane", "layout-dashboard", "layout-modular"];
+  const entries = layoutIds.map((id) => vocabularyById[id]);
+  assert.ok(entries.every(Boolean), "all seven layout terms must exist");
+  assert.ok(entries.every((entry) => entry.category === "foundation"), "layout terms belong to page foundations");
+  assert.equal(new Set(entries.map((entry) => entry.prompt)).size, layoutIds.length, "every layout needs a distinct prompt");
+  const previews = entries.map((entry) => vocabularyPreviewMarkup(entry, { language: "zh" }));
+  assert.equal(new Set(previews).size, layoutIds.length, "every layout needs a distinct visual specimen");
 });

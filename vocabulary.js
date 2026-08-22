@@ -1,6 +1,6 @@
-import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./vocabulary-data.js?v=20260815-vocabulary-30";
+import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./vocabulary-data.js?v=20260822-layout-patterns-v1";
 import { vocabularyComponentEntries } from "./src/features/vocabulary/vocabulary-component-data.js?v=20260822-form-details-v1";
-import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-distinct-previews-v3";
+import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-layout-patterns-v1";
 
 const vocabularyEntries = [...baseVocabularyEntries, ...vocabularyComponentEntries];
 const vocabularyById = Object.fromEntries(vocabularyEntries.map((entry) => [entry.id, entry]));
@@ -300,7 +300,16 @@ const cardMediaPool = [
   "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=82",
   "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=1200&q=82",
 ];
-const cardMediaUrl = (entry) => cardMediaPool[[...entry.id].reduce((sum, character) => sum + character.charCodeAt(0), 0) % cardMediaPool.length];
+const layoutCardMedia = Object.freeze({
+  "layout-single-column": "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=82",
+  "layout-landing-page": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=82",
+  "layout-masonry": "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=1200&q=82",
+  "layout-fullscreen": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=82",
+  "layout-split-pane": "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=82",
+  "layout-dashboard": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=82",
+  "layout-modular": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=82",
+});
+const cardMediaUrl = (entry) => layoutCardMedia[entry.id] || cardMediaPool[[...entry.id].reduce((sum, character) => sum + character.charCodeAt(0), 0) % cardMediaPool.length];
 
 function cardMarkup(entry) {
   const localized = localizedEntry(entry);

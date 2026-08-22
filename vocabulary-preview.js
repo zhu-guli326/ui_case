@@ -21,9 +21,21 @@ const solutionMedia = Object.freeze({
   list: projectMediaUrl("photo-1494438639946-1ebd1d20bf85"),
   "media-tile": projectMediaUrl("photo-1549490349-8643362247b5"),
   "detail-panel": projectMediaUrl("photo-1497366216548-37526070297c"),
+  "layout-single-column": projectMediaUrl("photo-1455390582262-044cdead277a"),
+  "layout-landing-page": projectMediaUrl("photo-1523275335684-37898b6baf30"),
+  "layout-masonry": projectMediaUrl("photo-1549490349-8643362247b5"),
+  "layout-fullscreen": projectMediaUrl("photo-1500530855697-b586d89ba3ee"),
+  "layout-split-pane": projectMediaUrl("photo-1518005020951-eccb494ad742"),
+  "layout-dashboard": projectMediaUrl("photo-1497366811353-6870744d04b2"),
+  "layout-modular": projectMediaUrl("photo-1497366216548-37526070297c"),
 });
 
 const solutionMediaSets = Object.freeze({
+  "layout-masonry": [
+    projectMediaUrl("photo-1549490349-8643362247b5"),
+    projectMediaUrl("photo-1518005020951-eccb494ad742"),
+    projectMediaUrl("photo-1455390582262-044cdead277a"),
+  ],
   "card-grid": [
     projectMediaUrl("photo-1455390582262-044cdead277a"),
     projectMediaUrl("photo-1518005020951-eccb494ad742"),
@@ -79,6 +91,20 @@ const previewFactories = Object.freeze({
     <div class="vp-cta"><span class="vp-cta-mark">+</span><div><small>${copy.nextStep}</small><strong>${copy.ctaTitle}</strong><p>${copy.ctaBody}</p></div><span class="vp-cta-button">${copy.start}<b>→</b></span></div>`,
   responsive: ({ copy }) => `
     <div class="vp-responsive"><div class="vp-device vp-device--desktop"><i><b>NORTH</b><small>${copy.home}　${copy.work}　${copy.about}</small></i><strong>${copy.heroTitle}</strong><p>${copy.heroBody}</p><div><span>${copy.explore}</span><span>${copy.learn}</span></div></div><div class="vp-device vp-device--tablet"><i><b>NORTH</b><small>☰</small></i><strong>${copy.heroTitle}</strong><p>${copy.heroBody}</p><span>${copy.explore}</span></div><div class="vp-device vp-device--mobile"><i><b>N</b><small>☰</small></i><strong>${copy.heroTitle}</strong><span>${copy.explore}</span></div></div>`,
+  "layout-single-column": ({ copy, imageUrl }) => `
+    <div class="vp-layout vp-layout--single"><div class="vp-layout-browser"><i><b>FIELD NOTES</b><small>${copy.about}　${copy.work}</small></i><main><small>LONG READ / 08</small><strong>${copy.typeHeading}</strong><p>${copy.typeBody}</p>${media(imageUrl, "layout-inline")}<span></span><span></span><span class="is-short"></span></main></div></div>`,
+  "layout-landing-page": ({ copy, imageUrl }) => `
+    <div class="vp-layout vp-layout--landing"><section>${media(imageUrl, "layout-landing")}<div><small>NEW PRODUCT</small><strong>${copy.heroTitle}</strong><p>${copy.heroBody}</p><b>${copy.explore} →</b></div></section><footer><span><i>01</i>${copy.design}</span><span><i>02</i>${copy.product}</span><span><i>03</i>${copy.research}</span></footer></div>`,
+  "layout-masonry": ({ copy, mediaUrls }) => `
+    <div class="vp-layout vp-layout--masonry"><header><b>FRAME</b><small>${copy.featured}　${copy.collections}</small></header><div>${[0,1,2,0,1,2].map((index, order) => `<figure class="tile-${order + 1}">${media(mediaUrls[index], `masonry-${order + 1}`)}<figcaption>${escapeHtml(copy.productNames[index])}</figcaption></figure>`).join("")}</div></div>`,
+  "layout-fullscreen": ({ copy, imageUrl }) => `
+    <div class="vp-layout vp-layout--fullscreen">${media(imageUrl, "layout-fullscreen")}<header><b>NOCTURNE</b><small>${copy.about}　${copy.work}</small></header><div><small>IMMERSIVE STORY / 01</small><strong>${copy.heroTitle}</strong><span>${copy.explore} ↘</span></div></div>`,
+  "layout-split-pane": ({ copy, imageUrl }) => `
+    <div class="vp-layout vp-layout--split"><section><header><b>EDITOR</b><small>index.html</small></header><code><i>01</i>&lt;main&gt;<br><i>02</i>　&lt;h1&gt;${copy.project}&lt;/h1&gt;<br><i>03</i>　&lt;p&gt;${copy.updated}&lt;/p&gt;<br><i>04</i>&lt;/main&gt;</code></section><i class="vp-layout-divider"><b>⋮</b></i><section>${media(imageUrl, "layout-split")}<div><small>LIVE PREVIEW</small><strong>${copy.project}</strong><p>${copy.heroBody}</p></div></section></div>`,
+  "layout-dashboard": ({ copy }) => `
+    <div class="vp-layout vp-layout--dashboard"><aside><b>AXIS</b><span>⌂</span><span>◇</span><span>□</span></aside><main><header><div><small>${copy.dashboard}</small><strong>${copy.project}</strong></div><b>${copy.thisMonth}</b></header><div class="vp-layout-kpis"><i><small>${copy.visitors}</small><strong>12.4k</strong><em>+18%</em></i><i><small>${copy.projects}</small><strong>24</strong><em>+4</em></i><i><small>${copy.status}</small><strong>98%</strong><em>${copy.active}</em></i></div><div class="vp-layout-chart"><span></span><i></i><i></i><i></i><i></i><i></i></div></main></div>`,
+  "layout-modular": ({ copy, imageUrl }) => `
+    <div class="vp-layout vp-layout--modular"><header><b>MY SPACE</b><small>＋ ${copy.create}</small></header><main><section class="is-profile"><span class="vp-avatar"></span><strong>${copy.account}</strong><small>${copy.online}</small></section><section class="is-feature">${media(imageUrl, "layout-module")}<div><small>${copy.featured}</small><strong>${copy.cardTitle}</strong></div></section><section class="is-stat"><small>${copy.projects}</small><strong>24</strong></section><section class="is-note"><small>${copy.today}</small><p>${copy.listSummaries[2]}</p></section></main></div>`,
   "top-nav": ({ copy }) => `
     <div class="vp-navbar"><span class="vp-wordmark"><i></i>${copy.studio}</span><div class="vp-nav-links"><b class="is-active">${copy.home}</b><b>${copy.work}</b><b>${copy.about}</b></div><span class="vp-nav-action">${copy.contact}</span></div>`,
   sidebar: ({ copy }) => `
