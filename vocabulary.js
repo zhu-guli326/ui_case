@@ -1,6 +1,6 @@
-import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./vocabulary-data.js?v=20260822-variants-v2";
+import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./vocabulary-data.js?v=20260822-layout-section-v1";
 import { vocabularyComponentEntries } from "./src/features/vocabulary/vocabulary-component-data.js?v=20260822-form-details-v1";
-import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-variants-v2";
+import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260822-layout-section-v1";
 
 const vocabularyEntries = [...baseVocabularyEntries, ...vocabularyComponentEntries];
 const vocabularyById = Object.fromEntries(vocabularyEntries.map((entry) => [entry.id, entry]));
@@ -228,6 +228,7 @@ function categoryEyebrow(id) {
   const labels = {
     all: ["按界面作用浏览", "BROWSE BY ROLE"],
     foundation: ["页面基础", "PAGE FOUNDATIONS"],
+    layout: ["页面布局", "PAGE LAYOUTS"],
     navigation: ["导航与发现", "NAVIGATION & DISCOVERY"],
     content: ["内容展示", "CONTENT & MEDIA"],
     controls: ["控件与表单", "CONTROLS & FORMS"],
