@@ -294,14 +294,23 @@ function detailPreviewMarkup(entry) {
 function variantStateMarkup(entry) {
   const localized = localizedEntry(entry);
   const states = localized.states || [];
-  const labels = currentLanguage === "en"
-    ? [["Info", "info"], ["Success", "success"], ["Warning", "warning"], ["Error", "error"]]
-    : [["提示", "info"], ["成功", "success"], ["警告", "warning"], ["错误", "error"]];
-  return `<div class="entry-variant-panel" data-variant-panel data-variant-tone="info">
-    <div class="entry-variant-heading"><strong>${escapeHtml(tr("常见变体", "Common variants"))}</strong><span>Variants</span></div>
-    <div class="entry-variant-grid">${labels.map(([label, tone], index) => {
-      const state = states[index % Math.max(states.length, 1)] || [localized.name, localized.role];
-      return `<button class="entry-variant-card is-${tone}${index === 0 ? " is-active" : ""}" type="button" data-variant-state="${index}" aria-pressed="${index === 0}"><span class="entry-variant-card-head"><b>${escapeHtml(label)}</b><em>${tone}</em></span><span class="entry-variant-message"><i>${["ⓘ", "✓", "△", "×"][index]}</i><strong>${escapeHtml(state[0])}</strong><small>${escapeHtml(state[1])}</small></span></button>`;
+  const tones = ["info", "success", "warning", "error"];
+  const kind = entry.category === "navigation" ? "navigation" : entry.category === "controls" ? "control" : entry.category === "feedback" ? "feedback" : entry.category === "content" ? "content" : entry.category === "layout" ? "layout" : "foundation";
+  const specimen = kind === "navigation"
+    ? `<div class="entry-variant-specimen is-navigation"><b>ON</b><span>产品</span><span>案例</span><span>方法</span></div>`
+    : kind === "control"
+      ? `<div class="entry-variant-specimen is-control"><span class="variant-control-dot"></span><b>${escapeHtml(localized.name)}</b><i>${escapeHtml(tr("继续", "Continue"))}</i></div>`
+      : kind === "content"
+        ? `<div class="entry-variant-specimen is-content"><span></span><span></span><span></span><span></span></div>`
+        : kind === "layout"
+          ? `<div class="entry-variant-specimen is-layout"><span></span><span></span><span></span></div>`
+          : `<div class="entry-variant-specimen is-generic"><b>${escapeHtml(localized.name)}</b><span>${escapeHtml(tr("状态预览", "State preview"))}</span></div>`;
+  return `<div class="entry-variant-panel variant-kind-${kind}" data-variant-panel data-variant-kind="${kind}" data-variant-index="0">
+    <div class="entry-variant-heading"><strong>${escapeHtml(localized.name)} · ${escapeHtml(tr("变体", "Variants"))}</strong><span>${escapeHtml(tr("点击切换", "Click to switch"))}</span></div>
+    ${specimen}
+    <div class="entry-variant-grid">${states.slice(0, 4).map((state, index) => {
+      const tone = tones[index % tones.length];
+      return `<button class="entry-variant-card is-${tone}${index === 0 ? " is-active" : ""}" type="button" data-variant-state="${index}" aria-pressed="${index === 0}"><span class="entry-variant-card-head"><b>${escapeHtml(state[0])}</b><em>${index + 1}</em></span><span class="entry-variant-message"><strong>${escapeHtml(state[1])}</strong></span></button>`;
     }).join("")}</div>
     <div class="entry-variant-active" data-variant-active aria-live="polite">${escapeHtml(states[0]?.[1] || localized.role)}</div>
   </div>`;
@@ -403,6 +412,7 @@ function renderEntries() {
     const panel = button.closest("[data-variant-panel]");
     const tone = [...button.classList].find((name) => name.startsWith("is-") && name !== "is-active")?.replace("is-", "") || "info";
     panel?.setAttribute("data-variant-tone", tone);
+    panel?.setAttribute("data-variant-index", button.dataset.variantState || "0");
     panel?.querySelectorAll("[data-variant-state]").forEach((item) => {
       const active = item === button;
       item.classList.toggle("is-active", active);
