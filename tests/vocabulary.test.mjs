@@ -119,16 +119,22 @@ test("component cards render copy before their visual specimen", () => {
   assert.ok(previewIndex >= 0, "the visual specimen must be rendered on the card");
 });
 
-test("every component card exposes an accessible two-sided flip interaction", () => {
+test("only cards with dedicated state experiences expose the flip interaction", () => {
   const cardFunction = vocabularyScript.slice(vocabularyScript.indexOf("function cardMarkup"), vocabularyScript.indexOf("function setCardFlipped"));
+  assert.match(vocabularyScript, /const interactiveVariantIds = new Set/);
+  assert.match(cardFunction, /const hasVariants = interactiveVariantIds\.has\(entry\.id\)/);
+  assert.match(cardFunction, /hasVariants \? `<button class="entry-flip-hitarea"/);
+  assert.match(cardFunction, /hasVariants \? `<section class="entry-card-face entry-card-back"/);
+  assert.match(cardFunction, /entry-card\$\{hasVariants \? " has-variants" : " is-static"\}/);
   assert.match(cardFunction, /entry-card-front/);
   assert.match(cardFunction, /entry-card-back/);
   assert.match(cardFunction, /entry-flip-tag/);
   assert.doesNotMatch(cardFunction, /visual-label/);
   assert.match(vocabularyScript, /entry-variant-panel/);
+  assert.match(vocabularyScript, /detailPreviewMarkup\(entry\)/);
+  assert.match(vocabularyScript, /data-entry-variant/);
   assert.match(vocabularyScript, /data-variant-state/);
-  assert.match(vocabularyScript, /data-variant-tone/);
-  assert.match(vocabularyScript, /setAttribute\("data-variant-tone"/);
+  assert.match(vocabularyScript, /setAttribute\("data-variant-index"/);
   assert.match(cardFunction, /data-copy-prompt/);
   assert.doesNotMatch(cardFunction, /entry-open-button|data-open-term|打开详情/);
   assert.match(cardFunction, /data-flip-card/g);
@@ -141,7 +147,7 @@ test("every component card exposes an accessible two-sided flip interaction", ()
   assert.match(vocabularyScript, /back\.inert = !flipped/);
   assert.match(vocabularyCss, /\.entry-card\.is-flipped \.entry-card-inner\s*\{[^}]*rotateY\(180deg\)/s);
   assert.match(vocabularyCss, /\.entry-card-front\s*\{[^}]*linear-gradient/s);
-  assert.match(vocabularyCss, /\.entry-card-back-insight/);
+  assert.match(vocabularyCss, /\.entry-state-preview/);
   assert.match(vocabularyCss, /@media \(prefers-reduced-motion:\s*reduce\)[\s\S]{0,240}\.entry-card-inner/);
 });
 
