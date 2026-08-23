@@ -357,7 +357,7 @@ kbd { padding: 4px 7px; border: 1px solid var(--line); border-radius: 5px; color
 .taxonomy-note a { color: var(--accent); font-size: 11px; font-weight: 800; text-decoration: none; }
 .results-column { min-width: 0; }
 .results-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
-.results-heading h2 { margin: 7px 0 0; font-size: 32px; line-height: 1.1; }
+.results-heading h2 { max-width: 100%; margin: 7px 0 0; font-size: 32px; line-height: 1.15; overflow-wrap: anywhere; }
 .sort-control { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 11px; white-space: nowrap; }
 .sort-control select { min-height: 34px; padding: 0 9px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); font-size: 12px; }
 .results-summary { margin: 10px 0 24px; color: var(--muted); font-size: 13px; }
