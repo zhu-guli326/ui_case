@@ -303,7 +303,7 @@ function variantStateMarkup(entry) {
   const localized = localizedEntry(entry);
   const states = localized.states || [];
   return `<div class="entry-variant-panel" data-variant-panel data-entry-variant="${escapeHtml(entry.id)}" data-variant-index="0">
-    <div class="entry-variant-heading"><strong>${escapeHtml(localized.name)} · ${escapeHtml(tr("状态变体", "State variants"))}</strong></div>
+    <div class="entry-variant-heading"><strong>${escapeHtml(localized.name)} · ${escapeHtml(tr("状态变体", "State variants"))}</strong><button class="entry-variant-back" type="button" data-flip-card aria-pressed="true">${escapeHtml(tr("返回介绍", "Back to intro"))} ↶</button></div>
     <div class="entry-state-preview" data-variant-preview>${detailPreviewMarkup(entry)}</div>
     <div class="entry-context-tags" aria-label="${escapeHtml(tr("词条标签", "Term tags"))}">${(localized.tags || []).slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
     <div class="entry-state-tabs" role="group" aria-label="${escapeHtml(tr(`${localized.name}状态`, `${localized.name} states`))}">${states.slice(0, 4).map((state, index) => `<button class="${index === 0 ? "is-active" : ""}" type="button" data-variant-state="${index}" data-variant-copy="${escapeHtml(state[1])}" aria-pressed="${index === 0}">${escapeHtml(state[0])}</button>`).join("")}</div>
