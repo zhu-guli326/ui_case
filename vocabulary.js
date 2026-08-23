@@ -160,6 +160,7 @@ const taxonomyNav = $("#taxonomyNav");
 const entryGrid = $("#entryGrid");
 const resultsHeading = $(".results-heading");
 const resultsEyebrow = $("#resultsEyebrow");
+const resultsTitle = $("#resultsTitle");
 const resultCount = $("#resultCount");
 const resultsSummary = $("#resultsSummary");
 const emptyState = $("#emptyState");
@@ -383,6 +384,11 @@ function renderEntries() {
   const navigationMode = showsNavigationDeepDive();
   const displayedCount = list.length;
   resultsEyebrow.textContent = categoryEyebrow(state.category);
+  resultsTitle.textContent = state.query
+    ? currentLanguage === "en" ? "Search results" : "搜索结果"
+    : state.category === "all"
+      ? tr("所有词条", "All terms")
+      : categoryLabel(state.category);
   resultsHeading.hidden = navigationMode;
   resultsSummary.hidden = navigationMode;
   entryGrid.hidden = navigationMode;
