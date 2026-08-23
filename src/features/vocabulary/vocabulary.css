@@ -536,7 +536,7 @@ kbd { padding: 4px 7px; border: 1px solid var(--line); border-radius: 5px; color
 .entry-copy-prompt-button { grid-column: 1 / -1; }
 .entry-copy-prompt-button b { font-size: 15px; line-height: 1; }
 .entry-copy-prompt-button:hover, .entry-copy-prompt-button:focus-visible { border-color: #d9f9e2; background: #d9f9e2; }
-.entry-front-copy-button { position: relative; z-index: 3; display: flex; width: 100%; min-height: 40px; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; padding: 0 12px; border: 1px solid #cfdad2; border-radius: 999px; background: #fff; color: var(--accent); font-size: 11px; font-weight: 800; cursor: pointer; }
+.entry-front-copy-button { position: relative; z-index: 3; display: flex; width: 100%; min-height: 40px; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; padding: 0 12px; border: 1px solid #cfdad2; border-radius: 999px; background: #fff; color: var(--accent); font-size: 11px; font-weight: 800; pointer-events: auto; cursor: pointer; }
 .entry-front-copy-button:hover, .entry-front-copy-button:focus-visible { border-color: var(--accent); background: #eef8f0; outline: none; }
 .entry-front-copy-button b { font-size: 15px; font-weight: 600; line-height: 1; }
 
