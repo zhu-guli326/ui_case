@@ -117,6 +117,16 @@ const carouselSpecs = [
   ["carousel-parallax", "视差轮播", "Parallax Carousel", "前景图片与背景以不同速度滚动，形成有层次的活动首屏。", "Move foreground and background layers at different speeds to create depth in a campaign hero.", "品牌页、活动主页"],
 ];
 
+const carouselStates = Object.freeze({
+  "carousel-fade": [["默认", "第一张图清晰可见，过渡以交叉淡化完成"], ["淡化过渡", "当前图与下一张图同时可见，避免突然切换"], ["暂停", "停留在当前画面，并保留继续浏览的控制"]],
+  "carousel-3d": [["默认", "中间卡片最大，两侧卡片保留透视关系"], ["旋转中", "中心位置和两侧深度随拖拽连续变化"], ["暂停", "停止自动旋转，当前卡片仍可操作"]],
+  "carousel-stack": [["默认", "顶部卡片完整显示，下一张露出层级提示"], ["拖拽中", "顶部卡片跟随手势移动，下面卡片保持稳定"], ["停留", "松手后停在当前卡片，不依赖自动播放"]],
+  "carousel-page": [["默认", "左右两页保持可读，并显示翻页方向"], ["翻页中", "页面绕书脊翻转，背面不会穿透成乱码"], ["暂停", "停留在当前页，保留左右翻页入口"]],
+  "carousel-accordion": [["默认", "每张图露出边缘，当前图保持展开"], ["展开中", "指针所在图片扩大，其余图片收窄但仍可识别"], ["停留", "停止自动展开，当前图片保持可点击"]],
+  "carousel-360": [["默认", "产品正面和拖动提示清晰可见"], ["拖动中", "产品角度随水平拖动变化，并保留主体比例"], ["暂停", "停止旋转，当前角度保持不变"]],
+  "carousel-parallax": [["默认", "前景和背景分层显示，层级关系清楚"], ["滚动中", "前景移动更快，背景缓慢移动形成深度"], ["减弱动效", "关闭错速移动，改为稳定的静态浏览"]],
+});
+
 const carouselVocabularyEntries = carouselSpecs.map(([id, name, en, ask, askEn, fit]) => ({
   id, name, en, category: "content", level: "进阶", tags: ["轮播形式", "动效", "内容展示"], ask,
   definition: `${name}是一种有明确过渡逻辑的图片轮播，不只是默认的左右滑加圆点。`,
@@ -124,7 +134,7 @@ const carouselVocabularyEntries = carouselSpecs.map(([id, name, en, ask, askEn, 
   example: image(`${name}代码组件预览`),
   anatomy: [["内容层", "每张图片或产品帧保持清晰主体"], ["过渡方式", ask], ["交互提示", "支持拖拽、键盘和触摸，并让当前状态可感知"], ["降级方案", "减弱动效时仍能按顺序浏览全部内容"]],
   variants: [["默认", fit], ["窄屏", "保留主体与操作，不让卡片被裁切"], ["减弱动效", "关闭 3D、视差或自动播放，改为直接切换"]],
-  states: [["默认", "第一张内容和当前状态清晰可见"], ["交互中", "拖拽或悬停时有明确反馈"], ["结束/暂停", "可继续浏览，不依赖自动播放"]],
+  states: carouselStates[id],
   useWhen: [fit, "需要让多张视觉内容形成连续叙事"], avoidWhen: ["用户需要同时比较所有内容，或动效会影响任务效率"],
   confusedWith: "轮播形式决定内容如何移动与切换，不等同于图片本身或页面整体布局。",
   codeUI: ["真实图片、状态类名、pointer/touch 事件、键盘控制、prefers-reduced-motion"], media: ["图片只提供视觉内容，轮播结构、标题、指示器和状态由代码渲染"],
@@ -1388,11 +1398,21 @@ Object.assign(vocabularyEnglishById, Object.fromEntries(layoutPatternSpecs.map((
   prompt: spec.prompt[1],
 }])));
 
+const carouselEnglishStates = {
+  "carousel-fade": [["Default", "The first image is clear and transitions cross-fade"], ["Fading", "Current and next images overlap without a hard cut"], ["Paused", "The current image stays visible with browsing controls"]],
+  "carousel-3d": [["Default", "The center card is largest and side cards keep perspective"], ["Rotating", "Center position and depth change continuously with drag"], ["Paused", "Auto-rotation stops while the current card remains usable"]],
+  "carousel-stack": [["Default", "The top card is complete and the next card peeks through"], ["Dragging", "The top card follows the gesture while the stack stays stable"], ["Settled", "The card rests in place without relying on autoplay"]],
+  "carousel-page": [["Default", "Both pages remain readable with a clear turn direction"], ["Turning", "Pages rotate around the spine without showing broken backs"], ["Paused", "The current page remains with previous and next controls"]],
+  "carousel-accordion": [["Default", "Each image exposes an edge and the active image stays open"], ["Expanding", "The hovered image widens while the others remain identifiable"], ["Settled", "Auto-expansion stops and the active image stays clickable"]],
+  "carousel-360": [["Default", "The product face and drag hint remain clear"], ["Dragging", "The product angle follows horizontal drag while preserving scale"], ["Paused", "Rotation stops and the current angle stays in place"]],
+  "carousel-parallax": [["Default", "Foreground and background layers establish a clear depth order"], ["Scrolling", "Foreground moves faster than the background to create depth"], ["Reduced motion", "Layered movement is disabled for stable browsing"]],
+};
+
 Object.assign(vocabularyEnglishById, Object.fromEntries(carouselSpecs.map(([id, , en, , askEn, fit]) => [id, {
   name: en, level: "Advanced", tags: ["Carousel", "Motion", "Content display"], ask: askEn,
   definition: "A carousel pattern defines how a sequence of visual items moves, transitions, and remains navigable.",
   role: "Choose the motion model for the content scenario, then specify gestures, timing, hierarchy, and an accessible static fallback.",
-  example: image(`${en} code component preview`), useWhen: [fit, "When several visual items need a continuous story"], avoidWhen: ["When users must compare every item at once or motion harms task efficiency"],
+  example: image(`${en} code component preview`), states: carouselEnglishStates[id], useWhen: [fit, "When several visual items need a continuous story"], avoidWhen: ["When users must compare every item at once or motion harms task efficiency"],
   confusedWith: "A carousel pattern controls movement and transition; it is not the image asset or the page layout.",
   prompt: `${askEn} Define the active index, drag and keyboard behavior, autoplay pause rules, touch targets, and a reduced-motion fallback instead of only adding arrows and dots.`,
 }])));
