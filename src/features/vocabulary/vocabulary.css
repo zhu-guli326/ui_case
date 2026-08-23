@@ -398,6 +398,7 @@ kbd { padding: 4px 7px; border: 1px solid var(--line); border-radius: 5px; color
 .visual-label span:last-child { color: #d9f7e4; }
 .entry-card-body { position: relative; z-index: 2; display: grid; height: 100%; grid-template-rows: auto auto auto minmax(0, 1fr); gap: 12px; min-width: 0; padding: 22px; pointer-events: none; }
 .entry-card-front .entry-card-body { display: flex; min-height: 0; flex-direction: column; }
+.entry-card.is-static .entry-card-body { pointer-events: auto; }
 .entry-card-front .entry-visual { flex: 1 1 auto; min-height: 190px; height: auto; }
 .entry-card-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 10px; }
 .entry-card-meta > span:first-child { margin-right: auto; }
