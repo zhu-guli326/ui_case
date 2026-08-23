@@ -8,6 +8,8 @@ const vocabularyById = Object.fromEntries(vocabularyEntries.map((entry) => [entr
 document.querySelectorAll(".reference-link").forEach((link) => link.remove());
 
 const STORAGE_KEY = "image2-ui-vocabulary-favorites";
+const RECENT_STORAGE_KEY = "image2-ui-vocabulary-recent";
+const MAX_RECENT_TERMS = 6;
 const i18n = window.image2I18n;
 let currentLanguage = i18n?.language || "zh";
 
@@ -43,6 +45,7 @@ i18n?.addTranslations({
   "vocabulary.sortName": { zh: "中文名称", en: "Term name" },
   "vocabulary.sortCategory": { zh: "分类", en: "Category" },
   "vocabulary.sortFavorites": { zh: "我的收藏", en: "Favorites first" },
+  "vocabulary.shareView": { zh: "复制当前链接", en: "Copy current link" },
   "vocabulary.resultsIntro": { zh: "从页面基础开始，逐步看到控件、内容和反馈状态。", en: "Start with page foundations, then move through navigation, content, controls, and feedback." },
   "vocabulary.noMatches": { zh: "暂时没有匹配的词条", en: "No matching terms" },
   "vocabulary.noMatchesHint": { zh: "试试更短的关键词，或清除当前分类筛选。", en: "Try a shorter query or clear the current category filter." },
@@ -51,6 +54,9 @@ i18n?.addTranslations({
   "vocabulary.fullGuideBody": { zh: "保留了原来的 Markdown 版词典，适合复制到项目文档和 code review。", en: "The original Markdown vocabulary remains available for project documentation and code reviews." },
   "vocabulary.readGuide": { zh: "阅读规范版", en: "Read the guide" },
   "vocabulary.closeDetails": { zh: "关闭词条详情", en: "Close term details" },
+  "vocabulary.recentEyebrow": { zh: "继续使用", en: "CONTINUE" },
+  "vocabulary.recentTitle": { zh: "最近查看", en: "Recently viewed" },
+  "vocabulary.clearRecent": { zh: "清除记录", en: "Clear history" },
   "vocabulary.navigationDeepTitle": { zh: "导航不是只有一种栏", en: "Navigation is more than one bar" },
   "vocabulary.navigationEyebrow": { zh: "深入了解 / 导航模式", en: "DEEP DIVE / NAVIGATION PATTERNS" },
   "vocabulary.navigationDeepIntro": { zh: "先判断它服务的是全局、局部、层级还是临时任务，再选择位置和样式。下面 8 种模式看起来相似，但承担的导航范围完全不同。", en: "First decide whether the pattern serves global, local, hierarchical, or temporary navigation. These eight patterns may look similar, but they operate at very different scopes." },
@@ -148,11 +154,33 @@ function readFavorites() {
   } catch { return new Set(); }
 }
 
+function readRecentTerms() {
+  try {
+    const parsed = JSON.parse(readStoredValue(RECENT_STORAGE_KEY) || "[]");
+    return Array.isArray(parsed) ? parsed.filter((id) => typeof id === "string" && vocabularyById[id]).slice(0, MAX_RECENT_TERMS) : [];
+  } catch { return []; }
+}
+
+function persistRecentTerms() {
+  writeStoredValue(RECENT_STORAGE_KEY, JSON.stringify(state.recent));
+}
+
+function addRecentTerm(id) {
+  state.recent = [id, ...state.recent.filter((recentId) => recentId !== id)].slice(0, MAX_RECENT_TERMS);
+  persistRecentTerms();
+}
+
+const urlState = new URLSearchParams(window.location.search);
+const validCategories = new Set([...vocabularyCategories.map((category) => category.id), "all"]);
+const validSorts = new Set(["recommended", "az", "category", "favorites"]);
+const initialTermId = urlState.get("term");
+
 const state = {
-  query: "",
-  category: "all",
-  sort: "recommended",
+  query: urlState.get("q") || "",
+  category: validCategories.has(urlState.get("category")) ? urlState.get("category") : "all",
+  sort: validSorts.has(urlState.get("sort")) ? urlState.get("sort") : "recommended",
   favorites: readFavorites(),
+  recent: readRecentTerms(),
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -166,10 +194,29 @@ const resultsSummary = $("#resultsSummary");
 const emptyState = $("#emptyState");
 const navigationDeepDive = $("#navigationDeepDive");
 const toast = $("#toast");
+const termDialog = $("#termDialog");
+const termDialogContent = $("#termDialogContent");
+const recentTerms = $("#recentTerms");
+const recentTermsList = $("#recentTermsList");
+let dialogReturnEntryId = null;
 
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[character]));
 const navText = (pair) => tr(pair[0], pair[1]);
 const showsNavigationDeepDive = () => false;
+
+function syncUrlState({ term = undefined, historyMode = "replace" } = {}) {
+  const params = new URLSearchParams(window.location.search);
+  if (state.query.trim()) params.set("q", state.query.trim()); else params.delete("q");
+  if (state.category !== "all") params.set("category", state.category); else params.delete("category");
+  if (state.sort !== "recommended") params.set("sort", state.sort); else params.delete("sort");
+  if (term !== undefined) {
+    if (term) params.set("term", term); else params.delete("term");
+  }
+  const next = `${window.location.pathname}${params.toString() ? `?${params}` : ""}${window.location.hash}`;
+  const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+  if (current === next) return;
+  window.history[historyMode === "push" ? "pushState" : "replaceState"]({}, "", next);
+}
 
 function navigationPreviewMarkup(type) {
   const image = (src, alt) => `<img class="nav-demo-image" src="${src}" alt="${alt}" loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
@@ -277,9 +324,24 @@ function renderCategories() {
   [...document.querySelectorAll("[data-category]")].forEach((button) => button.addEventListener("click", () => {
     const category = button.dataset.category;
     state.category = category;
+    syncUrlState({ historyMode: "push" });
     render();
     focusCategory(category, ".taxonomy-link");
   }));
+}
+
+function renderRecentTerms() {
+  const visible = state.recent.map((id) => vocabularyById[id]).filter(Boolean);
+  recentTerms.hidden = !visible.length || Boolean(state.query.trim()) || state.category !== "all";
+  if (!visible.length) {
+    recentTermsList.innerHTML = "";
+    return;
+  }
+  recentTermsList.innerHTML = visible.map((entry) => {
+    const localized = localizedEntry(entry);
+    return `<button class="recent-term" type="button" data-open-recent="${escapeHtml(entry.id)}"><span>${escapeHtml(localized.name)}</span><small>${escapeHtml(categoryLabel(entry.category))}</small><b aria-hidden="true">↗</b></button>`;
+  }).join("");
+  document.querySelectorAll("[data-open-recent]").forEach((button) => button.addEventListener("click", () => openTerm(button.dataset.openRecent)));
 }
 
 function previewMarkup(entry) {
@@ -440,6 +502,7 @@ function renderEntries() {
 function render() {
   renderNavigationDeepDive();
   renderCategories();
+  renderRecentTerms();
   renderEntries();
 }
 
@@ -551,6 +614,8 @@ function openTerm(id, { focusTitle = false } = {}) {
   const baseEntry = vocabularyById[id];
   if (!baseEntry) return;
   const entry = localizedEntry(baseEntry);
+  addRecentTerm(id);
+  syncUrlState({ term: id, historyMode: "push" });
   const related = relatedEntries(baseEntry);
   if (!termDialog.open) dialogReturnEntryId = id;
   const favorite = state.favorites.has(entry.id);
@@ -601,6 +666,12 @@ async function copyPrompt(id) {
   showToast(tr("Agent prompt 已复制", "Agent prompt copied"));
 }
 
+async function copyCurrentView() {
+  const url = window.location.href;
+  try { await navigator.clipboard.writeText(url); } catch { const area = document.createElement("textarea"); area.value = url; document.body.append(area); area.select(); document.execCommand("copy"); area.remove(); }
+  showToast(tr("当前浏览链接已复制", "Current view link copied"));
+}
+
 let toastTimer;
 function showToast(message) {
   toast.textContent = message;
@@ -609,13 +680,43 @@ function showToast(message) {
   toastTimer = setTimeout(() => { toast.hidden = true; }, 2200);
 }
 
-$("#vocabularySearch").addEventListener("input", (event) => { state.query = event.target.value; renderNavigationDeepDive(); renderEntries(); });
-$("#sortSelect").addEventListener("change", (event) => { state.sort = event.target.value; renderEntries(); });
-$("#clearSearch").addEventListener("click", () => { state.query = ""; state.category = "all"; $("#vocabularySearch").value = ""; render(); $("#vocabularySearch").focus(); });
-document.addEventListener("keydown", (event) => { if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); $("#vocabularySearch").focus(); } if (event.key === "Escape") { state.query = ""; $("#vocabularySearch").value = ""; renderNavigationDeepDive(); renderEntries(); } });
+$("#vocabularySearch").value = state.query;
+$("#sortSelect").value = state.sort;
+$("#vocabularySearch").addEventListener("input", (event) => { state.query = event.target.value; syncUrlState(); renderNavigationDeepDive(); renderRecentTerms(); renderEntries(); });
+$("#sortSelect").addEventListener("change", (event) => { state.sort = event.target.value; syncUrlState({ historyMode: "push" }); renderEntries(); });
+$("#clearSearch").addEventListener("click", () => { state.query = ""; state.category = "all"; $("#vocabularySearch").value = ""; syncUrlState({ historyMode: "push" }); render(); $("#vocabularySearch").focus(); });
+$("#clearRecentTerms").addEventListener("click", () => { state.recent = []; persistRecentTerms(); renderRecentTerms(); showToast(tr("最近查看记录已清除", "Recently viewed history cleared")); });
+$("#shareView").addEventListener("click", copyCurrentView);
+termDialog.addEventListener("close", () => {
+  document.documentElement.classList.remove("term-dialog-open");
+  syncUrlState({ term: null });
+  if (dialogReturnEntryId) focusDataAttribute("data-open-term", dialogReturnEntryId);
+  if (!document.activeElement || document.activeElement === document.body) focusCategory(state.category);
+  dialogReturnEntryId = null;
+});
+document.addEventListener("keydown", (event) => {
+  const target = event.target;
+  const isTyping = target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement;
+  if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); $("#vocabularySearch").focus(); $("#vocabularySearch").select(); }
+  if (event.key === "/" && !isTyping && !termDialog.open) { event.preventDefault(); $("#vocabularySearch").focus(); }
+  if (event.key === "Escape" && !termDialog.open && state.query) { state.query = ""; $("#vocabularySearch").value = ""; syncUrlState(); renderNavigationDeepDive(); renderRecentTerms(); renderEntries(); }
+});
+window.addEventListener("popstate", () => {
+  const params = new URLSearchParams(window.location.search);
+  state.query = params.get("q") || "";
+  state.category = validCategories.has(params.get("category")) ? params.get("category") : "all";
+  state.sort = validSorts.has(params.get("sort")) ? params.get("sort") : "recommended";
+  $("#vocabularySearch").value = state.query;
+  $("#sortSelect").value = state.sort;
+  render();
+  const nextTerm = params.get("term");
+  if (nextTerm && vocabularyById[nextTerm]) openTerm(nextTerm);
+  else if (termDialog.open) termDialog.close();
+});
 window.addEventListener("image2:languagechange", (event) => {
   currentLanguage = event.detail?.language === "en" ? "en" : "zh";
   render();
 });
 
 render();
+if (initialTermId && vocabularyById[initialTermId]) openTerm(initialTermId);

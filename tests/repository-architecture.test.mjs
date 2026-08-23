@@ -19,6 +19,8 @@ const transitionalRootImplementation = new Set([
   "launcher.js",
   "learn.css",
   "learn.js",
+  "learn-lens-overrides.css",
+  "learn-nav-rail.css",
   "library-effect-captures.mjs",
   "library-media-guard.mjs",
   "library-preview-config.mjs",
@@ -91,9 +93,9 @@ test("new root implementation files are forbidden outside the migration allowlis
 
 test("entry pages load feature and component implementation from src", () => {
   const index = read("index.html");
-  const indexRedirectsToLibrary = /http-equiv="refresh"[^>]+library\.html/.test(index) && /window\.location\.replace\(target\.href\)/.test(index);
-  if (indexRedirectsToLibrary) {
-    assert.match(index, /<link rel="canonical" href="\.\/library\.html">/);
+  const indexRedirectsToHome = /http-equiv="refresh"[^>]+(?:learn|library)\.html/.test(index) && /window\.location\.replace\(target\.href\)/.test(index);
+  if (indexRedirectsToHome) {
+    assert.match(index, /<link rel="canonical" href="\.\/(?:learn|library)\.html">/);
   } else {
     assert.match(index, /src\/features\/home\/index\.css/);
     assert.match(index, /src\/features\/home\/index\.js/);

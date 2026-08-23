@@ -75,7 +75,7 @@ test("the Learn chapter navigation uses the cache-busted bare rail", () => {
   const learn = requireText("learn.html");
   const learnStyles = requireText("learn.css");
 
-  assert.match(learn, /learn\.css\?v=20260821-bare-rail-v7/);
+  assert.match(learn, /learn\.css\?v=20260823-public-ready-v1/);
   assert.match(learnStyles, /\.chapter-nav\{[^}]*position:fixed/);
   assert.match(learnStyles, /\.chapter-nav\{[^}]*background:transparent/);
   assert.doesNotMatch(learnStyles, /\.chapter-nav\{[^}]*border-radius:18px/);

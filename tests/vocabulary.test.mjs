@@ -182,6 +182,27 @@ test("navigation terms use their own distinct preview factories", () => {
   assert.ok(tabPreviews.every((markup) => !markup.includes("让复杂界面变得清楚")), "tab specimens must not fall back to the navigation marketing page");
 });
 
+test("vocabulary browsing state can be resumed and shared", () => {
+  assert.match(vocabularyHtml, /vocabulary\.css\?v=20260823-daily-use-v1/);
+  assert.match(vocabularyHtml, /vocabulary\.js\?v=20260823-daily-use-v1/);
+  assert.match(vocabularyHtml, /id="recentTerms"[^>]*hidden/);
+  assert.match(vocabularyHtml, /id="clearRecentTerms"/);
+  assert.match(vocabularyHtml, /id="shareView"/);
+  assert.match(vocabularyScript, /const RECENT_STORAGE_KEY/);
+  assert.match(vocabularyScript, /new URLSearchParams\(window\.location\.search\)/);
+  assert.match(vocabularyScript, /params\.set\("q", state\.query\.trim\(\)\)/);
+  assert.match(vocabularyScript, /params\.set\("category", state\.category\)/);
+  assert.match(vocabularyScript, /params\.set\("sort", state\.sort\)/);
+  assert.match(vocabularyScript, /params\.set\("term", term\)/);
+  assert.match(vocabularyScript, /historyMode === "push" \? "pushState" : "replaceState"/);
+  assert.match(vocabularyScript, /syncUrlState\(\{ historyMode: "push" \}\)/);
+  assert.match(vocabularyScript, /window\.addEventListener\("popstate"/);
+  assert.match(vocabularyScript, /event\.key === "\/"/);
+  assert.match(vocabularyScript, /function copyCurrentView/);
+  assert.match(vocabularyCss, /\.recent-terms-list\s*\{[^}]*grid-template-columns/s);
+  assert.match(vocabularyCss, /@media \(max-width: 780px\)[\s\S]*\.recent-term\s*\{[^}]*flex: 0 0 170px;/);
+});
+
 test("page foundation includes seven distinct layout choices", () => {
   const layoutIds = ["layout-single-column", "layout-landing-page", "layout-masonry", "layout-fullscreen", "layout-split-pane", "layout-dashboard", "layout-modular"];
   const entries = layoutIds.map((id) => vocabularyById[id]);

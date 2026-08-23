@@ -1004,6 +1004,33 @@ html.dark-mode .vp-overlay::before { background: var(--vp-panel); }
 .tabs-prompt-panel .prompt-heading span { color: #8fe4ad; }
 .tabs-related-panel { margin-top: 36px; }
 
+/* Resume-friendly browsing: keep a small, quiet trail between sessions. */
+.recent-terms { width: min(1650px, calc(100% - 96px)); margin: 0 auto; padding: 4px 0 28px; }
+.recent-terms-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+.recent-terms-heading h2 { margin: 6px 0 0; font-size: clamp(22px, 2.2vw, 30px); letter-spacing: -.04em; }
+.text-button { min-height: 36px; padding: 0 8px; border: 0; background: transparent; color: var(--accent); font-size: 12px; font-weight: 800; cursor: pointer; }
+.text-button:hover { text-decoration: underline; }
+.recent-terms-list { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+.recent-term { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 3px 8px; min-width: 0; padding: 13px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); text-align: left; cursor: pointer; transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease; }
+.recent-term:hover { border-color: var(--accent); box-shadow: 0 8px 18px rgba(33, 35, 45, .06); transform: translateY(-2px); }
+.recent-term span { overflow: hidden; font-size: 13px; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+.recent-term small { overflow: hidden; color: var(--muted); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.recent-term b { grid-row: 1 / span 2; align-self: center; color: var(--accent); font-size: 14px; }
+.recent-empty { margin: 12px 0 0; color: var(--muted); font-size: 13px; }
+.results-actions { display: flex; align-items: center; gap: 10px; }
+.share-view-button { min-height: 40px; padding: 0 12px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); color: var(--accent); font-size: 11px; font-weight: 800; cursor: pointer; }
+.share-view-button:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+@media (max-width: 1320px) { .recent-terms-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 780px) {
+  .recent-terms { width: min(100% - 36px, var(--content-width)); padding-bottom: 22px; }
+  .recent-terms-list { display: flex; overflow-x: auto; gap: 8px; margin-right: -18px; padding: 2px 18px 6px 0; scrollbar-width: none; }
+  .recent-terms-list::-webkit-scrollbar { display: none; }
+  .recent-term { flex: 0 0 170px; }
+  .results-actions { width: 100%; align-items: stretch; flex-direction: column; }
+  .share-view-button { width: 100%; }
+}
+
 @media (max-width: 900px) {
   .tabs-solution-hero { grid-template-columns: 1fr; }
   .tabs-solution-intro { max-width: 650px; }
