@@ -520,6 +520,31 @@ kbd { padding: 4px 7px; border: 1px solid var(--line); border-radius: 5px; color
 .entry-variant-panel[data-entry-variant="empty-state"][data-variant-index="1"] .vp-empty-action { background: var(--vp-green); color: #fff; }
 .entry-variant-panel[data-entry-variant^="carousel-"][data-variant-index="1"] .vp-carousel { transform: translateX(-4%); }
 .entry-variant-panel[data-entry-variant^="carousel-"][data-variant-index="2"] .vp-carousel { transform: scale(.96); opacity: .72; }
+/* Content carousel states: each pattern changes its own interaction model. */
+.entry-variant-panel[data-entry-variant="carousel-fade"][data-variant-index="1"] .vp-carousel--fade > div { opacity: .55; }
+.entry-variant-panel[data-entry-variant="carousel-fade"][data-variant-index="1"] .vp-carousel--fade > div::after { position: absolute; inset: 0; background: rgba(255,255,255,.32); content: ""; }
+.entry-variant-panel[data-entry-variant="carousel-fade"][data-variant-index="2"] .vp-carousel--fade > div { filter: saturate(.58); }
+.entry-variant-panel[data-entry-variant="carousel-fade"][data-variant-index="2"] .vp-carousel--fade::after { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font-size: 18px; content: "Ⅱ"; text-shadow: 0 1px 5px rgba(0,0,0,.35); }
+.entry-variant-panel[data-entry-variant="carousel-3d"][data-variant-index="1"] .vp-carousel--3d > .is-active { transform: translateZ(18px) scale(1.04); }
+.entry-variant-panel[data-entry-variant="carousel-3d"][data-variant-index="2"] .vp-carousel--3d > div { transform: none; opacity: .38; }
+.entry-variant-panel[data-entry-variant="carousel-3d"][data-variant-index="2"] .vp-carousel--3d > .is-active { opacity: .72; filter: saturate(.55); }
+.entry-variant-panel[data-entry-variant="carousel-stack"][data-variant-index="1"] .vp-carousel--stack > div:nth-child(1) { transform: translate(-22px,-8px) rotate(-7deg); }
+.entry-variant-panel[data-entry-variant="carousel-stack"][data-variant-index="2"] .vp-carousel--stack > div:nth-child(1) { transform: translate(42px,18px) rotate(10deg); opacity: .28; }
+.entry-variant-panel[data-entry-variant="carousel-page"][data-variant-index="1"] .vp-carousel--page > div:first-child { transform: rotateY(-38deg); transform-origin: right center; }
+.entry-variant-panel[data-entry-variant="carousel-page"][data-variant-index="1"] .vp-carousel--page > div:nth-child(2) { transform: rotateY(-5deg); }
+.entry-variant-panel[data-entry-variant="carousel-page"][data-variant-index="2"] .vp-carousel--page > div { filter: saturate(.58); opacity: .7; }
+.entry-variant-panel[data-entry-variant="carousel-accordion"][data-variant-index="1"] .vp-carousel--accordion > div { flex: .62; }
+.entry-variant-panel[data-entry-variant="carousel-accordion"][data-variant-index="1"] .vp-carousel--accordion > div:nth-child(3) { flex: 3.4; }
+.entry-variant-panel[data-entry-variant="carousel-accordion"][data-variant-index="2"] .vp-carousel--accordion > div { flex: 1; }
+.entry-variant-panel[data-entry-variant="carousel-accordion"][data-variant-index="2"] .vp-carousel--accordion > div.is-active { flex: 1; filter: saturate(.55); }
+.entry-variant-panel[data-entry-variant="carousel-360"][data-variant-index="1"] .vp-carousel--360 > div { transform: rotateY(28deg) rotateZ(-2deg); }
+.entry-variant-panel[data-entry-variant="carousel-360"][data-variant-index="2"] .vp-carousel--360 > div { filter: grayscale(.35); opacity: .72; }
+.entry-variant-panel[data-entry-variant="carousel-360"][data-variant-index="2"] .vp-carousel--360::after { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font-size: 10px; content: "暂停"; text-shadow: 0 1px 4px rgba(0,0,0,.45); }
+.entry-variant-panel[data-entry-variant="carousel-parallax"][data-variant-index="1"] .vp-carousel--parallax > .vp-media--carousel-back { transform: translateX(-8%) scale(1.16); }
+.entry-variant-panel[data-entry-variant="carousel-parallax"][data-variant-index="1"] .vp-carousel--parallax > .vp-media--carousel-main { transform: translateX(8%); }
+.entry-variant-panel[data-entry-variant="carousel-parallax"][data-variant-index="2"] .vp-carousel--parallax > img { transform: none; opacity: .86; }
+.entry-variant-panel[data-entry-variant^="carousel-"][data-variant-index="1"] .vp-carousel,
+.entry-variant-panel[data-entry-variant^="carousel-"][data-variant-index="2"] .vp-carousel { transform: none; opacity: 1; }
 @keyframes variant-spin { to { transform: rotate(1turn); } }
 .entry-card-back-visual { position: relative; min-height: 0; overflow: hidden; border-radius: 11px; background: #1a2b21; }
 .entry-card-back-visual > .vocabulary-preview { width: 100%; height: 100%; }
