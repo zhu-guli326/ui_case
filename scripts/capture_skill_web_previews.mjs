@@ -12,7 +12,7 @@ const websites = [
   ["lapa.ninja", "https://www.lapa.ninja/"],
   ["land-book.com", "https://land-book.com/"],
   ["awwwards.com", "https://www.awwwards.com/sites/michael-gatt"],
-  ["mobbin.com", "https://mobbin.com/"],
+  ["mobbin.com", "https://mobbin.com/discover/apps/ios/latest"],
   ["refero.design", "https://refero.design/"],
   ["designspells.com", "https://www.designspells.com/"],
   ["supahero.io", "https://supahero.io/"],
