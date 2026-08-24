@@ -81,6 +81,10 @@ if (!source.includes("./assets/skills/web/")) errors.push("Web cards are not map
 if (!source.includes("data-web-preview")) errors.push("Web card image element is missing");
 if (!source.includes('previewType: "video"') || !source.includes('previewRatio: "1 / 1"')) errors.push("Recent card is not configured as a square video preview");
 if (!fs.existsSync(recentVideoPath) || fs.statSync(recentVideoPath).size < 100_000) errors.push("Recent card video asset is missing or incomplete");
+for (const match of source.matchAll(/previewSrc:\s*"\.\/assets\/skills\/web\/([^"?]+\.mp4)"/g)) {
+  const videoPath = path.join(webAssetDir, match[1]);
+  if (!fs.existsSync(videoPath) || fs.statSync(videoPath).size < 100_000) errors.push(`${match[1]}: video preview is missing or incomplete`);
+}
 
 const webRows = websiteDomains.map((domain, index) => {
   const url = websiteUrls[index];
