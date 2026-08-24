@@ -1,4 +1,4 @@
-:root { --detail-page:#f6f5f1; --detail-surface:#fffefa; --detail-ink:#24231f; --detail-muted:#77746d; --detail-line:#ddd9d0; --detail-green:#18a957; --detail-dark:#20231f; font-family:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif; }
+:root { --detail-page:#f6f5f1; --detail-surface:#fffefa; --detail-ink:#24231f; --detail-muted:#77746d; --detail-line:#ddd9d0; --detail-green:#18a957; --detail-dark:#20231f; font-family:var(--font-sans-cjk); }
 * { box-sizing:border-box; } html { scroll-behavior:smooth; } body { margin:0; background:var(--detail-page); color:var(--detail-ink); } button { font:inherit; cursor:pointer; }
 .skill-detail-document { display:flex; min-height:100svh; flex-direction:column; }.skill-detail-page { width:min(1120px,calc(100% - 40px)); flex:1 0 auto; margin:0 auto; padding:54px 0 96px; }.skill-detail-document .site-footer { margin-top:auto; }
 .detail-back { display:inline-flex; gap:7px; align-items:center; color:var(--detail-muted); font-size:12px; font-weight:750; text-decoration:none; }.detail-back:hover { color:var(--detail-green); }
@@ -16,3 +16,4 @@
 .is-copied { background:var(--detail-green)!important; color:#fff!important; }
 @media(max-width:850px){.detail-layout{grid-template-columns:1fr}.detail-sidebar{position:static;grid-template-columns:1fr 1fr}.detail-output{grid-template-columns:1fr;min-height:0}.detail-output-ui{min-height:270px}}
 @media(max-width:620px){.skill-detail-page{width:min(100% - 32px,560px);padding-top:35px}.detail-hero{grid-template-columns:1fr;gap:24px;padding:38px 0 30px}.detail-install{justify-self:start}.detail-tabs{gap:18px;overflow-x:auto}.detail-output{padding:24px}.detail-output-ui{min-height:210px;padding:12px}.detail-output-ui i{min-height:75px}.detail-prose{padding:24px}.detail-use-grid,.detail-sidebar{grid-template-columns:1fr}.detail-command{grid-template-columns:1fr}.detail-command button{justify-self:start}.detail-hero h1{font-size:45px}}
+html[lang="zh-CN"] .skill-detail-page h1,html[lang="zh-CN"] .skill-detail-page h2,html[lang="zh-CN"] .skill-detail-page h3{font-family:var(--font-display-cjk);font-weight:700;letter-spacing:0;line-height:1.12}

@@ -15,7 +15,7 @@
   --max:1320px;
   --header-h:64px;
   --chapter-h:54px;
-  font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  font-family:var(--font-sans-cjk);
 }
 
 *{box-sizing:border-box}
@@ -360,21 +360,43 @@ main{overflow:hidden}
 /* CJK typography: negative display tracking is useful for Latin headlines,
    but it makes Chinese glyphs collide and destroys the intended rhythm. */
 html[lang="zh-CN"] body{
-  font-family: Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-family:var(--font-sans-cjk);
   letter-spacing:0;
 }
 html[lang="zh-CN"] .story-hero h1,
 html[lang="zh-CN"] .chapter h2,
 html[lang="zh-CN"] .chapter-quote,
+html[lang="zh-CN"] .sample-hero h3,
+html[lang="zh-CN"] .lens-note span,
+html[lang="zh-CN"] .prompt-step p,
+html[lang="zh-CN"] .code-media-board h3,
+html[lang="zh-CN"] .build-flow-intro strong,
 html[lang="zh-CN"] .method-list strong,
 html[lang="zh-CN"] .method-statement strong,
 html[lang="zh-CN"] .final-cta h2{
   letter-spacing:0 !important;
-  line-height:1.08 !important;
-  font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-  font-kerning:none;
+  font-family:var(--font-display-cjk);
+  font-kerning:normal;
+}
+html[lang="zh-CN"] .story-hero h1,
+html[lang="zh-CN"] .chapter h2,
+html[lang="zh-CN"] .sample-hero h3,
+html[lang="zh-CN"] .code-media-board h3,
+html[lang="zh-CN"] .method-statement strong,
+html[lang="zh-CN"] .final-cta h2{
+  font-weight:700;
+  line-height:1.12 !important;
+}
+html[lang="zh-CN"] .chapter-nav a b,
+html[lang="zh-CN"] .lens-note span,
+html[lang="zh-CN"] .build-flow-intro strong,
+html[lang="zh-CN"] .method-list strong{
+  font-weight:600;
 }
 html[lang="zh-CN"] .story-hero h1{font-size:clamp(52px,8vw,122px)}
+html[lang="zh-CN"] .prompt-step p{line-height:1.55 !important}
+html[lang="zh-CN"] .lens-note span,
+html[lang="zh-CN"] .build-flow-intro strong{line-height:1.5 !important}
 html[lang="zh-CN"] .hero-bottom p,
 html[lang="zh-CN"] .lead,
 html[lang="zh-CN"] .translation-board blockquote,

@@ -10,7 +10,7 @@
   margin-inline: auto;
   padding: 28px 0 96px;
 }
-.launcher-shell h1,.launcher-shell h2,.launcher-shell h3{font-family:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-weight:850;letter-spacing:-.02em}
+.launcher-shell h1,.launcher-shell h2,.launcher-shell h3{font-family:var(--font-display-cjk);font-weight:850;letter-spacing:-.02em}
 
 .launcher-shell [id] { scroll-margin-top: 94px; }
 

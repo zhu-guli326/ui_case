@@ -1,3 +1,5 @@
+@import url("../../core/app-shell/typography.css");
+
 .site-footer {
   margin-top: 64px;
   border-top: 1px solid var(--site-line, #d9ded8);
