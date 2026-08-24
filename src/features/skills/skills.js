@@ -259,8 +259,27 @@ function getSkillVisual(item) {
   return skillVisuals[item.slug]?.[currentLanguage] || getCategoryVisual(item.category);
 }
 
+const skillOfficialPages = {
+  "greensock/GSAP": "https://gsap.com",
+  "motiondivision/motion": "https://motion.dev",
+  "radix-ui/primitives": "https://www.radix-ui.com/primitives",
+  "tailwindlabs/headlessui": "https://github.com/tailwindlabs/headlessui",
+  "lucide-icons/lucide": "https://lucide.dev/icons",
+  "pmndrs/react-three-fiber": "https://r3f.docs.pmnd.rs/getting-started/introduction",
+  "storybookjs/storybook": "https://storybook.js.org"
+};
+
+function getSkillOfficialPage(item) {
+  return skillOfficialPages[item.slug] || `https://github.com/${item.slug}`;
+}
+
+function getSkillBrowserLabel(item) {
+  return getSkillOfficialPage(item).replace(/^https?:\/\/(?:www\.)?/, "").replace(/\/$/, "");
+}
+
 function getSkillCover(item) {
-  return `https://opengraph.githubassets.com/ondesign-skill-directory-v1/${item.slug}`;
+  const filename = item.slug.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return `./assets/skills/repositories/${filename}.jpg`;
 }
 
 function getWebsitePreviewPath(item) {
@@ -501,6 +520,7 @@ function renderRepositories() {
   repoList.innerHTML = items.map((item, index) => `
     <article class="repo-row repo-card-${index % 6}" data-category="${escapeHtml(item.category)}">
       <a class="repo-scene" data-category="${escapeHtml(item.category)}" href="./skill-detail.html?repo=${encodeURIComponent(item.slug)}&lang=${currentLanguage}" aria-label="${currentLanguage === "en" ? "View skill details" : "查看 Skill 详情"}: ${escapeHtml(item.title)}">
+        <span class="repo-browser-bar" aria-hidden="true"><i></i><i></i><i></i><b>${escapeHtml(getSkillBrowserLabel(item))}</b><em>↗</em></span>
         <img class="repo-cover-image" src="${escapeHtml(getSkillCover(item))}" alt="" loading="lazy" decoding="async">
         <span class="repo-cover-shade" aria-hidden="true"></span>
         <span class="repo-index">${String(index + 1).padStart(2, "0")}</span>

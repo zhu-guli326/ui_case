@@ -8,6 +8,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sourcePath = path.join(root, "src", "features", "skills", "skills.js");
 const capturePath = path.join(root, "scripts", "capture_skill_web_previews.mjs");
 const webAssetDir = path.join(root, "assets", "skills", "web");
+const repositoryAssetDir = path.join(root, "assets", "skills", "repositories");
 const source = fs.readFileSync(sourcePath, "utf8");
 const captureSource = fs.readFileSync(capturePath, "utf8");
 const errors = [];
@@ -72,7 +73,8 @@ if (websiteDomains.length !== websiteUrls.length) errors.push("Web card domains 
 for (const slug of duplicates(skillSlugs)) errors.push(`Duplicate Skill slug: ${slug}`);
 for (const domain of duplicates(websiteDomains)) errors.push(`Duplicate Web domain: ${domain}`);
 
-if (!source.includes("https://opengraph.githubassets.com/")) errors.push("Skill cards are not using official GitHub Open Graph previews");
+if (!source.includes("./assets/skills/repositories/")) errors.push("Skill cards are not using local official-page screenshots");
+if (!source.includes("repo-browser-bar")) errors.push("Skill cards are missing browser-page chrome");
 if (!source.includes("<img class=\"repo-cover-image\"")) errors.push("Skill card image element is missing");
 if (!source.includes("./assets/skills/web/")) errors.push("Web cards are not mapped to local official-page screenshots");
 if (!source.includes("data-web-preview")) errors.push("Web card image element is missing");
@@ -105,10 +107,30 @@ const webRows = websiteDomains.map((domain, index) => {
   return row;
 });
 
+const skillRows = skillSlugs.map((slug) => {
+  const filename = `${slug.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}.jpg`;
+  const file = path.join(repositoryAssetDir, filename);
+  const exists = fs.existsSync(file) && fs.statSync(file).isFile();
+  const row = { slug, filename, exists, bytes: 0, width: 0, height: 0 };
+  if (!exists) {
+    errors.push(`${slug}: missing official-page screenshot -> assets/skills/repositories/${filename}`);
+    return row;
+  }
+  const buffer = fs.readFileSync(file);
+  const dimensions = jpegDimensions(buffer);
+  row.bytes = buffer.length;
+  row.width = dimensions?.width || 0;
+  row.height = dimensions?.height || 0;
+  if (!dimensions) errors.push(`${slug}: screenshot is not a readable JPEG`);
+  if (dimensions && (dimensions.width < 800 || dimensions.height < 500)) errors.push(`${slug}: screenshot is too small (${dimensions.width}x${dimensions.height})`);
+  return row;
+});
+
 const report = {
   generatedAt: new Date().toISOString(),
   summary: {
     skillCards: skillSlugs.length,
+    skillScreenshots: skillRows.filter((row) => row.exists).length,
     webCards: websiteDomains.length,
     webScreenshots: webRows.filter((row) => row.exists).length,
     errors: errors.length,
@@ -117,6 +139,7 @@ const report = {
   errors,
   warnings,
   websites: webRows,
+  skills: skillRows,
 };
 
 console.log(JSON.stringify(report, null, 2));
