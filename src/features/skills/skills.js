@@ -144,6 +144,7 @@ const repoList = document.querySelector("#repoList");
 const repoSearch = document.querySelector("#repoSearch");
 const repoFacets = document.querySelector("#repoFacets");
 const repoCount = document.querySelector("#repoCount");
+const repoSyncStatus = document.querySelector("#repoSyncStatus");
 const repoInspector = document.querySelector("#repoInspector");
 const repoClearFilters = document.querySelector("#repoClearFilters");
 const track = (name, properties) => window.image2Analytics?.track(name, properties);
@@ -152,6 +153,8 @@ let resolvedRepositories = null;
 let activeCategory = "ALL";
 let searchQuery = "";
 let selectedSlug = repositories[0].slug;
+let repositoryStatsStatus = "loading";
+let repositoryStatsUpdatedAt = null;
 
 const categoryGroups = [
   { key: "creative", zh: "体验创作", en: "Experience & craft", categories: ["DESIGN", "UX", "MOTION", "VIDEO", "A11Y"] },
@@ -234,7 +237,7 @@ function getSkillVisual(item) {
 window.image2SkillsCatalog = { repositories, repositoriesEn, categoryLabels, skillVisuals };
 
 function formatNumber(value) {
-  if (typeof value !== "number") return "--";
+  if (typeof value !== "number") return "…";
   return value >= 1000 ? `${(value / 1000).toFixed(value >= 10000 ? 0 : 1)}k` : String(value);
 }
 
@@ -264,11 +267,24 @@ function getRepositoryItems() {
     : source;
 }
 
+function formatSyncTime(timestamp) {
+  if (!timestamp) return currentLanguage === "en" ? "Live data" : "实时数据";
+  const elapsedMinutes = Math.max(0, Math.floor((Date.now() - timestamp) / 60000));
+  if (currentLanguage === "en") {
+    if (elapsedMinutes < 1) return "just synced";
+    if (elapsedMinutes < 60) return `synced ${elapsedMinutes}m ago`;
+    return `synced ${Math.floor(elapsedMinutes / 60)}h ago`;
+  }
+  if (elapsedMinutes < 1) return "刚刚同步";
+  if (elapsedMinutes < 60) return `${elapsedMinutes} 分钟前同步`;
+  return `${Math.floor(elapsedMinutes / 60)} 小时前同步`;
+}
+
 function getFilteredRepositories() {
   const query = searchQuery.trim().toLowerCase();
   return getRepositoryItems().filter((item) => {
     const activeGroup = categoryGroups.find((group) => group.key === activeCategory);
-    const categoryMatch = activeCategory === "ALL" || activeGroup?.categories.includes(item.category);
+    const categoryMatch = activeCategory === "ALL" || (activeGroup ? activeGroup.categories.includes(item.category) : item.category === activeCategory);
     const searchMatch = !query || [item.slug, item.title, item.category, item.fallback, item.description, item.focus].some((value) => String(value || "").toLowerCase().includes(query));
     return categoryMatch && searchMatch;
   });
@@ -283,12 +299,18 @@ function renderRepositoryFilters() {
     agent: { zh: "AI 设计、设计评审与资源发现", en: "AI design, review and resource discovery" }
   };
   const filters = [{ key: "ALL", zh: "全部能力", en: "All capabilities", categories: null }, ...categoryGroups];
-  repoFacets.innerHTML = filters.map((filter) => {
+  const pathFilters = filters.map((filter) => {
     const itemCount = filter.key === "ALL" ? getRepositoryItems().length : getRepositoryItems().filter((item) => filter.categories.includes(item.category)).length;
     const label = currentLanguage === "en" ? filter.en : filter.zh;
     const description = descriptions[filter.key][currentLanguage];
     return `<button class="repo-filter${activeCategory === filter.key ? " is-active" : ""}" type="button" aria-pressed="${activeCategory === filter.key}" data-repo-filter="${escapeHtml(filter.key)}"><span class="repo-filter-top"><span>${escapeHtml(label)}</span><b>${itemCount}</b></span><small>${escapeHtml(description)}</small></button>`;
   }).join("");
+  const categories = [...new Set(getRepositoryItems().map((item) => item.category))];
+  const categoryFilters = categories.map((category) => {
+    const itemCount = getRepositoryItems().filter((item) => item.category === category).length;
+    return `<button class="repo-subfilter${activeCategory === category ? " is-active" : ""}" type="button" aria-pressed="${activeCategory === category}" data-repo-filter="${escapeHtml(category)}"><span>${escapeHtml(getCategoryLabel(category))}</span><b>${itemCount}</b></button>`;
+  }).join("");
+  repoFacets.innerHTML = `<div class="repo-path-filters">${pathFilters}</div><div class="repo-subfilters"><p>${currentLanguage === "en" ? `${categories.length} focused categories` : `${categories.length} 个细分类`}</p>${categoryFilters}</div>`;
   repoFacets.querySelectorAll("[data-repo-filter]").forEach((button) => button.addEventListener("click", () => {
     activeCategory = button.dataset.repoFilter;
     track("skill_filter_select", { category: activeCategory });
@@ -331,6 +353,12 @@ function renderRepositoryToolbar() {
     const count = getFilteredRepositories().length;
     repoCount.textContent = currentLanguage === "en" ? `${count} of ${getRepositoryItems().length}` : `${count} / ${getRepositoryItems().length}`;
   }
+  if (repoSyncStatus) {
+    const prefix = currentLanguage === "en" ? "Latest GitHub Stars" : "GitHub 最新 Stars";
+    if (repositoryStatsStatus === "loading") repoSyncStatus.textContent = `${prefix} · ${currentLanguage === "en" ? "syncing…" : "正在同步…"}`;
+    else if (repositoryStatsStatus === "unavailable") repoSyncStatus.textContent = `${prefix} · ${currentLanguage === "en" ? "temporarily unavailable" : "暂时无法更新"}`;
+    else repoSyncStatus.textContent = `${prefix} · ${formatSyncTime(repositoryStatsUpdatedAt)}`;
+  }
 }
 
 function renderRepositories(items = getFilteredRepositories()) {
@@ -350,7 +378,7 @@ function renderRepositories(items = getFilteredRepositories()) {
           <p class="repo-description">${escapeHtml(currentLanguage === "en" ? (item.description || item.fallback) : item.fallback)}</p>
           <p class="repo-focus">${escapeHtml(item.focus)}</p>
         </div>
-        <div class="repo-footer"><div class="repo-stats"><span title="GitHub Stars">☆ <b>${formatNumber(item.stars)}</b></span><small>${formatDate(item.updatedAt)}</small></div><div class="repo-actions"><button class="repo-copy-btn" type="button" data-copy-invoke="${item.slug}" title="${currentLanguage === "en" ? "Copy the Codex clone command" : "复制 Codex 调用命令"}"><span>${currentLanguage === "en" ? "Copy command" : "复制调用"}</span><b aria-hidden="true">＋</b></button></div></div>
+        <div class="repo-footer"><div class="repo-stats"><span title="GitHub Stars"><i aria-hidden="true">☆</i><small>GitHub Stars</small><b>${escapeHtml(item.starsLabel || formatNumber(item.stars))}</b></span><small>${formatDate(item.updatedAt)}</small></div><div class="repo-actions"><button class="repo-copy-btn" type="button" data-copy-invoke="${item.slug}" title="${currentLanguage === "en" ? "Copy the Codex clone command" : "复制 Codex 调用命令"}"><span>${currentLanguage === "en" ? "Copy command" : "复制调用"}</span><b aria-hidden="true">＋</b></button></div></div>
       </div>
     </article>
   `).join("");
@@ -417,17 +445,52 @@ function renderDesignWebsites() {
   websiteList.querySelectorAll("[data-design-site]").forEach((link) => link.addEventListener("click", () => track("design_site_open", { site: link.dataset.designSite })));
 }
 
-async function loadRepositoryData() {
-  renderRepositories();
-  const resolved = await Promise.all(repositories.map(async (item) => {
+const repositoryStatsCacheKey = "ondesign-skill-repository-stats-v1";
+const repositoryStatsCacheTtl = 6 * 60 * 60 * 1000;
+
+function readRepositoryStatsCache() {
+  try { return JSON.parse(localStorage.getItem(repositoryStatsCacheKey) || "null"); } catch { return null; }
+}
+
+function applyRepositoryStats(items, cachedItems = {}) {
+  return items.map((item) => ({ ...item, ...(cachedItems[item.slug] || {}) }));
+}
+
+async function fetchRepositoryStats(item, previous = {}) {
+  try {
+    const response = await fetch(`https://api.github.com/repos/${item.slug}`, { headers: { Accept: "application/vnd.github+json" }, cache: "no-store" });
+    if (!response.ok) throw new Error(`GitHub API ${response.status}`);
+    const repo = await response.json();
+    return { ...item, description: repo.description, stars: repo.stargazers_count, starsLabel: "", forks: repo.forks_count, updatedAt: repo.pushed_at };
+  } catch {
     try {
-      const response = await fetch(`https://api.github.com/repos/${item.slug}`, { headers: { Accept: "application/vnd.github+json" }, cache: "no-store" });
-      if (!response.ok) throw new Error("GitHub API request failed");
-      const repo = await response.json();
-      return { ...item, description: repo.description, stars: repo.stargazers_count, forks: repo.forks_count, updatedAt: repo.pushed_at };
-    } catch { return item; }
-  }));
+      const response = await fetch(`https://img.shields.io/github/stars/${item.slug}.json`, { cache: "no-store" });
+      if (!response.ok) throw new Error("Shields request failed");
+      const badge = await response.json();
+      return { ...item, ...previous, starsLabel: badge.message || previous.starsLabel || "" };
+    } catch { return { ...item, ...previous }; }
+  }
+}
+
+async function loadRepositoryData() {
+  const cache = readRepositoryStatsCache();
+  const cachedItems = cache?.items || {};
+  const cacheIsFresh = Boolean(cache?.savedAt && Date.now() - cache.savedAt < repositoryStatsCacheTtl);
+  resolvedRepositories = applyRepositoryStats(repositories, cachedItems);
+  repositoryStatsUpdatedAt = cache?.savedAt || null;
+  repositoryStatsStatus = cacheIsFresh ? "ready" : "loading";
+  renderRepositories();
+  if (cacheIsFresh) return;
+
+  const resolved = await Promise.all(repositories.map((item) => fetchRepositoryStats(item, cachedItems[item.slug])));
   resolvedRepositories = resolved;
+  const hasStats = resolved.some((item) => typeof item.stars === "number" || Boolean(item.starsLabel));
+  repositoryStatsStatus = hasStats ? "ready" : "unavailable";
+  repositoryStatsUpdatedAt = hasStats ? Date.now() : (cache?.savedAt || null);
+  const items = Object.fromEntries(resolved.map((item) => [item.slug, { description: item.description, stars: item.stars, starsLabel: item.starsLabel, forks: item.forks, updatedAt: item.updatedAt }]));
+  if (hasStats) {
+    try { localStorage.setItem(repositoryStatsCacheKey, JSON.stringify({ savedAt: repositoryStatsUpdatedAt, items })); } catch {}
+  }
   renderRepositories();
 }
 

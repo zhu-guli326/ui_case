@@ -62,10 +62,19 @@
   document.querySelectorAll("[data-copy-command]").forEach((button) => button.addEventListener("click", () => copyValue(button, command)));
   document.querySelectorAll("[data-copy-prompt]").forEach((button) => button.addEventListener("click", () => copyValue(button, prompt)));
 
+  const statsCacheKey = "ondesign-skill-repository-stats-v1";
+  try {
+    const cached = JSON.parse(localStorage.getItem(statsCacheKey) || "null")?.items?.[item.slug];
+    if (cached?.starsLabel || Number.isFinite(cached?.stars)) document.querySelector("[data-stars]").textContent = cached.starsLabel || formatNumber(cached.stars);
+    if (cached?.updatedAt) document.querySelector("[data-updated]").textContent = formatDate(cached.updatedAt, language);
+  } catch {}
+
   fetch(`https://api.github.com/repos/${item.slug}`, { headers:{ Accept:"application/vnd.github+json" }, cache:"no-store" }).then((response) => response.ok ? response.json() : Promise.reject()).then((repo) => {
     document.querySelector("[data-stars]").textContent = formatNumber(repo.stargazers_count);
     document.querySelector("[data-updated]").textContent = formatDate(repo.pushed_at, language);
-  }).catch(() => {});
+  }).catch(() => fetch(`https://img.shields.io/github/stars/${item.slug}.json`, { cache:"no-store" }).then((response) => response.ok ? response.json() : Promise.reject()).then((badge) => {
+    if (badge.message) document.querySelector("[data-stars]").textContent = badge.message;
+  }).catch(() => {}));
 
   function escapeHtml(value) { return String(value || "").replace(/[&<>'"]/g, (character) => ({ "&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;" })[character]); }
   function formatNumber(value) { return value >= 1000 ? `${(value / 1000).toFixed(value >= 10000 ? 0 : 1)}k` : String(value ?? "--"); }
