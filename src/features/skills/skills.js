@@ -107,22 +107,28 @@ const skillsTranslations = {
   "footer.vocabulary": { zh: "UI 词典", en: "UI vocabulary" },
   "footer.library": { zh: "案例库", en: "Case library" },
   "skills.heroEyebrow": { zh: "DESIGN SKILL MAP", en: "DESIGN SKILL MAP" },
+  "skills.heroDiscover": { zh: "发现", en: "Discover" },
+  "skills.heroUnit": { zh: "个", en: "" },
   "skills.heroTitle": { zh: "从任务出发，", en: "Start with the task." },
   "skills.heroTitleEm": { zh: "找到真正能用的设计 Skill。", en: "Find the design skill that fits." },
   "skills.heroBody": { zh: "这里不是仓库排行榜，而是一张设计能力地图。先选择你要完成的工作，再比较 Skill 的用途、维护状态与调用方式。", en: "This is a map of design capabilities, not a repository leaderboard. Start with the work you need to do, then compare purpose, activity and invocation." },
   "skills.configure": { zh: "配置调用环境", en: "Configure environment" },
-  "skills.browse": { zh: "开始选择", en: "Start choosing" },
+  "skills.browse": { zh: "浏览全部 Skills", en: "Browse all Skills" },
   "skills.radarLabel": { zh: "当前观察指标", en: "Current directory metrics" },
   "skills.radarSkills": { zh: "收录 Skill", en: "Curated skills" },
   "skills.radarDirections": { zh: "任务路径", en: "Task paths" },
   "skills.radarSource": { zh: "数据来源", en: "Data source" },
   "skills.radarNote": { zh: "持续补充 · 从设计判断到组件落地", en: "Continuously curated · from design judgment to component craft" },
   "skills.repoEyebrow": { zh: "CHOOSE BY TASK", en: "CHOOSE BY TASK" },
-  "skills.repoTitle": { zh: "你现在想完成什么？", en: "What do you want to accomplish?" },
+  "skills.repoTitle": { zh: "浏览设计 Skills", en: "Browse design Skills" },
   "skills.repoBody": { zh: "先选任务路径，再从结果中挑选合适的 Skill。每个项目都保留仓库入口与一键复制调用命令。", en: "Choose a task path first, then compare the relevant skills. Every item keeps its repository link and one-click invocation command." },
   "skills.repoToolbarLabel": { zh: "Skill 筛选工具", en: "Skill directory filters" },
   "skills.repoSearch": { zh: "搜索名称、用途或仓库", en: "Search name, purpose or repository" },
-  "skills.filters": { zh: "筛选", en: "Filters" },
+  "skills.filters": { zh: "分类筛选", en: "Categories" },
+  "skills.taskRailLabel": { zh: "按任务探索", en: "Explore by task" },
+  "skills.sortCurated": { zh: "精选", en: "Curated" },
+  "skills.sortStars": { zh: "Stars", en: "Stars" },
+  "skills.sortUpdated": { zh: "最近更新", en: "Latest" },
   "skills.clearFilters": { zh: "重置", en: "Reset" },
   "skills.collectionEyebrow": { zh: "EXPLORE FURTHER", en: "EXPLORE FURTHER" },
   "skills.collectionTitle": { zh: "继续扩展你的设计工具箱", en: "Expand your design toolbox" },
@@ -143,14 +149,19 @@ const skillsTranslations = {
 const repoList = document.querySelector("#repoList");
 const repoSearch = document.querySelector("#repoSearch");
 const repoFacets = document.querySelector("#repoFacets");
+const topTaskFilters = document.querySelector("#topTaskFilters");
 const repoCount = document.querySelector("#repoCount");
 const repoSyncStatus = document.querySelector("#repoSyncStatus");
+const skillsHeroCount = document.querySelector("#skillsHeroCount");
+const categoryCount = document.querySelector("#categoryCount");
+const repoSortButtons = document.querySelectorAll("[data-repo-sort]");
 const repoInspector = document.querySelector("#repoInspector");
 const repoClearFilters = document.querySelector("#repoClearFilters");
 const track = (name, properties) => window.image2Analytics?.track(name, properties);
 let currentLanguage = "zh";
 let resolvedRepositories = null;
 let activeCategory = "ALL";
+let activeSort = "CURATED";
 let searchQuery = "";
 let selectedSlug = repositories[0].slug;
 let repositoryStatsStatus = "loading";
@@ -282,36 +293,51 @@ function formatSyncTime(timestamp) {
 
 function getFilteredRepositories() {
   const query = searchQuery.trim().toLowerCase();
-  return getRepositoryItems().filter((item) => {
+  const items = getRepositoryItems().filter((item) => {
     const activeGroup = categoryGroups.find((group) => group.key === activeCategory);
     const categoryMatch = activeCategory === "ALL" || (activeGroup ? activeGroup.categories.includes(item.category) : item.category === activeCategory);
     const searchMatch = !query || [item.slug, item.title, item.category, item.fallback, item.description, item.focus].some((value) => String(value || "").toLowerCase().includes(query));
     return categoryMatch && searchMatch;
   });
+  if (activeSort === "STARS") return items.sort((a, b) => getStarValue(b) - getStarValue(a));
+  if (activeSort === "UPDATED") return items.sort((a, b) => new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime());
+  return items;
+}
+
+function getStarValue(item) {
+  if (typeof item.stars === "number") return item.stars;
+  const label = String(item.starsLabel || "").trim().toLowerCase();
+  const value = Number.parseFloat(label.replace(/[^0-9.]/g, ""));
+  if (!Number.isFinite(value)) return -1;
+  if (label.includes("m")) return value * 1000000;
+  if (label.includes("k")) return value * 1000;
+  return value;
 }
 
 function renderRepositoryFilters() {
-  if (!repoFacets) return;
-  const descriptions = {
-    ALL: { zh: "查看全部设计、构建与评审能力", en: "Browse every design, build and review capability" },
-    creative: { zh: "界面、体验、动效、视频与无障碍", en: "Interface, UX, motion, video and accessibility" },
-    build: { zh: "前端、设计系统、工程与 3D 图形", en: "Frontend, systems, engineering and 3D graphics" },
-    agent: { zh: "AI 设计、设计评审与资源发现", en: "AI design, review and resource discovery" }
-  };
   const filters = [{ key: "ALL", zh: "全部能力", en: "All capabilities", categories: null }, ...categoryGroups];
   const pathFilters = filters.map((filter) => {
     const itemCount = filter.key === "ALL" ? getRepositoryItems().length : getRepositoryItems().filter((item) => filter.categories.includes(item.category)).length;
     const label = currentLanguage === "en" ? filter.en : filter.zh;
-    const description = descriptions[filter.key][currentLanguage];
-    return `<button class="repo-filter${activeCategory === filter.key ? " is-active" : ""}" type="button" aria-pressed="${activeCategory === filter.key}" data-repo-filter="${escapeHtml(filter.key)}"><span class="repo-filter-top"><span>${escapeHtml(label)}</span><b>${itemCount}</b></span><small>${escapeHtml(description)}</small></button>`;
+    const activeGroup = categoryGroups.find((group) => group.categories.includes(activeCategory))?.key;
+    const isActive = activeCategory === filter.key || (filter.key !== "ALL" && activeGroup === filter.key);
+    return `<button class="repo-filter${isActive ? " is-active" : ""}" type="button" aria-pressed="${isActive}" data-repo-filter="${escapeHtml(filter.key)}"><span>${escapeHtml(label)}</span><b>${itemCount}</b></button>`;
   }).join("");
+  if (topTaskFilters) topTaskFilters.innerHTML = pathFilters;
+
   const categories = [...new Set(getRepositoryItems().map((item) => item.category))];
-  const categoryFilters = categories.map((category) => {
-    const itemCount = getRepositoryItems().filter((item) => item.category === category).length;
-    return `<button class="repo-subfilter${activeCategory === category ? " is-active" : ""}" type="button" aria-pressed="${activeCategory === category}" data-repo-filter="${escapeHtml(category)}"><span>${escapeHtml(getCategoryLabel(category))}</span><b>${itemCount}</b></button>`;
+  if (categoryCount) categoryCount.textContent = String(categories.length);
+  if (repoFacets) repoFacets.innerHTML = categoryGroups.map((group) => {
+    const groupCategories = group.categories.filter((category) => categories.includes(category));
+    const groupCount = getRepositoryItems().filter((item) => groupCategories.includes(item.category)).length;
+    const buttons = groupCategories.map((category) => {
+      const itemCount = getRepositoryItems().filter((item) => item.category === category).length;
+      return `<button class="repo-subfilter${activeCategory === category ? " is-active" : ""}" type="button" aria-pressed="${activeCategory === category}" data-repo-filter="${escapeHtml(category)}"><span>${escapeHtml(getCategoryLabel(category))}</span><b>${itemCount}</b></button>`;
+    }).join("");
+    return `<section class="facet-group"><h3><span>${escapeHtml(currentLanguage === "en" ? group.en : group.zh)}</span><b>${groupCount}</b></h3><div class="repo-subfilters">${buttons}</div></section>`;
   }).join("");
-  repoFacets.innerHTML = `<div class="repo-path-filters">${pathFilters}</div><div class="repo-subfilters"><p>${currentLanguage === "en" ? `${categories.length} focused categories` : `${categories.length} 个细分类`}</p>${categoryFilters}</div>`;
-  repoFacets.querySelectorAll("[data-repo-filter]").forEach((button) => button.addEventListener("click", () => {
+
+  document.querySelectorAll("[data-repo-filter]").forEach((button) => button.addEventListener("click", () => {
     activeCategory = button.dataset.repoFilter;
     track("skill_filter_select", { category: activeCategory });
     renderRepositories();
@@ -359,6 +385,11 @@ function renderRepositoryToolbar() {
     else if (repositoryStatsStatus === "unavailable") repoSyncStatus.textContent = `${prefix} · ${currentLanguage === "en" ? "temporarily unavailable" : "暂时无法更新"}`;
     else repoSyncStatus.textContent = `${prefix} · ${formatSyncTime(repositoryStatsUpdatedAt)}`;
   }
+  repoSortButtons.forEach((button) => {
+    const isActive = button.dataset.repoSort === activeSort;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
 }
 
 function renderRepositories(items = getFilteredRepositories()) {
@@ -501,6 +532,7 @@ function renderPage(language = "zh") {
   if (description) description.content = currentLanguage === "en"
     ? "A curated directory of open-source design Skills and tools."
     : "设计 Skill 观察与可复制提示词。";
+  if (skillsHeroCount) skillsHeroCount.textContent = String(getRepositoryItems().length);
   renderRepositories();
   renderSkillCollections();
   renderDesignWebsites();
@@ -513,9 +545,16 @@ if (repoSearch) repoSearch.addEventListener("input", () => {
 
 if (repoClearFilters) repoClearFilters.addEventListener("click", () => {
   activeCategory = "ALL";
+  activeSort = "CURATED";
   searchQuery = "";
   renderRepositories();
 });
+
+repoSortButtons.forEach((button) => button.addEventListener("click", () => {
+  activeSort = button.dataset.repoSort;
+  track("skill_sort_select", { sort: activeSort });
+  renderRepositories();
+}));
 
 if (repoList) {
   if (window.image2I18n) {
