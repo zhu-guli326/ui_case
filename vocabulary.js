@@ -381,7 +381,7 @@ function cardMarkup(entry) {
   return `<article class="entry-card has-variants ${hasVariants ? "has-state-variants" : "has-guidance-back"}" data-entry-id="${escapeHtml(entry.id)}">
     <div class="entry-card-inner">
       <section class="entry-card-face entry-card-front" aria-hidden="false">
-        <button class="entry-flip-hitarea" type="button" data-term-detail="${escapeHtml(entry.id)}" aria-label="${escapeHtml(tr(`查看 ${localized.name} 的完整方案`, `View full guidance for ${localized.name}`))}"></button>
+        <button class="entry-flip-hitarea" type="button" data-flip-card aria-pressed="false" aria-label="${escapeHtml(flipLabel)}"></button>
         <div class="entry-card-body">
           <div class="entry-card-meta"><span>${escapeHtml(categoryLabel(entry.category))}</span><button class="entry-flip-tag" type="button" data-flip-card aria-pressed="false" aria-label="${escapeHtml(flipLabel)}">${escapeHtml(flipTag)} ↻</button><button class="favorite-button${favorite ? " is-favorite" : ""}" type="button" data-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}" aria-label="${escapeHtml(favorite ? `${tr("取消收藏", "Remove from favorites")} ${localized.name}` : `${tr("收藏", "Add to favorites")} ${localized.name}`)}" title="${escapeHtml(favorite ? tr("取消收藏", "Remove from favorites") : tr("收藏", "Add to favorites"))}">${favorite ? "★" : "☆"}</button></div>
           <h3>${escapeHtml(localized.name)}${termAliasMarkup(entry)}</h3>
@@ -395,7 +395,7 @@ function cardMarkup(entry) {
         <button class="entry-flip-hitarea entry-flip-hitarea--back" type="button" data-flip-card aria-pressed="false" aria-label="${escapeHtml(tr(`翻回 ${localized.name} 的介绍`, `Flip back to the ${localized.name} introduction`))}"></button>
         <div class="entry-card-back-shell">
           ${hasVariants ? variantStateMarkup(entry) : guidanceBackMarkup(entry)}
-          <div class="entry-card-back-actions"><button class="entry-copy-prompt-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}"><span>${escapeHtml(tr("复制 Prompt", "Copy prompt"))}</span><b aria-hidden="true">⧉</b></button></div>
+          <div class="entry-card-back-actions"><button class="entry-copy-prompt-button" type="button" data-term-detail="${escapeHtml(entry.id)}"><span>${escapeHtml(tr("查看完整详情", "View full details"))}</span><b aria-hidden="true">↗</b></button></div>
         </div>
       </section>
     </div>
