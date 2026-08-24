@@ -84,7 +84,7 @@ const designReferenceGroups = [
 ];
 
 const designReferenceWebsites = [
-  { name: "Recent", domain: "recent.design", url: "https://recent.design/", group: "DIRECTION", descriptionZh: "聚合近期设计作品，适合快速感知正在发生的视觉趋势。", descriptionEn: "A feed of recent design work for sensing current visual trends.", focusZh: "趋势扫描 / 视觉方向", focusEn: "Trend scan / visual direction" },
+  { name: "Recent", domain: "recent.design", url: "https://recent.design/", group: "DIRECTION", previewType: "video", previewSrc: "./assets/skills/web/recent-design.mp4", previewRatio: "1 / 1", descriptionZh: "聚合近期设计作品，适合快速感知正在发生的视觉趋势。", descriptionEn: "A feed of recent design work for sensing current visual trends.", focusZh: "趋势扫描 / 视觉方向", focusEn: "Trend scan / visual direction" },
   { name: "Lapa Ninja", domain: "lapa.ninja", url: "https://www.lapa.ninja/", group: "DIRECTION", descriptionZh: "收集大量落地页案例，用于研究首屏、内容节奏与转化结构。", descriptionEn: "A large landing-page collection for studying heroes, rhythm and conversion structure.", focusZh: "落地页 / 转化结构", focusEn: "Landing pages / conversion" },
   { name: "Land-book", domain: "land-book.com", url: "https://land-book.com/", group: "DIRECTION", descriptionZh: "按风格与类型浏览网站案例，适合建立项目情绪板。", descriptionEn: "Browse websites by style and type to build project moodboards.", focusZh: "网站风格 / 情绪板", focusEn: "Web style / moodboards" },
   { name: "Awwwards", domain: "awwwards.com", url: "https://www.awwwards.com/", group: "DIRECTION", descriptionZh: "聚焦高质量网站、创意开发与完整交互体验。", descriptionEn: "High-quality websites, creative development and complete interactive experiences.", focusZh: "创意网站 / 交互叙事", focusEn: "Creative web / interaction" },
@@ -285,6 +285,14 @@ function getSkillCover(item) {
 function getWebsitePreviewPath(item) {
   const filename = item.domain.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   return `./assets/skills/web/${filename}.jpg`;
+}
+
+function getWebsitePreviewMarkup(item) {
+  const poster = getWebsitePreviewPath(item);
+  if (item.previewType === "video" && item.previewSrc) {
+    return `<video src="${escapeHtml(item.previewSrc)}" poster="${escapeHtml(poster)}" autoplay muted loop playsinline preload="metadata" aria-label="${escapeHtml(item.name)} ${currentLanguage === "en" ? "official website video preview" : "官网视频预览"}" data-web-preview></video>`;
+  }
+  return `<img src="${escapeHtml(poster)}" alt="${escapeHtml(item.name)} ${currentLanguage === "en" ? "official website preview" : "官网页面预览"}" loading="lazy" decoding="async" data-web-preview>`;
 }
 
 window.image2SkillsCatalog = { repositories, repositoriesEn, categoryLabels, skillVisuals };
@@ -556,8 +564,8 @@ function renderDesignReferences() {
       <div class="web-reference-grid">
         ${group.items.map((site, index) => `
           <article class="web-reference-card">
-            <a class="web-reference-visual" href="${site.url}" target="_blank" rel="noreferrer" data-design-reference="${escapeHtml(site.domain)}" aria-label="${escapeHtml(site.name)}">
-              <img src="${escapeHtml(getWebsitePreviewPath(site))}" alt="${escapeHtml(site.name)} ${currentLanguage === "en" ? "official website preview" : "官网页面预览"}" loading="lazy" decoding="async" data-web-preview>
+            <a class="web-reference-visual" href="${site.url}" target="_blank" rel="noreferrer" data-design-reference="${escapeHtml(site.domain)}" aria-label="${escapeHtml(site.name)}" style="--preview-ratio:${escapeHtml(site.previewRatio || "3 / 2")}">
+              ${getWebsitePreviewMarkup(site)}
               <span class="web-reference-top"><span>${escapeHtml(currentLanguage === "en" ? group.en : group.zh)}</span><b>${String(index + 1).padStart(2, "0")}</b></span>
             </a>
             <div class="web-reference-body">

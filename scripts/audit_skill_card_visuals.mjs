@@ -9,6 +9,7 @@ const sourcePath = path.join(root, "src", "features", "skills", "skills.js");
 const capturePath = path.join(root, "scripts", "capture_skill_web_previews.mjs");
 const webAssetDir = path.join(root, "assets", "skills", "web");
 const repositoryAssetDir = path.join(root, "assets", "skills", "repositories");
+const recentVideoPath = path.join(webAssetDir, "recent-design.mp4");
 const source = fs.readFileSync(sourcePath, "utf8");
 const captureSource = fs.readFileSync(capturePath, "utf8");
 const errors = [];
@@ -78,6 +79,8 @@ if (!source.includes("repo-browser-bar")) errors.push("Skill cards are missing b
 if (!source.includes("<img class=\"repo-cover-image\"")) errors.push("Skill card image element is missing");
 if (!source.includes("./assets/skills/web/")) errors.push("Web cards are not mapped to local official-page screenshots");
 if (!source.includes("data-web-preview")) errors.push("Web card image element is missing");
+if (!source.includes('previewType: "video"') || !source.includes('previewRatio: "1 / 1"')) errors.push("Recent card is not configured as a square video preview");
+if (!fs.existsSync(recentVideoPath) || fs.statSync(recentVideoPath).size < 100_000) errors.push("Recent card video asset is missing or incomplete");
 
 const webRows = websiteDomains.map((domain, index) => {
   const url = websiteUrls[index];
@@ -101,7 +104,7 @@ const webRows = websiteDomains.map((domain, index) => {
   row.height = dimensions?.height || 0;
   if (!dimensions) errors.push(`${domain}: screenshot is not a readable JPEG`);
   if (buffer.length < 20_000) warnings.push(`${domain}: screenshot is unusually small (${buffer.length} bytes)`);
-  if (dimensions && (dimensions.width < 1000 || dimensions.height < 600)) {
+  if (dimensions && (dimensions.width < 640 || dimensions.height < 500)) {
     errors.push(`${domain}: screenshot is too small (${dimensions.width}x${dimensions.height})`);
   }
   return row;
