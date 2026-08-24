@@ -3,53 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="google-adsense-account" content="ca-pub-4002333396957263">
-  <meta name="description" content="ONDesign：学习 UI 语言，理解界面结构，并用 AI 构建更好的产品界面。">
-  <title>ONDesign · AI × UI Design</title>
-  <link rel="stylesheet" href="./src/features/home/index.css?v=20260824-fullpage-scroll-v1">
-  <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260822-glass-liquid-v1">
-  <link rel="stylesheet" href="./src/components/site-header/site-footer.css">
-  <script src="./src/core/app-shell/app-shell.js"></script>
-  <script src="./src/core/adsense/adsense.js" defer></script>
-  <script src="./src/features/home/index.js" defer></script>
+  <meta name="description" content="ONDesign：AI UI 设计案例库、UI 词典与设计 Skill。">
+  <title>ONDesign · Case Library</title>
+  <meta http-equiv="refresh" content="0; url=./library.html">
+  <link rel="canonical" href="./library.html">
+  <script>
+    // Keep query/hash when entering the original library homepage from the root.
+    const target = new URL("./library.html", window.location.href);
+    target.search = window.location.search;
+    target.hash = window.location.hash;
+    window.location.replace(target.href);
+  </script>
 </head>
-<body class="home-page" data-site-page="index.html">
-  <image2-site-header data-site-header></image2-site-header>
-  <main class="home-shell" data-home-snap>
-    <section class="home-hero home-panel" aria-labelledby="home-title" data-home-panel>
-      <div class="home-hero-media" aria-hidden="true">
-        <img src="./assets/home/ondesign-hero-abstract.svg" alt="">
-      </div>
-      <div class="home-hero-wash" aria-hidden="true"></div>
-      <div class="home-hero-content">
-        <p class="home-hero-signature"><span>ONDesign</span><i>×</i><strong>Image2 UI</strong></p>
-        <h1 id="home-title">Learn the language<br>of interfaces.<br><em>Build better with AI.</em></h1>
-        <div class="home-hero-footer">
-          <p class="home-lead">从看懂、拆解到实现，<br>把界面判断变成 AI 真正能执行的设计语言。</p>
-          <div class="home-actions">
-            <a class="home-primary" href="./learn.html">开始学习 <span aria-hidden="true">↗</span></a>
-            <a class="home-secondary" href="./library.html">浏览案例库</a>
-          </div>
-        </div>
-      </div>
-      <a class="home-scroll" href="#home-intro"><span>Scroll to explore</span><i aria-hidden="true">↓</i></a>
-    </section>
-
-    <div class="home-content">
-      <section class="home-intro home-panel" id="home-intro" aria-labelledby="home-intro-title" data-home-panel>
-        <div><p class="home-kicker">A SMALLER WAY TO DESIGN</p><h2 id="home-intro-title">从界面语言开始，而不是从 Prompt 猜测开始。</h2></div>
-        <p>这里是一套面向设计师、开发者和 AI 使用者的公开学习资料库：用真实案例理解导航、卡片、反馈、层级、间距和响应式结构，再把判断转化成可以执行的设计指令。</p>
-      </section>
-      <section class="home-links home-panel" aria-label="ONDesign 内容入口" data-home-panel>
-        <div class="home-grid">
-          <a href="./learn.html"><span>01</span><h2>Learn</h2><p>沿着看懂、拆解、命名、描述、实现和判断，建立一套可复用的 UI 学习路径。</p></a>
-          <a href="./vocabulary.html"><span>02</span><h2>UI Vocabulary</h2><p>按类别浏览界面结构、导航、内容、控件和反馈形式，理解每个词什么时候真正有用。</p></a>
-          <a href="./library.html"><span>03</span><h2>Case Library</h2><p>查看 19 个可交互 UI 案例，从视觉气质进入组件、状态和实现细节。</p></a>
-          <a href="./skills.html"><span>04</span><h2>Design Skills</h2><p>把设计观察整理成可以复用的工作方法和提示词。</p></a>
-        </div>
-        <div class="home-note"><strong>Built for thoughtful practice.</strong><span>内容持续更新，案例和界面均用于学习与设计研究。</span></div>
-      </section>
-    </div>
-  </main>
+<body>
+  <p>正在打开 ONDesign 首页… <a href="./library.html">进入首页</a></p>
 </body>
 </html>
