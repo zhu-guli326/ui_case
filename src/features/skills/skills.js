@@ -20,7 +20,12 @@ const repositories = [
   { slug: "ConardLi/garden-skills", category: "DESIGN", title: "ConardLi / garden-skills", fallback: "面向 AI 产品开发的多类可复用 skills，包含界面与体验工作流。", focus: "产品开发 / 复用能力" },
   { slug: "Owl-Listener/designer-skills", category: "DESIGN", title: "Owl-Listener / designer-skills", fallback: "面向设计任务的轻量 skill 集合，适合补充日常界面决策。", focus: "日常设计 / 决策辅助" },
   { slug: "superdesigndev/superdesign-skill", category: "AI DESIGN", title: "superdesigndev / superdesign-skill", fallback: "把设计思考、视觉方向和前端落地连接起来的设计 skill。", focus: "设计思考 / 前端落地" },
-  { slug: "mistyhx/frontend-design-audit", category: "REVIEW", title: "mistyhx / frontend-design-audit", fallback: "面向前端页面的设计审计与改进检查清单。", focus: "页面审计 / 改进建议" }
+  { slug: "mistyhx/frontend-design-audit", category: "REVIEW", title: "mistyhx / frontend-design-audit", fallback: "面向前端页面的设计审计与改进检查清单。", focus: "页面审计 / 改进建议" },
+  { slug: "plugin87/ux-ui-agent-skills", category: "UX", title: "plugin87 / ux-ui-agent-skills", fallback: "专注 UX/UI 任务的 Agent Skills 集合，覆盖界面体验与产品设计相关工作。", focus: "UX/UI 设计 / Agent 工作流" },
+  { slug: "ZeroZ-lab/cc-design", category: "DESIGN", title: "ZeroZ-lab / cc-design", fallback: "面向 Claude Code 的设计插件与参考资料，包含设计红旗和插件发布工作流。", focus: "设计规范 / Claude Code" },
+  { slug: "JimLiu/baoyu-design", category: "SYSTEM", title: "JimLiu / baoyu-design", fallback: "围绕设计系统创建、Figma 导入和实验工作流组织的一套设计能力。", focus: "设计系统 / Figma 导入" },
+  { slug: "scottstts/Threejs-Awesome-Graphics-Agent-Skills", category: "3D", title: "scottstts / Threejs-Awesome-Graphics-Agent-Skills", fallback: "面向 Three.js 与图形创作的 Agent Skills 集合，适合补充 3D 和交互视觉能力。", focus: "Three.js / 图形 Agent" },
+  { slug: "Owl-Listener/ai-design-skills", category: "DIRECTORY", title: "Owl-Listener / ai-design-skills", fallback: "整理 AI 设计能力和扩展入口的开源集合，适合继续发现跨模型的设计工作流。", focus: "AI 设计 / Skill 发现" }
 ];
 
 const repositoriesEn = [
@@ -45,7 +50,12 @@ const repositoriesEn = [
   { slug: "ConardLi/garden-skills", category: "DESIGN", title: "ConardLi / garden-skills", fallback: "Reusable skills for AI product development, including interface and experience workflows.", focus: "Product development / reusable skills" },
   { slug: "Owl-Listener/designer-skills", category: "DESIGN", title: "Owl-Listener / designer-skills", fallback: "A lightweight collection of skills for everyday interface decisions and design tasks.", focus: "Daily design / decision support" },
   { slug: "superdesigndev/superdesign-skill", category: "AI DESIGN", title: "superdesigndev / superdesign-skill", fallback: "A design skill that connects design thinking, visual direction and frontend execution.", focus: "Design thinking / frontend craft" },
-  { slug: "mistyhx/frontend-design-audit", category: "REVIEW", title: "mistyhx / frontend-design-audit", fallback: "A design-audit checklist for reviewing and improving frontend pages.", focus: "Page audits / improvement ideas" }
+  { slug: "mistyhx/frontend-design-audit", category: "REVIEW", title: "mistyhx / frontend-design-audit", fallback: "A design-audit checklist for reviewing and improving frontend pages.", focus: "Page audits / improvement ideas" },
+  { slug: "plugin87/ux-ui-agent-skills", category: "UX", title: "plugin87 / ux-ui-agent-skills", fallback: "A collection of agent skills for UX/UI tasks, covering interface experience and product-design work.", focus: "UX/UI design / Agent workflow" },
+  { slug: "ZeroZ-lab/cc-design", category: "DESIGN", title: "ZeroZ-lab / cc-design", fallback: "A Claude Code design plugin and reference set with design red flags and publishing workflows.", focus: "Design guidance / Claude Code" },
+  { slug: "JimLiu/baoyu-design", category: "SYSTEM", title: "JimLiu / baoyu-design", fallback: "A design capability set around creating systems, importing from Figma and running design experiments.", focus: "Design systems / Figma import" },
+  { slug: "scottstts/Threejs-Awesome-Graphics-Agent-Skills", category: "3D", title: "scottstts / Threejs-Awesome-Graphics-Agent-Skills", fallback: "An agent-skill collection for Three.js and graphics work, extending 3D and interactive visual capability.", focus: "Three.js / graphics agents" },
+  { slug: "Owl-Listener/ai-design-skills", category: "DIRECTORY", title: "Owl-Listener / ai-design-skills", fallback: "An open collection of AI-design capabilities and extensions for discovering cross-model design workflows.", focus: "AI design / skill discovery" }
 ];
 
 const designWebsites = [
@@ -54,7 +64,11 @@ const designWebsites = [
   { name: "Awwwards", url: "https://www.awwwards.com", type: "网页体验", description: "聚焦高质量网站、交互叙事与创意开发作品。", bestFor: "作品集 / 交互动效" },
   { name: "Mobbin", url: "https://mobbin.com", type: "产品 UI", description: "按真实产品流程查找移动端与 Web 应用界面。", bestFor: "App 流程 / UX 模式" },
   { name: "Land-book", url: "https://land-book.com", type: "落地页", description: "专注收集落地页和营销网站，适合寻找首屏与转化结构。", bestFor: "Landing page / 首屏" },
-  { name: "SiteInspire", url: "https://www.siteinspire.com", type: "网站策展", description: "按风格、行业和平台筛选网页参考，适合建立视觉情绪板。", bestFor: "网页风格 / Moodboard" }
+  { name: "SiteInspire", url: "https://www.siteinspire.com", type: "网站策展", description: "按风格、行业和平台筛选网页参考，适合建立视觉情绪板。", bestFor: "网页风格 / Moodboard" },
+  { name: "Godly", url: "https://godly.website/", type: "创意网站", description: "收录强调视觉表达与交互叙事的网站，适合寻找更强的创意方向。", bestFor: "品牌 / 创意开发" },
+  { name: "Refero", url: "https://refero.design/", type: "产品模式", description: "按真实界面与产品流程组织的 UI 参考，适合拆解功能与交互模式。", bestFor: "Web / App 流程" },
+  { name: "SaaSFrame", url: "https://www.saasframe.io/", type: "SaaS 产品", description: "面向 SaaS 产品的界面与营销参考库，适合研究 B2B 信息结构。", bestFor: "SaaS / Dashboard" },
+  { name: "Lapa Ninja", url: "https://www.lapa.ninja/", type: "落地页", description: "聚合营销与落地页案例，适合研究首屏、信息节奏与转化结构。", bestFor: "Landing / 转化" }
 ];
 
 const designWebsitesEn = [
@@ -63,33 +77,159 @@ const designWebsitesEn = [
   { name: "Awwwards", url: "https://www.awwwards.com", type: "Web experiences", description: "Explore high-quality websites, interaction stories and creative development work.", bestFor: "Portfolios / interaction motion" },
   { name: "Mobbin", url: "https://mobbin.com", type: "Product UI", description: "Find mobile and Web app interfaces organized by real product flows.", bestFor: "App flows / UX patterns" },
   { name: "Land-book", url: "https://land-book.com", type: "Landing pages", description: "A focused collection of landing and marketing sites for hero and conversion structures.", bestFor: "Landing pages / hero sections" },
-  { name: "SiteInspire", url: "https://www.siteinspire.com", type: "Web curation", description: "Filter web references by style, industry and platform to build a visual moodboard.", bestFor: "Web style / moodboards" }
+  { name: "SiteInspire", url: "https://www.siteinspire.com", type: "Web curation", description: "Filter web references by style, industry and platform to build a visual moodboard.", bestFor: "Web style / moodboards" },
+  { name: "Godly", url: "https://godly.website/", type: "Creative web", description: "A collection of visually expressive, interaction-led websites for stronger creative directions.", bestFor: "Brand / creative dev" },
+  { name: "Refero", url: "https://refero.design/", type: "Product patterns", description: "UI references organized around real screens and flows for studying product interaction patterns.", bestFor: "Web / app flows" },
+  { name: "SaaSFrame", url: "https://www.saasframe.io/", type: "SaaS product", description: "A SaaS interface and marketing reference library for studying B2B information architecture.", bestFor: "SaaS / dashboards" },
+  { name: "Lapa Ninja", url: "https://www.lapa.ninja/", type: "Landing pages", description: "Marketing and landing-page references for studying hero content, rhythm and conversion structure.", bestFor: "Landing / conversion" }
+];
+
+const skillCollections = [
+  { name: "skills.sh", url: "https://skills.sh/", type: "Skill 发现", description: "面向 AI 编程助手的 Skill 目录与安装入口，适合继续发现可复用能力。", bestFor: "发现 / 安装" },
+  { name: "Agent Skills", url: "https://agentskills.io/", type: "开放规范", description: "Agent Skills 的开放格式与实现说明，帮助理解 Skill 如何跨工具复用。", bestFor: "规范 / 兼容性" },
+  { name: "Awesome Agent Skills", url: "https://github.com/VoltAgent/awesome-agent-skills", type: "开源集合", description: "社区维护的 Agent Skills 精选仓库，覆盖开发、研究、生产力等方向。", bestFor: "社区精选" },
+  { name: "Awesome Claude Skills", url: "https://github.com/ComposioHQ/awesome-claude-skills", type: "开源集合", description: "围绕 Claude 与 Agent 工作流整理的 Skills、案例和资源入口。", bestFor: "Claude / Agent" },
+  { name: "Smithery", url: "https://smithery.ai/", type: "MCP 生态", description: "可发现和管理 MCP 能力的目录，适合将 Skill 与外部工具连接起来。", bestFor: "MCP / 工具连接" },
+  { name: "MCP.so", url: "https://mcp.so/", type: "MCP 目录", description: "聚合 MCP Server 与工具能力的公开目录，可用于补充 Agent 的调用范围。", bestFor: "MCP 发现" }
+];
+
+const skillCollectionsEn = [
+  { name: "skills.sh", url: "https://skills.sh/", type: "Skill discovery", description: "A directory and install entry point for reusable AI coding-agent skills.", bestFor: "Discover / install" },
+  { name: "Agent Skills", url: "https://agentskills.io/", type: "Open standard", description: "The open format and implementation guidance for reusable skills across agents.", bestFor: "Standard / compatibility" },
+  { name: "Awesome Agent Skills", url: "https://github.com/VoltAgent/awesome-agent-skills", type: "Open-source list", description: "A community-maintained collection of agent skills for development, research and productivity.", bestFor: "Community picks" },
+  { name: "Awesome Claude Skills", url: "https://github.com/ComposioHQ/awesome-claude-skills", type: "Open-source list", description: "Skills, examples and resources curated around Claude and agent workflows.", bestFor: "Claude / Agent" },
+  { name: "Smithery", url: "https://smithery.ai/", type: "MCP ecosystem", description: "A directory for discovering and managing MCP capabilities alongside Skills.", bestFor: "MCP / connections" },
+  { name: "MCP.so", url: "https://mcp.so/", type: "MCP directory", description: "A public directory of MCP servers and tool capabilities for expanding agent workflows.", bestFor: "MCP discovery" }
 ];
 
 const skillsTranslations = {
-  "skills.heroEyebrow": { zh: "OPEN SOURCE SKILL DIRECTORY", en: "OPEN SOURCE SKILL DIRECTORY" },
-  "skills.heroTitle": { zh: "设计与创作", en: "Design & creation" },
-  "skills.heroTitleEm": { zh: "Skill 清单。", en: "Skill directory." },
-  "skills.heroBody": { zh: "收录界面、体验、动效、视频、无障碍、设计系统与 AI 设计工作流相关的开源 Skill 与工具。现在已覆盖 22 个方向入口，可直接跳转到仓库查看。", en: "A curated directory of open-source Skills and tools for interfaces, UX, motion, video, accessibility, design systems and AI design workflows. It now covers 22 practical entry points with direct links to source repositories." },
-  "skills.configure": { zh: "配置并调用", en: "Configure and use" },
-  "skills.browse": { zh: "浏览 Skills", en: "Browse Skills" },
+  "footer.learn": { zh: "学习路径", en: "Learn" },
+  "footer.vocabulary": { zh: "UI 词典", en: "UI vocabulary" },
+  "footer.library": { zh: "案例库", en: "Case library" },
+  "skills.heroEyebrow": { zh: "DESIGN SKILL MAP", en: "DESIGN SKILL MAP" },
+  "skills.heroTitle": { zh: "从任务出发，", en: "Start with the task." },
+  "skills.heroTitleEm": { zh: "找到真正能用的设计 Skill。", en: "Find the design skill that fits." },
+  "skills.heroBody": { zh: "这里不是仓库排行榜，而是一张设计能力地图。先选择你要完成的工作，再比较 Skill 的用途、维护状态与调用方式。", en: "This is a map of design capabilities, not a repository leaderboard. Start with the work you need to do, then compare purpose, activity and invocation." },
+  "skills.configure": { zh: "配置调用环境", en: "Configure environment" },
+  "skills.browse": { zh: "开始选择", en: "Start choosing" },
   "skills.radarLabel": { zh: "当前观察指标", en: "Current directory metrics" },
-  "skills.radarSkills": { zh: "开源 Skills", en: "Open-source Skills" },
-  "skills.radarDirections": { zh: "设计方向", en: "Design directions" },
-  "skills.radarSource": { zh: "实时数据源", en: "Live data source" },
+  "skills.radarSkills": { zh: "收录 Skill", en: "Curated skills" },
+  "skills.radarDirections": { zh: "任务路径", en: "Task paths" },
+  "skills.radarSource": { zh: "数据来源", en: "Data source" },
   "skills.radarNote": { zh: "持续补充 · 从设计判断到组件落地", en: "Continuously curated · from design judgment to component craft" },
-  "skills.repoEyebrow": { zh: "CURATED REPOSITORIES", en: "CURATED REPOSITORIES" },
-  "skills.repoTitle": { zh: "Skill 列表", en: "Skill directory" },
-  "skills.repoBody": { zh: "Star、Fork 与更新时间由 GitHub API 提供。点击项目名直接打开源码仓库。", en: "Stars, forks and update times come from the GitHub API. Select a project name to open its source repository." },
+  "skills.repoEyebrow": { zh: "CHOOSE BY TASK", en: "CHOOSE BY TASK" },
+  "skills.repoTitle": { zh: "你现在想完成什么？", en: "What do you want to accomplish?" },
+  "skills.repoBody": { zh: "先选任务路径，再从结果中挑选合适的 Skill。每个项目都保留仓库入口与一键复制调用命令。", en: "Choose a task path first, then compare the relevant skills. Every item keeps its repository link and one-click invocation command." },
+  "skills.repoToolbarLabel": { zh: "Skill 筛选工具", en: "Skill directory filters" },
+  "skills.repoSearch": { zh: "搜索名称、用途或仓库", en: "Search name, purpose or repository" },
+  "skills.filters": { zh: "筛选", en: "Filters" },
+  "skills.clearFilters": { zh: "重置", en: "Reset" },
+  "skills.collectionEyebrow": { zh: "EXPLORE FURTHER", en: "EXPLORE FURTHER" },
+  "skills.collectionTitle": { zh: "继续扩展你的设计工具箱", en: "Expand your design toolbox" },
+  "skills.collectionBody": { zh: "需要更多选择时，再进入 Skill 生态目录或设计参考站。它们是下一步资源，不与核心 Skill 混在一起。", en: "When you need more options, continue into skill ecosystems or design reference sites. These are next-step resources, separate from the core directory." },
+  "skills.resourceSkillTitle": { zh: "Skill 与 Agent 生态", en: "Skill and Agent ecosystems" },
+  "skills.resourceSkillBody": { zh: "发现规范、集合与 MCP 工具。", en: "Discover standards, collections and MCP tools." },
+  "skills.columnNumber": { zh: "编号", en: "No." },
+  "skills.columnCategory": { zh: "分类", en: "Category" },
+  "skills.columnSkill": { zh: "Skill / 用途", en: "Skill / purpose" },
+  "skills.columnBestFor": { zh: "适合", en: "Best for" },
+  "skills.columnStats": { zh: "热度", en: "Activity" },
+  "skills.columnAction": { zh: "调用", en: "Use" },
   "skills.websiteEyebrow": { zh: "DESIGN REFERENCE WEBSITES", en: "DESIGN REFERENCE WEBSITES" },
-  "skills.websiteTitle": { zh: "网页推荐", en: "Web references" },
-  "skills.websiteBody": { zh: "用于寻找网页、产品界面与完整项目参考。每个平台的内容密度和适合查找的内容都不同。", en: "Reference sites for web pages, product interfaces and complete projects. Each platform has a different content density and focus." }
+  "skills.websiteTitle": { zh: "设计参考网站", en: "Design reference sites" },
+  "skills.websiteBody": { zh: "查找真实产品流程、网页和视觉案例。", en: "Find real product flows, websites and visual references." }
 };
 
 const repoList = document.querySelector("#repoList");
+const repoSearch = document.querySelector("#repoSearch");
+const repoFacets = document.querySelector("#repoFacets");
+const repoCount = document.querySelector("#repoCount");
+const repoInspector = document.querySelector("#repoInspector");
+const repoClearFilters = document.querySelector("#repoClearFilters");
 const track = (name, properties) => window.image2Analytics?.track(name, properties);
 let currentLanguage = "zh";
 let resolvedRepositories = null;
+let activeCategory = "ALL";
+let searchQuery = "";
+let selectedSlug = repositories[0].slug;
+
+const categoryGroups = [
+  { key: "creative", zh: "体验创作", en: "Experience & craft", categories: ["DESIGN", "UX", "MOTION", "VIDEO", "A11Y"] },
+  { key: "build", zh: "构建系统", en: "Build & systems", categories: ["FRONTEND", "SYSTEM", "ENGINEERING", "3D"] },
+  { key: "agent", zh: "Agent 协作", en: "Agent workflows", categories: ["AI DESIGN", "REVIEW", "DIRECTORY"] }
+];
+
+const categoryLabels = {
+  DESIGN: { zh: "界面设计", en: "Interface design" },
+  UX: { zh: "用户体验", en: "User experience" },
+  MOTION: { zh: "动效", en: "Motion" },
+  VIDEO: { zh: "视频创作", en: "Video" },
+  A11Y: { zh: "无障碍", en: "Accessibility" },
+  FRONTEND: { zh: "前端构建", en: "Frontend" },
+  SYSTEM: { zh: "设计系统", en: "Design systems" },
+  ENGINEERING: { zh: "工程工作流", en: "Engineering" },
+  "3D": { zh: "3D / 图形", en: "3D / graphics" },
+  "AI DESIGN": { zh: "AI 设计", en: "AI design" },
+  REVIEW: { zh: "设计评审", en: "Design review" },
+  DIRECTORY: { zh: "资源发现", en: "Discovery" }
+};
+
+function getCategoryLabel(category) {
+  return categoryLabels[category]?.[currentLanguage] || category;
+}
+
+const categoryVisuals = {
+  VIDEO: { zh: "导演下一幕", en: "Direct the\nnext scene" },
+  DESIGN: { zh: "从意图到\n界面", en: "From intent\nto interface" },
+  MOTION: { zh: "让动效\n有目的", en: "Motion has\na purpose" },
+  ENGINEERING: { zh: "更有把握地\n交付", en: "Ship with\nconfidence" },
+  FRONTEND: { zh: "为真实使用\n而构建", en: "Build for\nreal use" },
+  UX: { zh: "让路径\n更清晰", en: "Make paths\nclear" },
+  A11Y: { zh: "默认\n无障碍", en: "Accessible\nby default" },
+  SYSTEM: { zh: "让每个部分\n保持一致", en: "Keep every\npiece coherent" },
+  "3D": { zh: "增加一个\n新维度", en: "Add a new\ndimension" },
+  "AI DESIGN": { zh: "从提示到\n产品", en: "Prompt to\nproduct" },
+  DIRECTORY: { zh: "找到真正\n适合的", en: "Find what\nfits" },
+  REVIEW: { zh: "看见还\n缺少什么", en: "See what\nis missing" }
+};
+
+function getCategoryVisual(category) {
+  return categoryVisuals[category]?.[currentLanguage] || (currentLanguage === "en" ? "Make work\nclearer" : "让工作\n更清晰");
+}
+
+const skillVisuals = {
+  "Vincentwei1021/video-shotcraft": { zh: "把镜头写成\n可复用配方", en: "Turn shots into\nreusable recipes" },
+  "emilkowalski/skills": { zh: "让界面细节\n更自然", en: "Make interface\ndetails feel natural" },
+  "pbakaus/impeccable": { zh: "提升界面的\n完成度", en: "Raise the level\nof interface polish" },
+  "greensock/GSAP": { zh: "让动效流畅\n且有节奏", en: "Make motion fluid\nand intentional" },
+  "Leonxlnx/taste-skill": { zh: "摆脱模板化\n设计", en: "Move beyond\ntemplated design" },
+  "mattpocock/skills": { zh: "把工程经验\n变成工作流", en: "Turn engineering\npractice into workflows" },
+  "anthropics/skills": { zh: "从需求构建\n真实界面", en: "Build real interfaces\nfrom requirements" },
+  "vercel-labs/agent-skills": { zh: "按生产标准\n构建前端", en: "Build frontend work\nto production standards" },
+  "nextlevelbuilder/ui-ux-pro-max-skill": { zh: "把产品意图\n变成完整体验", en: "Turn product intent\ninto a complete experience" },
+  "motiondivision/motion": { zh: "为交互增加\n自然反馈", en: "Add natural feedback\nto interactions" },
+  "radix-ui/primitives": { zh: "从无障碍原语\n开始构建", en: "Start with accessible\ninterface primitives" },
+  "tailwindlabs/headlessui": { zh: "组合可靠的\n交互模式", en: "Compose dependable\ninteraction patterns" },
+  "lucide-icons/lucide": { zh: "统一产品的\n图标语言", en: "Unify the product's\nicon language" },
+  "pmndrs/react-three-fiber": { zh: "把 3D 带进\nReact", en: "Bring 3D into\nReact" },
+  "storybookjs/storybook": { zh: "让组件可见\n可测可协作", en: "Make components visible,\ntestable and collaborative" },
+  "google-labs-code/stitch-skills": { zh: "从提示生成\n可迭代界面", en: "Generate interfaces\nready to iterate" },
+  "bergside/awesome-design-skills": { zh: "快速找到合适的\n设计能力", en: "Find the right\ndesign capability faster" },
+  "SeanJ1ang/design-judge-skills": { zh: "看见界面还\n缺少什么", en: "See what the interface\nis still missing" },
+  "ConardLi/garden-skills": { zh: "组合 AI 产品\n开发能力", en: "Combine capabilities\nfor AI product work" },
+  "Owl-Listener/designer-skills": { zh: "辅助日常的\n设计决策", en: "Support everyday\ndesign decisions" },
+  "superdesigndev/superdesign-skill": { zh: "连接设计思考\n与前端落地", en: "Connect design thinking\nto frontend execution" },
+  "mistyhx/frontend-design-audit": { zh: "系统审查\n前端页面", en: "Audit frontend pages\nsystematically" },
+  "plugin87/ux-ui-agent-skills": { zh: "覆盖完整的\nUX/UI 工作流", en: "Cover the complete\nUX/UI workflow" },
+  "ZeroZ-lab/cc-design": { zh: "提前识别\n设计红旗", en: "Spot design red flags\nearly" },
+  "JimLiu/baoyu-design": { zh: "建立可复用的\n设计系统", en: "Build a reusable\ndesign system" },
+  "scottstts/Threejs-Awesome-Graphics-Agent-Skills": { zh: "增加一个互动\n新维度", en: "Add a new dimension\nof interaction" },
+  "Owl-Listener/ai-design-skills": { zh: "发现跨模型的\n设计工作流", en: "Discover cross-model\ndesign workflows" }
+};
+
+function getSkillVisual(item) {
+  return skillVisuals[item.slug]?.[currentLanguage] || getCategoryVisual(item.category);
+}
 
 function formatNumber(value) {
   if (typeof value !== "number") return "--";
@@ -115,20 +255,106 @@ function escapeHtml(value) {
   return String(value || "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
 }
 
-function renderRepositories(items) {
-  repoList.innerHTML = items.map((item) => `
-    <article class="repo-row">
-      <p class="repo-category">${escapeHtml(item.category)}</p>
-      <div class="repo-main"><a href="https://github.com/${item.slug}" target="_blank" rel="noreferrer" data-repo-link="${item.slug}">${escapeHtml(item.title)}</a><p>${escapeHtml(currentLanguage === "en" ? (item.description || item.fallback) : item.fallback)}</p></div>
-      <p class="repo-focus">${escapeHtml(item.focus)}</p>
-      <div class="repo-stats"><span title="GitHub Stars">Star <b>${formatNumber(item.stars)}</b></span><span title="Forks">Fork <b>${formatNumber(item.forks)}</b></span><small>${formatDate(item.updatedAt)}</small></div>
-      <div class="repo-actions">
-        <button class="repo-copy-btn" type="button" data-copy-invoke="${item.slug}" title="${currentLanguage === "en" ? "Copy the Codex clone command" : "复制 Codex 调用命令"}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/><path d="M16 5h4v4"/></svg><span>${currentLanguage === "en" ? "Copy command" : "复制调用"}</span></button>
+function getRepositoryItems() {
+  const source = resolvedRepositories || repositories;
+  return currentLanguage === "en"
+    ? source.map((item, index) => ({ ...item, fallback: repositoriesEn[index].fallback, focus: repositoriesEn[index].focus }))
+    : source;
+}
+
+function getFilteredRepositories() {
+  const query = searchQuery.trim().toLowerCase();
+  return getRepositoryItems().filter((item) => {
+    const activeGroup = categoryGroups.find((group) => group.key === activeCategory);
+    const categoryMatch = activeCategory === "ALL" || activeGroup?.categories.includes(item.category);
+    const searchMatch = !query || [item.slug, item.title, item.category, item.fallback, item.description, item.focus].some((value) => String(value || "").toLowerCase().includes(query));
+    return categoryMatch && searchMatch;
+  });
+}
+
+function renderRepositoryFilters() {
+  if (!repoFacets) return;
+  const descriptions = {
+    ALL: { zh: "查看全部设计、构建与评审能力", en: "Browse every design, build and review capability" },
+    creative: { zh: "界面、体验、动效、视频与无障碍", en: "Interface, UX, motion, video and accessibility" },
+    build: { zh: "前端、设计系统、工程与 3D 图形", en: "Frontend, systems, engineering and 3D graphics" },
+    agent: { zh: "AI 设计、设计评审与资源发现", en: "AI design, review and resource discovery" }
+  };
+  const filters = [{ key: "ALL", zh: "全部能力", en: "All capabilities", categories: null }, ...categoryGroups];
+  repoFacets.innerHTML = filters.map((filter) => {
+    const itemCount = filter.key === "ALL" ? getRepositoryItems().length : getRepositoryItems().filter((item) => filter.categories.includes(item.category)).length;
+    const label = currentLanguage === "en" ? filter.en : filter.zh;
+    const description = descriptions[filter.key][currentLanguage];
+    return `<button class="repo-filter${activeCategory === filter.key ? " is-active" : ""}" type="button" aria-pressed="${activeCategory === filter.key}" data-repo-filter="${escapeHtml(filter.key)}"><span class="repo-filter-top"><span>${escapeHtml(label)}</span><b>${itemCount}</b></span><small>${escapeHtml(description)}</small></button>`;
+  }).join("");
+  repoFacets.querySelectorAll("[data-repo-filter]").forEach((button) => button.addEventListener("click", () => {
+    activeCategory = button.dataset.repoFilter;
+    track("skill_filter_select", { category: activeCategory });
+    renderRepositories();
+  }));
+}
+
+function renderInspector() {
+  if (!repoInspector) return;
+  const item = getRepositoryItems().find((repository) => repository.slug === selectedSlug) || getFilteredRepositories()[0] || getRepositoryItems()[0];
+  if (!item) return;
+  selectedSlug = item.slug;
+  const copyLabel = currentLanguage === "en" ? "Copy command" : "复制调用";
+  const repoName = item.slug.split("/").pop();
+  repoInspector.innerHTML = `
+    <p class="inspector-label">${currentLanguage === "en" ? "SELECTED SKILL" : "当前选中"}</p>
+    <p class="inspector-category">${escapeHtml(getCategoryLabel(item.category))}</p>
+    <h3>${escapeHtml(item.title)}<span aria-label="Curated skill">✓</span></h3>
+    <p class="inspector-copy">${escapeHtml(currentLanguage === "en" ? (item.description || item.fallback) : item.fallback)}</p>
+    <dl><div><dt>${currentLanguage === "en" ? "Best for" : "适合用于"}</dt><dd>${escapeHtml(item.focus)}</dd></div><div><dt>${currentLanguage === "en" ? "Repository" : "来源仓库"}</dt><dd>${escapeHtml(item.slug)}</dd></div></dl>
+    <div class="inspector-command"><code>git clone https://github.com/${escapeHtml(item.slug)}.git ~/.codex/skills/${escapeHtml(repoName)}</code><button type="button" data-copy-invoke="${item.slug}">${copyLabel}</button></div>
+    <a class="inspector-link" href="https://github.com/${item.slug}" target="_blank" rel="noreferrer" data-repo-link="${item.slug}">${currentLanguage === "en" ? "Open repository ↗" : "打开仓库 ↗"}</a>
+  `;
+  repoInspector.querySelectorAll("[data-copy-invoke]").forEach((button) => button.addEventListener("click", () => copyCloneCommand(button)));
+  repoInspector.querySelectorAll("[data-repo-link]").forEach((link) => link.addEventListener("click", () => track("skill_repo_open", { repository: link.dataset.repoLink })));
+}
+
+function selectRepository(slug) {
+  selectedSlug = slug;
+  renderRepositories();
+}
+
+function renderRepositoryToolbar() {
+  renderRepositoryFilters();
+  if (repoSearch) {
+    repoSearch.value = searchQuery;
+    repoSearch.placeholder = currentLanguage === "en" ? "Search name, purpose or repository" : "搜索名称、用途或仓库";
+  }
+  if (repoCount) {
+    const count = getFilteredRepositories().length;
+    repoCount.textContent = currentLanguage === "en" ? `${count} of ${getRepositoryItems().length}` : `${count} / ${getRepositoryItems().length}`;
+  }
+}
+
+function renderRepositories(items = getFilteredRepositories()) {
+  renderRepositoryToolbar();
+  repoList.innerHTML = items.map((item, index) => `
+    <article class="repo-row repo-card-${index % 6}" data-category="${escapeHtml(item.category)}">
+      <div class="repo-scene" data-category="${escapeHtml(item.category)}">
+        <span class="repo-index">${String(index + 1).padStart(2, "0")}</span>
+        <strong>${escapeHtml(getSkillVisual(item))}</strong>
+        <div class="repo-preview" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <small>${escapeHtml(getCategoryLabel(item.category))} OUTPUT</small>
       </div>
-      </article>
+      <div class="repo-card-body">
+        <div class="repo-main">
+          <p class="repo-category">${escapeHtml(getCategoryLabel(item.category))}</p>
+          <a href="https://github.com/${item.slug}" target="_blank" rel="noreferrer" data-repo-link="${item.slug}">${escapeHtml(item.title)}<span class="repo-verified" aria-label="Curated skill">✓</span></a>
+          <p class="repo-description">${escapeHtml(currentLanguage === "en" ? (item.description || item.fallback) : item.fallback)}</p>
+          <p class="repo-focus">${escapeHtml(item.focus)}</p>
+        </div>
+        <div class="repo-footer"><div class="repo-stats"><span title="GitHub Stars">☆ <b>${formatNumber(item.stars)}</b></span><small>${formatDate(item.updatedAt)}</small></div><div class="repo-actions"><button class="repo-copy-btn" type="button" data-copy-invoke="${item.slug}" title="${currentLanguage === "en" ? "Copy the Codex clone command" : "复制 Codex 调用命令"}"><span>${currentLanguage === "en" ? "Copy command" : "复制调用"}</span><b aria-hidden="true">＋</b></button></div></div>
+      </div>
+    </article>
   `).join("");
   repoList.querySelectorAll("[data-repo-link]").forEach((link) => link.addEventListener("click", () => track("skill_repo_open", { repository: link.dataset.repoLink })));
   repoList.querySelectorAll("[data-copy-invoke]").forEach((btn) => btn.addEventListener("click", () => copyCloneCommand(btn)));
+  if (!items.length) repoList.innerHTML = `<p class="repo-empty">${currentLanguage === "en" ? "No matching skills. Try another keyword or category." : "没有找到匹配的 Skill，请换个关键词或分类。"}</p>`;
 }
 
 function copyToClipboard(btn, value) {
@@ -165,6 +391,16 @@ function copyCloneCommand(btn) {
   copyToClipboard(btn, `git clone https://github.com/${slug}.git ~/.codex/skills/${repoName}`);
 }
 
+function renderSkillCollections() {
+  const collectionList = document.querySelector("#collectionList");
+  if (!collectionList) return;
+  const collections = currentLanguage === "en" ? skillCollectionsEn : skillCollections;
+  collectionList.innerHTML = collections.map((site, index) => `
+    <article class="collection-row"><p>${String(index + 1).padStart(2, "0")}</p><div><a href="${site.url}" target="_blank" rel="noreferrer" data-skill-collection="${site.name}">${site.name}</a><span>${site.type}</span></div><p>${site.description}</p><small>${site.bestFor}</small></article>
+  `).join("");
+  collectionList.querySelectorAll("[data-skill-collection]").forEach((link) => link.addEventListener("click", () => track("skill_collection_open", { collection: link.dataset.skillCollection })));
+}
+
 function renderDesignWebsites() {
   const websiteList = document.querySelector("#websiteList");
   const sites = currentLanguage === "en" ? designWebsitesEn : designWebsites;
@@ -180,7 +416,7 @@ function renderDesignWebsites() {
 }
 
 async function loadRepositoryData() {
-  renderRepositories(currentLanguage === "en" ? repositoriesEn : repositories);
+  renderRepositories();
   const resolved = await Promise.all(repositories.map(async (item) => {
     try {
       const response = await fetch(`https://api.github.com/repos/${item.slug}`, { headers: { Accept: "application/vnd.github+json" }, cache: "no-store" });
@@ -190,9 +426,7 @@ async function loadRepositoryData() {
     } catch { return item; }
   }));
   resolvedRepositories = resolved;
-  renderRepositories(currentLanguage === "en"
-    ? resolved.map((item, index) => ({ ...item, fallback: repositoriesEn[index].fallback, focus: repositoriesEn[index].focus }))
-    : resolved);
+  renderRepositories();
 }
 
 function renderPage(language = "zh") {
@@ -202,13 +436,21 @@ function renderPage(language = "zh") {
   if (description) description.content = currentLanguage === "en"
     ? "A curated directory of open-source design Skills and tools."
     : "设计 Skill 观察与可复制提示词。";
-  renderRepositories(resolvedRepositories
-    ? (currentLanguage === "en"
-      ? resolvedRepositories.map((item, index) => ({ ...item, fallback: repositoriesEn[index].fallback, focus: repositoriesEn[index].focus }))
-      : resolvedRepositories)
-    : (currentLanguage === "en" ? repositoriesEn : repositories));
+  renderRepositories();
+  renderSkillCollections();
   renderDesignWebsites();
 }
+
+if (repoSearch) repoSearch.addEventListener("input", () => {
+  searchQuery = repoSearch.value;
+  renderRepositories();
+});
+
+if (repoClearFilters) repoClearFilters.addEventListener("click", () => {
+  activeCategory = "ALL";
+  searchQuery = "";
+  renderRepositories();
+});
 
 if (window.image2I18n) {
   window.image2I18n.addTranslations(skillsTranslations);
