@@ -16,6 +16,8 @@
 }
 
 * { box-sizing: border-box; }
+.icon-sprite { position:absolute; width:0; height:0; overflow:hidden; }
+.skills-icon { width:1em; height:1em; flex:0 0 auto; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--page); color: var(--ink); }
 body.skills-document { display: flex; min-height: 100svh; flex-direction: column; }
@@ -47,11 +49,11 @@ html[lang="zh-CN"] .skills-hero h1 { font-family:var(--font-display-cjk); font-w
 .hero-repo-link > span { display:grid; gap:2px; }
 .hero-repo-link small { color:rgba(255,255,255,.58); font-size:7px; font-weight:850; letter-spacing:.08em; }
 .hero-repo-link strong { font-size:12px; font-weight:850; letter-spacing:-.02em; }
-.hero-repo-link > b { color:rgba(255,255,255,.64); font-size:11px; }
+.hero-repo-link > .skills-icon { width:13px; height:13px; color:rgba(255,255,255,.64); }
 .solid-link, .quiet-link { display:inline-flex; min-height:38px; align-items:center; justify-content:center; font-size:11px; font-weight:800; text-decoration:none; transition:transform .16s ease,border-color .16s ease,background .16s ease; }
 .solid-link { background: var(--dark); color: #fff; }
 .solid-link { padding:0 16px; border-radius:999px; }
-.quiet-link { color:var(--ink); border-bottom:1px solid var(--line-strong); }
+.quiet-link { gap:6px; color:var(--ink); border-bottom:1px solid var(--line-strong); }.quiet-link .skills-icon { width:12px; height:12px; }
 .solid-link:hover, .quiet-link:hover { transform: translateY(-1px); }
 .quiet-link:hover { border-color:var(--dark); color:var(--green); }
 
@@ -131,7 +133,7 @@ html[lang="zh-CN"] .skills-hero h1 { font-family:var(--font-display-cjk); font-w
 .repo-browser-bar i { width:6px; height:6px; flex:0 0 auto; border-radius:50%; background:#d5d2ca; }
 .repo-browser-bar i:first-child { background:#ff766f; }.repo-browser-bar i:nth-child(2) { background:#f1c453; }.repo-browser-bar i:nth-child(3) { background:#6bcf7d; }
 .repo-browser-bar b { min-width:0; overflow:hidden; margin-left:5px; padding:3px 8px; border:1px solid #e2e0da; border-radius:999px; background:#fff; color:#77736b; font-size:8px; font-weight:650; text-overflow:ellipsis; white-space:nowrap; }
-.repo-browser-bar em { margin-left:auto; color:#969188; font-size:10px; font-style:normal; }
+.repo-browser-bar em { display:grid; margin-left:auto; color:#969188; font-size:10px; font-style:normal; }.repo-browser-bar em .skills-icon { width:11px; height:11px; }
 .repo-cover-image { position:absolute; top:29px; right:0; bottom:0; left:0; width:100%; height:calc(100% - 29px); object-fit:cover; object-position:top center; transition:transform .28s ease; }
 .repo-row:hover .repo-cover-image { transform:scale(1.025); }
 .repo-cover-shade { position:absolute; z-index:1; top:29px; right:0; bottom:0; left:0; background:linear-gradient(180deg,rgba(12,14,13,.02) 35%,rgba(12,14,13,.82) 100%); }
@@ -146,19 +148,19 @@ html[lang="zh-CN"] .skills-hero h1 { font-family:var(--font-display-cjk); font-w
 .repo-main { display: grid; gap: 10px; }
 .repo-main a { display: inline-flex; align-items: center; align-self: start; gap: 6px; color: var(--ink); font-size: 19px; font-weight: 850; letter-spacing: -.04em; line-height: 1.12; text-decoration: none; }
 .repo-main a:hover { color: var(--green); }
-.repo-verified { display: inline-grid; width: 17px; height: 17px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: var(--green-soft); color: var(--green); font-size: 10px; }
+.repo-verified { display: inline-grid; width: 17px; height: 17px; flex: 0 0 auto; place-items: center; color: var(--green); }.repo-verified .skills-icon { width:15px; height:15px; }
 .repo-description { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
 .repo-focus { display: flex; align-items: center; gap: 7px; margin: 2px 0 0; color: var(--ink); font-size: 11px; font-weight: 700; }
 .repo-focus::before { width: 6px; height: 6px; flex: 0 0 auto; border-radius: 50%; background: var(--green); content: ""; }
 .repo-footer { display:flex; align-items:end; justify-content:space-between; gap:12px; margin-top:auto; padding-top:18px; }
 .repo-stats { display:grid; gap:4px; color:var(--muted); font-size:11px; }
 .repo-stats > span { display:flex; align-items:center; gap:4px; }
-.repo-stats > span i { color:var(--green); font-size:13px; font-style:normal; }
+.repo-stats > span i { display:grid; color:var(--green); font-size:13px; font-style:normal; }.repo-stats > span i .skills-icon { width:13px; height:13px; }
 .repo-stats > span small { color:var(--muted); font-size:9px; }
 .repo-stats b { margin-left:1px; color:var(--ink); font-size:12px; }
 .repo-stats > small { color:var(--quiet); font-size:9px; }
 .repo-copy-btn { display: inline-flex; min-height: 36px; align-items: center; gap: 7px; padding: 0 11px 0 13px; border: 0; border-radius: 999px; background: var(--surface-soft); color: var(--ink); font-size: 10px; font-weight: 800; white-space: nowrap; transition: background .15s ease, color .15s ease; }
-.repo-copy-btn b { font-size: 16px; font-weight: 500; }
+.repo-copy-btn b { display:grid; font-size:16px; font-weight:500; }.repo-copy-btn b .skills-icon { width:14px; height:14px; }
 .repo-copy-btn:hover, .repo-copy-btn.is-copied { background: var(--green); color: #fff; }
 .repo-empty { display: block; width: 100%; margin: 0; padding: 48px 0; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 13px; text-align: center; column-span: all; }
 
@@ -181,7 +183,7 @@ html[lang="zh-CN"] .skills-hero h1 { font-family:var(--font-display-cjk); font-w
 .web-reference-top b { display:grid; width:25px; height:25px; place-items:center; border-radius:50%; background:rgba(255,255,255,.88); color:var(--muted); font-size:8px; }
 .web-reference-body { display:flex; flex:1; flex-direction:column; padding:15px 17px 17px; }
 .web-reference-title { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; color:var(--ink); font-size:18px; font-weight:880; letter-spacing:-.035em; line-height:1.15; text-decoration:none; }
-.web-reference-title i { color:var(--quiet); font-size:12px; font-style:normal; font-weight:500; }
+.web-reference-title i { display:grid; color:var(--quiet); font-size:12px; font-style:normal; font-weight:500; }.web-reference-title i .skills-icon { width:14px; height:14px; }
 .web-reference-title:hover { color:var(--green); }
 .web-reference-domain { margin:6px 0 0; color:var(--green); font-size:9px; font-weight:800; }
 .web-reference-description { margin:14px 0 20px; color:var(--muted); font-size:10px; line-height:1.6; }

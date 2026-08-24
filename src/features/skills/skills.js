@@ -322,6 +322,12 @@ function escapeHtml(value) {
   return String(value || "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
 }
 
+function skillIcon(name, className = "") {
+  const safeName = String(name).replace(/[^a-z-]/g, "");
+  const safeClassName = String(className).replace(/[^a-z0-9 _-]/gi, "").trim();
+  return `<svg class="skills-icon${safeClassName ? ` ${safeClassName}` : ""}" aria-hidden="true"><use href="#ondesign-icon-${safeName}"></use></svg>`;
+}
+
 function getRepositoryItems() {
   const source = resolvedRepositories || repositories;
   return currentLanguage === "en"
@@ -452,11 +458,11 @@ function renderInspector() {
   repoInspector.innerHTML = `
     <p class="inspector-label">${currentLanguage === "en" ? "SELECTED SKILL" : "当前选中"}</p>
     <p class="inspector-category">${escapeHtml(getCategoryLabel(item.category))}</p>
-    <h3>${escapeHtml(item.title)}<span aria-label="Curated skill">✓</span></h3>
+    <h3>${escapeHtml(item.title)}<span aria-label="Curated skill">${skillIcon("badge-check")}</span></h3>
     <p class="inspector-copy">${escapeHtml(currentLanguage === "en" ? (item.description || item.fallback) : item.fallback)}</p>
     <dl><div><dt>${currentLanguage === "en" ? "Best for" : "适合用于"}</dt><dd>${escapeHtml(item.focus)}</dd></div><div><dt>${currentLanguage === "en" ? "Repository" : "来源仓库"}</dt><dd>${escapeHtml(item.slug)}</dd></div></dl>
     <div class="inspector-command"><code>git clone https://github.com/${escapeHtml(item.slug)}.git ~/.codex/skills/${escapeHtml(repoName)}</code><button type="button" data-copy-invoke="${item.slug}">${copyLabel}</button></div>
-    <a class="inspector-link" href="https://github.com/${item.slug}" target="_blank" rel="noreferrer" data-repo-link="${item.slug}">${currentLanguage === "en" ? "Open repository ↗" : "打开仓库 ↗"}</a>
+    <a class="inspector-link" href="https://github.com/${item.slug}" target="_blank" rel="noreferrer" data-repo-link="${item.slug}"><span>${currentLanguage === "en" ? "Open repository" : "打开仓库"}</span>${skillIcon("external-link")}</a>
   `;
   repoInspector.querySelectorAll("[data-copy-invoke]").forEach((button) => button.addEventListener("click", () => copyCloneCommand(button)));
   repoInspector.querySelectorAll("[data-repo-link]").forEach((link) => link.addEventListener("click", () => track("skill_repo_open", { repository: link.dataset.repoLink })));
@@ -529,7 +535,7 @@ function renderRepositories() {
   repoList.innerHTML = items.map((item, index) => `
     <article class="repo-row repo-card-${index % 6}" data-category="${escapeHtml(item.category)}">
       <a class="repo-scene" data-category="${escapeHtml(item.category)}" href="./skill-detail.html?repo=${encodeURIComponent(item.slug)}&lang=${currentLanguage}" aria-label="${currentLanguage === "en" ? "View skill details" : "查看 Skill 详情"}: ${escapeHtml(item.title)}">
-        <span class="repo-browser-bar" aria-hidden="true"><i></i><i></i><i></i><b>${escapeHtml(getSkillBrowserLabel(item))}</b><em>↗</em></span>
+        <span class="repo-browser-bar" aria-hidden="true"><i></i><i></i><i></i><b>${escapeHtml(getSkillBrowserLabel(item))}</b><em>${skillIcon("external-link")}</em></span>
         <img class="repo-cover-image" src="${escapeHtml(getSkillCover(item))}" alt="" loading="lazy" decoding="async">
         <span class="repo-cover-shade" aria-hidden="true"></span>
         <span class="repo-index">${String(index + 1).padStart(2, "0")}</span>
@@ -538,11 +544,11 @@ function renderRepositories() {
       <div class="repo-card-body">
         <div class="repo-main">
           <p class="repo-category">${escapeHtml(getCategoryLabel(item.category))}</p>
-          <a href="./skill-detail.html?repo=${encodeURIComponent(item.slug)}&lang=${currentLanguage}" data-skill-detail="${item.slug}">${escapeHtml(item.title)}<span class="repo-verified" aria-label="Curated skill">✓</span></a>
+          <a href="./skill-detail.html?repo=${encodeURIComponent(item.slug)}&lang=${currentLanguage}" data-skill-detail="${item.slug}">${escapeHtml(item.title)}<span class="repo-verified" aria-label="Curated skill">${skillIcon("badge-check")}</span></a>
           <p class="repo-description">${escapeHtml(currentLanguage === "en" ? (item.description || item.fallback) : item.fallback)}</p>
           <p class="repo-focus">${escapeHtml(item.focus)}</p>
         </div>
-        <div class="repo-footer"><div class="repo-stats"><span title="GitHub Stars"><i aria-hidden="true">☆</i><small>GitHub Stars</small><b>${escapeHtml(item.starsLabel || formatNumber(item.stars))}</b></span><small>${formatDate(item.updatedAt)}</small></div><div class="repo-actions"><button class="repo-copy-btn" type="button" data-copy-invoke="${item.slug}" title="${currentLanguage === "en" ? "Copy the Codex clone command" : "复制 Codex 调用命令"}"><span>${currentLanguage === "en" ? "Copy command" : "复制调用"}</span><b aria-hidden="true">＋</b></button></div></div>
+        <div class="repo-footer"><div class="repo-stats"><span title="GitHub Stars"><i aria-hidden="true">${skillIcon("star")}</i><small>GitHub Stars</small><b>${escapeHtml(item.starsLabel || formatNumber(item.stars))}</b></span><small>${formatDate(item.updatedAt)}</small></div><div class="repo-actions"><button class="repo-copy-btn" type="button" data-copy-invoke="${item.slug}" title="${currentLanguage === "en" ? "Copy the Codex clone command" : "复制 Codex 调用命令"}"><span>${currentLanguage === "en" ? "Copy command" : "复制调用"}</span><b aria-hidden="true">${skillIcon("plus")}</b></button></div></div>
       </div>
     </article>
   `).join("");
@@ -570,7 +576,7 @@ function renderDesignReferences() {
               <span class="web-reference-top"><span>${escapeHtml(currentLanguage === "en" ? group.en : group.zh)}</span><b>${String(index + 1).padStart(2, "0")}</b></span>
             </a>
             <div class="web-reference-body">
-              <a class="web-reference-title" href="${site.url}" target="_blank" rel="noreferrer" data-design-reference="${escapeHtml(site.domain)}"><span>${escapeHtml(site.name)}</span><i aria-hidden="true">↗</i></a>
+              <a class="web-reference-title" href="${site.url}" target="_blank" rel="noreferrer" data-design-reference="${escapeHtml(site.domain)}"><span>${escapeHtml(site.name)}</span><i aria-hidden="true">${skillIcon("external-link")}</i></a>
               <p class="web-reference-domain">${escapeHtml(site.domain)}</p>
               <p class="web-reference-description">${escapeHtml(currentLanguage === "en" ? site.descriptionEn : site.descriptionZh)}</p>
               <footer><span>${currentLanguage === "en" ? "Best for" : "适合用于"}</span><strong>${escapeHtml(currentLanguage === "en" ? site.focusEn : site.focusZh)}</strong></footer>
