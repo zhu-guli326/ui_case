@@ -9,6 +9,7 @@
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--home-paper); color: var(--home-ink); }
 .home-shell { width: 100%; }
+.home-panel { scroll-margin: 0; }
 
 .home-page .site-header {
   --ink: #fff;
@@ -242,6 +243,7 @@ html[lang="zh-CN"] .home-hero h1 { font-weight: 700; line-height: 1.04; letter-s
 .home-intro { display: grid; grid-template-columns: minmax(280px, .9fr) minmax(280px, 1fr); gap: 60px; padding: clamp(84px, 11vw, 150px) 0 74px; border-bottom: 1px solid var(--home-line); }
 .home-intro h2 { max-width: 480px; margin: 0; font-size: clamp(32px, 4vw, 50px); line-height: 1.04; letter-spacing: -.045em; }
 .home-intro > p { max-width: 560px; margin: 28px 0 0; color: var(--home-muted); font-size: 17px; line-height: 1.8; }
+.home-links { display: grid; align-content: center; }
 .home-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 70px; background: var(--home-line); }
 .home-grid a { min-height: 260px; padding: 24px; background: #fff; color: inherit; text-decoration: none; transition: transform .2s ease, background .2s ease; }
 .home-grid a:hover,
@@ -251,6 +253,17 @@ html[lang="zh-CN"] .home-hero h1 { font-weight: 700; line-height: 1.04; letter-s
 .home-grid p { margin: 0; color: var(--home-muted); font-size: 14px; line-height: 1.6; }
 .home-note { display: flex; justify-content: space-between; gap: 24px; padding: 36px 0 80px; color: var(--home-muted); font-size: 13px; }
 .home-note strong { color: var(--home-ink); }
+
+@media (min-width: 781px) {
+  html.home-snap-enabled { scroll-snap-type: y mandatory; }
+  html.home-snap-enabled .home-panel { scroll-snap-align: start; scroll-snap-stop: always; }
+  .home-intro,
+  .home-links { min-height: 100svh; box-sizing: border-box; }
+  .home-intro { align-content: center; padding-top: clamp(84px, 11vw, 150px); }
+  .home-links { padding-top: 48px; }
+  .home-grid { margin-top: 0; }
+  .home-note { padding-bottom: 36px; }
+}
 
 .info-page { width: min(760px, calc(100% - 40px)); margin: 0 auto; padding: 100px 0 110px; }
 .info-page h1 { margin: 0 0 28px; font-size: clamp(44px, 7vw, 78px); line-height: 1; letter-spacing: -.06em; }
@@ -319,5 +332,6 @@ html[lang="zh-CN"] .home-hero h1 { font-weight: 700; line-height: 1.04; letter-s
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  html.home-snap-enabled { scroll-snap-type: none; }
   .home-hero-media img { animation: none; }
 }

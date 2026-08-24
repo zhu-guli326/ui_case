@@ -5,6 +5,9 @@
   "type": "module",
   "scripts": {
     "build:catalog": "node scripts/build_catalog.mjs",
+    "capture:skill-web-previews": "node scripts/capture_skill_web_previews.mjs",
+    "audit:skill-card-visuals": "node scripts/audit_skill_card_visuals.mjs",
+    "refresh:skill-card-visuals": "npm run capture:skill-web-previews && npm run audit:skill-card-visuals",
     "serve": "node scripts/serve_site.mjs",
     "test": "node --test",
     "check": "node scripts/check_site.mjs",

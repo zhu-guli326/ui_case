@@ -87,6 +87,16 @@ test("vocabulary opens full details in an accessible same-page dialog", () => {
   assert.match(vocabularyScript, /function openTerm/);
   assert.match(vocabularyScript, /data-term-detail/);
   assert.match(vocabularyScript, /initialTermId/);
+  assert.match(vocabularyScript, /function detailGuideMarkup/);
+  assert.match(vocabularyScript, /detail-decision-grid/);
+  assert.match(vocabularyScript, /detail-brief-chips/);
+  assert.match(vocabularyScript, /detail-brief-options/);
+  assert.doesNotMatch(vocabularyScript, /function tableMarkup|detail-columns|split-panel/);
+  assert.doesNotMatch(vocabularyScript, /tr\("代码界面", "Code UI"\)|tr\("真实媒体建议", "Real media guidance"\)/);
+  assert.match(vocabularyCss, /\.detail-quick-guide\s*\{/);
+  assert.match(vocabularyCss, /\.detail-decision-grid \.is-negative \{[^}]*var\(--coral\)[^}]*var\(--surface\)/);
+  assert.match(vocabularyCss, /\.detail-decision-grid \.is-positive > span \{[^}]*color: var\(--surface\)/);
+  assert.match(vocabularyCss, /@media \(max-width: 780px\)[\s\S]*\.detail-decision-grid, \.detail-brief-options \{ grid-template-columns: 1fr; \}/);
 });
 
 test("category filtering has one visible navigation owner", () => {
@@ -150,6 +160,10 @@ test("only cards with dedicated state experiences expose the flip interaction", 
   assert.match(vocabularyScript, /back\.querySelector\("\.entry-flip-hitarea"\)/);
   assert.match(vocabularyScript, /back\.inert = !flipped/);
   assert.match(vocabularyCss, /\.entry-card\.is-flipped \.entry-card-inner\s*\{[^}]*rotateY\(180deg\)/s);
+  assert.match(vocabularyCss, /\.entry-card-back\s*\{[^}]*linear-gradient\(145deg, #b9f4ca[^}]*#087044/s);
+  assert.doesNotMatch(vocabularyCss, /\.entry-card-back\s*\{[^}]*#101411[^}]*#17251c/s);
+  assert.match(vocabularyCss, /\.entry-variant-panel\s*\{[^}]*rgba\(255,255,255,\.79\)[^}]*backdrop-filter: blur\(18px\)/s);
+  assert.match(vocabularyCss, /\.entry-copy-prompt-button\s*\{[^}]*linear-gradient\(135deg, rgba\(239,255,244,\.9\)[^}]*backdrop-filter: blur\(14px\)/s);
   assert.match(vocabularyCss, /\.entry-card-front\s*\{[^}]*linear-gradient/s);
   assert.match(vocabularyCss, /\.entry-state-preview/);
   assert.match(vocabularyCss, /@media \(prefers-reduced-motion:\s*reduce\)[\s\S]{0,240}\.entry-card-inner/);
@@ -201,13 +215,13 @@ test("category words search the matching vocabulary category", () => {
   assert.ok(!navigationEntries.some((entry) => ["app-shell", "header", "responsive"].includes(entry.id)));
 });
 
-test("vocabulary browsing state can be resumed and shared", () => {
-  assert.match(vocabularyHtml, /vocabulary\.css\?v=20260824-daily-use-v2/);
-  assert.match(vocabularyHtml, /vocabulary\.js\?v=20260824-category-search-v3/);
-  assert.match(vocabularyHtml, /id="recentTerms"[^>]*hidden/);
-  assert.match(vocabularyHtml, /id="clearRecentTerms"/);
+test("vocabulary browsing state can be shared without a recent-history panel", () => {
+  assert.match(vocabularyHtml, /vocabulary\.css\?v=20260824-liquid-card-v1/);
+  assert.match(vocabularyHtml, /vocabulary\.js\?v=20260824-detail-guide-v2/);
+  assert.doesNotMatch(vocabularyHtml, /id="recentTerms"/);
+  assert.doesNotMatch(vocabularyHtml, /id="clearRecentTerms"/);
   assert.match(vocabularyHtml, /id="shareView"/);
-  assert.match(vocabularyScript, /const RECENT_STORAGE_KEY/);
+  assert.doesNotMatch(vocabularyScript, /RECENT_STORAGE_KEY|renderRecentTerms|addRecentTerm/);
   assert.match(vocabularyScript, /new URLSearchParams\(window\.location\.search\)/);
   assert.match(vocabularyScript, /params\.set\("q", state\.query\.trim\(\)\)/);
   assert.match(vocabularyScript, /params\.set\("category", state\.category\)/);
@@ -219,8 +233,7 @@ test("vocabulary browsing state can be resumed and shared", () => {
   assert.match(vocabularyScript, /event\.key === "\/"/);
   assert.match(vocabularyScript, /function copyCurrentView/);
   assert.match(vocabularyCss, /\.entry-detail-button\s*\{/);
-  assert.match(vocabularyCss, /\.recent-terms-list\s*\{[^}]*grid-template-columns/s);
-  assert.match(vocabularyCss, /@media \(max-width: 780px\)[\s\S]*\.recent-term\s*\{[^}]*flex: 0 0 170px;/);
+  assert.doesNotMatch(vocabularyCss, /\.recent-terms|\.recent-term/);
 });
 
 test("page foundation includes seven distinct layout choices", () => {

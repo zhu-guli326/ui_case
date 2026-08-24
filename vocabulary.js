@@ -9,8 +9,6 @@ const vocabularyById = Object.fromEntries(vocabularyEntries.map((entry) => [entr
 document.querySelectorAll(".reference-link").forEach((link) => link.remove());
 
 const STORAGE_KEY = "image2-ui-vocabulary-favorites";
-const RECENT_STORAGE_KEY = "image2-ui-vocabulary-recent";
-const MAX_RECENT_TERMS = 6;
 const i18n = window.image2I18n;
 let currentLanguage = i18n?.language || "zh";
 
@@ -55,9 +53,6 @@ i18n?.addTranslations({
   "vocabulary.fullGuideBody": { zh: "保留了原来的 Markdown 版词典，适合复制到项目文档和 code review。", en: "The original Markdown vocabulary remains available for project documentation and code reviews." },
   "vocabulary.readGuide": { zh: "阅读规范版", en: "Read the guide" },
   "vocabulary.closeDetails": { zh: "关闭词条详情", en: "Close term details" },
-  "vocabulary.recentEyebrow": { zh: "继续使用", en: "CONTINUE" },
-  "vocabulary.recentTitle": { zh: "最近查看", en: "Recently viewed" },
-  "vocabulary.clearRecent": { zh: "清除记录", en: "Clear history" },
   "vocabulary.navigationDeepTitle": { zh: "导航不是只有一种栏", en: "Navigation is more than one bar" },
   "vocabulary.navigationEyebrow": { zh: "深入了解 / 导航模式", en: "DEEP DIVE / NAVIGATION PATTERNS" },
   "vocabulary.navigationDeepIntro": { zh: "先判断它服务的是全局、局部、层级还是临时任务，再选择位置和样式。下面 8 种模式看起来相似，但承担的导航范围完全不同。", en: "First decide whether the pattern serves global, local, hierarchical, or temporary navigation. These eight patterns may look similar, but they operate at very different scopes." },
@@ -155,22 +150,6 @@ function readFavorites() {
   } catch { return new Set(); }
 }
 
-function readRecentTerms() {
-  try {
-    const parsed = JSON.parse(readStoredValue(RECENT_STORAGE_KEY) || "[]");
-    return Array.isArray(parsed) ? parsed.filter((id) => typeof id === "string" && vocabularyById[id]).slice(0, MAX_RECENT_TERMS) : [];
-  } catch { return []; }
-}
-
-function persistRecentTerms() {
-  writeStoredValue(RECENT_STORAGE_KEY, JSON.stringify(state.recent));
-}
-
-function addRecentTerm(id) {
-  state.recent = [id, ...state.recent.filter((recentId) => recentId !== id)].slice(0, MAX_RECENT_TERMS);
-  persistRecentTerms();
-}
-
 const urlState = new URLSearchParams(window.location.search);
 const validCategories = new Set([...vocabularyCategories.map((category) => category.id), "all"]);
 const validSorts = new Set(["recommended", "az", "category", "favorites"]);
@@ -181,7 +160,6 @@ const state = {
   category: validCategories.has(urlState.get("category")) ? urlState.get("category") : "all",
   sort: validSorts.has(urlState.get("sort")) ? urlState.get("sort") : "recommended",
   favorites: readFavorites(),
-  recent: readRecentTerms(),
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -197,8 +175,6 @@ const navigationDeepDive = $("#navigationDeepDive");
 const toast = $("#toast");
 const termDialog = $("#termDialog");
 const termDialogContent = $("#termDialogContent");
-const recentTerms = $("#recentTerms");
-const recentTermsList = $("#recentTermsList");
 let dialogReturnEntryId = null;
 
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[character]));
@@ -331,20 +307,6 @@ function renderCategories() {
     render();
     focusCategory(category, ".taxonomy-link");
   }));
-}
-
-function renderRecentTerms() {
-  const visible = state.recent.map((id) => vocabularyById[id]).filter(Boolean);
-  recentTerms.hidden = !visible.length || Boolean(state.query.trim()) || state.category !== "all";
-  if (!visible.length) {
-    recentTermsList.innerHTML = "";
-    return;
-  }
-  recentTermsList.innerHTML = visible.map((entry) => {
-    const localized = localizedEntry(entry);
-    return `<button class="recent-term" type="button" data-open-recent="${escapeHtml(entry.id)}"><span>${escapeHtml(localized.name)}</span><small>${escapeHtml(categoryLabel(entry.category))}</small><b aria-hidden="true">↗</b></button>`;
-  }).join("");
-  document.querySelectorAll("[data-open-recent]").forEach((button) => button.addEventListener("click", () => openTerm(button.dataset.openRecent)));
 }
 
 function previewMarkup(entry) {
@@ -510,17 +472,11 @@ function renderEntries() {
 function render() {
   renderNavigationDeepDive();
   renderCategories();
-  renderRecentTerms();
   renderEntries();
 }
 
 function listMarkup(items, className = "detail-list") {
   return `<ul class="${className}">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
-}
-
-function tableMarkup(rows, headings) {
-  const visibleRows = rows;
-  return `<div class="detail-table-wrap"><table><thead><tr>${headings.map((heading) => `<th>${escapeHtml(heading)}</th>`).join("")}</tr></thead><tbody>${visibleRows.map((row) => `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
 }
 
 function relatedEntries(entry) {
@@ -530,6 +486,27 @@ function relatedEntries(entry) {
   }
   ids.delete(entry.id);
   return [...ids].map(localizedEntryById).filter(Boolean).slice(0, 8);
+}
+
+function detailGuideMarkup(entry) {
+  const anatomy = entry.anatomy.map(([title]) => `<span>${escapeHtml(title)}</span>`).join("");
+  const states = entry.states.map(([title]) => `<span>${escapeHtml(title)}</span>`).join("");
+  const variants = entry.variants.map(([title, body]) => `<article><strong>${escapeHtml(title)}</strong><p>${escapeHtml(body)}</p></article>`).join("");
+
+  return `<div class="detail-quick-guide">
+    <section class="detail-decision" aria-labelledby="detailDecisionTitle">
+      <header><span>${escapeHtml(tr("快速判断", "QUICK DECISION"))}</span><h3 id="detailDecisionTitle">${escapeHtml(tr("先确认它是不是你要找的", "First, check whether this is the right pattern"))}</h3></header>
+      <div class="detail-decision-grid"><article class="is-positive"><span aria-hidden="true">✓</span><div><h4>${escapeHtml(tr("适合", "Use it"))}</h4>${listMarkup(entry.useWhen)}</div></article><article class="is-negative"><span aria-hidden="true">×</span><div><h4>${escapeHtml(tr("不适合", "Skip it"))}</h4>${listMarkup(entry.avoidWhen)}</div></article></div>
+    </section>
+    <section class="detail-brief" aria-labelledby="detailBriefTitle">
+      <header><span>${escapeHtml(tr("开始设计前", "BEFORE YOU BUILD"))}</span><div><h3 id="detailBriefTitle">${escapeHtml(tr("只需要确定三件事", "You only need to decide three things"))}</h3><p>${escapeHtml(tr("不必阅读完整规格表。把下面三项选清楚，就足够生成第一版方案。", "Skip the full specification sheet. Clarifying these three decisions is enough for a strong first draft."))}</p></div></header>
+      <ol>
+        <li><div class="detail-brief-label"><b>01</b><span>${escapeHtml(tr("放什么内容", "CONTENT"))}</span></div><div class="detail-brief-chips">${anatomy}</div></li>
+        <li><div class="detail-brief-label"><b>02</b><span>${escapeHtml(tr("选哪种形式", "FORM"))}</span></div><div class="detail-brief-options">${variants}</div></li>
+        <li><div class="detail-brief-label"><b>03</b><span>${escapeHtml(tr("覆盖哪些状态", "STATES"))}</span></div><div class="detail-brief-chips">${states}</div></li>
+      </ol>
+    </section>
+  </div>`;
 }
 
 function tabsDetailMarkup(entry, related, favorite) {
@@ -622,7 +599,6 @@ function openTerm(id, { focusTitle = false } = {}) {
   const baseEntry = vocabularyById[id];
   if (!baseEntry) return;
   const entry = localizedEntry(baseEntry);
-  addRecentTerm(id);
   syncUrlState({ term: id, historyMode: "push" });
   const related = relatedEntries(baseEntry);
   if (!termDialog.open) dialogReturnEntryId = id;
@@ -637,16 +613,8 @@ function openTerm(id, { focusTitle = false } = {}) {
     <blockquote class="detail-ask">“${escapeHtml(entry.ask)}”</blockquote>
     <p class="detail-definition"><strong>${escapeHtml(entry.definition)}</strong> ${escapeHtml(entry.role)}</p>
     <figure class="detail-figure"><div class="detail-preview" role="img" aria-label="${escapeHtml(tr(`${entry.name}的完整解决方案原型`, `Complete solution prototype for ${entry.name}`))}">${detailPreviewMarkup(baseEntry)}</div><figcaption>${escapeHtml(componentCaption(entry))}</figcaption></figure>
+    ${detailGuideMarkup(entry)}
     <section class="prompt-panel"><div class="prompt-heading"><h3>${tr("你可以这样告诉 AI Agent", "Tell your AI agent this")}</h3><button class="copy-prompt-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}">${tr("复制提示词", "Copy prompt")}</button></div><pre id="prompt-${escapeHtml(entry.id)}"><code>${escapeHtml(entry.prompt)}</code></pre></section>
-    <div class="detail-columns">
-      <section><h3>${tr("组成结构 · Anatomy", "Anatomy")}</h3>${tableMarkup(entry.anatomy, [tr("部件", "Part"), tr("它负责什么", "Responsibility")])}</section>
-      <section><h3>${tr("常见形式 · Forms", "Common forms")}</h3>${tableMarkup(entry.variants, [tr("形式", "Form"), tr("什么时候用", "When to use")])}</section>
-    </div>
-    <div class="detail-columns">
-      <section><h3>${tr("状态与响应式", "States and responsive behavior")}</h3>${tableMarkup(entry.states, [tr("状态", "State"), tr("实现提示", "Implementation hint")])}</section>
-      <section><h3>${tr("什么时候用 / 不用", "When to use or avoid")}</h3><h4>${tr("适合", "Use when")}</h4>${listMarkup(entry.useWhen)}<h4>${tr("不要硬用", "Avoid when")}</h4>${listMarkup(entry.avoidWhen)}</section>
-    </div>
-    <section class="split-panel"><div><h3>${tr("代码界面", "Code UI")}</h3>${listMarkup(entry.codeUI, "compact-list")}</div><div><h3>${tr("真实媒体建议", "Real media guidance")}</h3>${listMarkup(entry.media, "compact-list")}</div></section>
     <section class="confusion-panel"><h3>${tr("容易混淆", "Commonly confused")}</h3><p>${escapeHtml(entry.confusedWith)}</p><p class="related-terms"><strong>${tr("相关词：", "Related terms: ")}</strong>${related.map((relatedEntry) => `<button type="button" data-related-term="${escapeHtml(relatedEntry.id)}">${escapeHtml(relatedEntry.name)}</button>`).join(" ")}</p></section>
     <footer class="detail-footer"><a href="${escapeHtml(entry.source)}" target="_blank" rel="noreferrer">${tr("查看权威出处 ↗", "View authoritative source ↗")}</a><span>${tr("完整方案由代码渲染 · 使用真实内容与项目图片", "Complete code-rendered solution · real content and project media")}</span></footer>
   </div>`;
@@ -690,10 +658,9 @@ function showToast(message) {
 
 $("#vocabularySearch").value = state.query;
 $("#sortSelect").value = state.sort;
-$("#vocabularySearch").addEventListener("input", (event) => { state.query = event.target.value; syncUrlState(); renderNavigationDeepDive(); renderRecentTerms(); renderEntries(); });
+$("#vocabularySearch").addEventListener("input", (event) => { state.query = event.target.value; syncUrlState(); renderNavigationDeepDive(); renderEntries(); });
 $("#sortSelect").addEventListener("change", (event) => { state.sort = event.target.value; syncUrlState({ historyMode: "push" }); renderEntries(); });
 $("#clearSearch").addEventListener("click", () => { state.query = ""; state.category = "all"; $("#vocabularySearch").value = ""; syncUrlState({ historyMode: "push" }); render(); $("#vocabularySearch").focus(); });
-$("#clearRecentTerms").addEventListener("click", () => { state.recent = []; persistRecentTerms(); renderRecentTerms(); showToast(tr("最近查看记录已清除", "Recently viewed history cleared")); });
 $("#shareView").addEventListener("click", copyCurrentView);
 termDialog.addEventListener("close", () => {
   document.documentElement.classList.remove("term-dialog-open");
@@ -707,7 +674,7 @@ document.addEventListener("keydown", (event) => {
   const isTyping = target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement;
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); $("#vocabularySearch").focus(); $("#vocabularySearch").select(); }
   if (event.key === "/" && !isTyping && !termDialog.open) { event.preventDefault(); $("#vocabularySearch").focus(); }
-  if (event.key === "Escape" && !termDialog.open && state.query) { state.query = ""; $("#vocabularySearch").value = ""; syncUrlState(); renderNavigationDeepDive(); renderRecentTerms(); renderEntries(); }
+  if (event.key === "Escape" && !termDialog.open && state.query) { state.query = ""; $("#vocabularySearch").value = ""; syncUrlState(); renderNavigationDeepDive(); renderEntries(); }
 });
 window.addEventListener("popstate", () => {
   const params = new URLSearchParams(window.location.search);

@@ -92,9 +92,9 @@ test("the Learn page uses the canonical shared AppShell navigation", () => {
 
 test("the root route opens the Learn homepage", () => {
   const index = requireText("index.html");
-  assert.match(index, /url=\.\/learn\.html/);
-  assert.match(index, /new URL\('\.\/learn\.html'/);
-  assert.doesNotMatch(index, /url=\.\/library\.html/);
+  assert.match(index, /src\/features\/home\/index\.css/);
+  assert.match(index, /href="\.\/learn\.html"/);
+  assert.match(index, /ONDesign/);
 });
 
 test("the shared shell never inserts a global project workflow bar", () => {

@@ -23,7 +23,7 @@
   const pageHandlers = new Set();
   const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
   const translations = {
-    "nav.library": { zh: "案例库", en: "Library" },
+    "nav.library": { zh: "图书馆", en: "Library" },
     "nav.learn": { zh: "使用指南", en: "Guide" },
     "nav.brands": { zh: "设计系统", en: "Design systems" },
     "nav.launcher": { zh: "开始设计", en: "Start designing" },

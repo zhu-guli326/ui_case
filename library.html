@@ -3,8 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-adsense-account" content="ca-pub-4002333396957263">
   <meta name="color-scheme" content="light">
   <meta name="description" content="image2 UI 风格案例库。">
+  <link rel="stylesheet" href="./src/components/site-header/site-footer.css">
   <title>image2 UI 风格案例库</title>
   <script>
     (() => {
@@ -19,12 +21,14 @@
   <link rel="stylesheet" href="./src/features/library/library.css?v=20260819-title-system-v1">
   <link rel="stylesheet" href="./src/components/device-preview/device-preview.css?v=20260816-arch-v1">
   <link rel="stylesheet" href="./src/features/library/library-density-fixes.css?v=20260818-compact-card-v1">
+  <link rel="stylesheet" href="./src/core/app-shell/directory-page.css?v=20260824-unified-directory-v1">
     <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
   <!-- One final stylesheet owns the detail viewer. Older media/QA CSS layers
        intentionally stay unloaded to avoid competing !important geometry. -->
   <link rel="stylesheet" href="./src/features/library/library-detail-minimal.css?v=20260820-detail-layout-v2">
     <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
+    <script src="./src/core/adsense/adsense.js" defer></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
   <!-- Apply catalog repair/default-screen overrides before the main Library
@@ -34,7 +38,7 @@
   <script type="module" src="./library.js?v=20260820-media-assets-v2"></script>
   <script type="module" src="./src/features/library/library-detail-redesign.js?v=20260819-code-contract-v1"></script>
 </head>
-<body>
+<body class="library-page directory-page">
   <a class="skip-link" href="#demoGallery">跳到案例列表</a>
 
   <image2-site-header data-site-header></image2-site-header>

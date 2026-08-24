@@ -1,0 +1,560 @@
+/* Shared directory-page presentation.
+ *
+ * Skills is the visual source of truth for content directories. Vocabulary
+ * and Library keep their own data/rendering logic, while this layer aligns
+ * their page geometry, type scale, filters, search controls and cards.
+ */
+
+body.directory-page {
+  --page: #f6f5f1;
+  --surface: #fffefa;
+  --surface-soft: #efeee9;
+  --ink: #24231f;
+  --muted: #77746d;
+  --quiet: #a19d94;
+  --line: #ddd9d0;
+  --line-strong: #c8c3b9;
+  --dark: #20231f;
+  --accent: #18a957;
+  --accent-soft: #e7f5ec;
+  --green: #18a957;
+  --green-soft: #e7f5ec;
+  --directory-width: 1500px;
+  --directory-gutter: clamp(22px, 4vw, 64px);
+  --directory-editorial: "Iowan Old Style", Baskerville, "Times New Roman", "Noto Serif SC", serif;
+  background: var(--page);
+  color: var(--ink);
+}
+
+body.directory-page :focus-visible { outline-color: var(--accent); }
+
+body.directory-page .eyebrow,
+body.library-page .kicker {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 1.25px;
+}
+
+/* Vocabulary ------------------------------------------------------------- */
+
+body.vocabulary-page .vocab-hero,
+body.vocabulary-page .vocab-toolbar,
+body.vocabulary-page .vocab-layout {
+  width: min(var(--directory-width), 100%);
+  margin-inline: auto;
+  padding-inline: var(--directory-gutter);
+}
+
+body.vocabulary-page .vocab-hero {
+  display: block;
+  padding-top: 54px;
+  padding-bottom: 38px;
+  border-bottom: 0;
+}
+
+body.vocabulary-page .vocab-hero .hero-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(360px, .8fr);
+  grid-template-rows: auto auto;
+  gap: 16px clamp(48px, 7vw, 110px);
+  align-items: end;
+}
+
+body.vocabulary-page .vocab-hero .eyebrow {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: end;
+}
+
+body.vocabulary-page .vocab-hero h1 {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 0;
+  font-family: var(--directory-editorial);
+  font-size: clamp(58px, 6.2vw, 94px);
+  font-weight: 500;
+  letter-spacing: -.065em;
+  line-height: .94;
+}
+
+body.vocabulary-page .hero-intro {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  max-width: 560px;
+  align-self: end;
+  margin: 0 0 5px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+html[lang="zh-CN"] body.vocabulary-page .vocab-hero h1 {
+  font-family: var(--font-display-cjk);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.04;
+}
+
+body.vocabulary-page .vocab-toolbar {
+  display: grid;
+  grid-template-columns: minmax(260px, 430px) minmax(0, 1fr);
+  padding-top: 30px;
+  padding-bottom: 22px;
+  border-top: 1px solid var(--line);
+}
+
+body.vocabulary-page .search-field,
+body.library-page .search-field {
+  min-height: 48px;
+  gap: 10px;
+  padding: 0 17px;
+  border-color: var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: none;
+}
+
+body.vocabulary-page .search-field:focus-within,
+body.library-page .search-field:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(24, 169, 87, .09);
+}
+
+body.vocabulary-page .search-field input,
+body.library-page .search-field input { font-size: 12px; }
+
+body.vocabulary-page .search-icon,
+body.library-page .search-icon {
+  width: 15px;
+  height: 15px;
+  border-color: var(--muted);
+}
+
+body.vocabulary-page .search-icon::after,
+body.library-page .search-icon::after { background: var(--muted); }
+
+body.vocabulary-page kbd,
+body.library-page kbd {
+  border-color: var(--line);
+  border-radius: 6px;
+  color: var(--quiet);
+  font-size: 9px;
+}
+
+body.vocabulary-page .vocab-layout {
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 22px;
+  padding-top: 0;
+  padding-bottom: 90px;
+}
+
+body.vocabulary-page .taxonomy {
+  top: 82px;
+  padding-right: 20px;
+  border-right: 1px solid var(--line);
+}
+
+body.vocabulary-page .taxonomy-heading {
+  margin-bottom: 16px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+body.vocabulary-page .taxonomy-heading span:last-child {
+  display: grid;
+  min-width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--surface-soft);
+  color: var(--quiet);
+  font-size: 9px;
+}
+
+body.vocabulary-page .taxonomy nav { gap: 3px; }
+
+body.vocabulary-page .taxonomy-link {
+  min-height: 36px;
+  padding: 0 10px;
+  border-color: transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+body.vocabulary-page .taxonomy-link b { font-size: 9px; }
+
+body.vocabulary-page .taxonomy-link:hover {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, .38);
+  color: var(--ink);
+}
+
+body.vocabulary-page .taxonomy-link.is-selected {
+  border-color: var(--dark);
+  background: var(--dark);
+  color: #fff;
+  font-weight: 800;
+}
+
+body.vocabulary-page .taxonomy-link.is-selected b { color: rgba(255, 255, 255, .68); }
+
+body.vocabulary-page .taxonomy-note {
+  margin-top: 22px;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--line);
+  border-left: 0;
+  background: transparent;
+}
+
+body.vocabulary-page .taxonomy-note strong { font-size: 11px; }
+body.vocabulary-page .taxonomy-note p,
+body.vocabulary-page .taxonomy-note a { font-size: 10px; }
+
+body.vocabulary-page .results-heading {
+  min-height: 54px;
+  align-items: end;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+body.vocabulary-page .results-heading h2 {
+  margin-top: 6px;
+  font-size: clamp(32px, 3.2vw, 48px);
+  letter-spacing: -.055em;
+}
+
+body.vocabulary-page .results-actions { gap: 8px; }
+
+body.vocabulary-page .sort-control select,
+body.vocabulary-page .share-view-button {
+  min-height: 36px;
+  border-color: var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 10px;
+}
+
+body.vocabulary-page .share-view-button { color: var(--accent); }
+body.vocabulary-page .results-summary { margin: 12px 0 22px; font-size: 11px; }
+body.vocabulary-page .entry-grid { gap: 14px; }
+
+body.vocabulary-page .entry-card,
+body.vocabulary-page .entry-card-face { border-radius: 17px; }
+
+body.vocabulary-page .entry-card-face {
+  border-color: var(--line);
+  background: var(--surface);
+  box-shadow: 0 8px 21px rgba(48, 43, 33, .055);
+}
+
+body.vocabulary-page .entry-card:hover .entry-card-face {
+  border-color: var(--line-strong);
+  box-shadow: 0 17px 32px rgba(48, 43, 33, .11);
+}
+
+body.vocabulary-page .entry-card-body { padding: 18px; }
+body.vocabulary-page .entry-card h3 { letter-spacing: -.04em; }
+body.vocabulary-page .vocab-footer { background: var(--dark); }
+
+/* Library ---------------------------------------------------------------- */
+
+body.library-page .library-shell {
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 22px;
+  width: min(var(--directory-width), 100%);
+  min-height: 0;
+  padding: 30px var(--directory-gutter) 90px;
+}
+
+body.library-page .sidebar {
+  top: 82px;
+  min-height: 0;
+  padding: 54px 20px 0 0;
+  border-right: 1px solid var(--line);
+}
+
+body.library-page .sidebar-label { color: var(--muted); font-size: 11px; }
+body.library-page .category-nav { gap: 3px; margin-top: 16px; }
+
+body.library-page .category-link {
+  min-height: 36px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+body.library-page .category-link b { font-size: 9px; }
+
+body.library-page .category-link:hover {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, .38);
+  color: var(--ink);
+}
+
+body.library-page .category-link.is-active {
+  border-color: var(--dark);
+  background: var(--dark);
+  color: #fff;
+}
+
+body.library-page .sidebar-skills,
+body.library-page .sidebar-resources,
+body.library-page .sidebar-social,
+body.library-page .sidebar-note {
+  margin-top: 20px;
+  padding-top: 18px;
+}
+
+body.library-page .sidebar-skills-heading { margin-inline: 10px; }
+
+body.library-page .sidebar-skills-heading p,
+body.library-page .sidebar-social p { font-size: 10px; }
+
+body.library-page .sidebar-skills > a,
+body.library-page .sidebar-resources button,
+body.library-page .sidebar-social a {
+  min-height: 31px;
+  padding-inline: 10px;
+  font-size: 10px;
+}
+
+body.library-page .sidebar-skills small,
+body.library-page .sidebar-resources small,
+body.library-page .sidebar-social small { font-size: 8px; }
+
+body.library-page .sidebar-note { margin-inline: 10px; }
+body.library-page .sidebar-note span,
+body.library-page .sidebar-note strong { font-size: 10px; }
+
+body.library-page .catalog-main { padding: 54px 0 0; }
+
+body.library-page .catalog-heading {
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr);
+  gap: clamp(42px, 6vw, 88px);
+  align-items: end;
+}
+
+body.library-page .catalog-heading > div { max-width: none; }
+
+body.library-page .catalog-heading h1 {
+  margin: 16px 0 0;
+  font-family: var(--directory-editorial);
+  font-size: clamp(55px, 6.2vw, 94px);
+  font-weight: 500;
+  letter-spacing: -.065em;
+  line-height: .94;
+}
+
+html[lang="zh-CN"] body.library-page .catalog-heading h1 {
+  font-family: var(--font-display-cjk);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.04;
+}
+
+body.library-page .intro {
+  max-width: 680px;
+  margin-top: 18px;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+body.library-page .stats-panel {
+  border-color: var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: 0 10px 24px rgba(48, 43, 33, .075);
+}
+
+body.library-page .stats-panel span { padding: 17px 12px; }
+body.library-page .stats-panel small { font-size: 10px; }
+body.library-page .stats-panel strong { font-size: 26px; }
+
+body.library-page .search-section {
+  margin: 30px 0 22px;
+  padding-top: 30px;
+  border-top: 1px solid var(--line);
+}
+
+body.library-page .search-field { width: min(430px, 100%); }
+
+body.library-page .catalog-bar {
+  min-height: 54px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+body.library-page .catalog-bar h2 {
+  font-size: clamp(28px, 3vw, 42px);
+  letter-spacing: -.055em;
+}
+
+body.library-page .catalog-bar > p { font-size: 11px; }
+body.library-page .demo-gallery { gap: 14px; }
+
+body.library-page .demo-card {
+  border-color: var(--line);
+  border-radius: 17px;
+  box-shadow: 0 8px 21px rgba(48, 43, 33, .055);
+}
+
+body.library-page .demo-card:hover {
+  border-color: var(--line-strong);
+  box-shadow: 0 17px 32px rgba(48, 43, 33, .11);
+}
+
+body.library-page .demo-card-body { background: var(--surface); }
+
+@media (max-width: 1180px) {
+  body.vocabulary-page .vocab-hero .hero-copy,
+  body.library-page .catalog-heading {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, .72fr);
+    gap: 42px;
+  }
+
+  body.vocabulary-page .vocab-layout,
+  body.library-page .library-shell {
+    grid-template-columns: 170px minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  body.library-page .demo-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 820px) {
+  body.vocabulary-page .vocab-hero,
+  body.vocabulary-page .vocab-toolbar,
+  body.vocabulary-page .vocab-layout { padding-inline: 18px; }
+
+  body.vocabulary-page .vocab-hero { padding-top: 34px; padding-bottom: 30px; }
+
+  body.vocabulary-page .vocab-hero .hero-copy {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  body.vocabulary-page .vocab-hero .eyebrow,
+  body.vocabulary-page .vocab-hero h1,
+  body.vocabulary-page .hero-intro {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  body.vocabulary-page .hero-intro { margin-top: 4px; }
+
+  body.vocabulary-page .vocab-toolbar {
+    grid-template-columns: 1fr;
+    padding-top: 22px;
+  }
+
+  body.vocabulary-page .vocab-layout,
+  body.library-page .library-shell { display: block; }
+
+  body.vocabulary-page .taxonomy {
+    position: static;
+    margin-bottom: 24px;
+    padding: 0 0 17px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  body.vocabulary-page .taxonomy nav {
+    display: flex;
+    overflow-x: auto;
+    margin-inline: -18px;
+    padding-inline: 18px;
+  }
+
+  body.vocabulary-page .taxonomy-link { width: auto; flex: 0 0 auto; }
+
+  body.vocabulary-page .results-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  body.library-page .library-shell { padding: 24px 18px 64px; }
+
+  body.library-page .sidebar {
+    position: static;
+    padding: 0 0 17px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  body.library-page .category-nav {
+    display: flex;
+    overflow-x: auto;
+    margin-inline: -18px;
+    padding-inline: 18px;
+  }
+
+  body.library-page .category-link {
+    width: auto;
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  body.library-page .sidebar-skills,
+  body.library-page .sidebar-resources,
+  body.library-page .sidebar-social,
+  body.library-page .sidebar-note { display: none; }
+
+  body.library-page .catalog-main { padding-top: 34px; }
+
+  body.library-page .catalog-heading {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  body.library-page .stats-panel { width: min(430px, 100%); }
+  body.library-page .demo-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 620px) {
+  body.vocabulary-page .vocab-hero h1,
+  body.library-page .catalog-heading h1 { font-size: clamp(48px, 14vw, 70px); }
+
+  body.vocabulary-page .entry-grid,
+  body.library-page .demo-gallery { grid-template-columns: 1fr; }
+
+  body.vocabulary-page .results-actions {
+    width: 100%;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  body.vocabulary-page .sort-control,
+  body.vocabulary-page .share-view-button { width: 100%; }
+
+  body.vocabulary-page .sort-control select {
+    max-width: none;
+    flex: 1;
+  }
+}
+
+html.dark-mode body.vocabulary-page {
+  --page: #151613;
+  --surface: #20211d;
+  --surface-soft: #292a25;
+  --ink: #f4f3ee;
+  --muted: #b5b2aa;
+  --quiet: #8f8c84;
+  --line: #383832;
+  --line-strong: #55534b;
+  --dark: #f4f3ee;
+  --accent: #61d98b;
+  --accent-soft: #203b2a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.directory-page .entry-card,
+  body.directory-page .demo-card,
+  body.directory-page .taxonomy-link,
+  body.directory-page .category-link { transition: none; }
+}

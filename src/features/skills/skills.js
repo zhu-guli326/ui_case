@@ -7,7 +7,7 @@ const repositories = [
   { slug: "mattpocock/skills", category: "ENGINEERING", title: "mattpocock / skills", fallback: "面向真实工程工作的可复用 agent skills。", focus: "工程工作流 / Agent" },
   { slug: "anthropics/skills", category: "DESIGN", title: "anthropics / skills", fallback: "包含 frontend-design 等面向真实创作任务的官方 skill 集合。", focus: "界面构建 / 创作工作流" },
   { slug: "vercel-labs/agent-skills", category: "FRONTEND", title: "vercel-labs / agent-skills", fallback: "面向 Web 产品的设计规范、React 模式与前端质量检查。", focus: "Web 规范 / React 质量" },
-  { slug: "nextlevelbuilder/ui-ux-pro-max-skill", category: "UX", title: "nextlevelbuilder / ui-ux-pro-max-skill", fallback: "从产品意图到视觉系统，帮助 AI 产出更完整的 UI/UX 方案。", focus: "UX 规划 / 视觉系统" },
+  { slug: "nextlevelbuilder/ui-ux-pro-max-skill", category: "PRESENTATION", title: "ui-ux-pro-max", fallback: "把复杂业务数据转成带交互的 SVG 图表、UI 级看板与高保真演示页面。", focus: "数据复盘 / 产品评审 / 技术展示" },
   { slug: "motiondivision/motion", category: "MOTION", title: "motiondivision / motion", fallback: "为 React、Vue 和原生 Web 提供流畅、可组合的界面动效。", focus: "组件动效 / 微交互" },
   { slug: "radix-ui/primitives", category: "A11Y", title: "radix-ui / primitives", fallback: "无样式、可访问、可组合的 UI 原语，适合建立可靠组件层。", focus: "无障碍 / 组件原语" },
   { slug: "tailwindlabs/headlessui", category: "A11Y", title: "tailwindlabs / headlessui", fallback: "为 Tailwind 设计的无样式交互组件，覆盖菜单、弹窗和列表等模式。", focus: "交互模式 / 可访问性" },
@@ -25,7 +25,15 @@ const repositories = [
   { slug: "ZeroZ-lab/cc-design", category: "DESIGN", title: "ZeroZ-lab / cc-design", fallback: "面向 Claude Code 的设计插件与参考资料，包含设计红旗和插件发布工作流。", focus: "设计规范 / Claude Code" },
   { slug: "JimLiu/baoyu-design", category: "SYSTEM", title: "JimLiu / baoyu-design", fallback: "围绕设计系统创建、Figma 导入和实验工作流组织的一套设计能力。", focus: "设计系统 / Figma 导入" },
   { slug: "scottstts/Threejs-Awesome-Graphics-Agent-Skills", category: "3D", title: "scottstts / Threejs-Awesome-Graphics-Agent-Skills", fallback: "面向 Three.js 与图形创作的 Agent Skills 集合，适合补充 3D 和交互视觉能力。", focus: "Three.js / 图形 Agent" },
-  { slug: "Owl-Listener/ai-design-skills", category: "DIRECTORY", title: "Owl-Listener / ai-design-skills", fallback: "整理 AI 设计能力和扩展入口的开源集合，适合继续发现跨模型的设计工作流。", focus: "AI 设计 / Skill 发现" }
+  { slug: "Owl-Listener/ai-design-skills", category: "DIRECTORY", title: "Owl-Listener / ai-design-skills", fallback: "整理 AI 设计能力和扩展入口的开源集合，适合继续发现跨模型的设计工作流。", focus: "AI 设计 / Skill 发现" },
+  { slug: "hugohe3/ppt-master", category: "PRESENTATION", title: "ppt-master", fallback: "直接输出带完整图层与文字框的原生可编辑 PPTX，便于改字、换图和正式交付。", focus: "职场汇报 / 客户提案 / 可编辑交付" },
+  { slug: "zarazhangrui/frontend-slides", category: "PRESENTATION", title: "frontend-slides", fallback: "生成高完成度、零依赖的单文件 HTML 演示，浏览器双击即可开始展示。", focus: "在线演示 / 远程分享 / 交互展示" },
+  { slug: "op7418/guizang-ppt-skill", category: "PRESENTATION", title: "guizang-ppt-skill", fallback: "以杂志风和瑞士国际主义建立画册级、海报级演示视觉。", focus: "产品发布会 / 主题演讲 / 品牌展示" },
+  { slug: "alchaincyf/huashu-design", category: "PRESENTATION", title: "huashu-design", fallback: "结合细腻 HTML 动效与可编辑 PPTX 导出，适合复杂设计规范与多格式输出。", focus: "交互原型 / 设计团队 / 混合输出" },
+  { slug: "lewislulu/html-ppt-skill", category: "PRESENTATION", title: "html-ppt-skill", fallback: "提供倒计时、逐字稿提词器、双屏演讲者视图与丰富主题。", focus: "答辩 / 路演 / 提词演讲" },
+  { slug: "MiniMax-AI/skills", category: "PRESENTATION", title: "MiniMax-pptx", fallback: "将会议记录或 Markdown 大纲快速转成结构化、可编辑的 PPTX 草稿。", focus: "内部对齐 / 临时出稿 / 大纲可视化" },
+  { slug: "ningzimu/codex-ppt", category: "PRESENTATION", title: "codex-ppt", fallback: "以强封面感和海报级单页张力生成视觉语言统一的图片流 PPT。", focus: "社媒切片 / 视觉演讲 / 冲击力开场" },
+  { slug: "ryanbbrown/revealjs-skill", category: "PRESENTATION", title: "revealjs-skill", fallback: "用 Markdown 驱动代码高亮与二维嵌套导航，适合开发者演示。", focus: "技术架构 / 开发者大会 / 开源宣讲" }
 ];
 
 const repositoriesEn = [
@@ -37,7 +45,7 @@ const repositoriesEn = [
   { slug: "mattpocock/skills", category: "ENGINEERING", title: "mattpocock / skills", fallback: "Reusable agent skills for real-world engineering work.", focus: "Engineering workflow / Agent" },
   { slug: "anthropics/skills", category: "DESIGN", title: "anthropics / skills", fallback: "An official collection of skills for real creative tasks, including frontend-design.", focus: "Interface building / creative workflow" },
   { slug: "vercel-labs/agent-skills", category: "FRONTEND", title: "vercel-labs / agent-skills", fallback: "Design guidelines, React patterns and frontend quality checks for Web products.", focus: "Web guidelines / React quality" },
-  { slug: "nextlevelbuilder/ui-ux-pro-max-skill", category: "UX", title: "nextlevelbuilder / ui-ux-pro-max-skill", fallback: "Helps AI move from product intent to a more complete UI/UX and visual system.", focus: "UX planning / visual systems" },
+  { slug: "nextlevelbuilder/ui-ux-pro-max-skill", category: "PRESENTATION", title: "ui-ux-pro-max", fallback: "Turns complex business data into interactive SVG charts, UI-grade dashboards and high-fidelity presentations.", focus: "Data reviews / product critique / technical demos" },
   { slug: "motiondivision/motion", category: "MOTION", title: "motiondivision / motion", fallback: "Smooth, composable interface motion for React, Vue and the Web platform.", focus: "Component motion / micro-interactions" },
   { slug: "radix-ui/primitives", category: "A11Y", title: "radix-ui / primitives", fallback: "Unstyled, accessible and composable UI primitives for a dependable component layer.", focus: "Accessibility / primitives" },
   { slug: "tailwindlabs/headlessui", category: "A11Y", title: "tailwindlabs / headlessui", fallback: "Unstyled accessible interaction components designed for Tailwind projects.", focus: "Interaction patterns / accessibility" },
@@ -55,51 +63,41 @@ const repositoriesEn = [
   { slug: "ZeroZ-lab/cc-design", category: "DESIGN", title: "ZeroZ-lab / cc-design", fallback: "A Claude Code design plugin and reference set with design red flags and publishing workflows.", focus: "Design guidance / Claude Code" },
   { slug: "JimLiu/baoyu-design", category: "SYSTEM", title: "JimLiu / baoyu-design", fallback: "A design capability set around creating systems, importing from Figma and running design experiments.", focus: "Design systems / Figma import" },
   { slug: "scottstts/Threejs-Awesome-Graphics-Agent-Skills", category: "3D", title: "scottstts / Threejs-Awesome-Graphics-Agent-Skills", fallback: "An agent-skill collection for Three.js and graphics work, extending 3D and interactive visual capability.", focus: "Three.js / graphics agents" },
-  { slug: "Owl-Listener/ai-design-skills", category: "DIRECTORY", title: "Owl-Listener / ai-design-skills", fallback: "An open collection of AI-design capabilities and extensions for discovering cross-model design workflows.", focus: "AI design / skill discovery" }
+  { slug: "Owl-Listener/ai-design-skills", category: "DIRECTORY", title: "Owl-Listener / ai-design-skills", fallback: "An open collection of AI-design capabilities and extensions for discovering cross-model design workflows.", focus: "AI design / skill discovery" },
+  { slug: "hugohe3/ppt-master", category: "PRESENTATION", title: "ppt-master", fallback: "Creates native editable PPTX files with complete layers and text boxes for dependable handoff.", focus: "Business reports / client proposals / editable delivery" },
+  { slug: "zarazhangrui/frontend-slides", category: "PRESENTATION", title: "frontend-slides", fallback: "Creates polished zero-dependency HTML presentations that open directly in a browser.", focus: "Online demos / remote talks / interactive presentations" },
+  { slug: "op7418/guizang-ppt-skill", category: "PRESENTATION", title: "guizang-ppt-skill", fallback: "Creates editorial and Swiss-inspired presentation visuals with poster-level finish.", focus: "Product launches / talks / personal branding" },
+  { slug: "alchaincyf/huashu-design", category: "PRESENTATION", title: "huashu-design", fallback: "Combines detailed HTML motion with editable PPTX export and flexible design specifications.", focus: "Interactive prototypes / design teams / mixed output" },
+  { slug: "lewislulu/html-ppt-skill", category: "PRESENTATION", title: "html-ppt-skill", fallback: "Includes countdowns, speaker notes, presenter view and a broad theme system.", focus: "Defenses / roadshows / speaker support" },
+  { slug: "MiniMax-AI/skills", category: "PRESENTATION", title: "MiniMax-pptx", fallback: "Turns meeting notes or Markdown outlines into structured editable PPTX drafts.", focus: "Fast alignment / quick drafts / outline visualization" },
+  { slug: "ningzimu/codex-ppt", category: "PRESENTATION", title: "codex-ppt", fallback: "Creates visually forceful image-led decks with consistent poster-like art direction.", focus: "Social slices / visual talks / high-impact openings" },
+  { slug: "ryanbbrown/revealjs-skill", category: "PRESENTATION", title: "revealjs-skill", fallback: "Markdown-driven code presentations with syntax highlighting and nested navigation.", focus: "Architecture talks / developer events / open-source demos" }
 ];
 
-const designWebsites = [
-  { name: "Dribbble", url: "https://dribbble.com", type: "视觉灵感", description: "适合快速浏览单屏视觉、组件细节、品牌语言与插画风格。", bestFor: "首页视觉 / 组件灵感" },
-  { name: "Behance", url: "https://www.behance.net", type: "完整项目", description: "更适合研究从品牌、页面到案例叙事的一整套项目表达。", bestFor: "品牌系统 / 案例拆解" },
-  { name: "Awwwards", url: "https://www.awwwards.com", type: "网页体验", description: "聚焦高质量网站、交互叙事与创意开发作品。", bestFor: "作品集 / 交互动效" },
-  { name: "Mobbin", url: "https://mobbin.com", type: "产品 UI", description: "按真实产品流程查找移动端与 Web 应用界面。", bestFor: "App 流程 / UX 模式" },
-  { name: "Land-book", url: "https://land-book.com", type: "落地页", description: "专注收集落地页和营销网站，适合寻找首屏与转化结构。", bestFor: "Landing page / 首屏" },
-  { name: "SiteInspire", url: "https://www.siteinspire.com", type: "网站策展", description: "按风格、行业和平台筛选网页参考，适合建立视觉情绪板。", bestFor: "网页风格 / Moodboard" },
-  { name: "Godly", url: "https://godly.website/", type: "创意网站", description: "收录强调视觉表达与交互叙事的网站，适合寻找更强的创意方向。", bestFor: "品牌 / 创意开发" },
-  { name: "Refero", url: "https://refero.design/", type: "产品模式", description: "按真实界面与产品流程组织的 UI 参考，适合拆解功能与交互模式。", bestFor: "Web / App 流程" },
-  { name: "SaaSFrame", url: "https://www.saasframe.io/", type: "SaaS 产品", description: "面向 SaaS 产品的界面与营销参考库，适合研究 B2B 信息结构。", bestFor: "SaaS / Dashboard" },
-  { name: "Lapa Ninja", url: "https://www.lapa.ninja/", type: "落地页", description: "聚合营销与落地页案例，适合研究首屏、信息节奏与转化结构。", bestFor: "Landing / 转化" }
+const designReferenceGroups = [
+  { key: "DIRECTION", zh: "整体方向", en: "Direction", descriptionZh: "建立视觉方向、版式语言与页面整体节奏。", descriptionEn: "Set visual direction, layout language and overall page rhythm." },
+  { key: "PRODUCT", zh: "产品 UI", en: "Product UI", descriptionZh: "拆解真实产品流程、功能结构与交互模式。", descriptionEn: "Study real product flows, feature structures and interaction patterns." },
+  { key: "DETAIL", zh: "局部细节", en: "UI details", descriptionZh: "研究导航、首屏、CTA、页脚与微交互细节。", descriptionEn: "Study navigation, heroes, CTAs, footers and interaction details." },
+  { key: "EXPERIMENT", zh: "实验感", en: "Experimental", descriptionZh: "寻找更先锋的动效、交互和创意表达。", descriptionEn: "Find experimental motion, interaction and creative expression." },
+  { key: "MOTION", zh: "动画引擎", en: "Animation engines", descriptionZh: "构建时间轴、SVG、DOM 与复杂交互动效。", descriptionEn: "Build timelines, SVG, DOM and complex interactive motion." },
+  { key: "PRESENTATION", zh: "演示工具", en: "Presentation tools", descriptionZh: "快速生成可编辑 PPT 或零代码在线演示。", descriptionEn: "Create editable decks or no-code online presentations quickly." }
 ];
 
-const designWebsitesEn = [
-  { name: "Dribbble", url: "https://dribbble.com", type: "Visual inspiration", description: "Quickly browse single-screen visuals, component details, brand language and illustration styles.", bestFor: "Hero visuals / component ideas" },
-  { name: "Behance", url: "https://www.behance.net", type: "Full projects", description: "Study complete project narratives across branding, pages and case-study presentation.", bestFor: "Brand systems / case studies" },
-  { name: "Awwwards", url: "https://www.awwwards.com", type: "Web experiences", description: "Explore high-quality websites, interaction stories and creative development work.", bestFor: "Portfolios / interaction motion" },
-  { name: "Mobbin", url: "https://mobbin.com", type: "Product UI", description: "Find mobile and Web app interfaces organized by real product flows.", bestFor: "App flows / UX patterns" },
-  { name: "Land-book", url: "https://land-book.com", type: "Landing pages", description: "A focused collection of landing and marketing sites for hero and conversion structures.", bestFor: "Landing pages / hero sections" },
-  { name: "SiteInspire", url: "https://www.siteinspire.com", type: "Web curation", description: "Filter web references by style, industry and platform to build a visual moodboard.", bestFor: "Web style / moodboards" },
-  { name: "Godly", url: "https://godly.website/", type: "Creative web", description: "A collection of visually expressive, interaction-led websites for stronger creative directions.", bestFor: "Brand / creative dev" },
-  { name: "Refero", url: "https://refero.design/", type: "Product patterns", description: "UI references organized around real screens and flows for studying product interaction patterns.", bestFor: "Web / app flows" },
-  { name: "SaaSFrame", url: "https://www.saasframe.io/", type: "SaaS product", description: "A SaaS interface and marketing reference library for studying B2B information architecture.", bestFor: "SaaS / dashboards" },
-  { name: "Lapa Ninja", url: "https://www.lapa.ninja/", type: "Landing pages", description: "Marketing and landing-page references for studying hero content, rhythm and conversion structure.", bestFor: "Landing / conversion" }
-];
-
-const skillCollections = [
-  { name: "skills.sh", url: "https://skills.sh/", type: "Skill 发现", description: "面向 AI 编程助手的 Skill 目录与安装入口，适合继续发现可复用能力。", bestFor: "发现 / 安装" },
-  { name: "Agent Skills", url: "https://agentskills.io/", type: "开放规范", description: "Agent Skills 的开放格式与实现说明，帮助理解 Skill 如何跨工具复用。", bestFor: "规范 / 兼容性" },
-  { name: "Awesome Agent Skills", url: "https://github.com/VoltAgent/awesome-agent-skills", type: "开源集合", description: "社区维护的 Agent Skills 精选仓库，覆盖开发、研究、生产力等方向。", bestFor: "社区精选" },
-  { name: "Awesome Claude Skills", url: "https://github.com/ComposioHQ/awesome-claude-skills", type: "开源集合", description: "围绕 Claude 与 Agent 工作流整理的 Skills、案例和资源入口。", bestFor: "Claude / Agent" },
-  { name: "Smithery", url: "https://smithery.ai/", type: "MCP 生态", description: "可发现和管理 MCP 能力的目录，适合将 Skill 与外部工具连接起来。", bestFor: "MCP / 工具连接" },
-  { name: "MCP.so", url: "https://mcp.so/", type: "MCP 目录", description: "聚合 MCP Server 与工具能力的公开目录，可用于补充 Agent 的调用范围。", bestFor: "MCP 发现" }
-];
-
-const skillCollectionsEn = [
-  { name: "skills.sh", url: "https://skills.sh/", type: "Skill discovery", description: "A directory and install entry point for reusable AI coding-agent skills.", bestFor: "Discover / install" },
-  { name: "Agent Skills", url: "https://agentskills.io/", type: "Open standard", description: "The open format and implementation guidance for reusable skills across agents.", bestFor: "Standard / compatibility" },
-  { name: "Awesome Agent Skills", url: "https://github.com/VoltAgent/awesome-agent-skills", type: "Open-source list", description: "A community-maintained collection of agent skills for development, research and productivity.", bestFor: "Community picks" },
-  { name: "Awesome Claude Skills", url: "https://github.com/ComposioHQ/awesome-claude-skills", type: "Open-source list", description: "Skills, examples and resources curated around Claude and agent workflows.", bestFor: "Claude / Agent" },
-  { name: "Smithery", url: "https://smithery.ai/", type: "MCP ecosystem", description: "A directory for discovering and managing MCP capabilities alongside Skills.", bestFor: "MCP / connections" },
-  { name: "MCP.so", url: "https://mcp.so/", type: "MCP directory", description: "A public directory of MCP servers and tool capabilities for expanding agent workflows.", bestFor: "MCP discovery" }
+const designReferenceWebsites = [
+  { name: "Recent", domain: "recent.design", url: "https://recent.design/", group: "DIRECTION", descriptionZh: "聚合近期设计作品，适合快速感知正在发生的视觉趋势。", descriptionEn: "A feed of recent design work for sensing current visual trends.", focusZh: "趋势扫描 / 视觉方向", focusEn: "Trend scan / visual direction" },
+  { name: "Lapa Ninja", domain: "lapa.ninja", url: "https://www.lapa.ninja/", group: "DIRECTION", descriptionZh: "收集大量落地页案例，用于研究首屏、内容节奏与转化结构。", descriptionEn: "A large landing-page collection for studying heroes, rhythm and conversion structure.", focusZh: "落地页 / 转化结构", focusEn: "Landing pages / conversion" },
+  { name: "Land-book", domain: "land-book.com", url: "https://land-book.com/", group: "DIRECTION", descriptionZh: "按风格与类型浏览网站案例，适合建立项目情绪板。", descriptionEn: "Browse websites by style and type to build project moodboards.", focusZh: "网站风格 / 情绪板", focusEn: "Web style / moodboards" },
+  { name: "Awwwards", domain: "awwwards.com", url: "https://www.awwwards.com/", group: "DIRECTION", descriptionZh: "聚焦高质量网站、创意开发与完整交互体验。", descriptionEn: "High-quality websites, creative development and complete interactive experiences.", focusZh: "创意网站 / 交互叙事", focusEn: "Creative web / interaction" },
+  { name: "Mobbin", domain: "mobbin.com", url: "https://mobbin.com/", group: "PRODUCT", descriptionZh: "按真实产品流程检索移动端与 Web 界面，适合拆解成熟 UX 模式。", descriptionEn: "Search real mobile and web product flows to study mature UX patterns.", focusZh: "App 流程 / UX 模式", focusEn: "App flows / UX patterns" },
+  { name: "Refero", domain: "refero.design", url: "https://refero.design/", group: "PRODUCT", descriptionZh: "围绕真实界面与产品流程组织参考，方便研究功能结构。", descriptionEn: "Product references organized around real screens and flows.", focusZh: "产品界面 / 功能拆解", focusEn: "Product UI / feature study" },
+  { name: "Design Spells", domain: "designspells.com", url: "https://www.designspells.com/", group: "DETAIL", descriptionZh: "收集产品中让体验更细腻的设计细节与微交互。", descriptionEn: "A collection of thoughtful product details and micro-interactions.", focusZh: "微交互 / 体验细节", focusEn: "Micro-interactions / details" },
+  { name: "Supahero", domain: "supahero.io", url: "https://supahero.io/", group: "DETAIL", descriptionZh: "专注网站首屏与 Hero 区域，适合研究信息密度和视觉焦点。", descriptionEn: "Focused on website hero sections, information density and visual focus.", focusZh: "Hero / 首屏设计", focusEn: "Hero sections / first fold" },
+  { name: "Navbar Gallery", domain: "navbar.gallery", url: "https://www.navbar.gallery/", group: "DETAIL", descriptionZh: "专门收集导航栏案例，适合比较结构、状态与布局方式。", descriptionEn: "A gallery of navigation patterns, states and layout approaches.", focusZh: "导航 / 信息架构", focusEn: "Navigation / information architecture" },
+  { name: "CTA Gallery", domain: "cta.gallery", url: "https://www.cta.gallery/", group: "DETAIL", descriptionZh: "聚焦行动按钮与转化模块，帮助研究文案和视觉层级。", descriptionEn: "CTA examples for studying conversion copy and visual hierarchy.", focusZh: "CTA / 转化设计", focusEn: "CTA / conversion design" },
+  { name: "Footer Design", domain: "footer.design", url: "https://www.footer.design/", group: "DETAIL", descriptionZh: "收集不同类型的网站页脚，适合研究信息收尾与导航补充。", descriptionEn: "Website footer examples for studying closing content and secondary navigation.", focusZh: "页脚 / 信息收尾", focusEn: "Footers / closing content" },
+  { name: "Loadmo.re", domain: "loadmo.re", url: "https://loadmo.re/", group: "EXPERIMENT", descriptionZh: "发现更具实验性的网页、动效与创意交互表达。", descriptionEn: "Discover experimental websites, motion and creative interaction work.", focusZh: "实验网页 / 创意动效", focusEn: "Experimental web / motion" },
+  { name: "Anime.js", domain: "animejs.com", url: "https://animejs.com/", group: "MOTION", descriptionZh: "轻量而强大的 JavaScript 动画引擎，可编排 DOM、SVG、CSS 属性与时间轴动画。", descriptionEn: "A lightweight JavaScript animation engine for DOM, SVG, CSS properties and timeline choreography.", focusZh: "时间轴 / SVG / 交互动效", focusEn: "Timelines / SVG / interaction motion" },
+  { name: "Slidify", domain: "slidify.cn", url: "https://slidify.cn/", group: "PRESENTATION", descriptionZh: "无需配置开发环境，用一句话快速生成可编辑 PPT。", descriptionEn: "Generate editable presentations from a prompt without configuring a development environment.", focusZh: "急用出稿 / 轻量任务 / 非技术用户", focusEn: "Quick drafts / light tasks / non-technical users" }
 ];
 
 const skillsTranslations = {
@@ -114,6 +112,8 @@ const skillsTranslations = {
   "skills.heroBody": { zh: "这里不是仓库排行榜，而是一张设计能力地图。先选择你要完成的工作，再比较 Skill 的用途、维护状态与调用方式。", en: "This is a map of design capabilities, not a repository leaderboard. Start with the work you need to do, then compare purpose, activity and invocation." },
   "skills.configure": { zh: "配置调用环境", en: "Configure environment" },
   "skills.browse": { zh: "浏览全部 Skills", en: "Browse all Skills" },
+  "skills.officialSkill": { zh: "官方设计 Skill", en: "OFFICIAL DESIGN SKILL" },
+  "skills.updateCount": { zh: "本次更新", en: "THIS UPDATE" },
   "skills.radarLabel": { zh: "当前观察指标", en: "Current directory metrics" },
   "skills.radarSkills": { zh: "收录 Skill", en: "Curated skills" },
   "skills.radarDirections": { zh: "任务路径", en: "Task paths" },
@@ -126,24 +126,17 @@ const skillsTranslations = {
   "skills.repoSearch": { zh: "搜索名称、用途或仓库", en: "Search name, purpose or repository" },
   "skills.filters": { zh: "分类筛选", en: "Categories" },
   "skills.taskRailLabel": { zh: "按任务探索", en: "Explore by task" },
+  "skills.directoryModeLabel": { zh: "浏览类型", en: "Browse type" },
   "skills.sortCurated": { zh: "精选", en: "Curated" },
   "skills.sortStars": { zh: "Stars", en: "Stars" },
   "skills.sortUpdated": { zh: "最近更新", en: "Latest" },
   "skills.clearFilters": { zh: "重置", en: "Reset" },
-  "skills.collectionEyebrow": { zh: "EXPLORE FURTHER", en: "EXPLORE FURTHER" },
-  "skills.collectionTitle": { zh: "继续扩展你的设计工具箱", en: "Expand your design toolbox" },
-  "skills.collectionBody": { zh: "需要更多选择时，再进入 Skill 生态目录或设计参考站。它们是下一步资源，不与核心 Skill 混在一起。", en: "When you need more options, continue into skill ecosystems or design reference sites. These are next-step resources, separate from the core directory." },
-  "skills.resourceSkillTitle": { zh: "Skill 与 Agent 生态", en: "Skill and Agent ecosystems" },
-  "skills.resourceSkillBody": { zh: "发现规范、集合与 MCP 工具。", en: "Discover standards, collections and MCP tools." },
   "skills.columnNumber": { zh: "编号", en: "No." },
   "skills.columnCategory": { zh: "分类", en: "Category" },
   "skills.columnSkill": { zh: "Skill / 用途", en: "Skill / purpose" },
   "skills.columnBestFor": { zh: "适合", en: "Best for" },
   "skills.columnStats": { zh: "热度", en: "Activity" },
-  "skills.columnAction": { zh: "调用", en: "Use" },
-  "skills.websiteEyebrow": { zh: "DESIGN REFERENCE WEBSITES", en: "DESIGN REFERENCE WEBSITES" },
-  "skills.websiteTitle": { zh: "设计参考网站", en: "Design reference sites" },
-  "skills.websiteBody": { zh: "查找真实产品流程、网页和视觉案例。", en: "Find real product flows, websites and visual references." }
+  "skills.columnAction": { zh: "调用", en: "Use" }
 };
 
 const repoList = document.querySelector("#repoList");
@@ -153,14 +146,24 @@ const topTaskFilters = document.querySelector("#topTaskFilters");
 const repoCount = document.querySelector("#repoCount");
 const repoSyncStatus = document.querySelector("#repoSyncStatus");
 const skillsHeroCount = document.querySelector("#skillsHeroCount");
+const skillsHeroKind = document.querySelector("#skillsHeroKind");
+const skillsHeroBody = document.querySelector("#skillsHeroBody");
+const heroBrowseLink = document.querySelector("#heroBrowseLink");
+const heroUpdateCount = document.querySelector("#heroUpdateCount");
+const heroUpdateLabel = document.querySelector("#heroUpdateLabel");
 const categoryCount = document.querySelector("#categoryCount");
 const repoSortButtons = document.querySelectorAll("[data-repo-sort]");
+const directoryModeButtons = document.querySelectorAll("[data-directory-mode]");
+const taskRailLabel = document.querySelector("#taskRailLabel");
+const repoSort = document.querySelector("#repoSort");
 const repoInspector = document.querySelector("#repoInspector");
 const repoClearFilters = document.querySelector("#repoClearFilters");
+const officialSkillLink = document.querySelector("[data-official-skill-link]");
 const track = (name, properties) => window.image2Analytics?.track(name, properties);
 let currentLanguage = "zh";
 let resolvedRepositories = null;
-let activeCategory = "ALL";
+let activeDirectoryMode = "SKILL";
+const activeCategories = new Set();
 let activeSort = "CURATED";
 let searchQuery = "";
 let selectedSlug = repositories[0].slug;
@@ -170,7 +173,8 @@ let repositoryStatsUpdatedAt = null;
 const categoryGroups = [
   { key: "creative", zh: "体验创作", en: "Experience & craft", categories: ["DESIGN", "UX", "MOTION", "VIDEO", "A11Y"] },
   { key: "build", zh: "构建系统", en: "Build & systems", categories: ["FRONTEND", "SYSTEM", "ENGINEERING", "3D"] },
-  { key: "agent", zh: "Agent 协作", en: "Agent workflows", categories: ["AI DESIGN", "REVIEW", "DIRECTORY"] }
+  { key: "agent", zh: "Agent 协作", en: "Agent workflows", categories: ["AI DESIGN", "REVIEW", "DIRECTORY"] },
+  { key: "presentation", zh: "演示与汇报", en: "Presentation", categories: ["PRESENTATION"] }
 ];
 
 const categoryLabels = {
@@ -185,7 +189,8 @@ const categoryLabels = {
   "3D": { zh: "3D / 图形", en: "3D / graphics" },
   "AI DESIGN": { zh: "AI 设计", en: "AI design" },
   REVIEW: { zh: "设计评审", en: "Design review" },
-  DIRECTORY: { zh: "资源发现", en: "Discovery" }
+  DIRECTORY: { zh: "资源发现", en: "Discovery" },
+  PRESENTATION: { zh: "演示 / PPT", en: "Presentation / PPT" }
 };
 
 function getCategoryLabel(category) {
@@ -204,7 +209,8 @@ const categoryVisuals = {
   "3D": { zh: "增加一个\n新维度", en: "Add a new\ndimension" },
   "AI DESIGN": { zh: "从提示到\n产品", en: "Prompt to\nproduct" },
   DIRECTORY: { zh: "找到真正\n适合的", en: "Find what\nfits" },
-  REVIEW: { zh: "看见还\n缺少什么", en: "See what\nis missing" }
+  REVIEW: { zh: "看见还\n缺少什么", en: "See what\nis missing" },
+  PRESENTATION: { zh: "把内容变成\n一场演示", en: "Turn content into\na presentation" }
 };
 
 function getCategoryVisual(category) {
@@ -220,7 +226,7 @@ const skillVisuals = {
   "mattpocock/skills": { zh: "把工程经验\n变成工作流", en: "Turn engineering\npractice into workflows" },
   "anthropics/skills": { zh: "从需求构建\n真实界面", en: "Build real interfaces\nfrom requirements" },
   "vercel-labs/agent-skills": { zh: "按生产标准\n构建前端", en: "Build frontend work\nto production standards" },
-  "nextlevelbuilder/ui-ux-pro-max-skill": { zh: "把产品意图\n变成完整体验", en: "Turn product intent\ninto a complete experience" },
+  "nextlevelbuilder/ui-ux-pro-max-skill": { zh: "把复杂数据\n变成交互演示", en: "Turn complex data into\nan interactive presentation" },
   "motiondivision/motion": { zh: "为交互增加\n自然反馈", en: "Add natural feedback\nto interactions" },
   "radix-ui/primitives": { zh: "从无障碍原语\n开始构建", en: "Start with accessible\ninterface primitives" },
   "tailwindlabs/headlessui": { zh: "组合可靠的\n交互模式", en: "Compose dependable\ninteraction patterns" },
@@ -238,11 +244,28 @@ const skillVisuals = {
   "ZeroZ-lab/cc-design": { zh: "提前识别\n设计红旗", en: "Spot design red flags\nearly" },
   "JimLiu/baoyu-design": { zh: "建立可复用的\n设计系统", en: "Build a reusable\ndesign system" },
   "scottstts/Threejs-Awesome-Graphics-Agent-Skills": { zh: "增加一个互动\n新维度", en: "Add a new dimension\nof interaction" },
-  "Owl-Listener/ai-design-skills": { zh: "发现跨模型的\n设计工作流", en: "Discover cross-model\ndesign workflows" }
+  "Owl-Listener/ai-design-skills": { zh: "发现跨模型的\n设计工作流", en: "Discover cross-model\ndesign workflows" },
+  "hugohe3/ppt-master": { zh: "交付真正可编辑的\n原生 PPTX", en: "Deliver a truly editable\nnative PPTX" },
+  "zarazhangrui/frontend-slides": { zh: "双击浏览器就能\n开始演示", en: "Open the browser and\nstart presenting" },
+  "op7418/guizang-ppt-skill": { zh: "让演示拥有\n杂志级审美", en: "Give presentations\neditorial-level craft" },
+  "alchaincyf/huashu-design": { zh: "同时拥有动效与\n可编辑交付", en: "Combine motion with\neditable delivery" },
+  "lewislulu/html-ppt-skill": { zh: "带着提词器和计时\n从容上台", en: "Present with notes\nand timing support" },
+  "MiniMax-AI/skills": { zh: "把会议大纲快速\n变成 PPT 草稿", en: "Turn meeting outlines\ninto PPT drafts" },
+  "ningzimu/codex-ppt": { zh: "用海报级画面\n制造视觉冲击", en: "Create visual impact\nwith poster-like slides" },
+  "ryanbbrown/revealjs-skill": { zh: "用代码和 Markdown\n讲清技术方案", en: "Explain technical ideas\nwith code and Markdown" }
 };
 
 function getSkillVisual(item) {
   return skillVisuals[item.slug]?.[currentLanguage] || getCategoryVisual(item.category);
+}
+
+function getSkillCover(item) {
+  return `https://opengraph.githubassets.com/ondesign-skill-directory-v1/${item.slug}`;
+}
+
+function getWebsitePreviewPath(item) {
+  const filename = item.domain.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return `./assets/skills/web/${filename}.jpg`;
 }
 
 window.image2SkillsCatalog = { repositories, repositoriesEn, categoryLabels, skillVisuals };
@@ -294,14 +317,24 @@ function formatSyncTime(timestamp) {
 function getFilteredRepositories() {
   const query = searchQuery.trim().toLowerCase();
   const items = getRepositoryItems().filter((item) => {
-    const activeGroup = categoryGroups.find((group) => group.key === activeCategory);
-    const categoryMatch = activeCategory === "ALL" || (activeGroup ? activeGroup.categories.includes(item.category) : item.category === activeCategory);
+    const categoryMatch = activeCategories.size === 0 || activeCategories.has(item.category);
     const searchMatch = !query || [item.slug, item.title, item.category, item.fallback, item.description, item.focus].some((value) => String(value || "").toLowerCase().includes(query));
     return categoryMatch && searchMatch;
   });
   if (activeSort === "STARS") return items.sort((a, b) => getStarValue(b) - getStarValue(a));
   if (activeSort === "UPDATED") return items.sort((a, b) => new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime());
   return items;
+}
+
+function getFilteredWebsites() {
+  const query = searchQuery.trim().toLowerCase();
+  return designReferenceWebsites.filter((item) => {
+    const categoryMatch = activeCategories.size === 0 || activeCategories.has(item.group);
+    const description = currentLanguage === "en" ? item.descriptionEn : item.descriptionZh;
+    const focus = currentLanguage === "en" ? item.focusEn : item.focusZh;
+    const searchMatch = !query || [item.name, item.domain, item.group, description, focus].some((value) => String(value || "").toLowerCase().includes(query));
+    return categoryMatch && searchMatch;
+  });
 }
 
 function getStarValue(item) {
@@ -315,13 +348,29 @@ function getStarValue(item) {
 }
 
 function renderRepositoryFilters() {
+  if (activeDirectoryMode === "WEB") {
+    const filters = [{ key: "ALL", zh: "全部网站", en: "All websites" }, ...designReferenceGroups];
+    if (topTaskFilters) topTaskFilters.innerHTML = filters.map((filter) => {
+      const itemCount = filter.key === "ALL" ? designReferenceWebsites.length : designReferenceWebsites.filter((item) => item.group === filter.key).length;
+      const label = currentLanguage === "en" ? filter.en : filter.zh;
+      const isActive = filter.key === "ALL" ? activeCategories.size === 0 : activeCategories.has(filter.key);
+      return `<button class="repo-filter${isActive ? " is-active" : ""}" type="button" aria-pressed="${isActive}" data-repo-filter="${escapeHtml(filter.key)}"><span>${escapeHtml(label)}</span><b>${itemCount}</b></button>`;
+    }).join("");
+    if (categoryCount) categoryCount.textContent = String(designReferenceGroups.length);
+    if (repoFacets) repoFacets.innerHTML = `<section class="facet-group"><h3><span>${currentLanguage === "en" ? "Website purpose" : "网站用途"}</span><b>${designReferenceWebsites.length}</b></h3><div class="repo-subfilters">${designReferenceGroups.map((group) => {
+      const itemCount = designReferenceWebsites.filter((item) => item.group === group.key).length;
+      const isActive = activeCategories.has(group.key);
+      return `<button class="repo-subfilter${isActive ? " is-active" : ""}" type="button" aria-pressed="${isActive}" data-repo-filter="${escapeHtml(group.key)}"><span>${escapeHtml(currentLanguage === "en" ? group.en : group.zh)}</span><b>${itemCount}</b></button>`;
+    }).join("")}</div></section>`;
+  } else {
   const filters = [{ key: "ALL", zh: "全部能力", en: "All capabilities", categories: null }, ...categoryGroups];
   const pathFilters = filters.map((filter) => {
     const itemCount = filter.key === "ALL" ? getRepositoryItems().length : getRepositoryItems().filter((item) => filter.categories.includes(item.category)).length;
     const label = currentLanguage === "en" ? filter.en : filter.zh;
-    const activeGroup = categoryGroups.find((group) => group.categories.includes(activeCategory))?.key;
-    const isActive = activeCategory === filter.key || (filter.key !== "ALL" && activeGroup === filter.key);
-    return `<button class="repo-filter${isActive ? " is-active" : ""}" type="button" aria-pressed="${isActive}" data-repo-filter="${escapeHtml(filter.key)}"><span>${escapeHtml(label)}</span><b>${itemCount}</b></button>`;
+    const selectedCount = filter.key === "ALL" ? 0 : filter.categories.filter((category) => activeCategories.has(category)).length;
+    const isActive = filter.key === "ALL" ? activeCategories.size === 0 : selectedCount === filter.categories.length;
+    const isPartial = filter.key !== "ALL" && selectedCount > 0 && !isActive;
+    return `<button class="repo-filter${isActive ? " is-active" : ""}${isPartial ? " is-partial" : ""}" type="button" aria-pressed="${isActive}" data-repo-filter="${escapeHtml(filter.key)}"><span>${escapeHtml(label)}</span><b>${itemCount}</b></button>`;
   }).join("");
   if (topTaskFilters) topTaskFilters.innerHTML = pathFilters;
 
@@ -332,14 +381,35 @@ function renderRepositoryFilters() {
     const groupCount = getRepositoryItems().filter((item) => groupCategories.includes(item.category)).length;
     const buttons = groupCategories.map((category) => {
       const itemCount = getRepositoryItems().filter((item) => item.category === category).length;
-      return `<button class="repo-subfilter${activeCategory === category ? " is-active" : ""}" type="button" aria-pressed="${activeCategory === category}" data-repo-filter="${escapeHtml(category)}"><span>${escapeHtml(getCategoryLabel(category))}</span><b>${itemCount}</b></button>`;
+      const isActive = activeCategories.has(category);
+      return `<button class="repo-subfilter${isActive ? " is-active" : ""}" type="button" aria-pressed="${isActive}" data-repo-filter="${escapeHtml(category)}"><span>${escapeHtml(getCategoryLabel(category))}</span><b>${itemCount}</b></button>`;
     }).join("");
     return `<section class="facet-group"><h3><span>${escapeHtml(currentLanguage === "en" ? group.en : group.zh)}</span><b>${groupCount}</b></h3><div class="repo-subfilters">${buttons}</div></section>`;
   }).join("");
+  }
 
   document.querySelectorAll("[data-repo-filter]").forEach((button) => button.addEventListener("click", () => {
-    activeCategory = button.dataset.repoFilter;
-    track("skill_filter_select", { category: activeCategory });
+    const filterKey = button.dataset.repoFilter;
+    if (filterKey === "ALL") {
+      activeCategories.clear();
+    } else if (activeDirectoryMode === "SKILL") {
+      const group = categoryGroups.find((item) => item.key === filterKey);
+      if (group) {
+        const availableCategories = new Set(getRepositoryItems().map((item) => item.category));
+        const groupCategories = group.categories.filter((category) => availableCategories.has(category));
+        const allSelected = groupCategories.every((category) => activeCategories.has(category));
+        groupCategories.forEach((category) => allSelected ? activeCategories.delete(category) : activeCategories.add(category));
+      } else if (activeCategories.has(filterKey)) {
+        activeCategories.delete(filterKey);
+      } else {
+        activeCategories.add(filterKey);
+      }
+    } else if (activeCategories.has(filterKey)) {
+      activeCategories.delete(filterKey);
+    } else {
+      activeCategories.add(filterKey);
+    }
+    track(activeDirectoryMode === "WEB" ? "website_filter_select" : "skill_filter_select", { categories: [...activeCategories] });
     renderRepositories();
   }));
 }
@@ -371,15 +441,43 @@ function selectRepository(slug) {
 
 function renderRepositoryToolbar() {
   renderRepositoryFilters();
+  const isWebMode = activeDirectoryMode === "WEB";
+  const filteredCount = isWebMode ? getFilteredWebsites().length : getFilteredRepositories().length;
+  const totalCount = isWebMode ? designReferenceWebsites.length : getRepositoryItems().length;
+  directoryModeButtons.forEach((button) => {
+    const isActive = button.dataset.directoryMode === activeDirectoryMode;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+    const count = button.querySelector("b");
+    if (count) count.textContent = button.dataset.directoryMode === "WEB" ? String(designReferenceWebsites.length) : String(getRepositoryItems().length);
+  });
+  if (skillsHeroCount) skillsHeroCount.textContent = String(totalCount);
+  if (skillsHeroKind) skillsHeroKind.textContent = isWebMode ? "Design Websites" : "Design Skills";
+  if (heroUpdateCount) heroUpdateCount.textContent = isWebMode ? "+2" : "+8";
+  if (heroUpdateLabel) heroUpdateLabel.textContent = isWebMode
+    ? (currentLanguage === "en" ? "new Web resources" : "新增 Web 资源")
+    : (currentLanguage === "en" ? "presentation Skills" : "新增演示 Skill");
+  if (skillsHeroBody) skillsHeroBody.textContent = isWebMode
+    ? (currentLanguage === "en" ? "A focused reference directory for finding visual direction, studying product UI, refining interface details and exploring experimental web work." : "这是一份按设计用途整理的网站目录。可以用它寻找整体方向、拆解产品 UI、研究局部细节，或发现更具实验感的网页表达。")
+    : (currentLanguage === "en" ? "This is a map of design capabilities, not a repository leaderboard. Start with the work you need to do, then compare purpose, activity and invocation." : "这里不是仓库排行榜，而是一张设计能力地图。先选择你要完成的工作，再比较 Skill 的用途、维护状态与调用方式。");
+  if (heroBrowseLink) heroBrowseLink.textContent = isWebMode
+    ? (currentLanguage === "en" ? "Browse all websites" : "浏览全部网站")
+    : (currentLanguage === "en" ? "Browse all Skills" : "浏览全部 Skills");
+  if (taskRailLabel) taskRailLabel.textContent = isWebMode
+    ? (currentLanguage === "en" ? "Explore by purpose" : "按用途探索")
+    : (currentLanguage === "en" ? "Explore by task" : "按任务探索");
+  if (repoSort) repoSort.hidden = isWebMode;
+  if (repoSyncStatus) repoSyncStatus.hidden = isWebMode;
   if (repoSearch) {
     repoSearch.value = searchQuery;
-    repoSearch.placeholder = currentLanguage === "en" ? "Search name, purpose or repository" : "搜索名称、用途或仓库";
+    repoSearch.placeholder = isWebMode
+      ? (currentLanguage === "en" ? "Search website, purpose or domain" : "搜索网站、用途或域名")
+      : (currentLanguage === "en" ? "Search name, purpose or repository" : "搜索名称、用途或仓库");
   }
   if (repoCount) {
-    const count = getFilteredRepositories().length;
-    repoCount.textContent = currentLanguage === "en" ? `${count} of ${getRepositoryItems().length}` : `${count} / ${getRepositoryItems().length}`;
+    repoCount.textContent = currentLanguage === "en" ? `${filteredCount} of ${totalCount}` : `${filteredCount} / ${totalCount}`;
   }
-  if (repoSyncStatus) {
+  if (repoSyncStatus && !isWebMode) {
     const prefix = currentLanguage === "en" ? "Latest GitHub Stars" : "GitHub 最新 Stars";
     if (repositoryStatsStatus === "loading") repoSyncStatus.textContent = `${prefix} · ${currentLanguage === "en" ? "syncing…" : "正在同步…"}`;
     else if (repositoryStatsStatus === "unavailable") repoSyncStatus.textContent = `${prefix} · ${currentLanguage === "en" ? "temporarily unavailable" : "暂时无法更新"}`;
@@ -392,15 +490,21 @@ function renderRepositoryToolbar() {
   });
 }
 
-function renderRepositories(items = getFilteredRepositories()) {
+function renderRepositories() {
   renderRepositoryToolbar();
+  if (activeDirectoryMode === "WEB") {
+    renderDesignReferences();
+    return;
+  }
+  const items = getFilteredRepositories();
+  repoList.classList.remove("is-web-list");
   repoList.innerHTML = items.map((item, index) => `
     <article class="repo-row repo-card-${index % 6}" data-category="${escapeHtml(item.category)}">
       <a class="repo-scene" data-category="${escapeHtml(item.category)}" href="./skill-detail.html?repo=${encodeURIComponent(item.slug)}&lang=${currentLanguage}" aria-label="${currentLanguage === "en" ? "View skill details" : "查看 Skill 详情"}: ${escapeHtml(item.title)}">
+        <img class="repo-cover-image" src="${escapeHtml(getSkillCover(item))}" alt="" loading="lazy" decoding="async">
+        <span class="repo-cover-shade" aria-hidden="true"></span>
         <span class="repo-index">${String(index + 1).padStart(2, "0")}</span>
-        <strong>${escapeHtml(getSkillVisual(item))}</strong>
-        <div class="repo-preview" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-        <small>${escapeHtml(getCategoryLabel(item.category))} OUTPUT</small>
+        <span class="repo-cover-caption"><strong>${escapeHtml(getSkillVisual(item))}</strong><small>${escapeHtml(getCategoryLabel(item.category))}</small></span>
       </a>
       <div class="repo-card-body">
         <div class="repo-main">
@@ -415,7 +519,43 @@ function renderRepositories(items = getFilteredRepositories()) {
   `).join("");
   repoList.querySelectorAll("[data-skill-detail]").forEach((link) => link.addEventListener("click", () => track("skill_detail_open", { repository: link.dataset.skillDetail })));
   repoList.querySelectorAll("[data-copy-invoke]").forEach((btn) => btn.addEventListener("click", () => copyCloneCommand(btn)));
+  repoList.querySelectorAll(".repo-cover-image").forEach((image) => image.addEventListener("error", () => {
+    image.closest(".repo-row")?.classList.add("is-cover-missing");
+    image.remove();
+  }, { once: true }));
   if (!items.length) repoList.innerHTML = `<p class="repo-empty">${currentLanguage === "en" ? "No matching skills. Try another keyword or category." : "没有找到匹配的 Skill，请换个关键词或分类。"}</p>`;
+}
+
+function renderDesignReferences() {
+  const items = getFilteredWebsites();
+  repoList.classList.add("is-web-list");
+  const groups = designReferenceGroups.map((group) => ({ ...group, items: items.filter((item) => item.group === group.key) })).filter((group) => group.items.length);
+  repoList.innerHTML = groups.map((group) => `
+    <section class="web-reference-group">
+      <header><div><span>${escapeHtml(group.key)}</span><h3>${escapeHtml(currentLanguage === "en" ? group.en : group.zh)}</h3></div><p>${escapeHtml(currentLanguage === "en" ? group.descriptionEn : group.descriptionZh)}</p><b>${String(group.items.length).padStart(2, "0")}</b></header>
+      <div class="web-reference-grid">
+        ${group.items.map((site, index) => `
+          <article class="web-reference-card">
+            <a class="web-reference-visual" href="${site.url}" target="_blank" rel="noreferrer" data-design-reference="${escapeHtml(site.domain)}" aria-label="${escapeHtml(site.name)}">
+              <img src="${escapeHtml(getWebsitePreviewPath(site))}" alt="${escapeHtml(site.name)} ${currentLanguage === "en" ? "official website preview" : "官网页面预览"}" loading="lazy" decoding="async" data-web-preview>
+              <span class="web-reference-top"><span>${escapeHtml(currentLanguage === "en" ? group.en : group.zh)}</span><b>${String(index + 1).padStart(2, "0")}</b></span>
+            </a>
+            <div class="web-reference-body">
+              <a class="web-reference-title" href="${site.url}" target="_blank" rel="noreferrer" data-design-reference="${escapeHtml(site.domain)}"><span>${escapeHtml(site.name)}</span><i aria-hidden="true">↗</i></a>
+              <p class="web-reference-domain">${escapeHtml(site.domain)}</p>
+              <p class="web-reference-description">${escapeHtml(currentLanguage === "en" ? site.descriptionEn : site.descriptionZh)}</p>
+              <footer><span>${currentLanguage === "en" ? "Best for" : "适合用于"}</span><strong>${escapeHtml(currentLanguage === "en" ? site.focusEn : site.focusZh)}</strong></footer>
+            </div>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `).join("");
+  repoList.querySelectorAll("[data-web-preview]").forEach((image) => image.addEventListener("error", () => {
+    image.closest(".web-reference-card")?.classList.add("is-preview-missing");
+  }, { once: true }));
+  repoList.querySelectorAll("[data-design-reference]").forEach((link) => link.addEventListener("click", () => track("design_reference_open", { website: link.dataset.designReference })));
+  if (!items.length) repoList.innerHTML = `<p class="repo-empty">${currentLanguage === "en" ? "No matching websites. Try another keyword or purpose." : "没有找到匹配的网站，请换个关键词或用途。"}</p>`;
 }
 
 function copyToClipboard(btn, value) {
@@ -452,30 +592,6 @@ function copyCloneCommand(btn) {
   copyToClipboard(btn, `git clone https://github.com/${slug}.git ~/.codex/skills/${repoName}`);
 }
 
-function renderSkillCollections() {
-  const collectionList = document.querySelector("#collectionList");
-  if (!collectionList) return;
-  const collections = currentLanguage === "en" ? skillCollectionsEn : skillCollections;
-  collectionList.innerHTML = collections.map((site, index) => `
-    <article class="collection-row"><p>${String(index + 1).padStart(2, "0")}</p><div><a href="${site.url}" target="_blank" rel="noreferrer" data-skill-collection="${site.name}">${site.name}</a><span>${site.type}</span></div><p>${site.description}</p><small>${site.bestFor}</small></article>
-  `).join("");
-  collectionList.querySelectorAll("[data-skill-collection]").forEach((link) => link.addEventListener("click", () => track("skill_collection_open", { collection: link.dataset.skillCollection })));
-}
-
-function renderDesignWebsites() {
-  const websiteList = document.querySelector("#websiteList");
-  const sites = currentLanguage === "en" ? designWebsitesEn : designWebsites;
-  websiteList.innerHTML = sites.map((site, index) => `
-    <article class="website-row">
-      <p>${String(index + 1).padStart(2, "0")}</p>
-      <div><a href="${site.url}" target="_blank" rel="noreferrer" data-design-site="${site.name}">${site.name}</a><span>${site.type}</span></div>
-      <p>${site.description}</p>
-      <small>${site.bestFor}</small>
-    </article>
-  `).join("");
-  websiteList.querySelectorAll("[data-design-site]").forEach((link) => link.addEventListener("click", () => track("design_site_open", { site: link.dataset.designSite })));
-}
-
 const repositoryStatsCacheKey = "ondesign-skill-repository-stats-v1";
 const repositoryStatsCacheTtl = 6 * 60 * 60 * 1000;
 
@@ -506,7 +622,8 @@ async function fetchRepositoryStats(item, previous = {}) {
 async function loadRepositoryData() {
   const cache = readRepositoryStatsCache();
   const cachedItems = cache?.items || {};
-  const cacheIsFresh = Boolean(cache?.savedAt && Date.now() - cache.savedAt < repositoryStatsCacheTtl);
+  const cacheIsComplete = repositories.every((item) => Boolean(cachedItems[item.slug]));
+  const cacheIsFresh = Boolean(cacheIsComplete && cache?.savedAt && Date.now() - cache.savedAt < repositoryStatsCacheTtl);
   resolvedRepositories = applyRepositoryStats(repositories, cachedItems);
   repositoryStatsUpdatedAt = cache?.savedAt || null;
   repositoryStatsStatus = cacheIsFresh ? "ready" : "loading";
@@ -534,8 +651,6 @@ function renderPage(language = "zh") {
     : "设计 Skill 观察与可复制提示词。";
   if (skillsHeroCount) skillsHeroCount.textContent = String(getRepositoryItems().length);
   renderRepositories();
-  renderSkillCollections();
-  renderDesignWebsites();
 }
 
 if (repoSearch) repoSearch.addEventListener("input", () => {
@@ -544,7 +659,7 @@ if (repoSearch) repoSearch.addEventListener("input", () => {
 });
 
 if (repoClearFilters) repoClearFilters.addEventListener("click", () => {
-  activeCategory = "ALL";
+  activeCategories.clear();
   activeSort = "CURATED";
   searchQuery = "";
   renderRepositories();
@@ -555,6 +670,17 @@ repoSortButtons.forEach((button) => button.addEventListener("click", () => {
   track("skill_sort_select", { sort: activeSort });
   renderRepositories();
 }));
+
+directoryModeButtons.forEach((button) => button.addEventListener("click", () => {
+  activeDirectoryMode = button.dataset.directoryMode;
+  activeCategories.clear();
+  activeSort = "CURATED";
+  searchQuery = "";
+  track("directory_mode_select", { mode: activeDirectoryMode });
+  renderRepositories();
+}));
+
+if (officialSkillLink) officialSkillLink.addEventListener("click", () => track("official_skill_open", { repository: "zhu-guli326/image2_UI_skill" }));
 
 if (repoList) {
   if (window.image2I18n) {
