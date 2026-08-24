@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="设计 Skill 详情、适用场景与调用方式。">
+  <title>Skill 详情 · ONDesign</title>
+  <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
+  <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
+  <link rel="stylesheet" href="./src/components/site-header/site-footer.css">
+  <link rel="stylesheet" href="./src/features/skills/skill-detail.css?v=20260824-skill-detail-v1">
+  <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
+  <script src="./src/features/skills/skills.js?v=20260824-detail-data-v6" defer></script>
+  <script src="./src/features/skills/skill-detail.js?v=20260824-skill-detail-v1" defer></script>
+</head>
+<body class="skill-detail-document" data-site-footer="disabled">
+  <image2-site-header data-site-header></image2-site-header>
+  <main class="skill-detail-page">
+    <a class="detail-back" href="./skills.html?lang=zh" data-back-link>← <span data-copy="back">全部 Skills</span></a>
+
+    <section class="detail-hero">
+      <div>
+        <p class="detail-category" data-category-label>设计 Skill</p>
+        <h1 data-title>Skill</h1>
+        <p class="detail-lead" data-description>正在加载 Skill 信息…</p>
+        <div class="detail-tags" data-tags></div>
+      </div>
+      <button class="detail-install" type="button" data-copy-command><span data-copy="copyCommand">复制调用</span><b aria-hidden="true">↓</b></button>
+    </section>
+
+    <nav class="detail-tabs" aria-label="详情页导航">
+      <a href="#preview" class="is-active" data-copy="previewTab">能力预览</a>
+      <a href="#usage" data-copy="usageTab">调用方式</a>
+      <a href="#source" data-copy="sourceTab">来源信息</a>
+    </nav>
+
+    <div class="detail-layout">
+      <div class="detail-content">
+        <section id="preview" class="detail-section">
+          <div class="detail-output" data-output-category>
+            <div class="detail-output-copy"><span data-copy="outputLabel">SKILL OUTPUT</span><strong data-outcome>让设计工作更清晰</strong><p data-focus>适用场景</p></div>
+            <div class="detail-output-ui" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div>
+          </div>
+          <div class="detail-prose">
+            <p class="detail-kicker" data-copy="capabilityLabel">CAPABILITY</p>
+            <h2 data-copy="capabilityTitle">它能帮助你完成什么</h2>
+            <p data-capability-copy></p>
+            <div class="detail-use-grid" data-use-grid></div>
+          </div>
+        </section>
+
+        <section id="usage" class="detail-section detail-prose">
+          <p class="detail-kicker" data-copy="usageLabel">HOW TO USE</p>
+          <h2 data-copy="usageTitle">两步开始调用</h2>
+          <ol class="detail-steps">
+            <li><span>01</span><div><strong data-copy="stepInstallTitle">复制并安装</strong><p data-copy="stepInstallBody">将仓库克隆到本地 Skills 目录。</p></div></li>
+            <li><span>02</span><div><strong data-copy="stepPromptTitle">描述你的任务</strong><p data-copy="stepPromptBody">在 Codex、Claude Code 或其他 Agent 中说明目标并引用该 Skill。</p></div></li>
+          </ol>
+          <div class="detail-command"><code data-command></code><button type="button" data-copy-command><span data-copy="copyCommand">复制调用</span></button></div>
+          <div class="detail-prompt"><div><span data-copy="promptLabel">提示词起点</span><button type="button" data-copy-prompt data-copy="copyPrompt">复制提示词</button></div><p data-prompt></p></div>
+        </section>
+
+        <section id="source" class="detail-section detail-prose">
+          <p class="detail-kicker" data-copy="sourceLabel">SOURCE</p>
+          <h2 data-copy="sourceTitle">调用前了解来源</h2>
+          <p data-copy="sourceBody">本站整理公开仓库的信息与使用入口，不会自动执行仓库代码，也不代表已完成安全审计。安装或调用前，请阅读原仓库说明和代码。</p>
+          <a class="detail-source-link" href="#" target="_blank" rel="noreferrer" data-github-link><span data-copy="openGithub">打开 GitHub 仓库</span> ↗</a>
+        </section>
+      </div>
+
+      <aside class="detail-sidebar">
+        <section class="detail-side-card">
+          <p class="side-label" data-copy="metadata">元信息</p>
+          <dl><div><dt data-copy="repository">仓库</dt><dd data-repository></dd></div><div><dt>Stars</dt><dd data-stars>--</dd></div><div><dt data-copy="updated">更新时间</dt><dd data-updated>近期更新</dd></div><div><dt data-copy="category">分类</dt><dd data-side-category></dd></div></dl>
+          <a href="#" target="_blank" rel="noreferrer" class="side-github" data-github-link>GitHub <span>↗</span></a>
+        </section>
+        <section class="detail-side-card">
+          <p class="side-label" data-copy="quickStart">快速上手</p>
+          <div class="quick-step"><span>1</span><p data-copy="quickInstall">复制安装命令</p></div>
+          <button type="button" data-copy-command><span data-copy="copyCommand">复制调用</span></button>
+          <div class="quick-step"><span>2</span><p data-copy="quickPrompt">复制提示词并描述任务</p></div>
+          <button type="button" data-copy-prompt><span data-copy="copyPrompt">复制提示词</span></button>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <footer class="site-footer" data-site-footer>
+    <div class="site-footer-inner"><p><strong>ONDesign</strong><span>AI × UI design learning studio</span></p><nav aria-label="页脚导航"><a href="./learn.html">学习路径</a><a href="./vocabulary.html">UI 词典</a><a href="./library.html">案例库</a><a href="https://github.com/zhu-guli326/image2_UI_skill" target="_blank" rel="noopener noreferrer">GitHub</a></nav><small>© 2026 ONDesign. Content and examples are for learning purposes.</small></div>
+  </footer>
+</body>
+</html>

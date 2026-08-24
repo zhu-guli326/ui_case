@@ -74,7 +74,7 @@ button { cursor: pointer; }
 .repo-list { display: block; columns: 3 280px; column-gap: 18px; column-fill: balance; }
 .repo-row { display: inline-block; width: 100%; overflow: hidden; margin: 0 0 16px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); box-shadow: 0 10px 25px rgba(48,43,33,.065); break-inside: avoid; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
 .repo-row:hover { border-color: var(--line-strong); box-shadow: 0 17px 32px rgba(48,43,33,.11); transform: translateY(-2px); }
-.repo-scene { position: relative; display: grid; min-height: 208px; overflow: hidden; align-content: space-between; padding: 18px; background: #d8e9e1; color: #173c30; }
+.repo-scene { position: relative; display: grid; min-height: 208px; overflow: hidden; align-content: space-between; padding: 18px; background: #d8e9e1; color: #173c30; text-decoration:none; }
 .repo-card-0 .repo-scene { min-height: 286px; }
 .repo-card-1 .repo-scene { min-height: 196px; }
 .repo-card-2 .repo-scene { min-height: 246px; }

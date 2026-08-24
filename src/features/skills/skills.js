@@ -231,6 +231,8 @@ function getSkillVisual(item) {
   return skillVisuals[item.slug]?.[currentLanguage] || getCategoryVisual(item.category);
 }
 
+window.image2SkillsCatalog = { repositories, repositoriesEn, categoryLabels, skillVisuals };
+
 function formatNumber(value) {
   if (typeof value !== "number") return "--";
   return value >= 1000 ? `${(value / 1000).toFixed(value >= 10000 ? 0 : 1)}k` : String(value);
@@ -335,16 +337,16 @@ function renderRepositories(items = getFilteredRepositories()) {
   renderRepositoryToolbar();
   repoList.innerHTML = items.map((item, index) => `
     <article class="repo-row repo-card-${index % 6}" data-category="${escapeHtml(item.category)}">
-      <div class="repo-scene" data-category="${escapeHtml(item.category)}">
+      <a class="repo-scene" data-category="${escapeHtml(item.category)}" href="./skill-detail.html?repo=${encodeURIComponent(item.slug)}&lang=${currentLanguage}" aria-label="${currentLanguage === "en" ? "View skill details" : "查看 Skill 详情"}: ${escapeHtml(item.title)}">
         <span class="repo-index">${String(index + 1).padStart(2, "0")}</span>
         <strong>${escapeHtml(getSkillVisual(item))}</strong>
         <div class="repo-preview" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
         <small>${escapeHtml(getCategoryLabel(item.category))} OUTPUT</small>
-      </div>
+      </a>
       <div class="repo-card-body">
         <div class="repo-main">
           <p class="repo-category">${escapeHtml(getCategoryLabel(item.category))}</p>
-          <a href="https://github.com/${item.slug}" target="_blank" rel="noreferrer" data-repo-link="${item.slug}">${escapeHtml(item.title)}<span class="repo-verified" aria-label="Curated skill">✓</span></a>
+          <a href="./skill-detail.html?repo=${encodeURIComponent(item.slug)}&lang=${currentLanguage}" data-skill-detail="${item.slug}">${escapeHtml(item.title)}<span class="repo-verified" aria-label="Curated skill">✓</span></a>
           <p class="repo-description">${escapeHtml(currentLanguage === "en" ? (item.description || item.fallback) : item.fallback)}</p>
           <p class="repo-focus">${escapeHtml(item.focus)}</p>
         </div>
@@ -352,7 +354,7 @@ function renderRepositories(items = getFilteredRepositories()) {
       </div>
     </article>
   `).join("");
-  repoList.querySelectorAll("[data-repo-link]").forEach((link) => link.addEventListener("click", () => track("skill_repo_open", { repository: link.dataset.repoLink })));
+  repoList.querySelectorAll("[data-skill-detail]").forEach((link) => link.addEventListener("click", () => track("skill_detail_open", { repository: link.dataset.skillDetail })));
   repoList.querySelectorAll("[data-copy-invoke]").forEach((btn) => btn.addEventListener("click", () => copyCloneCommand(btn)));
   if (!items.length) repoList.innerHTML = `<p class="repo-empty">${currentLanguage === "en" ? "No matching skills. Try another keyword or category." : "没有找到匹配的 Skill，请换个关键词或分类。"}</p>`;
 }
@@ -452,12 +454,14 @@ if (repoClearFilters) repoClearFilters.addEventListener("click", () => {
   renderRepositories();
 });
 
-if (window.image2I18n) {
-  window.image2I18n.addTranslations(skillsTranslations);
-  window.image2I18n.registerPage(renderPage);
-  window.image2I18n.refresh();
-} else {
-  renderPage("zh");
+if (repoList) {
+  if (window.image2I18n) {
+    window.image2I18n.addTranslations(skillsTranslations);
+    window.image2I18n.registerPage(renderPage);
+    window.image2I18n.refresh();
+  } else {
+    renderPage("zh");
+  }
+  loadRepositoryData();
+  track("skills_page_view");
 }
-loadRepositoryData();
-track("skills_page_view");
