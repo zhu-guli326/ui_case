@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 
 import { localizeVocabularyEntry, vocabularyById, vocabularyCategories, vocabularyEnglishById, vocabularyEntries } from "../vocabulary-data.js";
 import { DEFAULT_VOCABULARY_PREVIEW_IMAGE, SUPPORTED_VOCABULARY_PREVIEW_IDS, vocabularyPreviewMarkup } from "../vocabulary-preview.js";
+import { resolveVocabularyCategoryIntent } from "../src/features/vocabulary/vocabulary-search.mjs";
 import { vocabularyComponentEntries } from "../src/features/vocabulary/vocabulary-component-data.js";
 
 const contentCategories = vocabularyCategories.filter((category) => !["all", "favorites"].includes(category.id));
@@ -80,9 +81,12 @@ test("every vocabulary entry has a code-rendered component preview", () => {
   assert.match(insecureMarkup, /referrerpolicy="no-referrer"/);
 });
 
-test("vocabulary has no separate detail-page route", () => {
-  assert.doesNotMatch(vocabularyHtml, /termDialog|term-dialog/);
-  assert.doesNotMatch(vocabularyScript, /data-open-navigation-term|打开详情|Open related term/);
+test("vocabulary opens full details in an accessible same-page dialog", () => {
+  assert.match(vocabularyHtml, /<dialog[^>]+id="termDialog"/);
+  assert.match(vocabularyHtml, /id="termDialogContent"/);
+  assert.match(vocabularyScript, /function openTerm/);
+  assert.match(vocabularyScript, /data-term-detail/);
+  assert.match(vocabularyScript, /initialTermId/);
 });
 
 test("category filtering has one visible navigation owner", () => {
@@ -182,9 +186,24 @@ test("navigation terms use their own distinct preview factories", () => {
   assert.ok(tabPreviews.every((markup) => !markup.includes("让复杂界面变得清楚")), "tab specimens must not fall back to the navigation marketing page");
 });
 
+test("category words search the matching vocabulary category", () => {
+  assert.equal(resolveVocabularyCategoryIntent("导航", vocabularyCategories), "navigation");
+  assert.equal(resolveVocabularyCategoryIntent("导航与发现", vocabularyCategories), "navigation");
+  assert.equal(resolveVocabularyCategoryIntent("navigation", vocabularyCategories), "navigation");
+  assert.equal(resolveVocabularyCategoryIntent("导航栏", vocabularyCategories), null, "specific terms must keep using regular text search");
+  assert.match(vocabularyScript, /resolveVocabularyCategoryIntent\(query, vocabularyCategories\)/);
+  assert.match(vocabularyScript, /if \(categoryIntent\) return entry\.category === categoryIntent;/);
+
+  const allEntries = [...vocabularyEntries, ...vocabularyComponentEntries];
+  const navigationEntries = allEntries.filter((entry) => entry.category === resolveVocabularyCategoryIntent("导航", vocabularyCategories));
+  assert.equal(navigationEntries.length, 14);
+  assert.ok(navigationEntries.every((entry) => entry.category === "navigation"));
+  assert.ok(!navigationEntries.some((entry) => ["app-shell", "header", "responsive"].includes(entry.id)));
+});
+
 test("vocabulary browsing state can be resumed and shared", () => {
-  assert.match(vocabularyHtml, /vocabulary\.css\?v=20260823-daily-use-v1/);
-  assert.match(vocabularyHtml, /vocabulary\.js\?v=20260823-daily-use-v1/);
+  assert.match(vocabularyHtml, /vocabulary\.css\?v=20260824-daily-use-v2/);
+  assert.match(vocabularyHtml, /vocabulary\.js\?v=20260824-category-search-v3/);
   assert.match(vocabularyHtml, /id="recentTerms"[^>]*hidden/);
   assert.match(vocabularyHtml, /id="clearRecentTerms"/);
   assert.match(vocabularyHtml, /id="shareView"/);
@@ -199,6 +218,7 @@ test("vocabulary browsing state can be resumed and shared", () => {
   assert.match(vocabularyScript, /window\.addEventListener\("popstate"/);
   assert.match(vocabularyScript, /event\.key === "\/"/);
   assert.match(vocabularyScript, /function copyCurrentView/);
+  assert.match(vocabularyCss, /\.entry-detail-button\s*\{/);
   assert.match(vocabularyCss, /\.recent-terms-list\s*\{[^}]*grid-template-columns/s);
   assert.match(vocabularyCss, /@media \(max-width: 780px\)[\s\S]*\.recent-term\s*\{[^}]*flex: 0 0 170px;/);
 });

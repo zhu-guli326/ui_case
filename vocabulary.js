@@ -1,6 +1,7 @@
 import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./vocabulary-data.js?v=20260822-layout-section-v1";
 import { vocabularyComponentEntries } from "./src/features/vocabulary/vocabulary-component-data.js?v=20260822-form-details-v1";
 import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260823-top-nav-v1";
+import { resolveVocabularyCategoryIntent } from "./src/features/vocabulary/vocabulary-search.mjs?v=20260824-category-intent-v1";
 
 const vocabularyEntries = [...baseVocabularyEntries, ...vocabularyComponentEntries];
 const vocabularyById = Object.fromEntries(vocabularyEntries.map((entry) => [entry.id, entry]));
@@ -299,6 +300,8 @@ function matches(entry) {
   if (state.category !== "all" && state.category !== "favorites" && entry.category !== state.category) return false;
   const query = state.query.trim().toLocaleLowerCase();
   if (!query) return true;
+  const categoryIntent = resolveVocabularyCategoryIntent(query, vocabularyCategories);
+  if (categoryIntent) return entry.category === categoryIntent;
   const localized = localizedEntry(entry);
   const alternate = currentLanguage === "en" ? entry : localizedEntry(entry, "en");
   const haystack = [localized.name, localized.en, localized.ask, localized.definition, localized.role, localized.tags.join(" "), localized.anatomy.flat().join(" "), alternate.name, alternate.ask, alternate.definition, alternate.tags.join(" ")].join(" ").toLocaleLowerCase();
@@ -409,6 +412,7 @@ function cardMarkup(entry) {
           <p class="entry-ask">“${escapeHtml(localized.ask)}”</p>
           ${previewMarkup(entry)}
           <div class="entry-tags" aria-label="${escapeHtml(tr("词条标签", "Term tags"))}">${(localized.tags || []).slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
+          <button class="entry-detail-button" type="button" data-term-detail="${escapeHtml(entry.id)}"><span>${escapeHtml(tr("查看完整方案", "View full guidance"))}</span><b aria-hidden="true">↗</b></button>
           ${!hasVariants ? `<button class="entry-front-copy-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}"><span>${escapeHtml(tr("复制 Prompt", "Copy prompt"))}</span><b aria-hidden="true">⧉</b></button>` : ""}
         </div>
       </section>
@@ -470,6 +474,10 @@ function renderEntries() {
   document.querySelectorAll("[data-copy-prompt]").forEach((button) => button.addEventListener("click", (event) => {
     event.stopPropagation();
     copyPrompt(button.dataset.copyPrompt);
+  }));
+  document.querySelectorAll("[data-term-detail]").forEach((button) => button.addEventListener("click", (event) => {
+    event.stopPropagation();
+    openTerm(button.dataset.termDetail);
   }));
   document.querySelectorAll("[data-variant-state]").forEach((button) => button.addEventListener("click", (event) => {
     event.stopPropagation();
@@ -690,7 +698,7 @@ $("#shareView").addEventListener("click", copyCurrentView);
 termDialog.addEventListener("close", () => {
   document.documentElement.classList.remove("term-dialog-open");
   syncUrlState({ term: null });
-  if (dialogReturnEntryId) focusDataAttribute("data-open-term", dialogReturnEntryId);
+  if (dialogReturnEntryId) focusDataAttribute("data-term-detail", dialogReturnEntryId);
   if (!document.activeElement || document.activeElement === document.body) focusCategory(state.category);
   dialogReturnEntryId = null;
 });
