@@ -290,7 +290,7 @@ function filteredEntries() {
   if (state.sort === "az") return [...list].sort((a, b) => localizedEntry(a).name.localeCompare(localizedEntry(b).name, locale));
   if (state.sort === "category") return [...list].sort((a, b) => `${categoryLabel(a.category)}${localizedEntry(a).name}`.localeCompare(`${categoryLabel(b.category)}${localizedEntry(b).name}`, locale));
   if (state.sort === "favorites") return [...list].sort((a, b) => Number(state.favorites.has(b.id)) - Number(state.favorites.has(a.id)) || localizedEntry(a).name.localeCompare(localizedEntry(b).name, locale));
-  return list;
+  return [...list].sort((a, b) => Number(interactiveVariantIds.has(b.id)) - Number(interactiveVariantIds.has(a.id)));
 }
 
 function renderCategories() {
@@ -377,18 +377,18 @@ function cardMarkup(entry) {
   const flipLabel = hasVariants
     ? tr(`翻转 ${localized.name}，查看状态变体`, `Flip ${localized.name} to see state variants`)
     : tr(`翻转 ${localized.name}，查看设计说明`, `Flip ${localized.name} to see design guidance`);
-  const flipTag = hasVariants ? tr("可切换状态", "STATE VARIANTS") : tr("可翻转查看", "FLIP FOR MORE");
+  const flipTag = hasVariants ? tr("状态变体", "STATE VARIANTS") : tr("翻转查看", "FLIP FOR MORE");
   return `<article class="entry-card has-variants ${hasVariants ? "has-state-variants" : "has-guidance-back"}" data-entry-id="${escapeHtml(entry.id)}">
     <div class="entry-card-inner">
       <section class="entry-card-face entry-card-front" aria-hidden="false">
-        <button class="entry-flip-hitarea" type="button" data-flip-card aria-pressed="false" aria-label="${escapeHtml(flipLabel)}"></button>
+        <button class="entry-flip-hitarea" type="button" data-term-detail="${escapeHtml(entry.id)}" aria-label="${escapeHtml(tr(`查看 ${localized.name} 的完整方案`, `View full guidance for ${localized.name}`))}"></button>
         <div class="entry-card-body">
-          <div class="entry-card-meta"><span>${escapeHtml(categoryLabel(entry.category))}</span><span class="entry-flip-tag" aria-hidden="true">${escapeHtml(flipTag)} ↻</span><button class="favorite-button${favorite ? " is-favorite" : ""}" type="button" data-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}" aria-label="${escapeHtml(favorite ? `${tr("取消收藏", "Remove from favorites")} ${localized.name}` : `${tr("收藏", "Add to favorites")} ${localized.name}`)}" title="${escapeHtml(favorite ? tr("取消收藏", "Remove from favorites") : tr("收藏", "Add to favorites"))}">${favorite ? "★" : "☆"}</button></div>
+          <div class="entry-card-meta"><span>${escapeHtml(categoryLabel(entry.category))}</span><button class="entry-flip-tag" type="button" data-flip-card aria-pressed="false" aria-label="${escapeHtml(flipLabel)}">${escapeHtml(flipTag)} ↻</button><button class="favorite-button${favorite ? " is-favorite" : ""}" type="button" data-favorite="${escapeHtml(entry.id)}" aria-pressed="${favorite}" aria-label="${escapeHtml(favorite ? `${tr("取消收藏", "Remove from favorites")} ${localized.name}` : `${tr("收藏", "Add to favorites")} ${localized.name}`)}" title="${escapeHtml(favorite ? tr("取消收藏", "Remove from favorites") : tr("收藏", "Add to favorites"))}">${favorite ? "★" : "☆"}</button></div>
           <h3>${escapeHtml(localized.name)}${termAliasMarkup(entry)}</h3>
           <p class="entry-ask">“${escapeHtml(localized.ask)}”</p>
           ${previewMarkup(entry)}
           <div class="entry-tags" aria-label="${escapeHtml(tr("词条标签", "Term tags"))}">${(localized.tags || []).slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
-          <button class="entry-detail-button" type="button" data-term-detail="${escapeHtml(entry.id)}"><span>${escapeHtml(tr("查看完整方案", "View full guidance"))}</span><b aria-hidden="true">↗</b></button>
+          <button class="entry-detail-button" type="button" data-copy-prompt="${escapeHtml(entry.id)}"><span>${escapeHtml(tr("复制 Prompt", "Copy prompt"))}</span><b aria-hidden="true">⧉</b></button>
         </div>
       </section>
       <section class="entry-card-face entry-card-back" aria-hidden="true" inert>
@@ -414,8 +414,8 @@ function setCardFlipped(card, flipped, { moveFocus = true } = {}) {
   if (!moveFocus) return;
   requestAnimationFrame(() => {
     const target = flipped
-      ? back.querySelector(".entry-flip-hitarea")
-      : front.querySelector(".entry-flip-hitarea");
+      ? back.querySelector("[data-flip-card]")
+      : front.querySelector("[data-flip-card]");
     target?.focus({ preventScroll: true });
   });
 }
