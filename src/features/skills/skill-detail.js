@@ -16,7 +16,15 @@
   document.documentElement.lang = language === "en" ? "en" : "zh-CN";
   document.querySelectorAll("[data-copy]").forEach((node) => { const key = node.dataset.copy; if (copy[key]) node.textContent = copy[key]; });
   const back = document.querySelector("[data-back-link]");
-  if (back) back.href = `./skills.html?lang=${language}`;
+  if (back) {
+    const backParams = new URLSearchParams();
+    ["lang", "mode", "sort", "categories", "q"].forEach((key) => {
+      const value = params.get(key);
+      if (value) backParams.set(key, value);
+    });
+    if (!backParams.has("lang")) backParams.set("lang", language);
+    back.href = `./skills.html?${backParams.toString()}`;
+  }
 
   if (!item) {
     document.title = `${copy.notFound} · ONDesign`;

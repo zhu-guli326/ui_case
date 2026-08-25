@@ -113,13 +113,7 @@ html[lang="zh-CN"] .skills-hero h1 { font-family:var(--font-display-cjk); font-w
 .repo-list { display:block; columns:3 270px; column-gap:14px; column-fill:balance; }
 .repo-row { display:inline-block; width:100%; overflow:hidden; margin:0 0 12px; border:1px solid var(--line); border-radius:17px; background:var(--surface); box-shadow:0 8px 21px rgba(48,43,33,.055); break-inside:avoid; transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease; }
 .repo-row:hover { border-color: var(--line-strong); box-shadow: 0 17px 32px rgba(48,43,33,.11); transform: translateY(-2px); }
-.repo-scene { position:relative; display:block; min-height:174px; overflow:hidden; background:#d8e9e1; color:#fff; text-decoration:none; }
-.repo-card-0 .repo-scene { min-height:226px; }
-.repo-card-1 .repo-scene { min-height:160px; }
-.repo-card-2 .repo-scene { min-height:196px; }
-.repo-card-3 .repo-scene { min-height:246px; }
-.repo-card-4 .repo-scene { min-height:178px; }
-.repo-card-5 .repo-scene { min-height:210px; }
+.repo-scene { position:relative; display:block; overflow:hidden; background:#d8e9e1; color:#fff; text-decoration:none; }
 .repo-scene[data-category="DESIGN"], .repo-scene[data-category="UX"] { background:#d9e9f7; }
 .repo-scene[data-category="MOTION"] { background:#202420; }
 .repo-scene[data-category="VIDEO"] { background:#edc7a7; }
@@ -134,9 +128,9 @@ html[lang="zh-CN"] .skills-hero h1 { font-family:var(--font-display-cjk); font-w
 .repo-browser-bar i:first-child { background:#ff766f; }.repo-browser-bar i:nth-child(2) { background:#f1c453; }.repo-browser-bar i:nth-child(3) { background:#6bcf7d; }
 .repo-browser-bar b { min-width:0; overflow:hidden; margin-left:5px; padding:3px 8px; border:1px solid #e2e0da; border-radius:999px; background:#fff; color:#77736b; font-size:8px; font-weight:650; text-overflow:ellipsis; white-space:nowrap; }
 .repo-browser-bar em { display:grid; margin-left:auto; color:#969188; font-size:10px; font-style:normal; }.repo-browser-bar em .skills-icon { width:11px; height:11px; }
-.repo-cover-image { position:absolute; top:29px; right:0; bottom:0; left:0; display:block; width:100%; height:calc(100% - 29px); object-fit:cover; object-position:top center; transition:transform .28s ease; }
+.repo-cover-image { display:block; width:100%; height:auto; object-fit:contain; object-position:top center; transition:transform .28s ease; }
 .repo-row:hover .repo-cover-image { transform:scale(1.025); }
-.repo-cover-shade { position:absolute; z-index:1; top:29px; right:0; bottom:0; left:0; background:linear-gradient(180deg,rgba(12,14,13,.02) 35%,rgba(12,14,13,.82) 100%); }
+.repo-cover-shade { position:absolute; z-index:1; top:29px; right:0; bottom:0; left:0; background:linear-gradient(180deg,rgba(12,14,13,.02) 35%,rgba(12,14,13,.82) 100%); pointer-events:none; }
 .repo-scene .repo-index { position:absolute; z-index:2; top:42px; left:14px; display:grid; width:34px; height:34px; place-items:center; border:1px solid rgba(255,255,255,.38); border-radius:50%; background:rgba(18,20,19,.62); color:#fff; font-size:10px; font-weight:850; backdrop-filter:blur(7px); }
 .repo-cover-caption { position:absolute; z-index:2; right:15px; bottom:14px; left:15px; display:grid; gap:6px; }
 .repo-cover-caption strong { max-width:250px; color:#fff; font-size:clamp(19px,1.8vw,27px); font-weight:880; letter-spacing:-.055em; line-height:1.04; white-space:pre-line; text-shadow:0 2px 12px rgba(0,0,0,.32); }
@@ -226,7 +220,6 @@ html[lang="zh-CN"] .skills-hero h1 { font-family:var(--font-display-cjk); font-w
   .skills-hero h1 em { width:100%; }
   .repo-facets { grid-template-columns:1fr 1fr; }
   .repo-list { columns:1; }
-  .repo-card-0 .repo-scene, .repo-card-3 .repo-scene, .repo-scene { min-height:190px; }
   .repo-row { min-height: 280px; }
   .web-reference-grid { grid-template-columns:1fr; }
   .web-reference-card { min-height:190px; }
