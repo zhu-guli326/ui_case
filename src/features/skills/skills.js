@@ -643,9 +643,15 @@ function renderDesignReferences() {
       </div>
     </section>
   `).join("");
-  repoList.querySelectorAll("[data-web-preview]").forEach((image) => image.addEventListener("error", () => {
-    image.closest(".web-reference-card")?.classList.add("is-preview-missing");
-  }, { once: true }));
+  repoList.querySelectorAll("[data-web-preview]").forEach((preview) => {
+    preview.addEventListener("error", () => {
+      preview.closest(".web-reference-card")?.classList.add("is-preview-missing");
+    }, { once: true });
+    if (preview.tagName === "VIDEO") {
+      preview.muted = true;
+      preview.play?.().catch(() => {});
+    }
+  });
   repoList.querySelectorAll("[data-design-reference]").forEach((link) => link.addEventListener("click", () => track("design_reference_open", { website: link.dataset.designReference })));
   if (!items.length) repoList.innerHTML = `<p class="repo-empty">${currentLanguage === "en" ? "No matching websites. Try another keyword or purpose." : "没有找到匹配的网站，请换个关键词或用途。"}</p>`;
 }
