@@ -75,7 +75,7 @@ test("the Learn chapter navigation uses the cache-busted sticky editorial index"
   const learn = requireText("learn.html");
   const learnStyles = requireText("learn.css");
 
-  assert.match(learn, /learn\.css\?v=20260825-fullpage-type-v2/);
+  assert.match(learn, /learn\.css\?v=20260825-one-screen-compact-v3/);
   assert.doesNotMatch(learn, /learn-nav-rail\.css/);
   assert.match(learnStyles, /\.chapter-nav\{[\s\S]*position:sticky!important/);
   assert.match(learnStyles, /flex-direction:row!important/);

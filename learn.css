@@ -704,3 +704,90 @@ html[lang="zh-CN"] .board-label{
   .story-hero{min-height:calc(100vh - var(--header-h) - 32px);padding-top:62px}
   .chapter{scroll-margin-top:calc(var(--header-h) + 24px)}
 }
+
+/* Compact desktop composition: every colored chapter fits inside one viewport. */
+@media (min-width:981px){
+  .story-hero{
+    height:max(640px,calc(100svh - var(--header-h) - 18px));
+    min-height:0!important;
+    padding:34px clamp(34px,4vw,64px) 28px!important;
+  }
+  .hero-layout{grid-template-columns:minmax(360px,.86fr) minmax(440px,1.14fr);gap:clamp(24px,3vw,48px);padding-top:28px}
+  .story-hero h1,
+  html[lang="zh-CN"] .story-hero h1{font-size:clamp(48px,5.4vw,84px)!important;line-height:.98!important}
+  .hero-intro{max-width:520px;margin-top:20px;font-size:clamp(14px,1.1vw,17px);line-height:1.55}
+  .hero-actions{margin-top:22px}.hero-action{min-height:46px;padding:0 16px}
+  .hero-showcase{height:min(50vh,500px);min-height:320px}
+  .hero-bottom{margin-top:18px;padding-top:14px}.hero-bottom p{font-size:14px;line-height:1.55}
+  .hero-manifesto{margin-top:12px;font-size:clamp(12px,1.15vw,17px)}
+
+  html.learn-snap-enabled .chapter,
+  .chapter{
+    height:max(620px,calc(100svh - var(--header-h) - 58px));
+    min-height:0;
+    padding:clamp(28px,3.7vh,44px) clamp(32px,4vw,58px)!important;
+    overflow:hidden;
+  }
+  .chapter-index{top:clamp(32px,4vh,48px);left:clamp(32px,4vw,58px)}
+  .chapter-copy{max-width:980px;margin-left:96px}
+  .chapter h2,
+  html[lang="zh-CN"] .chapter h2{max-width:900px;font-size:clamp(36px,4.25vw,62px)!important;line-height:1.06!important}
+  .lead{max-width:720px;margin-top:14px;font-size:clamp(14px,1.18vw,17px);line-height:1.58!important}
+  .translation-board,.see-lab,.decomposition,.prompt-ladder,.code-media-board,.review-compare,.name-grid,.inline-cta,.chapter-quote,.build-flow-intro,.workflow,.case-strip-head,.case-strip,.section-editorial,.method-statement{
+    margin-left:96px;
+  }
+  .translation-board,.see-lab,.decomposition,.prompt-ladder,.code-media-board,.review-compare,.name-grid,.section-editorial{margin-top:22px}
+  .chapter-quote{margin-top:20px;font-size:clamp(22px,2.65vw,38px);line-height:1.08}
+
+  .translation-board>div:not(.translation-arrow){padding:17px 20px}
+  .board-label{margin-bottom:14px}.translation-board blockquote{padding:10px 0 10px 20px;font-size:16px}
+  .translation-board blockquote::before{top:13px}.translation-board p{font-size:clamp(16px,1.7vw,23px)}
+
+  .see-lab{height:min(52vh,470px);grid-template-columns:190px minmax(0,1fr)}
+  .see-controls button{min-height:54px;padding:10px 14px}.sample-hero{min-height:230px;padding:24px 28px}
+  .sample-hero h3{font-size:clamp(28px,3vw,44px)}.sample-cards article{padding:12px 16px}
+  .lens-note{padding:14px 18px;grid-template-columns:150px 1fr}.lens-note span{font-size:15px}
+
+  #breakdown,#review{display:grid;grid-template-columns:minmax(280px,.72fr) minmax(0,1.28fr);grid-template-rows:auto minmax(0,1fr);column-gap:24px;align-content:center}
+  #breakdown .chapter-index,#review .chapter-index{position:absolute}
+  #breakdown .chapter-copy,#review .chapter-copy{grid-column:1/-1;margin-left:96px}
+  #breakdown .section-editorial,#review .section-editorial{grid-column:1;grid-row:2;height:100%;max-height:420px;margin:22px 0 0 96px;box-shadow:12px 12px 0 rgba(15,21,17,.12)}
+  #breakdown .section-editorial img,#review .section-editorial img{height:100%;aspect-ratio:auto;object-fit:cover}
+  #breakdown .breakdown-board,#review .review-compare{grid-column:2;grid-row:2;align-self:stretch;margin:22px 0 0;min-width:0}
+  #breakdown .decomp-scale,#breakdown .decomp-tree{padding:16px}#breakdown .decomp-scale{gap:6px}
+  #breakdown .decomp-scale span{font-size:18px}#breakdown .decomp-tree ul{margin-top:12px}#breakdown .decomp-tree li{padding:8px 0}
+  #breakdown .decomp-image{padding:8px}#breakdown .decomp-image img{height:240px}
+
+  .name-grid{gap:8px}.name-grid article,#name .name-grid article{min-height:126px;padding:16px}
+  .name-grid strong{font-size:clamp(22px,2.2vw,32px)}.name-grid span{font-size:12px}.inline-cta{margin-top:14px;padding:14px 0}
+
+  .prompt-step{padding:16px 20px}.prompt-step>span{margin-bottom:8px}.prompt-step p{font-size:clamp(15px,1.55vw,22px);line-height:1.36!important}
+
+  #build .code-media-board{margin-top:20px}
+  #build .code-media-board article{min-height:145px;padding:16px}
+  #build .code-media-board h3{font-size:clamp(17px,1.6vw,23px)}#build .code-media-board p{margin-top:12px;font-size:12px;line-height:1.5}
+  #build .build-flow-intro{margin-top:18px;padding-bottom:8px}#build .workflow{margin-top:10px;gap:6px 9px}
+  #build .case-strip-head{margin-top:16px}#build .case-strip{margin-top:10px;gap:10px}
+  #build .case-strip a{min-height:150px!important;height:min(20vh,190px);transform:none!important}
+  #build .case-strip span{left:12px;bottom:10px;font-size:15px}
+
+  #review .review-card{padding:14px}#review .mini-dashboard{margin-top:10px;padding:10px}
+  #review .kpis{margin-top:10px}#review .kpis i,#review .cards-bad i{height:28px}
+  #review .chart-bad,#review .chart-good{height:62px;margin-top:8px}#review .table-lines{gap:5px;margin-top:8px}
+  #review .review-card ul{gap:4px;margin-top:10px;font-size:11px}#review .chapter-quote{display:none}
+
+  .method-list{margin-top:22px}.method-list li{grid-template-columns:38px minmax(0,1fr) minmax(150px,.38fr);padding:8px 0}
+  .method-list strong{font-size:clamp(22px,2.55vw,36px)}.method-statement{margin-top:20px}
+  .method-statement p{font-size:16px}.method-statement strong{margin-top:6px;font-size:clamp(25px,3.3vw,45px)}
+
+  .behind-scenes{min-height:0!important;padding:20px 0 34px}.final-cta{min-height:0!important;padding:54px clamp(34px,5vw,76px)!important}
+  .final-cta h2{font-size:clamp(38px,5.4vw,76px);margin-bottom:28px}.final-links a{min-height:58px}
+}
+
+@media (min-width:981px) and (max-height:780px){
+  .hero-manifesto{display:none}.hero-showcase{height:42vh;min-height:280px}
+  .chapter{height:max(560px,calc(100svh - var(--header-h) - 58px));padding-top:24px!important;padding-bottom:24px!important}
+  .chapter h2,html[lang="zh-CN"] .chapter h2{font-size:clamp(32px,3.7vw,52px)!important}
+  .lead{font-size:13px}.translation-board,.see-lab,.decomposition,.prompt-ladder,.code-media-board,.review-compare,.name-grid,.section-editorial{margin-top:14px}
+  #build .case-strip a{height:120px;min-height:120px!important}
+}

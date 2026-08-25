@@ -32,7 +32,7 @@ test("navigation remains motion-safe and is no longer replaced at runtime", () =
 });
 
 test("cache-busted editorial stylesheet replaces the retired desktop rail", () => {
-  assert.match(html, /learn\.css\?v=20260825-fullpage-type-v2/);
+  assert.match(html, /learn\.css\?v=20260825-one-screen-compact-v3/);
   assert.doesNotMatch(html, /learn-nav-rail\.css/);
   assert.match(html, /analytics\.config\.js\?v=20260821-bare-rail-v2/);
   assert.doesNotMatch(analyticsConfig, /learn-right-center-rail-hotfix|rail-near/);
@@ -46,4 +46,10 @@ test("desktop chapters use editorial type and one-gesture full-page snapping", (
   assert.match(learn, /addEventListener\("wheel", onSnapWheel, \{ passive: false \}\)/);
   assert.match(learn, /snapPanels\[nextIndex\]\.scrollIntoView/);
   assert.match(learn, /}, 760\)/);
+});
+
+test("desktop chapter content is compacted to one viewport", () => {
+  assert.match(css, /height:max\(620px,calc\(100svh - var\(--header-h\) - 58px\)\)/);
+  assert.match(css, /html\[lang="zh-CN"\] \.chapter h2\{max-width:900px;font-size:clamp\(36px,4\.25vw,62px\)!important/);
+  assert.match(css, /#build \.case-strip a\{min-height:150px!important;height:min\(20vh,190px\)/);
 });
