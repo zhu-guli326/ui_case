@@ -53,16 +53,6 @@
       document.head.append(lensStyles);
     }
 
-    // Desktop learning rail: fixed to the right edge and vertically centered,
-    // matching the Design Skills-style chapter index while preserving the
-    // existing mobile horizontal navigation below 981px.
-    if (!document.querySelector('link[data-learn-nav-rail]')) {
-      const railStyles = document.createElement("link");
-      railStyles.rel = "stylesheet";
-      railStyles.href = "./learn-nav-rail.css?v=20260821-motion-scale-v4";
-      railStyles.dataset.learnNavRail = "true";
-      document.head.append(railStyles);
-    }
   }
 
   if (/\/library\.html$/.test(location.pathname) || location.pathname.endsWith("/")) {

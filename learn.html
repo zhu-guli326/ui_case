@@ -7,39 +7,40 @@
   <meta name="color-scheme" content="light">
   <meta name="description" content="Learn to see, describe, build and review interfaces with AI.">
   <title>How to Design with AI · ONDesign</title>
-  <link rel="stylesheet" href="./learn.css?v=20260823-public-ready-v1">
-  <link rel="stylesheet" href="./learn-nav-rail.css?v=20260822-centered-rail-v2">
+  <link rel="stylesheet" href="./learn.css?v=20260825-fullpage-type-v2">
   <link rel="stylesheet" href="./i18n.css">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260822-glass-liquid-v1">
   <link rel="stylesheet" href="./src/components/site-header/site-footer.css">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./src/core/adsense/adsense.js" defer></script>
   <script src="./analytics.config.js?v=20260821-bare-rail-v2"></script>
-  <script src="./analytics.js?v=20260821-motion-scale-v4" defer></script>
-  <script src="./learn.js?v=20260821-breakdown-layout-v3" defer></script>
+  <script src="./analytics.js?v=20260825-editorial-nav-v1" defer></script>
+  <script src="./learn.js?v=20260825-fullpage-scroll-v1" defer></script>
 </head>
 <body>
   <div class="page-progress" aria-hidden="true"><span id="pageProgressBar"></span></div>
   <image2-site-header data-site-header></image2-site-header>
 
-  <nav class="chapter-nav" aria-label="学习章节">
-    <a href="#why" data-section-link="why"><span>01</span><b data-zh="为什么" data-en="Why">为什么</b></a>
-    <a href="#see" data-section-link="see"><span>02</span><b data-zh="看懂" data-en="See">看懂</b></a>
-    <a href="#breakdown" data-section-link="breakdown"><span>03</span><b data-zh="拆解" data-en="Break down">拆解</b></a>
-    <a href="#name" data-section-link="name"><span>04</span><b data-zh="命名" data-en="Name">命名</b></a>
-    <a href="#describe" data-section-link="describe"><span>05</span><b data-zh="描述" data-en="Describe">描述</b></a>
-    <a href="#build" data-section-link="build"><span>06</span><b data-zh="实现" data-en="Build">实现</b></a>
-    <a href="#review" data-section-link="review"><span>07</span><b data-zh="判断" data-en="Review">判断</b></a>
-    <a href="#method" data-section-link="method"><span>08</span><b data-zh="方法" data-en="Method">方法</b></a>
-  </nav>
-
   <main>
     <header class="story-hero" id="top">
       <div class="hero-kicker"><span>AI UI LEARNING PATH</span><span>ONDESIGN / 2026</span></div>
-      <h1>
-        <span data-zh="先学会看懂界面。" data-en="Learn to see UI.">先学会看懂界面。</span>
-        <span class="hero-accent" data-zh="再让 AI 把它做出来。" data-en="Then tell AI what to build.">再让 AI 把它做出来。</span>
-      </h1>
+      <div class="hero-layout">
+        <div class="hero-copy">
+          <h1>
+            <span data-zh="先看懂设计。" data-en="See the design.">先看懂设计。</span>
+            <span class="hero-accent" data-zh="再让 AI 做出来。" data-en="Then build it with AI.">再让 AI 做出来。</span>
+          </h1>
+          <p class="hero-intro" data-zh="不是再看一堆漂亮截图。这里把界面拆成可以学习、比较和直接调用的设计语言。" data-en="Not another gallery of pretty screenshots. Learn, compare, and reuse the design decisions behind every interface.">不是再看一堆漂亮截图。这里把界面拆成可以学习、比较和直接调用的设计语言。</p>
+          <div class="hero-actions">
+            <a class="hero-action hero-action--primary" href="./launcher.html?intent=rebuild"><span data-zh="开始设计" data-en="Start designing">开始设计</span><i>↗</i></a>
+            <a class="hero-action" data-smart-lang-link="./library.html" href="./library.html?lang=zh"><span data-zh="浏览真实案例" data-en="Explore real cases">浏览真实案例</span><i>→</i></a>
+          </div>
+        </div>
+        <figure class="hero-showcase hero-showcase--generated">
+          <img src="./assets/generated/ondesign-hero-generated.webp" alt="三个透明界面设备与模块化 UI 元素组成的 ONDesign 概念视觉">
+          <figcaption><span data-zh="为 ONDesign 原创生成" data-en="ORIGINALLY GENERATED FOR ONDESIGN">为 ONDesign 原创生成</span><b>AI × UI / 01</b></figcaption>
+        </figure>
+      </div>
       <div class="hero-bottom">
         <p data-zh="AI 已经会写界面了。真正需要学习的，是如何看懂设计、说清判断，并知道生成结果哪里不对。" data-en="AI can already write interfaces. The skill now is seeing design clearly, describing your decisions, and knowing when the result is wrong.">AI 已经会写界面了。真正需要学习的，是如何看懂设计、说清判断，并知道生成结果哪里不对。</p>
         <a href="#why" class="scroll-cue"><span data-zh="开始学习" data-en="Start learning">开始学习</span><i>↓</i></a>
@@ -48,6 +49,17 @@
         <span>SEE</span><span>BREAK DOWN</span><span>NAME</span><span>DESCRIBE</span><span>BUILD</span><span>REVIEW</span>
       </div>
     </header>
+
+    <nav class="chapter-nav" aria-label="学习章节">
+      <a href="#why" data-section-link="why"><span>01</span><b data-zh="为什么" data-en="Why">为什么</b></a>
+      <a href="#see" data-section-link="see"><span>02</span><b data-zh="看懂" data-en="See">看懂</b></a>
+      <a href="#breakdown" data-section-link="breakdown"><span>03</span><b data-zh="拆解" data-en="Break down">拆解</b></a>
+      <a href="#name" data-section-link="name"><span>04</span><b data-zh="命名" data-en="Name">命名</b></a>
+      <a href="#describe" data-section-link="describe"><span>05</span><b data-zh="描述" data-en="Describe">描述</b></a>
+      <a href="#build" data-section-link="build"><span>06</span><b data-zh="实现" data-en="Build">实现</b></a>
+      <a href="#review" data-section-link="review"><span>07</span><b data-zh="判断" data-en="Review">判断</b></a>
+      <a href="#method" data-section-link="method"><span>08</span><b data-zh="方法" data-en="Method">方法</b></a>
+    </nav>
 
     <section class="chapter" id="why" data-section="why">
       <div class="chapter-index">01</div>
@@ -105,6 +117,10 @@
         <h2 data-zh="不要复刻整张图。\n先把它拆开。" data-en="Don't copy the whole screenshot.\nBreak it down first.">不要复刻整张图。<br>先把它拆开。</h2>
         <p class="lead" data-zh="AI 最容易在“整张图一起做”时失控。更可靠的方法是从页面到区块，再到组件、元素和状态。" data-en="AI loses control when you ask it to recreate an entire screenshot at once. Move from page to section, component, element, and state.">AI 最容易在“整张图一起做”时失控。更可靠的方法是从页面到区块，再到组件、元素和状态。</p>
       </div>
+      <figure class="section-editorial section-editorial--breakdown">
+        <img src="./assets/generated/ondesign-breakdown-generated.webp" alt="界面从网格、组件到状态逐层拆解的概念视觉">
+        <figcaption><span data-zh="从整张界面到每一层设计决定" data-en="FROM A SCREEN TO EACH DESIGN DECISION">从整张界面到每一层设计决定</span><b>03 / BREAK DOWN</b></figcaption>
+      </figure>
       <div class="decomposition breakdown-board">
         <div class="decomp-scale">
           <span>PAGE</span><i>↓</i><span>SECTION</span><i>↓</i><span>PATTERN</span><i>↓</i><span>COMPONENT</span><i>↓</i><span>ELEMENT</span><i>↓</i><span>STATE</span>
@@ -184,6 +200,10 @@
         <h2 data-zh="AI 做出来了，\n不代表它做对了。" data-en="AI built it.\nThat doesn't mean it's right.">AI 做出来了，<br>不代表它做对了。</h2>
         <p class="lead" data-zh="设计也包括知道什么应该拒绝。检查层级、间距、组件一致性、状态和响应式，比单纯问“好不好看”更有用。" data-en="Design also means knowing what to reject. Review hierarchy, spacing, component consistency, states, and responsiveness instead of asking only whether it looks good.">设计也包括知道什么应该拒绝。检查层级、间距、组件一致性、状态和响应式，比单纯问“好不好看”更有用。</p>
       </div>
+      <figure class="section-editorial section-editorial--review">
+        <img src="./assets/generated/ondesign-review-generated.webp" alt="拥挤的通用 AI 界面与具有清晰层级的设计方案对比">
+        <figcaption><span data-zh="不是生成得更多，而是判断得更准" data-en="NOT MORE OUTPUT—BETTER JUDGMENT">不是生成得更多，而是判断得更准</span><b>07 / REVIEW</b></figcaption>
+      </figure>
       <div class="review-compare">
         <article class="review-card generic">
           <span>GENERIC AI UI</span>

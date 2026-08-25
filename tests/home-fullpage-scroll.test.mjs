@@ -10,14 +10,9 @@ const html = readFileSync(path.join(root, 'index.html'), 'utf8');
 const css = readFileSync(path.join(root, 'src', 'features', 'home', 'index.css'), 'utf8');
 const runtime = readFileSync(path.join(root, 'src', 'features', 'home', 'index.js'), 'utf8');
 
-test('home page exposes three full-page scroll panels', () => {
-  assert.equal((html.match(/data-home-panel/g) || []).length, 3);
-  assert.match(html, /class="home-hero home-panel"/);
-  assert.match(html, /class="home-intro home-panel"/);
-  assert.match(html, /class="home-links home-panel"/);
-  assert.match(css, /scroll-snap-type:\s*y mandatory/);
-  assert.match(css, /scroll-snap-stop:\s*always/);
-  assert.match(css, /\.home-intro,\s*\n\s*\.home-links\s*\{\s*min-height:\s*100svh/);
+test('root route forwards to the Learn homepage', () => {
+  assert.match(html, /url=\.\/learn\.html/);
+  assert.match(html, /canonical" href="\.\/learn\.html"/);
 });
 
 test('home wheel runtime advances one panel and suppresses trackpad momentum', () => {

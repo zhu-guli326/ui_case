@@ -26,5 +26,5 @@ test("inspection lens tags float at the horizontal center of the canvas", () => 
 });
 
 test("learn script cache key includes the current layout update", () => {
-  assert.match(html, /learn\.js\?v=20260821-breakdown-layout-v3/);
+  assert.match(html, /learn\.js\?v=20260825-fullpage-scroll-v1/);
 });

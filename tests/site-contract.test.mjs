@@ -71,14 +71,14 @@ test("the shared capsule navigation follows the product information architecture
   assert.ok(vocabulary.indexOf("<image2-site-header data-site-header>") < vocabulary.indexOf("<main>"));
 });
 
-test("the Learn chapter navigation uses the cache-busted bare rail", () => {
+test("the Learn chapter navigation uses the cache-busted sticky editorial index", () => {
   const learn = requireText("learn.html");
   const learnStyles = requireText("learn.css");
 
-  assert.match(learn, /learn\.css\?v=20260823-public-ready-v1/);
-  assert.match(learnStyles, /\.chapter-nav\{[^}]*position:fixed/);
-  assert.match(learnStyles, /\.chapter-nav\{[^}]*background:transparent/);
-  assert.doesNotMatch(learnStyles, /\.chapter-nav\{[^}]*border-radius:18px/);
+  assert.match(learn, /learn\.css\?v=20260825-fullpage-type-v2/);
+  assert.doesNotMatch(learn, /learn-nav-rail\.css/);
+  assert.match(learnStyles, /\.chapter-nav\{[\s\S]*position:sticky!important/);
+  assert.match(learnStyles, /flex-direction:row!important/);
 });
 
 test("the Learn page uses the canonical shared AppShell navigation", () => {
@@ -92,8 +92,8 @@ test("the Learn page uses the canonical shared AppShell navigation", () => {
 
 test("the root route opens the Learn homepage", () => {
   const index = requireText("index.html");
-  assert.match(index, /src\/features\/home\/index\.css/);
-  assert.match(index, /href="\.\/learn\.html"/);
+  assert.match(index, /url=\.\/learn\.html/);
+  assert.match(index, /canonical" href="\.\/learn\.html"/);
   assert.match(index, /ONDesign/);
 });
 

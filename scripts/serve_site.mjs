@@ -4,7 +4,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const port = Number(process.env.IMAGE2_UI_PORT || 4174);
+const portFlagIndex = process.argv.indexOf("--port");
+const hostFlagIndex = process.argv.indexOf("--host");
+const port = Number(process.env.IMAGE2_UI_PORT || (portFlagIndex >= 0 ? process.argv[portFlagIndex + 1] : 4174));
+const host = process.env.IMAGE2_UI_HOST || (hostFlagIndex >= 0 ? process.argv[hostFlagIndex + 1] : "127.0.0.1");
 const types = { ".html":"text/html; charset=utf-8", ".js":"text/javascript; charset=utf-8", ".mjs":"text/javascript; charset=utf-8", ".css":"text/css; charset=utf-8", ".json":"application/json; charset=utf-8", ".png":"image/png", ".jpg":"image/jpeg", ".jpeg":"image/jpeg", ".webp":"image/webp", ".svg":"image/svg+xml", ".mp4":"video/mp4", ".webm":"video/webm" };
 
 const server = http.createServer((request, response) => {
@@ -35,7 +38,7 @@ server.on("error", (error) => {
   throw error;
 });
 
-server.listen(port, "127.0.0.1", () => {
-  console.log(`Image2 UI 已启动：http://127.0.0.1:${port}/`);
+server.listen(port, host, () => {
+  console.log(`Image2 UI 已启动：http://${host}:${port}/`);
   console.log("保持此窗口开启；按 Ctrl+C 停止预览。");
 });

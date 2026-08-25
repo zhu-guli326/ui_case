@@ -27,5 +27,5 @@ test("decomposition levels and component rows stay visually separated", () => {
 test("localized heading line breaks render instead of showing escaped text", () => {
   assert.match(learn, /value\.replace\(\/\\\\n\/g, "\\n"\)/);
   assert.match(learn, /white-space:pre-line/);
-  assert.match(html, /learn\.js\?v=20260821-breakdown-layout-v3/);
+  assert.match(html, /learn\.js\?v=20260825-fullpage-scroll-v1/);
 });

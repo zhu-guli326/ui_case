@@ -363,6 +363,76 @@ function updateScrollState() {
 addEventListener("scroll", updateScrollState, { passive: true });
 addEventListener("resize", updateScrollState);
 
+// Turn the long lesson into deliberate, one-gesture chapters on desktop.
+// A short lock absorbs trackpad momentum so one swipe cannot skip two colors.
+const snapMedia = window.matchMedia("(min-width: 821px)");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const snapPanels = [
+  document.querySelector(".story-hero"),
+  ...chapters,
+  document.querySelector(".behind-scenes"),
+  document.querySelector(".final-cta")
+].filter(Boolean);
+let snapGestureActive = false;
+let snapGestureTimer = 0;
+
+function snapIsEnabled() {
+  return snapMedia.matches && !reducedMotion.matches;
+}
+
+function syncSnapMode() {
+  document.documentElement.classList.toggle("learn-snap-enabled", snapIsEnabled());
+}
+
+function nearestSnapPanelIndex() {
+  let nearestIndex = 0;
+  let nearestDistance = Infinity;
+  snapPanels.forEach((panel, index) => {
+    const distance = Math.abs(panel.getBoundingClientRect().top - (index === 0 ? 0 : 122));
+    if (distance < nearestDistance) {
+      nearestDistance = distance;
+      nearestIndex = index;
+    }
+  });
+  return nearestIndex;
+}
+
+function isNestedScroller(target, direction) {
+  let node = target instanceof HTMLElement ? target : null;
+  while (node && node !== document.body) {
+    const style = getComputedStyle(node);
+    const canScroll = /(auto|scroll)/.test(style.overflowY) && node.scrollHeight > node.clientHeight + 2;
+    if (canScroll) {
+      if (direction > 0 && node.scrollTop + node.clientHeight < node.scrollHeight - 2) return true;
+      if (direction < 0 && node.scrollTop > 2) return true;
+    }
+    node = node.parentElement;
+  }
+  return false;
+}
+
+function onSnapWheel(event) {
+  if (!snapIsEnabled() || event.ctrlKey || Math.abs(event.deltaY) <= Math.abs(event.deltaX) || Math.abs(event.deltaY) < 4) return;
+  const direction = Math.sign(event.deltaY);
+  if (isNestedScroller(event.target, direction)) return;
+  event.preventDefault();
+  if (snapGestureActive) return;
+
+  const currentIndex = nearestSnapPanelIndex();
+  const nextIndex = Math.max(0, Math.min(snapPanels.length - 1, currentIndex + direction));
+  if (nextIndex === currentIndex) return;
+
+  snapGestureActive = true;
+  snapPanels[nextIndex].scrollIntoView({ behavior: "smooth", block: "start" });
+  window.clearTimeout(snapGestureTimer);
+  snapGestureTimer = window.setTimeout(() => { snapGestureActive = false; }, 760);
+}
+
+window.addEventListener("wheel", onSnapWheel, { passive: false });
+snapMedia.addEventListener?.("change", syncSnapMode);
+reducedMotion.addEventListener?.("change", syncSnapMode);
+syncSnapMode();
+
 applyLanguage();
 renderBreakdownTheme();
 updateScrollState();

@@ -7,39 +7,43 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = file => readFileSync(path.join(root, file), "utf8");
 const html = read("learn.html");
-const css = read("learn-nav-rail.css");
+const css = read("learn.css");
 const learn = read("learn.js");
 const analyticsConfig = read("analytics.config.js");
 
-test("desktop chapter rail has no card shell", () => {
-  assert.match(css, /\.chapter-nav \{[\s\S]*padding: 0 !important;/);
-  assert.match(css, /border: 0 !important;/);
-  assert.match(css, /background: transparent !important;/);
-  assert.match(css, /box-shadow: none !important;/);
+test("chapter navigation follows the hero and becomes a sticky horizontal index", () => {
+  assert.ok(html.indexOf('class="story-hero"') < html.indexOf('class="chapter-nav"'));
+  assert.match(css, /\.chapter-nav\{[\s\S]*position:sticky!important/);
+  assert.match(css, /flex-direction:row!important/);
+  assert.match(css, /background:rgba\(7,17,12,\.94\)!important/);
 });
 
-test("rail dots scale around the current chapter", () => {
-  assert.match(css, /rail-near-1/);
-  assert.match(css, /rail-near-2/);
-  assert.match(css, /\.is-current span \{[\s\S]*width: 26px/);
-  assert.match(css, /rail-near-1 span \{[\s\S]*width: 14px/);
-  assert.match(css, /rail-near-2 span \{[\s\S]*width: 7px/);
-  assert.match(css, /\.chapter-nav a span \{[\s\S]*width: 3px/);
+test("current chapter remains synchronized with scroll state", () => {
+  assert.match(css, /\.chapter-nav a\.is-current\{background:var\(--electric\)!important/);
   assert.match(learn, /distance === 0/);
   assert.match(learn, /distance === 1/);
   assert.match(learn, /distance === 2/);
 });
 
-test("rail transitions and current-dot motion make chapter changes visible", () => {
-  assert.match(css, /rail-dot-arrive/);
-  assert.match(css, /rail-dot-breathe/);
-  assert.match(css, /translateX\(-6px\)/);
-  assert.match(css, /prefers-reduced-motion: reduce/);
-  assert.match(html, /analytics\.js\?v=20260821-motion-scale-v4/);
+test("navigation remains motion-safe and is no longer replaced at runtime", () => {
+  assert.match(css, /prefers-reduced-motion:reduce/);
+  assert.match(html, /analytics\.js\?v=20260825-editorial-nav-v1/);
+  assert.doesNotMatch(read("analytics.js"), /data-learn-nav-rail|learn-nav-rail\.css/);
 });
 
-test("cache-busted formal assets replace the runtime hotfix", () => {
-  assert.match(html, /learn\.css\?v=20260823-public-ready-v1/);
+test("cache-busted editorial stylesheet replaces the retired desktop rail", () => {
+  assert.match(html, /learn\.css\?v=20260825-fullpage-type-v2/);
+  assert.doesNotMatch(html, /learn-nav-rail\.css/);
   assert.match(html, /analytics\.config\.js\?v=20260821-bare-rail-v2/);
   assert.doesNotMatch(analyticsConfig, /learn-right-center-rail-hotfix|rail-near/);
+});
+
+test("desktop chapters use editorial type and one-gesture full-page snapping", () => {
+  assert.match(css, /--font-editorial-cjk:/);
+  assert.match(css, /font-family:var\(--font-editorial-cjk\)/);
+  assert.match(css, /html\.learn-snap-enabled\{scroll-snap-type:y mandatory/);
+  assert.match(css, /scroll-snap-stop:always/);
+  assert.match(learn, /addEventListener\("wheel", onSnapWheel, \{ passive: false \}\)/);
+  assert.match(learn, /snapPanels\[nextIndex\]\.scrollIntoView/);
+  assert.match(learn, /}, 760\)/);
 });
