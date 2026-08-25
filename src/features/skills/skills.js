@@ -1,21 +1,33 @@
 const repositories = [
-  { slug: "Vincentwei1021/video-shotcraft", category: "VIDEO", title: "video-shotcraft", skillName: "video-shotcraft", fallback: "面向产品宣传视频的镜头配方与动态样例库。", focus: "视频叙事 / 动态样例" },
-  { slug: "emilkowalski/skills", category: "DESIGN", title: "emilkowalski / skills", fallback: "为设计师和工程师准备的一组实用 skills。", focus: "产品设计 / 前端体验" },
+  { slug: "Vincentwei1021/video-shotcraft", category: "VIDEO", title: "video-shotcraft", skillName: "video-shotcraft", coverType: "video", coverSrc: "./assets/skills/repositories/vincentwei1021-video-shotcraft-cover.mp4", detailMediaType: "video", detailMediaSrc: "./assets/skills/repositories/vincentwei1021-video-shotcraft-cover.mp4", fallback: "面向产品宣传视频的镜头配方与动态样例库。", focus: "视频叙事 / 动态样例" },
+  { slug: "emilkowalski/skills", category: "DESIGN", title: "emilkowalski / skills", coverImage: "./assets/skills/repositories/emilkowalski-skills-cover.png", detailMediaSrc: "./assets/skills/repositories/emilkowalski-skills-cover.png", fallback: "为设计师和工程师准备的一组实用 skills。", focus: "产品设计 / 前端体验" },
   { slug: "pbakaus/impeccable", category: "DESIGN", title: "pbakaus / impeccable", fallback: "帮助 AI 更好理解设计语言与界面质量的 skill。", focus: "设计语言 / UI 品质" },
-  { slug: "greensock/GSAP", category: "MOTION", title: "greensock / GSAP", fallback: "现代 Web 动画的成熟工具与生态。", focus: "动效系统 / 交互反馈" },
+  { slug: "greensock/GSAP", category: "MOTION", title: "greensock / GSAP", coverType: "video", coverSrc: "./assets/skills/repositories/greensock-gsap-cover.mp4", detailMediaType: "video", detailMediaSrc: "./assets/skills/repositories/greensock-gsap-cover.mp4", extraTags: { zh: ["强推", "动效"], en: ["Strong pick", "Motion"] }, fallback: "现代 Web 动画的成熟工具与生态。", focus: "动效系统 / 交互反馈" },
   { slug: "Leonxlnx/taste-skill", category: "DESIGN", title: "Leonxlnx / taste-skill", fallback: "让 AI 避免生成无聊、通用、模板化界面的设计品味 skill。", focus: "去模板感 / 视觉判断" },
-  { slug: "mattpocock/skills", category: "ENGINEERING", title: "mattpocock / skills", fallback: "面向真实工程工作的可复用 agent skills。", focus: "工程工作流 / Agent" },
+  { slug: "mattpocock/skills", category: "ENGINEERING", title: "mattpocock / skills", coverImage: "./assets/skills/repositories/mattpocock-skills-cover.png", detailMediaSrc: "./assets/skills/repositories/mattpocock-skills-cover.png", fallback: "面向真实工程工作的可复用 agent skills。", focus: "工程工作流 / Agent" },
   { slug: "anthropics/skills", category: "DESIGN", title: "anthropics / skills", fallback: "包含 frontend-design 等面向真实创作任务的官方 skill 集合。", focus: "界面构建 / 创作工作流" },
   { slug: "vercel-labs/agent-skills", category: "FRONTEND", title: "vercel-labs / agent-skills", fallback: "面向 Web 产品的设计规范、React 模式与前端质量检查。", focus: "Web 规范 / React 质量" },
-  { slug: "nextlevelbuilder/ui-ux-pro-max-skill", category: "PRESENTATION", title: "ui-ux-pro-max", fallback: "把复杂业务数据转成带交互的 SVG 图表、UI 级看板与高保真演示页面。", focus: "数据复盘 / 产品评审 / 技术展示" },
+  { slug: "manalkaff/opendesign", category: "AI DESIGN", title: "OpenDesign", fallback: "一套完整的 AI 设计工作流，覆盖线框探索、设计系统生成、交互原型、可调参数和交付给 Claude Code 等环节。", focus: "布局探索 / 原型 / 设计系统 / 交付" },
+  { slug: "vercel-labs/design-systems-to-agent-skills", category: "SYSTEM", title: "Design Systems → Agent Skills", fallback: "把已有设计系统转成 Agent Skill 的方法库，强调访谈、源码事实提取、使用模式分析和可执行规范沉淀。", focus: "Design System 转 Skill / 规范提取" },
+  { slug: "weareoxd/design-skill-generator", category: "AI DESIGN", title: "Design Skill Generator", fallback: "从截图或 Figma URL 自动生成 SKILL.md 与 tokens.css，提取颜色、字体、间距、组件模式、导航、图标与反模式。", focus: "截图转 Skill / Figma / Tokens" },
+  { slug: "nolly-studio/agent-skills", category: "SYSTEM", title: "Nolly Studio / design-md", fallback: "基于真实项目代码生成 DESIGN.md 设计语言契约，帮助 Agent 明确字体、颜色、圆角、阴影、动效和 Token 用法。", focus: "DESIGN.md / 设计语言契约" },
+  { slug: "nextlevelbuilder/ui-ux-pro-max-skill", category: "PRESENTATION", title: "ui-ux-pro-max", coverImage: "./assets/skills/repositories/nextlevelbuilder-ui-ux-pro-max-skill-cover.png", detailMediaSrc: "./assets/skills/repositories/nextlevelbuilder-ui-ux-pro-max-skill-cover.png", fallback: "把复杂业务数据转成带交互的 SVG 图表、UI 级看板与高保真演示页面。", focus: "数据复盘 / 产品评审 / 技术展示" },
   { slug: "motiondivision/motion", category: "MOTION", title: "motiondivision / motion", fallback: "为 React、Vue 和原生 Web 提供流畅、可组合的界面动效。", focus: "组件动效 / 微交互" },
   { slug: "radix-ui/primitives", category: "A11Y", title: "radix-ui / primitives", fallback: "无样式、可访问、可组合的 UI 原语，适合建立可靠组件层。", focus: "无障碍 / 组件原语" },
-  { slug: "tailwindlabs/headlessui", category: "A11Y", title: "tailwindlabs / headlessui", fallback: "为 Tailwind 设计的无样式交互组件，覆盖菜单、弹窗和列表等模式。", focus: "交互模式 / 可访问性" },
-  { slug: "lucide-icons/lucide", category: "SYSTEM", title: "lucide-icons / lucide", fallback: "清晰、可定制的开源图标系统，适合统一产品中的图标语言。", focus: "图标系统 / 视觉一致性" },
-  { slug: "pmndrs/react-three-fiber", category: "3D", title: "pmndrs / react-three-fiber", fallback: "在 React 中构建 3D 体验的声明式渲染工具。", focus: "3D 交互 / 空间体验" },
+  { slug: "shadcn-ui/ui", category: "FRONTEND", title: "shadcn-ui / ui", coverType: "video", coverSrc: "./assets/skills/repositories/shadcn-ui-ui-cover.mp4", detailMediaType: "video", detailMediaSrc: "./assets/skills/repositories/shadcn-ui-ui-cover.mp4", fallback: "把可复制、可定制的 React 组件直接带进项目，适合快速建立高质量界面系统。", focus: "组件库 / Tailwind / 设计系统" },
+  { slug: "tailwindlabs/headlessui", category: "A11Y", title: "tailwindlabs / headlessui", coverType: "video", coverSrc: "./assets/skills/repositories/tailwindlabs-headlessui-cover.mp4", detailMediaType: "video", detailMediaSrc: "./assets/skills/repositories/tailwindlabs-headlessui-cover.mp4", fallback: "为 Tailwind 设计的无样式交互组件，覆盖菜单、弹窗和列表等模式。", focus: "交互模式 / 可访问性" },
+  { slug: "lucide-icons/lucide", category: "SYSTEM", title: "lucide-icons / lucide", coverImage: "./assets/skills/repositories/lucide-icons-lucide-cover.png", detailMediaSrc: "./assets/skills/repositories/lucide-icons-lucide-cover.png", fallback: "清晰、可定制的开源图标系统，适合统一产品中的图标语言。", focus: "图标系统 / 视觉一致性" },
+  { slug: "pmndrs/react-three-fiber", category: "3D", title: "pmndrs / react-three-fiber", coverType: "video", coverSrc: "./assets/skills/repositories/pmndrs-react-three-fiber-cover.mp4", detailMediaType: "video", detailMediaSrc: "./assets/skills/repositories/pmndrs-react-three-fiber-cover.mp4", fallback: "在 React 中构建 3D 体验的声明式渲染工具。", focus: "3D 交互 / 空间体验" },
   { slug: "storybookjs/storybook", category: "SYSTEM", title: "storybookjs / storybook", fallback: "用于开发、测试和记录 UI 组件的工作台。", focus: "组件文档 / 设计协作" },
   { slug: "google-labs-code/stitch-skills", category: "AI DESIGN", title: "google-labs-code / stitch-skills", fallback: "为 Google Stitch MCP 准备的 Agent Skill 集合，覆盖从界面生成到迭代的工作流。", focus: "界面生成 / MCP 工作流" },
   { slug: "bergside/awesome-design-skills", category: "DIRECTORY", title: "bergside / awesome-design-skills", fallback: "整理大量 DESIGN.md 与 SKILL.md 设计能力文件的开放目录。", focus: "设计资源 / Skill 发现" },
+  { slug: "gztchan/awesome-design", category: "DIRECTORY", title: "gztchan / awesome-design", fallback: "面向 UI/UX 设计师的高质量资源与工具清单，覆盖图库、图标、色彩、字体、原型、样机、用户测试、教程与社区等日常设计素材。", focus: "设计资源 / 工具索引 / UI/UX 日常" },
+  { slug: "magnus919/agent-skills", category: "UX", title: "Product Design & UX", fallback: "面向产品体验的 Agent Skill，覆盖信息架构、任务流、状态恢复、交互模式选择、可用性检查和工程交付说明。", focus: "IA / Task Flow / UX 行为" },
+  { slug: "sergekostenchuk/ui-ux-agent-skill-system", category: "FRONTEND", title: "Web App UI Skill", fallback: "专注 Dashboard、Admin、CRM、设置页、表格和筛选器等真实产品 UI，并覆盖 loading、empty、error、disabled、focus、selected、submitting、success 等状态。", focus: "Web App UI / 状态补全 / 后台界面" },
+  { slug: "content-designer/ux-writing-skill", category: "UX", title: "UX Writing Skill", fallback: "系统化处理界面文案，包括按钮标签、错误提示、空状态、引导、校验、通知与 Voice & Tone，让产品语言更一致。", focus: "界面文案 / 空状态 / 错误提示" },
+  { slug: "Community-Access/accessibility-agents", category: "A11Y", title: "Accessibility Agents", fallback: "提供面向 HTML、JSX、CSS、React 等 UI 的无障碍审查能力，适合在交付前做最终 A11y Audit。", focus: "A11y Audit / HTML / React" },
+  { slug: "skydashnet/material-design-3-ui-skill", category: "SYSTEM", title: "Material Design 3 UI Skill", fallback: "围绕 Google Material Design 3 / Material You 的 UI Skill，覆盖语义 Token、自适应布局、可折叠设备、无障碍、动效、导航、表单与字体等模块。", focus: "Material 3 / Semantic Tokens / Adaptive UI" },
+  { slug: "wenkang-deepblue/frontend-design", category: "AI DESIGN", title: "frontend-design", fallback: "生成可交互 HTML Preview，让设计师像 DevTools 一样点击元素、调整 Token、写评论，再把修改整理成结构化 Prompt 交回 Claude Code 或 Codex。", focus: "可交互预览 / 设计调整 / Prompt 回传" },
   { slug: "SeanJ1ang/design-judge-skills", category: "REVIEW", title: "SeanJ1ang / design-judge-skills", fallback: "帮助 AI 从视觉质量、信息层级和完成度角度审查界面。", focus: "设计评审 / 质量检查" },
   { slug: "ConardLi/garden-skills", category: "DESIGN", title: "ConardLi / garden-skills", fallback: "面向 AI 产品开发的多类可复用 skills，包含界面与体验工作流。", focus: "产品开发 / 复用能力" },
   { slug: "Owl-Listener/designer-skills", category: "DESIGN", title: "Owl-Listener / designer-skills", fallback: "面向设计任务的轻量 skill 集合，适合补充日常界面决策。", focus: "日常设计 / 决策辅助" },
@@ -23,13 +35,13 @@ const repositories = [
   { slug: "mistyhx/frontend-design-audit", category: "REVIEW", title: "mistyhx / frontend-design-audit", fallback: "面向前端页面的设计审计与改进检查清单。", focus: "页面审计 / 改进建议" },
   { slug: "plugin87/ux-ui-agent-skills", category: "UX", title: "plugin87 / ux-ui-agent-skills", fallback: "专注 UX/UI 任务的 Agent Skills 集合，覆盖界面体验与产品设计相关工作。", focus: "UX/UI 设计 / Agent 工作流" },
   { slug: "ZeroZ-lab/cc-design", category: "DESIGN", title: "ZeroZ-lab / cc-design", fallback: "面向 Claude Code 的设计插件与参考资料，包含设计红旗和插件发布工作流。", focus: "设计规范 / Claude Code" },
-  { slug: "JimLiu/baoyu-design", category: "SYSTEM", title: "JimLiu / baoyu-design", fallback: "围绕设计系统创建、Figma 导入和实验工作流组织的一套设计能力。", focus: "设计系统 / Figma 导入" },
+  { slug: "JimLiu/baoyu-design", category: "SYSTEM", title: "JimLiu / baoyu-design", coverImage: "./assets/skills/repositories/jimliu-baoyu-design-cover.png", detailMediaSrc: "./assets/skills/repositories/jimliu-baoyu-design-cover.png", fallback: "围绕设计系统创建、Figma 导入和实验工作流组织的一套设计能力。", focus: "设计系统 / Figma 导入" },
   { slug: "scottstts/Threejs-Awesome-Graphics-Agent-Skills", category: "3D", title: "scottstts / Threejs-Awesome-Graphics-Agent-Skills", fallback: "面向 Three.js 与图形创作的 Agent Skills 集合，适合补充 3D 和交互视觉能力。", focus: "Three.js / 图形 Agent" },
   { slug: "Owl-Listener/ai-design-skills", category: "DIRECTORY", title: "Owl-Listener / ai-design-skills", fallback: "整理 AI 设计能力和扩展入口的开源集合，适合继续发现跨模型的设计工作流。", focus: "AI 设计 / Skill 发现" },
   { slug: "hugohe3/ppt-master", category: "PRESENTATION", title: "ppt-master", fallback: "直接输出带完整图层与文字框的原生可编辑 PPTX，便于改字、换图和正式交付。", focus: "职场汇报 / 客户提案 / 可编辑交付" },
-  { slug: "zarazhangrui/frontend-slides", category: "PRESENTATION", title: "frontend-slides", fallback: "生成高完成度、零依赖的单文件 HTML 演示，浏览器双击即可开始展示。", focus: "在线演示 / 远程分享 / 交互展示" },
-  { slug: "op7418/guizang-ppt-skill", category: "PRESENTATION", title: "guizang-ppt-skill", fallback: "以杂志风和瑞士国际主义建立画册级、海报级演示视觉。", focus: "产品发布会 / 主题演讲 / 品牌展示" },
-  { slug: "alchaincyf/huashu-design", category: "PRESENTATION", title: "huashu-design", fallback: "结合细腻 HTML 动效与可编辑 PPTX 导出，适合复杂设计规范与多格式输出。", focus: "交互原型 / 设计团队 / 混合输出" },
+  { slug: "zarazhangrui/frontend-slides", category: "PRESENTATION", title: "frontend-slides", coverImage: "./assets/skills/repositories/zarazhangrui-frontend-slides-cover.png", detailMediaSrc: "./assets/skills/repositories/zarazhangrui-frontend-slides-cover.png", fallback: "生成高完成度、零依赖的单文件 HTML 演示，浏览器双击即可开始展示。", focus: "在线演示 / 远程分享 / 交互展示" },
+  { slug: "op7418/guizang-ppt-skill", category: "PRESENTATION", title: "guizang-ppt-skill", coverImage: "./assets/skills/repositories/op7418-guizang-ppt-skill-cover.png", detailMediaSrc: "./assets/skills/repositories/op7418-guizang-ppt-skill-cover.png", fallback: "以杂志风和瑞士国际主义建立画册级、海报级演示视觉。", focus: "产品发布会 / 主题演讲 / 品牌展示" },
+  { slug: "alchaincyf/huashu-design", category: "PRESENTATION", title: "huashu-design", coverImage: "./assets/skills/repositories/alchaincyf-huashu-design-cover.gif", detailMediaSrc: "./assets/skills/repositories/alchaincyf-huashu-design-cover.gif", fallback: "结合细腻 HTML 动效与可编辑 PPTX 导出，适合复杂设计规范与多格式输出。", focus: "交互原型 / 设计团队 / 混合输出" },
   { slug: "lewislulu/html-ppt-skill", category: "PRESENTATION", title: "html-ppt-skill", fallback: "提供倒计时、逐字稿提词器、双屏演讲者视图与丰富主题。", focus: "答辩 / 路演 / 提词演讲" },
   { slug: "MiniMax-AI/skills", category: "PRESENTATION", title: "MiniMax-pptx", fallback: "将会议记录或 Markdown 大纲快速转成结构化、可编辑的 PPTX 草稿。", focus: "内部对齐 / 临时出稿 / 大纲可视化" },
   { slug: "ningzimu/codex-ppt", category: "PRESENTATION", title: "codex-ppt", fallback: "以强封面感和海报级单页张力生成视觉语言统一的图片流 PPT。", focus: "社媒切片 / 视觉演讲 / 冲击力开场" },
@@ -38,22 +50,34 @@ const repositories = [
 
 const repositoriesEn = [
   { slug: "Vincentwei1021/video-shotcraft", category: "VIDEO", title: "video-shotcraft", fallback: "An AI video skill with shot recipes and motion examples for product films.", focus: "Video storytelling / motion examples" },
-  { slug: "emilkowalski/skills", category: "DESIGN", title: "emilkowalski / skills", fallback: "A practical collection of skills for designers and engineers.", focus: "Product design / frontend experience" },
+  { slug: "emilkowalski/skills", category: "DESIGN", title: "emilkowalski / skills", coverImage: "./assets/skills/repositories/emilkowalski-skills-cover.png", detailMediaSrc: "./assets/skills/repositories/emilkowalski-skills-cover.png", fallback: "A practical collection of skills for designers and engineers.", focus: "Product design / frontend experience" },
   { slug: "pbakaus/impeccable", category: "DESIGN", title: "pbakaus / impeccable", fallback: "A skill that helps AI understand design language and interface quality.", focus: "Design language / UI quality" },
   { slug: "greensock/GSAP", category: "MOTION", title: "greensock / GSAP", fallback: "A mature toolkit and ecosystem for modern Web animation.", focus: "Motion systems / interaction feedback" },
   { slug: "Leonxlnx/taste-skill", category: "DESIGN", title: "Leonxlnx / taste-skill", fallback: "A design-taste skill that helps AI avoid bland, generic, templated interfaces.", focus: "Less templated / visual judgment" },
   { slug: "mattpocock/skills", category: "ENGINEERING", title: "mattpocock / skills", fallback: "Reusable agent skills for real-world engineering work.", focus: "Engineering workflow / Agent" },
   { slug: "anthropics/skills", category: "DESIGN", title: "anthropics / skills", fallback: "An official collection of skills for real creative tasks, including frontend-design.", focus: "Interface building / creative workflow" },
   { slug: "vercel-labs/agent-skills", category: "FRONTEND", title: "vercel-labs / agent-skills", fallback: "Design guidelines, React patterns and frontend quality checks for Web products.", focus: "Web guidelines / React quality" },
+  { slug: "manalkaff/opendesign", category: "AI DESIGN", title: "OpenDesign", fallback: "A complete AI design workflow covering wireframes, design-system creation, interactive prototypes, tweakable parameters and handoff to Claude Code.", focus: "Layout exploration / prototypes / design systems / handoff" },
+  { slug: "vercel-labs/design-systems-to-agent-skills", category: "SYSTEM", title: "Design Systems → Agent Skills", fallback: "A process for transforming an existing design system into an Agent Skill through interviews, source-code fact extraction, usage-pattern analysis and executable guidelines.", focus: "Design system to Skill / guideline extraction" },
+  { slug: "weareoxd/design-skill-generator", category: "AI DESIGN", title: "Design Skill Generator", fallback: "Turns screenshots or Figma URLs into SKILL.md and tokens.css by extracting colors, typography, spacing, component patterns, navigation, icons and anti-patterns.", focus: "Screenshot to Skill / Figma / tokens" },
+  { slug: "nolly-studio/agent-skills", category: "SYSTEM", title: "Nolly Studio / design-md", fallback: "Generates a project-level DESIGN.md design-language contract from real code so agents understand typography, color, radii, shadows, motion and token usage.", focus: "DESIGN.md / design-language contract" },
   { slug: "nextlevelbuilder/ui-ux-pro-max-skill", category: "PRESENTATION", title: "ui-ux-pro-max", fallback: "Turns complex business data into interactive SVG charts, UI-grade dashboards and high-fidelity presentations.", focus: "Data reviews / product critique / technical demos" },
   { slug: "motiondivision/motion", category: "MOTION", title: "motiondivision / motion", fallback: "Smooth, composable interface motion for React, Vue and the Web platform.", focus: "Component motion / micro-interactions" },
   { slug: "radix-ui/primitives", category: "A11Y", title: "radix-ui / primitives", fallback: "Unstyled, accessible and composable UI primitives for a dependable component layer.", focus: "Accessibility / primitives" },
-  { slug: "tailwindlabs/headlessui", category: "A11Y", title: "tailwindlabs / headlessui", fallback: "Unstyled accessible interaction components designed for Tailwind projects.", focus: "Interaction patterns / accessibility" },
+  { slug: "shadcn-ui/ui", category: "FRONTEND", title: "shadcn-ui / ui", coverType: "video", coverSrc: "./assets/skills/repositories/shadcn-ui-ui-cover.mp4", detailMediaType: "video", detailMediaSrc: "./assets/skills/repositories/shadcn-ui-ui-cover.mp4", fallback: "Copyable, customizable React components for building high-quality interface systems quickly.", focus: "Component library / Tailwind / design systems" },
+  { slug: "tailwindlabs/headlessui", category: "A11Y", title: "tailwindlabs / headlessui", coverType: "video", coverSrc: "./assets/skills/repositories/tailwindlabs-headlessui-cover.mp4", detailMediaType: "video", detailMediaSrc: "./assets/skills/repositories/tailwindlabs-headlessui-cover.mp4", fallback: "Unstyled accessible interaction components designed for Tailwind projects.", focus: "Interaction patterns / accessibility" },
   { slug: "lucide-icons/lucide", category: "SYSTEM", title: "lucide-icons / lucide", fallback: "A clear, customizable open-source icon system for consistent product language.", focus: "Icon systems / visual consistency" },
   { slug: "pmndrs/react-three-fiber", category: "3D", title: "pmndrs / react-three-fiber", fallback: "A declarative renderer for building 3D experiences in React.", focus: "3D interaction / spatial experience" },
   { slug: "storybookjs/storybook", category: "SYSTEM", title: "storybookjs / storybook", fallback: "A workbench for developing, testing and documenting UI components.", focus: "Component docs / design collaboration" },
   { slug: "google-labs-code/stitch-skills", category: "AI DESIGN", title: "google-labs-code / stitch-skills", fallback: "Agent Skills for the Google Stitch MCP server, covering interface generation and iteration workflows.", focus: "Interface generation / MCP workflow" },
   { slug: "bergside/awesome-design-skills", category: "DIRECTORY", title: "bergside / awesome-design-skills", fallback: "An open directory of DESIGN.md and SKILL.md files for discovering design capabilities.", focus: "Design resources / skill discovery" },
+  { slug: "gztchan/awesome-design", category: "DIRECTORY", title: "gztchan / awesome-design", fallback: "A curated list of high-quality resources and tools for UI/UX designers, covering stock, icons, color, typography, prototyping, mockups, user testing, tutorials and communities.", focus: "Design resources / tool index / UI/UX practice" },
+  { slug: "magnus919/agent-skills", category: "UX", title: "Product Design & UX", fallback: "An agent skill for product experience work, covering information architecture, task flows, state recovery, interaction-pattern choices, usability checks and engineering handoff.", focus: "IA / task flows / UX behavior" },
+  { slug: "sergekostenchuk/ui-ux-agent-skill-system", category: "FRONTEND", title: "Web App UI Skill", fallback: "A web-app UI skill for dashboards, admin tools, CRM, settings, tables and filters, with coverage for loading, empty, error, disabled, focus, selected, submitting and success states.", focus: "Web app UI / state coverage / admin interfaces" },
+  { slug: "content-designer/ux-writing-skill", category: "UX", title: "UX Writing Skill", fallback: "Systematic UX writing for button labels, errors, empty states, onboarding, validation, notifications and voice and tone consistency.", focus: "Interface copy / empty states / errors" },
+  { slug: "Community-Access/accessibility-agents", category: "A11Y", title: "Accessibility Agents", fallback: "Accessibility audit skills for HTML, JSX, CSS, React and related UI work, useful as a final A11y review before shipping.", focus: "A11y audit / HTML / React" },
+  { slug: "skydashnet/material-design-3-ui-skill", category: "SYSTEM", title: "Material Design 3 UI Skill", fallback: "A Material Design 3 / Material You UI skill covering semantic tokens, adaptive layouts, foldables, accessibility, motion, navigation, forms and typography.", focus: "Material 3 / semantic tokens / adaptive UI" },
+  { slug: "wenkang-deepblue/frontend-design", category: "AI DESIGN", title: "frontend-design", fallback: "Creates an interactive HTML preview where designers can click elements, adjust tokens and leave comments, then send a structured prompt back to Claude Code or Codex.", focus: "Interactive preview / design tweaks / prompt handoff" },
   { slug: "SeanJ1ang/design-judge-skills", category: "REVIEW", title: "SeanJ1ang / design-judge-skills", fallback: "Helps AI review interface quality, hierarchy and finish from a visual-design perspective.", focus: "Design review / quality checks" },
   { slug: "ConardLi/garden-skills", category: "DESIGN", title: "ConardLi / garden-skills", fallback: "Reusable skills for AI product development, including interface and experience workflows.", focus: "Product development / reusable skills" },
   { slug: "Owl-Listener/designer-skills", category: "DESIGN", title: "Owl-Listener / designer-skills", fallback: "A lightweight collection of skills for everyday interface decisions and design tasks.", focus: "Daily design / decision support" },
@@ -61,7 +85,7 @@ const repositoriesEn = [
   { slug: "mistyhx/frontend-design-audit", category: "REVIEW", title: "mistyhx / frontend-design-audit", fallback: "A design-audit checklist for reviewing and improving frontend pages.", focus: "Page audits / improvement ideas" },
   { slug: "plugin87/ux-ui-agent-skills", category: "UX", title: "plugin87 / ux-ui-agent-skills", fallback: "A collection of agent skills for UX/UI tasks, covering interface experience and product-design work.", focus: "UX/UI design / Agent workflow" },
   { slug: "ZeroZ-lab/cc-design", category: "DESIGN", title: "ZeroZ-lab / cc-design", fallback: "A Claude Code design plugin and reference set with design red flags and publishing workflows.", focus: "Design guidance / Claude Code" },
-  { slug: "JimLiu/baoyu-design", category: "SYSTEM", title: "JimLiu / baoyu-design", fallback: "A design capability set around creating systems, importing from Figma and running design experiments.", focus: "Design systems / Figma import" },
+  { slug: "JimLiu/baoyu-design", category: "SYSTEM", title: "JimLiu / baoyu-design", coverImage: "./assets/skills/repositories/jimliu-baoyu-design-cover.png", detailMediaSrc: "./assets/skills/repositories/jimliu-baoyu-design-cover.png", fallback: "A design capability set around creating systems, importing from Figma and running design experiments.", focus: "Design systems / Figma import" },
   { slug: "scottstts/Threejs-Awesome-Graphics-Agent-Skills", category: "3D", title: "scottstts / Threejs-Awesome-Graphics-Agent-Skills", fallback: "An agent-skill collection for Three.js and graphics work, extending 3D and interactive visual capability.", focus: "Three.js / graphics agents" },
   { slug: "Owl-Listener/ai-design-skills", category: "DIRECTORY", title: "Owl-Listener / ai-design-skills", fallback: "An open collection of AI-design capabilities and extensions for discovering cross-model design workflows.", focus: "AI design / skill discovery" },
   { slug: "hugohe3/ppt-master", category: "PRESENTATION", title: "ppt-master", fallback: "Creates native editable PPTX files with complete layers and text boxes for dependable handoff.", focus: "Business reports / client proposals / editable delivery" },
@@ -86,18 +110,18 @@ const designReferenceGroups = [
 const designReferenceWebsites = [
   { name: "Recent", domain: "recent.design", url: "https://recent.design/", group: "DIRECTION", previewType: "video", previewSrc: "./assets/skills/web/recent-design.mp4", previewRatio: "1 / 1", descriptionZh: "聚合近期设计作品，适合快速感知正在发生的视觉趋势。", descriptionEn: "A feed of recent design work for sensing current visual trends.", focusZh: "趋势扫描 / 视觉方向", focusEn: "Trend scan / visual direction" },
   { name: "Lapa Ninja", domain: "lapa.ninja", url: "https://www.lapa.ninja/", group: "DIRECTION", previewType: "video", previewSrc: "./assets/skills/web/lapa-ninja.mp4", previewRatio: "403 / 230", descriptionZh: "收集大量落地页案例，用于研究首屏、内容节奏与转化结构。", descriptionEn: "A large landing-page collection for studying heroes, rhythm and conversion structure.", focusZh: "落地页 / 转化结构", focusEn: "Landing pages / conversion" },
+  { name: "Landingfolio", domain: "landingfolio.com", url: "https://www.landingfolio.com/", group: "DIRECTION", previewType: "video", previewSrc: "./assets/skills/web/landingfolio-com-cover.mp4", previewImage: "./assets/skills/web/landingfolio-com-poster.png", descriptionZh: "收集高质量落地页、组件与设计灵感，适合研究首屏表达、转化路径和 SaaS 页面结构。", descriptionEn: "A landing-page inspiration library for studying hero sections, conversion paths, SaaS structures and reusable page patterns.", focusZh: "落地页 / SaaS / 转化结构", focusEn: "Landing pages / SaaS / conversion" },
   { name: "Land-book", domain: "land-book.com", url: "https://land-book.com/", group: "DIRECTION", previewType: "video", previewSrc: "./assets/skills/web/land-book-com.mp4", previewRatio: "578 / 303", descriptionZh: "按风格与类型浏览网站案例，适合建立项目情绪板。", descriptionEn: "Browse websites by style and type to build project moodboards.", focusZh: "网站风格 / 情绪板", focusEn: "Web style / moodboards" },
   { name: "Awwwards", domain: "awwwards.com", url: "https://www.awwwards.com/sites/michael-gatt", group: "DIRECTION", previewSrc: "./assets/skills/web/awwwards-com.jpg", previewRatio: "128 / 95", descriptionZh: "聚焦高质量网站、创意开发与完整交互体验。", descriptionEn: "High-quality websites, creative development and complete interactive experiences.", focusZh: "创意网站 / 交互叙事", focusEn: "Creative web / interaction" },
   { name: "Mobbin", domain: "mobbin.com", url: "https://mobbin.com/discover/apps/ios/latest", group: "PRODUCT", previewType: "video", previewSrc: "./assets/skills/web/mobbin-com.mp4", previewRatio: "137 / 68", descriptionZh: "按真实产品流程检索移动端与 Web 界面，适合拆解成熟 UX 模式。", descriptionEn: "Search real mobile and web product flows to study mature UX patterns.", focusZh: "App 流程 / UX 模式", focusEn: "App flows / UX patterns" },
-  { name: "Refero", domain: "refero.design", url: "https://refero.design/", group: "PRODUCT", descriptionZh: "围绕真实界面与产品流程组织参考，方便研究功能结构。", descriptionEn: "Product references organized around real screens and flows.", focusZh: "产品界面 / 功能拆解", focusEn: "Product UI / feature study" },
+  { name: "Refero", domain: "refero.design", url: "https://refero.design/", group: "PRODUCT", previewImage: "./assets/skills/web/refero-design-cover.png", descriptionZh: "围绕真实界面与产品流程组织参考，方便研究功能结构。", descriptionEn: "Product references organized around real screens and flows.", focusZh: "产品界面 / 功能拆解", focusEn: "Product UI / feature study" },
   { name: "Design Spells", domain: "designspells.com", url: "https://www.designspells.com/", group: "DETAIL", previewImage: "./assets/skills/web/designspells-cover.png", descriptionZh: "收集产品中让体验更细腻的设计细节与微交互。", descriptionEn: "A collection of thoughtful product details and micro-interactions.", focusZh: "微交互 / 体验细节", focusEn: "Micro-interactions / details" },
   { name: "Supahero", domain: "supahero.io", url: "https://supahero.io/", group: "DETAIL", descriptionZh: "专注网站首屏与 Hero 区域，适合研究信息密度和视觉焦点。", descriptionEn: "Focused on website hero sections, information density and visual focus.", focusZh: "Hero / 首屏设计", focusEn: "Hero sections / first fold" },
   { name: "Navbar Gallery", domain: "navbar.gallery", url: "https://www.navbar.gallery/", group: "DETAIL", previewImage: "./assets/skills/web/navbar-gallery-cover.png", descriptionZh: "专门收集导航栏案例，适合比较结构、状态与布局方式。", descriptionEn: "A gallery of navigation patterns, states and layout approaches.", focusZh: "导航 / 信息架构", focusEn: "Navigation / information architecture" },
   { name: "CTA Gallery", domain: "cta.gallery", url: "https://www.cta.gallery/", group: "DETAIL", previewImage: "./assets/skills/web/cta-gallery-cover.png", descriptionZh: "聚焦行动按钮与转化模块，帮助研究文案和视觉层级。", descriptionEn: "CTA examples for studying conversion copy and visual hierarchy.", focusZh: "CTA / 转化设计", focusEn: "CTA / conversion design" },
   { name: "Footer Design", domain: "footer.design", url: "https://www.footer.design/", group: "DETAIL", previewImage: "./assets/skills/web/footer-design-cover.png", descriptionZh: "收集不同类型的网站页脚，适合研究信息收尾与导航补充。", descriptionEn: "Website footer examples for studying closing content and secondary navigation.", focusZh: "页脚 / 信息收尾", focusEn: "Footers / closing content" },
   { name: "Loadmo.re", domain: "loadmo.re", url: "https://loadmo.re/", group: "EXPERIMENT", descriptionZh: "发现更具实验性的网页、动效与创意交互表达。", descriptionEn: "Discover experimental websites, motion and creative interaction work.", focusZh: "实验网页 / 创意动效", focusEn: "Experimental web / motion" },
-  { name: "Anime.js", domain: "animejs.com", url: "https://animejs.com/", group: "MOTION", descriptionZh: "轻量而强大的 JavaScript 动画引擎，可编排 DOM、SVG、CSS 属性与时间轴动画。", descriptionEn: "A lightweight JavaScript animation engine for DOM, SVG, CSS properties and timeline choreography.", focusZh: "时间轴 / SVG / 交互动效", focusEn: "Timelines / SVG / interaction motion" },
-  { name: "Slidify", domain: "slidify.cn", url: "https://slidify.cn/", group: "PRESENTATION", descriptionZh: "无需配置开发环境，用一句话快速生成可编辑 PPT。", descriptionEn: "Generate editable presentations from a prompt without configuring a development environment.", focusZh: "急用出稿 / 轻量任务 / 非技术用户", focusEn: "Quick drafts / light tasks / non-technical users" }
+  { name: "Anime.js", domain: "animejs.com", url: "https://animejs.com/", group: "MOTION", previewType: "video", previewSrc: "./assets/skills/web/animejs-com-cover.mp4", descriptionZh: "轻量而强大的 JavaScript 动画引擎，可编排 DOM、SVG、CSS 属性与时间轴动画。", descriptionEn: "A lightweight JavaScript animation engine for DOM, SVG, CSS properties and timeline choreography.", focusZh: "时间轴 / SVG / 交互动效", focusEn: "Timelines / SVG / interaction motion" }
 ];
 
 const skillsTranslations = {
@@ -226,15 +250,27 @@ const skillVisuals = {
   "mattpocock/skills": { zh: "把工程经验\n变成工作流", en: "Turn engineering\npractice into workflows" },
   "anthropics/skills": { zh: "从需求构建\n真实界面", en: "Build real interfaces\nfrom requirements" },
   "vercel-labs/agent-skills": { zh: "按生产标准\n构建前端", en: "Build frontend work\nto production standards" },
+  "manalkaff/opendesign": { zh: "从探索到交付\n串起设计流程", en: "Connect exploration\nto design handoff" },
+  "vercel-labs/design-systems-to-agent-skills": { zh: "把设计系统\n转成 Skill", en: "Turn design systems\ninto agent skills" },
+  "weareoxd/design-skill-generator": { zh: "把参考图变成\n设计 Skill", en: "Turn references\ninto design skills" },
+  "nolly-studio/agent-skills": { zh: "沉淀项目级\n设计契约", en: "Capture project-level\ndesign contracts" },
   "nextlevelbuilder/ui-ux-pro-max-skill": { zh: "把复杂数据\n变成交互演示", en: "Turn complex data into\nan interactive presentation" },
   "motiondivision/motion": { zh: "为交互增加\n自然反馈", en: "Add natural feedback\nto interactions" },
   "radix-ui/primitives": { zh: "从无障碍原语\n开始构建", en: "Start with accessible\ninterface primitives" },
+  "shadcn-ui/ui": { zh: "复制高质量\n组件系统", en: "Copy a polished\ncomponent system" },
   "tailwindlabs/headlessui": { zh: "组合可靠的\n交互模式", en: "Compose dependable\ninteraction patterns" },
   "lucide-icons/lucide": { zh: "统一产品的\n图标语言", en: "Unify the product's\nicon language" },
   "pmndrs/react-three-fiber": { zh: "把 3D 带进\nReact", en: "Bring 3D into\nReact" },
   "storybookjs/storybook": { zh: "让组件可见\n可测可协作", en: "Make components visible,\ntestable and collaborative" },
   "google-labs-code/stitch-skills": { zh: "从提示生成\n可迭代界面", en: "Generate interfaces\nready to iterate" },
   "bergside/awesome-design-skills": { zh: "快速找到合适的\n设计能力", en: "Find the right\ndesign capability faster" },
+  "gztchan/awesome-design": { zh: "把设计资源\n收进工具箱", en: "Put design resources\ninto your toolkit" },
+  "magnus919/agent-skills": { zh: "把产品路径\n设计清楚", en: "Make product paths\nclearer" },
+  "sergekostenchuk/ui-ux-agent-skill-system": { zh: "补齐真实产品\n界面状态", en: "Cover real product\ninterface states" },
+  "content-designer/ux-writing-skill": { zh: "让界面文案\n更清楚", en: "Make interface copy\nclearer" },
+  "Community-Access/accessibility-agents": { zh: "交付前完成\n无障碍审查", en: "Audit accessibility\nbefore shipping" },
+  "skydashnet/material-design-3-ui-skill": { zh: "按 Material 3\n建立界面", en: "Design with\nMaterial 3" },
+  "wenkang-deepblue/frontend-design": { zh: "把设计微调\n交回 Agent", en: "Send design tweaks\nback to agents" },
   "SeanJ1ang/design-judge-skills": { zh: "看见界面还\n缺少什么", en: "See what the interface\nis still missing" },
   "ConardLi/garden-skills": { zh: "组合 AI 产品\n开发能力", en: "Combine capabilities\nfor AI product work" },
   "Owl-Listener/designer-skills": { zh: "辅助日常的\n设计决策", en: "Support everyday\ndesign decisions" },
@@ -263,7 +299,19 @@ const skillOfficialPages = {
   "greensock/GSAP": "https://gsap.com",
   "motiondivision/motion": "https://motion.dev",
   "radix-ui/primitives": "https://www.radix-ui.com/primitives",
+  "shadcn-ui/ui": "https://github.com/shadcn-ui/ui",
   "tailwindlabs/headlessui": "https://github.com/tailwindlabs/headlessui",
+  "gztchan/awesome-design": "https://github.com/gztchan/awesome-design",
+  "manalkaff/opendesign": "https://github.com/manalkaff/opendesign",
+  "vercel-labs/design-systems-to-agent-skills": "https://github.com/vercel-labs/design-systems-to-agent-skills",
+  "weareoxd/design-skill-generator": "https://github.com/weareoxd/design-skill-generator",
+  "nolly-studio/agent-skills": "https://github.com/nolly-studio/agent-skills",
+  "magnus919/agent-skills": "https://github.com/magnus919/agent-skills",
+  "sergekostenchuk/ui-ux-agent-skill-system": "https://github.com/sergekostenchuk/ui-ux-agent-skill-system",
+  "content-designer/ux-writing-skill": "https://github.com/content-designer/ux-writing-skill",
+  "Community-Access/accessibility-agents": "https://github.com/Community-Access/accessibility-agents",
+  "skydashnet/material-design-3-ui-skill": "https://github.com/skydashnet/material-design-3-ui-skill",
+  "wenkang-deepblue/frontend-design": "https://github.com/wenkang-deepblue/frontend-design",
   "lucide-icons/lucide": "https://lucide.dev/icons",
   "pmndrs/react-three-fiber": "https://r3f.docs.pmnd.rs/getting-started/introduction",
   "storybookjs/storybook": "https://storybook.js.org"
@@ -278,8 +326,17 @@ function getSkillBrowserLabel(item) {
 }
 
 function getSkillCover(item) {
+  if (item.coverImage) return item.coverImage;
   const filename = item.slug.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   return `./assets/skills/repositories/${filename}.jpg`;
+}
+
+function getSkillCoverMarkup(item) {
+  const poster = getSkillCover(item);
+  if (item.coverType === "video" && item.coverSrc) {
+    return `<video class="repo-cover-image" src="${escapeHtml(item.coverSrc)}" poster="${escapeHtml(poster)}" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>`;
+  }
+  return `<img class="repo-cover-image" src="${escapeHtml(poster)}" alt="" loading="lazy" decoding="async">`;
 }
 
 function getWebsitePreviewPath(item) {
@@ -536,7 +593,7 @@ function renderRepositories() {
     <article class="repo-row repo-card-${index % 6}" data-category="${escapeHtml(item.category)}">
       <a class="repo-scene" data-category="${escapeHtml(item.category)}" href="./skill-detail.html?repo=${encodeURIComponent(item.slug)}&lang=${currentLanguage}" aria-label="${currentLanguage === "en" ? "View skill details" : "查看 Skill 详情"}: ${escapeHtml(item.title)}">
         <span class="repo-browser-bar" aria-hidden="true"><i></i><i></i><i></i><b>${escapeHtml(getSkillBrowserLabel(item))}</b><em>${skillIcon("external-link")}</em></span>
-        <img class="repo-cover-image" src="${escapeHtml(getSkillCover(item))}" alt="" loading="lazy" decoding="async">
+        ${getSkillCoverMarkup(item)}
         <span class="repo-cover-shade" aria-hidden="true"></span>
         <span class="repo-index">${String(index + 1).padStart(2, "0")}</span>
         <span class="repo-cover-caption"><strong>${escapeHtml(getSkillVisual(item))}</strong><small>${escapeHtml(getCategoryLabel(item.category))}</small></span>

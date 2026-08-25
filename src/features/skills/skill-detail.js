@@ -42,14 +42,18 @@
   document.querySelector("[data-repository]").textContent = item.slug;
   document.querySelector("[data-outcome]").textContent = outcome;
   document.querySelector("[data-focus]").textContent = item.focus;
-  document.querySelector("[data-output-category]").dataset.category = item.category;
+  const output = document.querySelector("[data-output-category]");
+  output.dataset.category = item.category;
+  renderDetailMedia(item, output);
   document.querySelector("[data-capability-copy]").textContent = language === "en" ? `Use this skill when you need support with ${item.focus.toLowerCase()}. It provides a focused starting point instead of a generic design response.` : `当你的任务涉及「${item.focus}」时，可以用这个 Skill 建立更明确的判断与执行起点，避免得到过于通用的设计回答。`;
   document.querySelector("[data-command]").textContent = command;
   document.querySelector("[data-prompt]").textContent = prompt;
   document.querySelectorAll("[data-github-link]").forEach((link) => { link.href = githubUrl; });
 
   const tags = item.focus.split(/\s*\/\s*/).filter(Boolean);
-  document.querySelector("[data-tags]").innerHTML = [categoryLabel, ...tags].map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
+  const extraTags = Array.isArray(item.extraTags?.[language]) ? item.extraTags[language] : [];
+  const displayTags = [...new Set([categoryLabel, ...extraTags, ...tags])];
+  document.querySelector("[data-tags]").innerHTML = displayTags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
   document.querySelector("[data-use-grid]").innerHTML = tags.slice(0, 2).map((tag, tagIndex) => `<div><b>0${tagIndex + 1}</b><strong>${escapeHtml(tag)}</strong></div>`).join("") + `<div><b>03</b><strong>${language === "en" ? "Reusable workflow" : "可复用工作流"}</strong></div><div><b>04</b><strong>${language === "en" ? "Clearer design decisions" : "更清晰的设计判断"}</strong></div>`;
 
   const copyValue = (button, value) => navigator.clipboard.writeText(value).then(() => {
@@ -77,6 +81,19 @@
   }).catch(() => {}));
 
   function escapeHtml(value) { return String(value || "").replace(/[&<>'"]/g, (character) => ({ "&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;" })[character]); }
+  function renderDetailMedia(skill, outputElement) {
+    const frame = document.querySelector(".detail-output-ui");
+    if (!frame || !skill.detailMediaSrc) return;
+    outputElement.classList.add("has-detail-media");
+    frame.removeAttribute("aria-hidden");
+    frame.setAttribute("aria-label", language === "en" ? `${skill.title} preview media` : `${skill.title} 预览媒体`);
+    if (skill.detailMediaType === "video") {
+      const poster = skill.coverImage || `./assets/skills/repositories/${skill.slug.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}.jpg`;
+      frame.innerHTML = `<video src="${escapeHtml(skill.detailMediaSrc)}" poster="${escapeHtml(poster)}" autoplay muted loop playsinline preload="metadata"></video>`;
+      return;
+    }
+    frame.innerHTML = `<img src="${escapeHtml(skill.detailMediaSrc)}" alt="">`;
+  }
   function formatNumber(value) { return value >= 1000 ? `${(value / 1000).toFixed(value >= 10000 ? 0 : 1)}k` : String(value ?? "--"); }
   function formatDate(value, lang) { if (!value) return copy.recent; return new Intl.DateTimeFormat(lang === "en" ? "en" : "zh-CN", { year:"numeric", month:"short", day:"numeric" }).format(new Date(value)); }
 })();
