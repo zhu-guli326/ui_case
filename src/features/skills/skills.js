@@ -397,7 +397,8 @@ function getSkillCover(item) {
 function getSkillCoverMarkup(item) {
   const poster = getSkillCover(item);
   if (item.coverType === "video" && item.coverSrc) {
-    return `<video class="repo-cover-image" src="${escapeHtml(item.coverSrc)}" poster="${escapeHtml(poster)}" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>`;
+    const posterAttribute = item.coverImage ? ` poster="${escapeHtml(item.coverImage)}"` : "";
+    return `<video class="repo-cover-image" src="${escapeHtml(item.coverSrc)}"${posterAttribute} autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>`;
   }
   return `<img class="repo-cover-image" src="${escapeHtml(poster)}" alt="" loading="lazy" decoding="async">`;
 }
@@ -411,7 +412,8 @@ function getWebsitePreviewPath(item) {
 function getWebsitePreviewMarkup(item) {
   const poster = getWebsitePreviewPath(item);
   if (item.previewType === "video" && item.previewSrc) {
-    return `<video src="${escapeHtml(item.previewSrc)}" poster="${escapeHtml(poster)}" autoplay muted loop playsinline preload="metadata" aria-label="${escapeHtml(item.name)} ${currentLanguage === "en" ? "official website video preview" : "官网视频预览"}" data-web-preview></video>`;
+    const posterAttribute = item.previewImage ? ` poster="${escapeHtml(item.previewImage)}"` : "";
+    return `<video src="${escapeHtml(item.previewSrc)}"${posterAttribute} autoplay muted loop playsinline preload="metadata" aria-label="${escapeHtml(item.name)} ${currentLanguage === "en" ? "official website video preview" : "官网视频预览"}" data-web-preview></video>`;
   }
   return `<img src="${escapeHtml(poster)}" alt="${escapeHtml(item.name)} ${currentLanguage === "en" ? "official website preview" : "官网页面预览"}" loading="lazy" decoding="async" data-web-preview>`;
 }
@@ -477,7 +479,11 @@ function getFilteredRepositories() {
   });
   if (activeSort === "STARS") return items.sort((a, b) => getStarValue(b) - getStarValue(a));
   if (activeSort === "UPDATED") return items.sort((a, b) => new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime());
-  return items;
+  return items.sort((a, b) => Number(hasReplacementCover(b)) - Number(hasReplacementCover(a)));
+}
+
+function hasReplacementCover(item) {
+  return Boolean(item.coverImage || (item.coverType === "video" && item.coverSrc));
 }
 
 function getFilteredWebsites() {

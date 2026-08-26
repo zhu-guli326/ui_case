@@ -29,6 +29,22 @@ function propertyValues(block, property) {
   return [...block.matchAll(new RegExp(`${property}:\\s*"([^"]+)"`, "g"))].map((match) => match[1]);
 }
 
+function recordsBy(block, key) {
+  return new Map([...block.matchAll(/\{\s*([^\n]+?)\s*\},?/g)].flatMap((match) => {
+    const record = match[1];
+    const id = record.match(new RegExp(`${key}:\\s*"([^"]+)"`))?.[1];
+    return id ? [[id, record]] : [];
+  }));
+}
+
+function recordValue(record, property) {
+  return record?.match(new RegExp(`${property}:\\s*"([^"]+)"`))?.[1] || "";
+}
+
+function localAssetPath(asset) {
+  return path.join(root, asset.replace(/^\.\//, ""));
+}
+
 function duplicates(values) {
   const seen = new Set();
   return [...new Set(values.filter((value) => seen.has(value) || !seen.add(value)))];
@@ -67,6 +83,8 @@ const websiteBlock = blockBetween("const designReferenceWebsites = [", "const sk
 const skillSlugs = propertyValues(repositoryBlock, "slug");
 const websiteDomains = propertyValues(websiteBlock, "domain");
 const websiteUrls = propertyValues(websiteBlock, "url");
+const repositoryRecords = recordsBy(repositoryBlock, "slug");
+const websiteRecords = recordsBy(websiteBlock, "domain");
 
 if (skillSlugs.length !== 35) errors.push(`Expected 35 Skill cards, found ${skillSlugs.length}`);
 if (websiteDomains.length !== 14) errors.push(`Expected 14 Web cards, found ${websiteDomains.length}`);
@@ -88,48 +106,59 @@ for (const match of source.matchAll(/previewSrc:\s*"\.\/assets\/skills\/web\/([^
 
 const webRows = websiteDomains.map((domain, index) => {
   const url = websiteUrls[index];
-  const filename = filenameFor(domain);
-  const file = path.join(webAssetDir, filename);
+  const canonical = `./assets/skills/web/${filenameFor(domain)}`;
+  const record = websiteRecords.get(domain);
+  const asset = recordValue(record, "previewSrc") || recordValue(record, "previewImage") || canonical;
+  const filename = asset.replace("./assets/skills/web/", "");
+  const file = localAssetPath(asset);
   const exists = fs.existsSync(file) && fs.statSync(file).isFile();
-  const row = { domain, url, filename, exists, bytes: 0, width: 0, height: 0 };
+  const row = { domain, url, filename, exists, replaced: asset !== canonical, bytes: 0, width: 0, height: 0 };
 
   if (!captureSource.includes(`"${domain}"`) || !captureSource.includes(`"${url}"`)) {
     errors.push(`${domain}: missing or mismatched capture target`);
   }
   if (!exists) {
-    errors.push(`${domain}: missing official-page screenshot -> assets/skills/web/${filename}`);
+    errors.push(`${domain}: missing active preview asset -> ${asset}`);
     return row;
   }
 
+  if (asset !== canonical && fs.existsSync(localAssetPath(canonical))) errors.push(`${domain}: superseded asset still exists -> ${canonical}`);
+
   const buffer = fs.readFileSync(file);
-  const dimensions = jpegDimensions(buffer);
   row.bytes = buffer.length;
-  row.width = dimensions?.width || 0;
-  row.height = dimensions?.height || 0;
-  if (!dimensions) errors.push(`${domain}: screenshot is not a readable JPEG`);
-  if (buffer.length < 20_000) warnings.push(`${domain}: screenshot is unusually small (${buffer.length} bytes)`);
-  if (dimensions && (dimensions.width < 640 || dimensions.height < 500)) {
-    errors.push(`${domain}: screenshot is too small (${dimensions.width}x${dimensions.height})`);
+  if (path.extname(file).toLowerCase() === ".jpg") {
+    const dimensions = jpegDimensions(buffer);
+    row.width = dimensions?.width || 0;
+    row.height = dimensions?.height || 0;
+    if (!dimensions) errors.push(`${domain}: screenshot is not a readable JPEG`);
+    if (buffer.length < 20_000) warnings.push(`${domain}: screenshot is unusually small (${buffer.length} bytes)`);
+    if (dimensions && (dimensions.width < 640 || dimensions.height < 500)) errors.push(`${domain}: screenshot is too small (${dimensions.width}x${dimensions.height})`);
   }
   return row;
 });
 
 const skillRows = skillSlugs.map((slug) => {
-  const filename = `${slug.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}.jpg`;
-  const file = path.join(repositoryAssetDir, filename);
+  const canonical = `./assets/skills/repositories/${slug.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}.jpg`;
+  const record = repositoryRecords.get(slug);
+  const asset = recordValue(record, "coverSrc") || recordValue(record, "coverImage") || canonical;
+  const filename = asset.replace("./assets/skills/repositories/", "");
+  const file = localAssetPath(asset);
   const exists = fs.existsSync(file) && fs.statSync(file).isFile();
-  const row = { slug, filename, exists, bytes: 0, width: 0, height: 0 };
+  const row = { slug, filename, exists, replaced: asset !== canonical, bytes: 0, width: 0, height: 0 };
   if (!exists) {
-    errors.push(`${slug}: missing official-page screenshot -> assets/skills/repositories/${filename}`);
+    errors.push(`${slug}: missing active cover asset -> ${asset}`);
     return row;
   }
+  if (asset !== canonical && fs.existsSync(localAssetPath(canonical))) errors.push(`${slug}: superseded asset still exists -> ${canonical}`);
   const buffer = fs.readFileSync(file);
-  const dimensions = jpegDimensions(buffer);
   row.bytes = buffer.length;
-  row.width = dimensions?.width || 0;
-  row.height = dimensions?.height || 0;
-  if (!dimensions) errors.push(`${slug}: screenshot is not a readable JPEG`);
-  if (dimensions && (dimensions.width < 800 || dimensions.height < 500)) errors.push(`${slug}: screenshot is too small (${dimensions.width}x${dimensions.height})`);
+  if (path.extname(file).toLowerCase() === ".jpg") {
+    const dimensions = jpegDimensions(buffer);
+    row.width = dimensions?.width || 0;
+    row.height = dimensions?.height || 0;
+    if (!dimensions) errors.push(`${slug}: screenshot is not a readable JPEG`);
+    if (dimensions && (dimensions.width < 800 || dimensions.height < 500)) errors.push(`${slug}: screenshot is too small (${dimensions.width}x${dimensions.height})`);
+  }
   return row;
 });
 

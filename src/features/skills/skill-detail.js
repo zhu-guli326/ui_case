@@ -96,8 +96,8 @@
     frame.removeAttribute("aria-hidden");
     frame.setAttribute("aria-label", language === "en" ? `${skill.title} preview media` : `${skill.title} 预览媒体`);
     if (skill.detailMediaType === "video") {
-      const poster = skill.coverImage || `./assets/skills/repositories/${skill.slug.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}.jpg`;
-      frame.innerHTML = `<video src="${escapeHtml(skill.detailMediaSrc)}" poster="${escapeHtml(poster)}" autoplay muted loop playsinline preload="metadata"></video>`;
+      const posterAttribute = skill.coverImage ? ` poster="${escapeHtml(skill.coverImage)}"` : "";
+      frame.innerHTML = `<video src="${escapeHtml(skill.detailMediaSrc)}"${posterAttribute} autoplay muted loop playsinline preload="metadata"></video>`;
       return;
     }
     frame.innerHTML = `<img src="${escapeHtml(skill.detailMediaSrc)}" alt="">`;

@@ -1,4 +1,4 @@
-import { mkdir, access } from "node:fs/promises";
+import { mkdir, access, readFile, rm } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
@@ -6,6 +6,21 @@ import { chromium } from "playwright";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const outputDir = path.join(root, "assets", "skills", "web");
 const force = process.argv.includes("--force");
+const catalogSource = await readFile(path.join(root, "src", "features", "skills", "skills.js"), "utf8");
+const websiteBlock = catalogSource.slice(
+  catalogSource.indexOf("const designReferenceWebsites = ["),
+  catalogSource.indexOf("const skillsTranslations = {")
+);
+const replacementDomains = new Set(
+  [...websiteBlock.matchAll(/\{\s*([^\n]+?)\s*\},?/g)].flatMap((match) => {
+    const record = match[1];
+    const domain = record.match(/domain:\s*"([^"]+)"/)?.[1];
+    const replacement = record.match(/(?:previewSrc|previewImage):\s*"([^"]+)"/)?.[1];
+    if (!domain || !replacement) return [];
+    const canonical = `./assets/skills/web/${filenameFor(domain)}`;
+    return replacement === canonical ? [] : [domain];
+  })
+);
 
 const websites = [
   ["recent.design", "https://recent.design/"],
@@ -49,6 +64,13 @@ const context = await browser.newContext({
 const failures = [];
 for (const [domain, url] of websites) {
   const output = path.join(outputDir, filenameFor(domain));
+  if (replacementDomains.has(domain)) {
+    if (await exists(output)) {
+      await rm(output);
+      process.stdout.write(`removed superseded ${domain} screenshot\n`);
+    }
+    continue;
+  }
   if (!force && await exists(output)) {
     process.stdout.write(`skip ${domain}\n`);
     continue;
