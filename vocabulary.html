@@ -8,14 +8,14 @@
   <meta name="color-scheme" content="light dark">
   <meta name="description" content="UI 词典：按类别浏览页面结构、导航、内容、控件和反馈形式。" data-i18n-attr="content:vocabulary.metaDescription">
   <title data-i18n="vocabulary.pageTitle">UI 词典 · IMAGE2 UI</title>
-  <link rel="stylesheet" href="./src/features/vocabulary/vocabulary.css?v=20260826-ui-style-pages-v3">
+  <link rel="stylesheet" href="./src/features/vocabulary/vocabulary.css?v=20260826-style-cards-v4">
   <link rel="stylesheet" href="./src/core/app-shell/directory-page.css?v=20260824-unified-directory-v1">
     <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
   <link rel="stylesheet" href="./src/components/site-header/site-footer.css">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./src/core/adsense/adsense.js" defer></script>
-  <script type="module" src="./vocabulary.js?v=20260826-ui-style-pages-v3"></script>
+  <script type="module" src="./vocabulary.js?v=20260826-style-cards-v4"></script>
   <style>
     body { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; line-height: 1.65; }
   </style>
@@ -54,13 +54,7 @@
         </div>
         <p class="results-summary" id="resultsSummary" role="status" aria-live="polite" aria-atomic="true" data-i18n="vocabulary.resultsIntro">从页面基础开始，逐步看到控件、内容和反馈状态。</p>
         <section class="style-cover-gallery" id="styleCoverGallery" aria-labelledby="styleCoverGalleryTitle" hidden>
-          <header class="style-cover-heading">
-            <div>
-              <p class="eyebrow" data-i18n="vocabulary.styleCoverEyebrow">设计风格 / 视觉参考</p>
-              <h2 id="styleCoverGalleryTitle" data-i18n="vocabulary.styleCoverTitle">先看页面，再选风格</h2>
-            </div>
-            <p data-i18n="vocabulary.styleCoverIntro">每张封面都是完整的 Web UI 页面示例，先看导航、布局、卡片与控件，再选择接近的设计方向。</p>
-          </header>
+          <h2 class="sr-only" id="styleCoverGalleryTitle" data-i18n="vocabulary.styleCoverTitle">设计风格示例</h2>
           <div class="style-cover-groups">
             <section class="style-cover-group" aria-labelledby="styleMinimalGroup">
               <header class="style-cover-group-heading"><span>01</span><h3 id="styleMinimalGroup">Minimal &amp; Modern <em data-i18n="vocabulary.styleMinimalZh">现代极简</em></h3></header>

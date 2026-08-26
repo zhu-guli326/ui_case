@@ -466,7 +466,7 @@ function renderEntries() {
       ? tr("所有词条", "All terms")
       : categoryLabel(state.category);
   resultsHeading.hidden = navigationMode;
-  resultsSummary.hidden = navigationMode;
+  resultsSummary.hidden = navigationMode || stylesMode;
   if (styleCoverGallery) styleCoverGallery.hidden = !stylesMode || Boolean(state.query.trim());
   entryGrid.hidden = navigationMode || stylesMode;
   entryGrid.innerHTML = navigationMode || stylesMode ? "" : list.map(cardMarkup).join("");
