@@ -23,7 +23,7 @@
   const pageHandlers = new Set();
   const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
   const translations = {
-    "nav.library": { zh: "图书馆", en: "Library" },
+    "nav.library": { zh: "案例库", en: "Library" },
     "nav.explore": { zh: "探索", en: "Explore" },
     "nav.caseLibrary": { zh: "案例库", en: "Case Library" },
     "nav.caseLibraryHint": { zh: "浏览可点击 UI 案例", en: "Browse clickable UI cases" },
@@ -38,9 +38,6 @@
     "nav.vocabulary": { zh: "UI 词典", en: "UI vocabulary" },
     "nav.resources": { zh: "更多", en: "More" },
     "nav.docs": { zh: "文档", en: "Docs" },
-    "footer.about": { zh: "关于 ONDesign", en: "About ONDesign" },
-    "footer.privacy": { zh: "隐私政策", en: "Privacy Policy" },
-    "footer.contact": { zh: "联系我们", en: "Contact" },
     "common.language": { zh: "语言 / Language", en: "Language / 语言" },
     "common.chinese": { zh: "中文", en: "中文" },
     "common.english": { zh: "English", en: "English" },
@@ -314,7 +311,7 @@
   }
 
   function localizeLinks(root = document) {
-    const pages = /^(?:index|library|learn|brands|launcher|skills|vocabulary|reference|markdown|about|privacy|contact)\.html$/i;
+    const pages = /^(?:index|library|learn|brands|launcher|skills|vocabulary|reference|markdown)\.html$/i;
     root.querySelectorAll("a[href]").forEach((link) => {
       const raw = link.getAttribute("href");
       if (!raw || raw.startsWith("#") || /^(?:https?:|mailto:|tel:|javascript:)/i.test(raw)) return;
@@ -329,21 +326,6 @@
     });
   }
 
-  function mountSiteFooter() {
-    if (!document.body || document.body.dataset.siteFooter === "disabled" || document.querySelector("[data-site-footer]")) return;
-    const footer = document.createElement("footer");
-    footer.className = "site-footer";
-    footer.dataset.siteFooter = "";
-    footer.innerHTML = `<div class="site-footer-inner"><p><strong>ONDesign</strong><span>AI × UI design learning studio</span></p><nav aria-label="${language === "en" ? "Footer" : "页脚导航"}"><a href="./about.html" data-i18n="footer.about">${t("footer.about")}</a><a href="./privacy.html" data-i18n="footer.privacy">${t("footer.privacy")}</a><a href="./contact.html" data-i18n="footer.contact">${t("footer.contact")}</a><a href="https://github.com/zhu-guli326/image2_UI_skill" target="_blank" rel="noopener noreferrer">GitHub</a></nav><small>© 2026 ONDesign. Content and examples are for learning purposes.</small></div>`;
-    document.body.appendChild(footer);
-    localizeLinks(footer);
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", () => {
-        if (footer.isConnected) document.body.appendChild(footer);
-      }, { once: true });
-    }
-  }
-
   function hydrateSiteHeader(header) {
     renderSiteHeader(header);
     if (header.hidden) return;
@@ -352,7 +334,6 @@
     applyDataTranslations(header);
     localizeLinks(header);
     updateSiteStars(githubStars);
-    mountSiteFooter();
   }
 
   if ("customElements" in window && !customElements.get("image2-site-header")) {
