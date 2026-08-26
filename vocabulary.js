@@ -46,6 +46,12 @@ i18n?.addTranslations({
   "vocabulary.sortFavorites": { zh: "我的收藏", en: "Favorites first" },
   "vocabulary.shareView": { zh: "复制当前链接", en: "Copy current link" },
   "vocabulary.resultsIntro": { zh: "从页面基础开始，逐步看到控件、内容和反馈状态。", en: "Start with page foundations, then move through navigation, content, controls, and feedback." },
+  "vocabulary.styleCoverEyebrow": { zh: "设计风格 / 视觉参考", en: "DESIGN STYLES / VISUAL REFERENCES" },
+  "vocabulary.styleCoverTitle": { zh: "先看画面，再选风格", en: "See the mood before choosing a style" },
+  "vocabulary.styleCoverIntro": { zh: "同一个界面可以有完全不同的视觉语言。先用封面找到接近的方向，再进入具体词条。", en: "The same interface can speak in very different visual languages. Start with a cover, then explore the related terms." },
+  "vocabulary.styleMinimalZh": { zh: "现代极简", en: "Minimal systems" },
+  "vocabulary.styleGraphicZh": { zh: "图形与实验", en: "Graphic experiments" },
+  "vocabulary.styleTactileZh": { zh: "质感与未来", en: "Tactile futures" },
   "vocabulary.noMatches": { zh: "暂时没有匹配的词条", en: "No matching terms" },
   "vocabulary.noMatchesHint": { zh: "试试更短的关键词，或清除当前分类筛选。", en: "Try a shorter query or clear the current category filter." },
   "vocabulary.clearFilters": { zh: "清除筛选", en: "Clear filters" },
@@ -170,6 +176,7 @@ const resultsEyebrow = $("#resultsEyebrow");
 const resultsTitle = $("#resultsTitle");
 const resultCount = $("#resultCount");
 const resultsSummary = $("#resultsSummary");
+const styleCoverGallery = $("#styleCoverGallery");
 const emptyState = $("#emptyState");
 const navigationDeepDive = $("#navigationDeepDive");
 const toast = $("#toast");
@@ -432,6 +439,7 @@ function renderEntries() {
       : categoryLabel(state.category);
   resultsHeading.hidden = navigationMode;
   resultsSummary.hidden = navigationMode;
+  if (styleCoverGallery) styleCoverGallery.hidden = navigationMode || Boolean(state.query.trim()) || state.category !== "all";
   entryGrid.hidden = navigationMode;
   entryGrid.innerHTML = navigationMode ? "" : list.map(cardMarkup).join("");
   emptyState.hidden = navigationMode || list.length > 0;
