@@ -8,14 +8,14 @@
   <meta name="color-scheme" content="light dark">
   <meta name="description" content="UI 词典：按类别浏览页面结构、导航、内容、控件和反馈形式。" data-i18n-attr="content:vocabulary.metaDescription">
   <title data-i18n="vocabulary.pageTitle">UI 词典 · IMAGE2 UI</title>
-  <link rel="stylesheet" href="./src/features/vocabulary/vocabulary.css?v=20260826-style-covers-v1">
+  <link rel="stylesheet" href="./src/features/vocabulary/vocabulary.css?v=20260826-style-library-v2">
   <link rel="stylesheet" href="./src/core/app-shell/directory-page.css?v=20260824-unified-directory-v1">
     <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
   <link rel="stylesheet" href="./src/components/site-header/site-footer.css">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./src/core/adsense/adsense.js" defer></script>
-  <script type="module" src="./vocabulary.js?v=20260826-style-covers-v1"></script>
+  <script type="module" src="./vocabulary.js?v=20260826-style-library-v2"></script>
   <style>
     body { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-size: 16px; line-height: 1.65; }
   </style>
@@ -53,7 +53,7 @@
           <div class="results-actions"><label class="sort-control" for="sortSelect"><span data-i18n="vocabulary.sort">排序</span><select id="sortSelect" data-i18n-attr="aria-label:vocabulary.sort"><option value="recommended" data-i18n="vocabulary.sortRecommended">推荐顺序</option><option value="az" data-i18n="vocabulary.sortName">中文名称</option><option value="category" data-i18n="vocabulary.sortCategory">分类</option><option value="favorites" data-i18n="vocabulary.sortFavorites">我的收藏</option></select></label><button class="share-view-button" id="shareView" type="button" data-i18n="vocabulary.shareView">复制当前链接</button></div>
         </div>
         <p class="results-summary" id="resultsSummary" role="status" aria-live="polite" aria-atomic="true" data-i18n="vocabulary.resultsIntro">从页面基础开始，逐步看到控件、内容和反馈状态。</p>
-        <section class="style-cover-gallery" id="styleCoverGallery" aria-labelledby="styleCoverGalleryTitle">
+        <section class="style-cover-gallery" id="styleCoverGallery" aria-labelledby="styleCoverGalleryTitle" hidden>
           <header class="style-cover-heading">
             <div>
               <p class="eyebrow" data-i18n="vocabulary.styleCoverEyebrow">设计风格 / 视觉参考</p>
@@ -61,19 +61,37 @@
             </div>
             <p data-i18n="vocabulary.styleCoverIntro">同一个界面可以有完全不同的视觉语言。先用封面找到接近的方向，再进入具体词条。</p>
           </header>
-          <div class="style-cover-grid">
-            <article class="style-cover-card">
-              <figure><img src="./assets/style-covers/minimal-modern.webp" alt="现代极简风格的抽象几何与材质封面" loading="eager" decoding="async"></figure>
-              <div class="style-cover-copy"><span>01</span><div><h3>Minimal &amp; Modern <em data-i18n="vocabulary.styleMinimalZh">现代极简</em></h3><p>Tech Minimal · Swiss Style · Monochrome · Bento Grid</p></div></div>
-            </article>
-            <article class="style-cover-card">
-              <figure><img src="./assets/style-covers/graphic-experimental.webp" alt="图形实验风格的鲜艳抽象海报封面" loading="lazy" decoding="async"></figure>
-              <div class="style-cover-copy"><span>02</span><div><h3>Graphic &amp; Experimental <em data-i18n="vocabulary.styleGraphicZh">图形与实验</em></h3><p>Neo-Brutalism · Memphis · Pixel · Glitch Art</p></div></div>
-            </article>
-            <article class="style-cover-card">
-              <figure><img src="./assets/style-covers/tactile-future.webp" alt="丝绒、金属和透明材质构成的未来感封面" loading="lazy" decoding="async"></figure>
-              <div class="style-cover-copy"><span>03</span><div><h3>Tactile &amp; Future <em data-i18n="vocabulary.styleTactileZh">质感与未来</em></h3><p>Velvet Luxe · Surreal 3D · Glass · Chrome</p></div></div>
-            </article>
+          <div class="style-cover-groups">
+            <section class="style-cover-group" aria-labelledby="styleMinimalGroup">
+              <header class="style-cover-group-heading"><span>01</span><h3 id="styleMinimalGroup">Minimal &amp; Modern <em data-i18n="vocabulary.styleMinimalZh">现代极简</em></h3></header>
+              <div class="style-cover-grid">
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/minimal-modern.webp" alt="科技极简风格封面" loading="eager" decoding="async"></figure><div class="style-cover-copy"><span>01</span><h4>Tech Minimal <em data-i18n="vocabulary.styleTechMinimal">科技极简</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/luxury-minimal.webp" alt="奢华极简风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>02</span><h4>Luxury Minimal <em data-i18n="vocabulary.styleLuxuryMinimal">奢华极简</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/editorial-minimal.webp" alt="编辑式极简风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>03</span><h4>Editorial Minimal <em data-i18n="vocabulary.styleEditorialMinimal">编辑式极简</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/swiss-style.webp" alt="瑞士国际主义风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>04</span><h4>Swiss Style <em data-i18n="vocabulary.styleSwiss">瑞士国际主义风格</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/swiss-geometric.webp" alt="瑞士几何风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>05</span><h4>Swiss Geometric <em data-i18n="vocabulary.styleSwissGeometric">瑞士几何风格</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/swiss-typographic.webp" alt="瑞士黑白字体风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>06</span><h4>Swiss Typographic <em data-i18n="vocabulary.styleSwissTypographic">瑞士黑白字体</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/swiss-dots-color.webp" alt="瑞士圆点色彩风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>07</span><h4>Swiss Dots &amp; Color <em data-i18n="vocabulary.styleSwissDots">瑞士圆点色彩</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/warm-minimal.webp" alt="温暖极简风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>08</span><h4>Warm Minimal <em data-i18n="vocabulary.styleWarmMinimal">温暖极简</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/tactile-future.webp" alt="丝绒奢华风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>09</span><h4>Velvet Luxe <em data-i18n="vocabulary.styleVelvetLuxe">丝绒奢华</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/monochrome.webp" alt="单色主义风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>10</span><h4>Monochrome <em data-i18n="vocabulary.styleMonochrome">单色主义</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/bento-grid.webp" alt="网格卡片风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>11</span><h4>Bento Grid <em data-i18n="vocabulary.styleBentoGrid">网格卡片</em></h4></div></article>
+              </div>
+            </section>
+            <section class="style-cover-group" aria-labelledby="styleGraphicGroup">
+              <header class="style-cover-group-heading"><span>02</span><h3 id="styleGraphicGroup">Graphic &amp; Experimental <em data-i18n="vocabulary.styleGraphicZh">图形与实验</em></h3></header>
+              <div class="style-cover-grid">
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/graphic-experimental.webp" alt="新粗野主义风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>01</span><h4>Neo-Brutalism <em data-i18n="vocabulary.styleNeoBrutalism">新粗野主义</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/anti-design.webp" alt="反设计风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>02</span><h4>Anti-Design <em data-i18n="vocabulary.styleAntiDesign">反设计</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/memphis.webp" alt="孟菲斯风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>03</span><h4>Memphis <em data-i18n="vocabulary.styleMemphis">孟菲斯风格</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/dopamine-design.webp" alt="多巴胺设计风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>04</span><h4>Dopamine Design <em data-i18n="vocabulary.styleDopamine">多巴胺设计</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/pixel.webp" alt="像素风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>05</span><h4>Pixel <em data-i18n="vocabulary.stylePixel">像素风格</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/glitch-art.webp" alt="故障艺术风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>06</span><h4>Glitch Art <em data-i18n="vocabulary.styleGlitchArt">故障艺术</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/kinetic-typography.webp" alt="动态字体风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>07</span><h4>Kinetic Typography <em data-i18n="vocabulary.styleKineticTypography">动态字体</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/surreal-3d.webp" alt="超现实三维风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>08</span><h4>Surreal 3D <em data-i18n="vocabulary.styleSurreal3D">超现实三维</em></h4></div></article>
+                <article class="style-cover-card"><figure><img src="./assets/style-covers/maximalism.webp" alt="极繁主义风格封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>09</span><h4>Maximalism <em data-i18n="vocabulary.styleMaximalism">极繁主义</em></h4></div></article>
+              </div>
+            </section>
           </div>
         </section>
         <section class="navigation-deep-dive" id="navigationDeepDive" aria-labelledby="navigationDeepDiveTitle" hidden>

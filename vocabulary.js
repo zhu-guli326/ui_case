@@ -5,6 +5,11 @@ import { resolveVocabularyCategoryIntent } from "./src/features/vocabulary/vocab
 
 const vocabularyEntries = [...baseVocabularyEntries, ...vocabularyComponentEntries];
 const vocabularyById = Object.fromEntries(vocabularyEntries.map((entry) => [entry.id, entry]));
+const taxonomyCategories = [
+  ...vocabularyCategories.slice(0, -1),
+  { id: "styles", label: "设计风格", en: "Design styles" },
+  vocabularyCategories.at(-1),
+];
 
 document.querySelectorAll(".reference-link").forEach((link) => link.remove());
 
@@ -51,7 +56,26 @@ i18n?.addTranslations({
   "vocabulary.styleCoverIntro": { zh: "同一个界面可以有完全不同的视觉语言。先用封面找到接近的方向，再进入具体词条。", en: "The same interface can speak in very different visual languages. Start with a cover, then explore the related terms." },
   "vocabulary.styleMinimalZh": { zh: "现代极简", en: "Minimal systems" },
   "vocabulary.styleGraphicZh": { zh: "图形与实验", en: "Graphic experiments" },
-  "vocabulary.styleTactileZh": { zh: "质感与未来", en: "Tactile futures" },
+  "vocabulary.styleTechMinimal": { zh: "科技极简", en: "Tech-led minimalism" },
+  "vocabulary.styleLuxuryMinimal": { zh: "奢华极简", en: "Refined minimalism" },
+  "vocabulary.styleEditorialMinimal": { zh: "编辑式极简", en: "Editorial restraint" },
+  "vocabulary.styleSwiss": { zh: "瑞士国际主义风格", en: "International style" },
+  "vocabulary.styleSwissGeometric": { zh: "瑞士几何风格", en: "Geometric systems" },
+  "vocabulary.styleSwissTypographic": { zh: "瑞士黑白字体", en: "Typographic systems" },
+  "vocabulary.styleSwissDots": { zh: "瑞士圆点色彩", en: "Dots and color" },
+  "vocabulary.styleWarmMinimal": { zh: "温暖极简", en: "Soft minimalism" },
+  "vocabulary.styleVelvetLuxe": { zh: "丝绒奢华", en: "Tactile luxury" },
+  "vocabulary.styleMonochrome": { zh: "单色主义", en: "Single-color systems" },
+  "vocabulary.styleBentoGrid": { zh: "网格卡片", en: "Modular cards" },
+  "vocabulary.styleNeoBrutalism": { zh: "新粗野主义", en: "Bold raw geometry" },
+  "vocabulary.styleAntiDesign": { zh: "反设计", en: "Rule-breaking layout" },
+  "vocabulary.styleMemphis": { zh: "孟菲斯风格", en: "Playful geometry" },
+  "vocabulary.styleDopamine": { zh: "多巴胺设计", en: "Joyful color" },
+  "vocabulary.stylePixel": { zh: "像素风格", en: "Pixel aesthetics" },
+  "vocabulary.styleGlitchArt": { zh: "故障艺术", en: "Digital distortion" },
+  "vocabulary.styleKineticTypography": { zh: "动态字体", en: "Type in motion" },
+  "vocabulary.styleSurreal3D": { zh: "超现实三维", en: "Dreamlike 3D" },
+  "vocabulary.styleMaximalism": { zh: "极繁主义", en: "More is more" },
   "vocabulary.noMatches": { zh: "暂时没有匹配的词条", en: "No matching terms" },
   "vocabulary.noMatchesHint": { zh: "试试更短的关键词，或清除当前分类筛选。", en: "Try a shorter query or clear the current category filter." },
   "vocabulary.clearFilters": { zh: "清除筛选", en: "Clear filters" },
@@ -157,7 +181,7 @@ function readFavorites() {
 }
 
 const urlState = new URLSearchParams(window.location.search);
-const validCategories = new Set([...vocabularyCategories.map((category) => category.id), "all"]);
+const validCategories = new Set(taxonomyCategories.map((category) => category.id));
 const validSorts = new Set(["recommended", "az", "category", "favorites"]);
 const initialTermId = urlState.get("term");
 
@@ -252,7 +276,7 @@ function focusDataAttribute(attribute, value) {
 }
 
 function categoryLabel(id) {
-  const category = vocabularyCategories.find((item) => item.id === id);
+  const category = taxonomyCategories.find((item) => item.id === id);
   return category ? tr(category.label, category.en) : tr("词条", "Term");
 }
 
@@ -266,6 +290,7 @@ function categoryEyebrow(id) {
     controls: ["控件与表单", "CONTROLS & FORMS"],
     feedback: ["反馈与浮层", "FEEDBACK & OVERLAYS"],
     visual: ["视觉与实现", "VISUAL DESIGN"],
+    styles: ["设计风格", "DESIGN STYLES"],
     favorites: ["我的收藏", "MY FAVORITES"],
   };
   const pair = labels[id] || labels.all;
@@ -273,12 +298,14 @@ function categoryEyebrow(id) {
 }
 
 function categoryDisplayCount(id) {
+  if (id === "styles") return 20;
   if (id === "favorites") return state.favorites.size;
   if (id === "all") return vocabularyEntries.length;
   return vocabularyEntries.filter((entry) => entry.category === id).length;
 }
 
 function matches(entry) {
+  if (state.category === "styles") return false;
   if (state.category === "favorites" && !state.favorites.has(entry.id)) return false;
   if (state.category !== "all" && state.category !== "favorites" && entry.category !== state.category) return false;
   const query = state.query.trim().toLocaleLowerCase();
@@ -301,7 +328,7 @@ function filteredEntries() {
 }
 
 function renderCategories() {
-  const html = vocabularyCategories.map((category) => {
+  const html = taxonomyCategories.map((category) => {
     const selected = state.category === category.id;
     const count = categoryDisplayCount(category.id);
     return `<button class="taxonomy-link${selected ? " is-selected" : ""}" type="button" data-category="${category.id}" aria-pressed="${selected}"><span>${escapeHtml(tr(category.label, category.en))}</span><b>${count}</b></button>`;
@@ -430,7 +457,8 @@ function setCardFlipped(card, flipped, { moveFocus = true } = {}) {
 function renderEntries() {
   const list = filteredEntries();
   const navigationMode = showsNavigationDeepDive();
-  const displayedCount = list.length;
+  const stylesMode = state.category === "styles";
+  const displayedCount = stylesMode ? 20 : list.length;
   resultsEyebrow.textContent = categoryEyebrow(state.category);
   resultsTitle.textContent = state.query
     ? currentLanguage === "en" ? "Search results" : "搜索结果"
@@ -439,13 +467,17 @@ function renderEntries() {
       : categoryLabel(state.category);
   resultsHeading.hidden = navigationMode;
   resultsSummary.hidden = navigationMode;
-  if (styleCoverGallery) styleCoverGallery.hidden = navigationMode || Boolean(state.query.trim()) || state.category !== "all";
-  entryGrid.hidden = navigationMode;
-  entryGrid.innerHTML = navigationMode ? "" : list.map(cardMarkup).join("");
-  emptyState.hidden = navigationMode || list.length > 0;
-  resultCount.textContent = currentLanguage === "en" ? `${displayedCount} ${displayedCount === 1 ? "term" : "terms"}` : `${displayedCount} 条`;
+  if (styleCoverGallery) styleCoverGallery.hidden = !stylesMode || Boolean(state.query.trim());
+  entryGrid.hidden = navigationMode || stylesMode;
+  entryGrid.innerHTML = navigationMode || stylesMode ? "" : list.map(cardMarkup).join("");
+  emptyState.hidden = navigationMode || stylesMode || list.length > 0;
+  resultCount.textContent = stylesMode
+    ? tr("20 种", "20 styles")
+    : currentLanguage === "en" ? `${displayedCount} ${displayedCount === 1 ? "term" : "terms"}` : `${displayedCount} 条`;
   resultsSummary.textContent = state.query
     ? currentLanguage === "en" ? `${list.length} ${list.length === 1 ? "term matches" : "terms match"} “${state.query}”` : `“${state.query}”匹配 ${list.length} 个词条`
+    : stylesMode
+      ? tr("从 20 张视觉封面中选择接近的设计方向。", "Choose a direction from 20 visual style covers.")
     : state.category === "favorites"
       ? currentLanguage === "en" ? `You saved ${list.length} ${list.length === 1 ? "term" : "terms"}` : `你收藏了 ${list.length} 个词条`
       : currentLanguage === "en" ? `${categoryLabel(state.category)} · ${list.length} ${list.length === 1 ? "term" : "terms"}` : `${categoryLabel(state.category)} · ${list.length} 个词条`;
