@@ -34,6 +34,7 @@ const presets = [
   { id: "atelier", label: "工坊 · 墨黑灰", desc: "无衬线排版配大圆角与宽松节奏，作品集与工作室气质。", style: "editorial", palette: "ink", font: "sans", radius: "28", spacing: "14", density: "loose" },
   { id: "editorial-coral", label: "柑橘 · 暖珊瑚", desc: "衬线文字与适中圆角，编辑感与暖色并存的杂志界面。", style: "vivid", palette: "coral", font: "serif", radius: "14", spacing: "6", density: "balanced" },
 ];
+const directionCases = { restrained: "fithub", editorial: "organique", vivid: "plate-play", future: "volt-route" };
 let activePresetId = "restrained";
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -72,8 +73,24 @@ function applyPreset(preset, { silent = false } = {}) {
   syncChoiceGroups();
   setPresetLabel(preset.label);
   applyPreview();
+  updateDirectionCaseLink();
   if (!silent) { renderPresetList(); toast(`已应用预设：${preset.label}`); }
 }
+
+function updateDirectionCaseLink() {
+  const link = $("[data-direction-case-link]");
+  const caseId = directionCases[state.style];
+  if (link && caseId) link.href = `./library.html?case=${caseId}&lang=${document.documentElement.lang.startsWith("zh") ? "zh" : "en"}`;
+}
+
+function scaleDirectionDemos() {
+  $$(".direction-live").forEach((wrap) => {
+    const frame = wrap.querySelector("iframe");
+    if (!frame || !wrap.clientWidth) return;
+    wrap.style.setProperty("--demo-scale", String(wrap.clientWidth / 390));
+  });
+}
+window.addEventListener("resize", scaleDirectionDemos);
 
 function syncChoiceGroups() {
   ["density", "palette", "font", "radius", "spacing"].forEach((group) => {
@@ -247,4 +264,4 @@ function installPresetDropdown() {
 restoreDna(); installEvents(); installPresetDropdown();
 const matchedPreset = presets.find((item) => item.style === state.style && item.palette === state.palette && item.font === state.font && item.radius === state.radius && item.spacing === state.spacing && item.density === state.density);
 setPresetLabel(matchedPreset ? matchedPreset.label : state.palette?.startsWith("lab:") ? paletteFor(state.palette).label : null);
-syncChoiceGroups(); applyPreview(); renderPrompt();
+syncChoiceGroups(); applyPreview(); renderPrompt(); updateDirectionCaseLink(); scaleDirectionDemos();

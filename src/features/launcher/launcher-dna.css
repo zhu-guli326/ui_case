@@ -205,6 +205,24 @@ fieldset legend { margin: 0 0 10px; padding: 0; color: var(--dna-muted); font-si
 }
 .direction-card:hover { transform: translateY(-2px); box-shadow: var(--dna-shadow); }
 .direction-card img { display: block; width: 100%; aspect-ratio: 16 / 10.5; object-fit: cover; }
+.direction-live {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10.5;
+  overflow: hidden;
+  background: var(--dna-canvas);
+}
+.direction-live iframe {
+  display: block;
+  width: 390px;
+  height: 844px;
+  border: 0;
+  pointer-events: none;
+  transform: scale(var(--demo-scale, .45));
+  transform-origin: 0 0;
+}
+.section-hint a { color: var(--dna-ink); font-weight: 750; text-underline-offset: 4px; }
+.section-hint a:hover { color: var(--dna-accent); }
 .direction-card > span { display: grid; gap: 3px; padding: 11px 13px 13px; }
 .direction-card strong { font-size: 14px; font-weight: 800; }
 .direction-card small { color: var(--dna-muted); font-size: 11px; }

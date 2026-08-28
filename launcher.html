@@ -12,12 +12,12 @@
   <link rel="stylesheet" href="./src/core/app-shell/design-tokens.css?v=20260828-unified-v1">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
-  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260828-dna-studio-v8">
+  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260828-dna-studio-v9">
   <link rel="stylesheet" href="./src/components/site-header/site-footer.css?v=20260828-unified-v1">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
-  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260828-dna-studio-v8"></script>
+  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260828-dna-studio-v9"></script>
 </head>
 <body class="dna-page">
   <image2-site-header data-site-header></image2-site-header>
@@ -53,13 +53,13 @@
         <section class="dna-section" id="dna-direction" aria-labelledby="directionTitle">
           <header class="dna-section-head"><span>01</span><div><h2 id="directionTitle">方向</h2><p>先确定整体气质，密度随之匹配。</p></div></header>
           <div class="direction-grid" role="radiogroup" aria-label="界面风格">
-            <button class="direction-card is-selected" type="button" role="radio" aria-checked="true" data-style="restrained"><img src="./assets/style-covers/warm-minimal.webp" alt="克制风格界面示例"><span><strong>克制</strong><small>留白、秩序、柔和</small></span></button>
-            <button class="direction-card" type="button" role="radio" aria-checked="false" data-style="editorial"><img src="./assets/style-covers/editorial-minimal.webp" alt="编辑感界面示例"><span><strong>编辑感</strong><small>字体、网格、对比</small></span></button>
-            <button class="direction-card" type="button" role="radio" aria-checked="false" data-style="vivid"><img src="./assets/style-covers/dopamine-design.webp" alt="活力风格界面示例"><span><strong>活力</strong><small>高对比、丰富、直接</small></span></button>
-            <button class="direction-card" type="button" role="radio" aria-checked="false" data-style="future"><img src="./assets/style-covers/tactile-future.webp" alt="未来感界面示例"><span><strong>未来感</strong><small>深邃、精致、氛围</small></span></button>
+            <button class="direction-card is-selected" type="button" role="radio" aria-checked="true" data-style="restrained"><span class="direction-live" data-demo="fithub"><iframe src="./demo/fithub/index.html?embed=1&amp;lang=zh" loading="lazy" tabindex="-1" scrolling="no" title="克制方向绑定的案例：极简训练规划"></iframe></span><span><strong>克制</strong><small>留白、秩序、柔和 · 案例「极简训练规划」</small></span></button>
+            <button class="direction-card" type="button" role="radio" aria-checked="false" data-style="editorial"><span class="direction-live" data-demo="organique"><iframe src="./demo/organique-food/index.html?embed=1&amp;lang=zh" loading="lazy" tabindex="-1" scrolling="no" title="编辑感方向绑定的案例：编辑式有机餐食"></iframe></span><span><strong>编辑感</strong><small>字体、网格、对比 · 案例「编辑式有机餐食」</small></span></button>
+            <button class="direction-card" type="button" role="radio" aria-checked="false" data-style="vivid"><span class="direction-live" data-demo="plate-play"><iframe src="./demo/plate-play/index.html?embed=1&amp;lang=zh" loading="lazy" tabindex="-1" scrolling="no" title="活力方向绑定的案例：高彩插画食谱"></iframe></span><span><strong>活力</strong><small>高对比、丰富、直接 · 案例「高彩插画食谱」</small></span></button>
+            <button class="direction-card" type="button" role="radio" aria-checked="false" data-style="future"><span class="direction-live" data-demo="volt-route"><iframe src="./demo/volt-route/index.html?embed=1&amp;lang=zh" loading="lazy" tabindex="-1" scrolling="no" title="未来感方向绑定的案例：暗色电车充电导航"></iframe></span><span><strong>未来感</strong><small>深邃、精致、氛围 · 案例「暗色电车充电导航」</small></span></button>
           </div>
           <fieldset class="density-field"><legend>界面密度</legend><div class="segmented-control" data-choice-group="density"><button type="button" data-value="loose">宽松</button><button class="is-selected" type="button" data-value="balanced">平衡</button><button type="button" data-value="compact">紧凑</button></div></fieldset>
-          <p class="section-hint">想要别的起点？<a href="./library.html?lang=zh" data-library-link>从案例库选择</a></p>
+          <p class="section-hint">方向已绑定案例库真实案例效果，<a href="./library.html?case=fithub&amp;lang=zh" data-direction-case-link>在案例库中打开当前方向的案例</a></p>
         </section>
 
         <section class="dna-section" id="dna-rules" aria-labelledby="rulesTitle">
