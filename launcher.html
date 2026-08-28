@@ -12,12 +12,12 @@
   <link rel="stylesheet" href="./src/core/app-shell/design-tokens.css?v=20260828-unified-v1">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
-  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260828-dna-studio-v7">
+  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260828-dna-studio-v8">
   <link rel="stylesheet" href="./src/components/site-header/site-footer.css?v=20260828-unified-v1">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
-  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260828-dna-studio-v7"></script>
+  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260828-dna-studio-v8"></script>
 </head>
 <body class="dna-page">
   <image2-site-header data-site-header></image2-site-header>
@@ -98,13 +98,18 @@
 
       <section class="dna-canvas" aria-labelledby="previewTitle">
         <div class="canvas-label"><div><span>LIVE PREVIEW</span><h2 id="previewTitle">实时预览</h2></div><div class="device-switch" aria-label="预览设备"><button class="is-selected" type="button" data-device="desktop">桌面</button><button type="button" data-device="mobile">移动</button></div></div>
-        <div class="component-switch" role="tablist" aria-label="预览组件">
+        <div class="component-switch" role="tablist" aria-label="预览页面与组件">
+          <span class="component-group">页面</span>
           <button class="is-selected" type="button" role="tab" aria-selected="true" data-component="landing">落地页</button>
+          <button type="button" role="tab" aria-selected="false" data-component="article">文章页</button>
+          <button type="button" role="tab" aria-selected="false" data-component="product">商品详情</button>
+          <button type="button" role="tab" aria-selected="false" data-component="dash">数据后台</button>
+          <button type="button" role="tab" aria-selected="false" data-component="settings">设置页</button>
+          <span class="component-group">组件</span>
           <button type="button" role="tab" aria-selected="false" data-component="nav">导航</button>
           <button type="button" role="tab" aria-selected="false" data-component="cards">卡片组</button>
           <button type="button" role="tab" aria-selected="false" data-component="form">表单</button>
           <button type="button" role="tab" aria-selected="false" data-component="pricing">定价</button>
-          <button type="button" role="tab" aria-selected="false" data-component="dash">仪表盘</button>
         </div>
         <div class="preview-stage" data-preview-stage>
           <article class="preview-browser" data-preview-browser>
@@ -154,6 +159,51 @@
               </div>
               <div class="v-chart"><div class="v-bars"><i style="height:38%"></i><i style="height:56%"></i><i style="height:44%"></i><i style="height:70%"></i><i class="is-hi" style="height:88%"></i><i style="height:62%"></i><i style="height:48%"></i></div><div class="v-bars-labels"><span>周一</span><span>周二</span><span>周三</span><span>周四</span><span>周五</span><span>周六</span><span>周日</span></div></div>
               <div class="v-rows"><div><b>落地页 A</b><span>克制 · 鼠尾草绿</span><em>3.9%</em></div><div><b>定价页 B</b><span>活力 · 暖珊瑚</span><em>4.6%</em></div><div><b>导航 C</b><span>编辑感 · 墨黑灰</span><em>2.8%</em></div></div>
+            </section>
+            <section class="sample-view" data-view="article" hidden>
+              <div class="v-article">
+                <span class="v-tag">设计方法论</span>
+                <h2 class="v-article-title">一套 DNA 是如何生长的</h2>
+                <div class="v-article-meta"><i class="v-avatar"></i><b>林一设计</b><span>2026 年 8 月 · 6 分钟阅读</span></div>
+                <div class="v-article-hero sample-visual"><div></div></div>
+                <p>每个产品第一次打开画布时都要回答同样的问题：主色是什么、标题用什么气质、卡片有多圆。没有 DNA 时，这些答案散落在每一次临时决定里。</p>
+                <p>我们把答案压缩成五组变量——方向、颜色、字体、形状与密度。它们像基因一样进入每个新页面，决定气质，而不是规定布局。</p>
+                <blockquote>「规范不是限制，而是让下一次创作有迹可循。」</blockquote>
+                <h3>从方向到变量</h3>
+                <p>先选一个方向确定整体气质，密度与留白随之匹配；再把颜色、字体、圆角与间距固化成可复用的规则。</p>
+                <ul><li>方向决定对比与留白的基调</li><li>颜色体系约束情绪与可用性</li><li>形状与密度控制阅读节奏</li></ul>
+                <div class="v-author"><i class="v-avatar"></i><div><b>林一设计</b><span>写下你身边的设计系统故事</span></div><button class="v-btn v-btn-primary">关注</button></div>
+              </div>
+            </section>
+            <section class="sample-view" data-view="product" hidden>
+              <div class="v-product">
+                <div class="v-breadcrumb">首页 / 商店 / <b>几何咖啡杯</b></div>
+                <div class="v-product-grid">
+                  <div class="v-gallery"><div class="v-cover v-gallery-main sample-visual"><div></div></div><div class="v-thumbs"><i class="sample-visual"></i><i style="background:color-mix(in srgb,var(--dna-accent) 30%,var(--dna-canvas))"></i><i style="background:var(--dna-accent-soft)"></i></div></div>
+                  <div class="v-product-info">
+                    <div class="v-stars">★★★★★ <b>4.8</b><span>(2,341)</span></div>
+                    <h3>几何咖啡杯 · 陶土限量版</h3>
+                    <p class="v-cost">¥129<i> 包邮</i></p>
+                    <p class="v-desc">手工陶土杯身，几何切面握感，配套杯垫与同色系礼盒。</p>
+                    <div class="v-option"><span>颜色</span><div class="v-dots"><i class="is-hi" style="background:var(--dna-accent)"></i><i style="background:color-mix(in srgb,var(--dna-accent) 45%,white)"></i><i style="background:var(--dna-ink)"></i><i style="background:color-mix(in srgb,var(--dna-ink) 30%,white)"></i></div></div>
+                    <div class="v-option"><span>尺寸</span><div class="v-chips"><button class="is-hi">S</button><button>M</button><button>L</button></div></div>
+                    <div class="v-buy"><button class="v-btn v-btn-primary">加入购物车</button><button class="v-btn">收藏</button></div>
+                    <dl class="v-specs"><div><dt>材质</dt><dd>高温陶土</dd></div><div><dt>容量</dt><dd>300ml</dd></div><div><dt>产地</dt><dd>景德镇</dd></div></dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="sample-view" data-view="settings" hidden>
+              <div class="v-settings">
+                <h3>通用设置</h3>
+                <p class="v-settings-sub">这些偏好会跟随你的 DNA 一起保存。</p>
+                <div class="v-setting"><div><b>外观主题</b><small>预览画布与示例页面一起变化</small></div><div class="v-chips"><button class="is-hi">浅色</button><button>深色</button></div></div>
+                <div class="v-setting"><div><b>跟随系统</b><small>切换设备主题时自动同步</small></div><label class="v-switch"><input type="checkbox" checked></label></div>
+                <div class="v-setting"><div><b>新作品提醒</b><small>关注的作者发布时通知我</small></div><label class="v-switch"><input type="checkbox" checked></label></div>
+                <div class="v-setting"><div><b>每周摘要</b><small>每周一发送上周的设计灵感</small></div><label class="v-switch"><input type="checkbox"></label></div>
+                <div class="v-setting"><div><b>界面语言</b><small>预览示例文案的显示语言</small></div><div class="v-chips"><button class="is-hi">简体中文</button><button>English</button></div></div>
+                <div class="v-setting"><div><b>退出登录</b><small>退出当前浏览器上的账户</small></div><button class="v-btn">退出</button></div>
+              </div>
             </section>
             </div>
             <div class="preview-dock" aria-label="当前设计 DNA"><div class="dock-palette" id="dockPalette"><i></i><i></i><i></i><i></i></div><span class="dock-divider"></span><button type="button" data-scroll="#dna-rules"><b>Aa</b><span id="dockFont">简洁无衬线</span></button><span class="dock-divider"></span><p><span id="dockRadius">14px 圆角</span><span id="dockDensity">平衡密度</span></p></div>

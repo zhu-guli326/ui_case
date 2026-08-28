@@ -608,6 +608,83 @@ fieldset legend { margin: 0 0 10px; padding: 0; color: var(--dna-muted); font-si
 .v-rows span { color: var(--dna-muted); }
 .v-rows em { color: var(--dna-accent); font-style: normal; font-weight: 800; }
 
+/* Switcher group labels */
+.component-group { align-self: center; margin-left: 6px; color: var(--dna-muted); font-size: 11px; font-weight: 800; letter-spacing: .08em; }
+.component-group:first-child { margin-left: 0; }
+
+/* Article page */
+.v-article { max-width: 640px; margin-inline: auto; display: grid; gap: 16px; }
+.v-article .v-tag { position: static; justify-self: start; background: var(--dna-accent-soft); color: var(--dna-accent); }
+.v-article-title { margin: 0; font-family: var(--dna-display); font-size: clamp(26px, 2.8vw, 40px); font-weight: 830; letter-spacing: -.03em; line-height: 1.16; }
+.v-article-meta { display: flex; align-items: center; gap: 10px; color: var(--dna-muted); font-size: 12px; }
+.v-article-meta b { color: var(--dna-ink); }
+.v-avatar { width: 28px; height: 28px; flex: 0 0 28px; border-radius: 50%; background: linear-gradient(135deg, var(--dna-accent), color-mix(in srgb, var(--dna-accent) 45%, var(--dna-ink))); }
+.v-article-hero { min-height: 240px; }
+.v-article p { margin: 0; color: color-mix(in srgb, var(--dna-ink) 86%, var(--dna-muted)); font-size: 14px; line-height: 1.9; }
+.v-article blockquote {
+  margin: 0; padding: 14px 20px; border-left: 3px solid var(--dna-accent);
+  background: var(--dna-accent-soft); border-radius: 0 calc(var(--dna-radius) * .6) calc(var(--dna-radius) * .6) 0;
+  color: var(--dna-ink); font-family: var(--dna-display); font-size: 16px; font-weight: 720; line-height: 1.7;
+}
+.v-article h3 { margin: 8px 0 0; font-family: var(--dna-display); font-size: 19px; font-weight: 820; }
+.v-article ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.v-article li { padding-left: 20px; position: relative; color: color-mix(in srgb, var(--dna-ink) 86%, var(--dna-muted)); font-size: 14px; line-height: 1.7; }
+.v-article li::before { content: ""; position: absolute; top: .62em; left: 4px; width: 7px; height: 7px; border-radius: 50%; background: var(--dna-accent); }
+.v-author { display: flex; align-items: center; gap: 12px; margin-top: 8px; padding: 14px 16px; border: 1px solid var(--dna-hairline); border-radius: var(--dna-radius); background: var(--dna-surface); }
+.v-author div { display: grid; gap: 2px; margin-right: auto; }
+.v-author b { font-size: 13px; }
+.v-author span { color: var(--dna-muted); font-size: 11px; }
+
+/* Product page */
+.v-product { display: grid; gap: 14px; }
+.v-product-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(18px, 2.6vw, 40px); align-items: start; }
+.v-gallery { display: grid; gap: 10px; }
+.v-gallery-main { min-height: 280px; border-radius: var(--dna-radius); }
+.v-thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.v-thumbs i { display: block; height: 62px; border-radius: calc(var(--dna-radius) * .55); border: 1px solid var(--dna-hairline); }
+.v-stars { color: var(--dna-accent); font-size: 13px; letter-spacing: 2px; }
+.v-stars b { color: var(--dna-ink); letter-spacing: 0; }
+.v-stars span { color: var(--dna-muted); letter-spacing: 0; }
+.v-product-info h3 { margin: 6px 0 8px; font-family: var(--dna-display); font-size: 22px; font-weight: 830; letter-spacing: -.02em; }
+.v-product-info .v-cost { margin: 0 0 10px; font-size: 26px; }
+.v-desc { margin: 0 0 14px; color: var(--dna-muted); font-size: 13px; line-height: 1.75; }
+.v-option { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+.v-option > span { width: 36px; color: var(--dna-muted); font-size: 12px; font-weight: 750; }
+.v-dots { display: flex; gap: 8px; }
+.v-dots i { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--dna-surface); box-shadow: 0 0 0 1px var(--dna-hairline); }
+.v-dots i.is-hi { box-shadow: 0 0 0 2px var(--dna-accent); }
+.v-chips { display: flex; gap: 6px; }
+.v-chips button { min-height: 30px; padding: 0 13px; border: 1px solid var(--dna-line); border-radius: calc(var(--dna-radius) * .5); background: var(--dna-surface); color: var(--dna-muted); font-size: 12px; font-weight: 750; }
+.v-chips button.is-hi { border-color: var(--dna-accent); background: var(--dna-accent-soft); color: var(--dna-ink); }
+.v-buy { display: flex; gap: 10px; margin-bottom: 16px; }
+.v-buy .v-btn { min-height: 42px; padding: 0 20px; }
+.v-specs { display: grid; gap: 0; margin: 0; border-top: 1px solid var(--dna-hairline); }
+.v-specs div { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--dna-hairline); font-size: 12px; }
+.v-specs dt { color: var(--dna-muted); }
+.v-specs dd { margin: 0; font-weight: 750; }
+
+/* Settings page */
+.v-settings { max-width: 560px; margin-inline: auto; }
+.v-settings h3 { margin: 0 0 4px; font-family: var(--dna-display); font-size: 20px; font-weight: 830; }
+.v-settings-sub { margin: 0 0 14px; color: var(--dna-muted); font-size: 12px; }
+.v-setting { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 2px; border-bottom: 1px solid var(--dna-hairline); }
+.v-setting > div:first-child { display: grid; gap: 3px; }
+.v-setting b { font-size: 13px; font-weight: 780; }
+.v-setting small { color: var(--dna-muted); font-size: 11px; }
+
+/* Toggle switch */
+.v-switch { position: relative; display: inline-block; width: 42px; height: 25px; flex: 0 0 42px; }
+.v-switch input {
+  appearance: none; -webkit-appearance: none; width: 100%; height: 100%; margin: 0;
+  border-radius: 999px; background: var(--dna-hairline); transition: background .18s ease; cursor: pointer; outline-offset: 2px;
+}
+.v-switch input:checked { background: var(--dna-accent); }
+.v-switch input::after {
+  content: ""; position: absolute; top: 3px; left: 3px; width: 19px; height: 19px;
+  border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, .22); transition: transform .18s ease;
+}
+.v-switch input:checked::after { transform: translateX(17px); }
+
 /* Dock: current DNA status bar inside the browser frame */
 .preview-dock {
   display: flex;
@@ -638,6 +715,8 @@ fieldset legend { margin: 0 0 10px; padding: 0; color: var(--dna-muted); font-si
 .preview-stage.is-mobile .v-navbar { grid-template-columns: 1fr auto; }
 .preview-stage.is-mobile .v-navbar div { display: none; }
 .preview-stage.is-mobile .v-bars { height: 90px; }
+.preview-stage.is-mobile .v-product-grid { grid-template-columns: 1fr; }
+.preview-stage.is-mobile .v-article { max-width: none; }
 .preview-stage.is-mobile .sample-grid article { min-height: 0; border-right: 0; border-bottom: 1px solid var(--dna-hairline); padding: 14px 0; }
 .preview-stage.is-mobile .sample-grid article:last-child { border-bottom: 0; }
 
@@ -677,6 +756,7 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   .dna-app { padding-inline: 18px; }
   .type-list { grid-template-columns: 1fr; }
   .v-cards, .v-pricing, .v-stats { grid-template-columns: 1fr; }
+  .v-product-grid { grid-template-columns: 1fr; }
   .component-switch button { min-height: 30px; padding: 0 12px; }
   .dna-preset-panel { position: fixed; inset: auto 12px auto 12px; width: auto; }
   .dna-preset-body { grid-template-columns: 1fr; max-height: 70vh; }
