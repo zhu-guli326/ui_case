@@ -1,6 +1,6 @@
 const STORAGE_KEY = "ondesign:interface-dna:v1";
 const palettes = {
-  sage: { label: "鼠尾草绿", colors: ["#167a45", "#e6f0e9", "#f3f1eb", "#171b18"] },
+  sage: { label: "鼠尾草绿", colors: ["#18a957", "#e7f5ec", "#f6f5f1", "#24231f"] },
   ink: { label: "墨黑灰", colors: ["#111111", "#e8e8e4", "#f5f4f0", "#252724"] },
   blue: { label: "深海蓝", colors: ["#2457e6", "#e7edff", "#f2f5ff", "#17213c"] },
   coral: { label: "暖珊瑚", colors: ["#e4573d", "#fff0e8", "#fff7f2", "#321d18"] },

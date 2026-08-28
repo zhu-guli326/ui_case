@@ -51,11 +51,6 @@
     launcherPreviewLab.defer = true;
     document.head.append(launcherPreviewLab);
 
-    const launcherPlatformFlow = document.createElement("script");
-    launcherPlatformFlow.src = "./src/features/launcher/launcher-platform-flow.js?v=20260817-platform-flow-v1";
-    launcherPlatformFlow.defer = true;
-    document.head.append(launcherPlatformFlow);
-
     const launcherStability = document.createElement("script");
     launcherStability.src = "./src/features/launcher/launcher-stability.js?v=20260817-stability-v1";
     launcherStability.defer = true;
