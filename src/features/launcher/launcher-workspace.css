@@ -1,6 +1,6 @@
 :root {
   --launcher-card-radius: 16px;
-  --launcher-card-border: #dce3dd;
+  --launcher-card-border: #ddd9d0;
   --launcher-card-shadow: 0 14px 38px rgba(28, 42, 32, .06);
   --launcher-stage-gap: 18px;
 }

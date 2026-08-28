@@ -19,7 +19,7 @@ let currentLanguage = i18n?.language || "zh";
 
 i18n?.addTranslations({
   "vocabulary.metaDescription": { zh: "UI 词典：按类别浏览页面结构、导航、内容、控件和反馈形式。", en: "A UI dictionary for browsing page structures, navigation, content, controls, and feedback patterns." },
-  "vocabulary.pageTitle": { zh: "UI 词典 · IMAGE2 UI", en: "UI Vocabulary · IMAGE2 UI" },
+  "vocabulary.pageTitle": { zh: "UI 词典 · ONDesign", en: "UI Vocabulary · ONDesign" },
   "vocabulary.skipResults": { zh: "跳到词条列表", en: "Skip to term list" },
   "vocabulary.backLibrary": { zh: "返回 image2 UI 案例库", en: "Back to the image2 UI library" },
   "vocabulary.mainNav": { zh: "主要导航", en: "Main navigation" },

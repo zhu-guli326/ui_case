@@ -3,22 +3,10 @@
  * Skills is the visual source of truth for content directories. Vocabulary
  * and Library keep their own data/rendering logic, while this layer aligns
  * their page geometry, type scale, filters, search controls and cards.
+ * The palette itself lives in src/core/app-shell/design-tokens.css.
  */
 
 body.directory-page {
-  --page: #f6f5f1;
-  --surface: #fffefa;
-  --surface-soft: #efeee9;
-  --ink: #24231f;
-  --muted: #77746d;
-  --quiet: #a19d94;
-  --line: #ddd9d0;
-  --line-strong: #c8c3b9;
-  --dark: #20231f;
-  --accent: #18a957;
-  --accent-soft: #e7f5ec;
-  --green: #18a957;
-  --green-soft: #e7f5ec;
   --directory-width: 1500px;
   --directory-gutter: clamp(22px, 4vw, 64px);
   --directory-editorial: "Iowan Old Style", Baskerville, "Times New Roman", "Noto Serif SC", serif;
@@ -28,7 +16,6 @@ body.directory-page {
 
 body.directory-page :focus-visible { outline-color: var(--accent); }
 
-body.directory-page .eyebrow,
 body.library-page .kicker {
   color: var(--accent);
   font-size: 11px;

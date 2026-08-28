@@ -1,9 +1,9 @@
 :root {
-  --home-ink: #182019;
-  --home-muted: #626b63;
-  --home-line: #d9ded8;
-  --home-accent: #168143;
-  --home-paper: #f4f6f3;
+  --home-ink: #24231f;
+  --home-muted: #77746d;
+  --home-line: #ddd9d0;
+  --home-accent: #18a957;
+  --home-paper: #f6f5f1;
 }
 
 html { scroll-behavior: smooth; }

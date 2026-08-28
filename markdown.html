@@ -7,32 +7,18 @@
   <meta name="google-adsense-account" content="ca-pub-4002333396957263">
   <meta name="color-scheme" content="light">
   <meta name="description" content="image2 UI 文档阅读页">
-  <title>文档 · IMAGE2 UI</title>
-  <link rel="stylesheet" href="./src/features/markdown/markdown.css?v=20260819-title-system-v1">
-    <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
-    <link rel="stylesheet" href="./src/components/site-header/site-footer.css">
+  <title>文档 · ONDesign</title>
+    <link rel="stylesheet" href="./src/core/app-shell/design-tokens.css?v=20260828-unified-v1">
+  <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260828-unified-v1">
+  <link rel="stylesheet" href="./src/features/markdown/markdown.css?v=20260828-unified-v1">
+    <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260828-unified-v1">
+    <link rel="stylesheet" href="./src/components/site-header/site-footer.css?v=20260828-unified-v1">
     <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
     <script src="./src/core/adsense/adsense.js" defer></script>
   <script src="./src/features/markdown/markdown.js" defer></script>
 </head>
 <body>
-  <header class="docs-topbar">
-    <a class="brand" href="./library.html" aria-label="返回 ONDesign 案例库">
-      <img class="brand-logo" src="./assets/branding/ondesign-mark.png" width="322" height="348" alt="">
-      <span class="brand-copy">
-        <img class="brand-wordmark" src="./assets/branding/ondesign-wordmark.png" width="837" height="150" alt="">
-        <small>DESIGN STUDIO</small>
-      </span>
-    </a>
-    <nav aria-label="文档导航">
-      <a href="./library.html" data-i18n="nav.library">案例库</a>
-      <a href="./skills.html" data-i18n="nav.skills">设计 Skill</a>
-      <a class="social-link" href="https://x.com/JGuli49724" target="_blank" rel="noopener noreferrer" aria-label="在 X 查看 JGuli49724 的主页">X</a>
-      <a class="social-link" href="https://www.xiaohongshu.com/user/profile/57b3456c82ec3947f79496e9" target="_blank" rel="noopener noreferrer">小红书</a>
-      <a class="github-link" href="https://github.com/zhu-guli326/ui_case" target="_blank" rel="noreferrer">GitHub</a>
-      <div data-language-switch></div>
-    </nav>
-  </header>
+  <image2-site-header data-site-header></image2-site-header>
 
   <main class="docs-layout">
     <aside class="docs-sidebar" id="documentNavigation" aria-label="文档信息">
@@ -45,5 +31,12 @@
       <p class="loading-state">正在加载文档…</p>
     </article>
   </main>
+  <footer class="site-footer" data-site-footer>
+    <div class="site-footer-inner">
+      <p><strong>ONDesign</strong><span>AI × UI design learning studio</span></p>
+      <nav aria-label="页脚导航"><a href="./learn.html" data-i18n="footer.learn">学习路径</a><a href="./vocabulary.html" data-i18n="footer.vocabulary">UI 词典</a><a href="./library.html" data-i18n="footer.library">案例库</a><a href="https://github.com/zhu-guli326/image2_UI_skill" target="_blank" rel="noopener noreferrer">GitHub</a></nav>
+      <small>© 2026 ONDesign. Content and examples are for learning purposes.</small>
+    </div>
+  </footer>
 </body>
 </html>

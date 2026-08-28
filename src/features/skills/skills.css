@@ -1,15 +1,5 @@
+/* Palette comes from src/core/app-shell/design-tokens.css. */
 :root {
-  --page: #f6f5f1;
-  --surface: #fffefa;
-  --surface-soft: #efeee9;
-  --ink: #24231f;
-  --muted: #77746d;
-  --quiet: #a19d94;
-  --line: #ddd9d0;
-  --line-strong: #c8c3b9;
-  --dark: #20231f;
-  --green: #18a957;
-  --green-soft: #e7f5ec;
   --display-font: var(--font-display-cjk);
   --editorial-font: "Iowan Old Style", Baskerville, "Times New Roman", "Noto Serif SC", serif;
   font-family: var(--font-sans-cjk);
@@ -29,7 +19,6 @@ button { cursor: pointer; }
 .visually-hidden { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
 
 .skills-page { width:min(1920px,100%); margin:0 auto; padding:30px clamp(18px,2.5vw,48px) 68px; }
-.eyebrow { margin: 0; color: var(--green); font-size: 11px; font-weight: 850; letter-spacing: 1.25px; }
 
 .skills-hero { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(360px,.8fr); gap:clamp(48px,7vw,110px); align-items:end; padding:54px 0 38px; }
 .hero-discovery { min-width:0; }
@@ -71,8 +60,8 @@ html[lang="zh-CN"] .skills-hero h1 { font-family:var(--font-display-cjk); font-w
 .repo-filter:hover { border-color:var(--line); color:var(--ink); }
 .repo-filter.is-active { border-color:var(--dark); background:var(--dark); color:#fff; }
 .repo-filter.is-active b { color:rgba(255,255,255,.68); }
-.repo-filter.is-partial { border-color:rgba(24,169,87,.34); background:var(--green-soft); color:#137a43; }
-.repo-filter.is-partial b { color:#137a43; }
+.repo-filter.is-partial { border-color:rgba(24,169,87,.34); background:var(--green-soft); color:#128746; }
+.repo-filter.is-partial b { color:#128746; }
 
 .repo-section { padding-top:30px; }
 
@@ -86,7 +75,7 @@ html[lang="zh-CN"] .skills-hero h1 { font-family:var(--font-display-cjk); font-w
 .repo-sort button { min-height:34px; padding:0 13px; border:0; border-radius:999px; background:transparent; color:var(--quiet); font-size:9px; font-weight:800; }
 .repo-sort button.is-active { background:var(--surface); color:var(--ink); box-shadow:0 2px 8px rgba(36,35,31,.08); }
 .repo-toolbar-meta { display:flex; min-width:0; align-items:center; gap:10px; }
-.repo-sync { display:inline-flex; min-height:27px; align-items:center; padding:0 9px; border-radius:999px; background:var(--green-soft); color:#137a43; font-size:9px; font-weight:800; white-space:nowrap; }
+.repo-sync { display:inline-flex; min-height:27px; align-items:center; padding:0 9px; border-radius:999px; background:var(--green-soft); color:#128746; font-size:9px; font-weight:800; white-space:nowrap; }
 .repo-count { color: var(--muted); font-size: 11px; white-space: nowrap; }
 .repo-toolbar-meta button { padding: 0; border: 0; background: transparent; color: var(--green); font-size: 11px; font-weight: 800; }
 

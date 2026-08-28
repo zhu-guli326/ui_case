@@ -25,5 +25,5 @@ test("Library card geometry is fixed instead of scaling from a 4:5 preview board
 });
 
 test("Library loads the cache-busted compact card geometry stylesheet", () => {
-  assert.match(html, /library-density-fixes\.css\?v=20260818-compact-card-v1/);
+  assert.match(html, /library-density-fixes\.css\?v=20260828-unified-v1/);
 });

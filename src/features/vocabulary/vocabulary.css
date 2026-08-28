@@ -1,22 +1,12 @@
+/* Palette comes from src/core/app-shell/design-tokens.css; this :root only
+ * carries vocabulary layout tokens. */
 :root {
-  --page: #f7f6f2;
-  --surface: #fff;
-  --surface-soft: #f5f7fb;
-  --ink: #18181b;
-  --muted: #6f727a;
-  --quiet: #6d727d;
-  --line: #e6e7eb;
-  --line-strong: #cfd2da;
-  --accent: #168143;
-  --accent-soft: #ebf8ef;
   --mint: #dff5e8;
   --coral: #ffe6df;
-  --dark: #202127;
   --radius: 8px;
   --content-width: 1816px;
   font-family: var(--font-sans-cjk);
 }
-html.dark-mode { --page: #15161a; --surface: #202126; --surface-soft: #292b31; --ink: #f4f4f5; --muted: #b5b7bf; --quiet: #aeb3bf; --line: #353740; --line-strong: #50535e; --accent: #61d98b; --accent-soft: #203b2a; --mint: #254333; --coral: #4b302b; --dark: #f4f4f5; }
 .vp-component-entry { display: grid; width: 100%; min-height: 132px; align-content: center; gap: 8px; padding: 18px; border: 1px solid var(--vp-line); border-radius: 8px; background: var(--vp-panel); text-align: left; }
 .vp-component-entry__type { color: var(--vp-green); font-size: 8px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .vp-component-entry strong { font-size: 17px; line-height: 1.2; }
@@ -244,8 +234,6 @@ button, input, select { font: inherit; }
 button { cursor: pointer; }
 img { max-width: 100%; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-.skip-link { position: fixed; top: 10px; left: 12px; z-index: 50; padding: 8px 11px; background: var(--dark); color: var(--page); transform: translateY(-160%); }
-.skip-link:focus { transform: translateY(0); }
 .vocab-topbar { position: sticky; top: 0; z-index: 20; display: grid; grid-template-columns: minmax(260px, 1fr) auto minmax(260px, 1fr); align-items: center; gap: 22px; min-height: 72px; padding: 12px max(24px, calc((100vw - var(--content-width)) / 2)); border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--page) 96%, transparent); backdrop-filter: blur(15px); }
 .brand { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); font-size: 16px; font-weight: 900; letter-spacing: .7px; text-decoration: none; white-space: nowrap; }
 .brand small { color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .9px; }
@@ -258,7 +246,6 @@ img { max-width: 100%; }
 .topnav a.is-active { font-weight: 800; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 7px; }
 .vocab-topbar .topnav > a:nth-of-type(n + 3):nth-of-type(-n + 7) { display: none; }
 .vocab-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(390px, .86fr); gap: clamp(35px, 7vw, 110px); align-items: center; width: min(1340px, calc(100% - 48px)); margin: 0 auto; padding: 76px 0 64px; border-bottom: 1px solid var(--line); }
-.eyebrow { margin: 0; color: var(--accent); font-size: 10px; font-weight: 850; letter-spacing: 1.3px; }
 .hero-copy h1 { margin: 14px 0 0; font-size: clamp(46px, 6vw, 78px); line-height: 1; letter-spacing: 0; }
 .hero-intro { max-width: 660px; margin: 20px 0 0; color: var(--muted); font-size: 17px; line-height: 1.75; }
 .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 26px; color: var(--muted); font-size: 12px; }

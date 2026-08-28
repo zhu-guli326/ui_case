@@ -103,7 +103,7 @@ const fontStylesheetStates = new Map();
 
 const launcherTranslations = {
   "launcher.metaDescription": { zh: "用三个清晰步骤定义任务、选择设计规则并预览输出 IMAGE2 UI 指令。", en: "Define your task, choose design rules, and preview the output prompt in three clear steps." },
-  "launcher.pageTitle": { zh: "任务工作区 · IMAGE2 UI", en: "Task workspace · IMAGE2 UI" },
+  "launcher.pageTitle": { zh: "任务工作区 · ONDesign", en: "Task workspace · ONDesign" },
   "launcher.pageKicker": { zh: "需求驱动设计工作台", en: "Brief-led design workspace" },
   "launcher.pageTitleH1": { zh: "先说清需求，再确定设计基调", en: "Define the brief, then set the design direction" },
   "launcher.pageIntro": { zh: "先描述产品目标与实现范围，再选择设计规范、字体和样式，最后检查效果并输出。", en: "Describe the product goal and scope, then choose the system, typography, and style before reviewing the result." },
@@ -1776,7 +1776,7 @@ function renderAll() {
 }
 
 function applyLanguage() {
-  document.title = tr("任务工作区 · IMAGE2 UI", "Task workspace · IMAGE2 UI");
+  document.title = tr("任务工作区 · ONDesign", "Task workspace · ONDesign");
   document.documentElement.lang = language() === "en" ? "en" : "zh-CN";
   savePreset.textContent = tr("保存指令快照", "Save prompt snapshot");
   renderAll();

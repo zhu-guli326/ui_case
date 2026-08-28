@@ -135,7 +135,7 @@ async function loadDocument() {
   const response = await fetch(`./${file}`, { cache: "no-store" });
   if (!response.ok) throw new Error(`${markdownLocaleStrings.loadFailed} (${response.status})`);
   content.innerHTML = renderMarkdown(await response.text(), file);
-  document.title = `${documentName?.textContent || file} · IMAGE2 UI`;
+  document.title = `${documentName?.textContent || file} · ONDesign`;
 }
 
 loadDocument().catch((error) => {

@@ -1,0 +1,59 @@
+/* Canonical design tokens shared by every public page.
+ *
+ * Single source of truth for the site palette and the small shared
+ * primitives (eyebrow, skip link) that feature stylesheets used to
+ * redefine per page. Link this stylesheet first on every entry page so
+ * feature CSS can override tokens only where a page owns a deliberate
+ * art direction (currently: Learn).
+ *
+ * Values follow the directory-page / Skills palette, which the
+ * directory layer documents as the visual source of truth.
+ */
+:root {
+  color-scheme: light;
+
+  /* Surfaces */
+  --page: #f6f5f1;
+  --surface: #fffefa;
+  --surface-soft: #efeee9;
+
+  /* Ink */
+  --ink: #24231f;
+  --muted: #77746d;
+  --quiet: #a19d94;
+
+  /* Lines and dark surfaces */
+  --line: #ddd9d0;
+  --line-strong: #c8c3b9;
+  --dark: #20231f;
+
+  /* Accent */
+  --accent: #18a957;
+  --accent-soft: #e7f5ec;
+  --green: var(--accent);
+  --green-soft: var(--accent-soft);
+}
+
+/* Shared eyebrow / kicker label. Feature stylesheets must not redefine
+ * .eyebrow unless the page owns a distinct art direction. */
+.eyebrow {
+  margin: 0;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 1.25px;
+}
+
+/* Shared skip link. */
+.skip-link {
+  position: fixed;
+  top: 10px;
+  left: 12px;
+  z-index: 100;
+  padding: 9px 12px;
+  background: var(--dark);
+  color: #fff;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus { transform: none; }
