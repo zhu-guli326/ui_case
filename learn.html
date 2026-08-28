@@ -7,17 +7,18 @@
   <meta name="color-scheme" content="light">
   <meta name="description" content="Learn to see, describe, build and review interfaces with AI.">
   <title>How to Design with AI · ONDesign</title>
-    <link rel="stylesheet" href="./src/core/app-shell/design-tokens.css?v=20260828-unified-v1">
-<link rel="stylesheet" href="./learn.css?v=20260828-unified-v1">
+  <link rel="stylesheet" href="./learn.css?v=20260821-bare-rail-v7">
   <link rel="stylesheet" href="./i18n.css">
-  <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260828-unified-v1">
-  <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260828-unified-v1">
+  <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
+  <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
+  <link rel="stylesheet" href="./src/features/home/ondesign-orbit.css?v=20260828-orbit-cards-v1">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./analytics.config.js?v=20260821-bare-rail-v2"></script>
   <script src="./analytics.js?v=20260821-motion-scale-v4" defer></script>
   <script src="./learn.js?v=20260821-breakdown-layout-v3" defer></script>
+  <script src="./src/features/home/ondesign-orbit.js?v=20260828-orbit-cards-v1" defer></script>
 </head>
-<body>
+<body class="cosmic-home">
   <div class="page-progress" aria-hidden="true"><span id="pageProgressBar"></span></div>
   <image2-site-header data-site-header></image2-site-header>
 
@@ -34,17 +35,49 @@
 
   <main>
     <header class="story-hero" id="top">
-      <div class="hero-kicker"><span>AI UI LEARNING PATH</span><span>ONDESIGN / 2026</span></div>
-      <h1>
-        <span data-zh="先学会看懂界面。" data-en="Learn to see UI.">先学会看懂界面。</span>
-        <span class="hero-accent" data-zh="再让 AI 把它做出来。" data-en="Then tell AI what to build.">再让 AI 把它做出来。</span>
-      </h1>
-      <div class="hero-bottom">
-        <p data-zh="AI 已经会写界面了。真正需要学习的，是如何看懂设计、说清判断，并知道生成结果哪里不对。" data-en="AI can already write interfaces. The skill now is seeing design clearly, describing your decisions, and knowing when the result is wrong.">AI 已经会写界面了。真正需要学习的，是如何看懂设计、说清判断，并知道生成结果哪里不对。</p>
-        <a href="#why" class="scroll-cue"><span data-zh="开始学习" data-en="Start learning">开始学习</span><i>↓</i></a>
+      <img class="hero-orbit-background" src="./assets/home/orbit-background.webp" alt="" aria-hidden="true">
+      <div class="hero-orbit-grid" aria-hidden="true"></div>
+      <div class="hero-orbit-cards" aria-hidden="true">
+        <figure class="orbit-prototype orbit-prototype-vision" data-orbit-depth="1.1">
+          <img src="./assets/home/orbit-cards/visual-direction.webp" alt="">
+          <figcaption><span>01</span><strong>VISUAL DIRECTION</strong></figcaption>
+        </figure>
+        <figure class="orbit-prototype orbit-prototype-layout" data-orbit-depth=".72">
+          <img src="./assets/home/orbit-cards/layout-map.webp" alt="">
+          <figcaption><span>02</span><strong>LAYOUT MAP</strong></figcaption>
+        </figure>
+        <figure class="orbit-prototype orbit-prototype-material" data-orbit-depth="1.28">
+          <img src="./assets/home/orbit-cards/material-dna.webp" alt="">
+          <figcaption><span>03</span><strong>VISUAL DNA</strong></figcaption>
+        </figure>
+        <figure class="orbit-prototype orbit-prototype-responsive" data-orbit-depth=".9">
+          <img src="./assets/home/orbit-cards/responsive-prototype.webp" alt="">
+          <figcaption><span>04</span><strong>REAL PROTOTYPE</strong></figcaption>
+        </figure>
+        <figure class="orbit-prototype orbit-prototype-states" data-orbit-depth="1.2">
+          <img src="./assets/home/orbit-cards/component-states.webp" alt="">
+          <figcaption><span>05</span><strong>COMPONENT STATES</strong></figcaption>
+        </figure>
+        <figure class="orbit-prototype orbit-prototype-check" data-orbit-depth=".78">
+          <img src="./assets/home/orbit-cards/visual-check.webp" alt="">
+          <figcaption><span>06</span><strong>VISUAL CHECK</strong></figcaption>
+        </figure>
       </div>
-      <div class="hero-manifesto" aria-hidden="true">
-        <span>SEE</span><span>BREAK DOWN</span><span>NAME</span><span>DESCRIBE</span><span>BUILD</span><span>REVIEW</span>
+      <div class="hero-orbit-center">
+        <div class="hero-brand-lockup" aria-label="ONDesign">
+          <span class="hero-brand-icon"><img src="./assets/branding/ondesign-mark.png" alt=""></span>
+          <img class="hero-brand-wordmark" src="./assets/branding/ondesign-wordmark.png" alt="ONDesign">
+        </div>
+        <h1>
+          <span data-zh="把想要的感觉，" data-en="Turn the feeling you want">把想要的感觉，</span>
+          <span data-zh="变成可运行的界面" data-en="into a working interface">变成可运行的界面</span>
+        </h1>
+        <p>Explore <i>·</i> Visual DNA <i>·</i> Build</p>
+      </div>
+      <div class="hero-orbit-progress" aria-hidden="true">
+        <span>01 / IDEA</span>
+        <div><i class="is-active"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <span>07 / ITERATE</span>
       </div>
     </header>
 

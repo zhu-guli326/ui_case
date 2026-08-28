@@ -1,0 +1,19 @@
+{
+  "created": "2026-08-28",
+  "generator": "OpenAI image generation",
+  "purpose": "Decorative prototype-card media for the ONDesign learn page hero",
+  "constraints": [
+    "dark graphite UI prototype",
+    "green highlight accent",
+    "transparent cutout prepared for HTML composition",
+    "all readable labels are rendered as HTML, not baked into the images"
+  ],
+  "assets": {
+    "visual-direction.webp": "interface art-direction board",
+    "layout-map.webp": "wireframe and layout-analysis board",
+    "material-dna.webp": "color and type visual-DNA board",
+    "responsive-prototype.webp": "desktop and mobile responsive prototype",
+    "component-states.webp": "component state and control board",
+    "visual-check.webp": "visual QA and comparison board"
+  }
+}
