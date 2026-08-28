@@ -65,7 +65,7 @@ function applyPreview() {
   const palette = palettes[state.palette];
   const densityScale = { loose: 1.28, balanced: 1, compact: .78 }[state.density];
   const displayFont = {
-    sans: 'Inter,"PingFang SC","Microsoft YaHei",sans-serif',
+    sans: 'system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif',
     serif: '"Noto Serif SC","Songti SC",Georgia,serif',
     mono: '"SFMono-Regular",Consolas,"Liberation Mono",monospace',
   }[state.font];

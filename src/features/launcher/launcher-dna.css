@@ -1,16 +1,606 @@
-/* --dna-* aliases follow src/core/app-shell/design-tokens.css. */
-:root{--dna-accent:#18a957;--dna-accent-soft:#e7f5ec;--dna-canvas:#f6f5f1;--dna-surface:#fffefa;--dna-ink:#24231f;--dna-muted:#77746d;--dna-line:#ddd9d0;--dna-radius:14px;--dna-space:10px;--dna-display:var(--font-sans-cjk);--dna-body:var(--font-sans-cjk)}
-*{box-sizing:border-box}html{background:var(--dna-canvas);scroll-behavior:smooth}body.dna-page{margin:0;background:var(--dna-canvas);color:var(--dna-ink);font-family:var(--dna-body);min-height:100vh}button,input{font:inherit}button{color:inherit}.dna-page image2-site-header{position:relative;z-index:20}
-.dna-app{width:min(1600px,100%);margin:0 auto;padding:0 30px 44px}.dna-topbar{position:sticky;z-index:30;top:0;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:72px;border-bottom:1px solid var(--dna-line);background:var(--dna-canvas)}.dna-heading{display:flex;align-items:baseline;gap:12px;min-width:0}.dna-heading p{margin:0;color:var(--dna-accent);font-size:9px;font-weight:850;letter-spacing:.14em}.dna-heading h1{margin:0;font-family:var(--dna-display);font-size:16px;letter-spacing:-.02em}.dna-steps{display:flex;align-self:stretch;gap:34px}.dna-step{position:relative;padding:0 3px;border:0;background:transparent;color:#8b8f8b;font-size:14px;font-weight:720;cursor:pointer}.dna-step::after{position:absolute;right:0;bottom:-1px;left:0;height:2px;background:var(--dna-accent);content:"";opacity:0;transform:scaleX(.4);transition:.2s ease}.dna-step.is-active{color:var(--dna-ink)}.dna-step.is-active::after{opacity:1;transform:scaleX(1)}.dna-save-top{justify-self:end;min-height:38px;padding:0 18px;border:1px solid #111;border-radius:6px;background:#111;color:#fff;font-size:11px;font-weight:780;cursor:pointer}
-.dna-workspace{display:grid;grid-template-columns:290px minmax(0,1fr);gap:34px;padding-top:34px;align-items:start}.dna-controls{min-width:0;padding:18px 0 30px}.dna-panel[hidden]{display:none}.dna-panel{animation:panel-in .22s ease}@keyframes panel-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}.dna-panel-heading{display:flex;align-items:flex-start;gap:12px;margin-bottom:24px}.dna-panel-heading>span{display:grid;width:28px;height:28px;flex:0 0 28px;place-items:center;border-radius:50%;background:var(--dna-accent);color:#fff;font-size:9px;font-weight:800}.dna-panel-heading h2{margin:1px 0 5px;font-family:var(--dna-display);font-size:22px;letter-spacing:-.04em}.dna-panel-heading p{margin:0;color:var(--dna-muted);font-size:11px;line-height:1.6}
-.direction-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.direction-card{position:relative;overflow:hidden;padding:0;border:1px solid transparent;border-radius:var(--dna-radius);background:transparent;cursor:pointer;text-align:left;transition:.18s ease}.direction-card:hover{transform:translateY(-2px)}.direction-card img{display:block;width:100%;aspect-ratio:1.08;object-fit:cover;border-radius:calc(var(--dna-radius) - 2px);filter:saturate(.82)}.direction-card>span{display:block;padding:9px 2px 2px}.direction-card strong{display:block;font-size:12px}.direction-card small{display:block;margin-top:2px;color:var(--dna-muted);font-size:8px}.direction-card.is-selected{border-color:var(--dna-accent);background:var(--dna-surface);box-shadow:0 0 0 2px var(--dna-canvas),0 0 0 4px var(--dna-accent)}.direction-card.is-selected::after{position:absolute;top:9px;right:9px;display:grid;width:23px;height:23px;place-items:center;border-radius:50%;background:var(--dna-accent);color:#fff;content:"✓";font-size:11px;font-weight:900}
-fieldset{min-width:0;margin:0;padding:0;border:0}.density-field,.rule-field{margin-top:26px}.density-field legend,.rule-field legend,.dna-name-field>span{display:block;margin-bottom:9px;font-size:11px;font-weight:760}.segmented-control{display:grid;grid-template-columns:repeat(3,1fr);padding:3px;border:1px solid var(--dna-line);border-radius:9px;background:rgba(255,255,255,.56)}.segmented-control button{min-height:34px;border:0;border-radius:6px;background:transparent;color:var(--dna-muted);font-size:10px;cursor:pointer}.segmented-control button.is-selected{background:var(--dna-accent);color:#fff;box-shadow:0 3px 8px color-mix(in srgb,var(--dna-accent) 20%,transparent)}.panel-actions{display:grid;gap:12px;margin-top:28px}.panel-actions>a{width:max-content;color:var(--dna-ink);font-size:10px;text-decoration:underline;text-underline-offset:5px}.next-button,.save-primary{display:flex;min-height:46px;align-items:center;justify-content:space-between;padding:0 16px;border:0;border-radius:8px;background:#111;color:#fff;font-size:11px;font-weight:780;cursor:pointer}.next-button span{font-size:17px}.panel-actions-single{grid-template-columns:1fr}
-.palette-list{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.palette-option{display:flex;gap:4px;padding:8px;border:1px solid var(--dna-line);border-radius:9px;background:rgba(255,255,255,.64);cursor:pointer}.palette-option i{display:block;flex:1;height:32px;border-radius:5px;background:var(--swatch)}.palette-option.is-selected{border-color:var(--dna-accent);box-shadow:inset 0 0 0 1px var(--dna-accent)}.type-list{display:grid;gap:7px}.type-option{position:relative;display:grid;grid-template-columns:1fr auto;gap:3px 10px;min-height:58px;align-items:center;padding:10px 13px;border:1px solid var(--dna-line);border-radius:9px;background:rgba(255,255,255,.62);cursor:pointer;text-align:left}.type-option b{font-size:11px}.type-option span{grid-column:1;color:var(--dna-muted);font-size:8px}.type-option i{grid-column:2;grid-row:1/3;font-size:19px;font-style:normal}.type-option.is-selected{border-color:var(--dna-accent);background:color-mix(in srgb,var(--dna-accent-soft) 66%,white)}.compact-rule{margin-top:18px}.dna-name-field{display:block;margin-top:12px}.dna-name-field input{width:100%;height:44px;padding:0 13px;border:1px solid var(--dna-line);border-radius:8px;background:var(--dna-surface);outline:0}.dna-name-field input:focus{border-color:var(--dna-accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--dna-accent) 12%,transparent)}.dna-summary{margin:22px 0 0;border-top:1px solid var(--dna-line)}.dna-summary>div{display:grid;grid-template-columns:80px 1fr;gap:8px;padding:12px 0;border-bottom:1px solid var(--dna-line);font-size:10px}.dna-summary dt{color:var(--dna-muted)}.dna-summary dd{margin:0;font-weight:700}.save-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:22px}.save-primary{justify-content:center}.copy-secondary{min-height:46px;border:1px solid var(--dna-line);border-radius:8px;background:var(--dna-surface);font-size:10px;font-weight:750;cursor:pointer}.save-note{min-height:18px;margin:10px 0 0;color:var(--dna-accent);font-size:9px}
-.dna-canvas{min-width:0}.canvas-label{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:10px;padding:0 7px}.canvas-label span{color:var(--dna-accent);font-size:8px;font-weight:850;letter-spacing:.12em}.canvas-label h2{margin:2px 0 0;font-size:13px}.device-switch{display:flex;gap:4px}.device-switch button{min-height:28px;padding:0 9px;border:0;border-radius:6px;background:transparent;color:var(--dna-muted);font-size:9px;cursor:pointer}.device-switch button.is-selected{background:#fff;color:var(--dna-ink);box-shadow:0 1px 8px rgba(20,24,20,.08)}.preview-stage{position:relative;min-height:690px;padding:0 70px 76px 0}.preview-browser{overflow:hidden;width:100%;min-height:610px;border:1px solid #d6d7d1;border-radius:18px;background:var(--dna-surface);box-shadow:0 18px 60px rgba(28,31,28,.12);transition:width .28s ease,margin .28s ease,border-radius .28s ease}.browser-bar{display:flex;height:38px;align-items:center;gap:7px;padding:0 13px;border-bottom:1px solid var(--dna-line);background:#faf9f5}.browser-bar i{width:8px;height:8px;border-radius:50%;background:#dadbd5}.browser-bar i:first-child{background:#ff665b}.browser-bar i:nth-child(2){background:#f0b620}.browser-bar i:nth-child(3){background:#48b854}.browser-bar span{margin:auto;color:#949791;font-size:8px}.browser-bar b{color:#8c908b;font-size:9px;letter-spacing:1px}.preview-page{min-height:570px;background:var(--dna-surface);font-family:var(--dna-body)}.sample-nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:calc(var(--dna-space)*2.2) calc(var(--dna-space)*3);border-bottom:1px solid color-mix(in srgb,var(--dna-ink) 12%,transparent)}.sample-nav strong{font-family:var(--dna-display);font-size:12px;letter-spacing:.08em}.sample-nav div{display:flex;gap:26px;font-size:8px}.sample-nav button{justify-self:end;min-height:28px;padding:0 12px;border:1px solid var(--dna-ink);border-radius:calc(var(--dna-radius)*.5);background:transparent;font-size:8px}.sample-hero{display:grid;grid-template-columns:.86fr 1.14fr;min-height:360px}.sample-copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:calc(var(--dna-space)*4)}.sample-copy small{color:var(--dna-accent);font-size:7px;font-weight:850;letter-spacing:.12em}.sample-copy h3{margin:15px 0 13px;font-family:var(--dna-display);font-size:clamp(26px,3vw,48px);font-weight:640;letter-spacing:-.055em;line-height:1.08}.sample-copy p{max-width:350px;margin:0;color:var(--dna-muted);font-size:9px;line-height:1.75}.sample-copy a{margin-top:28px;padding-bottom:5px;border-bottom:1px solid var(--dna-ink);font-size:9px;font-weight:700}.sample-copy a span{margin-left:18px}.sample-visual{position:relative;overflow:hidden;margin:calc(var(--dna-space)*2);border-radius:var(--dna-radius);background:linear-gradient(145deg,var(--dna-accent-soft),#e9e4d8)}.sample-visual::before{position:absolute;inset:0;background:radial-gradient(circle at 72% 30%,color-mix(in srgb,var(--dna-accent) 58%,white) 0 2%,transparent 2.5%),linear-gradient(120deg,transparent 50%,color-mix(in srgb,var(--dna-accent) 12%,transparent) 50%);content:""}.sample-visual div{position:absolute;right:13%;bottom:-12%;width:55%;aspect-ratio:1;border:1px solid color-mix(in srgb,var(--dna-accent) 48%,white);border-radius:50%;box-shadow:0 0 0 38px color-mix(in srgb,var(--dna-accent) 9%,transparent),0 0 0 76px color-mix(in srgb,var(--dna-accent) 6%,transparent)}.sample-visual span{position:absolute;right:16px;bottom:14px;font-size:8px}.sample-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid color-mix(in srgb,var(--dna-ink) 12%,transparent)}.sample-grid article{min-height:136px;padding:calc(var(--dna-space)*2.3);border-right:1px solid color-mix(in srgb,var(--dna-ink) 12%,transparent)}.sample-grid article:last-child{border-right:0}.sample-grid small{color:var(--dna-accent);font-size:8px}.sample-grid strong{display:block;margin-top:16px;font-family:var(--dna-display);font-size:15px}.sample-grid p{margin:8px 0 0;color:var(--dna-muted);font-size:8px;line-height:1.55}
-.floating-tools{position:absolute;top:140px;right:4px;display:grid;gap:4px;padding:8px 6px;border:1px solid var(--dna-line);border-radius:18px;background:rgba(255,255,252,.93);box-shadow:0 12px 32px rgba(20,24,20,.12);backdrop-filter:blur(12px)}.floating-tools button{display:grid;width:48px;min-height:50px;place-items:center;gap:2px;padding:5px;border:0;border-radius:12px;background:transparent;font-size:7px;cursor:pointer}.floating-tools button:hover{background:var(--dna-accent-soft)}.floating-tools i{display:grid;width:22px;height:22px;place-items:center;font-style:normal}.tool-color{border-radius:50%;background:var(--dna-accent);box-shadow:inset 0 0 0 5px color-mix(in srgb,var(--dna-accent) 52%,white)}.tool-type{font-family:serif;font-size:17px}.tool-radius{border:2px solid var(--dna-ink);border-radius:7px}.tool-spacing{background:repeating-linear-gradient(90deg,var(--dna-ink) 0 2px,transparent 2px 6px)}.preview-dock{position:absolute;right:15%;bottom:9px;left:12%;display:flex;min-height:58px;align-items:center;justify-content:center;gap:18px;padding:8px 17px;border:1px solid var(--dna-line);border-radius:18px;background:rgba(255,255,252,.94);box-shadow:0 12px 35px rgba(20,24,20,.12);backdrop-filter:blur(14px)}.dock-palette{display:flex;gap:7px}.dock-palette i{width:24px;height:24px;border:1px solid rgba(0,0,0,.06);border-radius:50%}.dock-divider{width:1px;height:25px;background:var(--dna-line)}.preview-dock>button{display:flex;align-items:center;gap:8px;border:0;background:transparent;cursor:pointer}.preview-dock b{font-family:var(--dna-display);font-size:20px}.preview-dock button span,.preview-dock p{font-size:8px}.preview-dock p{display:flex;gap:10px;margin:0;color:var(--dna-muted)}.preview-stage.is-mobile .preview-browser{width:390px;margin-inline:auto;border-radius:28px}.preview-stage.is-mobile .sample-nav div{display:none}.preview-stage.is-mobile .sample-hero{grid-template-columns:1fr}.preview-stage.is-mobile .sample-visual{min-height:220px}.preview-stage.is-mobile .sample-grid{grid-template-columns:1fr}.preview-stage.is-mobile .sample-grid article{min-height:auto;border-right:0;border-bottom:1px solid var(--dna-line)}
-.dna-toast{position:fixed;z-index:40;right:24px;bottom:24px;padding:11px 15px;border-radius:8px;background:#111;color:#fff;font-size:10px;box-shadow:0 10px 30px rgba(0,0,0,.18)}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid color-mix(in srgb,var(--dna-accent) 42%,transparent);outline-offset:3px}
-@media(max-width:1080px){.dna-workspace{grid-template-columns:260px minmax(0,1fr);gap:22px}.preview-stage{padding-right:0}.floating-tools{top:auto;right:18px;bottom:12px;grid-template-columns:repeat(4,1fr)}.preview-dock{right:22%;left:6%}.sample-hero{grid-template-columns:1fr}.sample-visual{min-height:230px}.sample-copy{padding:28px}.preview-browser{min-height:700px}}
-@media(max-width:800px){.dna-app{padding-inline:16px}.dna-topbar{grid-template-columns:1fr auto}.dna-heading{display:none}.dna-steps{justify-self:start;gap:24px}.dna-workspace{display:block;padding-top:20px}.dna-controls{padding-top:0}.direction-grid{grid-template-columns:repeat(4,minmax(130px,1fr));overflow:auto;padding:3px}.direction-card img{aspect-ratio:1.3}.preview-stage{min-height:620px}.preview-dock{right:10px;left:10px}.dna-canvas{margin-top:24px}}
-@media(max-width:560px){.dna-topbar{min-height:60px}.dna-save-top{padding-inline:12px}.dna-steps{gap:14px}.dna-step{font-size:12px}.direction-grid{grid-template-columns:1fr 1fr;overflow:visible}.canvas-label{display:none}.preview-stage{min-height:560px;padding-bottom:70px}.preview-browser{min-height:510px;border-radius:12px}.sample-copy h3{font-size:30px}.sample-grid{grid-template-columns:1fr}.sample-grid article{min-height:auto;border-right:0;border-bottom:1px solid var(--dna-line)}.floating-tools{display:none}.preview-dock{gap:9px}.preview-dock p{display:none}.save-actions{grid-template-columns:1fr}.preview-stage.is-mobile .preview-browser{width:100%}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
-.dna-topbar{top:0}
+/* Interface-DNA launcher — page skin.
+ *
+ * launcher-dna.js injects runtime vars (--dna-accent / -soft / -canvas /
+ * -ink / -radius / -space / -display) that follow the selected palette, so
+ * the whole page tints with the user's choice. Static chrome falls back to
+ * the canonical tokens from design-tokens.css.
+ */
+:root {
+  --dna-accent: #18a957;
+  --dna-accent-soft: #e7f5ec;
+  --dna-canvas: #f6f5f1;
+  --dna-surface: #fffefa;
+  --dna-ink: #24231f;
+  --dna-muted: #77746d;
+  --dna-line: #ddd9d0;
+  --dna-radius: 14px;
+  --dna-space: 10px;
+  --dna-display: var(--font-sans-cjk);
+  --dna-body: var(--font-sans-cjk);
+  --dna-hairline: color-mix(in srgb, var(--dna-ink) 13%, transparent);
+  --dna-shadow: 0 18px 48px color-mix(in srgb, var(--dna-ink) 9%, transparent);
+}
+
+* { box-sizing: border-box; }
+html { background: var(--dna-canvas); scroll-behavior: smooth; }
+body.dna-page {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--dna-canvas);
+  color: var(--dna-ink);
+  font-family: var(--dna-body);
+}
+button { color: inherit; font: inherit; cursor: pointer; }
+input { font: inherit; }
+button:focus-visible, input:focus-visible, a:focus-visible {
+  outline: 2px solid var(--dna-accent);
+  outline-offset: 2px;
+}
+.dna-page image2-site-header { position: relative; z-index: 20; }
+
+.dna-app {
+  width: min(1480px, 100%);
+  margin-inline: auto;
+  padding: 4px clamp(20px, 3.4vw, 44px) 84px;
+}
+
+/* Page header ----------------------------------------------------------- */
+
+.dna-hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 34px 0 30px;
+}
+.dna-kicker { margin: 0 0 14px; color: var(--dna-accent); font-size: 11px; font-weight: 850; letter-spacing: 1.25px; }
+.dna-hero h1 { margin: 0; font-family: var(--dna-display); font-size: clamp(30px, 3.6vw, 44px); font-weight: 850; letter-spacing: -.03em; line-height: 1.04; }
+.dna-lede { max-width: 560px; margin: 14px 0 0; color: var(--dna-muted); font-size: 15px; line-height: 1.7; }
+.dna-save-top {
+  flex: 0 0 auto;
+  min-height: 46px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--dna-ink);
+  color: var(--dna-canvas);
+  font-size: 13px;
+  font-weight: 800;
+  transition: transform .16s ease;
+}
+
+/* Step rail -------------------------------------------------------------- */
+
+.dna-steps {
+  position: sticky;
+  z-index: 10;
+  top: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0 0 40px;
+  border: 1px solid var(--dna-line);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--dna-surface) 88%, transparent);
+  backdrop-filter: blur(14px);
+  overflow: hidden;
+}
+.dna-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-content: start;
+  gap: 4px 12px;
+  padding: 16px 22px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+.dna-step + .dna-step::before {
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  left: 0;
+  width: 1px;
+  background: var(--dna-hairline);
+  content: "";
+}
+.dna-step i {
+  display: grid;
+  grid-row: 1 / span 2;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid var(--dna-hairline);
+  border-radius: 50%;
+  color: var(--dna-muted);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+}
+.dna-step span { color: var(--dna-muted); font-size: 14px; font-weight: 780; }
+.dna-step small { grid-column: 2; color: var(--dna-muted); font-size: 11px; opacity: .8; }
+.dna-step:hover span { color: var(--dna-ink); }
+.dna-step.is-active i { border-color: var(--dna-accent); background: var(--dna-accent); color: #fff; }
+.dna-step.is-active span { color: var(--dna-ink); }
+.dna-step.is-active small { color: var(--dna-ink); opacity: .65; }
+
+/* Workspace --------------------------------------------------------------- */
+
+.dna-workspace {
+  display: grid;
+  grid-template-columns: minmax(320px, 400px) minmax(0, 1fr);
+  gap: clamp(30px, 4vw, 64px);
+  align-items: start;
+}
+.dna-controls { min-width: 0; padding-top: 6px; }
+.dna-panel[hidden] { display: none; }
+.dna-panel { animation: panel-in .24s ease; }
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Control panels ----------------------------------------------------------- */
+
+.dna-panel-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+.dna-panel-heading > span {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--dna-accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+}
+.dna-panel-heading h2 { margin: 2px 0 6px; font-family: var(--dna-display); font-size: 23px; font-weight: 820; letter-spacing: -.02em; }
+.dna-panel-heading p { margin: 0; color: var(--dna-muted); font-size: 13px; line-height: 1.65; }
+
+fieldset { min-width: 0; margin: 0 0 28px; padding: 0; border: 0; }
+fieldset legend { margin: 0 0 12px; padding: 0; color: var(--dna-muted); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+
+/* Direction cards */
+.direction-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.direction-card {
+  position: relative;
+  display: grid;
+  padding: 0;
+  border: 1px solid var(--dna-line);
+  border-radius: calc(var(--dna-radius) * .9 + 4px);
+  background: var(--dna-surface);
+  overflow: hidden;
+  text-align: left;
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.direction-card:hover { transform: translateY(-2px); box-shadow: var(--dna-shadow); }
+.direction-card img { display: block; width: 100%; aspect-ratio: 16 / 10.5; object-fit: cover; }
+.direction-card > span { display: grid; gap: 3px; padding: 12px 14px 14px; }
+.direction-card strong { font-size: 14px; font-weight: 800; }
+.direction-card small { color: var(--dna-muted); font-size: 11px; }
+.direction-card::after {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--dna-accent);
+  color: #fff;
+  content: "✓";
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 22px;
+  text-align: center;
+  opacity: 0;
+  transform: scale(.6);
+  transition: .16s ease;
+}
+.direction-card.is-selected { border-color: var(--dna-accent); box-shadow: 0 0 0 1px var(--dna-accent), var(--dna-shadow); }
+.direction-card.is-selected::after { opacity: 1; transform: none; }
+
+/* Segmented controls */
+.segmented-control {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--dna-line);
+  border-radius: 12px;
+  background: var(--dna-surface);
+}
+.segmented-control button {
+  min-height: 38px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--dna-muted);
+  font-size: 13px;
+  font-weight: 720;
+}
+.segmented-control button:hover { color: var(--dna-ink); }
+.segmented-control button.is-selected { background: var(--dna-ink); color: var(--dna-canvas); font-weight: 780; }
+
+/* Palette chips */
+.palette-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.palette-option {
+  display: grid;
+  gap: 5px;
+  padding: 8px;
+  border: 1px solid var(--dna-line);
+  border-radius: 13px;
+  background: var(--dna-surface);
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.palette-option:hover { transform: translateY(-2px); box-shadow: var(--dna-shadow); }
+.palette-option i { display: block; height: 18px; border-radius: 6px; background: var(--swatch); }
+.palette-option.is-selected { border-color: var(--dna-accent); box-shadow: 0 0 0 1px var(--dna-accent); }
+
+/* Type options */
+.type-list { display: grid; gap: 10px; }
+.type-option {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2px 14px;
+  padding: 13px 16px;
+  border: 1px solid var(--dna-line);
+  border-radius: 13px;
+  background: var(--dna-surface);
+  text-align: left;
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.type-option:hover { transform: translateY(-1px); box-shadow: var(--dna-shadow); }
+.type-option b { font-size: 14px; font-weight: 800; }
+.type-option span { grid-column: 1; color: var(--dna-muted); font-size: 12px; }
+.type-option i { grid-area: 1 / 2 / span 2; color: var(--dna-ink); font-size: 21px; font-style: normal; font-weight: 700; }
+.type-option.is-selected { border-color: var(--dna-accent); background: var(--dna-accent-soft); box-shadow: 0 0 0 1px var(--dna-accent); }
+
+/* Panel actions */
+.panel-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin-top: 6px; }
+.panel-actions-single { margin-top: 0; }
+.next-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--dna-ink);
+  color: var(--dna-canvas);
+  font-size: 13px;
+  font-weight: 800;
+  transition: transform .16s ease;
+}
+.next-button span { font-size: 15px; }
+.panel-actions a { color: var(--dna-muted); font-size: 13px; font-weight: 700; text-underline-offset: 4px; }
+.panel-actions a:hover { color: var(--dna-accent); }
+.dna-save-top:hover, .next-button:hover, .save-primary:hover, .copy-secondary:hover { transform: translateY(-1px); }
+
+/* Save step */
+.dna-name-field { display: grid; gap: 10px; margin-bottom: 24px; }
+.dna-name-field > span { margin: 0; color: var(--dna-muted); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+.dna-name-field input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--dna-line);
+  border-radius: 12px;
+  background: var(--dna-surface);
+  color: var(--dna-ink);
+  font-size: 15px;
+  font-weight: 720;
+  outline: 0;
+}
+.dna-name-field input:focus { border-color: var(--dna-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--dna-accent) 14%, transparent); }
+.dna-summary { display: grid; margin: 0 0 26px; border-top: 1px solid var(--dna-hairline); }
+.dna-summary > div { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; padding: 13px 2px; border-bottom: 1px solid var(--dna-hairline); }
+.dna-summary dt { color: var(--dna-muted); font-size: 12px; font-weight: 750; }
+.dna-summary dd { margin: 0; font-size: 14px; font-weight: 750; }
+.save-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.save-primary, .copy-secondary {
+  min-height: 48px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  transition: transform .16s ease;
+}
+.save-primary { border: 0; background: var(--dna-ink); color: var(--dna-canvas); }
+.copy-secondary { border: 1px solid var(--dna-hairline); background: var(--dna-surface); color: var(--dna-ink); }
+.save-note { min-height: 18px; margin: 14px 0 0; color: var(--dna-accent); font-size: 12px; font-weight: 700; }
+
+/* Live preview -------------------------------------------------------------- */
+
+.dna-canvas { min-width: 0; }
+.canvas-label {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+.canvas-label span { color: var(--dna-accent); font-size: 11px; font-weight: 850; letter-spacing: 1.25px; }
+.canvas-label h2 { margin: 4px 0 0; font-family: var(--dna-display); font-size: 17px; font-weight: 820; letter-spacing: -.01em; }
+.device-switch {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--dna-line);
+  border-radius: 11px;
+  background: var(--dna-surface);
+}
+.device-switch button {
+  min-height: 30px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--dna-muted);
+  font-size: 12px;
+  font-weight: 750;
+}
+.device-switch button.is-selected { background: var(--dna-ink); color: var(--dna-canvas); }
+
+.preview-stage { position: relative; }
+.preview-browser {
+  overflow: hidden;
+  border: 1px solid var(--dna-line);
+  border-radius: 20px;
+  background: var(--dna-surface);
+  box-shadow: var(--dna-shadow);
+  transition: width .28s ease, margin .28s ease;
+}
+.browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 42px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--dna-hairline);
+  background: color-mix(in srgb, var(--dna-surface) 72%, var(--dna-canvas));
+}
+.browser-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--dna-hairline); }
+.browser-bar i:first-child { background: #ff665b; }
+.browser-bar i:nth-child(2) { background: #f0b620; }
+.browser-bar i:nth-child(3) { background: #48b854; }
+.browser-bar span { margin: auto; color: var(--dna-muted); font-size: 11px; letter-spacing: .4px; }
+.browser-bar b { color: var(--dna-muted); font-size: 12px; letter-spacing: 2px; }
+
+.preview-page { padding: clamp(20px, 2.6vw, 40px) clamp(20px, 3vw, 48px) clamp(24px, 3vw, 44px); font-family: var(--dna-body); }
+
+.sample-nav {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+  padding: calc(var(--dna-space) * 1.4) 0;
+  border-bottom: 1px solid var(--dna-hairline);
+}
+.sample-nav strong { font-family: var(--dna-display); font-size: 15px; letter-spacing: .14em; }
+.sample-nav div { display: flex; gap: 26px; color: var(--dna-muted); font-size: 12px; }
+.sample-nav button {
+  justify-self: end;
+  min-height: 34px;
+  padding: 0 16px;
+  border: 1px solid var(--dna-ink);
+  border-radius: calc(var(--dna-radius) * .55);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 720;
+}
+
+.sample-hero {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: clamp(20px, 3vw, 48px);
+  align-items: center;
+  padding: clamp(24px, 3.4vw, 52px) 0;
+}
+.sample-copy small { color: var(--dna-accent); font-size: 11px; font-weight: 850; letter-spacing: 1.4px; }
+.sample-copy h3 {
+  margin: 16px 0 14px;
+  font-family: var(--dna-display);
+  font-size: clamp(28px, 3.2vw, 50px);
+  font-weight: 760;
+  letter-spacing: -.045em;
+  line-height: 1.12;
+}
+.sample-copy p { max-width: 380px; margin: 0; color: var(--dna-muted); font-size: 14px; line-height: 1.8; }
+.sample-copy a {
+  display: inline-block;
+  margin-top: 26px;
+  padding-bottom: 5px;
+  border-bottom: 1.5px solid var(--dna-ink);
+  color: var(--dna-ink);
+  font-size: 13px;
+  font-weight: 780;
+}
+.sample-copy a span { margin-left: 14px; }
+
+.sample-visual {
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+  border-radius: var(--dna-radius);
+  background: linear-gradient(145deg, var(--dna-accent-soft), color-mix(in srgb, var(--dna-accent) 16%, var(--dna-canvas)));
+}
+.sample-visual::before {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 72% 30%, color-mix(in srgb, var(--dna-accent) 58%, white) 0 2.5%, transparent 3%),
+    linear-gradient(120deg, transparent 50%, color-mix(in srgb, var(--dna-accent) 12%, transparent) 50%);
+  content: "";
+}
+.sample-visual div {
+  position: absolute;
+  right: 12%;
+  bottom: -14%;
+  width: 56%;
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--dna-accent) 48%, white);
+  border-radius: 50%;
+  box-shadow: 0 0 0 38px color-mix(in srgb, var(--dna-accent) 9%, transparent), 0 0 0 76px color-mix(in srgb, var(--dna-accent) 6%, transparent);
+}
+.sample-visual span {
+  position: absolute;
+  right: 16px;
+  bottom: 14px;
+  color: color-mix(in srgb, var(--dna-ink) 55%, transparent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+}
+
+.sample-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--dna-hairline);
+}
+.sample-grid article {
+  min-height: 148px;
+  padding: calc(var(--dna-space) * 2.2) 22px 0;
+  border-right: 1px solid var(--dna-hairline);
+}
+.sample-grid article:first-child { padding-left: 0; }
+.sample-grid article:last-child { border-right: 0; }
+.sample-grid small { color: var(--dna-accent); font-size: 11px; font-weight: 800; }
+.sample-grid strong { display: block; margin-top: 12px; font-family: var(--dna-display); font-size: 16px; font-weight: 800; }
+.sample-grid p { margin: 8px 0 0; color: var(--dna-muted); font-size: 12px; line-height: 1.65; }
+
+/* Dock: current DNA status bar inside the browser frame */
+.preview-dock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-height: 58px;
+  padding: 8px 18px;
+  border-top: 1px solid var(--dna-hairline);
+  background: color-mix(in srgb, var(--dna-surface) 82%, var(--dna-canvas));
+}
+.dock-palette { display: flex; gap: 7px; }
+.dock-palette i { width: 22px; height: 22px; border: 1px solid rgba(0, 0, 0, .08); border-radius: 50%; }
+.dock-divider { width: 1px; height: 24px; background: var(--dna-hairline); }
+.preview-dock > button { display: flex; align-items: center; gap: 10px; border: 0; background: transparent; }
+.preview-dock b { font-family: var(--dna-display); font-size: 19px; }
+.preview-dock button span, .preview-dock p { font-size: 12px; }
+.preview-dock p { display: flex; gap: 12px; margin: 0; color: var(--dna-muted); }
+.preview-dock > button:hover span { color: var(--dna-accent); }
+
+/* Floating shortcuts rail */
+.floating-tools {
+  position: absolute;
+  top: 96px;
+  right: -28px;
+  display: grid;
+  gap: 6px;
+  padding: 8px 6px;
+  border: 1px solid var(--dna-line);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--dna-surface) 94%, transparent);
+  box-shadow: var(--dna-shadow);
+  backdrop-filter: blur(10px);
+}
+.floating-tools button {
+  display: grid;
+  width: 58px;
+  justify-items: center;
+  gap: 3px;
+  padding: 8px 4px;
+  border: 0;
+  border-radius: 11px;
+  background: transparent;
+  color: var(--dna-muted);
+  font-size: 10px;
+  font-weight: 750;
+}
+.floating-tools button:hover { background: var(--dna-accent-soft); color: var(--dna-ink); }
+.floating-tools i { display: grid; width: 24px; height: 24px; place-items: center; font-style: normal; }
+.tool-color { border-radius: 50%; background: var(--dna-accent); box-shadow: inset 0 0 0 5px color-mix(in srgb, var(--dna-accent) 52%, white); }
+.tool-type { font-family: var(--dna-display); font-size: 15px; }
+.tool-radius { border: 2px solid var(--dna-ink); border-radius: 7px; }
+.tool-spacing { background: repeating-linear-gradient(90deg, var(--dna-ink) 0 2px, transparent 2px 6px); }
+
+/* Mobile preview */
+.preview-stage.is-mobile .preview-browser { width: 392px; margin-inline: auto; }
+.preview-stage.is-mobile .sample-hero { grid-template-columns: 1fr; }
+.preview-stage.is-mobile .sample-visual { min-height: 230px; }
+.preview-stage.is-mobile .sample-nav div { display: none; }
+.preview-stage.is-mobile .sample-grid { grid-template-columns: 1fr; }
+.preview-stage.is-mobile .sample-grid article { min-height: 0; border-right: 0; border-bottom: 1px solid var(--dna-hairline); padding: 16px 0; }
+.preview-stage.is-mobile .sample-grid article:last-child { border-bottom: 0; }
+
+/* Toast */
+.dna-toast {
+  position: fixed;
+  z-index: 60;
+  inset: auto 0 32px;
+  width: max-content;
+  margin: 0 auto;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: var(--dna-ink);
+  color: var(--dna-canvas);
+  font-size: 13px;
+  font-weight: 750;
+  box-shadow: var(--dna-shadow);
+}
+.dna-toast[hidden] { display: none; }
+
+button:focus-visible, a:focus-visible, input:focus-visible {
+  outline: 2px solid var(--dna-accent);
+  outline-offset: 2px;
+}
+
+/* Responsive ---------------------------------------------------------------- */
+
+@media (max-width: 1320px) {
+  .floating-tools { position: static; grid-auto-flow: column; justify-content: center; margin-top: 14px; }
+}
+@media (max-width: 1080px) {
+  .dna-workspace { grid-template-columns: 1fr; }
+  .dna-lede { max-width: none; }
+  .preview-stage { padding-bottom: 4px; }
+}
+@media (max-width: 800px) {
+  .dna-app { padding-inline: 18px; }
+  .dna-hero { flex-direction: column; align-items: flex-start; gap: 18px; padding-block: 22px 24px; }
+  .dna-steps { grid-template-columns: 1fr; gap: 2px; }
+  .dna-step + .dna-step::before { top: 0; bottom: auto; left: 22px; right: 22px; width: auto; height: 1px; }
+  .dna-step { padding: 13px 18px; }
+  .dna-step small { display: none; }
+  .sample-copy h3 { font-size: 30px; }
+  .preview-dock { flex-wrap: wrap; gap: 10px 14px; }
+}
+@media (max-width: 560px) {
+  .direction-grid { gap: 10px; }
+  .direction-card > span { padding: 10px 12px 12px; }
+  .palette-list { grid-template-columns: repeat(2, 1fr); }
+  .save-actions { grid-template-columns: 1fr; }
+  .preview-dock p { display: none; }
+  .floating-tools { display: none; }
+  .preview-stage.is-mobile .preview-browser { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
