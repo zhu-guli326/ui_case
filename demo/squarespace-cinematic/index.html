@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ONDesign — Cinematic Website Builder</title>
+    <meta
+      name="description"
+      content="A cinematic monochrome website builder concept rebuilt from Refero design tokens."
+    />
+    <link rel="stylesheet" href="styles.css?v=20260826-4" />
+  </head>
+  <body>
+    <div class="promo-bar" aria-label="Limited offer">
+      <span>For a limited time, take 20% off any new website plan. Use code at checkout:</span>
+      <strong>JUN20WF</strong>
+      <button aria-label="Dismiss offer">×</button>
+    </div>
+
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="ONDesign home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>ONDesign</span>
+      </a>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a href="#products">Products</a>
+        <a href="#solutions">Solutions</a>
+        <a href="#resources">Resources</a>
+      </nav>
+      <div class="header-actions">
+        <a class="login-link" href="#login">Log in</a>
+        <a class="filled-button" href="#start">Get started</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-media" role="img" aria-label="A barber cutting hair in a cinematic studio"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <h1 id="hero-title">A website<br /><span>makes it real</span></h1>
+          <a class="filled-button hero-button" href="#start">Get started</a>
+          <p class="hero-copy">Start for free. No credit card required.</p>
+        </div>
+        <div class="hero-previews" aria-label="Featured website previews">
+          <article class="preview-card left-card">
+            <div class="mini-nav">
+              <span>Services</span><span>Events</span><span>Shop</span><span>About</span><span>Cart (0)</span>
+            </div>
+            <span class="tag tag-one">Plants</span>
+            <span class="tag tag-two">Flowers</span>
+            <div class="preview-frame preview-frame-one"></div>
+          </article>
+          <article class="preview-card center-card">
+            <div class="mini-nav dark-nav">
+              <span>2.3.4</span><span>Brooklyn, NY</span><span>Team</span><span>Services</span><span>Book now</span>
+            </div>
+            <div class="preview-frame preview-frame-two"></div>
+            <h2>Bed Stuy<br />Blades</h2>
+          </article>
+          <article class="preview-card right-card">
+            <div class="mini-nav">
+              <span>Shop</span><span>Limited Edition</span><span>Terra</span><span>Menu</span>
+            </div>
+            <div class="preview-frame preview-frame-three"></div>
+            <span class="corner-logo">th</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="ai-section" id="solutions">
+        <div class="slider-dots" aria-label="Carousel position">
+          <span></span><span class="active"></span><span></span><span></span>
+        </div>
+        <div class="slider-arrows" aria-hidden="true"><button>‹</button><button>›</button></div>
+        <div class="section-heading">
+          <span class="spark">••</span>
+          <h2>Getting started has never<br />been easier with AI</h2>
+          <p>No experience required.</p>
+        </div>
+        <div class="ai-card-grid">
+          <article class="ai-card ai-prompt-card">
+            <span class="award">The best<br />inventions</span>
+            <div class="prompt-line"><i></i>What's your idea?</div>
+            <p>Blueprint AI Builder</p>
+          </article>
+          <article class="ai-card template-mosaic-card">
+            <div class="mosaic">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <p>Professional Templates</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="template-section" id="templates">
+        <div class="section-heading">
+          <p class="eyebrow dark">Templates for every way in.</p>
+          <h2>Start with structure. Finish with taste.</h2>
+          <p>
+            Choose a cinematic foundation, then tune pages, commerce, scheduling,
+            and publishing with a restrained monochrome system.
+          </p>
+        </div>
+
+        <div class="pill-row" aria-label="Template filters">
+          <span class="pill-indicator" aria-hidden="true"></span>
+          <button class="pill active" data-template-filter="popular">Popular</button>
+          <button class="pill" data-template-filter="portfolio">Portfolio</button>
+          <button class="pill" data-template-filter="store">Store</button>
+          <button class="pill" data-template-filter="services">Services</button>
+          <button class="pill" data-template-filter="blog">Blog</button>
+        </div>
+
+        <div class="template-grid">
+          <article class="image-card tall">
+            <img
+              src="assets/architecture.webp"
+              alt="Minimal architectural building facade"
+            />
+            <div>
+              <span>Architecture</span>
+              <h3>Quiet rooms for ambitious work.</h3>
+            </div>
+          </article>
+          <article class="image-card">
+            <img
+              src="assets/workspace.webp"
+              alt="Minimal modern studio workspace"
+            />
+            <div>
+              <span>Agency</span>
+              <h3>Launch a studio site in one evening.</h3>
+            </div>
+          </article>
+          <article class="image-card">
+            <img
+              src="assets/flowers.webp"
+              alt="White flowers against a soft background"
+            />
+            <div>
+              <span>Editorial</span>
+              <h3>Let the imagery carry the sentence.</h3>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="made-section" id="products">
+        <div class="made-gallery">
+          <div class="multi-card-rail rail-top" data-card-rail data-direction="1" aria-label="Website examples carousel">
+            <div class="multi-card-track">
+              <article class="moving-card slide-1"><span>Studio</span></article>
+              <article class="moving-card slide-2"><span>Architecture</span></article>
+              <article class="moving-card slide-3"><span>Restaurant</span></article>
+              <article class="moving-card slide-4"><span>Editorial</span></article>
+              <article class="moving-card slide-5"><span>Portfolio</span></article>
+              <article class="moving-card slide-6"><span>Travel</span></article>
+            </div>
+          </div>
+          <div class="multi-card-rail rail-bottom" data-card-rail data-direction="-1" aria-label="More website examples">
+            <div class="multi-card-track">
+              <article class="moving-card slide-4"><span>Editorial</span></article>
+              <article class="moving-card slide-6"><span>Travel</span></article>
+              <article class="moving-card slide-2"><span>Architecture</span></article>
+              <article class="moving-card slide-5"><span>Portfolio</span></article>
+              <article class="moving-card slide-1"><span>Studio</span></article>
+              <article class="moving-card slide-3"><span>Restaurant</span></article>
+            </div>
+          </div>
+          <h2>Made with<br /><span>ONDesign</span></h2>
+        </div>
+      </section>
+
+      <section class="black-section">
+        <div class="black-heading">
+          <p class="eyebrow">Product system</p>
+          <h2>Everything necessary. Nothing decorative.</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card feature-editor">
+            <span class="card-index">01</span>
+            <h3>Fluid editor</h3>
+            <p>Move sections, tune type, and publish without breaking the rhythm.</p>
+            <span class="arrow">→</span>
+          </article>
+          <article class="feature-card feature-store">
+            <span class="card-index">02</span>
+            <h3>Commerce</h3>
+            <p>Sell products, subscriptions, and appointments inside one canvas.</p>
+            <span class="arrow">→</span>
+          </article>
+          <article class="feature-card feature-mail">
+            <span class="card-index">03</span>
+            <h3>Campaigns</h3>
+            <p>Send email that matches the site, not the other way around.</p>
+            <span class="arrow">→</span>
+          </article>
+          <article class="feature-card feature-domain">
+            <span class="card-index">04</span>
+            <h3>Domains</h3>
+            <p>Connect, search, and manage your domain from the same place.</p>
+            <span class="arrow">→</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="showcase-section">
+        <div class="split-copy">
+          <p class="eyebrow dark">Selected builds</p>
+          <h2>Sites that use silence as a material.</h2>
+          <p>
+            Monochrome pages leave room for photography, products, and voice.
+            Every component is intentionally quiet.
+          </p>
+        </div>
+        <div class="showcase-grid">
+          <article class="showcase-large">
+            <img
+              src="assets/travel.webp"
+              alt="Cinematic home in a landscape"
+            />
+            <div>
+              <span>Residence archive</span>
+              <h3>Northline House</h3>
+            </div>
+          </article>
+          <article class="quote-card">
+            <p>
+              “The best template is the one that disappears after the first
+              paragraph.”
+            </p>
+            <span>Design note 04</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="resources-section" id="resources">
+        <div class="section-heading compact">
+          <p class="eyebrow dark">Resources</p>
+          <h2>Learn the shape of a good page.</h2>
+        </div>
+        <div class="resource-list">
+          <a href="#writing">
+            <span>Guide</span>
+            <strong>Writing homepage copy without sounding generic</strong>
+            <em>→</em>
+          </a>
+          <a href="#commerce">
+            <span>Course</span>
+            <strong>Commerce pages that feel less like checkout</strong>
+            <em>→</em>
+          </a>
+          <a href="#launch">
+            <span>Checklist</span>
+            <strong>The final 30 minutes before launch</strong>
+            <em>→</em>
+          </a>
+        </div>
+      </section>
+
+      <section class="closing-cta" id="start">
+        <h2>Make the first impression feel inevitable.</h2>
+        <a class="ghost-button dark" href="#top">Start building</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>© 2026 ONDesign</span>
+      <a href="#privacy">Privacy</a>
+      <a href="#terms">Terms</a>
+      <a href="#contact">Contact</a>
+    </footer>
+
+    <script src="script.js?v=20260826-4"></script>
+  </body>
+</html>

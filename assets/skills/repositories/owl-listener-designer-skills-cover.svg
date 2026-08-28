@@ -1,0 +1,184 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="26" flood-color="#d6cfc0" flood-opacity="0.55"/>
+    </filter>
+    <filter id="cardShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#c8c1b5" flood-opacity="0.28"/>
+    </filter>
+    <linearGradient id="panelGlow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#fbfaf7"/>
+    </linearGradient>
+    <style>
+      .ui { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .kicker { font-size: 28px; font-weight: 750; letter-spacing: 0.08em; fill: #eef0ec; }
+      .huge { font-size: 112px; font-weight: 900; letter-spacing: -0.07em; fill: #15171a; }
+      .body { font-size: 31px; font-weight: 500; fill: #606770; }
+      .meta { font-size: 24px; font-weight: 800; fill: #15171a; }
+      .meta-label { font-size: 18px; font-weight: 500; fill: #6f7580; }
+      .panel-kicker { font-size: 22px; font-weight: 800; letter-spacing: 0.03em; fill: #8f949d; }
+      .panel-title { font-size: 58px; font-weight: 900; letter-spacing: -0.06em; fill: #171a1f; }
+      .panel-sub { font-size: 24px; font-weight: 500; fill: #7d8390; }
+      .card-title { font-size: 25px; font-weight: 850; fill: #16191d; }
+      .card-body { font-size: 18px; font-weight: 500; fill: #646b76; }
+      .footer-hero { font-size: 22px; font-weight: 800; fill: #a9ff3a; }
+      .footer-body { font-size: 21px; font-weight: 500; fill: #eef0f1; }
+      .footer-sub { font-size: 18px; font-weight: 500; fill: #96a0ad; }
+      .pill-text { font-size: 24px; font-weight: 800; fill: #fff8f0; letter-spacing: 0.02em; }
+      .small-label { font-size: 17px; font-weight: 800; fill: #96a0ad; letter-spacing: 0.08em; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1200" fill="#f4efe5"/>
+
+  <g class="ui" filter="url(#softShadow)">
+    <rect x="862" y="66" width="670" height="1088" rx="38" fill="url(#panelGlow)" stroke="#ded8cc" stroke-width="2"/>
+  </g>
+
+  <g class="ui" transform="translate(84 84)">
+    <rect x="0" y="0" width="356" height="50" rx="25" fill="#16181b"/>
+    <text x="22" y="33" class="pill-text">OWL-LISTENER / DESIGN</text>
+
+    <text x="0" y="192" class="huge">
+      <tspan x="0" dy="0">DESIGNER</tspan>
+      <tspan x="0" dy="112">SKILLS</tspan>
+    </text>
+
+    <g transform="translate(0 322)">
+      <rect x="0" y="0" width="134" height="44" rx="22" fill="#181b1f"/>
+      <text x="24" y="30" class="pill-text">PACK</text>
+      <rect x="174" y="16" width="288" height="14" rx="7" fill="#adff2b"/>
+      <rect x="486" y="16" width="90" height="14" rx="7" fill="#705dff"/>
+      <rect x="601" y="16" width="62" height="14" rx="7" fill="#ff6c52"/>
+    </g>
+
+    <text x="0" y="451" class="body">
+      <tspan x="0" dy="0">Design knowledge for agents -</tspan>
+      <tspan x="0" dy="44">from research to polished UI.</tspan>
+    </text>
+
+    <g transform="translate(0 536)">
+      <rect x="0" y="0" width="680" height="153" rx="26" fill="#17191c"/>
+      <circle cx="32" cy="28" r="8" fill="#ff6b57"/>
+      <circle cx="63" cy="28" r="8" fill="#ffd13e"/>
+      <circle cx="94" cy="28" r="8" fill="#b9ff37"/>
+      <text x="28" y="81" font-size="23" font-weight="500" fill="#eef0f1" class="ui">/ui-design:design-screen</text>
+      <text x="28" y="124" class="footer-sub">-> layout | hierarchy | states | responsive</text>
+    </g>
+
+    <g transform="translate(0 755)">
+      <text x="0" y="40" class="meta">107</text>
+      <text x="73" y="40" class="meta-label">skills</text>
+      <text x="206" y="40" class="meta">32</text>
+      <text x="274" y="40" class="meta-label">commands</text>
+      <text x="427" y="40" class="meta">9</text>
+      <text x="479" y="40" class="meta-label">plugins</text>
+    </g>
+
+    <text x="0" y="863" class="meta-label">Research -> Strategy -> UI -> Interaction -> Systems -> Ops</text>
+    <text x="0" y="901" style="font-size:30px;font-weight:900;letter-spacing:-0.05em;fill:#171a1f;" class="ui">Taste, made legible.</text>
+  </g>
+
+  <g class="ui" transform="translate(914 109)">
+    <text x="0" y="20" class="panel-kicker">DESIGN PRACTICE</text>
+    <text x="0" y="79" class="panel-title">Skill graph</text>
+    <text x="0" y="122" class="panel-sub">9 plugins | agent-ready workflows</text>
+
+    <g transform="translate(0 167)" filter="url(#cardShadow)">
+      <g>
+        <rect x="0" y="0" width="180" height="176" rx="24" fill="#def9c5" stroke="#d4d6de"/>
+        <circle cx="31" cy="32" r="14" fill="#171a1f"/>
+        <circle cx="31" cy="32" r="5" fill="#c4ff61"/>
+        <text x="20" y="93" class="card-title">Research</text>
+        <text x="20" y="136" class="card-body">personas</text>
+        <text x="20" y="160" class="card-body">journeys</text>
+      </g>
+      <g transform="translate(195 0)">
+        <rect x="0" y="0" width="180" height="176" rx="24" fill="#ded6ff" stroke="#d4d6de"/>
+        <circle cx="31" cy="32" r="14" fill="#171a1f"/>
+        <circle cx="31" cy="32" r="5" fill="#f4f2ff"/>
+        <text x="20" y="93" class="card-title">UX Strategy</text>
+        <text x="20" y="136" class="card-body">IA</text>
+        <text x="20" y="160" class="card-body">principles</text>
+      </g>
+      <g transform="translate(390 0)">
+        <rect x="0" y="0" width="180" height="176" rx="24" fill="#ffd8cb" stroke="#d4d6de"/>
+        <circle cx="31" cy="32" r="14" fill="#171a1f"/>
+        <circle cx="31" cy="32" r="5" fill="#ffe8dc"/>
+        <text x="20" y="93" class="card-title">UI Design</text>
+        <text x="20" y="136" class="card-body">layout</text>
+        <text x="20" y="160" class="card-body">color | type</text>
+      </g>
+
+      <line x1="180" y1="88" x2="195" y2="88" stroke="#cfcfcf" stroke-width="3"/>
+      <line x1="375" y1="88" x2="390" y2="88" stroke="#cfcfcf" stroke-width="3"/>
+
+      <g transform="translate(0 202)">
+        <rect x="0" y="0" width="180" height="176" rx="24" fill="#d7eef9" stroke="#d4d6de"/>
+        <circle cx="31" cy="32" r="14" fill="#171a1f"/>
+        <circle cx="31" cy="32" r="5" fill="#8fe3ff"/>
+        <text x="20" y="93" class="card-title">Interaction</text>
+        <text x="20" y="136" class="card-body">states</text>
+        <text x="20" y="160" class="card-body">feedback</text>
+      </g>
+      <g transform="translate(195 202)">
+        <rect x="0" y="0" width="180" height="176" rx="24" fill="#ffeaa8" stroke="#d4d6de"/>
+        <circle cx="31" cy="32" r="14" fill="#171a1f"/>
+        <circle cx="31" cy="32" r="5" fill="#fff1b7"/>
+        <text x="20" y="93" class="card-title">Systems</text>
+        <text x="20" y="136" class="card-body">tokens</text>
+        <text x="20" y="160" class="card-body">components</text>
+      </g>
+      <g transform="translate(390 202)">
+        <rect x="0" y="0" width="180" height="176" rx="24" fill="#e3d2ff" stroke="#d4d6de"/>
+        <circle cx="31" cy="32" r="14" fill="#171a1f"/>
+        <circle cx="31" cy="32" r="5" fill="#efe4ff"/>
+        <text x="20" y="93" class="card-title">Testing</text>
+        <text x="20" y="136" class="card-body">prototype</text>
+        <text x="20" y="160" class="card-body">evaluate</text>
+      </g>
+
+      <line x1="90" y1="176" x2="90" y2="202" stroke="#cfcfcf" stroke-width="3"/>
+      <line x1="285" y1="176" x2="285" y2="202" stroke="#cfcfcf" stroke-width="3"/>
+      <line x1="480" y1="176" x2="480" y2="202" stroke="#cfcfcf" stroke-width="3"/>
+
+      <g transform="translate(0 404)">
+        <rect x="0" y="0" width="180" height="176" rx="24" fill="#daf1d2" stroke="#d4d6de"/>
+        <circle cx="31" cy="32" r="14" fill="#171a1f"/>
+        <circle cx="31" cy="32" r="5" fill="#bdfb8f"/>
+        <text x="20" y="93" class="card-title">Design Ops</text>
+        <text x="20" y="136" class="card-body">handoff</text>
+        <text x="20" y="160" class="card-body">workflow</text>
+      </g>
+      <g transform="translate(195 404)">
+        <rect x="0" y="0" width="180" height="176" rx="24" fill="#faddf0" stroke="#d4d6de"/>
+        <circle cx="31" cy="32" r="14" fill="#171a1f"/>
+        <circle cx="31" cy="32" r="5" fill="#ffc2ea"/>
+        <text x="20" y="93" class="card-title">Toolkit</text>
+        <text x="20" y="136" class="card-body">rationale</text>
+        <text x="20" y="160" class="card-body">cases</text>
+      </g>
+      <g transform="translate(390 404)">
+        <rect x="0" y="0" width="180" height="176" rx="24" fill="#dfe5ed" stroke="#d4d6de"/>
+        <circle cx="31" cy="32" r="14" fill="#171a1f"/>
+        <circle cx="31" cy="32" r="5" fill="#f3f6fa"/>
+        <text x="20" y="93" class="card-title">Critique</text>
+        <text x="20" y="136" class="card-body">hierarchy</text>
+        <text x="20" y="160" class="card-body">density</text>
+      </g>
+
+      <line x1="180" y1="290" x2="195" y2="290" stroke="#cfcfcf" stroke-width="3"/>
+      <line x1="375" y1="290" x2="390" y2="290" stroke="#cfcfcf" stroke-width="3"/>
+      <line x1="180" y1="492" x2="195" y2="492" stroke="#cfcfcf" stroke-width="3"/>
+      <line x1="375" y1="492" x2="390" y2="492" stroke="#cfcfcf" stroke-width="3"/>
+    </g>
+
+    <g transform="translate(0 804)" filter="url(#cardShadow)">
+      <rect x="0" y="0" width="590" height="162" rx="28" fill="#17191c"/>
+      <text x="28" y="48" class="footer-hero">agent-ready</text>
+      <text x="28" y="90" class="footer-body">Skills are nouns. Commands are verbs.</text>
+      <text x="28" y="132" class="footer-sub">Claude Code | Gemini CLI</text>
+    </g>
+  </g>
+</svg>
