@@ -12,12 +12,12 @@
   <link rel="stylesheet" href="./src/core/app-shell/design-tokens.css?v=20260828-unified-v1">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
-  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260828-dna-studio-v6">
+  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260828-dna-studio-v7">
   <link rel="stylesheet" href="./src/components/site-header/site-footer.css?v=20260828-unified-v1">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
-  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260828-dna-studio-v6"></script>
+  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260828-dna-studio-v7"></script>
 </head>
 <body class="dna-page">
   <image2-site-header data-site-header></image2-site-header>
@@ -98,13 +98,63 @@
 
       <section class="dna-canvas" aria-labelledby="previewTitle">
         <div class="canvas-label"><div><span>LIVE PREVIEW</span><h2 id="previewTitle">实时预览</h2></div><div class="device-switch" aria-label="预览设备"><button class="is-selected" type="button" data-device="desktop">桌面</button><button type="button" data-device="mobile">移动</button></div></div>
+        <div class="component-switch" role="tablist" aria-label="预览组件">
+          <button class="is-selected" type="button" role="tab" aria-selected="true" data-component="landing">落地页</button>
+          <button type="button" role="tab" aria-selected="false" data-component="nav">导航</button>
+          <button type="button" role="tab" aria-selected="false" data-component="cards">卡片组</button>
+          <button type="button" role="tab" aria-selected="false" data-component="form">表单</button>
+          <button type="button" role="tab" aria-selected="false" data-component="pricing">定价</button>
+          <button type="button" role="tab" aria-selected="false" data-component="dash">仪表盘</button>
+        </div>
         <div class="preview-stage" data-preview-stage>
           <article class="preview-browser" data-preview-browser>
             <header class="browser-bar"><i></i><i></i><i></i><span>preview.ondesign</span><b>•••</b></header>
             <div class="preview-page">
+            <section class="sample-view is-active" data-view="landing">
               <nav class="sample-nav"><strong>STUDIO</strong><div><span>作品</span><span>方法</span><span>关于</span></div><button>联系</button></nav>
               <section class="sample-hero"><div class="sample-copy"><small>DESIGN FOR EVERYDAY</small><h3>让每一个页面，<br>拥有同一种气质。</h3><p>清晰的颜色、字体、形状与间距，让设计不再从头开始。</p><a>查看项目 <span>→</span></a></div><div class="sample-visual"><div></div><span>01 / 04</span></div></section>
               <section class="sample-grid"><article><small>01</small><strong>视觉方向</strong><p>用统一的视觉语言建立第一印象。</p></article><article><small>02</small><strong>基础规范</strong><p>把关键选择变成可以复用的规则。</p></article><article><small>03</small><strong>持续复用</strong><p>让不同页面保持相同的设计气质。</p></article></section>
+            </section>
+            <section class="sample-view" data-view="nav" hidden>
+              <nav class="v-navbar"><strong>STUDIO</strong><div><span>首页</span><span class="is-hi">作品</span><span>服务</span><span>关于</span></div><button class="v-btn v-btn-primary">联系我们</button></nav>
+              <div class="v-tabs"><span class="is-hi">全部作品</span><span>品牌设计</span><span>界面设计</span><span>动效</span></div>
+              <div class="v-breadcrumb">首页 / 作品 / <b>品牌设计</b></div>
+              <div class="v-menupreview"><div class="v-menu-card"><small>菜单预览</small><a class="is-hi">作品集管理</a><a>团队协作</a><a>发布设置</a><a>数据洞察</a></div></div>
+            </section>
+            <section class="sample-view" data-view="cards" hidden>
+              <div class="v-cards">
+                <article class="v-card"><i class="v-cover" style="background:linear-gradient(135deg,var(--dna-accent),color-mix(in srgb,var(--dna-accent) 40%,var(--dna-ink)))"></i><span class="v-tag">新品</span><h4>年度设计系统盘点</h4><p>从色彩到圆角，一套可复用的界面规范。</p><footer><b>¥ 199</b><button class="v-btn v-btn-primary">查看</button></footer></article>
+                <article class="v-card"><i class="v-cover" style="background:linear-gradient(135deg,var(--dna-accent-soft),var(--dna-accent))"></i><span class="v-tag v-tag-soft">方法论</span><h4>界面气质的五种来源</h4><p>方向、色彩、字体、形状与密度如何协同。</p><footer><b>免费</b><button class="v-btn">阅读</button></footer></article>
+                <article class="v-card"><i class="v-cover" style="background:linear-gradient(135deg,color-mix(in srgb,var(--dna-accent) 24%,var(--dna-canvas)),var(--dna-accent-soft))"></i><span class="v-tag">案例</span><h4>把 DNA 应用到新页面</h4><p>保留规范，只调整内容结构。</p><footer><b>¥ 49</b><button class="v-btn">查看</button></footer></article>
+              </div>
+            </section>
+            <section class="sample-view" data-view="form" hidden>
+              <form class="v-form" onsubmit="return false">
+                <h4>创建你的账户</h4>
+                <label><span>名称</span><input type="text" placeholder="你的名字或团队"></label>
+                <label><span>邮箱</span><input type="email" placeholder="name@example.com"></label>
+                <label><span>使用场景</span><select><option>个人学习</option><option>团队协作</option><option>客户项目</option></select></label>
+                <label class="v-check"><input type="checkbox" checked><span>同意接收设计月刊</span></label>
+                <button class="v-btn v-btn-primary" type="button">创建账户</button>
+                <small>已有账户？直接登录。</small>
+              </form>
+            </section>
+            <section class="sample-view" data-view="pricing" hidden>
+              <div class="v-pricing">
+                <article class="v-price"><h5>体验版</h5><p class="v-cost">¥0<i>/月</i></p><ul><li>3 套 DNA</li><li>基础预览</li><li>社区支持</li></ul><button class="v-btn">开始使用</button></article>
+                <article class="v-price is-featured"><span class="v-flag">推荐</span><h5>工作室</h5><p class="v-cost">¥68<i>/月</i></p><ul><li>无限 DNA</li><li>组件级预览</li><li>提示词导出</li><li>优先支持</li></ul><button class="v-btn v-btn-primary">立即订阅</button></article>
+                <article class="v-price"><h5>企业</h5><p class="v-cost">定制</p><ul><li>私有部署</li><li>品牌规范接入</li><li>专属顾问</li></ul><button class="v-btn">联系销售</button></article>
+              </div>
+            </section>
+            <section class="sample-view" data-view="dash" hidden>
+              <div class="v-stats">
+                <div class="v-stat"><small>本月访问</small><b>24.6k</b><span class="v-up">+12.4%</span></div>
+                <div class="v-stat"><small>复用 DNA</small><b>1,208</b><span class="v-up">+3.1%</span></div>
+                <div class="v-stat"><small>转化率</small><b>3.9%</b><span class="v-down">-0.6%</span></div>
+              </div>
+              <div class="v-chart"><div class="v-bars"><i style="height:38%"></i><i style="height:56%"></i><i style="height:44%"></i><i style="height:70%"></i><i class="is-hi" style="height:88%"></i><i style="height:62%"></i><i style="height:48%"></i></div><div class="v-bars-labels"><span>周一</span><span>周二</span><span>周三</span><span>周四</span><span>周五</span><span>周六</span><span>周日</span></div></div>
+              <div class="v-rows"><div><b>落地页 A</b><span>克制 · 鼠尾草绿</span><em>3.9%</em></div><div><b>定价页 B</b><span>活力 · 暖珊瑚</span><em>4.6%</em></div><div><b>导航 C</b><span>编辑感 · 墨黑灰</span><em>2.8%</em></div></div>
+            </section>
             </div>
             <div class="preview-dock" aria-label="当前设计 DNA"><div class="dock-palette" id="dockPalette"><i></i><i></i><i></i><i></i></div><span class="dock-divider"></span><button type="button" data-scroll="#dna-rules"><b>Aa</b><span id="dockFont">简洁无衬线</span></button><span class="dock-divider"></span><p><span id="dockRadius">14px 圆角</span><span id="dockDensity">平衡密度</span></p></div>
           </article>

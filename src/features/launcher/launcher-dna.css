@@ -511,6 +511,103 @@ fieldset legend { margin: 0 0 10px; padding: 0; color: var(--dna-muted); font-si
 .sample-grid strong { display: block; margin-top: 10px; font-family: var(--dna-display); font-size: 15px; font-weight: 800; }
 .sample-grid p { margin: 7px 0 0; color: var(--dna-muted); font-size: 12px; line-height: 1.6; }
 
+/* Component switcher --------------------------------------------------------- */
+
+.component-switch { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; padding: 0 4px; }
+.component-switch button {
+  min-height: 34px;
+  padding: 0 15px;
+  border: 1px solid var(--dna-line);
+  border-radius: 999px;
+  background: var(--dna-surface);
+  color: var(--dna-muted);
+  font-size: 12px;
+  font-weight: 750;
+}
+.component-switch button:hover { color: var(--dna-ink); border-color: var(--dna-accent); }
+.component-switch button.is-selected { background: var(--dna-ink); border-color: var(--dna-ink); color: var(--dna-canvas); }
+
+.sample-view[hidden] { display: none; }
+.sample-view.is-active { animation: panel-in .22s ease; }
+
+/* Nav view */
+.v-navbar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; padding: 14px 16px; border: 1px solid var(--dna-hairline); border-radius: var(--dna-radius); background: var(--dna-surface); }
+.v-navbar strong { font-family: var(--dna-display); font-size: 14px; letter-spacing: .12em; }
+.v-navbar div { display: flex; gap: 20px; justify-content: center; color: var(--dna-muted); font-size: 12px; }
+.v-navbar div .is-hi { color: var(--dna-accent); font-weight: 780; }
+.v-navbar > button { justify-self: end; }
+.v-tabs { display: flex; gap: 22px; margin-top: 14px; padding: 0 6px 10px; border-bottom: 1px solid var(--dna-hairline); color: var(--dna-muted); font-size: 12px; }
+.v-tabs .is-hi { color: var(--dna-ink); font-weight: 800; box-shadow: 0 2px 0 var(--dna-accent); }
+.v-breadcrumb { margin: 12px 6px 0; color: var(--dna-muted); font-size: 12px; }
+.v-breadcrumb b { color: var(--dna-ink); }
+.v-menupreview { display: flex; justify-content: flex-end; padding: 10px 6px 0; }
+.v-menu-card { display: grid; gap: 2px; width: 210px; padding: 10px; border: 1px solid var(--dna-hairline); border-radius: calc(var(--dna-radius) * .8); background: var(--dna-surface); box-shadow: var(--dna-shadow); }
+.v-menu-card small { color: var(--dna-muted); font-size: 10px; letter-spacing: .08em; }
+.v-menu-card a { padding: 8px 10px; border-radius: 7px; color: var(--dna-ink); font-size: 12px; text-decoration: none; }
+.v-menu-card a:hover, .v-menu-card a.is-hi { background: var(--dna-accent-soft); }
+
+/* Cards view */
+.v-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: calc(var(--dna-space) * 1.6); }
+.v-card { position: relative; display: grid; gap: 8px; padding-bottom: 14px; border: 1px solid var(--dna-hairline); border-radius: var(--dna-radius); background: var(--dna-surface); overflow: hidden; }
+.v-card .v-cover { display: block; height: 96px; }
+.v-card h4 { margin: 4px 14px 0; font-family: var(--dna-display); font-size: 15px; font-weight: 800; }
+.v-card p { margin: 0 14px; color: var(--dna-muted); font-size: 12px; line-height: 1.6; }
+.v-card footer { display: flex; align-items: center; justify-content: space-between; margin: 6px 14px 0; }
+.v-card footer b { font-size: 14px; }
+.v-tag { position: absolute; top: 10px; left: 10px; padding: 3px 9px; border-radius: 999px; background: var(--dna-accent); color: #fff; font-size: 10px; font-weight: 800; }
+.v-tag-soft { background: color-mix(in srgb, var(--dna-accent) 22%, white); color: var(--dna-ink); }
+
+/* Buttons shared by views */
+.v-btn { min-height: 32px; padding: 0 14px; border: 1px solid var(--dna-ink); border-radius: calc(var(--dna-radius) * .55); background: transparent; color: var(--dna-ink); font-size: 12px; font-weight: 750; }
+.v-btn-primary { border-color: var(--dna-accent); background: var(--dna-accent); color: #fff; }
+
+/* Form view */
+.v-form { display: grid; gap: 14px; width: min(360px, 100%); margin-inline: auto; padding: 22px; border: 1px solid var(--dna-hairline); border-radius: var(--dna-radius); background: var(--dna-surface); }
+.v-form h4 { margin: 0; font-family: var(--dna-display); font-size: 18px; font-weight: 820; }
+.v-form label { display: grid; gap: 6px; }
+.v-form label > span { color: var(--dna-muted); font-size: 12px; font-weight: 750; }
+.v-form input:not([type="checkbox"]), .v-form select {
+  min-height: 40px; padding: 0 12px; border: 1px solid var(--dna-line); border-radius: calc(var(--dna-radius) * .55);
+  background: var(--dna-canvas); color: var(--dna-ink); font-size: 13px; outline: 0;
+}
+.v-form input:focus, .v-form select:focus { border-color: var(--dna-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--dna-accent) 14%, transparent); }
+.v-form .v-check { display: flex; align-items: center; gap: 8px; }
+.v-form .v-check span { color: var(--dna-muted); font-size: 12px; }
+.v-form .v-btn { justify-content: center; }
+.v-form small { color: var(--dna-muted); font-size: 11px; text-align: center; }
+
+/* Pricing view */
+.v-pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: calc(var(--dna-space) * 1.5); }
+.v-price { position: relative; display: grid; gap: 10px; align-content: start; padding: 20px 18px; border: 1px solid var(--dna-hairline); border-radius: var(--dna-radius); background: var(--dna-surface); }
+.v-price.is-featured { border-color: var(--dna-accent); box-shadow: 0 0 0 1px var(--dna-accent), var(--dna-shadow); }
+.v-price .v-flag { position: absolute; top: -10px; right: 14px; padding: 3px 10px; border-radius: 999px; background: var(--dna-accent); color: #fff; font-size: 10px; font-weight: 800; }
+.v-price h5 { margin: 0; color: var(--dna-muted); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+.v-cost { margin: 0; font-family: var(--dna-display); font-size: 26px; font-weight: 850; }
+.v-cost i { color: var(--dna-muted); font-size: 12px; font-style: normal; font-weight: 600; }
+.v-price ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; color: var(--dna-muted); font-size: 12px; }
+.v-price li::before { content: "\2713"; margin-right: 7px; color: var(--dna-accent); font-weight: 800; }
+.v-price .v-btn { justify-content: center; }
+
+/* Dashboard view */
+.v-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: calc(var(--dna-space) * 1.4); }
+.v-stat { display: grid; gap: 4px; padding: 14px 16px; border: 1px solid var(--dna-hairline); border-radius: var(--dna-radius); background: var(--dna-surface); }
+.v-stat small { color: var(--dna-muted); font-size: 11px; }
+.v-stat b { font-family: var(--dna-display); font-size: 22px; font-weight: 850; }
+.v-stat .v-up { color: var(--dna-accent); font-size: 11px; font-weight: 800; }
+.v-stat .v-down { color: #c64545; font-size: 11px; font-weight: 800; }
+.v-chart { margin-top: 14px; padding: 16px 16px 12px; border: 1px solid var(--dna-hairline); border-radius: var(--dna-radius); background: var(--dna-surface); }
+.v-bars { display: flex; align-items: flex-end; gap: 10px; height: 120px; }
+.v-bars i { flex: 1; border-radius: 6px 6px 0 0; background: color-mix(in srgb, var(--dna-accent) 30%, var(--dna-canvas)); }
+.v-bars i.is-hi { background: var(--dna-accent); }
+.v-bars-labels { display: flex; gap: 10px; margin-top: 8px; color: var(--dna-muted); font-size: 10px; }
+.v-bars-labels span { flex: 1; text-align: center; }
+.v-rows { display: grid; margin-top: 14px; border: 1px solid var(--dna-hairline); border-radius: var(--dna-radius); background: var(--dna-surface); overflow: hidden; }
+.v-rows > div { display: grid; grid-template-columns: 1fr 1fr auto; align-items: center; gap: 12px; padding: 11px 16px; border-bottom: 1px solid var(--dna-hairline); font-size: 12px; }
+.v-rows > div:last-child { border-bottom: 0; }
+.v-rows b { font-weight: 780; }
+.v-rows span { color: var(--dna-muted); }
+.v-rows em { color: var(--dna-accent); font-style: normal; font-weight: 800; }
+
 /* Dock: current DNA status bar inside the browser frame */
 .preview-dock {
   display: flex;
@@ -537,6 +634,10 @@ fieldset legend { margin: 0 0 10px; padding: 0; color: var(--dna-muted); font-si
 .preview-stage.is-mobile .sample-visual { min-height: 220px; }
 .preview-stage.is-mobile .sample-nav div { display: none; }
 .preview-stage.is-mobile .sample-grid { grid-template-columns: 1fr; }
+.preview-stage.is-mobile .v-cards, .preview-stage.is-mobile .v-pricing, .preview-stage.is-mobile .v-stats { grid-template-columns: 1fr; }
+.preview-stage.is-mobile .v-navbar { grid-template-columns: 1fr auto; }
+.preview-stage.is-mobile .v-navbar div { display: none; }
+.preview-stage.is-mobile .v-bars { height: 90px; }
 .preview-stage.is-mobile .sample-grid article { min-height: 0; border-right: 0; border-bottom: 1px solid var(--dna-hairline); padding: 14px 0; }
 .preview-stage.is-mobile .sample-grid article:last-child { border-bottom: 0; }
 
@@ -575,6 +676,8 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 @media (max-width: 800px) {
   .dna-app { padding-inline: 18px; }
   .type-list { grid-template-columns: 1fr; }
+  .v-cards, .v-pricing, .v-stats { grid-template-columns: 1fr; }
+  .component-switch button { min-height: 30px; padding: 0 12px; }
   .dna-preset-panel { position: fixed; inset: auto 12px auto 12px; width: auto; }
   .dna-preset-body { grid-template-columns: 1fr; max-height: 70vh; }
   .dna-preset-list { border-right: 0; border-bottom: 1px solid var(--dna-hairline); max-height: 200px; }

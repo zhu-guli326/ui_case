@@ -163,6 +163,10 @@ function installEvents() {
     if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
   }));
   $$("[data-device]").forEach((button) => button.addEventListener("click", () => { state.device = button.dataset.device; $$("[data-device]").forEach((item) => item.classList.toggle("is-selected", item === button)); $("[data-preview-stage]").classList.toggle("is-mobile", state.device === "mobile"); }));
+  $$("[data-component]").forEach((button) => button.addEventListener("click", () => {
+    $$("[data-component]").forEach((item) => { const selected = item === button; item.classList.toggle("is-selected", selected); item.setAttribute("aria-selected", String(selected)); });
+    $$(".sample-view").forEach((view) => { const active = view.dataset.view === button.dataset.component; view.hidden = !active; view.classList.toggle("is-active", active); });
+  }));
   $("#saveDna")?.addEventListener("click", saveDna); $("#copyDna")?.addEventListener("click", copyDna);
 }
 
