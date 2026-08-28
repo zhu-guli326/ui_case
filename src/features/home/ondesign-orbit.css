@@ -152,9 +152,11 @@
 .orbit-prototype {
   --parallax-x: 0px;
   --parallax-y: 0px;
+  --orbit-rotate: 0deg;
   position: absolute;
   margin: 0;
-  transform: translate3d(var(--parallax-x), var(--parallax-y), 0);
+  transform: translate3d(var(--parallax-x), var(--parallax-y), 0) rotate(var(--orbit-rotate));
+  transform-origin: center;
   will-change: transform;
   transition: transform .5s cubic-bezier(.2,.8,.2,1);
 }
@@ -190,17 +192,17 @@
 .orbit-prototype figcaption span { color: var(--orbit-green); }
 .orbit-prototype figcaption strong { font: inherit; }
 
-.orbit-prototype-vision { top: 2%; left: -2%; width: min(31vw, 460px); }
+.orbit-prototype-vision { --orbit-rotate: 3deg; top: 2%; left: 7%; width: min(27vw, 420px); }
 .orbit-prototype-vision figcaption { top: 13%; left: 16%; }
-.orbit-prototype-layout { bottom: 1%; left: 2%; width: min(26vw, 390px); }
+.orbit-prototype-layout { --orbit-rotate: -3deg; bottom: -3%; left: 10%; width: min(24vw, 370px); }
 .orbit-prototype-layout figcaption { bottom: 15%; left: 10%; }
-.orbit-prototype-material { top: 4%; left: 29%; width: min(16vw, 250px); opacity: .58; }
+.orbit-prototype-material { --orbit-rotate: 6deg; top: 34%; left: -4%; width: min(19vw, 290px); opacity: .68; }
 .orbit-prototype-material figcaption { top: 4%; left: 8%; }
-.orbit-prototype-responsive { top: 2%; right: 0; width: min(29vw, 440px); }
+.orbit-prototype-responsive { --orbit-rotate: -3deg; top: 2%; right: 7%; width: min(27vw, 420px); }
 .orbit-prototype-responsive figcaption { top: 12%; right: 13%; }
-.orbit-prototype-states { right: 0; bottom: 0; width: min(28vw, 420px); }
+.orbit-prototype-states { --orbit-rotate: -6deg; top: 37%; right: -4%; width: min(21vw, 330px); }
 .orbit-prototype-states figcaption { right: 12%; bottom: 14%; }
-.orbit-prototype-check { right: 27%; bottom: -5%; width: min(17vw, 270px); opacity: .67; }
+.orbit-prototype-check { --orbit-rotate: 3deg; right: 11%; bottom: -5%; width: min(23vw, 350px); opacity: .78; }
 .orbit-prototype-check figcaption { right: 2%; bottom: 10%; }
 
 .hero-orbit-center {
@@ -285,12 +287,12 @@
   .cosmic-home .chapter-nav { top: 64px; }
   .hero-orbit-cards { top: 64px; }
   .hero-orbit-center { width: min(760px, 82vw); }
-  .orbit-prototype-vision { left: -9%; width: 40vw; }
-  .orbit-prototype-responsive { right: -8%; width: 38vw; }
-  .orbit-prototype-layout { left: -7%; width: 34vw; }
-  .orbit-prototype-states { right: -8%; width: 36vw; }
-  .orbit-prototype-material,
-  .orbit-prototype-check { opacity: .35; }
+  .orbit-prototype-vision { left: -4%; width: 38vw; }
+  .orbit-prototype-responsive { right: -4%; width: 37vw; }
+  .orbit-prototype-layout { left: 1%; width: 33vw; }
+  .orbit-prototype-states { right: -9%; width: 30vw; }
+  .orbit-prototype-material { left: -10%; width: 25vw; opacity: .45; }
+  .orbit-prototype-check { right: 1%; width: 31vw; opacity: .5; }
 }
 
 @media (max-width: 640px) {
