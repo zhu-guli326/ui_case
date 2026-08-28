@@ -158,7 +158,7 @@ function installEvents() {
     if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
   }));
   $$("[data-device]").forEach((button) => button.addEventListener("click", () => { state.device = button.dataset.device; $$("[data-device]").forEach((item) => item.classList.toggle("is-selected", item === button)); $("[data-preview-stage]").classList.toggle("is-mobile", state.device === "mobile"); }));
-  $("#saveDna")?.addEventListener("click", saveDna); $("#copyDna")?.addEventListener("click", copyDna); $("#copyDnaHero")?.addEventListener("click", copyDna);
+  $("#saveDna")?.addEventListener("click", saveDna); $("#copyDna")?.addEventListener("click", copyDna);
 }
 
 function setPresetLabel(label) {
