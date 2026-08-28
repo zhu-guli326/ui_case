@@ -2,7 +2,9 @@
  *
  * launcher-dna.js injects runtime vars (--dna-accent / -soft / -canvas /
  * -ink / -radius / -space / -display) that follow the selected palette, so
- * the whole page tints with the user's choice. Static chrome falls back to
+ * the page tints with the user's choice. The DNA font (--dna-display /
+ * --dna-body) applies ONLY inside the preview sample — the launcher's own
+ * chrome always stays on the site font stack. Static chrome falls back to
  * the canonical tokens from design-tokens.css.
  *
  * Layout rhythm: one continuous control column (01 方向 → 02 规范 → 03 保存)
@@ -31,7 +33,7 @@ body.dna-page {
   min-height: 100vh;
   background: var(--dna-canvas);
   color: var(--dna-ink);
-  font-family: var(--dna-body);
+  font-family: var(--font-sans-cjk);
 }
 button { color: inherit; font: inherit; cursor: pointer; }
 input { font: inherit; }
@@ -57,7 +59,7 @@ button:focus-visible, input:focus-visible, a:focus-visible {
   padding: 26px 0 22px;
 }
 .dna-kicker { margin: 0 0 10px; color: var(--dna-accent); font-size: 11px; font-weight: 850; letter-spacing: 1.25px; }
-.dna-hero h1 { margin: 0; font-family: var(--dna-display); font-size: clamp(26px, 3vw, 36px); font-weight: 850; letter-spacing: -.03em; line-height: 1.05; }
+.dna-hero h1 { margin: 0; font-family: var(--font-sans-cjk); font-size: clamp(26px, 3vw, 36px); font-weight: 850; letter-spacing: -.03em; line-height: 1.05; }
 .dna-lede { max-width: 620px; margin: 10px 0 0; color: var(--dna-muted); font-size: 14px; line-height: 1.65; }
 .dna-hero-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 10px; }
 .dna-hero-actions .copy-secondary { min-height: 46px; padding: 0 20px; border-radius: 999px; font-size: 13px; }
@@ -145,7 +147,7 @@ button:focus-visible, input:focus-visible, a:focus-visible {
 .dna-preset-empty { margin: 8px 10px; color: var(--dna-muted); font-size: 12px; }
 
 .dna-preset-detail { overflow: auto; padding: 18px 20px; }
-.dna-preset-detail h3 { margin: 0 0 8px; font-family: var(--dna-display); font-size: 18px; font-weight: 820; letter-spacing: -.02em; }
+.dna-preset-detail h3 { margin: 0 0 8px; font-family: var(--font-sans-cjk); font-size: 18px; font-weight: 820; letter-spacing: -.02em; }
 .dna-preset-detail p { margin: 0 0 10px; color: var(--dna-muted); font-size: 13px; line-height: 1.7; }
 .dna-preset-meta { font-size: 12px; }
 .dna-preset-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
@@ -177,7 +179,7 @@ button:focus-visible, input:focus-visible, a:focus-visible {
   margin-bottom: 18px;
 }
 .dna-section-head > span { color: var(--dna-accent); font-size: 12px; font-weight: 850; letter-spacing: .08em; }
-.dna-section-head h2 { margin: 0; font-family: var(--dna-display); font-size: 20px; font-weight: 820; letter-spacing: -.02em; }
+.dna-section-head h2 { margin: 0; font-family: var(--font-sans-cjk); font-size: 20px; font-weight: 820; letter-spacing: -.02em; }
 .dna-section-head p { margin: 2px 0 0; color: var(--dna-muted); font-size: 12px; }
 .section-hint { margin: 16px 0 0; color: var(--dna-muted); font-size: 12px; }
 .section-hint a { color: var(--dna-ink); font-weight: 750; text-underline-offset: 4px; }
@@ -381,7 +383,7 @@ fieldset legend { margin: 0 0 10px; padding: 0; color: var(--dna-muted); font-si
   padding: 0 4px;
 }
 .canvas-label span { color: var(--dna-accent); font-size: 11px; font-weight: 850; letter-spacing: 1.25px; }
-.canvas-label h2 { margin: 4px 0 0; font-family: var(--dna-display); font-size: 16px; font-weight: 820; letter-spacing: -.01em; }
+.canvas-label h2 { margin: 4px 0 0; font-family: var(--font-sans-cjk); font-size: 16px; font-weight: 820; letter-spacing: -.01em; }
 .device-switch {
   display: inline-flex;
   gap: 4px;
