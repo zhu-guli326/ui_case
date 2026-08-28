@@ -12,21 +12,9 @@ const labels = {
   radius: { "0": "直角", "14": "适中", "28": "圆润" },
   spacing: { "6": "紧凑", "10": "平衡", "14": "宽松" },
 };
-const state = { step: "direction", style: "restrained", density: "balanced", palette: "sage", font: "sans", radius: "14", spacing: "10", device: "desktop" };
+const state = { style: "restrained", density: "balanced", palette: "sage", font: "sans", radius: "14", spacing: "10", device: "desktop" };
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
-
-function setStep(step) {
-  if (!$(`[data-panel="${step}"]`)) return;
-  state.step = step;
-  $$(".dna-step").forEach((button) => {
-    const active = button.dataset.step === step;
-    button.classList.toggle("is-active", active);
-    if (active) button.setAttribute("aria-current", "step"); else button.removeAttribute("aria-current");
-  });
-  $$(".dna-panel").forEach((panel) => { const active = panel.dataset.panel === step; panel.hidden = !active; panel.classList.toggle("is-active", active); });
-  if (step === "save") renderSummary();
-}
 
 function selectInGroup(group, button) {
   const value = button.dataset.value;
@@ -50,6 +38,11 @@ function selectStyle(button) {
     future: { density: "balanced", palette: "blue", font: "mono", radius: "14", spacing: "14" },
   }[state.style];
   Object.assign(state, preset);
+  syncChoiceGroups();
+  applyPreview();
+}
+
+function syncChoiceGroups() {
   ["density", "palette", "font", "radius", "spacing"].forEach((group) => {
     $$(`[data-choice-group="${group}"] button`).forEach((item) => {
       const selected = item.dataset.value === state[group];
@@ -57,7 +50,6 @@ function selectStyle(button) {
       if (item.getAttribute("role") === "radio") item.setAttribute("aria-checked", String(selected));
     });
   });
-  applyPreview();
 }
 
 function applyPreview() {
@@ -83,6 +75,8 @@ function applyPreview() {
   $("#dockFont").textContent = labels.font[state.font];
   $("#dockRadius").textContent = `${state.radius}px 圆角`;
   $("#dockDensity").textContent = `${labels.density[state.density]}密度`;
+  renderSummary();
+  renderPrompt();
 }
 
 function renderSummary() {
@@ -95,15 +89,20 @@ function renderSummary() {
   }));
 }
 
+function renderPrompt() {
+  const node = $("#dnaPrompt");
+  if (node) node.textContent = dnaText();
+}
+
 function dnaPayload() {
-  return { name: $("#dnaName")?.value.trim() || "未命名界面 DNA", updatedAt: new Date().toISOString(), ...Object.fromEntries(Object.entries(state).filter(([key]) => !["step", "device"].includes(key))), colors: palettes[state.palette].colors };
+  return { name: $("#dnaName")?.value.trim() || "未命名界面 DNA", updatedAt: new Date().toISOString(), ...Object.fromEntries(Object.entries(state).filter(([key]) => !["device"].includes(key))), colors: palettes[state.palette].colors };
 }
 function dnaText() {
   const data = dnaPayload();
   return [`界面设计 DNA：${data.name}`, `设计方向：${labels.style[data.style]}`, `颜色：${palettes[data.palette].label}（${data.colors.join(" / ")}）`, `字体：${labels.font[data.font]}`, `圆角：${data.radius}px`, `基础间距：${data.spacing}px`, `界面密度：${labels.density[data.density]}`, "复用要求：新页面应继承以上视觉规则，仅根据页面任务调整内容结构。"].join("\n");
 }
 function toast(message) { const node = $("#dnaToast"); if (!node) return; node.textContent = message; node.hidden = false; clearTimeout(toast.timer); toast.timer = setTimeout(() => { node.hidden = true; }, 2200); }
-async function copyDna() { try { await navigator.clipboard.writeText(dnaText()); toast("设计规范已复制"); } catch { toast("复制失败，请重试"); } }
+async function copyDna() { try { await navigator.clipboard.writeText(dnaText()); toast("提示词已复制，去 AI 工具里粘贴吧"); } catch { toast("复制失败，请重试"); } }
 function saveDna() { localStorage.setItem(STORAGE_KEY, JSON.stringify(dnaPayload())); $("#saveNote").textContent = "已保存到当前浏览器，可继续用于其他页面。"; toast("界面 DNA 已保存"); }
 
 function restoreDna() {
@@ -112,19 +111,18 @@ function restoreDna() {
     ["style", "density", "palette", "font", "radius", "spacing"].forEach((key) => { if (saved[key] != null) state[key] = String(saved[key]); });
     if (saved.name) $("#dnaName").value = saved.name;
     $$(".direction-card").forEach((item) => { const selected = item.dataset.style === state.style; item.classList.toggle("is-selected", selected); item.setAttribute("aria-checked", String(selected)); });
-    ["density", "palette", "font", "radius", "spacing"].forEach((group) => { $$(`[data-choice-group="${group}"] button`).forEach((item) => { const selected = item.dataset.value === state[group]; item.classList.toggle("is-selected", selected); if (item.getAttribute("role") === "radio") item.setAttribute("aria-checked", String(selected)); }); });
   } catch { localStorage.removeItem(STORAGE_KEY); }
 }
 
 function installEvents() {
-  $$(".dna-step").forEach((button) => button.addEventListener("click", () => setStep(button.dataset.step)));
-  $$('[data-next]').forEach((button) => button.addEventListener("click", () => setStep(button.dataset.next)));
-  $$('[data-go-save]').forEach((button) => button.addEventListener("click", () => setStep("save")));
   $$(".direction-card").forEach((button) => button.addEventListener("click", () => selectStyle(button)));
   $$('[data-choice-group]').forEach((group) => group.addEventListener("click", (event) => { const button = event.target.closest("button[data-value]"); if (button) selectInGroup(group.dataset.choiceGroup, button); }));
-  $$("[data-open-rule]").forEach((button) => button.addEventListener("click", () => setStep("rules")));
+  $$("[data-scroll]").forEach((button) => button.addEventListener("click", () => {
+    const target = document.querySelector(button.dataset.scroll);
+    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }));
   $$("[data-device]").forEach((button) => button.addEventListener("click", () => { state.device = button.dataset.device; $$("[data-device]").forEach((item) => item.classList.toggle("is-selected", item === button)); $("[data-preview-stage]").classList.toggle("is-mobile", state.device === "mobile"); }));
-  $("#saveDna")?.addEventListener("click", saveDna); $("#copyDna")?.addEventListener("click", copyDna);
+  $("#saveDna")?.addEventListener("click", saveDna); $("#copyDna")?.addEventListener("click", copyDna); $("#copyDnaHero")?.addEventListener("click", copyDna);
 }
 
-restoreDna(); installEvents(); applyPreview(); renderSummary();
+restoreDna(); installEvents(); syncChoiceGroups(); applyPreview(); renderPrompt();

@@ -12,12 +12,12 @@
   <link rel="stylesheet" href="./src/core/app-shell/design-tokens.css?v=20260828-unified-v1">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
-  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260828-dna-redesign-v1">
+  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260828-dna-studio-v2">
   <link rel="stylesheet" href="./src/components/site-header/site-footer.css?v=20260828-unified-v1">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
-  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260828-dna-redesign-v1"></script>
+  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260828-dna-studio-v2"></script>
 </head>
 <body class="dna-page">
   <image2-site-header data-site-header></image2-site-header>
@@ -27,20 +27,18 @@
       <div class="dna-hero-copy">
         <p class="dna-kicker">DESIGN DNA</p>
         <h1 id="dnaTitle">界面设计 DNA</h1>
-        <p class="dna-lede">先选一个视觉方向，再固定颜色、字体与形状，保存成一套可复用的界面 DNA。</p>
+        <p class="dna-lede">方向、颜色、字体、形状——一次配完，保存成可复用的界面 DNA，右侧预览实时联动。</p>
       </div>
-      <button class="dna-save-top" type="button" data-go-save>保存 DNA</button>
+      <div class="dna-hero-actions">
+        <button class="copy-secondary" type="button" id="copyDnaHero">复制提示词</button>
+        <button class="dna-save-top" type="button" data-scroll="#dna-save">保存 DNA</button>
+      </div>
     </header>
-    <nav class="dna-steps" aria-label="设计 DNA 流程">
-      <button class="dna-step is-active" type="button" data-step="direction" aria-current="step"><i>01</i><span>方向</span><small>选择整体气质</small></button>
-      <button class="dna-step" type="button" data-step="rules"><i>02</i><span>规范</span><small>颜色 · 字体 · 形状</small></button>
-      <button class="dna-step" type="button" data-step="save"><i>03</i><span>保存</span><small>命名并复用</small></button>
-    </nav>
 
     <div class="dna-workspace">
-      <aside class="dna-controls" aria-live="polite">
-        <section class="dna-panel is-active" data-panel="direction" aria-labelledby="directionTitle">
-          <div class="dna-panel-heading"><span>01</span><div><h2 id="directionTitle">先选一个方向</h2><p>不用把所有细节一次想完，先确定整体气质。</p></div></div>
+      <div class="dna-controls">
+        <section class="dna-section" id="dna-direction" aria-labelledby="directionTitle">
+          <header class="dna-section-head"><span>01</span><div><h2 id="directionTitle">方向</h2><p>先确定整体气质，密度随之匹配。</p></div></header>
           <div class="direction-grid" role="radiogroup" aria-label="界面风格">
             <button class="direction-card is-selected" type="button" role="radio" aria-checked="true" data-style="restrained"><img src="./assets/style-covers/warm-minimal.webp" alt="克制风格界面示例"><span><strong>克制</strong><small>留白、秩序、柔和</small></span></button>
             <button class="direction-card" type="button" role="radio" aria-checked="false" data-style="editorial"><img src="./assets/style-covers/editorial-minimal.webp" alt="编辑感界面示例"><span><strong>编辑感</strong><small>字体、网格、对比</small></span></button>
@@ -48,11 +46,11 @@
             <button class="direction-card" type="button" role="radio" aria-checked="false" data-style="future"><img src="./assets/style-covers/tactile-future.webp" alt="未来感界面示例"><span><strong>未来感</strong><small>深邃、精致、氛围</small></span></button>
           </div>
           <fieldset class="density-field"><legend>界面密度</legend><div class="segmented-control" data-choice-group="density"><button type="button" data-value="loose">宽松</button><button class="is-selected" type="button" data-value="balanced">平衡</button><button type="button" data-value="compact">紧凑</button></div></fieldset>
-          <div class="panel-actions"><a href="./library.html?lang=zh" data-library-link>从案例库选择</a><button class="next-button" type="button" data-next="rules">继续设置规范 <span>→</span></button></div>
+          <p class="section-hint">想要别的起点？<a href="./library.html?lang=zh" data-library-link>从案例库选择</a></p>
         </section>
 
-        <section class="dna-panel" data-panel="rules" aria-labelledby="rulesTitle" hidden>
-          <div class="dna-panel-heading"><span>02</span><div><h2 id="rulesTitle">确定基础规范</h2><p>只保留会持续影响所有页面的四项设置。</p></div></div>
+        <section class="dna-section" id="dna-rules" aria-labelledby="rulesTitle">
+          <header class="dna-section-head"><span>02</span><div><h2 id="rulesTitle">规范</h2><p>只保留会持续影响所有页面的四项设置。</p></div></header>
           <fieldset class="rule-field"><legend>颜色</legend><div class="palette-list" data-choice-group="palette" role="radiogroup" aria-label="颜色方案">
             <button class="palette-option is-selected" type="button" role="radio" aria-checked="true" data-value="sage" aria-label="鼠尾草绿"><i style="--swatch:#18a957"></i><i style="--swatch:#e7f5ec"></i><i style="--swatch:#24231f"></i></button>
             <button class="palette-option" type="button" role="radio" aria-checked="false" data-value="ink" aria-label="墨黑灰"><i style="--swatch:#111111"></i><i style="--swatch:#e8e8e4"></i><i style="--swatch:#252724"></i></button>
@@ -64,19 +62,21 @@
             <button class="type-option" type="button" data-value="serif"><b>编辑衬线</b><span>内容感、文化感</span><i>Ag</i></button>
             <button class="type-option" type="button" data-value="mono"><b>几何等宽</b><span>理性、工具感</span><i>R1</i></button>
           </div></fieldset>
-          <fieldset class="rule-field compact-rule"><legend>圆角</legend><div class="segmented-control" data-choice-group="radius"><button type="button" data-value="0">直角</button><button class="is-selected" type="button" data-value="14">适中</button><button type="button" data-value="28">圆润</button></div></fieldset>
-          <fieldset class="rule-field compact-rule"><legend>间距</legend><div class="segmented-control" data-choice-group="spacing"><button type="button" data-value="6">紧凑</button><button class="is-selected" type="button" data-value="10">平衡</button><button type="button" data-value="14">宽松</button></div></fieldset>
-          <div class="panel-actions panel-actions-single"><button class="next-button" type="button" data-next="save">确认这套规范 <span>→</span></button></div>
+          <div class="rule-pair">
+            <fieldset class="rule-field"><legend>圆角</legend><div class="segmented-control" data-choice-group="radius"><button type="button" data-value="0">直角</button><button class="is-selected" type="button" data-value="14">适中</button><button type="button" data-value="28">圆润</button></div></fieldset>
+            <fieldset class="rule-field"><legend>间距</legend><div class="segmented-control" data-choice-group="spacing"><button type="button" data-value="6">紧凑</button><button class="is-selected" type="button" data-value="10">平衡</button><button type="button" data-value="14">宽松</button></div></fieldset>
+          </div>
         </section>
 
-        <section class="dna-panel" data-panel="save" aria-labelledby="saveTitle" hidden>
-          <div class="dna-panel-heading"><span>03</span><div><h2 id="saveTitle">保存并复用</h2><p>给这套界面 DNA 一个名字，之后可以继续应用到新页面。</p></div></div>
+        <section class="dna-section" id="dna-save" aria-labelledby="saveTitle">
+          <header class="dna-section-head"><span>03</span><div><h2 id="saveTitle">保存并复用</h2><p>给这套 DNA 命名，之后可以应用到新页面。</p></div></header>
           <label class="dna-name-field"><span>规范名称</span><input id="dnaName" type="text" value="克制绿 · Web DNA" maxlength="40"></label>
           <dl class="dna-summary" id="dnaSummary"></dl>
-          <div class="save-actions"><button class="save-primary" id="saveDna" type="button">保存这套 DNA</button><button class="copy-secondary" id="copyDna" type="button">复制规范</button></div>
+          <div class="dna-prompt-block"><p class="dna-prompt-label">生成的提示词</p><pre class="dna-prompt" id="dnaPrompt" aria-live="polite"></pre></div>
+          <div class="save-actions"><button class="save-primary" id="saveDna" type="button">保存这套 DNA</button><button class="copy-secondary" id="copyDna" type="button">复制提示词</button></div>
           <p class="save-note" id="saveNote" role="status" aria-live="polite"></p>
         </section>
-      </aside>
+      </div>
 
       <section class="dna-canvas" aria-labelledby="previewTitle">
         <div class="canvas-label"><div><span>LIVE PREVIEW</span><h2 id="previewTitle">实时预览</h2></div><div class="device-switch" aria-label="预览设备"><button class="is-selected" type="button" data-device="desktop">桌面</button><button type="button" data-device="mobile">移动</button></div></div>
@@ -88,9 +88,8 @@
               <section class="sample-hero"><div class="sample-copy"><small>DESIGN FOR EVERYDAY</small><h3>让每一个页面，<br>拥有同一种气质。</h3><p>清晰的颜色、字体、形状与间距，让设计不再从头开始。</p><a>查看项目 <span>→</span></a></div><div class="sample-visual"><div></div><span>01 / 04</span></div></section>
               <section class="sample-grid"><article><small>01</small><strong>视觉方向</strong><p>用统一的视觉语言建立第一印象。</p></article><article><small>02</small><strong>基础规范</strong><p>把关键选择变成可以复用的规则。</p></article><article><small>03</small><strong>持续复用</strong><p>让不同页面保持相同的设计气质。</p></article></section>
             </div>
-            <div class="preview-dock" aria-label="当前设计 DNA"><div class="dock-palette" id="dockPalette"><i></i><i></i><i></i><i></i></div><span class="dock-divider"></span><button type="button" data-open-rule="font"><b>Aa</b><span id="dockFont">简洁无衬线</span></button><span class="dock-divider"></span><p><span id="dockRadius">14px 圆角</span><span id="dockDensity">平衡密度</span></p></div>
-            </article>
-          <aside class="floating-tools" aria-label="规范快捷入口"><button type="button" data-open-rule="palette"><i class="tool-color"></i><span>颜色</span></button><button type="button" data-open-rule="font"><i class="tool-type">Aa</i><span>字体</span></button><button type="button" data-open-rule="radius"><i class="tool-radius"></i><span>圆角</span></button><button type="button" data-open-rule="spacing"><i class="tool-spacing"></i><span>间距</span></button></aside>
+            <div class="preview-dock" aria-label="当前设计 DNA"><div class="dock-palette" id="dockPalette"><i></i><i></i><i></i><i></i></div><span class="dock-divider"></span><button type="button" data-scroll="#dna-rules"><b>Aa</b><span id="dockFont">简洁无衬线</span></button><span class="dock-divider"></span><p><span id="dockRadius">14px 圆角</span><span id="dockDensity">平衡密度</span></p></div>
+          </article>
         </div>
       </section>
     </div>
