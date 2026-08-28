@@ -12,12 +12,12 @@
   <link rel="stylesheet" href="./src/core/app-shell/design-tokens.css?v=20260828-unified-v1">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
-  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260828-dna-studio-v2">
+  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260828-dna-studio-v3">
   <link rel="stylesheet" href="./src/components/site-header/site-footer.css?v=20260828-unified-v1">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
-  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260828-dna-studio-v2"></script>
+  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260828-dna-studio-v3"></script>
 </head>
 <body class="dna-page">
   <image2-site-header data-site-header></image2-site-header>
@@ -30,6 +30,21 @@
         <p class="dna-lede">方向、颜色、字体、形状——一次配完，保存成可复用的界面 DNA，右侧预览实时联动。</p>
       </div>
       <div class="dna-hero-actions">
+        <div class="dna-preset" data-preset-root>
+          <button class="dna-preset-button" type="button" aria-expanded="false" aria-haspopup="listbox" data-preset-toggle>
+            <span data-preset-label>预设 · 克制</span><i aria-hidden="true">▾</i>
+          </button>
+          <div class="dna-preset-panel" data-preset-panel hidden>
+            <div class="dna-preset-toolbar">
+              <label class="dna-preset-search"><input type="search" data-preset-search placeholder="搜索设计 DNA" aria-label="搜索设计 DNA 预设"></label>
+              <button class="dna-preset-clear" type="button" data-preset-clear>清除</button>
+            </div>
+            <div class="dna-preset-body">
+              <div class="dna-preset-list" role="listbox" aria-label="设计 DNA 预设" data-preset-list></div>
+              <div class="dna-preset-detail" data-preset-detail aria-live="polite"></div>
+            </div>
+          </div>
+        </div>
         <button class="copy-secondary" type="button" id="copyDnaHero">复制提示词</button>
         <button class="dna-save-top" type="button" data-scroll="#dna-save">保存 DNA</button>
       </div>

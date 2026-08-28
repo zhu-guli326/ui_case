@@ -13,6 +13,15 @@ const labels = {
   spacing: { "6": "紧凑", "10": "平衡", "14": "宽松" },
 };
 const state = { style: "restrained", density: "balanced", palette: "sage", font: "sans", radius: "14", spacing: "10", device: "desktop" };
+const presets = [
+  { id: "restrained", label: "克制 · 鼠尾草绿", desc: "留白、秩序、柔和。绿色点缀的中性界面，适合内容型产品。", style: "restrained", palette: "sage", font: "sans", radius: "14", spacing: "10", density: "balanced" },
+  { id: "editorial", label: "编辑感 · 墨黑灰", desc: "字体、网格、对比。衬线标题与直角卡片，内容感强。", style: "editorial", palette: "ink", font: "serif", radius: "0", spacing: "6", density: "compact" },
+  { id: "vivid", label: "活力 · 暖珊瑚", desc: "高对比、丰富、直接。大圆角与暖色调，消费与营销场景。", style: "vivid", palette: "coral", font: "sans", radius: "28", spacing: "10", density: "compact" },
+  { id: "future", label: "未来感 · 深海蓝", desc: "深邃、精致、氛围。等宽字体与宽松间距，工具型产品。", style: "future", palette: "blue", font: "mono", radius: "14", spacing: "14", density: "balanced" },
+  { id: "atelier", label: "工坊 · 墨黑灰", desc: "无衬线排版配大圆角与宽松节奏，作品集与工作室气质。", style: "editorial", palette: "ink", font: "sans", radius: "28", spacing: "14", density: "loose" },
+  { id: "editorial-coral", label: "柑橘 · 暖珊瑚", desc: "衬线文字与适中圆角，编辑感与暖色并存的杂志界面。", style: "vivid", palette: "coral", font: "serif", radius: "14", spacing: "6", density: "balanced" },
+];
+let activePresetId = "restrained";
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
@@ -26,20 +35,31 @@ function selectInGroup(group, button) {
     if (item.getAttribute("role") === "radio") item.setAttribute("aria-checked", String(selected));
   });
   applyPreview();
+  setPresetLabel(null);
 }
 
 function selectStyle(button) {
+  const preset = presets.find((item) => item.style === button.dataset.style);
+  if (preset) { applyPreset(preset, { silent: true }); return; }
   state.style = button.dataset.style;
-  $$(".direction-card").forEach((item) => { const selected = item === button; item.classList.toggle("is-selected", selected); item.setAttribute("aria-checked", String(selected)); });
-  const preset = {
-    restrained: { density: "balanced", palette: "sage", font: "sans", radius: "14", spacing: "10" },
-    editorial: { density: "compact", palette: "ink", font: "serif", radius: "0", spacing: "6" },
-    vivid: { density: "compact", palette: "coral", font: "sans", radius: "28", spacing: "10" },
-    future: { density: "balanced", palette: "blue", font: "mono", radius: "14", spacing: "14" },
-  }[state.style];
-  Object.assign(state, preset);
+  syncDirectionCards();
   syncChoiceGroups();
   applyPreview();
+  setPresetLabel(null);
+}
+
+function syncDirectionCards() {
+  $$(".direction-card").forEach((item) => { const selected = item.dataset.style === state.style; item.classList.toggle("is-selected", selected); item.setAttribute("aria-checked", String(selected)); });
+}
+
+function applyPreset(preset, { silent = false } = {}) {
+  activePresetId = preset.id;
+  Object.assign(state, { style: preset.style, density: preset.density, palette: preset.palette, font: preset.font, radius: preset.radius, spacing: preset.spacing });
+  syncDirectionCards();
+  syncChoiceGroups();
+  setPresetLabel(preset.label);
+  applyPreview();
+  if (!silent) { renderPresetList(); toast(`已应用预设：${preset.label}`); }
 }
 
 function syncChoiceGroups() {
@@ -125,4 +145,54 @@ function installEvents() {
   $("#saveDna")?.addEventListener("click", saveDna); $("#copyDna")?.addEventListener("click", copyDna); $("#copyDnaHero")?.addEventListener("click", copyDna);
 }
 
-restoreDna(); installEvents(); syncChoiceGroups(); applyPreview(); renderPrompt();
+function setPresetLabel(label) {
+  activePresetId = label ? activePresetId : null;
+  const node = $("[data-preset-label]");
+  if (node) node.textContent = label ? `预设 · ${label.split(" · ")[0]}` : "预设 · 自定义";
+  renderPresetList();
+}
+
+function renderPresetDetail(preset) {
+  const detail = $("[data-preset-detail]");
+  if (!detail) return;
+  const palette = palettes[preset.palette];
+  const swatches = palette.colors.map((color, index) => `<figure><i style="background:${color}"></i><figcaption><b>${color}</b><small>${["主色", "浅底", "画布", "墨色"][index] || ""}</small></figcaption></figure>`).join("");
+  detail.innerHTML = `<h3>${preset.label}</h3><p>${preset.desc}</p><p class="dna-preset-meta">字体 ${labels.font[preset.font]} · 圆角 ${preset.radius}px · 间距 ${preset.spacing}px · ${labels.density[preset.density]}密度</p><div class="dna-preset-swatches">${swatches}</div>`;
+}
+
+function renderPresetList(filter = "") {
+  const list = $("[data-preset-list]");
+  if (!list) return;
+  const query = filter.trim().toLowerCase();
+  const items = presets.filter((preset) => !query || `${preset.label}${preset.desc}`.toLowerCase().includes(query));
+  const currentLabel = $("[data-preset-label]")?.textContent || "";
+  list.innerHTML = `<p class="dna-preset-group">官方预设</p>` + items.map((preset) => {
+    const selected = currentLabel.includes(preset.label.split(" · ")[0]);
+    return `<button type="button" role="option" aria-selected="${selected}" class="dna-preset-item${selected ? " is-selected" : ""}" data-preset-id="${preset.id}"><span>${preset.label}</span><small>${labels.font[preset.font]} · ${preset.radius}px</small></button>`;
+  }).join("") + (items.length ? "" : '<p class="dna-preset-empty">没有匹配的预设</p>');
+  list.querySelectorAll("[data-preset-id]").forEach((button) => {
+    button.addEventListener("click", () => applyPreset(presets.find((item) => item.id === button.dataset.presetId)));
+    button.addEventListener("mouseenter", () => renderPresetDetail(presets.find((item) => item.id === button.dataset.presetId)));
+  });
+  const shown = items.find((item) => item.id === activePresetId) || items[0];
+  if (shown) renderPresetDetail(shown);
+}
+
+function installPresetDropdown() {
+  const root = $("[data-preset-root]");
+  const toggle = $("[data-preset-toggle]");
+  const panel = $("[data-preset-panel]");
+  if (!root || !toggle || !panel) return;
+  const close = () => { panel.hidden = true; toggle.setAttribute("aria-expanded", "false"); };
+  const open = () => { panel.hidden = false; toggle.setAttribute("aria-expanded", "true"); renderPresetList($("[data-preset-search]")?.value || ""); };
+  toggle.addEventListener("click", () => { panel.hidden ? open() : close(); });
+  $("[data-preset-search]")?.addEventListener("input", (event) => renderPresetList(event.target.value));
+  $("[data-preset-clear]")?.addEventListener("click", () => { applyPreset(presets[0]); close(); });
+  document.addEventListener("click", (event) => { if (!event.target.closest("[data-preset-root]")) close(); });
+  document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !panel.hidden) close(); });
+}
+
+restoreDna(); installEvents(); installPresetDropdown();
+const matchedPreset = presets.find((item) => item.style === state.style && item.palette === state.palette && item.font === state.font && item.radius === state.radius && item.spacing === state.spacing && item.density === state.density);
+setPresetLabel(matchedPreset ? matchedPreset.label : null);
+syncChoiceGroups(); applyPreview(); renderPrompt();
