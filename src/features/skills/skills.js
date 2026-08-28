@@ -115,7 +115,7 @@ const designReferenceGroups = [
   { key: "COMPONENT", zh: "组件资源", en: "Component libraries", descriptionZh: "寻找可直接组合、定制并交给 AI Coding 使用的界面组件与设计系统基础。", descriptionEn: "Find composable, customizable UI components and design-system foundations for AI-assisted coding." },
   { key: "DETAIL", zh: "局部细节", en: "UI details", descriptionZh: "研究导航、首屏、CTA、页脚与微交互细节。", descriptionEn: "Study navigation, heroes, CTAs, footers and interaction details." },
   { key: "EXPERIMENT", zh: "实验感", en: "Experimental", descriptionZh: "寻找更先锋的动效、交互和创意表达。", descriptionEn: "Find experimental motion, interaction and creative expression." },
-  { key: "MOTION", zh: "动画引擎", en: "Animation engines", descriptionZh: "构建时间轴、SVG、DOM 与复杂交互动效。", descriptionEn: "Build timelines, SVG, DOM and complex interactive motion." },
+  { key: "MOTION", zh: "动效与交互", en: "Motion & interaction", descriptionZh: "收集界面动画组件、页面转场、状态反馈与动效开发工具。", descriptionEn: "Explore interface animation components, page transitions, state feedback and motion development tools." },
   { key: "PRESENTATION", zh: "演示工具", en: "Presentation tools", descriptionZh: "快速生成可编辑 PPT 或零代码在线演示。", descriptionEn: "Create editable decks or no-code online presentations quickly." }
 ];
 
