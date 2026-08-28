@@ -87,7 +87,7 @@ const repositoryRecords = recordsBy(repositoryBlock, "slug");
 const websiteRecords = recordsBy(websiteBlock, "domain");
 
 if (skillSlugs.length !== 35) errors.push(`Expected 35 Skill cards, found ${skillSlugs.length}`);
-if (websiteDomains.length !== 14) errors.push(`Expected 14 Web cards, found ${websiteDomains.length}`);
+if (websiteDomains.length !== 26) errors.push(`Expected 26 Web cards, found ${websiteDomains.length}`);
 if (websiteDomains.length !== websiteUrls.length) errors.push("Web card domains and URLs are out of sync");
 for (const slug of duplicates(skillSlugs)) errors.push(`Duplicate Skill slug: ${slug}`);
 for (const domain of duplicates(websiteDomains)) errors.push(`Duplicate Web domain: ${domain}`);
