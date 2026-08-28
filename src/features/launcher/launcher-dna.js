@@ -21,7 +21,7 @@ const catalogPresets = labThemes.map((theme) => ({
 const labels = {
   style: { restrained: "克制", editorial: "编辑感", vivid: "活力", future: "未来感" },
   density: { loose: "宽松", balanced: "平衡", compact: "紧凑" },
-  font: { sans: "简洁无衬线", serif: "编辑衬线", mono: "几何等宽" },
+  font: { sans: "简洁无衬线", serif: "编辑衬线", mono: "几何等宽", hei: "浓黑标题", kai: "楷书人文", fangsong: "仿宋文献", yuan: "圆润亲和", geometric: "几何西文" },
   radius: { "0": "直角", "14": "适中", "28": "圆润" },
   spacing: { "6": "紧凑", "10": "平衡", "14": "宽松" },
 };
@@ -91,8 +91,13 @@ function applyPreview() {
   const densityScale = { loose: 1.28, balanced: 1, compact: .78 }[state.density];
   const displayFont = {
     sans: 'system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif',
-    serif: '"Noto Serif SC","Songti SC",Georgia,serif',
-    mono: '"SFMono-Regular",Consolas,"Liberation Mono",monospace',
+    serif: '"Noto Serif SC","Songti SC","SimSun",Georgia,serif',
+    mono: 'ui-monospace,"SFMono-Regular",Consolas,"Liberation Mono",monospace',
+    hei: '"Noto Sans SC","Source Han Sans SC","SimHei","Microsoft YaHei",sans-serif',
+    kai: '"Kaiti SC","STKaiti",KaiTi,"TW-Kai",cursive',
+    fangsong: '"Fangsong SC","STFangsong",FangSong,"SimSun",serif',
+    yuan: '"Yuanti SC",YouYuan,"PingFang SC","Microsoft YaHei",sans-serif',
+    geometric: 'Futura,"Century Gothic","Avenir Next","Trebuchet MS",sans-serif',
   }[state.font];
   root.style.setProperty("--dna-accent", palette.colors[0]);
   root.style.setProperty("--dna-accent-soft", palette.colors[1]);

@@ -12,12 +12,12 @@
   <link rel="stylesheet" href="./src/core/app-shell/design-tokens.css?v=20260828-unified-v1">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
-  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260828-dna-studio-v4">
+  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260828-dna-studio-v6">
   <link rel="stylesheet" href="./src/components/site-header/site-footer.css?v=20260828-unified-v1">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
-  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260828-dna-studio-v5"></script>
+  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260828-dna-studio-v6"></script>
 </head>
 <body class="dna-page">
   <image2-site-header data-site-header></image2-site-header>
@@ -71,9 +71,14 @@
             <button class="palette-option" type="button" role="radio" aria-checked="false" data-value="coral" aria-label="暖珊瑚"><i style="--swatch:#e4573d"></i><i style="--swatch:#fff0e8"></i><i style="--swatch:#321d18"></i></button>
           </div></fieldset>
           <fieldset class="rule-field"><legend>字体气质</legend><div class="type-list" data-choice-group="font">
-            <button class="type-option is-selected" type="button" data-value="sans"><b>简洁无衬线</b><span>现代、清晰、通用</span><i>Aa</i></button>
-            <button class="type-option" type="button" data-value="serif"><b>编辑衬线</b><span>内容感、文化感</span><i>Ag</i></button>
-            <button class="type-option" type="button" data-value="mono"><b>几何等宽</b><span>理性、工具感</span><i>R1</i></button>
+            <button class="type-option is-selected" type="button" data-value="sans"><b>简洁无衬线</b><span>现代、清晰、通用</span><i style="font-family:system-ui,-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">Aa</i></button>
+            <button class="type-option" type="button" data-value="serif"><b>编辑衬线</b><span>内容感、文化感</span><i style="font-family:'Noto Serif SC','Songti SC','SimSun',Georgia,serif">Ag</i></button>
+            <button class="type-option" type="button" data-value="mono"><b>几何等宽</b><span>理性、工具感</span><i style="font-family:ui-monospace,'SFMono-Regular',Consolas,'Liberation Mono',monospace">R1</i></button>
+            <button class="type-option" type="button" data-value="hei"><b>浓黑标题</b><span>浓重、醒目、主张</span><i style="font-family:'Noto Sans SC','Source Han Sans SC','SimHei','Microsoft YaHei',sans-serif;font-weight:900">黑</i></button>
+            <button class="type-option" type="button" data-value="kai"><b>楷书人文</b><span>人文、书法、温度</span><i style="font-family:'Kaiti SC','STKaiti',KaiTi,'TW-Kai',cursive">楷</i></button>
+            <button class="type-option" type="button" data-value="fangsong"><b>仿宋文献</b><span>规范、文献、报刊</span><i style="font-family:'Fangsong SC','STFangsong',FangSong,'SimSun',serif">仿</i></button>
+            <button class="type-option" type="button" data-value="yuan"><b>圆润亲和</b><span>亲和、轻松、消费</span><i style="font-family:'Yuanti SC',YouYuan,'PingFang SC','Microsoft YaHei',sans-serif">圆</i></button>
+            <button class="type-option" type="button" data-value="geometric"><b>几何西文</b><span>几何、现代、品牌</span><i style="font-family:Futura,'Century Gothic','Avenir Next','Trebuchet MS',sans-serif">Gg</i></button>
           </div></fieldset>
           <div class="rule-pair">
             <fieldset class="rule-field"><legend>圆角</legend><div class="segmented-control" data-choice-group="radius"><button type="button" data-value="0">直角</button><button class="is-selected" type="button" data-value="14">适中</button><button type="button" data-value="28">圆润</button></div></fieldset>
