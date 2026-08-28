@@ -1,10 +1,23 @@
+import { labThemes } from "../../../catalog/color-themes.js";
+
 const STORAGE_KEY = "ondesign:interface-dna:v1";
-const palettes = {
+const basePalettes = {
   sage: { label: "鼠尾草绿", colors: ["#18a957", "#e7f5ec", "#f6f5f1", "#24231f"] },
   ink: { label: "墨黑灰", colors: ["#111111", "#e8e8e4", "#f5f4f0", "#252724"] },
   blue: { label: "深海蓝", colors: ["#2457e6", "#e7edff", "#f2f5ff", "#17213c"] },
   coral: { label: "暖珊瑚", colors: ["#e4573d", "#fff0e8", "#fff7f2", "#321d18"] },
 };
+const extraPalettes = {};
+const paletteFor = (key) => basePalettes[key] || extraPalettes[key] || basePalettes.sage;
+const catalogPresets = labThemes.map((theme) => ({
+  kind: "palette",
+  id: `lab:${theme.id}`,
+  label: theme.name,
+  desc: theme.description,
+  tags: theme.tags || [],
+  paletteKey: `lab:${theme.id}`,
+  colors: [theme.colors.accent, theme.colors.accentSoft, theme.colors.canvas, theme.colors.ink],
+}));
 const labels = {
   style: { restrained: "克制", editorial: "编辑感", vivid: "活力", future: "未来感" },
   density: { loose: "宽松", balanced: "平衡", compact: "紧凑" },
@@ -74,7 +87,7 @@ function syncChoiceGroups() {
 
 function applyPreview() {
   const root = document.documentElement;
-  const palette = palettes[state.palette];
+  const palette = paletteFor(state.palette);
   const densityScale = { loose: 1.28, balanced: 1, compact: .78 }[state.density];
   const displayFont = {
     sans: 'system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif',
@@ -102,7 +115,7 @@ function applyPreview() {
 function renderSummary() {
   const summary = $("#dnaSummary");
   if (!summary) return;
-  const rows = [["设计方向", labels.style[state.style]], ["颜色", palettes[state.palette].label], ["字体", labels.font[state.font]], ["圆角", `${labels.radius[state.radius]} · ${state.radius}px`], ["间距", `${labels.spacing[state.spacing]} · ${state.spacing}px`], ["密度", labels.density[state.density]]];
+  const rows = [["设计方向", labels.style[state.style]], ["颜色", paletteFor(state.palette).label], ["字体", labels.font[state.font]], ["圆角", `${labels.radius[state.radius]} · ${state.radius}px`], ["间距", `${labels.spacing[state.spacing]} · ${state.spacing}px`], ["密度", labels.density[state.density]]];
   summary.replaceChildren(...rows.map(([term, value]) => {
     const row = document.createElement("div"); const dt = document.createElement("dt"); const dd = document.createElement("dd");
     dt.textContent = term; dd.textContent = value; row.append(dt, dd); return row;
@@ -115,11 +128,11 @@ function renderPrompt() {
 }
 
 function dnaPayload() {
-  return { name: $("#dnaName")?.value.trim() || "未命名界面 DNA", updatedAt: new Date().toISOString(), ...Object.fromEntries(Object.entries(state).filter(([key]) => !["device"].includes(key))), colors: palettes[state.palette].colors };
+  return { name: $("#dnaName")?.value.trim() || "未命名界面 DNA", updatedAt: new Date().toISOString(), ...Object.fromEntries(Object.entries(state).filter(([key]) => !["device"].includes(key))), paletteLabel: paletteFor(state.palette).label, colors: paletteFor(state.palette).colors };
 }
 function dnaText() {
   const data = dnaPayload();
-  return [`界面设计 DNA：${data.name}`, `设计方向：${labels.style[data.style]}`, `颜色：${palettes[data.palette].label}（${data.colors.join(" / ")}）`, `字体：${labels.font[data.font]}`, `圆角：${data.radius}px`, `基础间距：${data.spacing}px`, `界面密度：${labels.density[data.density]}`, "复用要求：新页面应继承以上视觉规则，仅根据页面任务调整内容结构。"].join("\n");
+  return [`界面设计 DNA：${data.name}`, `设计方向：${labels.style[data.style]}`, `颜色：${paletteFor(data.palette).label}（${data.colors.join(" / ")}）`, `字体：${labels.font[data.font]}`, `圆角：${data.radius}px`, `基础间距：${data.spacing}px`, `界面密度：${labels.density[data.density]}`, "复用要求：新页面应继承以上视觉规则，仅根据页面任务调整内容结构。"].join("\n");
 }
 function toast(message) { const node = $("#dnaToast"); if (!node) return; node.textContent = message; node.hidden = false; clearTimeout(toast.timer); toast.timer = setTimeout(() => { node.hidden = true; }, 2200); }
 async function copyDna() { try { await navigator.clipboard.writeText(dnaText()); toast("提示词已复制，去 AI 工具里粘贴吧"); } catch { toast("复制失败，请重试"); } }
@@ -129,6 +142,9 @@ function restoreDna() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null"); if (!saved) return;
     ["style", "density", "palette", "font", "radius", "spacing"].forEach((key) => { if (saved[key] != null) state[key] = String(saved[key]); });
+    if (state.palette && !basePalettes[state.palette] && Array.isArray(saved.colors)) {
+      extraPalettes[state.palette] = { label: saved.paletteLabel || "自定义配色", colors: saved.colors };
+    }
     if (saved.name) $("#dnaName").value = saved.name;
     $$(".direction-card").forEach((item) => { const selected = item.dataset.style === state.style; item.classList.toggle("is-selected", selected); item.setAttribute("aria-checked", String(selected)); });
   } catch { localStorage.removeItem(STORAGE_KEY); }
@@ -155,26 +171,53 @@ function setPresetLabel(label) {
 function renderPresetDetail(preset) {
   const detail = $("[data-preset-detail]");
   if (!detail) return;
-  const palette = palettes[preset.palette];
+  if (preset.kind === "palette") {
+    const swatches = preset.colors.map((color, index) => `<figure><i style="background:${color}"></i><figcaption><b>${color}</b><small>${["主色", "浅底", "画布", "墨色"][index] || ""}</small></figcaption></figure>`).join("");
+    const tags = preset.tags.length ? `<p class="dna-preset-tags">${preset.tags.map((tag) => `<span>${tag}</span>`).join("")}</p>` : "";
+    detail.innerHTML = `<h3>${preset.label}</h3><p>${preset.desc}</p>${tags}<div class="dna-preset-swatches">${swatches}</div>`;
+    return;
+  }
+  const palette = paletteFor(preset.palette);
   const swatches = palette.colors.map((color, index) => `<figure><i style="background:${color}"></i><figcaption><b>${color}</b><small>${["主色", "浅底", "画布", "墨色"][index] || ""}</small></figcaption></figure>`).join("");
   detail.innerHTML = `<h3>${preset.label}</h3><p>${preset.desc}</p><p class="dna-preset-meta">字体 ${labels.font[preset.font]} · 圆角 ${preset.radius}px · 间距 ${preset.spacing}px · ${labels.density[preset.density]}密度</p><div class="dna-preset-swatches">${swatches}</div>`;
+}
+
+function applyCatalogPreset(preset) {
+  extraPalettes[preset.paletteKey] = { label: preset.label, colors: preset.colors };
+  state.palette = preset.paletteKey;
+  syncChoiceGroups();
+  setPresetLabel(preset.label);
+  applyPreview();
+  renderPresetList($("[data-preset-search]")?.value || "");
+  toast(`已应用配色：${preset.label}`);
 }
 
 function renderPresetList(filter = "") {
   const list = $("[data-preset-list]");
   if (!list) return;
   const query = filter.trim().toLowerCase();
-  const items = presets.filter((preset) => !query || `${preset.label}${preset.desc}`.toLowerCase().includes(query));
+  const matches = (preset) => !query || `${preset.label}${preset.desc}${preset.tags ? preset.tags.join("") : ""}`.toLowerCase().includes(query);
+  const bundleItems = presets.filter(matches);
+  const catalogItems = catalogPresets.filter(matches);
   const currentLabel = $("[data-preset-label]")?.textContent || "";
-  list.innerHTML = `<p class="dna-preset-group">官方预设</p>` + items.map((preset) => {
+  const bundleHtml = bundleItems.map((preset) => {
     const selected = currentLabel.includes(preset.label.split(" · ")[0]);
-    return `<button type="button" role="option" aria-selected="${selected}" class="dna-preset-item${selected ? " is-selected" : ""}" data-preset-id="${preset.id}"><span>${preset.label}</span><small>${labels.font[preset.font]} · ${preset.radius}px</small></button>`;
-  }).join("") + (items.length ? "" : '<p class="dna-preset-empty">没有匹配的预设</p>');
+    return `<button type="button" role="option" aria-selected="${selected}" class="dna-preset-item${selected ? " is-selected" : ""}" data-preset-kind="bundle" data-preset-id="${preset.id}"><span>${preset.label}</span><small>${labels.font[preset.font]} · ${preset.radius}px</small></button>`;
+  }).join("");
+  const catalogHtml = catalogItems.map((preset) => {
+    const selected = state.palette === preset.paletteKey;
+    return `<button type="button" role="option" aria-selected="${selected}" class="dna-preset-item${selected ? " is-selected" : ""}" data-preset-kind="palette" data-preset-id="${preset.id}"><span>${preset.label}</span><small>${preset.colors[0]}</small></button>`;
+  }).join("");
+  list.innerHTML = (bundleItems.length ? `<p class="dna-preset-group">DNA 预设</p>${bundleHtml}` : "")
+    + (catalogItems.length ? `<p class="dna-preset-group">配色体系 · 案例库</p>${catalogHtml}` : "")
+    + (!bundleItems.length && !catalogItems.length ? '<p class="dna-preset-empty">没有匹配的预设</p>' : "");
   list.querySelectorAll("[data-preset-id]").forEach((button) => {
-    button.addEventListener("click", () => applyPreset(presets.find((item) => item.id === button.dataset.presetId)));
-    button.addEventListener("mouseenter", () => renderPresetDetail(presets.find((item) => item.id === button.dataset.presetId)));
+    const pool = button.dataset.presetKind === "palette" ? catalogPresets : presets;
+    const preset = pool.find((item) => item.id === button.dataset.presetId);
+    button.addEventListener("click", () => { button.dataset.presetKind === "palette" ? applyCatalogPreset(preset) : applyPreset(preset); });
+    button.addEventListener("mouseenter", () => renderPresetDetail(preset));
   });
-  const shown = items.find((item) => item.id === activePresetId) || items[0];
+  const shown = bundleItems.find((item) => item.id === activePresetId) || catalogItems.find((item) => item.paletteKey === state.palette) || bundleItems[0] || catalogItems[0];
   if (shown) renderPresetDetail(shown);
 }
 
@@ -194,5 +237,5 @@ function installPresetDropdown() {
 
 restoreDna(); installEvents(); installPresetDropdown();
 const matchedPreset = presets.find((item) => item.style === state.style && item.palette === state.palette && item.font === state.font && item.radius === state.radius && item.spacing === state.spacing && item.density === state.density);
-setPresetLabel(matchedPreset ? matchedPreset.label : null);
+setPresetLabel(matchedPreset ? matchedPreset.label : state.palette?.startsWith("lab:") ? paletteFor(state.palette).label : null);
 syncChoiceGroups(); applyPreview(); renderPrompt();

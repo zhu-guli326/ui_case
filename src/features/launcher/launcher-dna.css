@@ -148,6 +148,8 @@ button:focus-visible, input:focus-visible, a:focus-visible {
 .dna-preset-detail h3 { margin: 0 0 8px; font-family: var(--dna-display); font-size: 18px; font-weight: 820; letter-spacing: -.02em; }
 .dna-preset-detail p { margin: 0 0 10px; color: var(--dna-muted); font-size: 13px; line-height: 1.7; }
 .dna-preset-meta { font-size: 12px; }
+.dna-preset-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.dna-preset-tags span { padding: 4px 10px; border-radius: 999px; background: var(--dna-accent-soft); color: var(--dna-ink); font-size: 11px; font-weight: 750; }
 .dna-preset-swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
 .dna-preset-swatches figure { margin: 0; display: grid; gap: 6px; }
 .dna-preset-swatches i { display: block; height: 52px; border-radius: 9px; border: 1px solid var(--dna-hairline); }
