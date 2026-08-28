@@ -167,6 +167,11 @@
   filter: drop-shadow(0 26px 34px rgba(0,0,0,.62));
 }
 
+.orbit-prototype-responsive img,
+.orbit-prototype-states img {
+  filter: brightness(1.55) contrast(1.08) drop-shadow(0 26px 34px rgba(0,0,0,.64));
+}
+
 .orbit-prototype figcaption {
   position: absolute;
   display: flex;
