@@ -11,7 +11,7 @@ const phoneShellCss = readFileSync(path.join(root, "src", "components", "device-
 const devicePreviewCss = readFileSync(path.join(root, "src", "components", "device-preview", "device-preview.css"), "utf8");
 const devicePreviewScript = readFileSync(path.join(root, "src", "components", "device-preview", "device-preview.js"), "utf8");
 const screenBalanceCss = readFileSync(path.join(root, "src", "components", "device-preview", "screen-balance.css"), "utf8");
-const script = readFileSync(path.join(root, "library.js"), "utf8");
+const script = readFileSync(path.join(root, "src", "features", "library", "library.js"), "utf8");
 
 test("library cards and detail media reuse one visible 390 by 844 PhoneShell", () => {
   const cardFrame = script.match(/<figure class="phone-frame phone-frame--card phone-preview-media[\s\S]*?<\/figure>/)?.[0] || "";
@@ -38,7 +38,6 @@ test("library cards and detail media reuse one visible 390 by 844 PhoneShell", (
   assert.match(devicePreviewCss, /\.phone-frame\.is-artboard-preview \.phone-media\s*\{[\s\S]*?object-fit:\s*contain\s*!important/);
   assert.doesNotMatch(devicePreviewCss, /\.phone-frame:not\(\.is-artboard-preview\)\s*\{[^}]*box-shadow:/s, "DevicePreview must not reimplement PhoneShell hardware");
 
-  // Library is a consumer of PhoneShell, never a second hardware owner.
   assert.doesNotMatch(css, /--iphone-bezel/);
   assert.doesNotMatch(css, /--radius-phone/);
   assert.doesNotMatch(css, /--radius-screen/);
