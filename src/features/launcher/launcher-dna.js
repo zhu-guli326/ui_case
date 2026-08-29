@@ -203,7 +203,11 @@ function applyCatalogPreset(preset) {
 function updateDirectionCaseLink() {
   const link = $("[data-direction-case-link]");
   const caseId = directionCases[state.style];
-  if (link && caseId) link.href = `./library.html?case=${caseId}&lang=${document.documentElement.lang.startsWith("zh") ? "zh" : "en"}`;
+  const language = document.documentElement.lang.startsWith("zh") ? "zh" : "en";
+  if (link && caseId) link.href = `./library.html?case=${caseId}&lang=${language}`;
+  $$("[data-direction-card-case]").forEach((caseLink) => {
+    caseLink.href = `./library.html?case=${caseLink.dataset.directionCardCase}&lang=${language}`;
+  });
 }
 
 function scaleDirectionDemos() {
