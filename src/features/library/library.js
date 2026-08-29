@@ -1,6 +1,6 @@
 import { getLibraryPreviewDevice, getLibraryPreviewProfile, libraryPreviewAssetVersion } from "./library-preview-config.mjs";
 import { searchGuides } from "./library-search.mjs?v=20260813-search-v5";
-import { styleGuides, styleProfiles } from "./catalog/index.js?v=20260820-media-assets-v2";
+import { styleGuides as catalogStyleGuides, styleProfiles } from "../../../catalog/index.js?v=20260820-media-assets-v2";
 import {
   previewImageSets,
   canonicalCardScreens,
@@ -9,10 +9,37 @@ import {
   libraryCopy,
   infoPanels,
   infoPanelsEnglish
-} from "./src/features/library/library-data.js";
-import { normalizeTag, getFilteredGuides as filterGuides } from "./src/features/library/library-filter.js";
-import { createLibraryCards } from "./src/features/library/library-card.js";
-import { createLibraryDetailController } from "./src/features/library/library-detail.js";
+} from "./library-data.js";
+import { normalizeTag, getFilteredGuides as filterGuides } from "./library-filter.js";
+import { createLibraryCards } from "./library-card.js";
+import { createLibraryDetailController } from "./library-detail.js";
+
+const libraryMedia = Object.freeze({
+  fashion: Object.freeze({ liveDemo: "./demo/fashion/index.html" }),
+  news: Object.freeze({ liveDemo: "./demo/news/index.html" }),
+  loy: Object.freeze({
+    previewImage: "./demo/loy-wellness/screenshots/01-home.png",
+    poster: "./demo/loy-wellness/screenshots/01-home.png",
+    videoSequence: Object.freeze({
+      duration: 6,
+      frames: Object.freeze([
+        Object.freeze({ src: "./demo/loy-wellness/screenshots/01-home.png", label: "健康首页", at: 0 }),
+        Object.freeze({ src: "./demo/loy-wellness/screenshots/02-playlist.png", label: "播放列表", at: 2 }),
+        Object.freeze({ src: "./demo/loy-wellness/screenshots/03-welcome.png", label: "欢迎", at: 4 })
+      ])
+    })
+  }),
+  "signal-grid": Object.freeze({
+    previewImage: "./demo/signal-grid/screenshots/library-preview-2x.png",
+    poster: "./demo/signal-grid/screenshots/library-preview-2x.png"
+  })
+});
+
+const styleGuides = catalogStyleGuides.map((guide) => ({
+  ...guide,
+  ...libraryMedia[guide.id],
+  defaultPreviewMode: "image"
+}));
 
 const elements = {
   gallery: document.querySelector("#demoGallery"),
