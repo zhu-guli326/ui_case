@@ -35,17 +35,13 @@ button { cursor: pointer; }
   grid-template-columns: minmax(0, 1fr) 390px;
   gap: 0;
   align-items: stretch;
-  overflow: hidden;
   padding: 0;
-  border-top: 1px solid var(--ant-border);
-  border-bottom: 1px solid var(--ant-border);
-  background: var(--ant-surface);
-  box-shadow: var(--ant-shadow);
+  background: transparent;
 }
 .hero-discovery, .hero-overview {
   border: 0;
   border-radius: 0;
-  background: var(--ant-surface);
+  background: transparent;
   box-shadow: none;
 }
 .hero-discovery { padding: clamp(36px, 5vw, 72px); }
