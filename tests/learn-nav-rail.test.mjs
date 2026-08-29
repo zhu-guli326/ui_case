@@ -7,9 +7,9 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = file => readFileSync(path.join(root, file), "utf8");
 const html = read("learn.html");
-const css = read("learn.css");
-const learn = read("learn.js");
-const analyticsConfig = read("analytics.config.js");
+const css = read("src/features/learn/learn.css");
+const learn = read("src/features/learn/learn.js");
+const analyticsConfig = read("src/core/analytics/analytics.config.js");
 
 test("chapter navigation follows the hero and becomes a sticky horizontal index", () => {
   assert.ok(html.indexOf('class="story-hero"') < html.indexOf('class="chapter-nav"'));
@@ -27,14 +27,14 @@ test("current chapter remains synchronized with scroll state", () => {
 
 test("navigation remains motion-safe and is no longer replaced at runtime", () => {
   assert.match(css, /prefers-reduced-motion:reduce/);
-  assert.match(html, /analytics\.js\?v=20260825-editorial-nav-v1/);
-  assert.doesNotMatch(read("analytics.js"), /data-learn-nav-rail|learn-nav-rail\.css/);
+  assert.match(html, /src\/core\/analytics\/analytics\.js\?v=20260829-root-cleanup-v1/);
+  assert.doesNotMatch(read("src/core/analytics/analytics.js"), /data-learn-nav-rail|learn-nav-rail\.css/);
 });
 
 test("cache-busted editorial stylesheet replaces the retired desktop rail", () => {
-  assert.match(html, /learn\.css\?v=20260825-one-screen-compact-v3/);
+  assert.match(html, /src\/features\/learn\/learn\.css\?v=20260829-root-cleanup-v1/);
   assert.doesNotMatch(html, /learn-nav-rail\.css/);
-  assert.match(html, /analytics\.config\.js\?v=20260821-bare-rail-v2/);
+  assert.match(html, /src\/core\/analytics\/analytics\.config\.js\?v=20260829-root-cleanup-v1/);
   assert.doesNotMatch(analyticsConfig, /learn-right-center-rail-hotfix|rail-near/);
 });
 
