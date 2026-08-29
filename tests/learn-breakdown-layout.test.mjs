@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = file => readFileSync(path.join(root, file), "utf8");
 const html = read("learn.html");
-const learn = read("learn.js");
+const learn = read("src/features/learn/learn.js");
 
 test("breakdown lesson uses a balanced guide and live-lab layout", () => {
   assert.match(learn, /class="breakdown-guide"/);
@@ -27,5 +27,5 @@ test("decomposition levels and component rows stay visually separated", () => {
 test("localized heading line breaks render instead of showing escaped text", () => {
   assert.match(learn, /value\.replace\(\/\\\\n\/g, "\\n"\)/);
   assert.match(learn, /white-space:pre-line/);
-  assert.match(html, /learn\.js\?v=20260825-fullpage-scroll-v1/);
+  assert.match(html, /src\/features\/learn\/learn\.js\?v=20260829-root-cleanup-v1/);
 });
