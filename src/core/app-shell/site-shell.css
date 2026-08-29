@@ -1,0 +1,12 @@
+@import url("./design-tokens.css");
+@import url("./language-switch.css");
+@import url("../../components/site-header/site-header.css");
+@import url("../../components/site-header/site-footer.css");
+
+/*
+ * Canonical ONDesign site chrome.
+ *
+ * Public pages load this file once. Feature styles own only page content and
+ * must not restyle the shared header, primary navigation, language switch,
+ * brand, or footer.
+ */
