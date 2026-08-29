@@ -26,6 +26,11 @@ function applyLanguage(event) {
     if (value) element.textContent = value;
   });
 
+  document.body.dataset.homeLanguage = language;
+  document.querySelectorAll("[data-zh-src][data-en-src]").forEach((element) => {
+    element.src = element.dataset[`${language}Src`];
+  });
+
   document.querySelectorAll("[data-smart-lang-link]").forEach((link) => {
     const target = new URL(link.dataset.smartLangLink, location.href);
     target.searchParams.set("lang", language);
