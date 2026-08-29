@@ -54,10 +54,7 @@ for (const entry of shellPages) {
     if (source.includes(href)) failures.push(`${entry} loads shared chrome directly (${href}); load site-shell.css instead.`);
   }
 
-  for (const style of source.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)) {
-    const css = style[1].replace(/\/\*[\s\S]*?\*\//g, "");
-    if (sharedShellSelector.test(css)) failures.push(`${entry} contains inline CSS that overrides the shared App Shell.`);
-  }
+  if (/<style\b/i.test(source)) failures.push(`${entry} must not keep accepted page CSS in inline <style>; move it to the canonical feature stylesheet.`);
 }
 
 // Feature styles own page content only; shared header/nav/footer styling stays global.
@@ -81,6 +78,23 @@ const walkFeatures = (dir) => {
   }
 };
 walkFeatures(featureRoot);
+
+// Local static assets rely on normal HTTP validators. Do not hand-maintain ?v= cache strings.
+const manualVersionPattern = /["'\`]((?:\.\.?\/|\/(?!\/))[^"'\`\s]+)\?v=/i;
+for (const entry of publicEntries) {
+  const source = fs.readFileSync(path.join(root, entry), "utf8");
+  if (manualVersionPattern.test(source)) failures.push(`${entry} contains a manual local ?v= cache version. Remove it instead of maintaining per-file versions.`);
+}
+const walkSourceVersions = (dir) => {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const absolute = path.join(dir, entry.name);
+    if (entry.isDirectory()) { walkSourceVersions(absolute); continue; }
+    if (!/\.(?:js|mjs|css)$/i.test(entry.name)) continue;
+    const source = fs.readFileSync(absolute, "utf8");
+    if (manualVersionPattern.test(source)) failures.push(`${path.relative(root, absolute)} contains a manual local ?v= cache version.`);
+  }
+};
+walkSourceVersions(path.join(root, "src"));
 
 try {
   const catalog = await import(`${new URL("../catalog/index.js", import.meta.url).href}?check=${Date.now()}`);

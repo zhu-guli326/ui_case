@@ -1,6 +1,6 @@
 import { getLibraryPreviewDevice, getLibraryPreviewProfile, libraryPreviewAssetVersion } from "./library-preview-config.mjs";
-import { searchGuides } from "./library-search.mjs?v=20260813-search-v5";
-import { styleGuides as catalogStyleGuides, styleProfiles } from "../../../catalog/index.js?v=20260820-media-assets-v2";
+import { searchGuides } from "./library-search.mjs";
+import { styleGuides as catalogStyleGuides, styleProfiles } from "../../../catalog/index.js";
 import {
   previewImageSets,
   canonicalCardScreens,

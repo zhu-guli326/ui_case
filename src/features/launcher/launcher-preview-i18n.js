@@ -206,7 +206,7 @@
   function loadDesignSystemLibrary() {
     if (window.ONDesignDesignSystems) return Promise.resolve(window.ONDesignDesignSystems);
     if (designImportPromise) return designImportPromise;
-    const moduleUrl = new URL('./launcher-design-systems.js?v=20260830-inline-v1', scriptUrl).href;
+    const moduleUrl = new URL('./launcher-design-systems.js', scriptUrl).href;
     designImportPromise = import(moduleUrl).catch((error) => {
       console.error('[ONDesign] design system dropdown failed to load', error);
       designImportPromise = null;

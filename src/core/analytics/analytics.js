@@ -41,18 +41,18 @@
   if (/\/library\.html$/.test(location.pathname) || location.pathname.endsWith("/")) {
     const previewRuntime = document.createElement("script");
     previewRuntime.type = "module";
-    previewRuntime.src = "./src/components/device-preview/device-preview.js?v=20260816-arch-v1";
+    previewRuntime.src = "./src/components/device-preview/device-preview.js";
     document.head.append(previewRuntime);
   }
 
   if (/\/launcher\.html$/.test(location.pathname)) {
     const launcherPreviewLab = document.createElement("script");
-    launcherPreviewLab.src = "./src/features/launcher/launcher-preview-lab.js?v=20260817-preview-lab-v3";
+    launcherPreviewLab.src = "./src/features/launcher/launcher-preview-lab.js";
     launcherPreviewLab.defer = true;
     document.head.append(launcherPreviewLab);
 
     const launcherStability = document.createElement("script");
-    launcherStability.src = "./src/features/launcher/launcher-stability.js?v=20260817-stability-v1";
+    launcherStability.src = "./src/features/launcher/launcher-stability.js";
     launcherStability.defer = true;
     document.head.append(launcherStability);
   }

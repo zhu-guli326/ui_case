@@ -1,4 +1,4 @@
-import { styleGuides } from "../../../catalog/index.js?v=20260820-media-assets-v2";
+import { styleGuides } from "../../../catalog/index.js";
 
 const RUNTIME_VERSION = "20260829-library-runtime-v1";
 const guideById = new Map(styleGuides.map((guide) => [guide.id, guide]));

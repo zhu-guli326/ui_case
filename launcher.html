@@ -3,156 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="/favicon.svg?v=20260828-green-v2" type="image/svg+xml" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">
   <script src="./src/core/analytics/google-analytics.js"></script>
   <script src="./src/core/analytics/clarity.js"></script>
   <meta name="google-adsense-account" content="ca-pub-4002333396957263">
   <meta name="color-scheme" content="light">
   <meta name="description" content="在开始前端开发前，搭建并保存一套可复用的界面设计 DNA。">
   <title>界面设计 DNA · ONDesign</title>
-  <link rel="stylesheet" href="./src/core/app-shell/site-shell.css?v=20260830-shell-v1">
-  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260830-launcher-clean-v1">
-  <script src="./src/core/app-shell/app-shell.js?v=20260830-global-nav-v4"></script>
+  <link rel="stylesheet" href="./src/core/app-shell/site-shell.css">
+  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css">
+  <script src="./src/core/app-shell/app-shell.js"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
-  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260830-launcher-clean-v1"></script>
-  <script src="./src/features/launcher/launcher-preview-i18n.js?v=20260830-launcher-clean-v1" defer></script>
-  <style>
-    /* Launcher case browsing: show three references inline, move the full library into a modal. */
-    .dna-page .direction-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-    }
-    .dna-page .direction-grid > .direction-card-shell:nth-child(n + 4) { display: none; }
-    .dna-page .direction-card > span:last-child { padding: 10px 10px 11px; }
-    .dna-page .direction-card strong { font-size: 13px; }
-    .dna-page .direction-card small {
-      overflow: hidden;
-      font-size: 10px;
-      line-height: 1.45;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .direction-more-row {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 10px;
-    }
-    .direction-more-button {
-      display: inline-flex;
-      min-height: 34px;
-      align-items: center;
-      gap: 7px;
-      padding: 0 12px;
-      border: 0;
-      border-radius: 8px;
-      background: transparent;
-      color: var(--dna-accent);
-      font-size: 12px;
-      font-weight: 800;
-    }
-    .direction-more-button:hover { background: var(--dna-accent-soft); }
-    .direction-more-button svg {
-      width: 14px;
-      height: 14px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .case-library-dialog {
-      width: min(1180px, calc(100vw - 40px));
-      height: min(860px, calc(100vh - 40px));
-      max-width: none;
-      max-height: none;
-      padding: 0;
-      border: 1px solid color-mix(in srgb, var(--dna-ink) 14%, transparent);
-      border-radius: 18px;
-      background: #fff;
-      box-shadow: 0 28px 90px rgba(0,0,0,.22);
-      overflow: hidden;
-    }
-    .case-library-dialog::backdrop {
-      background: rgba(18, 22, 20, .46);
-      backdrop-filter: blur(8px);
-    }
-    .case-library-shell {
-      display: grid;
-      grid-template-rows: auto minmax(0, 1fr);
-      width: 100%;
-      height: 100%;
-      background: #fff;
-    }
-    .case-library-head {
-      display: flex;
-      min-height: 62px;
-      align-items: center;
-      gap: 18px;
-      padding: 0 18px 0 22px;
-      border-bottom: 1px solid #ececec;
-      background: rgba(255,255,255,.96);
-    }
-    .case-library-head-copy { min-width: 0; flex: 1; }
-    .case-library-head-copy strong {
-      display: block;
-      font-size: 15px;
-      font-weight: 850;
-    }
-    .case-library-head-copy span {
-      display: block;
-      margin-top: 2px;
-      color: #777;
-      font-size: 11px;
-    }
-    .case-library-open-full {
-      display: inline-flex;
-      min-height: 36px;
-      align-items: center;
-      padding: 0 12px;
-      border: 1px solid #dedede;
-      border-radius: 8px;
-      color: #222;
-      font-size: 12px;
-      font-weight: 750;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-    .case-library-open-full:hover { border-color: var(--dna-accent); color: var(--dna-accent); }
-    .case-library-close {
-      display: grid;
-      width: 36px;
-      height: 36px;
-      place-items: center;
-      border: 0;
-      border-radius: 8px;
-      background: #f3f3f3;
-      color: #333;
-      font-size: 20px;
-      line-height: 1;
-    }
-    .case-library-close:hover { background: #e9e9e9; }
-    .case-library-frame {
-      display: block;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      background: #f5f6f7;
-    }
-    @media (max-width: 720px) {
-      .dna-page .direction-grid { gap: 7px; }
-      .dna-page .direction-card > span:last-child { padding: 8px; }
-      .dna-page .direction-card small { display: none; }
-      .case-library-dialog {
-        width: calc(100vw - 16px);
-        height: calc(100vh - 16px);
-        border-radius: 14px;
-      }
-      .case-library-head { min-height: 58px; padding: 0 10px 0 14px; }
-      .case-library-head-copy span { display: none; }
-      .case-library-open-full { display: none; }
-    }
-  </style>
+  <script type="module" src="./src/features/launcher/launcher-dna.js"></script>
+  <script src="./src/features/launcher/launcher-preview-i18n.js" defer></script>
 </head>
 <body class="dna-page">
   <image2-site-header data-site-header></image2-site-header>

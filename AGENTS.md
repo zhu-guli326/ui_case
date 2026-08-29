@@ -207,3 +207,9 @@ Before reporting a website update as complete, answer these questions internally
 - Can every old production version now be recovered from Git history instead of the current source tree?
 
 If any answer indicates leftover historical source, clean it up before finishing.
+
+## Cache and inline-style hygiene
+
+- Do not append hand-maintained local asset query versions such as `?v=20260830`, `?v=v2`, or descriptive migration tags. Normal static delivery relies on HTTP cache validators; if immutable hashed assets are introduced later, they must come from a real build step rather than manual HTML edits.
+- Accepted page CSS must live in the canonical feature stylesheet. Do not leave normal production styling in inline `<style>` blocks as a patch layer.
+- A refactor that reduces an AI context hotspot should split by stable responsibility and keep orchestration entry files below roughly 50 KB when practical.

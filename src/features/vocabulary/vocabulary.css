@@ -3,7 +3,7 @@
  * The former 163KB legacy stylesheet is split into focused modules.
  * Import order preserves the original production cascade exactly.
  */
-@import url("./styles/cards.css?v=20260829-vocab-modules-v2");
-@import url("./styles/flip-card.css?v=20260829-vocab-modules-v2");
-@import url("./styles/detail.css?v=20260829-vocab-modules-v2");
-@import url("./styles/responsive.css?v=20260829-vocab-modules-v2");
+@import url("./styles/cards.css");
+@import url("./styles/flip-card.css");
+@import url("./styles/detail.css");
+@import url("./styles/responsive.css");
