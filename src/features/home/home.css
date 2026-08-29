@@ -12,8 +12,6 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body.project-home { margin: 0; overflow-x: hidden; background: var(--home-paper); color: var(--home-black); font-family: var(--font-sans-cjk), ui-sans-serif, system-ui, sans-serif; }
-.project-home image2-site-header { position: absolute; z-index: 50; top: 0; left: 0; width: 100%; }
-.project-home .site-header { border-color: rgba(255,255,255,.24); background: rgba(255,255,255,.82); }
 .project-home a { color: inherit; }
 .project-container { width: var(--home-page); margin-inline: auto; }
 .section-eyebrow, .project-eyebrow { margin: 0 0 20px; font-size: 12px; font-weight: 600; letter-spacing: .12em; line-height: 1.4; text-transform: uppercase; }
@@ -141,7 +139,6 @@ body.project-home { margin: 0; overflow-x: hidden; background: var(--home-paper)
 
 @media (max-width: 680px) {
   :root { --home-page: calc(100% - 32px); }
-  .project-home .site-header { width: calc(100% - 20px); }
   .project-hero { min-height: 720px; }
   .project-hero-content { width: calc(100% - 32px); }
   .project-hero h1 { font-size: clamp(44px, 13vw, 64px); }

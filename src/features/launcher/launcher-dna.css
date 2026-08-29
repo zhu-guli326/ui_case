@@ -52,7 +52,6 @@ button:focus-visible, input:focus-visible, a:focus-visible {
   outline: 2px solid var(--dna-accent);
   outline-offset: 2px;
 }
-.dna-page image2-site-header { position: relative; z-index: 20; }
 
 .dna-app {
   width: min(1480px, 100%);

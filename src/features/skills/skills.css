@@ -19,7 +19,6 @@ html { scroll-behavior: smooth; }
 body { margin: 0; background: #f5f6f7; color: var(--ant-text); }
 body.skills-document { display: flex; min-height: 100svh; flex-direction: column; }
 body.skills-document .skills-page { flex: 1 0 auto; }
-body.skills-document .site-footer { margin-top: auto; }
 a { color: inherit; }
 button, input { font: inherit; }
 button { cursor: pointer; }
