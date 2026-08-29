@@ -22,7 +22,6 @@ function replaceAcrossRootHtml(replacements) {
   }
 }
 
-// 1) Skills: fold the accepted layout into the one canonical stylesheet.
 const skillsCssPath = "src/features/skills/skills.css";
 const skillsLayoutPath = "src/features/skills/skills-reference-layout.css";
 if (!exists(skillsCssPath) || !exists(skillsLayoutPath)) throw new Error("Expected Skills canonical + reference layout files.");
@@ -32,13 +31,11 @@ let skillsLayout = read(skillsLayoutPath)
   .replace(/\/\* Hero: two independent cards, matching the reference composition\. \*\//g, "/* Current Skills hero layout */")
   .replace(/\/\* Task rail: restored as the primary task-level filter above the directory\. \*\//g, "/* Current task-level filter layout */")
   .replace(/\/\* Keep the rest of the directory inside the same full-width card rhythm\. \*\//g, "/* Current full-width directory rhythm */")
-  .replace(/\/\* WEB references preserve each source's native media ratio\. \*\//g, "/* WEB references preserve each source's native media ratio. */")
   .replace(/\/\* WEB mode: filtering lives only in the left sidebar\.[\s\S]*?continuous card grid\. \*\//g, "/* WEB mode uses sidebar filtering and one continuous card grid. */")
   .trim();
 write(skillsCssPath, `${skillsCss}\n\n/* Current full-width Skills layout */\n${skillsLayout}\n`);
 remove(skillsLayoutPath);
 
-// 2) Home: remove design-source/version naming from the production entry.
 const homeCssOld = "src/features/home/squarespace-home.css";
 const homeJsOld = "src/features/home/editorial-home.js";
 const homeCssNew = "src/features/home/home.css";
@@ -49,14 +46,12 @@ write(homeJsNew, read(homeJsOld));
 remove(homeCssOld);
 remove(homeJsOld);
 
-// 3) Info pages: move their stylesheet out of Home.
 const infoCssOld = "src/features/home/index.css";
 const infoCssNew = "src/features/info/info.css";
 if (!exists(infoCssOld)) throw new Error("Expected info-page stylesheet at old Home path.");
 write(infoCssNew, read(infoCssOld));
 remove(infoCssOld);
 
-// 4) Library detail: keep responsibility naming, not a visual-version name.
 const libraryDetailOld = "src/features/library/library-detail-minimal.css";
 const libraryDetailNew = "src/features/library/library-detail.css";
 if (!exists(libraryDetailOld)) throw new Error("Expected current Library detail stylesheet.");
@@ -64,7 +59,7 @@ write(libraryDetailNew, read(libraryDetailOld));
 remove(libraryDetailOld);
 
 replaceAcrossRootHtml([
-  ["./src/features/skills/skills-reference-layout.css?v=20260829-reference-layout-v1", ""],
+  ["  <link rel=\"stylesheet\" href=\"./src/features/skills/skills-reference-layout.css?v=20260829-reference-layout-v1\">\n", ""],
   ["./src/features/home/squarespace-home.css?v=20260829-reference-layout-v1", "./src/features/home/home.css?v=20260830"],
   ["./src/features/home/editorial-home.js?v=20260829-reference-layout-v1", "./src/features/home/home.js?v=20260830"],
   ["./src/features/home/index.css?v=20260828-unified-v1", "./src/features/info/info.css?v=20260830"],
@@ -72,36 +67,55 @@ replaceAcrossRootHtml([
   ["./src/features/library/library-detail-minimal.css?v=20260820-detail-layout-v2", "./src/features/library/library-detail.css?v=20260830"],
 ]);
 
-// Normalize the canonical Skills asset query after folding the old layout file.
 const skillsHtmlPath = path.join(root, "skills.html");
 let skillsHtml = fs.readFileSync(skillsHtmlPath, "utf8");
-skillsHtml = skillsHtml
-  .replace("./src/features/skills/skills.css?v=20260829-open-hero-v3", "./src/features/skills/skills.css?v=20260830")
-  .replace(/^\s*<link rel="stylesheet" href="">\s*$/gm, "");
+skillsHtml = skillsHtml.replace("./src/features/skills/skills.css?v=20260829-open-hero-v3", "./src/features/skills/skills.css?v=20260830");
 fs.writeFileSync(skillsHtmlPath, skillsHtml, "utf8");
 
-// Enforce single-source naming in the existing site checker so CI prevents regression.
 const checkerPath = path.join(root, "scripts/check_site.mjs");
 let checker = fs.readFileSync(checkerPath, "utf8");
 const marker = "// Single-source feature naming guard.";
 if (!checker.includes(marker)) {
-  const guard = `\n${marker}\nconst featureRoot = path.join(root, "src/features");\nconst versionLikeName = /(?:^|[-_.])(new|old|backup|final|redesign|reference-layout|override|overrides|fix|fixes|hardening|legacy|compat|compatibility)(?:[-_.]|$)|[-_.]v\\d+(?:[-_.]|$)/i;\nconst walkFeatures = (dir) => {\n  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {\n    const absolute = path.join(dir, entry.name);\n    if (entry.isDirectory()) walkFeatures(absolute);\n    else if (versionLikeName.test(entry.name)) {\n      failures.push(\\`Version-like feature file is not allowed; update the canonical file instead: \\${path.relative(root, absolute)}\\`);\n    }\n  }\n};\nwalkFeatures(featureRoot);\n`;
-  checker = checker.replace("\ntry {\n  const catalog", `${guard}\ntry {\n  const catalog`);
+  const guard = [
+    "",
+    marker,
+    "const featureRoot = path.join(root, \"src/features\");",
+    "const versionLikeName = /(?:^|[-_.])(new|old|backup|final|redesign|reference-layout|override|overrides|fix|fixes|hardening|legacy|compat|compatibility)(?:[-_.]|$)|[-_.]v\\d+(?:[-_.]|$)/i;",
+    "const walkFeatures = (dir) => {",
+    "  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {",
+    "    const absolute = path.join(dir, entry.name);",
+    "    if (entry.isDirectory()) walkFeatures(absolute);",
+    "    else if (versionLikeName.test(entry.name)) {",
+    "      failures.push(\"Version-like feature file is not allowed; update the canonical file instead: \" + path.relative(root, absolute));",
+    "    }",
+    "  }",
+    "};",
+    "walkFeatures(featureRoot);",
+    "",
+  ].join("\n");
+  checker = checker.replace("\ntry {\n  const catalog", `${guard}try {\n  const catalog`);
   fs.writeFileSync(checkerPath, checker, "utf8");
 }
 
-// Keep agent instructions aligned with the repository rule.
 for (const docName of ["AGENTS.md", "CLAUDE.md"]) {
   const docPath = path.join(root, docName);
   if (!fs.existsSync(docPath)) continue;
   let doc = fs.readFileSync(docPath, "utf8").trimEnd();
-  if (!doc.includes("Single Source of Truth")) {
-    doc += `\n\n## Single Source of Truth\n\n- Each public page has one current production implementation on \\`main\\`. Git history is the archive.\n- Never create parallel page versions such as \\`*-v2\\`, \\`*-final\\`, \\`*-reference-layout\\`, \\`*-override\\`, \\`*-fix\\`, \\`*-legacy\\`, or \\`*-redesign\\` under \\`src/features/\\`.\n- When a redesign is accepted, merge it into the canonical page CSS/JS and delete the superseded implementation in the same change.\n- Split files only by stable responsibility (data, filtering, rendering, preview, i18n, detail), never by design iteration.\n`;
+  if (!doc.includes("## Single Source of Truth")) {
+    doc += [
+      "",
+      "",
+      "## Single Source of Truth",
+      "",
+      "- Each public page has one current production implementation on `main`. Git history is the archive.",
+      "- Never create parallel page versions such as `*-v2`, `*-final`, `*-reference-layout`, `*-override`, `*-fix`, `*-legacy`, or `*-redesign` under `src/features/`.",
+      "- When a redesign is accepted, merge it into the canonical page CSS/JS and delete the superseded implementation in the same change.",
+      "- Split files only by stable responsibility (data, filtering, rendering, preview, i18n, detail), never by design iteration.",
+    ].join("\n");
     fs.writeFileSync(docPath, `${doc}\n`, "utf8");
   }
 }
 
-// Sanity checks for the exact superseded paths we are removing.
 for (const retired of [skillsLayoutPath, homeCssOld, homeJsOld, infoCssOld, libraryDetailOld]) {
   if (exists(retired)) throw new Error(`Retired version path still exists: ${retired}`);
 }
