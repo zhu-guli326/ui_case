@@ -29,3 +29,10 @@
 - Library: production runtime is `src/features/library/library.js`; use `library-data.js`, `library-filter.js`, `library-card.js`, `library-detail.js`, and `library-runtime.js` by responsibility.
 - Vocabulary: follow `src/features/vocabulary/AGENTS.md`. Runtime is `src/features/vocabulary/vocabulary.js`; CSS production entry is split into `styles/cards.css`, `styles/flip-card.css`, `styles/detail.css`, and `styles/responsive.css`.
 - Catalog: follow `catalog/AGENTS.md`. `catalog/index.js` is a generated runtime bundle; do not read or edit it for normal catalog work. Edit matching source JSON under `catalog/cases`, `catalog/styles`, `catalog/brands`, or `catalog/components`.
+
+## Single Source of Truth
+
+- Each public page has one current production implementation on `main`. Git history is the archive.
+- Never create parallel page versions such as `*-v2`, `*-final`, `*-reference-layout`, `*-override`, `*-fix`, `*-legacy`, or `*-redesign` under `src/features/`.
+- When a redesign is accepted, merge it into the canonical page CSS/JS and delete the superseded implementation in the same change.
+- Split files only by stable responsibility (data, filtering, rendering, preview, i18n, detail), never by design iteration.

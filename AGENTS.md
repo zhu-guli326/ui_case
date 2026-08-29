@@ -51,3 +51,10 @@ The following architectures are deleted and must not be recreated or searched as
 ## Root contract
 - Keep implementation JavaScript, CSS, and MJS out of the repository root.
 - Keep root public HTML filenames stable because they are deployed URLs.
+
+## Single Source of Truth
+
+- Each public page has one current production implementation on `main`. Git history is the archive.
+- Never create parallel page versions such as `*-v2`, `*-final`, `*-reference-layout`, `*-override`, `*-fix`, `*-legacy`, or `*-redesign` under `src/features/`.
+- When a redesign is accepted, merge it into the canonical page CSS/JS and delete the superseded implementation in the same change.
+- Split files only by stable responsibility (data, filtering, rendering, preview, i18n, detail), never by design iteration.

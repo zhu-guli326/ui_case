@@ -29,6 +29,19 @@ for (const entry of publicEntries) {
   }
 }
 
+// Single-source feature naming guard.
+const featureRoot = path.join(root, "src/features");
+const versionLikeName = /(?:^|[-_.])(new|old|backup|final|redesign|reference-layout|override|overrides|fix|fixes|hardening|legacy|compat|compatibility)(?:[-_.]|$)|[-_.]v\d+(?:[-_.]|$)/i;
+const walkFeatures = (dir) => {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const absolute = path.join(dir, entry.name);
+    if (entry.isDirectory()) walkFeatures(absolute);
+    else if (versionLikeName.test(entry.name)) {
+      failures.push("Version-like feature file is not allowed; update the canonical file instead: " + path.relative(root, absolute));
+    }
+  }
+};
+walkFeatures(featureRoot);
 try {
   const catalog = await import(`${new URL("../catalog/index.js", import.meta.url).href}?check=${Date.now()}`);
   for (const key of ["styleGuides", "styleProfiles", "brandProfiles", "componentReferences"]) {
