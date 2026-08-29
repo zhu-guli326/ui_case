@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = file => readFileSync(path.join(root, file), "utf8");
 const html = read("learn.html");
-const learn = read("learn.js");
+const learn = read("src/features/learn/learn.js");
 
 test("inspection lens tags are mounted inside the preview canvas", () => {
   const previewStart = learn.indexOf('<div class="fashion-preview"');
@@ -26,5 +26,5 @@ test("inspection lens tags float at the horizontal center of the canvas", () => 
 });
 
 test("learn script cache key includes the current layout update", () => {
-  assert.match(html, /learn\.js\?v=20260825-fullpage-scroll-v1/);
+  assert.match(html, /src\/features\/learn\/learn\.js\?v=20260829-root-cleanup-v1/);
 });
