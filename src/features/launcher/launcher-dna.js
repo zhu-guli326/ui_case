@@ -132,6 +132,16 @@ function applyPreview() {
   $("#dockDensity").textContent = `${labels.density[state.density]}密度`;
   renderSummary();
   renderPrompt();
+  renderSectionValues();
+}
+
+function renderSectionValues() {
+  const direction = $('[data-section-value="direction"]');
+  const rules = $('[data-section-value="rules"]');
+  if (direction) direction.textContent = `${labels.style[state.style]} · ${labels.density[state.density]}`;
+  if (rules) rules.textContent = `${paletteFor(state.palette).label} · ${labels.font[state.font]}`;
+  const saveState = $("#dna-save .dna-section-value");
+  if (saveState && saveState.textContent === "已保存") saveState.textContent = "有未保存修改";
 }
 
 function renderSummary() {
@@ -158,7 +168,13 @@ function dnaText() {
 }
 function toast(message) { const node = $("#dnaToast"); if (!node) return; node.textContent = message; node.hidden = false; clearTimeout(toast.timer); toast.timer = setTimeout(() => { node.hidden = true; }, 2200); }
 async function copyDna() { try { await navigator.clipboard.writeText(dnaText()); toast("提示词已复制，去 AI 工具里粘贴吧"); } catch { toast("复制失败，请重试"); } }
-function saveDna() { localStorage.setItem(STORAGE_KEY, JSON.stringify(dnaPayload())); $("#saveNote").textContent = "已保存到当前浏览器，可继续用于其他页面。"; toast("界面 DNA 已保存"); }
+function saveDna() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(dnaPayload()));
+  $("#saveNote").textContent = "已保存到当前浏览器，可继续用于其他页面。";
+  const saveState = $("#dna-save .dna-section-value");
+  if (saveState) saveState.textContent = "已保存";
+  toast("界面 DNA 已保存");
+}
 
 function restoreDna() {
   try {
@@ -177,14 +193,28 @@ function installEvents() {
   $$('[data-choice-group]').forEach((group) => group.addEventListener("click", (event) => { const button = event.target.closest("button[data-value]"); if (button) selectInGroup(group.dataset.choiceGroup, button); }));
   $$("[data-scroll]").forEach((button) => button.addEventListener("click", () => {
     const target = document.querySelector(button.dataset.scroll);
-    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (target) {
+      if (target.tagName === "DETAILS") target.open = true;
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }));
   $$("[data-device]").forEach((button) => button.addEventListener("click", () => { state.device = button.dataset.device; $$("[data-device]").forEach((item) => item.classList.toggle("is-selected", item === button)); $("[data-preview-stage]").classList.toggle("is-mobile", state.device === "mobile"); }));
-  $$("[data-component]").forEach((button) => button.addEventListener("click", () => {
-    $$("[data-component]").forEach((item) => { const selected = item === button; item.classList.toggle("is-selected", selected); item.setAttribute("aria-selected", String(selected)); });
-    $$(".sample-view").forEach((view) => { const active = view.dataset.view === button.dataset.component; view.hidden = !active; view.classList.toggle("is-active", active); });
-  }));
+  $('[data-preview-picker]')?.addEventListener("change", (event) => {
+    $$(".sample-view").forEach((view) => {
+      const active = view.dataset.view === event.target.value;
+      view.hidden = !active;
+      view.classList.toggle("is-active", active);
+    });
+  });
   $("#saveDna")?.addEventListener("click", saveDna); $("#copyDna")?.addEventListener("click", copyDna);
+}
+
+function installSectionDropdowns() {
+  const sections = $$(".dna-controls > details");
+  sections.forEach((section) => section.addEventListener("toggle", () => {
+    if (!section.open) return;
+    sections.forEach((other) => { if (other !== section) other.open = false; });
+  }));
 }
 
 function setPresetLabel(label) {
@@ -261,7 +291,7 @@ function installPresetDropdown() {
   document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !panel.hidden) close(); });
 }
 
-restoreDna(); installEvents(); installPresetDropdown();
+restoreDna(); installEvents(); installSectionDropdowns(); installPresetDropdown();
 const matchedPreset = presets.find((item) => item.style === state.style && item.palette === state.palette && item.font === state.font && item.radius === state.radius && item.spacing === state.spacing && item.density === state.density);
 setPresetLabel(matchedPreset ? matchedPreset.label : state.palette?.startsWith("lab:") ? paletteFor(state.palette).label : null);
 syncChoiceGroups(); applyPreview(); renderPrompt(); updateDirectionCaseLink(); scaleDirectionDemos();

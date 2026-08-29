@@ -13,12 +13,12 @@
   <link rel="stylesheet" href="./src/core/app-shell/design-tokens.css?v=20260828-unified-v1">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
-  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260828-dna-studio-v10">
+  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260829-dna-studio-v11">
   <link rel="stylesheet" href="./src/components/site-header/site-footer.css?v=20260828-unified-v1">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
-  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260828-dna-studio-v9"></script>
+  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260829-dna-studio-v10"></script>
 </head>
 <body class="dna-page">
   <image2-site-header data-site-header></image2-site-header>
@@ -28,7 +28,7 @@
       <div class="dna-hero-copy">
         <p class="dna-kicker">DESIGN DNA</p>
         <h1 id="dnaTitle">界面设计 DNA</h1>
-        <p class="dna-lede">方向、颜色、字体、形状——一次配完，保存成可复用的界面 DNA，右侧预览实时联动。</p>
+        <p class="dna-lede">先选一个设计方向，再按需调整规范。每次只处理一组决定，右侧同步看到真实页面效果。</p>
       </div>
       <div class="dna-hero-actions">
         <div class="dna-preset" data-preset-root>
@@ -50,9 +50,10 @@
     </header>
 
     <div class="dna-workspace">
-      <div class="dna-controls">
-        <section class="dna-section" id="dna-direction" aria-labelledby="directionTitle">
-          <header class="dna-section-head"><span>01</span><div><h2 id="directionTitle">方向</h2><p>先确定整体气质，密度随之匹配。</p></div></header>
+      <div class="dna-controls" aria-label="界面 DNA 设置">
+        <details class="dna-section" id="dna-direction" open>
+          <summary class="dna-section-head"><span>01</span><div><h2 id="directionTitle">视觉方向</h2><p>先确定整体气质，密度随之匹配。</p></div><b class="dna-section-value" data-section-value="direction">克制 · 平衡</b><i aria-hidden="true">⌄</i></summary>
+          <div class="dna-section-body">
           <div class="direction-grid" role="radiogroup" aria-label="界面风格">
             <button class="direction-card is-selected" type="button" role="radio" aria-checked="true" data-style="restrained"><span class="direction-live" data-demo="fithub"><iframe src="./demo/fithub/index.html?embed=1&amp;lang=zh" loading="lazy" tabindex="-1" scrolling="no" title="克制方向绑定的案例：极简训练规划"></iframe></span><span><strong>克制</strong><small>留白、秩序、柔和 · 案例「极简训练规划」</small></span></button>
             <button class="direction-card" type="button" role="radio" aria-checked="false" data-style="editorial"><span class="direction-live" data-demo="organique"><iframe src="./demo/organique-food/index.html?embed=1&amp;lang=zh" loading="lazy" tabindex="-1" scrolling="no" title="编辑感方向绑定的案例：编辑式有机餐食"></iframe></span><span><strong>编辑感</strong><small>字体、网格、对比 · 案例「编辑式有机餐食」</small></span></button>
@@ -61,10 +62,12 @@
           </div>
           <fieldset class="density-field"><legend>界面密度</legend><div class="segmented-control" data-choice-group="density"><button type="button" data-value="loose">宽松</button><button class="is-selected" type="button" data-value="balanced">平衡</button><button type="button" data-value="compact">紧凑</button></div></fieldset>
           <p class="section-hint">方向已绑定案例库真实案例效果，<a href="./library.html?case=fithub&amp;lang=zh" data-direction-case-link>在案例库中打开当前方向的案例</a></p>
-        </section>
+          </div>
+        </details>
 
-        <section class="dna-section" id="dna-rules" aria-labelledby="rulesTitle">
-          <header class="dna-section-head"><span>02</span><div><h2 id="rulesTitle">规范</h2><p>只保留会持续影响所有页面的四项设置。</p></div></header>
+        <details class="dna-section" id="dna-rules">
+          <summary class="dna-section-head"><span>02</span><div><h2 id="rulesTitle">基础规范</h2><p>颜色、字体、圆角与间距。</p></div><b class="dna-section-value" data-section-value="rules">鼠尾草绿 · 简洁无衬线</b><i aria-hidden="true">⌄</i></summary>
+          <div class="dna-section-body">
           <fieldset class="rule-field"><legend>颜色</legend><div class="palette-list" data-choice-group="palette" role="radiogroup" aria-label="颜色方案">
             <button class="palette-option is-selected" type="button" role="radio" aria-checked="true" data-value="sage" aria-label="鼠尾草绿"><i style="--swatch:#18a957"></i><i style="--swatch:#e7f5ec"></i><i style="--swatch:#24231f"></i></button>
             <button class="palette-option" type="button" role="radio" aria-checked="false" data-value="ink" aria-label="墨黑灰"><i style="--swatch:#111111"></i><i style="--swatch:#e8e8e4"></i><i style="--swatch:#252724"></i></button>
@@ -85,33 +88,41 @@
             <fieldset class="rule-field"><legend>圆角</legend><div class="segmented-control" data-choice-group="radius"><button type="button" data-value="0">直角</button><button class="is-selected" type="button" data-value="14">适中</button><button type="button" data-value="28">圆润</button></div></fieldset>
             <fieldset class="rule-field"><legend>间距</legend><div class="segmented-control" data-choice-group="spacing"><button type="button" data-value="6">紧凑</button><button class="is-selected" type="button" data-value="10">平衡</button><button type="button" data-value="14">宽松</button></div></fieldset>
           </div>
-        </section>
+          </div>
+        </details>
 
-        <section class="dna-section" id="dna-save" aria-labelledby="saveTitle">
-          <header class="dna-section-head"><span>03</span><div><h2 id="saveTitle">保存并复用</h2><p>给这套 DNA 命名，之后可以应用到新页面。</p></div></header>
+        <details class="dna-section" id="dna-save">
+          <summary class="dna-section-head"><span>03</span><div><h2 id="saveTitle">保存并复用</h2><p>命名、检查并复制这套 DNA。</p></div><b class="dna-section-value">未保存</b><i aria-hidden="true">⌄</i></summary>
+          <div class="dna-section-body">
           <label class="dna-name-field"><span>规范名称</span><input id="dnaName" type="text" value="克制绿 · Web DNA" maxlength="40"></label>
           <dl class="dna-summary" id="dnaSummary"></dl>
           <div class="dna-prompt-block"><p class="dna-prompt-label">生成的提示词</p><pre class="dna-prompt" id="dnaPrompt" aria-live="polite"></pre></div>
           <div class="save-actions"><button class="save-primary" id="saveDna" type="button">保存这套 DNA</button><button class="copy-secondary" id="copyDna" type="button">复制提示词</button></div>
           <p class="save-note" id="saveNote" role="status" aria-live="polite"></p>
-        </section>
+          </div>
+        </details>
       </div>
 
       <section class="dna-canvas" aria-labelledby="previewTitle">
         <div class="canvas-label"><div><span>LIVE PREVIEW</span><h2 id="previewTitle">实时预览</h2></div><div class="device-switch" aria-label="预览设备"><button class="is-selected" type="button" data-device="desktop">桌面</button><button type="button" data-device="mobile">移动</button></div></div>
-        <div class="component-switch" role="tablist" aria-label="预览页面与组件">
-          <span class="component-group">页面</span>
-          <button class="is-selected" type="button" role="tab" aria-selected="true" data-component="landing">落地页</button>
-          <button type="button" role="tab" aria-selected="false" data-component="article">文章页</button>
-          <button type="button" role="tab" aria-selected="false" data-component="product">商品详情</button>
-          <button type="button" role="tab" aria-selected="false" data-component="dash">数据后台</button>
-          <button type="button" role="tab" aria-selected="false" data-component="settings">设置页</button>
-          <span class="component-group">组件</span>
-          <button type="button" role="tab" aria-selected="false" data-component="nav">导航</button>
-          <button type="button" role="tab" aria-selected="false" data-component="cards">卡片组</button>
-          <button type="button" role="tab" aria-selected="false" data-component="form">表单</button>
-          <button type="button" role="tab" aria-selected="false" data-component="pricing">定价</button>
-        </div>
+        <label class="preview-picker">
+          <span>预览内容</span>
+          <select data-preview-picker aria-label="选择预览页面或组件">
+            <optgroup label="页面">
+              <option value="landing">落地页</option>
+              <option value="article">文章页</option>
+              <option value="product">商品详情</option>
+              <option value="dash">数据后台</option>
+              <option value="settings">设置页</option>
+            </optgroup>
+            <optgroup label="组件">
+              <option value="nav">导航</option>
+              <option value="cards">卡片组</option>
+              <option value="form">表单</option>
+              <option value="pricing">定价</option>
+            </optgroup>
+          </select>
+        </label>
         <div class="preview-stage" data-preview-stage>
           <article class="preview-browser" data-preview-browser>
             <header class="browser-bar"><i></i><i></i><i></i><span>preview.ondesign</span><b>•••</b></header>
