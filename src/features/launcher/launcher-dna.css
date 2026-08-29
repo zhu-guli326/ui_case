@@ -493,8 +493,9 @@ fieldset legend { margin: 0 0 10px; padding: 0; color: var(--dna-muted); font-si
   font-family: var(--dna-display);
   font-size: clamp(26px, 2.9vw, 46px);
   font-weight: 760;
-  letter-spacing: -.045em;
-  line-height: 1.12;
+  letter-spacing: 0;
+  line-height: 1.24;
+  text-wrap: balance;
 }
 .sample-copy p { max-width: 380px; margin: 0; color: var(--dna-muted); font-size: 13px; line-height: 1.8; }
 .sample-copy a {
