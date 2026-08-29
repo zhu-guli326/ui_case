@@ -151,6 +151,9 @@
   const originals = new WeakMap();
   const attrOriginals = new WeakMap();
   const translate = (value) => entries.reduce((result, [zh, en]) => result.split(zh).join(en), value);
+  let fontSelect = null;
+  let fontList = null;
+  let fontObserver = null;
 
   function language() {
     return window.image2I18n?.language === 'en' || document.documentElement.lang.startsWith('en') ? 'en' : 'zh';
@@ -214,11 +217,64 @@
     });
   }
 
+  function getFontButtons() {
+    return fontList ? [...fontList.querySelectorAll('button[data-value]')] : [];
+  }
+
+  function renderFontSelectOptions() {
+    if (!fontSelect || !fontList) return;
+    const buttons = getFontButtons();
+    const currentValue = buttons.find((button) => button.classList.contains('is-selected') || button.getAttribute('aria-checked') === 'true')?.dataset.value || fontSelect.value;
+    fontSelect.replaceChildren(...buttons.map((button) => {
+      const option = document.createElement('option');
+      option.value = button.dataset.value || '';
+      const name = button.querySelector('b')?.textContent?.trim() || button.textContent.trim();
+      const description = button.querySelector('span')?.textContent?.trim() || '';
+      option.textContent = description ? `${name} · ${description}` : name;
+      return option;
+    }));
+    if (currentValue) fontSelect.value = currentValue;
+    fontSelect.setAttribute('aria-label', language() === 'en' ? 'Typography' : '字体');
+  }
+
+  function syncFontSelect() {
+    if (!fontSelect || !fontList) return;
+    const selected = getFontButtons().find((button) => button.classList.contains('is-selected') || button.getAttribute('aria-checked') === 'true');
+    if (selected?.dataset.value && fontSelect.value !== selected.dataset.value) fontSelect.value = selected.dataset.value;
+  }
+
+  function installFontSelect() {
+    fontList = document.querySelector('.font-field .type-list');
+    if (!fontList || fontList.dataset.compactSelect === 'true') return;
+    fontList.dataset.compactSelect = 'true';
+
+    const control = document.createElement('div');
+    control.className = 'select-control font-select-control';
+    fontSelect = document.createElement('select');
+    fontSelect.dataset.fontCompactSelect = '';
+    control.append(fontSelect);
+    fontList.before(control);
+    fontList.style.display = 'none';
+    renderFontSelectOptions();
+
+    fontSelect.addEventListener('change', () => {
+      const target = getFontButtons().find((button) => button.dataset.value === fontSelect.value);
+      target?.click();
+      window.requestAnimationFrame(syncFontSelect);
+    });
+
+    fontObserver = new MutationObserver(() => syncFontSelect());
+    getFontButtons().forEach((button) => fontObserver.observe(button, { attributes: true, attributeFilter: ['class', 'aria-checked'] }));
+  }
+
   function sync() {
     syncPreviewCopy();
     syncLanguageLinks();
+    renderFontSelectOptions();
+    syncFontSelect();
   }
 
+  installFontSelect();
   sync();
   window.addEventListener('image2:languagechange', sync);
 })();
