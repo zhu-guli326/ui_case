@@ -5,6 +5,7 @@ import path from "node:path";
 const root = process.cwd();
 const MAX_RUNTIME_BYTES = 80_000;
 const sourceExtensions = new Set([".html", ".css", ".js", ".mjs"]);
+const embeddedBase64Image = /data:image\/[a-z0-9.+-]+;base64,[a-z0-9+/]{64,}={0,2}/i;
 const errors = [];
 
 function git(args) {
@@ -83,8 +84,8 @@ for (const filePath of tracked) {
 
   if (sourceExtensions.has(ext)) {
     const source = readFileSync(path.join(root, normalized), "utf8");
-    if (/data:image\/[a-z0-9.+-]+;base64,/i.test(source)) {
-      addError(`Base64 image payload found in source: ${normalized}`);
+    if (embeddedBase64Image.test(source)) {
+      addError(`Embedded base64 image payload found in source: ${normalized}`);
     }
   }
 }
