@@ -9,6 +9,7 @@ const publicEntries = [
   "index.html", "learn.html", "library.html", "brands.html", "vocabulary.html",
   "launcher.html", "skills.html", "skill-detail.html", "about.html", "contact.html", "privacy.html"
 ];
+const shellPages = publicEntries.filter((entry) => entry !== "index.html");
 const requiredDirs = ["assets", "catalog", "demo", "src"];
 const failures = [];
 
@@ -29,19 +30,58 @@ for (const entry of publicEntries) {
   }
 }
 
-// Single-source feature naming guard.
+// Global App Shell contract: every full page uses exactly the same shared chrome.
+const directShellStyles = [
+  "./src/core/app-shell/design-tokens.css",
+  "./src/core/app-shell/language-switch.css",
+  "./src/components/site-header/site-header.css",
+  "./src/components/site-header/site-footer.css",
+];
+const countMatches = (source, pattern) => [...source.matchAll(pattern)].length;
+const sharedShellSelector = /(?:\.site-header\b|\.site-nav(?:-[\w-]+)?\b|\.site-brand(?:-[\w-]+)?\b|\.global-language-switch\b|\.site-footer(?:-[\w-]+)?\b|image2-site-header\b)/i;
+
+for (const entry of shellPages) {
+  const source = fs.readFileSync(path.join(root, entry), "utf8");
+  const shellCssCount = countMatches(source, /href=["']\.\/src\/core\/app-shell\/site-shell\.css(?:\?[^"']*)?["']/gi);
+  const shellJsCount = countMatches(source, /src=["']\.\/src\/core\/app-shell\/app-shell\.js(?:\?[^"']*)?["']/gi);
+  const headerCount = countMatches(source, /<image2-site-header\b[^>]*data-site-header[^>]*><\/image2-site-header>/gi);
+
+  if (shellCssCount !== 1) failures.push(`${entry} must load site-shell.css exactly once; found ${shellCssCount}.`);
+  if (shellJsCount !== 1) failures.push(`${entry} must load app-shell.js exactly once; found ${shellJsCount}.`);
+  if (headerCount !== 1) failures.push(`${entry} must render the canonical image2-site-header exactly once; found ${headerCount}.`);
+
+  for (const href of directShellStyles) {
+    if (source.includes(href)) failures.push(`${entry} loads shared chrome directly (${href}); load site-shell.css instead.`);
+  }
+
+  for (const style of source.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)) {
+    const css = style[1].replace(/\/\*[\s\S]*?\*\//g, "");
+    if (sharedShellSelector.test(css)) failures.push(`${entry} contains inline CSS that overrides the shared App Shell.`);
+  }
+}
+
+// Feature styles own page content only; shared header/nav/footer styling stays global.
 const featureRoot = path.join(root, "src/features");
 const versionLikeName = /(?:^|[-_.])(new|old|backup|final|redesign|reference-layout|override|overrides|fix|fixes|hardening|legacy|compat|compatibility)(?:[-_.]|$)|[-_.]v\d+(?:[-_.]|$)/i;
 const walkFeatures = (dir) => {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const absolute = path.join(dir, entry.name);
-    if (entry.isDirectory()) walkFeatures(absolute);
-    else if (versionLikeName.test(entry.name)) {
-      failures.push("Version-like feature file is not allowed; update the canonical file instead: " + path.relative(root, absolute));
+    if (entry.isDirectory()) {
+      walkFeatures(absolute);
+      continue;
+    }
+
+    const relative = path.relative(root, absolute);
+    if (versionLikeName.test(entry.name)) failures.push(`Version-like feature file is not allowed; update the canonical file instead: ${relative}`);
+
+    if (entry.name.endsWith(".css")) {
+      const css = fs.readFileSync(absolute, "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+      if (sharedShellSelector.test(css)) failures.push(`Feature CSS must not override shared App Shell selectors: ${relative}`);
     }
   }
 };
 walkFeatures(featureRoot);
+
 try {
   const catalog = await import(`${new URL("../catalog/index.js", import.meta.url).href}?check=${Date.now()}`);
   for (const key of ["styleGuides", "styleProfiles", "brandProfiles", "componentReferences"]) {
@@ -57,4 +97,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Site check passed. ${publicEntries.length} public entries verified.`);
+console.log(`Site check passed. ${publicEntries.length} public entries and ${shellPages.length} shared-shell pages verified.`);
