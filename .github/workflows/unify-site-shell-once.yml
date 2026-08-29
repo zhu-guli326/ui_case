@@ -1,0 +1,34 @@
+name: Unify Site Shell Once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/unify-site-shell-once.yml
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Normalize public shell imports
+        run: |
+          node scripts/unify_site_shell_once.mjs
+          npm run check
+          git diff --check
+      - name: Commit unified shell
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "refactor(shell): unify public page framework"
+          git pull --rebase origin main
+          git push origin HEAD:main
