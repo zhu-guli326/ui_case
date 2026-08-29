@@ -9,6 +9,8 @@ tmp/
 /.tmp-edge-*/
 /*-audit.png
 /artifacts/layout-audit/
+/artifacts/screenshots/
+*.patch
 demo/*/screenshots/*
 !demo/*/screenshots/library-preview-2x.png
 demo/*/.image2-ui/
