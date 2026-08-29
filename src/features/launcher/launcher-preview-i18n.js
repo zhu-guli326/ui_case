@@ -1,4 +1,5 @@
 (() => {
+  const scriptUrl = document.currentScript?.src || window.location.href;
   const previewRoot = document.querySelector('.preview-page');
   if (!previewRoot) return;
 
@@ -168,35 +169,22 @@
       const original = originals.get(node);
       node.nodeValue = lang === 'en' ? translate(original) : original;
     }
-
     document.querySelectorAll('.dna-app [placeholder], .dna-app [aria-label]').forEach((element) => {
-      if (!attrOriginals.has(element)) {
-        attrOriginals.set(element, {
-          placeholder: element.getAttribute('placeholder'),
-          ariaLabel: element.getAttribute('aria-label')
-        });
-      }
+      if (!attrOriginals.has(element)) attrOriginals.set(element, { placeholder: element.getAttribute('placeholder'), ariaLabel: element.getAttribute('aria-label') });
       const original = attrOriginals.get(element);
       if (original.placeholder != null) element.setAttribute('placeholder', lang === 'en' ? translate(original.placeholder) : original.placeholder);
       if (original.ariaLabel != null) element.setAttribute('aria-label', lang === 'en' ? translate(original.ariaLabel) : original.ariaLabel);
     });
-
     previewRoot.querySelectorAll('img[alt]').forEach((image) => {
       if (!image.dataset.originalAlt) image.dataset.originalAlt = image.getAttribute('alt') || '';
       const original = image.dataset.originalAlt;
       image.alt = lang === 'en' ? (imageAltDictionary[original] || translate(original)) : original;
     });
-
     const dnaName = document.querySelector('#dnaName');
-    if (dnaName && ['克制绿 · Web DNA', 'Restrained Green · Web DNA'].includes(dnaName.value)) {
-      dnaName.value = lang === 'en' ? 'Restrained Green · Web DNA' : '克制绿 · Web DNA';
-    }
-
+    if (dnaName && ['克制绿 · Web DNA', 'Restrained Green · Web DNA'].includes(dnaName.value)) dnaName.value = lang === 'en' ? 'Restrained Green · Web DNA' : '克制绿 · Web DNA';
     document.title = lang === 'en' ? 'Interface DNA · ONDesign' : '界面设计 DNA · ONDesign';
     const description = document.querySelector('meta[name="description"]');
-    if (description) description.content = lang === 'en'
-      ? 'Build and save a reusable interface design DNA before you start front-end development.'
-      : '在开始前端开发前，搭建并保存一套可复用的界面设计 DNA。';
+    if (description) description.content = lang === 'en' ? 'Build and save a reusable interface design DNA before you start front-end development.' : '在开始前端开发前，搭建并保存一套可复用的界面设计 DNA。';
   }
 
   function buildLibraryUrl(caseId = '') {
@@ -209,8 +197,7 @@
     if (link?.dataset.directionCardCase) return link.dataset.directionCardCase;
     const raw = link?.getAttribute('href');
     if (!raw) return '';
-    try { return new URL(raw, window.location.href).searchParams.get('case') || ''; }
-    catch { return ''; }
+    try { return new URL(raw, window.location.href).searchParams.get('case') || ''; } catch { return ''; }
   }
 
   function openCaseLibrary(caseId = '') {
@@ -218,17 +205,12 @@
     const frame = document.querySelector('[data-case-library-frame]');
     const fullLink = document.querySelector('[data-case-library-full]');
     if (!dialog) return;
-
     dialog.dataset.caseId = caseId;
     const url = buildLibraryUrl(caseId);
     if (frame) frame.setAttribute('src', url);
     if (fullLink) fullLink.setAttribute('href', url);
-
-    if (typeof dialog.showModal === 'function') {
-      if (!dialog.open) dialog.showModal();
-    } else {
-      dialog.setAttribute('open', '');
-    }
+    if (typeof dialog.showModal === 'function') { if (!dialog.open) dialog.showModal(); }
+    else dialog.setAttribute('open', '');
   }
 
   function installCaseDialogLinks() {
@@ -252,7 +234,6 @@
       const next = `${path}?embed=1&lang=${lang}`;
       if (current !== next) frame.setAttribute('src', next);
     });
-
     document.querySelectorAll('a[href*="library.html?case="]').forEach((link) => {
       const raw = link.getAttribute('href');
       if (!raw) return;
@@ -260,10 +241,9 @@
       url.searchParams.set('lang', lang);
       link.setAttribute('href', `./library.html${url.search}`);
     });
-
-    const dialog = document.querySelector('[data-case-library-dialog]');
-    if (dialog?.dataset.caseId) {
-      const url = buildLibraryUrl(dialog.dataset.caseId);
+    const caseDialog = document.querySelector('[data-case-library-dialog]');
+    if (caseDialog?.dataset.caseId) {
+      const url = buildLibraryUrl(caseDialog.dataset.caseId);
       document.querySelector('[data-case-library-frame]')?.setAttribute('src', url);
       document.querySelector('[data-case-library-full]')?.setAttribute('href', url);
     }
@@ -299,7 +279,6 @@
     fontList = document.querySelector('.font-field .type-list');
     if (!fontList || fontList.dataset.compactSelect === 'true') return;
     fontList.dataset.compactSelect = 'true';
-
     const control = document.createElement('div');
     control.className = 'select-control font-select-control';
     fontSelect = document.createElement('select');
@@ -308,15 +287,22 @@
     fontList.before(control);
     fontList.style.display = 'none';
     renderFontSelectOptions();
-
     fontSelect.addEventListener('change', () => {
       const target = getFontButtons().find((button) => button.dataset.value === fontSelect.value);
       target?.click();
       window.requestAnimationFrame(syncFontSelect);
     });
-
     fontObserver = new MutationObserver(() => syncFontSelect());
     getFontButtons().forEach((button) => fontObserver.observe(button, { attributes: true, attributeFilter: ['class', 'aria-checked'] }));
+  }
+
+  function loadDesignSystemLibrary() {
+    if (document.querySelector('script[data-launcher-design-systems]')) return;
+    const moduleScript = document.createElement('script');
+    moduleScript.type = 'module';
+    moduleScript.dataset.launcherDesignSystems = '';
+    moduleScript.src = new URL('./launcher-design-systems.js', scriptUrl).href;
+    document.head.append(moduleScript);
   }
 
   function sync() {
@@ -328,6 +314,7 @@
 
   installFontSelect();
   installCaseDialogLinks();
+  loadDesignSystemLibrary();
   sync();
   window.addEventListener('image2:languagechange', sync);
 })();
