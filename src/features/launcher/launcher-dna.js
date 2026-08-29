@@ -55,6 +55,10 @@ const labelSets = {
   },
 };
 const L = () => labelSets[LANG()];
+const fontDescriptionSets = {
+  zh: { sans: "现代、清晰、通用", serif: "内容感、文化感", mono: "理性、工具感", hei: "浓重、醒目、主张", kai: "人文、书法、温度", fangsong: "规范、文献、报刊", yuan: "亲和、轻松、消费", geometric: "几何、现代、品牌" },
+  en: { sans: "Modern, clear and universal", serif: "Editorial and cultural", mono: "Rational and tool-like", hei: "Heavy and striking", kai: "Humanist and warm", fangsong: "Formal and documentary", yuan: "Friendly and relaxed", geometric: "Geometric and brand-led" },
+};
 
 const STR = {
   zh: {
@@ -206,7 +210,7 @@ function scaleDirectionDemos() {
   $$(".direction-live").forEach((wrap) => {
     const frame = wrap.querySelector("iframe");
     if (!frame || !wrap.clientWidth) return;
-    wrap.style.setProperty("--demo-scale", String(wrap.clientWidth / 390));
+    wrap.style.setProperty("--demo-scale", String(wrap.clientWidth / 1180));
   });
 }
 window.addEventListener("resize", scaleDirectionDemos);
@@ -219,6 +223,12 @@ function syncChoiceGroups() {
       if (item.getAttribute("role") === "radio") item.setAttribute("aria-checked", String(selected));
     });
   });
+  $$('[data-choice-select]').forEach((select) => { select.value = state[select.dataset.choiceSelect]; });
+}
+
+function renderFontDescription() {
+  const node = $("[data-font-description]");
+  if (node) node.textContent = fontDescriptionSets[LANG()][state.font];
 }
 
 function applyPreview() {
@@ -249,6 +259,7 @@ function applyPreview() {
   $("#dockFont").textContent = L().font[state.font];
   $("#dockRadius").textContent = t("radiusText")(state.radius);
   $("#dockDensity").textContent = t("densityText")(L().density[state.density]);
+  renderFontDescription();
   renderSummary();
   renderPrompt();
   renderSectionValues();
@@ -319,6 +330,11 @@ function restoreDna() {
 function installEvents() {
   $$(".direction-card").forEach((button) => button.addEventListener("click", () => selectStyle(button)));
   $$('[data-choice-group]').forEach((group) => group.addEventListener("click", (event) => { const button = event.target.closest("button[data-value]"); if (button) selectInGroup(group.dataset.choiceGroup, button); }));
+  $$('[data-choice-select]').forEach((select) => select.addEventListener("change", () => {
+    state[select.dataset.choiceSelect] = select.value;
+    applyPreview();
+    setPresetLabelRef(null);
+  }));
   $$("[data-scroll]").forEach((button) => button.addEventListener("click", () => {
     const target = document.querySelector(button.dataset.scroll);
     if (target) {
@@ -427,6 +443,10 @@ window.image2I18n?.addTranslations({
   "dna.rulesTitle": { zh: "基础规范", en: "Foundation" },
   "dna.rulesDesc": { zh: "颜色、字体、圆角与间距。", en: "Colors, typography, radius and spacing." },
   "dna.colorLegend": { zh: "颜色", en: "Colors" },
+  "dna.paletteSage": { zh: "鼠尾草绿", en: "Sage green" },
+  "dna.paletteInk": { zh: "墨黑灰", en: "Ink black" },
+  "dna.paletteBlue": { zh: "深海蓝", en: "Deep blue" },
+  "dna.paletteCoral": { zh: "暖珊瑚", en: "Warm coral" },
   "dna.fontLegend": { zh: "字体气质", en: "Typography" },
   "dna.radiusLegend": { zh: "圆角", en: "Radius" },
   "dna.spacingLegend": { zh: "间距", en: "Spacing" },

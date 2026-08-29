@@ -13,12 +13,12 @@
   <link rel="stylesheet" href="./src/core/app-shell/design-tokens.css?v=20260828-unified-v1">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
-  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260829-real-media-v12">
+  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260829-ant-layout-v13">
   <link rel="stylesheet" href="./src/components/site-header/site-footer.css?v=20260828-unified-v1">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
-  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260829-dna-i18n-v12"></script>
+  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260829-ant-layout-v13"></script>
 </head>
 <body class="dna-page">
   <image2-site-header data-site-header></image2-site-header>
@@ -33,7 +33,7 @@
       <div class="dna-hero-actions">
         <div class="dna-preset" data-preset-root>
           <button class="dna-preset-button" type="button" aria-expanded="false" aria-haspopup="listbox" data-preset-toggle>
-            <span data-preset-label>预设 · 克制</span><i aria-hidden="true">▾</i>
+            <span data-preset-label>预设 · 克制</span><i aria-hidden="true"></i>
           </button>
           <div class="dna-preset-panel" data-preset-panel hidden>
             <div class="dna-preset-toolbar">
@@ -52,7 +52,7 @@
     <div class="dna-workspace">
       <div class="dna-controls" aria-label="界面 DNA 设置">
         <details class="dna-section" id="dna-direction" open>
-          <summary class="dna-section-head"><span>01</span><div><h2 id="directionTitle" data-i18n="dna.directionTitle">视觉方向</h2><p data-i18n="dna.directionDesc">先确定整体气质，密度随之匹配。</p></div><b class="dna-section-value" data-section-value="direction">克制 · 平衡</b><i aria-hidden="true">⌄</i></summary>
+          <summary class="dna-section-head"><span>01</span><div><h2 id="directionTitle" data-i18n="dna.directionTitle">视觉方向</h2><p data-i18n="dna.directionDesc">先确定整体气质，密度随之匹配。</p></div><b class="dna-section-value" data-section-value="direction">克制 · 平衡</b><i aria-hidden="true"></i></summary>
           <div class="dna-section-body">
           <div class="direction-grid" role="radiogroup" aria-label="界面风格">
             <button class="direction-card is-selected" type="button" role="radio" aria-checked="true" data-style="restrained"><span class="direction-live" data-demo="fithub"><iframe src="./demo/fithub/index.html?embed=1&amp;lang=zh" loading="lazy" tabindex="-1" scrolling="no" title="克制方向绑定的案例：极简训练规划"></iframe></span><span><strong data-i18n="dna.dirRestrained">克制</strong><small data-i18n="dna.dirRestrainedDesc">留白、秩序、柔和 · 案例「极简训练规划」</small></span></button>
@@ -66,24 +66,15 @@
         </details>
 
         <details class="dna-section" id="dna-rules">
-          <summary class="dna-section-head"><span>02</span><div><h2 id="rulesTitle" data-i18n="dna.rulesTitle">基础规范</h2><p data-i18n="dna.rulesDesc">颜色、字体、圆角与间距。</p></div><b class="dna-section-value" data-section-value="rules">鼠尾草绿 · 简洁无衬线</b><i aria-hidden="true">⌄</i></summary>
+          <summary class="dna-section-head"><span>02</span><div><h2 id="rulesTitle" data-i18n="dna.rulesTitle">基础规范</h2><p data-i18n="dna.rulesDesc">颜色、字体、圆角与间距。</p></div><b class="dna-section-value" data-section-value="rules">鼠尾草绿 · 简洁无衬线</b><i aria-hidden="true"></i></summary>
           <div class="dna-section-body">
           <fieldset class="rule-field"><legend data-i18n="dna.colorLegend">颜色</legend><div class="palette-list" data-choice-group="palette" role="radiogroup" aria-label="颜色方案">
-            <button class="palette-option is-selected" type="button" role="radio" aria-checked="true" data-value="sage" aria-label="鼠尾草绿"><i style="--swatch:#18a957"></i><i style="--swatch:#e7f5ec"></i><i style="--swatch:#24231f"></i></button>
-            <button class="palette-option" type="button" role="radio" aria-checked="false" data-value="ink" aria-label="墨黑灰"><i style="--swatch:#111111"></i><i style="--swatch:#e8e8e4"></i><i style="--swatch:#252724"></i></button>
-            <button class="palette-option" type="button" role="radio" aria-checked="false" data-value="blue" aria-label="深海蓝"><i style="--swatch:#2457e6"></i><i style="--swatch:#e7edff"></i><i style="--swatch:#17213c"></i></button>
-            <button class="palette-option" type="button" role="radio" aria-checked="false" data-value="coral" aria-label="暖珊瑚"><i style="--swatch:#e4573d"></i><i style="--swatch:#fff0e8"></i><i style="--swatch:#321d18"></i></button>
+            <button class="palette-option is-selected" type="button" role="radio" aria-checked="true" data-value="sage" aria-label="鼠尾草绿"><span class="palette-swatches"><i style="--swatch:#18a957"></i><i style="--swatch:#e7f5ec"></i><i style="--swatch:#24231f"></i></span><b data-i18n="dna.paletteSage">鼠尾草绿</b></button>
+            <button class="palette-option" type="button" role="radio" aria-checked="false" data-value="ink" aria-label="墨黑灰"><span class="palette-swatches"><i style="--swatch:#111111"></i><i style="--swatch:#e8e8e4"></i><i style="--swatch:#252724"></i></span><b data-i18n="dna.paletteInk">墨黑灰</b></button>
+            <button class="palette-option" type="button" role="radio" aria-checked="false" data-value="blue" aria-label="深海蓝"><span class="palette-swatches"><i style="--swatch:#2457e6"></i><i style="--swatch:#e7edff"></i><i style="--swatch:#17213c"></i></span><b data-i18n="dna.paletteBlue">深海蓝</b></button>
+            <button class="palette-option" type="button" role="radio" aria-checked="false" data-value="coral" aria-label="暖珊瑚"><span class="palette-swatches"><i style="--swatch:#e4573d"></i><i style="--swatch:#fff0e8"></i><i style="--swatch:#321d18"></i></span><b data-i18n="dna.paletteCoral">暖珊瑚</b></button>
           </div></fieldset>
-          <fieldset class="rule-field"><legend data-i18n="dna.fontLegend">字体气质</legend><div class="type-list" data-choice-group="font">
-            <button class="type-option is-selected" type="button" data-value="sans"><b data-i18n="dna.fontSans">简洁无衬线</b><span data-i18n="dna.fontSansDesc">现代、清晰、通用</span><i style="font-family:system-ui,-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">Aa</i></button>
-            <button class="type-option" type="button" data-value="serif"><b data-i18n="dna.fontSerif">编辑衬线</b><span data-i18n="dna.fontSerifDesc">内容感、文化感</span><i style="font-family:'Noto Serif SC','Songti SC','SimSun',Georgia,serif">Ag</i></button>
-            <button class="type-option" type="button" data-value="mono"><b data-i18n="dna.fontMono">几何等宽</b><span data-i18n="dna.fontMonoDesc">理性、工具感</span><i style="font-family:ui-monospace,'SFMono-Regular',Consolas,'Liberation Mono',monospace">R1</i></button>
-            <button class="type-option" type="button" data-value="hei"><b data-i18n="dna.fontHei">浓黑标题</b><span data-i18n="dna.fontHeiDesc">浓重、醒目、主张</span><i style="font-family:'Noto Sans SC','Source Han Sans SC','SimHei','Microsoft YaHei',sans-serif;font-weight:900">黑</i></button>
-            <button class="type-option" type="button" data-value="kai"><b data-i18n="dna.fontKai">楷书人文</b><span data-i18n="dna.fontKaiDesc">人文、书法、温度</span><i style="font-family:'Kaiti SC','STKaiti',KaiTi,'TW-Kai',cursive">楷</i></button>
-            <button class="type-option" type="button" data-value="fangsong"><b data-i18n="dna.fontFangsong">仿宋文献</b><span data-i18n="dna.fontFangsongDesc">规范、文献、报刊</span><i style="font-family:'Fangsong SC','STFangsong',FangSong,'SimSun',serif">仿</i></button>
-            <button class="type-option" type="button" data-value="yuan"><b data-i18n="dna.fontYuan">圆润亲和</b><span data-i18n="dna.fontYuanDesc">亲和、轻松、消费</span><i style="font-family:'Yuanti SC',YouYuan,'PingFang SC','Microsoft YaHei',sans-serif">圆</i></button>
-            <button class="type-option" type="button" data-value="geometric"><b data-i18n="dna.fontGeometric">几何西文</b><span data-i18n="dna.fontGeometricDesc">几何、现代、品牌</span><i style="font-family:Futura,'Century Gothic','Avenir Next','Trebuchet MS',sans-serif">Gg</i></button>
-          </div></fieldset>
+          <fieldset class="rule-field font-field"><legend data-i18n="dna.fontLegend">字体气质</legend><div class="select-control"><select data-choice-select="font" aria-label="字体气质"><option value="sans" data-i18n="dna.fontSans">简洁无衬线</option><option value="serif" data-i18n="dna.fontSerif">编辑衬线</option><option value="mono" data-i18n="dna.fontMono">几何等宽</option><option value="hei" data-i18n="dna.fontHei">浓黑标题</option><option value="kai" data-i18n="dna.fontKai">楷书人文</option><option value="fangsong" data-i18n="dna.fontFangsong">仿宋文献</option><option value="yuan" data-i18n="dna.fontYuan">圆润亲和</option><option value="geometric" data-i18n="dna.fontGeometric">几何西文</option></select></div><p class="field-help" data-font-description>现代、清晰、通用</p></fieldset>
           <div class="rule-pair">
             <fieldset class="rule-field"><legend data-i18n="dna.radiusLegend">圆角</legend><div class="segmented-control" data-choice-group="radius"><button type="button" data-value="0" data-i18n="dna.radiusSharp">直角</button><button class="is-selected" type="button" data-value="14" data-i18n="dna.radiusModerate">适中</button><button type="button" data-value="28" data-i18n="dna.radiusRounded">圆润</button></div></fieldset>
             <fieldset class="rule-field"><legend data-i18n="dna.spacingLegend">间距</legend><div class="segmented-control" data-choice-group="spacing"><button type="button" data-value="6" data-i18n="dna.spacingCompact">紧凑</button><button class="is-selected" type="button" data-value="10" data-i18n="dna.spacingBalanced">平衡</button><button type="button" data-value="14" data-i18n="dna.spacingRelaxed">宽松</button></div></fieldset>
@@ -92,7 +83,7 @@
         </details>
 
         <details class="dna-section" id="dna-save">
-          <summary class="dna-section-head"><span>03</span><div><h2 id="saveTitle" data-i18n="dna.saveTitle">保存并复用</h2><p data-i18n="dna.saveDesc">命名、检查并复制这套 DNA。</p></div><b class="dna-section-value" data-state="unsaved" data-i18n="dna.unsaved">未保存</b><i aria-hidden="true">⌄</i></summary>
+          <summary class="dna-section-head"><span>03</span><div><h2 id="saveTitle" data-i18n="dna.saveTitle">保存并复用</h2><p data-i18n="dna.saveDesc">命名、检查并复制这套 DNA。</p></div><b class="dna-section-value" data-state="unsaved" data-i18n="dna.unsaved">未保存</b><i aria-hidden="true"></i></summary>
           <div class="dna-section-body">
           <label class="dna-name-field"><span data-i18n="dna.nameField">规范名称</span><input id="dnaName" type="text" value="克制绿 · Web DNA" maxlength="40"></label>
           <dl class="dna-summary" id="dnaSummary"></dl>
@@ -104,25 +95,7 @@
       </div>
 
       <section class="dna-canvas" aria-labelledby="previewTitle">
-        <div class="canvas-label"><div><span>LIVE PREVIEW</span><h2 id="previewTitle" data-i18n="dna.previewTitle">实时预览</h2></div><div class="device-switch" aria-label="预览设备"><button class="is-selected" type="button" data-device="desktop" data-i18n="dna.deviceDesktop">桌面</button><button type="button" data-device="mobile" data-i18n="dna.deviceMobile">移动</button></div></div>
-        <label class="preview-picker">
-          <span data-i18n="dna.pickerLabel">预览内容</span>
-          <select data-preview-picker aria-label="选择预览页面或组件">
-            <optgroup data-i18n-attr="label:dna.groupPages" label="页面">
-              <option value="landing" data-i18n="dna.compLanding">落地页</option>
-              <option value="article" data-i18n="dna.pageArticle">文章页</option>
-              <option value="product" data-i18n="dna.pageProduct">商品详情</option>
-              <option value="dash" data-i18n="dna.compDash">数据后台</option>
-              <option value="settings" data-i18n="dna.pageSettings">设置页</option>
-            </optgroup>
-            <optgroup data-i18n-attr="label:dna.groupComponents" label="组件">
-              <option value="nav" data-i18n="dna.compNav">导航</option>
-              <option value="cards" data-i18n="dna.compCards">卡片组</option>
-              <option value="form" data-i18n="dna.compForm">表单</option>
-              <option value="pricing" data-i18n="dna.compPricing">定价</option>
-            </optgroup>
-          </select>
-        </label>
+        <div class="canvas-label"><div><span>LIVE PREVIEW</span><h2 id="previewTitle" data-i18n="dna.previewTitle">实时预览</h2></div><div class="canvas-tools"><label class="preview-picker"><span data-i18n="dna.pickerLabel">预览内容</span><select data-preview-picker aria-label="选择预览页面或组件"><optgroup data-i18n-attr="label:dna.groupPages" label="页面"><option value="landing" data-i18n="dna.compLanding">落地页</option><option value="article" data-i18n="dna.pageArticle">文章页</option><option value="product" data-i18n="dna.pageProduct">商品详情</option><option value="dash" data-i18n="dna.compDash">数据后台</option><option value="settings" data-i18n="dna.pageSettings">设置页</option></optgroup><optgroup data-i18n-attr="label:dna.groupComponents" label="组件"><option value="nav" data-i18n="dna.compNav">导航</option><option value="cards" data-i18n="dna.compCards">卡片组</option><option value="form" data-i18n="dna.compForm">表单</option><option value="pricing" data-i18n="dna.compPricing">定价</option></optgroup></select></label><div class="device-switch" aria-label="预览设备"><button class="is-selected" type="button" data-device="desktop" data-i18n="dna.deviceDesktop">桌面</button><button type="button" data-device="mobile" data-i18n="dna.deviceMobile">移动</button></div></div></div>
         <div class="preview-stage" data-preview-stage>
           <article class="preview-browser" data-preview-browser>
             <header class="browser-bar"><i></i><i></i><i></i><span>preview.ondesign</span><b>•••</b></header>
