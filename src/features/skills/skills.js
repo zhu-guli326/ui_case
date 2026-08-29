@@ -135,8 +135,8 @@ const designReferenceWebsites = [
   { name: "Awwwards", domain: "awwwards.com", url: "https://www.awwwards.com/sites/michael-gatt", group: "EXPERIMENT", previewType: "video", previewSrc: "./assets/skills/web/awwwards-com-cover.mp4", previewImage: "./assets/skills/web/awwwards-com-cover.png", previewRatio: "40 / 21", descriptionZh: "聚焦高质量网站、创意开发与完整交互体验。", descriptionEn: "High-quality websites, creative development and complete interactive experiences.", focusZh: "创意网站 / 交互叙事", focusEn: "Creative web / interaction" },
   { name: "Mobbin", domain: "mobbin.com", url: "https://mobbin.com/discover/apps/ios/latest", group: "PRODUCT", previewType: "video", previewSrc: "./assets/skills/web/mobbin-com.mp4", previewRatio: "137 / 68", descriptionZh: "按真实产品流程检索移动端与 Web 界面，适合拆解成熟 UX 模式。", descriptionEn: "Search real mobile and web product flows to study mature UX patterns.", focusZh: "App 流程 / UX 模式", focusEn: "App flows / UX patterns" },
   { name: "Refero", domain: "refero.design", url: "https://refero.design/", group: "PRODUCT", previewType: "video", previewSrc: "./assets/skills/web/refero-design-cover.mp4", previewImage: "./assets/skills/web/refero-design-cover.png", descriptionZh: "围绕真实界面与产品流程组织参考，方便研究功能结构。", descriptionEn: "Product references organized around real screens and flows.", focusZh: "产品界面 / 功能拆解", focusEn: "Product UI / feature study" },
-  { name: "Beautiful UI", domain: "beautifului.dev", url: "https://beautifului.dev/", group: "COMPONENT", previewType: "video", previewSrc: "./assets/skills/web/beautifului-dev-cover.mp4", previewImage: "./assets/skills/web/beautifului-dev-cover.png", previewRatio: "163 / 135", descriptionZh: "专为 AI 原生界面设计的基础组件，覆盖像素网格 Loading、可展开 Thinking、流式文本、Approval Card、Tool Chips 与实时 Task Rows。", descriptionEn: "Primitives for AI-native interfaces, including pixel-grid loading, expandable thinking, streaming text, approval cards, tool chips and live task rows.", focusZh: "AI 产品 / Agent 界面 / 状态设计", focusEn: "AI products / agent UI / states" },
-  { name: "shadcn/ui", domain: "ui.shadcn.com", url: "https://ui.shadcn.com/", group: "COMPONENT", previewType: "video", previewSrc: "./assets/skills/web/ui-shadcn-com-cover.mp4", previewImage: "./assets/skills/web/ui-shadcn-com-cover.png", previewRatio: "40 / 21", descriptionZh: "设计系统的开放地基：一套设计精良、可自定义、可扩展的组件与区块，从这里开始，再改成自己的产品语言。", descriptionEn: "An open foundation for design systems: beautifully designed, customizable and extensible components to make your own.", focusZh: "组件基础 / 设计系统 / React", focusEn: "Component foundation / design systems / React" },
+  { name: "Beautiful UI", openSource: true, domain: "beautifului.dev", url: "https://beautifului.dev/", group: "COMPONENT", previewType: "video", previewSrc: "./assets/skills/web/beautifului-dev-cover.mp4", previewImage: "./assets/skills/web/beautifului-dev-cover.png", previewRatio: "163 / 135", descriptionZh: "专为 AI 原生界面设计的基础组件，覆盖像素网格 Loading、可展开 Thinking、流式文本、Approval Card、Tool Chips 与实时 Task Rows。", descriptionEn: "Primitives for AI-native interfaces, including pixel-grid loading, expandable thinking, streaming text, approval cards, tool chips and live task rows.", focusZh: "AI 产品 / Agent 界面 / 状态设计", focusEn: "AI products / agent UI / states" },
+  { name: "shadcn/ui", openSource: true, domain: "ui.shadcn.com", url: "https://ui.shadcn.com/", group: "COMPONENT", previewType: "video", previewSrc: "./assets/skills/web/ui-shadcn-com-cover.mp4", previewImage: "./assets/skills/web/ui-shadcn-com-cover.png", previewRatio: "40 / 21", descriptionZh: "设计系统的开放地基：一套设计精良、可自定义、可扩展的组件与区块，从这里开始，再改成自己的产品语言。", descriptionEn: "An open foundation for design systems: beautifully designed, customizable and extensible components to make your own.", focusZh: "组件基础 / 设计系统 / React", focusEn: "Component foundation / design systems / React" },
   { name: "Design Spells", domain: "designspells.com", url: "https://www.designspells.com/", group: "DETAIL", previewType: "video", previewSrc: "./assets/skills/web/designspells-cover.mp4", previewImage: "./assets/skills/web/designspells-cover.png", previewRatio: "40 / 21", descriptionZh: "收集产品中让体验更细腻的设计细节与微交互。", descriptionEn: "A collection of thoughtful product details and micro-interactions.", focusZh: "微交互 / 体验细节", focusEn: "Micro-interactions / details" },
   { name: "Supahero", domain: "supahero.io", url: "https://supahero.io/", group: "DETAIL", previewType: "video", previewSrc: "./assets/skills/web/supahero-io-cover.mp4", previewImage: "./assets/skills/web/supahero-io-cover.png", previewRatio: "40 / 21", descriptionZh: "精选真实网站的 Hero 首屏库，每条附可交互预览与跳转原站链接，适合研究信息密度、视觉焦点和首屏动效。", descriptionEn: "A curated library of real website hero sections with interactive previews and links to the original sites — great for studying first-fold density, visual focus and hero motion.", focusZh: "Hero / 首屏设计", focusEn: "Hero sections / first fold" },
   { name: "Navbar Gallery", domain: "navbar.gallery", url: "https://www.navbar.gallery/", group: "DETAIL", previewType: "video", previewSrc: "./assets/skills/web/navbar-gallery-cover.mp4", previewImage: "./assets/skills/web/navbar-gallery-cover.png", previewRatio: "40 / 21", descriptionZh: "真实网站的导航栏案例库，可按 Static、Dropdown、Mega Menu、Side Bar、Search Bar、Full Screen、Breadcrumbs 等类型筛选，每条附可交互预览、导航类型与网站类型标注，并可跳转原站。", descriptionEn: "A library of real website navbars filterable by type — static, dropdown, mega menu, side bar, search bar, full screen, breadcrumbs — each with an interactive preview, navbar/website type metadata and a link to the live site.", focusZh: "导航类型 / Mega Menu / 信息架构", focusEn: "Navbar types / mega menu / information architecture" },
@@ -145,10 +145,10 @@ const designReferenceWebsites = [
   { name: "Motion Sites", domain: "motionsites.ai", url: "https://motionsites.ai/", group: "DIRECTORY", previewType: "video", previewSrc: "./assets/skills/web/motionsites-ai-cover.mp4", descriptionZh: "面向 AI 建站的提示词与模板资源，用于快速生成动效强、完成度高的网站。", descriptionEn: "Premium AI website prompts and templates for building high-craft motion sites.", focusZh: "AI 建站提示词 / 动效网站模板", focusEn: "AI website prompts / motion site templates" },
   { name: "Loadmo.re", domain: "loadmo.re", url: "https://loadmo.re/", group: "EXPERIMENT", previewType: "video", previewSrc: "./assets/skills/web/loadmo-re-cover.mp4", descriptionZh: "发现更具实验性的网页、动效与创意交互表达。", descriptionEn: "Discover experimental websites, motion and creative interaction work.", focusZh: "实验网页 / 创意动效", focusEn: "Experimental web / motion" },
   { name: "Pryzm", domain: "pryzm.design", url: "https://pryzm.design/", group: "DIRECTORY", previewType: "video", previewSrc: "./assets/skills/web/pryzm-design-cover.mp4", previewImage: "./assets/skills/web/pryzm-design-cover.png", previewRatio: "40 / 21", descriptionZh: "把渐变、玻璃与噪点混合成独特背景和动态循环的生成式工作台，为界面与 AI 产品快速造背景素材。", descriptionEn: "A generative studio blending gradients, glass and grain into unique backgrounds and animated loops for interfaces and AI products.", focusZh: "渐变背景 / 玻璃噪点 / 动态循环", focusEn: "Gradient backgrounds / glass & grain / animated loops" },
-  { name: "beUI", domain: "beui.dev", url: "https://beui.dev/", group: "MOTION", previewType: "video", previewSrc: "./assets/skills/web/beui-dev-cover.mp4", previewImage: "./assets/skills/web/beui-dev-cover.png", previewRatio: "40 / 21", descriptionZh: "111 个 React / Next.js 动画组件，基于 Motion、Tailwind CSS 与 React 构建，免费开源，可通过 shadcn CLI 安装。", descriptionEn: "111 open-source animated React and Next.js components built with Motion and Tailwind CSS and installable via shadcn CLI.", focusZh: "React 动效 / 微交互 / Tailwind", focusEn: "React motion / micro-interactions / Tailwind" },
-  { name: "Rare UI", domain: "rareui.com", url: "https://rareui.com/", group: "MOTION", previewType: "video", previewSrc: "./assets/skills/web/rareui-com-cover.mp4", previewImage: "./assets/skills/web/rareui-com-cover.png", previewRatio: "40 / 21", descriptionZh: "14+ 个少见且有记忆点的开源动画 React 组件，可通过 shadcn CLI 安装，包括 Fluid Orb、Gravity Letters 与 OTP Input。", descriptionEn: "14+ distinctive open-source animated React components, including Fluid Orb, Gravity Letters and OTP Input, installable via shadcn CLI.", focusZh: "特色组件 / 动画反馈 / React", focusEn: "Distinctive components / motion feedback / React" },
-  { name: "Transitions", domain: "transitions.dev", url: "https://transitions.dev/", group: "MOTION", previewType: "video", previewSrc: "./assets/skills/web/transitions-dev-cover.mp4", previewImage: "./assets/skills/web/transitions-dev-cover.png", previewRatio: "761 / 540", descriptionZh: "面向 Web 与 AI Agent 的常用过渡动画，覆盖卡片 resize、数字弹出、通知徽章、文本切换、模态框开合、成功勾选和错误抖动。", descriptionEn: "Essential transitions for web and AI agents, including card resize, number pop-in, badges, text swaps, modals, success checks and error shakes.", focusZh: "页面转场 / 状态切换 / Agent Skill", focusEn: "UI transitions / state changes / agent skill" },
-  { name: "Anime.js", domain: "animejs.com", url: "https://animejs.com/", group: "MOTION", previewType: "video", previewSrc: "./assets/skills/web/animejs-com-cover.mp4", descriptionZh: "轻量而强大的 JavaScript 动画引擎，可编排 DOM、SVG、CSS 属性与时间轴动画。", descriptionEn: "A lightweight JavaScript animation engine for DOM, SVG, CSS properties and timeline choreography.", focusZh: "时间轴 / SVG / 交互动效", focusEn: "Timelines / SVG / interaction motion" }
+  { name: "beUI", openSource: true, domain: "beui.dev", url: "https://beui.dev/", group: "MOTION", previewType: "video", previewSrc: "./assets/skills/web/beui-dev-cover.mp4", previewImage: "./assets/skills/web/beui-dev-cover.png", previewRatio: "40 / 21", descriptionZh: "111 个 React / Next.js 动画组件，基于 Motion、Tailwind CSS 与 React 构建，免费开源，可通过 shadcn CLI 安装。", descriptionEn: "111 open-source animated React and Next.js components built with Motion and Tailwind CSS and installable via shadcn CLI.", focusZh: "React 动效 / 微交互 / Tailwind", focusEn: "React motion / micro-interactions / Tailwind" },
+  { name: "Rare UI", openSource: true, domain: "rareui.com", url: "https://rareui.com/", group: "MOTION", previewType: "video", previewSrc: "./assets/skills/web/rareui-com-cover.mp4", previewImage: "./assets/skills/web/rareui-com-cover.png", previewRatio: "40 / 21", descriptionZh: "14+ 个少见且有记忆点的开源动画 React 组件，可通过 shadcn CLI 安装，包括 Fluid Orb、Gravity Letters 与 OTP Input。", descriptionEn: "14+ distinctive open-source animated React components, including Fluid Orb, Gravity Letters and OTP Input, installable via shadcn CLI.", focusZh: "特色组件 / 动画反馈 / React", focusEn: "Distinctive components / motion feedback / React" },
+  { name: "Transitions", openSource: true, domain: "transitions.dev", url: "https://transitions.dev/", group: "MOTION", previewType: "video", previewSrc: "./assets/skills/web/transitions-dev-cover.mp4", previewImage: "./assets/skills/web/transitions-dev-cover.png", previewRatio: "761 / 540", descriptionZh: "面向 Web 与 AI Agent 的常用过渡动画，覆盖卡片 resize、数字弹出、通知徽章、文本切换、模态框开合、成功勾选和错误抖动。", descriptionEn: "Essential transitions for web and AI agents, including card resize, number pop-in, badges, text swaps, modals, success checks and error shakes.", focusZh: "页面转场 / 状态切换 / Agent Skill", focusEn: "UI transitions / state changes / agent skill" },
+  { name: "Anime.js", openSource: true, domain: "animejs.com", url: "https://animejs.com/", group: "MOTION", previewType: "video", previewSrc: "./assets/skills/web/animejs-com-cover.mp4", descriptionZh: "轻量而强大的 JavaScript 动画引擎，可编排 DOM、SVG、CSS 属性与时间轴动画。", descriptionEn: "A lightweight JavaScript animation engine for DOM, SVG, CSS properties and timeline choreography.", focusZh: "时间轴 / SVG / 交互动效", focusEn: "Timelines / SVG / interaction motion" }
 ];
 
 const skillsTranslations = {
@@ -217,6 +217,7 @@ let activeDirectoryMode = "SKILL";
 const activeCategories = new Set();
 let activeSort = "CURATED";
 let searchQuery = "";
+let activeSourceOnly = false;
 let selectedSlug = repositories[0].slug;
 let repositoryStatsStatus = "loading";
 let repositoryStatsUpdatedAt = null;
@@ -512,7 +513,8 @@ function getFilteredWebsites() {
     const description = currentLanguage === "en" ? item.descriptionEn : item.descriptionZh;
     const focus = currentLanguage === "en" ? item.focusEn : item.focusZh;
     const searchMatch = !query || [item.name, item.domain, item.group, description, focus].some((value) => String(value || "").toLowerCase().includes(query));
-    return categoryMatch && searchMatch;
+    const sourceMatch = !activeSourceOnly || item.openSource;
+    return categoryMatch && searchMatch && sourceMatch;
   });
 }
 
@@ -540,7 +542,7 @@ function renderRepositoryFilters() {
       const itemCount = designReferenceWebsites.filter((item) => item.group === group.key).length;
       const isActive = activeCategories.has(group.key);
       return `<button class="repo-subfilter${isActive ? " is-active" : ""}" type="button" aria-pressed="${isActive}" data-repo-filter="${escapeHtml(group.key)}"><span>${escapeHtml(currentLanguage === "en" ? group.en : group.zh)}</span><b>${itemCount}</b></button>`;
-    }).join("")}</div></section>`;
+    }).join("")}</div></section><section class="facet-group"><h3><span>${currentLanguage === "en" ? "Source code" : "源代码"}</span><b>${designReferenceWebsites.filter((item) => item.openSource).length}</b></h3><div class="repo-subfilters"><button class="repo-subfilter${activeSourceOnly ? " is-active" : ""}" type="button" aria-pressed="${activeSourceOnly}" data-source-filter="OPEN"><span>${currentLanguage === "en" ? "With source code" : "有源代码"}</span><b>${designReferenceWebsites.filter((item) => item.openSource).length}</b></button></div></section>`;
   } else {
   const filters = [{ key: "ALL", zh: "全部能力", en: "All capabilities", categories: null }, ...categoryGroups];
   const pathFilters = filters.map((filter) => {
@@ -853,8 +855,17 @@ if (repoSearch) repoSearch.addEventListener("input", () => {
 
 if (repoClearFilters) repoClearFilters.addEventListener("click", () => {
   activeCategories.clear();
+  activeSourceOnly = false;
   activeSort = "CURATED";
   searchQuery = "";
+  renderRepositories();
+});
+
+document.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-source-filter]");
+  if (!button) return;
+  activeSourceOnly = !activeSourceOnly;
+  track(activeDirectoryMode === "WEB" ? "source_filter_select" : "skill_filter_select", { sourceOnly: activeSourceOnly });
   renderRepositories();
 });
 
@@ -867,6 +878,7 @@ repoSortButtons.forEach((button) => button.addEventListener("click", () => {
 directoryModeButtons.forEach((button) => button.addEventListener("click", () => {
   activeDirectoryMode = button.dataset.directoryMode;
   activeCategories.clear();
+  activeSourceOnly = false;
   activeSort = "CURATED";
   searchQuery = "";
   track("directory_mode_select", { mode: activeDirectoryMode });
