@@ -1,0 +1,57 @@
+.tabs-mini-chart { display: flex; height: 55px; align-items: end; gap: 6px; margin-top: 11px; border-bottom: 1px solid var(--line); }
+.tabs-mini-chart i { width: 17%; border-radius: 2px 2px 0 0; background: color-mix(in srgb, var(--accent) 58%, var(--surface)); }
+.tabs-mini-chart i:nth-child(1) { height: 28%; }.tabs-mini-chart i:nth-child(2) { height: 50%; }.tabs-mini-chart i:nth-child(3) { height: 42%; }.tabs-mini-chart i:nth-child(4) { height: 78%; }.tabs-mini-chart i:nth-child(5) { height: 64%; }
+.tabs-variant-copy { display: grid; align-content: center; min-width: 0; padding: 18px; }
+.tabs-variant-copy h3 { margin: 8px 0 0; font-size: 15px; }
+.tabs-variant-copy p { margin: 7px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
+
+.tabs-decision-section .tabs-section-heading, .tabs-build-section .tabs-section-heading { grid-template-columns: 1fr; }
+.tabs-decision-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.tabs-decision-grid article { display: grid; grid-template-columns: 30px 1fr; gap: 13px; padding: 20px; border: 1px solid var(--line); border-radius: 8px; }
+.tabs-decision-grid article > span { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 50%; font-size: 16px; font-weight: 850; }
+.tabs-decision-grid article.is-positive > span { background: var(--accent-soft); color: var(--accent); }
+.tabs-decision-grid article.is-negative > span { background: var(--coral); color: #a7482b; }
+.tabs-decision-grid h3 { margin: 3px 0 10px; font-size: 15px; }
+.tabs-decision-grid ul { display: grid; gap: 7px; margin: 0; padding-left: 17px; color: var(--muted); font-size: 11px; line-height: 1.5; }
+.tabs-build-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); background: var(--line); gap: 1px; }
+.tabs-build-grid article { min-width: 0; padding: 20px; background: var(--surface); }
+.tabs-build-grid b { color: var(--accent); font: 800 10px/1 ui-monospace, monospace; }
+.tabs-build-grid h3 { margin: 13px 0 0; font-size: 14px; }
+.tabs-build-grid p { margin: 8px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.tabs-prompt-panel { margin-top: 48px; border-radius: 8px; }
+.tabs-prompt-panel .prompt-heading > div { display: grid; gap: 7px; }
+.tabs-prompt-panel .prompt-heading span { color: #8fe4ad; }
+.tabs-related-panel { margin-top: 36px; }
+
+.results-actions { display: flex; align-items: center; gap: 10px; }
+.share-view-button { min-height: 40px; padding: 0 12px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); color: var(--accent); font-size: 11px; font-weight: 800; cursor: pointer; }
+.share-view-button:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+@media (max-width: 780px) {
+  .results-actions { width: 100%; align-items: stretch; flex-direction: column; }
+  .share-view-button { width: 100%; }
+}
+
+@media (max-width: 900px) {
+  .tabs-solution-hero { grid-template-columns: 1fr; }
+  .tabs-solution-intro { max-width: 650px; }
+  .tabs-section-heading { grid-template-columns: 1fr; gap: 12px; }
+  .tabs-variant-card { grid-template-columns: 1fr; }
+  .tabs-variant-preview { border-right: 0; border-bottom: 1px solid var(--line); }
+}
+@media (max-width: 680px) {
+  .term-dialog--tabs .term-dialog-content { padding: 30px 16px 34px; }
+  .tabs-solution-hero { gap: 28px; padding-bottom: 36px; }
+  .tabs-solution-intro h2 { font-size: 42px; }
+  .tabs-product-panel { grid-template-columns: 105px 1fr; }
+  .tabs-choice-section, .tabs-decision-section, .tabs-build-section { padding-top: 38px; }
+  .tabs-variant-grid, .tabs-decision-grid, .tabs-build-grid { grid-template-columns: 1fr; }
+  .tabs-variant-card { grid-template-columns: minmax(0, 1.4fr) minmax(125px, .7fr); }
+  .tabs-variant-preview { min-height: 170px; border-right: 1px solid var(--line); border-bottom: 0; }
+  .tabs-prompt-panel .prompt-heading { align-items: start; flex-direction: column; }
+}
+@media (max-width: 480px) {
+  .tabs-variant-card { grid-template-columns: 1fr; }
+  .tabs-variant-preview { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tabs-product-title { align-items: start; flex-direction: column; }
+}
