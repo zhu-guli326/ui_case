@@ -23,18 +23,18 @@
   const pageHandlers = new Set();
   const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
   const translations = {
-    "nav.library": { zh: "案例库", en: "Library" },
+    "nav.library": { zh: "导航栏", en: "Navigation" },
     "nav.explore": { zh: "探索", en: "Explore" },
     "nav.caseLibrary": { zh: "案例库", en: "Case Library" },
     "nav.caseLibraryHint": { zh: "浏览可点击 UI 案例", en: "Browse clickable UI cases" },
     "nav.uiVocabulary": { zh: "UI 词库", en: "UI Vocabulary" },
     "nav.uiVocabularyHint": { zh: "看图理解界面语言", en: "Learn interface language visually" },
-    "nav.designSkills": { zh: "设计 Skill", en: "Design Skills" },
-    "nav.designSkillsHint": { zh: "查找可调用的设计能力", en: "Find reusable design capabilities" },
+    "nav.designSkills": { zh: "设计精选", en: "Design Picks" },
+    "nav.designSkillsHint": { zh: "浏览精选设计资源", en: "Browse curated design resources" },
     "nav.learn": { zh: "使用指南", en: "Guide" },
     "nav.brands": { zh: "设计系统", en: "Design systems" },
     "nav.launcher": { zh: "开始设计", en: "Start Designing" },
-    "nav.skills": { zh: "设计 Skill", en: "Design skills" },
+    "nav.skills": { zh: "设计精选", en: "Design Picks" },
     "nav.vocabulary": { zh: "UI 词典", en: "UI vocabulary" },
     "nav.resources": { zh: "更多", en: "More" },
     "nav.docs": { zh: "文档", en: "Docs" },
