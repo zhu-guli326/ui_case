@@ -8,17 +8,12 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (...parts) => readFileSync(path.join(root, ...parts), "utf8");
 
 const transitionalRootImplementation = new Set([
-  "analytics.config.js",
-  "analytics.js",
   "brands-runtime-fix.js",
   "brands.js",
-  "i18n.css",
   "i18n.js",
   "launcher-state.mjs",
   "launcher-url.mjs",
   "launcher.js",
-  "learn.css",
-  "learn.js",
   "learn-lens-overrides.css",
   "learn-nav-rail.css",
   "library-effect-captures.mjs",
@@ -34,10 +29,15 @@ const transitionalRootImplementation = new Set([
 
 test("repository root keeps public entry points separate from implementation", () => {
   for (const file of [
+    "analytics.config.js",
+    "analytics.js",
     "brands.css",
+    "i18n.css",
     "index.css",
     "index.js",
     "launcher.css",
+    "learn.css",
+    "learn.js",
     "library.css",
     "reference.js",
     "skills.css",
@@ -65,6 +65,9 @@ test("repository root keeps public entry points separate from implementation", (
     ["src", "components", "device-preview", "device-preview.js"],
     ["src", "features", "home", "index.css"],
     ["src", "features", "home", "index.js"],
+    ["src", "features", "learn", "learn.css"],
+    ["src", "features", "learn", "learn.js"],
+    ["src", "features", "learn", "learn-overrides.css"],
     ["src", "features", "brands", "brands.css"],
     ["src", "features", "launcher", "launcher.css"],
     ["src", "features", "library", "library.css"],
@@ -101,6 +104,9 @@ test("entry pages load feature and component implementation from src", () => {
     assert.match(index, /src\/features\/home\/index\.js/);
   }
 
+  assert.match(read("learn.html"), /src\/features\/learn\/learn\.css/);
+  assert.match(read("learn.html"), /src\/features\/learn\/learn\.js/);
+  assert.match(read("learn.html"), /src\/core\/analytics\/analytics\.js/);
   assert.match(read("brands.html"), /src\/features\/brands\/brands\.css/);
   assert.match(read("launcher.html"), /src\/features\/launcher\/launcher\.css/);
   assert.match(read("library.html"), /src\/features\/library\/library\.css/);
