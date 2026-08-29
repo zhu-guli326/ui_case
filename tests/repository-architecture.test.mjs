@@ -9,19 +9,13 @@ const read = (...parts) => readFileSync(path.join(root, ...parts), "utf8");
 
 const transitionalRootImplementation = new Set([
   "brands-runtime-fix.js",
-  "brands.js",
-  "i18n.js",
-  "launcher-state.mjs",
-  "launcher-url.mjs",
   "launcher.js",
   "learn-lens-overrides.css",
   "learn-nav-rail.css",
-  "library-effect-captures.mjs",
   "library-media-guard.mjs",
   "library-preview-config.mjs",
   "library-search.mjs",
   "library.js",
-  "site-nav.css",
   "vocabulary-data.js",
   "vocabulary-preview.js",
   "vocabulary.js",
@@ -32,14 +26,20 @@ test("repository root keeps public entry points separate from implementation", (
     "analytics.config.js",
     "analytics.js",
     "brands.css",
+    "brands.js",
     "i18n.css",
+    "i18n.js",
     "index.css",
     "index.js",
     "launcher.css",
+    "launcher-state.mjs",
+    "launcher-url.mjs",
     "learn.css",
     "learn.js",
+    "library-effect-captures.mjs",
     "library.css",
     "reference.js",
+    "site-nav.css",
     "skills.css",
     "skills.js",
     "markdown.css",
@@ -69,7 +69,11 @@ test("repository root keeps public entry points separate from implementation", (
     ["src", "features", "learn", "learn.js"],
     ["src", "features", "learn", "learn-overrides.css"],
     ["src", "features", "brands", "brands.css"],
+    ["src", "features", "brands", "brands.js"],
+    ["src", "features", "launcher", "launcher-url.mjs"],
+    ["src", "features", "launcher", "launcher-state.mjs"],
     ["src", "features", "launcher", "launcher.css"],
+    ["src", "features", "library", "library-effect-captures.mjs"],
     ["src", "features", "library", "library.css"],
     ["src", "features", "skills", "skills.css"],
     ["src", "features", "skills", "skills.js"],
@@ -77,10 +81,15 @@ test("repository root keeps public entry points separate from implementation", (
     ["src", "features", "markdown", "markdown.js"],
     ["src", "features", "reference", "reference.js"],
     ["src", "features", "vocabulary", "vocabulary.css"],
+    ["src", "legacy", "i18n.js"],
+    ["src", "legacy", "site-nav.css"],
     ["docs", "ARCHITECTURE.md"],
     ["docs", "CONTEXT.md"],
     ["docs", "DESIGN.md"],
     ["docs", "PRODUCT.md"],
+    ["docs", "notes", "design-system-split-workflow.md"],
+    ["docs", "notes", "vocabulary-image2-prompts.md"],
+    ["docs", "notes", "vocabulary-ui-deconstruction.md"],
   ]) {
     assert.equal(existsSync(path.join(root, ...file)), true, `${file.join("/")} should exist`);
   }
@@ -108,6 +117,7 @@ test("entry pages load feature and component implementation from src", () => {
   assert.match(read("learn.html"), /src\/features\/learn\/learn\.js/);
   assert.match(read("learn.html"), /src\/core\/analytics\/analytics\.js/);
   assert.match(read("brands.html"), /src\/features\/brands\/brands\.css/);
+  assert.match(read("brands.html"), /src\/features\/brands\/brands\.js/);
   assert.match(read("launcher.html"), /src\/features\/launcher\/launcher\.css/);
   assert.match(read("library.html"), /src\/features\/library\/library\.css/);
   assert.match(read("library.html"), /src\/components\/device-preview\/device-preview\.css/);
