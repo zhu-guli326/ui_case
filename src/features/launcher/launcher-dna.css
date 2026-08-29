@@ -945,6 +945,28 @@ fieldset legend { margin-bottom: 8px; color: var(--ant-text); font-size: 13px; f
 .palette-option .palette-swatches i { height: 18px; border-radius: 3px; }
 .palette-option b { overflow: hidden; color: var(--ant-text); font-size: 11px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
 
+.type-list { gap: 8px; }
+.type-option {
+  min-height: 70px;
+  padding: 10px 12px;
+  border-color: var(--ant-border);
+  border-radius: 7px;
+  background: var(--ant-bg-container);
+  transition: border-color .16s ease, background .16s ease;
+}
+.type-option:hover { border-color: var(--ant-primary); transform: none; box-shadow: none; }
+.type-option.is-selected { border-color: var(--ant-primary); background: var(--ant-primary-bg); box-shadow: 0 0 0 1px var(--ant-primary); }
+.type-option b { color: var(--ant-text); font-size: 13px; font-weight: 600; }
+.type-option span { color: var(--ant-text-secondary); font-size: 11px; }
+.type-option i { min-width: 36px; color: var(--ant-text); font-size: 21px; font-weight: 600; }
+.type-option[data-value="serif"] i { font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
+.type-option[data-value="mono"] i { font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; }
+.type-option[data-value="hei"] i { font-family: var(--font-display-cjk); font-weight: 900; }
+.type-option[data-value="kai"] i { font-family: KaiTi, STKaiti, serif; font-weight: 400; }
+.type-option[data-value="fangsong"] i { font-family: FangSong, STFangsong, serif; font-weight: 400; }
+.type-option[data-value="yuan"] i { font-family: "Arial Rounded MT Bold", var(--font-sans-cjk); }
+.type-option[data-value="geometric"] i { font-family: Futura, Avenir, var(--font-sans-cjk); }
+
 .select-control { position: relative; }
 .select-control::after {
   position: absolute;
