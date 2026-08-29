@@ -131,7 +131,11 @@ For every website change:
 - Runtime: `src/features/vocabulary/vocabulary.js`.
 - Main CSS entry: `src/features/vocabulary/vocabulary.css` plus responsibility styles under `src/features/vocabulary/styles/`.
 - Data is split under `src/features/vocabulary/data/`; edit the category-specific module, not the whole data set.
-- `vocabulary-component-data.js`, `vocabulary-search.mjs`, and `vocabulary-preview.js` are responsibility modules, not alternate versions.
+- `vocabulary-i18n.js` owns Vocabulary page translations.
+- `vocabulary-navigation-data.js` owns navigation deep-dive data.
+- `vocabulary-card-config.js` owns card variants and media configuration.
+- `vocabulary-preview.js` owns preview orchestration; `vocabulary-preview-media.js` owns preview media configuration.
+- `vocabulary-component-data.js` and `vocabulary-search.mjs` are responsibility modules, not alternate versions.
 
 ### Skills
 
