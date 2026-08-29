@@ -23,6 +23,8 @@ test("repository root keeps public entry points separate from implementation", (
     assert.equal(existsSync(path.join(root, file)), false, `${file} should not live at repository root`);
   }
   assert.equal(existsSync(path.join(root, "ui-reference-benchmark")), false, "reference benchmark should live under references/");
+  assert.equal(existsSync(path.join(root, "src", "features", "learn")), false, "retired Learn implementation should stay deleted");
+  assert.equal(existsSync(path.join(root, "src", "legacy")), false, "retired legacy shell implementation should stay deleted");
 
   for (const file of [
     ["src", "core", "app-shell", "app-shell.js"],
@@ -54,8 +56,6 @@ test("repository root keeps public entry points separate from implementation", (
     ["src", "features", "vocabulary", "vocabulary-preview.js"],
     ["src", "features", "vocabulary", "vocabulary.js"],
     ["src", "features", "vocabulary", "vocabulary.css"],
-    ["src", "legacy", "i18n.js"],
-    ["src", "legacy", "site-nav.css"],
     ["docs", "ARCHITECTURE.md"],
     ["docs", "CONTEXT.md"],
     ["docs", "DESIGN.md"],
@@ -87,6 +87,7 @@ test("entry pages load implementation from src", () => {
   assert.match(learn, /src\/features\/home\/squarespace-home\.css/);
   assert.match(learn, /src\/features\/home\/editorial-home\.js/);
   assert.match(learn, /src\/core\/analytics\/analytics\.js/);
+  assert.doesNotMatch(learn, /src\/features\/learn\//);
 
   const brands = read("brands.html");
   assert.match(brands, /src\/features\/brands\/brands\.css/);
