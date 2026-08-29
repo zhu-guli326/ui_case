@@ -1,36 +1,29 @@
 # Launcher architecture
 
-`launcher.html` is intentionally a semantic page shell. It should not contain feature CSS, inline application state, or inline interaction controllers.
+The production Launcher is the Design DNA page served by `launcher.html`.
 
-## Runtime layers
+## Production entry points
 
-| Layer | Owner | Responsibility |
-| --- | --- | --- |
-| Page shell | `launcher.html` | Stable DOM mount points, landmarks, dialogs, and the three-stage information architecture |
-| Layout / page chrome | `launcher-workspace.css` | Workspace composition, stage hierarchy, responsive shell, design-workbench presentation |
-| Entry / orchestration | `launcher-entry.js` | Loads the core controller first, then independent enhancement modules |
-| Core task controller | `/launcher.js` | Workspace state, intent-specific fields, readiness, prompt generation, case picker data, persistence |
-| Static shell | `launcher-shell.js` | Shell localization and Define → Constrain → Output navigation |
-| Design-system controller | `launcher-design-system.js` | Target-platform state, Design System tabs, source preview device/profile synchronization |
-| Final live preview | `launcher-live-preview.js` + `launcher-live-preview.css` | One stable full-page preview after the workspace; mirrors the source preview without moving Design System panels or changing task-mode layout |
-| Accessibility / feedback | `launcher-hardening.js` | ARIA synchronization, blocked-submit feedback, focus, contrast, reduced motion |
-| Compatibility boundary | `launcher-stability.js` | Narrow guards around legacy controller behavior that still needs isolation |
-| Preview renderers | `launcher-preview-templates.js`, `launcher-preview-modern-cases.js`, `launcher-preview-editorial-images.js` | Render page/template content into the source preview device used by the final live preview |
-| Retired compatibility path | `launcher-preview-lab.js` | Safe forwarder only; the former Create-only layout rewrite must never return |
+- `launcher.html` — semantic page shell and Design DNA controls.
+- `launcher-dna.css` — all Launcher page, control, preview, and responsive styling.
+- `launcher-dna.js` — Design DNA state, presets, localization, live preview, persistence, and prompt generation.
+- `../../../catalog/color-themes.js` — shared color-theme data imported by `launcher-dna.js`.
 
 ## Rules
 
-1. Do not load launcher features from analytics, the site header, or another global shell file. `launcher-entry.js` is the only production feature entry point.
-2. Do not put application `<script>` or page `<style>` blocks back into `launcher.html`.
-3. Keep the user flow task-first: **Define task → Set design constraints → Review & output**.
-4. All task modes use the same shell, task-mode card component, design stage, output panel, and final Live Preview. An intent may change only the task fields it requires; it must not rewrite the surrounding information architecture.
-5. `launcher.js` owns task state and prompt readiness. Secondary modules may observe or decorate that state, but should not create a second workspace store.
-6. `launcher-design-system.js` is the only owner of platform-selection and Design System workbench interaction state.
-7. `launcher-live-preview.js` owns the final page preview. It may mirror source preview content, but it must not move a `.ds-panel`, remove Design System tabs, or mutate task form structure.
-8. `launcher-hardening.js` owns accessibility synchronization, not product behavior. Avoid duplicating keyboard behavior already owned by the relevant controller.
-9. `launcher-preview-lab.js` is a retired compatibility path and `launcher-platform-merge.js` remains experimental; neither may own production layout behavior.
-10. Preserve stable DOM IDs used by `launcher.js`; architecture and browser tests protect this contract while the remaining legacy core is gradually decomposed.
+1. Treat `launcher-dna.css` and `launcher-dna.js` as the canonical Launcher implementation.
+2. Do not reintroduce the retired workspace / entry / hardening / merge / compatibility layers.
+3. Do not create `launcher-*-fixes`, `launcher-*-override`, or temporary compatibility modules for normal feature work.
+4. For a local change, search the relevant selector, state key, preset, or handler before reading either canonical file in full.
+5. Keep visual changes in `launcher-dna.css` and behavior/state changes in `launcher-dna.js`.
+6. Preserve Design DNA persistence and Chinese/English switching when editing controls.
+7. Keep preview assets as normal paths; never embed image binaries as base64.
 
-## Refactoring seam
+## Context-efficient editing
 
-The remaining large file is `/launcher.js`. Future extraction should move one responsibility at a time behind the existing contract, starting with intent form renderers and case-picker rendering. Avoid a full rewrite of state migration, persistence, and prompt generation in the same change.
+- Presets / palette behavior: search `basePalettes`, `catalogPresets`, or the preset handlers in `launcher-dna.js`.
+- Copy / localization: search the exact key in `STR` or `labelSets`.
+- Design-direction behavior: search `data-style` and the direction handlers.
+- Live preview: search `data-preview-picker`, `data-preview-stage`, or the relevant renderer.
+- Layout / spacing: search the exact class from `launcher.html` in `launcher-dna.css`.
+- Responsive behavior: inspect only the matching media-query block.
