@@ -2,7 +2,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import {
   libraryPreviewCaseIds,
   standardCanonicalPreview,
@@ -46,7 +46,15 @@ const output = `${[
 const outputPath = path.join(catalogDir, "index.js");
 
 if (process.argv.includes("--check")) {
-  if (!fs.existsSync(outputPath) || fs.readFileSync(outputPath, "utf8") !== output) throw new Error("catalog/index.js is stale. Run npm run build:catalog.");
+  if (!fs.existsSync(outputPath)) throw new Error("catalog/index.js is missing. Run npm run build:catalog.");
+
+  const generated = await import(`${pathToFileURL(outputPath).href}?check=${Date.now()}`);
+  const expectedCollections = { styleGuides, styleProfiles, brandProfiles, componentReferences };
+  for (const [name, expected] of Object.entries(expectedCollections)) {
+    if (!Array.isArray(generated[name]) || JSON.stringify(generated[name]) !== JSON.stringify(expected)) {
+      throw new Error(`catalog/index.js has stale ${name} data. Run npm run build:catalog.`);
+    }
+  }
 } else {
   fs.writeFileSync(outputPath, output, "utf8");
 }
