@@ -15,3 +15,11 @@ if (/\/launcher\.html$/i.test(window.location.pathname)) {
   import(launcherI18nUrl.href).catch(() => {});
   import(launcherFontLibraryUrl.href).catch(() => {});
 }
+
+// Skills Web mode includes a curated Design Systems group sourced from the
+// Awesome / Awesome Design Systems ecosystem, kept separate from Skill repos.
+if (/\/skills\.html$/i.test(window.location.pathname)) {
+  const source = document.currentScript?.src || window.location.href;
+  const skillsDesignSystemsUrl = new URL("../../features/skills/skills-design-systems.js?v=20260829-awesome-design-systems-v1", source);
+  import(skillsDesignSystemsUrl.href).catch(() => {});
+}
