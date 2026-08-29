@@ -12,12 +12,13 @@
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
   <link rel="stylesheet" href="./src/features/home/ondesign-orbit.css?v=20260828-orbit-cards-v1">
+  <link rel="stylesheet" href="./src/features/home/squarespace-home.css?v=20260829-editorial-v1">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./src/core/analytics/clarity.js"></script>
   <script src="./analytics.config.js?v=20260821-bare-rail-v2"></script>
   <script src="./analytics.js?v=20260821-motion-scale-v4" defer></script>
   <script src="./learn.js?v=20260821-breakdown-layout-v3" defer></script>
-  <script src="./src/features/home/ondesign-orbit.js?v=20260828-orbit-cards-v1" defer></script>
+  <script src="./src/features/home/ondesign-orbit.js?v=20260829-editorial-v2" defer></script>
 </head>
 <body class="cosmic-home">
   <div class="page-progress" aria-hidden="true"><span id="pageProgressBar"></span></div>
@@ -36,50 +37,21 @@
 
   <main>
     <header class="story-hero" id="top">
-      <img class="hero-orbit-background" src="./assets/home/orbit-background.webp" alt="" aria-hidden="true">
-      <div class="hero-orbit-grid" aria-hidden="true"></div>
-      <div class="hero-orbit-cards" aria-hidden="true">
-        <figure class="orbit-prototype orbit-prototype-vision" data-orbit-depth="1.1">
-          <img src="./assets/home/orbit-cards/visual-direction.webp" alt="">
-          <figcaption><span>01</span><strong>VISUAL DIRECTION</strong></figcaption>
-        </figure>
-        <figure class="orbit-prototype orbit-prototype-layout" data-orbit-depth=".72">
-          <img src="./assets/home/orbit-cards/layout-map.webp" alt="">
-          <figcaption><span>02</span><strong>LAYOUT MAP</strong></figcaption>
-        </figure>
-        <figure class="orbit-prototype orbit-prototype-material" data-orbit-depth="1.28">
-          <img src="./assets/home/orbit-cards/material-dna.webp" alt="">
-          <figcaption><span>03</span><strong>VISUAL DNA</strong></figcaption>
-        </figure>
-        <figure class="orbit-prototype orbit-prototype-responsive" data-orbit-depth=".9">
-          <img src="./assets/home/orbit-cards/responsive-prototype.webp" alt="">
-          <figcaption><span>04</span><strong>REAL PROTOTYPE</strong></figcaption>
-        </figure>
-        <figure class="orbit-prototype orbit-prototype-states" data-orbit-depth="1.2">
-          <img src="./assets/home/orbit-cards/component-states.webp" alt="">
-          <figcaption><span>05</span><strong>COMPONENT STATES</strong></figcaption>
-        </figure>
-        <figure class="orbit-prototype orbit-prototype-check" data-orbit-depth=".78">
-          <img src="./assets/home/orbit-cards/visual-check.webp" alt="">
-          <figcaption><span>06</span><strong>VISUAL CHECK</strong></figcaption>
-        </figure>
-      </div>
+      <img class="hero-orbit-background" src="./demo/squarespace-cinematic/assets/workspace.webp" alt="现代设计工作室实景">
+      <span class="home-editorial-overlay" aria-hidden="true"></span>
       <div class="hero-orbit-center">
-        <div class="hero-brand-lockup" aria-label="ONDesign">
-          <span class="hero-brand-icon"><img src="./assets/branding/ondesign-mark.png" alt=""></span>
-          <img class="hero-brand-wordmark" src="./assets/branding/ondesign-wordmark.png" alt="ONDesign">
-        </div>
+        <p class="home-editorial-eyebrow">ONDesign · AI × UI</p>
         <h1>
-          <span data-zh="把想要的感觉，" data-en="Turn the feeling you want">把想要的感觉，</span>
-          <span data-zh="变成可运行的界面" data-en="into a working interface">变成可运行的界面</span>
+          <span data-zh="先学会看懂界面，" data-en="Learn the language of UI.">先学会看懂界面，</span>
+          <span data-zh="再让 AI 把它做出来" data-en="Then build with AI.">再让 AI 把它做出来</span>
         </h1>
-        <p>Explore <i>·</i> Visual DNA <i>·</i> Build</p>
+        <p class="home-editorial-lede" data-zh="从视觉判断、界面语言到可运行页面，建立一套真正能复用的 AI UI 方法。" data-en="Move from visual judgment and interface language to working pages with a reusable AI UI method.">从视觉判断、界面语言到可运行页面，建立一套真正能复用的 AI UI 方法。</p>
+        <div class="home-editorial-actions">
+          <a class="home-editorial-primary" href="#why" data-zh="开始学习" data-en="Start learning">开始学习</a>
+          <a href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span data-zh="浏览真实案例" data-en="Browse real cases">浏览真实案例</span><i aria-hidden="true">↗</i></a>
+        </div>
       </div>
-      <div class="hero-orbit-progress" aria-hidden="true">
-        <span>01 / IDEA</span>
-        <div><i class="is-active"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <span>07 / ITERATE</span>
-      </div>
+      <a class="home-editorial-scroll" href="#why"><span>SCROLL TO LEARN</span><i aria-hidden="true"></i></a>
     </header>
 
     <section class="chapter" id="why" data-section="why">

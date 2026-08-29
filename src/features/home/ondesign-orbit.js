@@ -1,7 +1,7 @@
 (() => {
   const hero = document.querySelector('.story-hero');
   const cards = [...document.querySelectorAll('[data-orbit-depth]')];
-  if (!hero || !cards.length) return;
+  if (!hero) return;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -22,8 +22,10 @@
     card.style.setProperty('--parallax-y', '0px');
   });
 
-  hero.addEventListener('pointermove', moveCards, { passive: true });
-  hero.addEventListener('pointerleave', resetCards, { passive: true });
+  if (cards.length) {
+    hero.addEventListener('pointermove', moveCards, { passive: true });
+    hero.addEventListener('pointerleave', resetCards, { passive: true });
+  }
 
   const updateHeroState = () => {
     document.body.classList.toggle('hero-passed', hero.getBoundingClientRect().bottom <= 160);
