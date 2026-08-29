@@ -156,8 +156,28 @@
   let fontList = null;
   let fontObserver = null;
 
+  const directionPreviewSizes = {
+    fithub: [390, 844],
+    organique: [390, 844],
+    'plate-play': [390, 844],
+    'volt-route': [390, 844],
+  };
+
   function language() {
     return window.image2I18n?.language === 'en' || document.documentElement.lang.startsWith('en') ? 'en' : 'zh';
+  }
+
+  function syncDirectionPreviewSizes() {
+    document.querySelectorAll('.direction-live').forEach((wrap) => {
+      const [width, height] = directionPreviewSizes[wrap.dataset.demo] || [390, 844];
+      const frame = wrap.querySelector('iframe');
+      wrap.style.aspectRatio = `${width} / ${height}`;
+      if (!frame) return;
+      frame.style.width = `${width}px`;
+      frame.style.height = `${height}px`;
+      const scale = wrap.clientWidth ? wrap.clientWidth / width : 1;
+      wrap.style.setProperty('--demo-scale', String(scale));
+    });
   }
 
   function syncPreviewCopy() {
@@ -310,11 +330,13 @@
     syncLanguageLinks();
     renderFontSelectOptions();
     syncFontSelect();
+    syncDirectionPreviewSizes();
   }
 
   installFontSelect();
   installCaseDialogLinks();
   loadDesignSystemLibrary();
   sync();
+  window.addEventListener('resize', syncDirectionPreviewSizes);
   window.addEventListener('image2:languagechange', sync);
 })();
