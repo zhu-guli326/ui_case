@@ -5,7 +5,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const css = readFileSync(path.join(root, "src", "features", "library", "library-density-fixes.css"), "utf8");
+const css = readFileSync(path.join(root, "src", "features", "library", "library-cards.css"), "utf8");
 const html = readFileSync(path.join(root, "library.html"), "utf8");
 
 test("Library gallery keeps the compact fixed four-column card geometry", () => {
@@ -19,11 +19,13 @@ test("Library gallery keeps the compact fixed four-column card geometry", () => 
   assert.match(css, /height:\s*var\(--case-screen-height\)\s*!important/);
 });
 
-test("Library card geometry is fixed instead of scaling from a 4:5 preview board", () => {
-  assert.doesNotMatch(css, /--card-preview-ratio:\s*4\s*\/\s*5/);
+test("Library card geometry is fixed instead of scaling from a board ratio", () => {
+  assert.match(css, /aspect-ratio:\s*auto\s*!important/);
+  assert.match(css, /aspect-ratio:\s*390\s*\/\s*844\s*!important/);
   assert.doesNotMatch(css, /height:\s*calc\(100%\s*-\s*6px\)\s*!important/);
 });
 
-test("Library loads the cache-busted compact card geometry stylesheet", () => {
-  assert.match(html, /library-density-fixes\.css\?v=20260828-unified-v1/);
+test("Library loads the canonical card geometry stylesheet", () => {
+  assert.match(html, /src\/features\/library\/library-cards\.css\?v=20260829-library-canonical-v1/);
+  assert.doesNotMatch(html, /library-density-fixes\.css/);
 });
