@@ -7,17 +7,17 @@
   <meta name="color-scheme" content="light">
   <meta name="description" content="Learn to see, describe, build and review interfaces with AI.">
   <title>How to Design with AI · ONDesign</title>
-  <link rel="stylesheet" href="./learn.css?v=20260821-bare-rail-v7">
-  <link rel="stylesheet" href="./i18n.css">
+  <link rel="stylesheet" href="./src/features/learn/learn.css?v=20260829-root-cleanup-v1">
+  <link rel="stylesheet" href="./src/features/learn/learn-overrides.css?v=20260829-root-cleanup-v1">
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
   <link rel="stylesheet" href="./src/features/home/ondesign-orbit.css?v=20260828-orbit-cards-v1">
   <link rel="stylesheet" href="./src/features/home/squarespace-home.css?v=20260829-editorial-v1">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./src/core/analytics/clarity.js"></script>
-  <script src="./analytics.config.js?v=20260821-bare-rail-v2"></script>
-  <script src="./analytics.js?v=20260821-motion-scale-v4" defer></script>
-  <script src="./learn.js?v=20260821-breakdown-layout-v3" defer></script>
+  <script src="./src/core/analytics/analytics.config.js?v=20260829-root-cleanup-v1"></script>
+  <script src="./src/core/analytics/analytics.js?v=20260829-root-cleanup-v1" defer></script>
+  <script src="./src/features/learn/learn.js?v=20260829-root-cleanup-v1" defer></script>
   <script src="./src/features/home/ondesign-orbit.js?v=20260829-editorial-v2" defer></script>
 </head>
 <body class="cosmic-home">
@@ -25,14 +25,14 @@
   <image2-site-header data-site-header></image2-site-header>
 
   <nav class="chapter-nav" aria-label="学习章节">
-    <a href="#why" data-section-link="why"><span>01</span><b data-zh="项目定位" data-en="Purpose">项目定位</b></a>
-    <a href="#see" data-section-link="see"><span>02</span><b data-zh="真实案例" data-en="Cases">真实案例</b></a>
-    <a href="#breakdown" data-section-link="breakdown"><span>03</span><b data-zh="页面拆解" data-en="Breakdown">页面拆解</b></a>
-    <a href="#name" data-section-link="name"><span>04</span><b data-zh="UI 词汇" data-en="Vocabulary">UI 词汇</b></a>
-    <a href="#describe" data-section-link="describe"><span>05</span><b data-zh="设计 DNA" data-en="Design DNA">设计 DNA</b></a>
-    <a href="#build" data-section-link="build"><span>06</span><b data-zh="AI 实现" data-en="Build">AI 实现</b></a>
-    <a href="#review" data-section-link="review"><span>07</span><b data-zh="结果检查" data-en="Verify">结果检查</b></a>
-    <a href="#method" data-section-link="method"><span>08</span><b data-zh="完整方法" data-en="Method">完整方法</b></a>
+    <a href="#why" data-section-link="why"><span>01</span><b data-zh="为什么" data-en="Why">为什么</b></a>
+    <a href="#see" data-section-link="see"><span>02</span><b data-zh="看懂" data-en="See">看懂</b></a>
+    <a href="#breakdown" data-section-link="breakdown"><span>03</span><b data-zh="拆解" data-en="Break down">拆解</b></a>
+    <a href="#name" data-section-link="name"><span>04</span><b data-zh="命名" data-en="Name">命名</b></a>
+    <a href="#describe" data-section-link="describe"><span>05</span><b data-zh="描述" data-en="Describe">描述</b></a>
+    <a href="#build" data-section-link="build"><span>06</span><b data-zh="实现" data-en="Build">实现</b></a>
+    <a href="#review" data-section-link="review"><span>07</span><b data-zh="判断" data-en="Review">判断</b></a>
+    <a href="#method" data-section-link="method"><span>08</span><b data-zh="方法" data-en="Method">方法</b></a>
   </nav>
 
   <main>
@@ -40,26 +40,26 @@
       <img class="hero-orbit-background" src="./demo/squarespace-cinematic/assets/workspace.webp" alt="现代设计工作室实景">
       <span class="home-editorial-overlay" aria-hidden="true"></span>
       <div class="hero-orbit-center">
-        <p class="home-editorial-eyebrow">ONDesign · AI UI DESIGN WORKFLOW</p>
+        <p class="home-editorial-eyebrow">ONDesign · AI × UI</p>
         <h1>
-          <span data-zh="找到设计参考，" data-en="Find the right reference.">找到设计参考，</span>
-          <span data-zh="把它变成真实界面" data-en="Turn it into a working interface.">把它变成真实界面</span>
+          <span data-zh="先学会看懂界面，" data-en="Learn the language of UI.">先学会看懂界面，</span>
+          <span data-zh="再让 AI 把它做出来" data-en="Then build with AI.">再让 AI 把它做出来</span>
         </h1>
-        <p class="home-editorial-lede" data-zh="ONDesign 把真实案例、UI 词汇、设计系统与生成工作台放进同一条路径：先找方向，再说清规则，最后让 AI 实现并验证。" data-en="ONDesign connects real interface references, UI vocabulary, design systems, and an AI workspace in one path: find a direction, define the rules, then build and verify.">ONDesign 把真实案例、UI 词汇、设计系统与生成工作台放进同一条路径：先找方向，再说清规则，最后让 AI 实现并验证。</p>
+        <p class="home-editorial-lede" data-zh="从视觉判断、界面语言到可运行页面，建立一套真正能复用的 AI UI 方法。" data-en="Move from visual judgment and interface language to working pages with a reusable AI UI method.">从视觉判断、界面语言到可运行页面，建立一套真正能复用的 AI UI 方法。</p>
         <div class="home-editorial-actions">
-          <a class="home-editorial-primary" href="./library.html?lang=zh" data-smart-lang-link="./library.html" data-zh="浏览真实案例" data-en="Browse real cases">浏览真实案例</a>
-          <a href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><span data-zh="开始设计" data-en="Start designing">开始设计</span><i aria-hidden="true">↗</i></a>
+          <a class="home-editorial-primary" href="#why" data-zh="开始学习" data-en="Start learning">开始学习</a>
+          <a href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span data-zh="浏览真实案例" data-en="Browse real cases">浏览真实案例</span><i aria-hidden="true">↗</i></a>
         </div>
       </div>
-      <a class="home-editorial-scroll" href="#why"><span>EXPLORE ONDESIGN</span><i aria-hidden="true"></i></a>
+      <a class="home-editorial-scroll" href="#why"><span>SCROLL TO LEARN</span><i aria-hidden="true"></i></a>
     </header>
 
     <section class="chapter" id="why" data-section="why">
       <div class="chapter-index">01</div>
       <div class="chapter-copy">
-        <p class="eyebrow">WHY ONDESIGN</p>
-        <h2 data-zh="参考图很多，\n真正能执行的设计判断很少。" data-en="References are everywhere.\nExecutable design decisions are not.">参考图很多，<br>真正能执行的设计判断很少。</h2>
-        <p class="lead" data-zh="收藏一个网站、截下一张图，还不足以让 AI 做出好界面。ONDesign 帮你把模糊的感觉拆成布局、组件、状态、字体、颜色和响应式规则。" data-en="Saving a site or screenshot is not enough for AI to build a good interface. ONDesign turns a vague feeling into layout, component, state, type, color, and responsive decisions.">收藏一个网站、截下一张图，还不足以让 AI 做出好界面。ONDesign 帮你把模糊的感觉拆成布局、组件、状态、字体、颜色和响应式规则。</p>
+        <p class="eyebrow">WHY THIS MATTERS</p>
+        <h2 data-zh="AI 会做 UI，\n但它不知道你想要什么。" data-en="AI can build UI.\nIt still needs your direction.">AI 会做 UI，<br>但它不知道你想要什么。</h2>
+        <p class="lead" data-zh="“高级一点”“简洁一点”“像 Apple 一点”都不是可执行的设计判断。你越能看清界面由什么组成，就越能准确地指挥 AI。" data-en="“Make it premium,” “keep it clean,” and “make it Apple-like” are not executable design decisions. The better you see the interface, the better you can direct AI.">“高级一点”“简洁一点”“像 Apple 一点”都不是可执行的设计判断。你越能看清界面由什么组成，就越能准确地指挥 AI。</p>
       </div>
       <div class="translation-board">
         <div>
@@ -74,15 +74,15 @@
           <p>Visual hierarchy · Combobox · Responsive reflow · Loading state · Spacing system · Interaction rule</p>
         </div>
       </div>
-      <p class="chapter-quote">Reference → Design language → Working interface.</p>
+      <p class="chapter-quote">The better you see design, the better you can direct AI.</p>
     </section>
 
     <section class="chapter" id="see" data-section="see">
       <div class="chapter-index">02</div>
       <div class="chapter-copy">
-        <p class="eyebrow">EXPLORE REAL CASES</p>
-        <h2 data-zh="从真实案例开始，\n先找到你要的方向。" data-en="Start with real interfaces.\nFind the direction you need.">从真实案例开始，<br>先找到你要的方向。</h2>
-        <p class="lead" data-zh="ONDesign 的案例不只展示一张封面。你可以从布局、层级、模式、动作、状态和视觉语言六个维度，判断一个页面为什么有效。" data-en="ONDesign cases go beyond cover images. Inspect layout, hierarchy, patterns, actions, states, and visual language to understand why an interface works.">ONDesign 的案例不只展示一张封面。你可以从布局、层级、模式、动作、状态和视觉语言六个维度，判断一个页面为什么有效。</p>
+        <p class="eyebrow">LEARN TO SEE</p>
+        <h2 data-zh="一个界面，不是一张图。\n而是一组设计决定。" data-en="A screen is not one picture.\nIt is a system of decisions.">一个界面，不是一张图。<br>而是一组设计决定。</h2>
+        <p class="lead" data-zh="先别管代码。看一个页面时，先学会辨认布局、层级、模式、动作、状态和视觉语言。下面点击 6 个观察维度，看同一张界面会暴露出完全不同的问题。" data-en="Ignore the code at first. Learn to identify layout, hierarchy, patterns, actions, states, and visual language. Switch between the six lenses below to inspect the same interface in different ways.">先别管代码。看一个页面时，先学会辨认布局、层级、模式、动作、状态和视觉语言。下面点击 6 个观察维度，看同一张界面会暴露出完全不同的问题。</p>
       </div>
       <div class="see-lab">
         <div class="see-controls" role="tablist" aria-label="界面观察维度">
@@ -106,9 +106,9 @@
     <section class="chapter" id="breakdown" data-section="breakdown">
       <div class="chapter-index">03</div>
       <div class="chapter-copy">
-        <p class="eyebrow">DECOMPOSE THE REFERENCE</p>
-        <h2 data-zh="把喜欢的页面，\n拆成可复用的结构。" data-en="Turn a page you like\ninto reusable structure.">把喜欢的页面，<br>拆成可复用的结构。</h2>
-        <p class="lead" data-zh="Image2 UI 不会把整张图当成一张海报复刻，而是从页面、区块、组件、元素到状态逐层识别，让每一部分都能继续修改。" data-en="Image2 UI does not reproduce a screen as a flat poster. It identifies pages, sections, components, elements, and states so every part stays editable.">Image2 UI 不会把整张图当成一张海报复刻，而是从页面、区块、组件、元素到状态逐层识别，让每一部分都能继续修改。</p>
+        <p class="eyebrow">BREAK IT DOWN</p>
+        <h2 data-zh="不要复刻整张图。\n先把它拆开。" data-en="Don't copy the whole screenshot.\nBreak it down first.">不要复刻整张图。<br>先把它拆开。</h2>
+        <p class="lead" data-zh="AI 最容易在“整张图一起做”时失控。更可靠的方法是从页面到区块，再到组件、元素和状态。" data-en="AI loses control when you ask it to recreate an entire screenshot at once. Move from page to section, component, element, and state.">AI 最容易在“整张图一起做”时失控。更可靠的方法是从页面到区块，再到组件、元素和状态。</p>
       </div>
       <div class="decomposition breakdown-board">
         <div class="decomp-scale">
@@ -130,9 +130,9 @@
     <section class="chapter" id="name" data-section="name">
       <div class="chapter-index">04</div>
       <div class="chapter-copy">
-        <p class="eyebrow">UI VOCABULARY</p>
-        <h2 data-zh="看见一个组件，\n也知道它叫什么。" data-en="See a component.\nKnow what to call it.">看见一个组件，<br>也知道它叫什么。</h2>
-        <p class="lead" data-zh="UI Vocabulary 把模糊的人话翻译成标准 Pattern，并展示不同状态和真实用法，让你能直接搜索、描述和复用。" data-en="UI Vocabulary translates fuzzy language into standard patterns, with real usage and states you can search, describe, and reuse.">UI Vocabulary 把模糊的人话翻译成标准 Pattern，并展示不同状态和真实用法，让你能直接搜索、描述和复用。</p>
+        <p class="eyebrow">NAME WHAT YOU SEE</p>
+        <h2 data-zh="你不需要背术语。\n但你要知道怎么找到它。" data-en="You don't need to memorize terms.\nYou need to know how to find them.">你不需要背术语。<br>但你要知道怎么找到它。</h2>
+        <p class="lead" data-zh="把模糊的人话翻译成 UI Pattern，是让 AI 生成结果稳定下来的关键一步。" data-en="Translating fuzzy human language into UI patterns is one of the fastest ways to make AI output more reliable.">把模糊的人话翻译成 UI Pattern，是让 AI 生成结果稳定下来的关键一步。</p>
       </div>
       <div class="name-grid">
         <article><span data-zh="“右边滑出来那个面板”" data-en="“The panel that slides in from the right”">“右边滑出来那个面板”</span><i>→</i><strong>Drawer</strong><small>Modal · Sheet · Popover</small></article>
@@ -146,9 +146,9 @@
     <section class="chapter" id="describe" data-section="describe">
       <div class="chapter-index">05</div>
       <div class="chapter-copy">
-        <p class="eyebrow">DESIGN DNA</p>
-        <h2 data-zh="把设计方向，\n整理成 AI 能执行的规则。" data-en="Turn a design direction\ninto rules AI can execute.">把设计方向，<br>整理成 AI 能执行的规则。</h2>
-        <p class="lead" data-zh="在 Launcher 中确定视觉方向、颜色、字体、圆角、间距与密度，再把这套 Design DNA 保存并复用到不同页面。" data-en="Use Launcher to define direction, color, type, radius, spacing, and density, then save and reuse the Design DNA across pages.">在 Launcher 中确定视觉方向、颜色、字体、圆角、间距与密度，再把这套 Design DNA 保存并复用到不同页面。</p>
+        <p class="eyebrow">DESCRIBE IT</p>
+        <h2 data-zh="“做高级一点”\n不是设计指令。" data-en="“Make it premium”\nis not a design instruction.">“做高级一点”<br>不是设计指令。</h2>
+        <p class="lead" data-zh="好的 Prompt 不一定更长，但一定更具体：布局、组件、层级、状态、响应式和视觉方向都能被明确描述。" data-en="A good prompt is not necessarily longer. It is more specific about layout, components, hierarchy, states, responsiveness, and visual direction.">好的 Prompt 不一定更长，但一定更具体：布局、组件、层级、状态、响应式和视觉方向都能被明确描述。</p>
       </div>
       <div class="prompt-ladder">
         <article class="prompt-step bad"><span>01 / VAGUE</span><p data-zh="做一个高级一点的登录页。" data-en="Make a premium login page.">做一个高级一点的登录页。</p></article>
@@ -161,9 +161,9 @@
     <section class="chapter" id="build" data-section="build">
       <div class="chapter-index">06</div>
       <div class="chapter-copy">
-        <p class="eyebrow">BUILD WITH AI</p>
-        <h2 data-zh="把参考、规则和内容，\n组装成真实页面。" data-en="Combine references, rules, and content\ninto a working page.">把参考、规则和内容，<br>组装成真实页面。</h2>
-        <p class="lead" data-zh="文字、按钮、表单和导航保持可编辑、可交互、可响应；摄影和复杂视觉使用真实媒体资产，最终交付可运行的页面而不是一张效果图。" data-en="Keep text, controls, forms, and navigation editable and responsive; use real media for photography and complex visuals, and deliver a working page instead of a flat mockup.">文字、按钮、表单和导航保持可编辑、可交互、可响应；摄影和复杂视觉使用真实媒体资产，最终交付可运行的页面而不是一张效果图。</p>
+        <p class="eyebrow">BUILD IT</p>
+        <h2 data-zh="不是所有看见的东西，\n都应该变成图片。" data-en="Not everything you see\nshould become an image.">不是所有看见的东西，<br>都应该变成图片。</h2>
+        <p class="lead" data-zh="文字、按钮、表单和导航需要保持可编辑、可交互、可响应；摄影、复杂插画和材质更适合作为媒体资产。" data-en="Text, controls, forms, and navigation should stay editable, interactive, and responsive. Photography, complex illustration, and texture work better as media assets.">文字、按钮、表单和导航需要保持可编辑、可交互、可响应；摄影、复杂插画和材质更适合作为媒体资产。</p>
       </div>
       <div class="code-media-board">
         <article><span class="board-label">CODE UI</span><h3>Text · Button · Input · Navigation · Card · Chart · State</h3><p>Editable · Interactive · Responsive · Accessible</p></article>
@@ -183,9 +183,9 @@
     <section class="chapter" id="review" data-section="review">
       <div class="chapter-index">07</div>
       <div class="chapter-copy">
-        <p class="eyebrow">VERIFY THE RESULT</p>
-        <h2 data-zh="能运行只是开始，\n还要判断它是否正确。" data-en="Working is only the start.\nThe result still needs judgment.">能运行只是开始，<br>还要判断它是否正确。</h2>
-        <p class="lead" data-zh="ONDesign 用层级、间距、组件一致性、交互状态和响应式规则检查生成结果，定位问题后只修改对应部分。" data-en="ONDesign reviews generated work through hierarchy, spacing, component consistency, interaction states, and responsive rules, then fixes only what is wrong.">ONDesign 用层级、间距、组件一致性、交互状态和响应式规则检查生成结果，定位问题后只修改对应部分。</p>
+        <p class="eyebrow">REVIEW IT</p>
+        <h2 data-zh="AI 做出来了，\n不代表它做对了。" data-en="AI built it.\nThat doesn't mean it's right.">AI 做出来了，<br>不代表它做对了。</h2>
+        <p class="lead" data-zh="设计也包括知道什么应该拒绝。检查层级、间距、组件一致性、状态和响应式，比单纯问“好不好看”更有用。" data-en="Design also means knowing what to reject. Review hierarchy, spacing, component consistency, states, and responsiveness instead of asking only whether it looks good.">设计也包括知道什么应该拒绝。检查层级、间距、组件一致性、状态和响应式，比单纯问“好不好看”更有用。</p>
       </div>
       <div class="review-compare">
         <article class="review-card generic">
@@ -215,8 +215,8 @@
     <section class="chapter method-chapter" id="method" data-section="method">
       <div class="chapter-index">08</div>
       <div class="chapter-copy">
-        <p class="eyebrow">THE ONDESIGN METHOD</p>
-        <h2 data-zh="从灵感到页面，\n沿着同一条路径完成。" data-en="From inspiration to interface,\nfollow one connected path.">从灵感到页面，<br>沿着同一条路径完成。</h2>
+        <p class="eyebrow">THE METHOD</p>
+        <h2 data-zh="最终，你只需要记住\n这一条路径。" data-en="In the end, remember\nthis one path.">最终，你只需要记住<br>这一条路径。</h2>
       </div>
       <ol class="method-list">
         <li><span>01</span><strong>SEE</strong><small data-zh="看懂界面" data-en="See the interface">看懂界面</small></li>
@@ -242,7 +242,7 @@
 
     <section class="final-cta">
       <p class="eyebrow">NOW BUILD SOMETHING</p>
-      <h2 data-zh="从一个真实案例开始，做出你的下一版界面。" data-en="Start with a real reference and build your next interface.">从一个真实案例开始，做出你的下一版界面。</h2>
+      <h2 data-zh="现在，拿一个你喜欢的界面开始。" data-en="Now start with an interface you like.">现在，拿一个你喜欢的界面开始。</h2>
       <div class="final-links">
         <a href="./launcher.html?intent=rebuild"><span data-zh="从参考图开始" data-en="Start from a reference">从参考图开始</span> ↗</a>
         <a data-smart-lang-link="./vocabulary.html" href="./vocabulary.html?lang=zh"><span data-zh="探索 UI Vocabulary" data-en="Explore UI Vocabulary">探索 UI Vocabulary</span> ↗</a>
