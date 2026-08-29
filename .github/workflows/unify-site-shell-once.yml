@@ -6,11 +6,29 @@ on:
     paths:
       - .github/workflows/unify-site-shell-once.yml
 
+permissions:
+  contents: write
+
 jobs:
-  inspect:
+  cleanup:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Find feature shell overrides
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Remove page shell overrides
         run: |
-          grep -R -n -E '\.site-header|\.site-nav|\.site-brand|\.global-language-switch|\.site-footer|image2-site-header' src/features --include='*.css' || true
+          node scripts/unify_site_shell_once.mjs
+          npm run check
+          git diff --check
+      - name: Commit shared shell cleanup
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "refactor(shell): remove page-level shell overrides"
+          git pull --rebase origin main
+          git push origin HEAD:main
