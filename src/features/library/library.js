@@ -17,18 +17,6 @@ import { createLibraryDetailController } from "./library-detail.js";
 const libraryMedia = Object.freeze({
   fashion: Object.freeze({ liveDemo: "./demo/fashion/index.html" }),
   news: Object.freeze({ liveDemo: "./demo/news/index.html" }),
-  loy: Object.freeze({
-    previewImage: "./demo/loy-wellness/screenshots/01-home.png",
-    poster: "./demo/loy-wellness/screenshots/01-home.png",
-    videoSequence: Object.freeze({
-      duration: 6,
-      frames: Object.freeze([
-        Object.freeze({ src: "./demo/loy-wellness/screenshots/01-home.png", label: "健康首页", at: 0 }),
-        Object.freeze({ src: "./demo/loy-wellness/screenshots/02-playlist.png", label: "播放列表", at: 2 }),
-        Object.freeze({ src: "./demo/loy-wellness/screenshots/03-welcome.png", label: "欢迎", at: 4 })
-      ])
-    })
-  }),
   "signal-grid": Object.freeze({
     previewImage: "./demo/signal-grid/screenshots/library-preview-2x.png",
     poster: "./demo/signal-grid/screenshots/library-preview-2x.png"

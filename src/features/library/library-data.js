@@ -22,11 +22,6 @@ export const previewImageSets = Object.freeze({
   "signal-grid": [{ src: "./demo/signal-grid/screenshots/library-preview-2x.png", label: { zh: "扫描页", en: "Scan" } }],
   "volt-route": [{ src: "./demo/volt-route/screenshots/library-preview-2x.png", label: { zh: "车辆状态", en: "Vehicle status" } }],
   moe: [{ src: "./demo/moe-habits/screenshots/library-preview-2x.png", label: { zh: "习惯首页", en: "Habits home" } }],
-  loy: [
-    { src: "./demo/loy-wellness/screenshots/03-welcome.png", label: { zh: "欢迎页", en: "Welcome" } },
-    { src: "./demo/loy-wellness/screenshots/01-home.png", label: { zh: "健康首页", en: "Wellness home" } },
-    { src: "./demo/loy-wellness/screenshots/02-playlist.png", label: { zh: "播放列表", en: "Playlist" } }
-  ],
   moodly: [{ src: "./demo/moodly-health/screenshots/library-preview-2x.png", label: { zh: "情绪签到", en: "Mood check-in" } }],
   reflect: [{ src: "./demo/reflect-journal/screenshots/library-preview-2x.png", label: { zh: "日记首页", en: "Journal home" } }],
   mimo: [{ src: "./demo/mimo-activities/screenshots/library-preview-2x.png", label: { zh: "日程轮播", en: "Schedule carousel" } }]
