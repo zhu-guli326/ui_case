@@ -7,52 +7,52 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (...parts) => readFileSync(path.join(root, ...parts), "utf8");
 
-const transitionalRootImplementation = new Set([
+const forbiddenRootImplementation = [
+  "analytics.config.js",
+  "analytics.js",
   "brands-runtime-fix.js",
+  "brands.css",
+  "brands.js",
+  "i18n.css",
+  "i18n.js",
+  "index.css",
+  "index.js",
+  "launcher.css",
   "launcher.js",
+  "launcher-state.mjs",
+  "launcher-url.mjs",
   "learn-lens-overrides.css",
   "learn-nav-rail.css",
+  "learn.css",
+  "learn.js",
+  "library-effect-captures.mjs",
   "library-media-guard.mjs",
   "library-preview-config.mjs",
   "library-search.mjs",
+  "library.css",
   "library.js",
+  "reference.js",
+  "site-nav.css",
+  "skills.css",
+  "skills.js",
+  "markdown.css",
+  "markdown.js",
   "vocabulary-data.js",
   "vocabulary-preview.js",
+  "vocabulary.css",
   "vocabulary.js",
-]);
+  "library-technical-fixes.css",
+  "library-technical-fixes.js",
+  "CONTEXT.md",
+  "DESIGN.md",
+  "PRODUCT.md",
+];
 
 test("repository root keeps public entry points separate from implementation", () => {
-  for (const file of [
-    "analytics.config.js",
-    "analytics.js",
-    "brands.css",
-    "brands.js",
-    "i18n.css",
-    "i18n.js",
-    "index.css",
-    "index.js",
-    "launcher.css",
-    "launcher-state.mjs",
-    "launcher-url.mjs",
-    "learn.css",
-    "learn.js",
-    "library-effect-captures.mjs",
-    "library.css",
-    "reference.js",
-    "site-nav.css",
-    "skills.css",
-    "skills.js",
-    "markdown.css",
-    "markdown.js",
-    "vocabulary.css",
-    "library-technical-fixes.css",
-    "library-technical-fixes.js",
-    "CONTEXT.md",
-    "DESIGN.md",
-    "PRODUCT.md",
-  ]) {
+  for (const file of forbiddenRootImplementation) {
     assert.equal(existsSync(path.join(root, file)), false, `${file} should not live at repository root`);
   }
+  assert.equal(existsSync(path.join(root, "ui-reference-benchmark")), false, "reference benchmark should live under references/");
 
   for (const file of [
     ["src", "core", "app-shell", "app-shell.js"],
@@ -74,12 +74,18 @@ test("repository root keeps public entry points separate from implementation", (
     ["src", "features", "launcher", "launcher-state.mjs"],
     ["src", "features", "launcher", "launcher.css"],
     ["src", "features", "library", "library-effect-captures.mjs"],
+    ["src", "features", "library", "library-preview-config.mjs"],
+    ["src", "features", "library", "library-search.mjs"],
+    ["src", "features", "library", "library.js"],
     ["src", "features", "library", "library.css"],
     ["src", "features", "skills", "skills.css"],
     ["src", "features", "skills", "skills.js"],
     ["src", "features", "markdown", "markdown.css"],
     ["src", "features", "markdown", "markdown.js"],
     ["src", "features", "reference", "reference.js"],
+    ["src", "features", "vocabulary", "vocabulary-data.js"],
+    ["src", "features", "vocabulary", "vocabulary-preview.js"],
+    ["src", "features", "vocabulary", "vocabulary.js"],
     ["src", "features", "vocabulary", "vocabulary.css"],
     ["src", "legacy", "i18n.js"],
     ["src", "legacy", "site-nav.css"],
@@ -90,17 +96,17 @@ test("repository root keeps public entry points separate from implementation", (
     ["docs", "notes", "design-system-split-workflow.md"],
     ["docs", "notes", "vocabulary-image2-prompts.md"],
     ["docs", "notes", "vocabulary-ui-deconstruction.md"],
+    ["references", "ui-reference-benchmark", "INDEX.md"],
   ]) {
     assert.equal(existsSync(path.join(root, ...file)), true, `${file.join("/")} should exist`);
   }
 });
 
-test("new root implementation files are forbidden outside the migration allowlist", () => {
+test("repository root contains no implementation JavaScript or CSS", () => {
   const implementationFiles = readdirSync(root)
     .filter((name) => /\.(?:css|js|mjs)$/.test(name))
     .sort();
-  const unexpected = implementationFiles.filter((name) => !transitionalRootImplementation.has(name));
-  assert.deepEqual(unexpected, [], `move new implementation into src instead of root: ${unexpected.join(", ")}`);
+  assert.deepEqual(implementationFiles, [], `move implementation into src instead of root: ${implementationFiles.join(", ")}`);
 });
 
 test("entry pages load feature and component implementation from src", () => {
@@ -120,6 +126,7 @@ test("entry pages load feature and component implementation from src", () => {
   assert.match(read("brands.html"), /src\/features\/brands\/brands\.js/);
   assert.match(read("launcher.html"), /src\/features\/launcher\/launcher\.css/);
   assert.match(read("library.html"), /src\/features\/library\/library\.css/);
+  assert.match(read("library.html"), /src\/features\/library\/library\.js/);
   assert.match(read("library.html"), /src\/components\/device-preview\/device-preview\.css/);
   assert.match(read("src", "components", "device-preview", "device-preview.css"), /@import\s+url\("\.\/phone-shell\.css"\)/);
   assert.match(read("skills.html"), /src\/features\/skills\/skills\.css/);
@@ -130,6 +137,7 @@ test("entry pages load feature and component implementation from src", () => {
   assert.match(read("reference.html"), /src\/features\/markdown\/markdown\.css/);
   assert.match(read("reference.html"), /src\/features\/markdown\/markdown\.js/);
   assert.match(read("vocabulary.html"), /src\/features\/vocabulary\/vocabulary\.css/);
+  assert.match(read("vocabulary.html"), /src\/features\/vocabulary\/vocabulary\.js/);
 
   for (const page of ["brands.html", "launcher.html", "library.html", "skills.html", "markdown.html", "reference.html", "vocabulary.html"]) {
     const source = read(page);
