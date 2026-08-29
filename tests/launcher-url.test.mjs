@@ -8,7 +8,7 @@ import {
   parseCasePickerUrl,
   replaceCasePickerFiltersUrl,
   selectCaseUrl,
-} from "../launcher-url.mjs";
+} from "../src/features/launcher/launcher-url.mjs";
 
 const styleIds = new Set(["minimal-tech", "soft-lifestyle", "editorial-commerce"]);
 const caseIds = new Set(["moe", "plate-play", "volt-route"]);
