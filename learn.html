@@ -19,17 +19,44 @@
 <body class="project-home">
   <image2-site-header data-site-header></image2-site-header>
   <main>
-    <header class="project-hero" id="top">
-      <img class="project-hero-media" src="./demo/squarespace-cinematic/assets/workspace.webp" alt="现代设计工作室实景">
-      <span class="project-hero-overlay" aria-hidden="true"></span>
+    <header class="project-hero project-ai-hero" id="top">
       <div class="project-hero-content">
         <p class="project-eyebrow">ONDesign · AI UI DESIGN WORKFLOW</p>
-        <h1><span data-zh="找到设计参考，" data-en="Find the right reference.">找到设计参考，</span><span data-zh="把它变成真实界面" data-en="Turn it into a working interface.">把它变成真实界面</span></h1>
-        <p class="project-hero-lede" data-zh="把真实案例、UI 词汇、设计系统与 AI 生成工作台连成一条完整路径。" data-en="Connect real UI cases, interface vocabulary, design systems, and an AI building workspace in one complete path.">把真实案例、UI 词汇、设计系统与 AI 生成工作台连成一条完整路径。</p>
-        <div class="project-hero-actions"><a class="button-filled" href="./library.html?lang=zh" data-smart-lang-link="./library.html" data-zh="浏览真实案例" data-en="Browse real cases">浏览真实案例</a><a class="button-outline" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><span data-zh="开始设计" data-en="Start designing">开始设计</span><i aria-hidden="true">↗</i></a></div>
+        <h1 data-zh="用 AI 做 UI，从来没有这么清晰。" data-en="Building UI with AI has never been clearer.">用 AI 做 UI，从来没有这么清晰。</h1>
+        <p class="project-hero-lede" data-zh="不需要先懂代码，从一个真实参考开始。" data-en="No coding expertise required. Start from a real reference.">不需要先懂代码，从一个真实参考开始。</p>
+        <div class="ai-entry-grid">
+          <a class="ai-entry-card ai-entry-build" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><span class="ai-entry-tag">01 · IMAGE TO UI</span><div class="ai-prompt-chip"><i></i><span data-zh="描述你想做的页面…" data-en="Describe the interface you want…">描述你想做的页面…</span></div><img src="./demo/fufu-bakery/mobile-preview.png" alt="从参考图生成界面的真实案例"><strong data-zh="从参考图开始" data-en="Build from a reference">从参考图开始</strong><small data-zh="拆解结构、定义规则、生成页面" data-en="Decompose, define, and build">拆解结构、定义规则、生成页面</small></a>
+          <a class="ai-entry-card ai-entry-explore" href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span class="ai-entry-tag">02 · EXPLORE</span><div class="ai-entry-mosaic"><img src="./demo/plate-play/mobile-preview.png" alt="Plate Play 案例"><img src="./demo/relay/mobile-preview.png" alt="RELAY 案例"><img src="./demo/fithub/mobile-preview.png" alt="FitHub 案例"><img src="./demo/organique-food/mobile-preview.png" alt="Organique 案例"></div><strong data-zh="浏览真实案例" data-en="Browse real cases">浏览真实案例</strong><small data-zh="从页面、组件和风格找到方向" data-en="Find direction through pages, components, and styles">从页面、组件和风格找到方向</small></a>
+        </div>
       </div>
-      <a class="project-scroll" href="#overview"><span>EXPLORE ONDESIGN</span><i aria-hidden="true"></i></a>
     </header>
+
+    <section class="project-search-band">
+      <div class="project-search-inner">
+        <p class="section-eyebrow">FIND YOUR DIRECTION</p>
+        <h2 data-zh="找到适合你的设计方向" data-en="Find the right direction for your interface">找到适合你的设计方向</h2>
+        <form class="project-search-form" id="projectSearchForm"><input id="projectSearchInput" type="search" data-zh-placeholder="搜索页面、组件、风格或品牌" data-en-placeholder="Search pages, components, styles, or brands" placeholder="搜索页面、组件、风格或品牌" aria-label="搜索 ONDesign 案例"><button type="submit" aria-label="搜索">→</button></form>
+        <div class="search-avatars" aria-hidden="true"><img src="./demo/squarespace-cinematic/assets/barber-portrait.webp" alt=""><img src="./demo/squarespace-cinematic/assets/people.webp" alt=""><img src="./demo/squarespace-cinematic/assets/flowers.webp" alt=""><img src="./demo/squarespace-cinematic/assets/objects.webp" alt=""></div>
+        <p data-zh="不知道搜什么？试试 Dashboard、Editorial、Mobile 或 Apple。" data-en="Not sure what to search? Try Dashboard, Editorial, Mobile, or Apple.">不知道搜什么？试试 Dashboard、Editorial、Mobile 或 Apple。</p>
+      </div>
+    </section>
+
+    <section class="project-collage" aria-label="ONDesign 真实案例墙">
+      <div class="collage-center"><p>MADE WITH</p><h2>ONDesign</h2></div>
+      <a class="collage-card collage-1" href="./demo/fufu-bakery/index.html"><img src="./demo/fufu-bakery/mobile-preview.png" alt="FuFu Bakery"></a>
+      <a class="collage-card collage-2" href="./demo/plate-play/index.html"><img src="./demo/plate-play/mobile-preview.png" alt="Plate Play"></a>
+      <a class="collage-card collage-3" href="./demo/relay/index.html"><img src="./demo/relay/mobile-preview.png" alt="RELAY"></a>
+      <a class="collage-card collage-4" href="./demo/fithub/index.html"><img src="./demo/fithub/mobile-preview.png" alt="FitHub"></a>
+      <a class="collage-card collage-5" href="./demo/organique-food/index.html"><img src="./demo/organique-food/mobile-preview.png" alt="Organique Food"></a>
+      <a class="collage-card collage-6" href="./demo/volt-route/index.html"><img src="./demo/volt-route/mobile-preview.png" alt="Volt Route"></a>
+    </section>
+
+    <section class="project-photo-showcase">
+      <img class="photo-showcase-bg" src="./demo/squarespace-cinematic/assets/workspace.webp" alt="现代设计工作室实景">
+      <span class="photo-showcase-overlay" aria-hidden="true"></span>
+      <div class="photo-showcase-copy"><p class="section-eyebrow">FROM REFERENCE TO INTERFACE</p><h2 data-zh="把想要的感觉，变成真实页面。" data-en="Turn the feeling you want into a working interface.">把想要的感觉，变成真实页面。</h2><a class="button-filled" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html" data-zh="开始设计" data-en="Start designing">开始设计</a></div>
+      <div class="photo-showcase-cards" aria-hidden="true"><img src="./demo/plate-play/mobile-preview.png" alt=""><img src="./demo/fufu-bakery/mobile-preview.png" alt=""><img src="./demo/relay/mobile-preview.png" alt=""></div>
+    </section>
 
     <section class="project-stats" id="overview" aria-label="ONDesign 内容概览">
       <div class="project-container project-stats-grid">

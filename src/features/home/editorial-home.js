@@ -1,4 +1,69 @@
-const SUPPORTED_LANGUAGES=new Set(["zh","en"]);
-function currentLanguage(event){const detail=event?.detail;const eventLanguage=typeof detail==="string"?detail:detail?.language||detail?.lang||detail?.value;if(SUPPORTED_LANGUAGES.has(eventLanguage))return eventLanguage;if(SUPPORTED_LANGUAGES.has(window.image2I18n?.language))return window.image2I18n.language;const queryLanguage=new URLSearchParams(location.search).get("lang");return SUPPORTED_LANGUAGES.has(queryLanguage)?queryLanguage:"zh"}
-function applyLanguage(event){const language=currentLanguage(event);document.documentElement.lang=language==="en"?"en":"zh-CN";document.title=language==="en"?"ONDesign · From reference to interface":"ONDesign · 从设计参考到真实界面";const description=document.querySelector('meta[name="description"]');if(description)description.content=language==="en"?"ONDesign connects real UI cases, interface vocabulary, design systems, and an AI building workspace.":"ONDesign：从真实 UI 案例、界面词汇和设计系统出发，与 AI 一起构建可运行的界面。";document.querySelectorAll("[data-zh][data-en]").forEach(element=>{const value=element.dataset[language];if(value)element.textContent=value});document.querySelectorAll("[data-smart-lang-link]").forEach(link=>{const target=new URL(link.dataset.smartLangLink,location.href);target.searchParams.set("lang",language);link.href=`${target.pathname.split("/").pop()}${target.search}${target.hash}`})}
-const filterButtons=[...document.querySelectorAll("[data-case-filter]")];const caseCards=[...document.querySelectorAll("[data-case-category]")];filterButtons.forEach(button=>{button.addEventListener("click",()=>{const filter=button.dataset.caseFilter;filterButtons.forEach(item=>{const selected=item===button;item.classList.toggle("is-active",selected);item.setAttribute("aria-pressed",String(selected))});caseCards.forEach(card=>{const categories=card.dataset.caseCategory.split(/\s+/);card.hidden=filter!=="all"&&!categories.includes(filter)})})});applyLanguage();if(window.image2I18n?.registerPage)window.image2I18n.registerPage(language=>applyLanguage({detail:language}));else window.addEventListener("image2:languagechange",applyLanguage);
+const SUPPORTED_LANGUAGES = new Set(["zh", "en"]);
+
+function currentLanguage(event) {
+  const detail = event?.detail;
+  const eventLanguage = typeof detail === "string" ? detail : detail?.language || detail?.lang || detail?.value;
+  if (SUPPORTED_LANGUAGES.has(eventLanguage)) return eventLanguage;
+  if (SUPPORTED_LANGUAGES.has(window.image2I18n?.language)) return window.image2I18n.language;
+  const queryLanguage = new URLSearchParams(location.search).get("lang");
+  return SUPPORTED_LANGUAGES.has(queryLanguage) ? queryLanguage : "zh";
+}
+
+function applyLanguage(event) {
+  const language = currentLanguage(event);
+  document.documentElement.lang = language === "en" ? "en" : "zh-CN";
+  document.title = language === "en" ? "ONDesign · From reference to interface" : "ONDesign · 从设计参考到真实界面";
+
+  const description = document.querySelector('meta[name="description"]');
+  if (description) {
+    description.content = language === "en"
+      ? "ONDesign connects real UI cases, interface vocabulary, design systems, and an AI building workspace."
+      : "ONDesign：从真实 UI 案例、界面词汇和设计系统出发，与 AI 一起构建可运行的界面。";
+  }
+
+  document.querySelectorAll("[data-zh][data-en]").forEach((element) => {
+    const value = element.dataset[language];
+    if (value) element.textContent = value;
+  });
+
+  document.querySelectorAll("[data-zh-placeholder][data-en-placeholder]").forEach((element) => {
+    element.placeholder = element.dataset[`${language}Placeholder`];
+  });
+
+  document.querySelectorAll("[data-smart-lang-link]").forEach((link) => {
+    const target = new URL(link.dataset.smartLangLink, location.href);
+    target.searchParams.set("lang", language);
+    link.href = `${target.pathname.split("/").pop()}${target.search}${target.hash}`;
+  });
+}
+
+const filterButtons = [...document.querySelectorAll("[data-case-filter]")];
+const caseCards = [...document.querySelectorAll("[data-case-category]")];
+
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const filter = button.dataset.caseFilter;
+    filterButtons.forEach((item) => {
+      const selected = item === button;
+      item.classList.toggle("is-active", selected);
+      item.setAttribute("aria-pressed", String(selected));
+    });
+    caseCards.forEach((card) => {
+      const categories = card.dataset.caseCategory.split(/\s+/);
+      card.hidden = filter !== "all" && !categories.includes(filter);
+    });
+  });
+});
+
+document.querySelector("#projectSearchForm")?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const query = document.querySelector("#projectSearchInput")?.value.trim();
+  const target = new URL("./library.html", location.href);
+  target.searchParams.set("lang", currentLanguage());
+  if (query) target.searchParams.set("q", query);
+  location.href = target.href;
+});
+
+applyLanguage();
+if (window.image2I18n?.registerPage) window.image2I18n.registerPage((language) => applyLanguage({ detail: language }));
+else window.addEventListener("image2:languagechange", applyLanguage);
