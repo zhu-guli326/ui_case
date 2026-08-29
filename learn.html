@@ -5,253 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="/favicon.svg?v=20260828-green-v2" type="image/svg+xml" sizes="any">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="Learn to see, describe, build and review interfaces with AI.">
-  <title>How to Design with AI · ONDesign</title>
-  <link rel="stylesheet" href="./src/features/learn/learn.css?v=20260829-root-cleanup-v1">
-  <link rel="stylesheet" href="./src/features/learn/learn-overrides.css?v=20260829-root-cleanup-v1">
+  <meta name="description" content="ONDesign：从真实 UI 案例、界面词汇和设计系统出发，与 AI 一起构建可运行的界面。">
+  <title>ONDesign · 从设计参考到真实界面</title>
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
-  <link rel="stylesheet" href="./src/features/home/ondesign-orbit.css?v=20260828-orbit-cards-v1">
-  <link rel="stylesheet" href="./src/features/home/squarespace-home.css?v=20260829-editorial-v1">
+  <link rel="stylesheet" href="./src/features/home/squarespace-home.css?v=20260829-project-home-v2">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./src/core/analytics/clarity.js"></script>
   <script src="./src/core/analytics/analytics.config.js?v=20260829-root-cleanup-v1"></script>
   <script src="./src/core/analytics/analytics.js?v=20260829-root-cleanup-v1" defer></script>
-  <script src="./src/features/learn/learn.js?v=20260829-root-cleanup-v1" defer></script>
-  <script src="./src/features/home/ondesign-orbit.js?v=20260829-editorial-v2" defer></script>
+  <script src="./src/features/home/editorial-home.js?v=20260829-project-home-v1" defer></script>
 </head>
-<body class="cosmic-home">
-  <div class="page-progress" aria-hidden="true"><span id="pageProgressBar"></span></div>
+<body class="project-home">
   <image2-site-header data-site-header></image2-site-header>
-
-  <nav class="chapter-nav" aria-label="学习章节">
-    <a href="#why" data-section-link="why"><span>01</span><b data-zh="为什么" data-en="Why">为什么</b></a>
-    <a href="#see" data-section-link="see"><span>02</span><b data-zh="看懂" data-en="See">看懂</b></a>
-    <a href="#breakdown" data-section-link="breakdown"><span>03</span><b data-zh="拆解" data-en="Break down">拆解</b></a>
-    <a href="#name" data-section-link="name"><span>04</span><b data-zh="命名" data-en="Name">命名</b></a>
-    <a href="#describe" data-section-link="describe"><span>05</span><b data-zh="描述" data-en="Describe">描述</b></a>
-    <a href="#build" data-section-link="build"><span>06</span><b data-zh="实现" data-en="Build">实现</b></a>
-    <a href="#review" data-section-link="review"><span>07</span><b data-zh="判断" data-en="Review">判断</b></a>
-    <a href="#method" data-section-link="method"><span>08</span><b data-zh="方法" data-en="Method">方法</b></a>
-  </nav>
-
   <main>
-    <header class="story-hero" id="top">
-      <img class="hero-orbit-background" src="./demo/squarespace-cinematic/assets/workspace.webp" alt="现代设计工作室实景">
-      <span class="home-editorial-overlay" aria-hidden="true"></span>
-      <div class="hero-orbit-center">
-        <p class="home-editorial-eyebrow">ONDesign · AI × UI</p>
-        <h1>
-          <span data-zh="先学会看懂界面，" data-en="Learn the language of UI.">先学会看懂界面，</span>
-          <span data-zh="再让 AI 把它做出来" data-en="Then build with AI.">再让 AI 把它做出来</span>
-        </h1>
-        <p class="home-editorial-lede" data-zh="从视觉判断、界面语言到可运行页面，建立一套真正能复用的 AI UI 方法。" data-en="Move from visual judgment and interface language to working pages with a reusable AI UI method.">从视觉判断、界面语言到可运行页面，建立一套真正能复用的 AI UI 方法。</p>
-        <div class="home-editorial-actions">
-          <a class="home-editorial-primary" href="#why" data-zh="开始学习" data-en="Start learning">开始学习</a>
-          <a href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span data-zh="浏览真实案例" data-en="Browse real cases">浏览真实案例</span><i aria-hidden="true">↗</i></a>
-        </div>
+    <header class="project-hero" id="top">
+      <img class="project-hero-media" src="./demo/squarespace-cinematic/assets/workspace.webp" alt="现代设计工作室实景">
+      <span class="project-hero-overlay" aria-hidden="true"></span>
+      <div class="project-hero-content">
+        <p class="project-eyebrow">ONDesign · AI UI DESIGN WORKFLOW</p>
+        <h1><span data-zh="找到设计参考，" data-en="Find the right reference.">找到设计参考，</span><span data-zh="把它变成真实界面" data-en="Turn it into a working interface.">把它变成真实界面</span></h1>
+        <p class="project-hero-lede" data-zh="把真实案例、UI 词汇、设计系统与 AI 生成工作台连成一条完整路径。" data-en="Connect real UI cases, interface vocabulary, design systems, and an AI building workspace in one complete path.">把真实案例、UI 词汇、设计系统与 AI 生成工作台连成一条完整路径。</p>
+        <div class="project-hero-actions"><a class="button-filled" href="./library.html?lang=zh" data-smart-lang-link="./library.html" data-zh="浏览真实案例" data-en="Browse real cases">浏览真实案例</a><a class="button-outline" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><span data-zh="开始设计" data-en="Start designing">开始设计</span><i aria-hidden="true">↗</i></a></div>
       </div>
-      <a class="home-editorial-scroll" href="#why"><span>SCROLL TO LEARN</span><i aria-hidden="true"></i></a>
+      <a class="project-scroll" href="#overview"><span>EXPLORE ONDESIGN</span><i aria-hidden="true"></i></a>
     </header>
 
-    <section class="chapter" id="why" data-section="why">
-      <div class="chapter-index">01</div>
-      <div class="chapter-copy">
-        <p class="eyebrow">WHY THIS MATTERS</p>
-        <h2 data-zh="AI 会做 UI，\n但它不知道你想要什么。" data-en="AI can build UI.\nIt still needs your direction.">AI 会做 UI，<br>但它不知道你想要什么。</h2>
-        <p class="lead" data-zh="“高级一点”“简洁一点”“像 Apple 一点”都不是可执行的设计判断。你越能看清界面由什么组成，就越能准确地指挥 AI。" data-en="“Make it premium,” “keep it clean,” and “make it Apple-like” are not executable design decisions. The better you see the interface, the better you can direct AI.">“高级一点”“简洁一点”“像 Apple 一点”都不是可执行的设计判断。你越能看清界面由什么组成，就越能准确地指挥 AI。</p>
+    <section class="project-stats" id="overview" aria-label="ONDesign 内容概览">
+      <div class="project-container project-stats-grid">
+        <article><strong>19</strong><span data-zh="真实案例" data-en="Real cases">真实案例</span></article>
+        <article><strong>57</strong><span data-zh="可复用组件" data-en="Reusable components">可复用组件</span></article>
+        <article><strong>19</strong><span data-zh="设计系统" data-en="Design systems">设计系统</span></article>
+        <article><strong>01</strong><span data-zh="从参考到实现的路径" data-en="Path from reference to build">从参考到实现的路径</span></article>
       </div>
-      <div class="translation-board">
-        <div>
-          <span class="board-label" data-zh="人通常会说" data-en="What people say">人通常会说</span>
-          <blockquote>“<span data-zh="这里做高级一点。" data-en="Make this feel more premium.">这里做高级一点。</span>”</blockquote>
-          <blockquote>“<span data-zh="加个下拉框。" data-en="Add a dropdown.">加个下拉框。</span>”</blockquote>
-          <blockquote>“<span data-zh="手机版也适配一下。" data-en="Make it work on mobile too.">手机版也适配一下。</span>”</blockquote>
+    </section>
+
+    <section class="project-section project-cases" id="cases">
+      <div class="project-container">
+        <header class="section-heading section-heading-center">
+          <p class="section-eyebrow">REAL INTERFACE CASES</p>
+          <h2 data-zh="先找到对的方向，再开始生成。" data-en="Find the right direction before you build.">先找到对的方向，再开始生成。</h2>
+          <p data-zh="不是一组只能收藏的封面。每个案例都帮助你识别布局、组件、状态与视觉语言。" data-en="More than images to save. Each case helps you identify layout, components, states, and visual language.">不是一组只能收藏的封面。每个案例都帮助你识别布局、组件、状态与视觉语言。</p>
+        </header>
+        <div class="case-filters" role="group" aria-label="案例筛选"><button class="is-active" type="button" data-case-filter="all" aria-pressed="true" data-zh="全部" data-en="All">全部</button><button type="button" data-case-filter="mobile" aria-pressed="false" data-zh="移动端" data-en="Mobile">移动端</button><button type="button" data-case-filter="editorial" aria-pressed="false" data-zh="编辑感" data-en="Editorial">编辑感</button><button type="button" data-case-filter="vivid" aria-pressed="false" data-zh="高表现力" data-en="Expressive">高表现力</button></div>
+        <div class="project-case-grid">
+          <a class="project-case" data-case-category="mobile editorial" href="./demo/fufu-bakery/index.html?lang=zh" data-smart-lang-link="./demo/fufu-bakery/index.html"><img src="./demo/fufu-bakery/mobile-preview.png" alt="FuFu Bakery 移动端界面案例"><span class="case-shade" aria-hidden="true"></span><small>MOBILE · BRAND</small><div><h3>FuFu Bakery</h3><p data-zh="品牌化烘焙会员体验" data-en="Branded bakery membership experience">品牌化烘焙会员体验</p><i>↗</i></div></a>
+          <a class="project-case" data-case-category="mobile vivid" href="./demo/plate-play/index.html?lang=zh" data-smart-lang-link="./demo/plate-play/index.html"><img src="./demo/plate-play/mobile-preview.png" alt="Plate Play 移动端界面案例"><span class="case-shade" aria-hidden="true"></span><small>MOBILE · VIVID</small><div><h3>Plate Play</h3><p data-zh="高表现力食谱与内容体验" data-en="Expressive recipe and content experience">高表现力食谱与内容体验</p><i>↗</i></div></a>
+          <a class="project-case" data-case-category="mobile editorial" href="./demo/relay/index.html?lang=zh" data-smart-lang-link="./demo/relay/index.html"><img src="./demo/relay/mobile-preview.png" alt="RELAY 移动端界面案例"><span class="case-shade" aria-hidden="true"></span><small>MOBILE · UTILITY</small><div><h3>RELAY</h3><p data-zh="克制的移动工具界面" data-en="A restrained mobile utility interface">克制的移动工具界面</p><i>↗</i></div></a>
         </div>
-        <div class="translation-arrow">→</div>
-        <div>
-          <span class="board-label" data-zh="AI 真正需要" data-en="What AI needs">AI 真正需要</span>
-          <p>Visual hierarchy · Combobox · Responsive reflow · Loading state · Spacing system · Interaction rule</p>
+        <div class="section-link"><a href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span data-zh="查看全部案例" data-en="View all cases">查看全部案例</span> <i>↗</i></a></div>
+      </div>
+    </section>
+
+    <section class="project-section project-capabilities" id="capabilities">
+      <div class="project-container">
+        <header class="section-heading"><p class="section-eyebrow">ONE CONNECTED SYSTEM</p><h2 data-zh="从“我喜欢这个”，到“把它做出来”。" data-en="From “I like this” to “build it.”">从“我喜欢这个”，到“把它做出来”。</h2></header>
+        <div class="capability-grid">
+          <a href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span>01</span><strong data-zh="探索真实案例" data-en="Explore real cases">探索真实案例</strong><p data-zh="按页面、组件、风格和来源找到可以真正打开与体验的参考。" data-en="Find references you can actually open and inspect by page, component, style, and source.">按页面、组件、风格和来源找到可以真正打开与体验的参考。</p><i>↗</i></a>
+          <a href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html"><span>02</span><strong>UI Vocabulary</strong><p data-zh="把模糊描述翻译成标准界面模式，并查看组件的不同状态。" data-en="Translate fuzzy descriptions into standard UI patterns and inspect component states.">把模糊描述翻译成标准界面模式，并查看组件的不同状态。</p><i>↗</i></a>
+          <a href="./brands.html?lang=zh" data-smart-lang-link="./brands.html"><span>03</span><strong data-zh="设计系统参考" data-en="Design system references">设计系统参考</strong><p data-zh="理解不同品牌如何处理颜色、字体、间距、组件和交互规则。" data-en="See how brands handle color, type, spacing, components, and interaction rules.">理解不同品牌如何处理颜色、字体、间距、组件和交互规则。</p><i>↗</i></a>
+          <a href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><span>04</span><strong>Design DNA</strong><p data-zh="确定视觉方向与基础规范，预览效果并保存为可复用规则。" data-en="Define a visual direction and foundation, preview the result, and save reusable rules.">确定视觉方向与基础规范，预览效果并保存为可复用规则。</p><i>↗</i></a>
         </div>
       </div>
-      <p class="chapter-quote">The better you see design, the better you can direct AI.</p>
     </section>
 
-    <section class="chapter" id="see" data-section="see">
-      <div class="chapter-index">02</div>
-      <div class="chapter-copy">
-        <p class="eyebrow">LEARN TO SEE</p>
-        <h2 data-zh="一个界面，不是一张图。\n而是一组设计决定。" data-en="A screen is not one picture.\nIt is a system of decisions.">一个界面，不是一张图。<br>而是一组设计决定。</h2>
-        <p class="lead" data-zh="先别管代码。看一个页面时，先学会辨认布局、层级、模式、动作、状态和视觉语言。下面点击 6 个观察维度，看同一张界面会暴露出完全不同的问题。" data-en="Ignore the code at first. Learn to identify layout, hierarchy, patterns, actions, states, and visual language. Switch between the six lenses below to inspect the same interface in different ways.">先别管代码。看一个页面时，先学会辨认布局、层级、模式、动作、状态和视觉语言。下面点击 6 个观察维度，看同一张界面会暴露出完全不同的问题。</p>
-      </div>
-      <div class="see-lab">
-        <div class="see-controls" role="tablist" aria-label="界面观察维度">
-          <button class="is-active" data-lens="layout" data-index="01" type="button" role="tab" aria-selected="true"><span class="lens-label"><strong data-zh="布局 · Layout" data-en="Layout">布局 · Layout</strong><small data-zh="页面如何分区" data-en="How regions are arranged">页面如何分区</small></span></button>
-          <button data-lens="hierarchy" data-index="02" type="button" role="tab" aria-selected="false"><span class="lens-label"><strong data-zh="层级 · Hierarchy" data-en="Hierarchy">层级 · Hierarchy</strong><small data-zh="先看什么、后看什么" data-en="What gets attention first">先看什么、后看什么</small></span></button>
-          <button data-lens="pattern" data-index="03" type="button" role="tab" aria-selected="false"><span class="lens-label"><strong data-zh="模式 · Pattern" data-en="Pattern">模式 · Pattern</strong><small data-zh="熟悉的 UI 结构" data-en="Reusable UI structures">熟悉的 UI 结构</small></span></button>
-          <button data-lens="action" data-index="04" type="button" role="tab" aria-selected="false"><span class="lens-label"><strong data-zh="动作 · Action" data-en="Action">动作 · Action</strong><small data-zh="用户真正要做什么" data-en="What the user should do">用户真正要做什么</small></span></button>
-          <button data-lens="state" data-index="05" type="button" role="tab" aria-selected="false"><span class="lens-label"><strong data-zh="状态 · State" data-en="State">状态 · State</strong><small data-zh="操作前后发生什么" data-en="What changes over time">操作前后发生什么</small></span></button>
-          <button data-lens="visual" data-index="06" type="button" role="tab" aria-selected="false"><span class="lens-label"><strong data-zh="视觉 · Visual" data-en="Visual">视觉 · Visual</strong><small data-zh="字体、颜色与节奏" data-en="Type, color and rhythm">字体、颜色与节奏</small></span></button>
-        </div>
-        <div class="sample-ui" id="sampleUi" data-lens="layout">
-          <div class="sample-topbar"><b>ACME</b><span data-zh="搜索" data-en="Search">搜索</span><span data-zh="我的" data-en="Profile">我的</span></div>
-          <div class="sample-hero"><div><small data-zh="全新系列" data-en="NEW COLLECTION">全新系列</small><h3 data-zh="慢一点的早晨，也值得好好生活。" data-en="Objects for slower mornings.">慢一点的早晨，也值得好好生活。</h3><p data-zh="为每天的小仪式，留一点更好的设计。" data-en="Simple tools for daily rituals.">为每天的小仪式，留一点更好的设计。</p><button type="button" data-zh="浏览系列" data-en="Explore collection">浏览系列</button></div><div class="sample-object"></div></div>
-          <div class="sample-cards"><article><span>01</span><strong data-zh="4 号杯" data-en="Cup No. 4">4 号杯</strong><small data-zh="炻器" data-en="Stoneware">炻器</small></article><article><span>02</span><strong data-zh="2 号托盘" data-en="Tray No. 2">2 号托盘</strong><small data-zh="橡木" data-en="Oak">橡木</small></article></div>
-          <div class="sample-bottom"><span data-zh="首页" data-en="Home">首页</span><span data-zh="器物" data-en="Objects">器物</span><span data-zh="日志" data-en="Journal">日志</span></div>
-        </div>
-        <div class="lens-note"><span id="lensTitle">布局 Layout</span><p id="lensText">页面先分成顶部导航、主视觉、内容卡片和底部导航，再决定它们之间的比例与留白。</p></div>
-      </div>
-    </section>
+    <section class="project-editorial"><div class="project-editorial-media"><img src="./demo/squarespace-cinematic/assets/architecture.webp" alt="现代城市建筑实景"></div><div class="project-editorial-copy"><p class="section-eyebrow">WHY ONDESIGN</p><h2 data-zh="不是再收藏一张图，而是让参考真正变得可执行。" data-en="Don't just save another image. Make the reference executable.">不是再收藏一张图，而是让参考真正变得可执行。</h2><p data-zh="ONDesign 把“看起来不错”拆成可以讨论和修改的决定：页面结构、视觉层级、组件模式、交互状态、响应式与设计语言。" data-en="ONDesign breaks “this looks good” into decisions you can discuss and change: structure, hierarchy, component patterns, interaction states, responsiveness, and visual language.">ONDesign 把“看起来不错”拆成可以讨论和修改的决定：页面结构、视觉层级、组件模式、交互状态、响应式与设计语言。</p><a href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html"><span data-zh="学习界面语言" data-en="Learn interface language">学习界面语言</span> ↗</a></div></section>
 
-    <section class="chapter" id="breakdown" data-section="breakdown">
-      <div class="chapter-index">03</div>
-      <div class="chapter-copy">
-        <p class="eyebrow">BREAK IT DOWN</p>
-        <h2 data-zh="不要复刻整张图。\n先把它拆开。" data-en="Don't copy the whole screenshot.\nBreak it down first.">不要复刻整张图。<br>先把它拆开。</h2>
-        <p class="lead" data-zh="AI 最容易在“整张图一起做”时失控。更可靠的方法是从页面到区块，再到组件、元素和状态。" data-en="AI loses control when you ask it to recreate an entire screenshot at once. Move from page to section, component, element, and state.">AI 最容易在“整张图一起做”时失控。更可靠的方法是从页面到区块，再到组件、元素和状态。</p>
-      </div>
-      <div class="decomposition breakdown-board">
-        <div class="decomp-scale">
-          <span>PAGE</span><i>↓</i><span>SECTION</span><i>↓</i><span>PATTERN</span><i>↓</i><span>COMPONENT</span><i>↓</i><span>ELEMENT</span><i>↓</i><span>STATE</span>
-        </div>
-        <div class="decomp-tree">
-          <strong>FuFu Bakery</strong>
-          <ul>
-            <li><b>Header</b><small>Brand · utility action</small></li>
-            <li><b>Hero</b><small>Image · headline · CTA</small></li>
-            <li><b>Membership card</b><small>Progress · reward state</small></li>
-            <li><b>Bottom navigation</b><small>3 destinations · selected state</small></li>
-          </ul>
-        </div>
-        <figure class="decomp-image"><img src="./demo/fufu-bakery/mobile-preview.png" alt="FuFu Bakery 可点击页面预览"><figcaption data-zh="同一张页面，拆成可以单独判断和修改的对象。" data-en="One screen, broken into decisions you can inspect and change independently.">同一张页面，拆成可以单独判断和修改的对象。</figcaption></figure>
-      </div>
-    </section>
+    <section class="project-section project-method" id="method"><div class="project-container"><header class="section-heading"><p class="section-eyebrow">THE ONDESIGN METHOD</p><h2 data-zh="一条从参考到页面的清晰路径。" data-en="A clear path from reference to interface.">一条从参考到页面的清晰路径。</h2></header><ol class="method-rows"><li><span>01</span><strong>EXPLORE</strong><p data-zh="寻找真实案例与视觉方向" data-en="Find real cases and a visual direction">寻找真实案例与视觉方向</p></li><li><span>02</span><strong>DECOMPOSE</strong><p data-zh="拆解页面、组件与状态" data-en="Break down pages, components, and states">拆解页面、组件与状态</p></li><li><span>03</span><strong>DEFINE</strong><p data-zh="确定 UI 词汇与 Design DNA" data-en="Define UI vocabulary and Design DNA">确定 UI 词汇与 Design DNA</p></li><li><span>04</span><strong>BUILD</strong><p data-zh="让 AI 生成可运行的页面" data-en="Use AI to build a working interface">让 AI 生成可运行的页面</p></li><li><span>05</span><strong>VERIFY</strong><p data-zh="检查细节并局部迭代" data-en="Review details and iterate precisely">检查细节并局部迭代</p></li></ol></div></section>
 
-    <section class="chapter" id="name" data-section="name">
-      <div class="chapter-index">04</div>
-      <div class="chapter-copy">
-        <p class="eyebrow">NAME WHAT YOU SEE</p>
-        <h2 data-zh="你不需要背术语。\n但你要知道怎么找到它。" data-en="You don't need to memorize terms.\nYou need to know how to find them.">你不需要背术语。<br>但你要知道怎么找到它。</h2>
-        <p class="lead" data-zh="把模糊的人话翻译成 UI Pattern，是让 AI 生成结果稳定下来的关键一步。" data-en="Translating fuzzy human language into UI patterns is one of the fastest ways to make AI output more reliable.">把模糊的人话翻译成 UI Pattern，是让 AI 生成结果稳定下来的关键一步。</p>
-      </div>
-      <div class="name-grid">
-        <article><span data-zh="“右边滑出来那个面板”" data-en="“The panel that slides in from the right”">“右边滑出来那个面板”</span><i>→</i><strong>Drawer</strong><small>Modal · Sheet · Popover</small></article>
-        <article><span data-zh="“能输入搜索的下拉框”" data-en="“A dropdown I can type into”">“能输入搜索的下拉框”</span><i>→</i><strong>Combobox</strong><small>Select · Autocomplete</small></article>
-        <article><span data-zh="“保存后闪一下的提示”" data-en="“The message that appears after save”">“保存后闪一下的提示”</span><i>→</i><strong>Toast</strong><small>Alert · Banner</small></article>
-        <article><span data-zh="“手机底部几个切页面的图标”" data-en="“Icons at the bottom that switch screens”">“手机底部几个切页面的图标”</span><i>→</i><strong>Bottom Navigation</strong><small>Tabs · Navigation rail</small></article>
-      </div>
-      <div class="inline-cta"><span>Human language → Design language</span><a href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html"><span data-zh="打开 UI Vocabulary" data-en="Open UI Vocabulary">打开 UI Vocabulary</span> ↗</a></div>
-    </section>
-
-    <section class="chapter" id="describe" data-section="describe">
-      <div class="chapter-index">05</div>
-      <div class="chapter-copy">
-        <p class="eyebrow">DESCRIBE IT</p>
-        <h2 data-zh="“做高级一点”\n不是设计指令。" data-en="“Make it premium”\nis not a design instruction.">“做高级一点”<br>不是设计指令。</h2>
-        <p class="lead" data-zh="好的 Prompt 不一定更长，但一定更具体：布局、组件、层级、状态、响应式和视觉方向都能被明确描述。" data-en="A good prompt is not necessarily longer. It is more specific about layout, components, hierarchy, states, responsiveness, and visual direction.">好的 Prompt 不一定更长，但一定更具体：布局、组件、层级、状态、响应式和视觉方向都能被明确描述。</p>
-      </div>
-      <div class="prompt-ladder">
-        <article class="prompt-step bad"><span>01 / VAGUE</span><p data-zh="做一个高级一点的登录页。" data-en="Make a premium login page.">做一个高级一点的登录页。</p></article>
-        <article class="prompt-step better"><span>02 / BETTER</span><p data-zh="左侧用大幅品牌图片，右侧放一个紧凑的登录表单，只有一个主按钮。" data-en="Use a large brand image on the left and a compact login form on the right with one primary action.">左侧用大幅品牌图片，右侧放一个紧凑的登录表单，只有一个主按钮。</p></article>
-        <article class="prompt-step precise"><span>03 / PRECISE</span><p>Use a responsive <mark>split-screen authentication layout</mark>. Keep the form column narrow, use one <mark>primary CTA</mark>, add <mark>focus / error / loading states</mark>, and stack the layout on mobile while preserving visual hierarchy.</p></article>
-      </div>
-      <p class="chapter-quote">A good AI prompt is not longer. It is more specific.</p>
-    </section>
-
-    <section class="chapter" id="build" data-section="build">
-      <div class="chapter-index">06</div>
-      <div class="chapter-copy">
-        <p class="eyebrow">BUILD IT</p>
-        <h2 data-zh="不是所有看见的东西，\n都应该变成图片。" data-en="Not everything you see\nshould become an image.">不是所有看见的东西，<br>都应该变成图片。</h2>
-        <p class="lead" data-zh="文字、按钮、表单和导航需要保持可编辑、可交互、可响应；摄影、复杂插画和材质更适合作为媒体资产。" data-en="Text, controls, forms, and navigation should stay editable, interactive, and responsive. Photography, complex illustration, and texture work better as media assets.">文字、按钮、表单和导航需要保持可编辑、可交互、可响应；摄影、复杂插画和材质更适合作为媒体资产。</p>
-      </div>
-      <div class="code-media-board">
-        <article><span class="board-label">CODE UI</span><h3>Text · Button · Input · Navigation · Card · Chart · State</h3><p>Editable · Interactive · Responsive · Accessible</p></article>
-        <article><span class="board-label">MEDIA</span><h3>Photography · Illustration · Texture · 3D · Complex visual</h3><p>Replaceable · Art-directed · Asset-managed</p></article>
-        <article><span class="board-label">IT DEPENDS</span><h3>Logo · Icon · Decorative background</h3><p data-zh="取决于是否需要交互、缩放、主题切换和品牌资产约束。" data-en="Depends on interaction, scaling, theming, and brand-asset constraints.">取决于是否需要交互、缩放、主题切换和品牌资产约束。</p></article>
-      </div>
-      <div class="workflow">
-        <span>REFERENCE</span><i>→</i><span>DECOMPOSE</span><i>→</i><span>CODE / MEDIA</span><i>→</i><span>BUILD</span><i>→</i><span>VERIFY</span>
-      </div>
-      <div class="case-strip" aria-label="案例">
-        <a href="./demo/fufu-bakery/index.html"><img src="./demo/fufu-bakery/mobile-preview.png" alt="FuFu Bakery"><span>FuFu Bakery</span></a>
-        <a href="./demo/plate-play/index.html"><img src="./demo/plate-play/mobile-preview.png" alt="Plate Play"><span>Plate Play</span></a>
-        <a href="./demo/relay/index.html"><img src="./demo/relay/mobile-preview.png" alt="RELAY"><span>RELAY</span></a>
-      </div>
-    </section>
-
-    <section class="chapter" id="review" data-section="review">
-      <div class="chapter-index">07</div>
-      <div class="chapter-copy">
-        <p class="eyebrow">REVIEW IT</p>
-        <h2 data-zh="AI 做出来了，\n不代表它做对了。" data-en="AI built it.\nThat doesn't mean it's right.">AI 做出来了，<br>不代表它做对了。</h2>
-        <p class="lead" data-zh="设计也包括知道什么应该拒绝。检查层级、间距、组件一致性、状态和响应式，比单纯问“好不好看”更有用。" data-en="Design also means knowing what to reject. Review hierarchy, spacing, component consistency, states, and responsiveness instead of asking only whether it looks good.">设计也包括知道什么应该拒绝。检查层级、间距、组件一致性、状态和响应式，比单纯问“好不好看”更有用。</p>
-      </div>
-      <div class="review-compare">
-        <article class="review-card generic">
-          <span>GENERIC AI UI</span>
-          <div class="mini-dashboard">
-            <header><b>Analytics</b><button>New report</button></header>
-            <div class="kpis"><i></i><i></i><i></i></div>
-            <div class="chart-bad"></div>
-            <div class="cards-bad"><i></i><i></i><i></i><i></i></div>
-          </div>
-          <ul><li data-zh="所有卡片同权重" data-en="Every card has equal weight">所有卡片同权重</li><li data-zh="按钮层级混乱" data-en="Button hierarchy is unclear">按钮层级混乱</li><li data-zh="状态缺失" data-en="Missing states">状态缺失</li><li data-zh="间距没有系统" data-en="No spacing system">间距没有系统</li></ul>
-        </article>
-        <article class="review-card considered">
-          <span>CONSIDERED UI</span>
-          <div class="mini-dashboard refined">
-            <header><b>Analytics</b><button>New report</button></header>
-            <div class="summary-line"><strong>+18.4%</strong><small>vs last month</small></div>
-            <div class="chart-good"></div>
-            <div class="table-lines"><i></i><i></i><i></i></div>
-          </div>
-          <ul><li data-zh="层级清楚" data-en="Clear hierarchy">层级清楚</li><li data-zh="间距一致" data-en="Consistent spacing">间距一致</li><li data-zh="状态完整" data-en="Complete states">状态完整</li><li data-zh="响应式有明确判断" data-en="Responsive decisions">响应式有明确判断</li></ul>
-        </article>
-      </div>
-      <p class="chapter-quote">Design is also knowing what to reject.</p>
-    </section>
-
-    <section class="chapter method-chapter" id="method" data-section="method">
-      <div class="chapter-index">08</div>
-      <div class="chapter-copy">
-        <p class="eyebrow">THE METHOD</p>
-        <h2 data-zh="最终，你只需要记住\n这一条路径。" data-en="In the end, remember\nthis one path.">最终，你只需要记住<br>这一条路径。</h2>
-      </div>
-      <ol class="method-list">
-        <li><span>01</span><strong>SEE</strong><small data-zh="看懂界面" data-en="See the interface">看懂界面</small></li>
-        <li><span>02</span><strong>BREAK DOWN</strong><small data-zh="拆成可判断的对象" data-en="Break it into decisions">拆成可判断的对象</small></li>
-        <li><span>03</span><strong>NAME</strong><small data-zh="找到正确 Pattern" data-en="Find the right pattern">找到正确 Pattern</small></li>
-        <li><span>04</span><strong>DESCRIBE</strong><small data-zh="把意图说清楚" data-en="Describe the intent">把意图说清楚</small></li>
-        <li><span>05</span><strong>BUILD</strong><small data-zh="让 AI 实现" data-en="Let AI build it">让 AI 实现</small></li>
-        <li><span>06</span><strong>REVIEW</strong><small data-zh="判断哪里不对" data-en="Know what's wrong">判断哪里不对</small></li>
-        <li><span>07</span><strong>ITERATE</strong><small data-zh="局部修改并验证" data-en="Change and verify">局部修改并验证</small></li>
-      </ol>
-      <div class="method-statement">
-        <p data-zh="你不需要先成为前端工程师。" data-en="You don't need to become a frontend engineer first.">你不需要先成为前端工程师。</p>
-        <strong data-zh="你需要更会看、更会说，也更会判断。" data-en="You need to get better at seeing, describing, and judging design.">你需要更会看、更会说，也更会判断。</strong>
-      </div>
-    </section>
-
-    <section class="behind-scenes">
-      <details>
-        <summary><span data-zh="Behind the scenes · AI 背后到底在写什么？" data-en="Behind the scenes · What is AI actually writing?">Behind the scenes · AI 背后到底在写什么？</span><i>+</i></summary>
-        <div class="behind-grid"><article><b>HTML</b><p>Structure · content · semantics</p></article><article><b>CSS</b><p>Layout · visual · responsive</p></article><article><b>JavaScript</b><p>Behavior · state · feedback</p></article></div>
-      </details>
-    </section>
-
-    <section class="final-cta">
-      <p class="eyebrow">NOW BUILD SOMETHING</p>
-      <h2 data-zh="现在，拿一个你喜欢的界面开始。" data-en="Now start with an interface you like.">现在，拿一个你喜欢的界面开始。</h2>
-      <div class="final-links">
-        <a href="./launcher.html?intent=rebuild"><span data-zh="从参考图开始" data-en="Start from a reference">从参考图开始</span> ↗</a>
-        <a data-smart-lang-link="./vocabulary.html" href="./vocabulary.html?lang=zh"><span data-zh="探索 UI Vocabulary" data-en="Explore UI Vocabulary">探索 UI Vocabulary</span> ↗</a>
-        <a data-smart-lang-link="./library.html" href="./library.html?lang=zh"><span data-zh="浏览案例库" data-en="Browse the library">浏览案例库</span> ↗</a>
-        <a data-smart-lang-link="./brands.html" href="./brands.html?lang=zh"><span data-zh="查看设计系统" data-en="Explore design systems">查看设计系统</span> ↗</a>
-      </div>
-    </section>
+    <section class="project-cta"><div class="project-container project-cta-inner"><div><p class="section-eyebrow">START WITH A REAL REFERENCE</p><h2 data-zh="找到一个方向，开始你的下一版界面。" data-en="Find a direction and build your next interface.">找到一个方向，开始你的下一版界面。</h2></div><div class="project-cta-actions"><a class="button-filled" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html" data-zh="开始设计" data-en="Start designing">开始设计</a><a class="button-outline" href="./library.html?lang=zh" data-smart-lang-link="./library.html" data-zh="浏览案例库" data-en="Browse the library">浏览案例库</a></div></div></section>
   </main>
-
-  <footer class="learn-footer"><span>ONDesign · AI UI Learning Path</span><a href="#top">Back to top ↑</a></footer>
+  <footer class="project-footer"><div class="project-container"><span>ONDesign · AI UI Design Workflow</span><a href="#top" data-zh="返回顶部 ↑" data-en="Back to top ↑">返回顶部 ↑</a></div></footer>
 </body>
 </html>
