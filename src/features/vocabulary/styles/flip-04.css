@@ -1,0 +1,40 @@
+.entry-variant-panel[data-entry-variant="carousel-360"][data-variant-index="2"] .vp-carousel--360 > div { filter: grayscale(.35); opacity: .72; }
+.entry-variant-panel[data-entry-variant="carousel-360"][data-variant-index="2"] .vp-carousel--360::after { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font-size: 10px; content: "暂停"; text-shadow: 0 1px 4px rgba(0,0,0,.45); }
+.entry-variant-panel[data-entry-variant="carousel-parallax"][data-variant-index="1"] .vp-carousel--parallax > .vp-media--carousel-back { transform: translateX(-8%) scale(1.16); }
+.entry-variant-panel[data-entry-variant="carousel-parallax"][data-variant-index="1"] .vp-carousel--parallax > .vp-media--carousel-main { transform: translateX(8%); }
+.entry-variant-panel[data-entry-variant="carousel-parallax"][data-variant-index="2"] .vp-carousel--parallax > img { transform: none; opacity: .86; }
+.entry-variant-panel[data-entry-variant^="carousel-"][data-variant-index="1"] .vp-carousel,
+.entry-variant-panel[data-entry-variant^="carousel-"][data-variant-index="2"] .vp-carousel { transform: none; opacity: 1; }
+@keyframes variant-spin { to { transform: rotate(1turn); } }
+.entry-card-back-visual { position: relative; min-height: 0; overflow: hidden; border-radius: 11px; background: #1a2b21; }
+.entry-card-back-visual > .vocabulary-preview { width: 100%; height: 100%; }
+.entry-card-back-visual > .vocabulary-preview > .vp-canvas { height: 100%; min-height: 100%; }
+.entry-card-back-media { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(.9) contrast(1.02); }
+.entry-card-back-topline { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 12px; color: rgba(255,255,255,.58); font: 750 9px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .65px; text-transform: uppercase; }
+.entry-card-back-topline b { overflow: hidden; color: #fff; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.entry-card-back-preview { min-width: 0; min-height: 0; overflow: hidden; border: 1px solid rgba(255,255,255,.22); border-radius: 13px; background: #fff; box-shadow: 0 12px 24px rgba(0,0,0,.18); }
+.entry-card-back-preview > .vocabulary-preview { width: 100%; height: 100%; }
+.entry-card-back-insight { min-width: 0; padding: 13px 14px; border: 1px solid rgba(255,255,255,.2); border-radius: 10px; background: rgba(255,255,255,.1); }
+.entry-card-back-insight > span { display: block; color: #b6f2c9; font: 850 10px/1.2 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: .02em; }
+.entry-card-back-insight p { display: -webkit-box; overflow: hidden; margin: 7px 0 0; color: rgba(255,255,255,.96); font-size: 14px; font-weight: 650; line-height: 1.5; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.entry-card-back-insight div { display: flex; gap: 5px; margin-top: 8px; overflow: hidden; }
+.entry-card-back-insight i { overflow: hidden; max-width: 46%; padding: 5px 8px; border-radius: 999px; background: rgba(157,234,183,.2); color: #d5f9df; font-size: 11px; font-weight: 700; font-style: normal; text-overflow: ellipsis; white-space: nowrap; }
+.entry-card-back-actions { display: grid; grid-template-columns: 1fr; gap: 8px; pointer-events: auto; }
+.entry-copy-prompt-button { position: relative; z-index: 3; display: flex; width: 100%; min-height: 44px; align-items: center; justify-content: center; gap: 8px; padding: 0 11px; border: 1px solid rgba(255,255,255,.62); border-radius: 999px; background: linear-gradient(135deg, rgba(239,255,244,.9), rgba(116,229,158,.78)); color: #0b3b22; box-shadow: 0 12px 30px rgba(3,77,40,.2), inset 0 1px 0 rgba(255,255,255,.9); backdrop-filter: blur(14px) saturate(1.15); -webkit-backdrop-filter: blur(14px) saturate(1.15); font-size: 11px; font-weight: 850; pointer-events: auto; cursor: pointer; }
+.entry-copy-prompt-button { grid-column: 1 / -1; }
+.entry-copy-prompt-button b { font-size: 15px; line-height: 1; }
+.entry-copy-prompt-button:hover, .entry-copy-prompt-button:focus-visible { border-color: rgba(255,255,255,.9); background: linear-gradient(135deg, rgba(255,255,255,.96), rgba(166,244,194,.9)); box-shadow: 0 15px 34px rgba(3,77,40,.24), inset 0 1px 0 #fff; outline: none; }
+.entry-front-copy-button { position: relative; z-index: 3; display: flex; width: 100%; min-height: 40px; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; padding: 0 12px; border: 1px solid #cfdad2; border-radius: 999px; background: #fff; color: var(--accent); font-size: 11px; font-weight: 800; pointer-events: auto; cursor: pointer; }
+.entry-front-copy-button:hover, .entry-front-copy-button:focus-visible { border-color: var(--accent); background: #eef8f0; outline: none; }
+.entry-front-copy-button b { font-size: 15px; font-weight: 600; line-height: 1; }
+.entry-detail-button { position: relative; z-index: 3; display: flex; width: 100%; min-height: 40px; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; padding: 0 12px; border: 1px solid var(--accent); border-radius: 999px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 850; pointer-events: auto; cursor: pointer; }
+.entry-detail-button:hover, .entry-detail-button:focus-visible { border-color: #102217; background: #102217; outline: none; }
+.entry-detail-button b { font-size: 15px; font-weight: 650; line-height: 1; }
+
+/* Code-rendered term previews. These are deliberately compact, non-interactive component specimens. */
+.vocabulary-preview { --vp-ink: #202a27; --vp-muted: #7a8580; --vp-line: #dfe5df; --vp-panel: #fff; --vp-soft: #f5f7f5; --vp-green: #21844f; --vp-lime: #c8ed83; display: block; position: relative; overflow: hidden; width: 100%; height: 100%; min-height: 0; background: var(--vp-panel); color: var(--vp-ink); font: 500 9px/1.35 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+.vocabulary-preview--hero, .vocabulary-preview--breadcrumbs, .vocabulary-preview--card, .vocabulary-preview--card-grid, .vocabulary-preview--list, .vocabulary-preview--media-tile, .vocabulary-preview--detail-panel, .vocabulary-preview--data-table, .vocabulary-preview--drawer { --vp-green: #276b8d; --vp-lime: #e6c76f; }
+.vocabulary-preview--button, .vocabulary-preview--checkbox, .vocabulary-preview--menu, .vocabulary-preview--modal, .vocabulary-preview--toast, .vocabulary-preview--skeleton { --vp-green: #8c4b31; --vp-lime: #f1c48d; }
+.vocabulary-preview--typography { --vp-green: #5d4c8d; --vp-lime: #ded5ff; }
+.vp-canvas { position: relative; width: 100%; height: 100%; min-height: 0; padding: 13px; }
+.vocabulary-preview * { box-sizing: border-box; }
