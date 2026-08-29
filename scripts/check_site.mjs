@@ -23,7 +23,8 @@ for (const entry of publicEntries) {
     if (!value || /^(?:https?:|mailto:|tel:|javascript:|#|\/\/)/i.test(value)) continue;
     const clean = value.split(/[?#]/)[0];
     if (!clean) continue;
-    const target = path.resolve(root, clean.replace(/^\.\//, ""));
+    const siteRelative = clean.replace(/^(?:\.\/|\/)/, "");
+    const target = path.resolve(root, siteRelative);
     if (!target.startsWith(root) || !fs.existsSync(target)) failures.push(`${entry} references missing local path: ${value}`);
   }
 }
