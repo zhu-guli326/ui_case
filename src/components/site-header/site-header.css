@@ -214,7 +214,7 @@ nav.site-nav.site-nav > a[aria-current="page"]::after,
 }
 
 .site-nav-star-glyph { font-size: 15px; line-height: 1; }
-.site-nav-stars { min-width: 1ch; color: var(--site-header-accent); font-weight: 800; }
+.site-nav-stars { min-width: 1ch; color: inherit; font-weight: 650; }
 .site-nav-social {
   display: grid !important;
   width: 42px;
@@ -229,22 +229,29 @@ nav.site-nav.site-nav > a[aria-current="page"]::after,
 .site-xhs-svg { width: 34px; height: 24px; }
 .site-xhs-svg rect { fill: #ff2442; }
 .site-xhs-svg text { fill: #fff; font: 850 9px/1 ui-sans-serif, system-ui, sans-serif; letter-spacing: .01em; }
+
+/* Keep the primary workflow entry in the same visual language as the rest of the nav.
+ * It remains slightly heavier, but is no longer a separate black button style. */
 .site-nav-community > .site-nav-start {
   min-height: 42px;
-  gap: 10px;
-  padding-inline: 16px;
-  border-radius: 9px;
-  background: var(--site-nav-active, #20231f);
-  color: #fff;
-  font-family: var(--font-sans-cjk);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0;
+  gap: 5px;
+  padding: 0 4px;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink, var(--site-ink));
+  font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .015em;
 }
-.site-nav-community > .site-nav-start::after { content: "↗"; color: #c8ff39; font-size: 14px; font-weight: 900; }
+.site-nav-community > .site-nav-start::after { display: none; content: none; }
 .site-nav-community > .site-nav-start:hover,
 .site-nav-community > .site-nav-start:focus-visible,
-.site-nav-community > .site-nav-start[aria-current="page"] { background: #121512; color: #fff; transform: translateY(-1px); }
+.site-nav-community > .site-nav-start[aria-current="page"] {
+  background: transparent;
+  color: var(--site-header-accent);
+  transform: translateY(-1px);
+}
 .site-nav .global-language-switch { flex: 0 0 auto; }
 .site-nav .global-language-switch { border-color: color-mix(in srgb, var(--line, var(--site-line)) 82%, transparent); }
 
@@ -309,6 +316,7 @@ body.site-shell-active > .site-header { flex: 0 0 auto; }
   .site-nav.site-nav { gap: 16px; }
   .site-nav-primary, .site-nav-community { gap: 13px; }
   nav.site-nav.site-nav > a, .site-nav-primary > a, .site-nav-community > a, .site-nav-more > summary { font-size: 12px; }
+  .site-nav-community > .site-nav-start { font-size: 12px; }
 }
 
 @media (max-width: 700px) {
@@ -345,7 +353,7 @@ body.site-shell-active > .site-header { flex: 0 0 auto; }
     font-size: 10px;
   }
 
-  .site-nav-community > .site-nav-start { padding-inline: 10px; }
+  .site-nav-community > .site-nav-start { min-height: 36px; padding-inline: 3px; font-size: 10px; }
   .site-nav .global-language-switch { position: static; }
   .site-nav .global-language-switch button { min-width: 38px; min-height: 32px; padding-inline: 5px; font-size: 9px; }
 
@@ -367,6 +375,7 @@ body.site-shell-active > .site-header { flex: 0 0 auto; }
   .site-nav.site-nav { gap: 6px; }
   .site-nav-primary, .site-nav-community { gap: 7px; }
   nav.site-nav.site-nav > a, .site-nav-primary > a, .site-nav-community > a, .site-nav-more > summary { font-size: 9px; }
+  .site-nav-community > .site-nav-start { font-size: 9px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
