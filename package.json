@@ -1,29 +1,18 @@
 {
-  "name": "ui-case-gallery",
+  "name": "ondesign-site",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "node scripts/serve_site.mjs",
-    "build:catalog": "node scripts/build_catalog.mjs",
-    "capture:skill-web-previews": "node scripts/capture_skill_web_previews.mjs",
-    "audit:skill-card-visuals": "node scripts/audit_skill_card_visuals.mjs",
-    "refresh:skill-card-visuals": "npm run capture:skill-web-previews && npm run audit:skill-card-visuals",
     "serve": "node scripts/serve_site.mjs",
-    "test": "node --test",
+    "build:catalog": "node scripts/build_catalog.mjs",
     "check": "node scripts/check_site.mjs",
     "audit:tokens": "node scripts/token_audit.mjs",
     "guard:repo": "node scripts/repository_guard.mjs",
-    "audit:visual": "node scripts/audit_demo_visual_contract.mjs",
-    "audit:library-preview": "node scripts/audit_library_preview_contract.mjs",
-    "audit:library-media": "node scripts/audit_library_media_integrity.mjs",
-    "audit:bottom-safety": "node scripts/audit_demo_bottom_safety.mjs",
-    "audit:screen-safety": "node scripts/audit_demo_screen_safety.mjs"
+    "test": "node --test"
   },
   "engines": {
     "node": ">=20"
-  },
-  "devDependencies": {
-    "playwright": "^1.62.1"
   }
 }
