@@ -1,0 +1,70 @@
+name: Clean Loy once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/clean-loy-once.yml
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Remove Loy residues and rebuild catalog
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+
+          const dataPath = 'src/features/library/library-data.js';
+          let data = fs.readFileSync(dataPath, 'utf8');
+          const dataBlock = `  loy: [\n    { src: "./demo/loy-wellness/screenshots/03-welcome.png", label: { zh: "欢迎页", en: "Welcome" } },\n    { src: "./demo/loy-wellness/screenshots/01-home.png", label: { zh: "健康首页", en: "Wellness home" } },\n    { src: "./demo/loy-wellness/screenshots/02-playlist.png", label: { zh: "播放列表", en: "Playlist" } }\n  ],\n`;
+          data = data.replace(dataBlock, '');
+          fs.writeFileSync(dataPath, data);
+
+          const libraryPath = 'src/features/library/library.js';
+          let library = fs.readFileSync(libraryPath, 'utf8');
+          const mediaBlock = `  loy: Object.freeze({\n    previewImage: "./demo/loy-wellness/screenshots/01-home.png",\n    poster: "./demo/loy-wellness/screenshots/01-home.png",\n    videoSequence: Object.freeze({\n      duration: 6,\n      frames: Object.freeze([\n        Object.freeze({ src: "./demo/loy-wellness/screenshots/01-home.png", label: "健康首页", at: 0 }),\n        Object.freeze({ src: "./demo/loy-wellness/screenshots/02-playlist.png", label: "播放列表", at: 2 }),\n        Object.freeze({ src: "./demo/loy-wellness/screenshots/03-welcome.png", label: "欢迎", at: 4 })\n      ])\n    })\n  }),\n`;
+          library = library.replace(mediaBlock, '');
+          fs.writeFileSync(libraryPath, library);
+
+          const filterPath = 'src/features/library/library-filter.js';
+          let filter = fs.readFileSync(filterPath, 'utf8');
+          filter = filter.replace('const HIDDEN_GUIDE_IDS = new Set(["loy"]);\n\n', '');
+          filter = filter.replace('    if (HIDDEN_GUIDE_IDS.has(guide.id)) return false;\n', '');
+          fs.writeFileSync(filterPath, filter);
+
+          const previewPath = 'src/features/library/library-preview-config.mjs';
+          let preview = fs.readFileSync(previewPath, 'utf8');
+          preview = preview.replace('  "loy",\n', '');
+          fs.writeFileSync(previewPath, preview);
+          NODE
+
+          npm run build:catalog
+
+          test ! -e catalog/cases/loy.json
+          test ! -e demo/loy-wellness
+          ! grep -R -n -E 'loy-wellness|"id": "loy"|HIDDEN_GUIDE_IDS.*loy' catalog src/features/library
+
+          npm run check
+          git diff --check
+      - name: Commit cleanup
+        run: |
+          if git diff --quiet; then
+            echo "Loy cleanup is already complete."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add catalog/index.js src/features/library/library-data.js src/features/library/library.js src/features/library/library-filter.js src/features/library/library-preview-config.mjs
+          git commit -m "fix(library): purge Loy case residues"
+          git pull --rebase origin main
+          git push origin HEAD:main
