@@ -10,7 +10,7 @@
   <meta name="description" content="设计 Skill 观察与可复制提示词。">
   <title>设计 Skill 观察 · ONDesign</title>
     <link rel="stylesheet" href="./src/core/app-shell/design-tokens.css?v=20260828-unified-v1">
-<link rel="stylesheet" href="./src/features/skills/skills.css?v=20260828-unified-v1">
+<link rel="stylesheet" href="./src/features/skills/skills.css?v=20260829-ant-directory-v1">
     <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260828-unified-v1">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260828-unified-v1">
   <link rel="stylesheet" href="./src/components/site-header/site-footer.css?v=20260828-unified-v1">
@@ -34,10 +34,7 @@
     <section class="skills-hero" aria-labelledby="skillsHeroTitle">
       <div class="hero-discovery">
         <p class="eyebrow" data-i18n="skills.heroEyebrow">DESIGN SKILL MAP</p>
-        <h1 id="skillsHeroTitle"><span data-i18n="skills.heroDiscover">发现</span><strong id="skillsHeroCount">35</strong><span data-i18n="skills.heroUnit">个</span><em id="skillsHeroKind">Design Skills</em></h1>
-        <div class="hero-update-note"><span data-i18n="skills.updateCount">本次更新</span><strong id="heroUpdateCount">+8</strong><small id="heroUpdateLabel">新增演示 Skill</small></div>
-      </div>
-      <div class="hero-copy">
+        <h1 id="skillsHeroTitle" data-i18n="skills.heroTitle">设计 Skill 能力地图</h1>
         <p id="skillsHeroBody" data-i18n="skills.heroBody">这里不是仓库排行榜，而是一张设计能力地图。先选择你要完成的工作，再比较 Skill 的用途、维护状态与调用方式。</p>
         <div class="hero-links">
           <a class="hero-repo-link" href="https://github.com/zhu-guli326/image2_UI_skill" target="_blank" rel="noopener noreferrer" data-official-skill-link>
@@ -49,6 +46,11 @@
           <a class="quiet-link" href="./launcher.html"><span data-i18n="skills.configure">配置调用环境</span><svg class="skills-icon" aria-hidden="true"><use href="#ondesign-icon-arrow-right"></use></svg></a>
         </div>
       </div>
+      <aside class="hero-overview" aria-label="资源概览">
+        <header><span data-i18n="skills.overview">资源概览</span><div class="hero-update-note"><span data-i18n="skills.updateCount">本次更新</span><strong id="heroUpdateCount">+8</strong><small id="heroUpdateLabel">新增演示 Skill</small></div></header>
+        <div class="hero-primary-stat"><strong id="skillsHeroCount">53</strong><span id="skillsHeroKind">Design Skills</span></div>
+        <dl><div><dt data-i18n="skills.taskPaths">任务路径</dt><dd>4</dd></div><div><dt data-i18n="skills.categories">能力分类</dt><dd>13</dd></div><div><dt data-i18n="skills.dataSource">数据来源</dt><dd>GitHub</dd></div></dl>
+      </aside>
     </section>
 
     <nav class="task-rail" aria-label="任务路径">
