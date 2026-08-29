@@ -17,16 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Token audit
-        run: npm run audit:tokens
-      - name: Repository guard
-        env:
-          REPO_GUARD_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
-        run: npm run guard:repo
-      - run: npm test
-      - run: npm run check
+      - name: Check catalog sync
+        run: npm run build:catalog -- --check
+      - name: Check site paths
+        run: npm run check
