@@ -1,5 +1,4 @@
 (() => {
-  const scriptUrl = document.currentScript?.src || window.location.href;
   const previewRoot = document.querySelector('.preview-page');
   const FONT_STORAGE_KEY = 'ondesign:launcher-font-preset:v2';
 
@@ -34,7 +33,6 @@
 
   let fontSelect = null;
   let activeFontId = 'system-sans';
-  let designImportPromise = null;
   let designSystemActive = false;
 
   function syncDirectionPreviewSizes() {
@@ -203,17 +201,6 @@
     if (!designSystemActive) window.requestAnimationFrame(reapplyFontOverride);
   }
 
-  function loadDesignSystemLibrary() {
-    if (window.ONDesignDesignSystems) return Promise.resolve(window.ONDesignDesignSystems);
-    if (designImportPromise) return designImportPromise;
-    const moduleUrl = new URL('./launcher-design-systems.js', scriptUrl).href;
-    designImportPromise = import(moduleUrl).catch((error) => {
-      console.error('[ONDesign] design system dropdown failed to load', error);
-      designImportPromise = null;
-    });
-    return designImportPromise;
-  }
-
   function translatePreviewSamples() {
     if (!previewRoot) return;
     const pairs = [
@@ -257,7 +244,6 @@
     installFontSelect();
     renderFontOptions();
     if (!designSystemActive) window.requestAnimationFrame(reapplyFontOverride);
-    loadDesignSystemLibrary();
     translatePreviewSamples();
   }
 
