@@ -33,3 +33,4 @@ jobs:
           git commit -m "refactor: enforce single-source page implementations"
           git pull --rebase origin main
           git push origin HEAD:main
+# retry after script syntax fix
