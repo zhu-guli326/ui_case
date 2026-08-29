@@ -1011,6 +1011,124 @@ fieldset legend { margin-bottom: 8px; color: var(--ant-text); font-size: 13px; f
 .preview-dock button span, .preview-dock p { color: var(--ant-text-secondary); }
 .dna-toast { border-radius: 6px; background: rgb(0 0 0 / 88%); color: #fff; font-weight: 500; box-shadow: var(--ant-shadow); }
 
+/* Squarespace / Refero homepage skin --------------------------------------- */
+:root {
+  --sq-obsidian: #000000;
+  --sq-paper: #ffffff;
+  --sq-charcoal: #2f2f2f;
+  --sq-ash: #898989;
+  --sq-fog: #dddddd;
+  --sq-slate: #999999;
+  --sq-sans: "Clarkson", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --sq-serif: "Clarkson Serif", "Songti SC", "Noto Serif SC", Georgia, serif;
+  --sq-radius: 8px;
+}
+
+html, body.dna-page { background: var(--sq-paper); color: var(--sq-obsidian); }
+body.dna-page { font-family: var(--sq-sans); }
+.dna-app { width: min(1200px, calc(100% - 64px)); padding: 0 0 120px; }
+
+.dna-hero {
+  align-items: flex-end;
+  min-height: 232px;
+  padding: 56px 0 48px;
+  border-bottom: 1px solid var(--sq-obsidian);
+}
+.dna-kicker { margin-bottom: 16px; color: var(--sq-obsidian); font: 500 12px/1.4 var(--sq-sans); letter-spacing: .08em; }
+.dna-hero h1 {
+  max-width: 780px;
+  color: var(--sq-obsidian);
+  font: 300 clamp(48px, 6vw, 72px)/.93 var(--sq-sans);
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+.dna-lede { max-width: 640px; margin-top: 24px; color: var(--sq-charcoal); font: 400 15px/1.4 var(--sq-sans); }
+.dna-preset-button {
+  min-height: 48px;
+  padding: 0 24px;
+  border-color: var(--sq-obsidian);
+  border-radius: 0;
+  background: var(--sq-obsidian);
+  color: var(--sq-paper);
+  font: 500 14px/1 var(--sq-sans);
+  box-shadow: none;
+}
+.dna-preset-button:hover, .dna-preset-button[aria-expanded="true"] { border-color: var(--sq-charcoal); background: var(--sq-charcoal); color: var(--sq-paper); }
+.dna-preset-panel { top: calc(100% + 8px); width: 240px; border: 1px solid var(--sq-obsidian); border-radius: 0; background: var(--sq-paper); box-shadow: none; }
+.dna-preset-list { padding: 8px; }
+.dna-preset-item { min-height: 42px; border-radius: 0; color: var(--sq-obsidian); font-weight: 400; }
+.dna-preset-item:hover { background: #f4f4f4; }
+.dna-preset-item.is-selected { background: var(--sq-obsidian); color: var(--sq-paper); box-shadow: none; }
+.dna-preset-item.is-selected::after { color: var(--sq-paper); }
+
+.dna-workspace { grid-template-columns: minmax(360px, 400px) minmax(0, 1fr); gap: 40px; padding-top: 40px; }
+.dna-controls { border: 1px solid var(--sq-obsidian); border-radius: var(--sq-radius); background: var(--sq-paper); box-shadow: none; }
+.dna-section { border-color: var(--sq-fog); }
+.dna-section-head { grid-template-columns: 32px minmax(0, 1fr) auto 16px; min-height: 80px; padding: 16px 24px; background: var(--sq-paper); }
+.dna-section-head:hover { background: #f7f7f7; }
+.dna-section[open] > .dna-section-head { background: var(--sq-paper); box-shadow: inset 0 -1px var(--sq-obsidian); }
+.dna-section-head > span { width: 32px; height: 32px; border: 1px solid var(--sq-obsidian); border-radius: 100px; background: var(--sq-paper); color: var(--sq-obsidian); font: 500 12px/1 var(--sq-sans); }
+.dna-section-head h2 { color: var(--sq-obsidian); font: 500 20px/1.2 var(--sq-sans); letter-spacing: -.02em; }
+.dna-section-head p { margin-top: 4px; color: var(--sq-ash); font: 400 12px/1.4 var(--sq-sans); }
+.dna-section-value, .dna-section-head > i { color: var(--sq-ash); }
+.dna-section-value { font-weight: 400; }
+.dna-section-body { padding: 32px 24px; border-color: var(--sq-fog); }
+.section-hint { margin-top: 16px; color: var(--sq-ash); }
+.section-hint a, .section-hint a:hover { color: var(--sq-obsidian); text-decoration-thickness: 1px; }
+fieldset { margin-bottom: 24px; }
+fieldset legend { margin-bottom: 12px; color: var(--sq-obsidian); font: 500 14px/1.2 var(--sq-sans); }
+
+.direction-grid { gap: 8px; }
+.direction-card { border-color: var(--sq-fog); border-radius: var(--sq-radius); background: var(--sq-paper); }
+.direction-card:hover { border-color: var(--sq-obsidian); }
+.direction-card.is-selected { border-color: var(--sq-obsidian); background: var(--sq-paper); box-shadow: 0 0 0 1px var(--sq-obsidian); }
+.direction-card::after { background: var(--sq-obsidian); }
+.direction-card > span { padding: 12px 12px 16px; }
+.direction-card strong { color: var(--sq-obsidian); font-weight: 500; }
+.direction-card small { color: var(--sq-ash); }
+
+.segmented-control { padding: 4px; border-radius: var(--sq-radius); background: #f0f0f0; }
+.segmented-control button { min-height: 36px; border-radius: 3px; color: var(--sq-charcoal); font-weight: 400; }
+.segmented-control button.is-selected { background: var(--sq-obsidian); color: var(--sq-paper); box-shadow: none; }
+.palette-option { padding: 8px; border-color: var(--sq-fog); border-radius: var(--sq-radius); }
+.palette-option:hover { border-color: var(--sq-obsidian); }
+.palette-option.is-selected { border-color: var(--sq-obsidian); background: var(--sq-paper); box-shadow: 0 0 0 1px var(--sq-obsidian); }
+.palette-option b { color: var(--sq-obsidian); font-weight: 400; }
+.select-control select, .preview-picker select { border-color: var(--sq-fog); border-radius: var(--sq-radius); background: var(--sq-paper); color: var(--sq-obsidian); font-family: var(--sq-sans); }
+.select-control select:hover, .preview-picker select:hover, .select-control select:focus, .preview-picker select:focus { border-color: var(--sq-obsidian); box-shadow: none; }
+.field-help { color: var(--sq-ash); }
+
+.dna-name-field > span, .dna-prompt-label { color: var(--sq-obsidian); font-weight: 500; }
+.dna-name-field input { min-height: 44px; border-color: var(--sq-fog); border-radius: var(--sq-radius); color: var(--sq-obsidian); font-family: var(--sq-sans); }
+.dna-name-field input:focus { border-color: var(--sq-obsidian); box-shadow: none; }
+.dna-summary { border-color: var(--sq-fog); border-radius: var(--sq-radius); }
+.dna-summary > div { border-color: var(--sq-fog); background: var(--sq-paper); }
+.dna-summary dt { color: var(--sq-ash); }
+.dna-summary dd { color: var(--sq-obsidian); }
+.dna-prompt { border-color: var(--sq-fog); border-radius: var(--sq-radius); background: #f7f7f7; color: var(--sq-charcoal); }
+.save-primary, .copy-secondary { min-height: 44px; border-radius: 0; font-weight: 500; }
+.save-primary, .save-primary:hover { background: var(--sq-obsidian); color: var(--sq-paper); }
+.copy-secondary { border-color: var(--sq-obsidian); background: var(--sq-paper); color: var(--sq-obsidian); }
+.copy-secondary:hover { border-color: var(--sq-charcoal); background: #f4f4f4; color: var(--sq-obsidian); }
+
+.canvas-label { min-height: 56px; margin-bottom: 16px; }
+.canvas-label > div:first-child > span { color: var(--sq-ash); font: 500 12px/1.4 var(--sq-sans); letter-spacing: .08em; }
+.canvas-label h2 { margin-top: 4px; color: var(--sq-obsidian); font: 400 26px/1 var(--sq-serif); letter-spacing: -.02em; }
+.preview-picker > span { color: var(--sq-ash); }
+.device-switch { padding: 4px; border-radius: var(--sq-radius); background: #f0f0f0; }
+.device-switch button { min-height: 30px; border-radius: 3px; color: var(--sq-charcoal); }
+.device-switch button.is-selected { background: var(--sq-obsidian); color: var(--sq-paper); box-shadow: none; }
+.preview-browser { border: 1px solid var(--sq-obsidian); border-radius: var(--sq-radius); box-shadow: none; }
+.browser-bar { height: 40px; border-color: var(--sq-obsidian); background: var(--sq-obsidian); }
+.browser-bar span, .browser-bar b { color: var(--sq-ash); }
+.browser-bar i { background: var(--sq-charcoal); }
+.preview-dock { min-height: 56px; border-color: var(--sq-obsidian); background: var(--sq-obsidian); }
+.dock-divider { background: var(--sq-charcoal); }
+.preview-dock b, .preview-dock button span { color: var(--sq-paper); }
+.preview-dock p { color: var(--sq-ash); }
+.dna-toast { border-radius: 0; background: var(--sq-obsidian); color: var(--sq-paper); box-shadow: none; }
+button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline-color: var(--sq-obsidian); }
+
 /* Responsive ---------------------------------------------------------------- */
 
 @media (max-width: 1180px) {
@@ -1022,7 +1140,7 @@ fieldset legend { margin-bottom: 8px; color: var(--ant-text); font-size: 13px; f
   .dna-lede { max-width: none; }
 }
 @media (max-width: 800px) {
-  .dna-app { padding-inline: 18px; }
+  .dna-app { width: min(100% - 36px, 1200px); padding-inline: 0; }
   .type-list { grid-template-columns: 1fr; }
   .v-cards, .v-pricing, .v-stats { grid-template-columns: 1fr; }
   .v-product-grid { grid-template-columns: 1fr; }
@@ -1042,6 +1160,7 @@ fieldset legend { margin-bottom: 8px; color: var(--ant-text); font-size: 13px; f
   .preview-dock { flex-wrap: wrap; gap: 10px 14px; }
 }
 @media (max-width: 560px) {
+  .dna-hero h1 { font-size: 44px; }
   .direction-grid { gap: 10px; }
   .direction-card > span { padding: 10px 12px 12px; }
   .palette-list { grid-template-columns: repeat(2, 1fr); }
