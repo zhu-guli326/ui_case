@@ -13,12 +13,12 @@
   <link rel="stylesheet" href="./src/core/app-shell/design-tokens.css?v=20260828-unified-v1">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
-  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260829-ant-layout-v13">
+  <link rel="stylesheet" href="./src/features/launcher/launcher-dna.css?v=20260829-presets-v14">
   <link rel="stylesheet" href="./src/components/site-header/site-footer.css?v=20260828-unified-v1">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
-  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260829-ant-layout-v13"></script>
+  <script type="module" src="./src/features/launcher/launcher-dna.js?v=20260829-presets-v14"></script>
 </head>
 <body class="dna-page">
   <image2-site-header data-site-header></image2-site-header>
@@ -36,14 +36,7 @@
             <span data-preset-label>预设 · 克制</span><i aria-hidden="true"></i>
           </button>
           <div class="dna-preset-panel" data-preset-panel hidden>
-            <div class="dna-preset-toolbar">
-              <label class="dna-preset-search"><input type="search" data-preset-search placeholder="搜索设计 DNA" aria-label="搜索设计 DNA 预设" data-i18n-attr="placeholder:dna.searchPlaceholder,aria-label:dna.searchPlaceholder"></label>
-              <button class="dna-preset-clear" type="button" data-preset-clear data-i18n="dna.clear">清除</button>
-            </div>
-            <div class="dna-preset-body">
-              <div class="dna-preset-list" role="listbox" aria-label="设计 DNA 预设" data-preset-list></div>
-              <div class="dna-preset-detail" data-preset-detail aria-live="polite"></div>
-            </div>
+            <div class="dna-preset-list" role="listbox" aria-label="设计 DNA 预设" data-preset-list></div>
           </div>
         </div>
       </div>

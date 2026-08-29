@@ -362,45 +362,21 @@ function installSectionDropdowns() {
 }
 
 
-function renderPresetDetail(preset) {
-  const detail = $("[data-preset-detail]");
-  if (!detail) return;
-  const roles = t("swatchRoles");
-  const swatches = (preset.kind === "palette" ? preset.colors : paletteFor(preset.palette).colors).map((color, index) => `<figure><i style="background:${color}"></i><figcaption><b>${color}</b><small>${roles[index] || ""}</small></figcaption></figure>`).join("");
-  if (preset.kind === "palette") {
-    const tags = preset.tags.length ? `<p class="dna-preset-tags">${preset.tags.map((tag) => `<span>${tag}</span>`).join("")}</p>` : "";
-    detail.innerHTML = `<h3>${presetLabel(preset)}</h3><p>${preset.desc}</p>${tags}<div class="dna-preset-swatches">${swatches}</div>`;
-    return;
-  }
-  detail.innerHTML = `<h3>${presetLabel(preset)}</h3><p>${LANG() === "en" ? preset.descEn : preset.desc}</p><p class="dna-preset-meta">${t("presetMeta")(L().font[preset.font], preset.radius, preset.spacing, L().density[preset.density])}</p><div class="dna-preset-swatches">${swatches}</div>`;
-}
-
-function renderPresetList(filter = "") {
+function renderPresetList() {
   const list = $("[data-preset-list]");
   if (!list) return;
-  const query = filter.trim().toLowerCase();
-  const matches = (preset) => !query || `${preset.label}${preset.labelEn || ""}${preset.desc}${preset.descEn || ""}${preset.tags ? preset.tags.join("") : ""}`.toLowerCase().includes(query);
-  const bundleItems = presets.filter(matches);
-  const catalogItems = catalogPresets.filter(matches);
-  const bundleHtml = bundleItems.map((preset) => {
+  list.innerHTML = presets.map((preset) => {
     const selected = currentPresetRef?.kind === "bundle" ? currentPresetRef.id === preset.id : false;
-    return `<button type="button" role="option" aria-selected="${selected}" class="dna-preset-item${selected ? " is-selected" : ""}" data-preset-kind="bundle" data-preset-id="${preset.id}"><span>${presetLabel(preset)}</span><small>${L().font[preset.font]} · ${preset.radius}px</small></button>`;
+    return `<button type="button" role="option" aria-selected="${selected}" class="dna-preset-item${selected ? " is-selected" : ""}" data-preset-id="${preset.id}"><span>${presetLabel(preset)}</span></button>`;
   }).join("");
-  const catalogHtml = catalogItems.map((preset) => {
-    const selected = state.palette === preset.paletteKey;
-    return `<button type="button" role="option" aria-selected="${selected}" class="dna-preset-item${selected ? " is-selected" : ""}" data-preset-kind="palette" data-preset-id="${preset.id}"><span>${presetLabel(preset)}</span><small>${preset.colors[0]}</small></button>`;
-  }).join("");
-  list.innerHTML = (bundleItems.length ? `<p class="dna-preset-group">${t("groupDna")}</p>${bundleHtml}` : "")
-    + (catalogItems.length ? `<p class="dna-preset-group">${t("groupCatalog")}</p>${catalogHtml}` : "")
-    + (!bundleItems.length && !catalogItems.length ? `<p class="dna-preset-empty">${t("noMatch")}</p>` : "");
   list.querySelectorAll("[data-preset-id]").forEach((button) => {
-    const pool = button.dataset.presetKind === "palette" ? catalogPresets : presets;
-    const preset = pool.find((item) => item.id === button.dataset.presetId);
-    button.addEventListener("click", () => { button.dataset.presetKind === "palette" ? applyCatalogPreset(preset) : applyPreset(preset); });
-    button.addEventListener("mouseenter", () => renderPresetDetail(preset));
+    const preset = presets.find((item) => item.id === button.dataset.presetId);
+    button.addEventListener("click", () => {
+      applyPreset(preset);
+      $("[data-preset-panel]").hidden = true;
+      $("[data-preset-toggle]").setAttribute("aria-expanded", "false");
+    });
   });
-  const shown = bundleItems.find((item) => item.id === activePresetId) || catalogItems.find((item) => item.paletteKey === state.palette) || bundleItems[0] || catalogItems[0];
-  if (shown) renderPresetDetail(shown);
 }
 
 function installPresetDropdown() {
@@ -409,10 +385,8 @@ function installPresetDropdown() {
   const panel = $("[data-preset-panel]");
   if (!root || !toggle || !panel) return;
   const close = () => { panel.hidden = true; toggle.setAttribute("aria-expanded", "false"); };
-  const open = () => { panel.hidden = false; toggle.setAttribute("aria-expanded", "true"); renderPresetList($("[data-preset-search]")?.value || ""); };
+  const open = () => { panel.hidden = false; toggle.setAttribute("aria-expanded", "true"); renderPresetList(); };
   toggle.addEventListener("click", () => { panel.hidden ? open() : close(); });
-  $("[data-preset-search]")?.addEventListener("input", (event) => renderPresetList(event.target.value));
-  $("[data-preset-clear]")?.addEventListener("click", () => { applyPreset(presets[0]); close(); });
   document.addEventListener("click", (event) => { if (!event.target.closest("[data-preset-root]")) close(); });
   document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !panel.hidden) close(); });
 }

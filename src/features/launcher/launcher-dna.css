@@ -846,16 +846,17 @@ body.dna-page { font-size: 14px; }
   transition: transform .18s ease;
 }
 .dna-preset-button[aria-expanded="true"] i { transform: translateY(2px) rotate(225deg); }
-.dna-preset-panel { width: min(600px, calc(100vw - 32px)); border-color: var(--ant-border-secondary); border-radius: 10px; background: var(--ant-bg-container); box-shadow: 0 9px 28px 8px rgb(0 0 0 / 5%), 0 6px 16px rgb(0 0 0 / 8%); }
+.dna-preset-panel { width: 224px; border-color: var(--ant-border-secondary); border-radius: 10px; background: var(--ant-bg-container); box-shadow: 0 9px 28px 8px rgb(0 0 0 / 5%), 0 6px 16px rgb(0 0 0 / 8%); }
 .dna-preset-toolbar { padding: 12px; border-color: var(--ant-border-secondary); }
 .dna-preset-search input { min-height: 36px; border-color: var(--ant-border); border-radius: 6px; background: var(--ant-bg-container); color: var(--ant-text); }
 .dna-preset-search input:focus { border-color: var(--ant-primary); box-shadow: 0 0 0 2px rgb(24 169 87 / 12%); }
 .dna-preset-clear { color: var(--ant-primary); font-weight: 500; }
-.dna-preset-body { grid-template-columns: 224px minmax(0, 1fr); }
-.dna-preset-list { border-color: var(--ant-border-secondary); }
+.dna-preset-list { max-height: none; padding: 6px; border: 0; }
 .dna-preset-item { border-radius: 6px; }
 .dna-preset-item:hover { background: var(--ant-primary-bg); }
 .dna-preset-item.is-selected { background: var(--ant-primary-bg); box-shadow: inset 3px 0 var(--ant-primary); }
+.dna-preset-item.is-selected::after { margin-left: auto; color: var(--ant-primary); content: "✓"; font-size: 12px; font-weight: 700; }
+.dna-preset-item { grid-template-columns: minmax(0, 1fr) auto; align-items: center; min-height: 38px; }
 .dna-preset-detail h3 { color: var(--ant-text); font-size: 18px; font-weight: 600; }
 .dna-preset-detail p, .dna-preset-group, .dna-preset-item small { color: var(--ant-text-secondary); }
 
