@@ -731,7 +731,7 @@ function renderDesignReferences() {
             </a>
             <div class="web-reference-body">
               <a class="web-reference-title" href="${site.url}" target="_blank" rel="noreferrer" data-design-reference="${escapeHtml(site.domain)}"><span>${escapeHtml(site.name)}</span><i aria-hidden="true">${skillIcon("external-link")}</i></a>
-              <p class="web-reference-domain">${escapeHtml(site.domain)}</p>
+              <p class="web-reference-domain">${escapeHtml(site.domain)}${site.openSource ? `<span class="web-source-badge">${currentLanguage === "en" ? "Source code" : "有源代码"}</span>` : ""}</p>
               <p class="web-reference-description">${escapeHtml(currentLanguage === "en" ? site.descriptionEn : site.descriptionZh)}</p>
               <footer><span>${currentLanguage === "en" ? "Best for" : "适合用于"}</span><strong>${escapeHtml(currentLanguage === "en" ? site.focusEn : site.focusZh)}</strong></footer>
             </div>
