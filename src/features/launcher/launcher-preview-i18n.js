@@ -114,6 +114,19 @@
     });
   }
 
+  function syncWorkspaceAlignment() {
+    const controls = document.querySelector('.dna-controls');
+    const canvas = document.querySelector('.dna-canvas');
+    const browser = document.querySelector('.preview-browser');
+    if (!controls || !canvas || !browser) return;
+    if (window.matchMedia('(max-width: 1024px)').matches) {
+      controls.style.marginTop = '0px';
+      return;
+    }
+    const offset = Math.max(0, Math.round(browser.getBoundingClientRect().top - canvas.getBoundingClientRect().top));
+    controls.style.marginTop = `${offset}px`;
+  }
+
   function buildLibraryUrl(caseId = '') {
     const params = new URLSearchParams({ lang: language() });
     if (caseId) params.set('case', caseId);
@@ -348,6 +361,7 @@
     installCaseDialogLinks();
     syncLanguageLinks();
     syncDirectionPreviewSizes();
+    syncWorkspaceAlignment();
     installFontSelect();
     renderFontOptions();
     window.requestAnimationFrame(reapplyFontOverride);
@@ -360,9 +374,15 @@
     if (!event.target.closest('.font-select-control') && activeFontId) window.requestAnimationFrame(reapplyFontOverride);
   });
   document.addEventListener('change', () => window.requestAnimationFrame(reapplyFontOverride));
-  window.addEventListener('resize', syncDirectionPreviewSizes);
+  window.addEventListener('resize', () => {
+    syncDirectionPreviewSizes();
+    syncWorkspaceAlignment();
+  });
   window.addEventListener('image2:languagechange', sync);
-  window.addEventListener('load', syncDirectionPreviewSizes, { once: true });
+  window.addEventListener('load', () => {
+    syncDirectionPreviewSizes();
+    syncWorkspaceAlignment();
+  }, { once: true });
 
   sync();
 })();
