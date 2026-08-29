@@ -1108,7 +1108,6 @@ export const styleGuides = [
     ]
   }
 ];
-
 export const styleProfiles = [
   {
     "id": "editorial-commerce",
@@ -1662,6 +1661,68 @@ export const brandProfiles = [
     }
   },
   {
+    "id": "editorial-commerce",
+    "name": "编辑型时尚",
+    "sourceType": "style-reference",
+    "sourceStatus": "风格参考",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "ios"
+    ],
+    "industry": [
+      "电商",
+      "生活方式",
+      "内容"
+    ],
+    "styles": [
+      "编辑式",
+      "极简",
+      "奢侈品"
+    ],
+    "completeness": "完整系统",
+    "foundations": {
+      "colors": {
+        "paper": "#F7F4EF",
+        "ink": "#2D251F",
+        "accent": "#A45855",
+        "muted": "#9B9188"
+      },
+      "typography": {
+        "display": "授权衬线字体或高对比开源替代",
+        "body": "系统无衬线",
+        "scale": "40 / 28 / 18 / 14"
+      },
+      "spacing": "4px 基线，24px 内容边距，48px 区块间距",
+      "radius": "8px 内容容器，圆形仅用于头像与图像",
+      "elevation": "无厚阴影，以留白和细边界分层",
+      "grid": "12 列 Web，4 列移动端",
+      "motion": "180ms 淡入、收藏和画面切换"
+    },
+    "components": {
+      "button": "深色实心主操作，文字短且明确",
+      "card": "图片优先，信息区平整无套卡",
+      "navigation": "低干扰文字导航，当前态使用细线",
+      "form": "细下划线或浅边框，避免高饱和输入框",
+      "dialog": "白底编辑式详情，保留充足阅读边距"
+    },
+    "visualLanguage": {
+      "photography": "自然柔光、单一主体、保留剪裁与文案安全区；不生成品牌 logo 或文字",
+      "illustration": "克制、材料感优先，不取代功能 icon",
+      "iconography": "16-20px 细线代码图标"
+    },
+    "contentVoice": "简短、感官具体、避免促销堆叠和夸张折扣语气。",
+    "accessibility": "正文至少 4.5:1 对比度；不以颜色作为唯一状态信息。",
+    "dos": [
+      "让商品和摄影承担第一视觉",
+      "将价格和行动放在稳定阅读层级"
+    ],
+    "donts": [
+      "不要生成或仿制第三方品牌标识",
+      "不要把折扣、角标和标签同时堆在主视觉上"
+    ]
+  },
+  {
     "id": "element-plus",
     "name": "Element Plus",
     "organization": "Element Plus",
@@ -1828,6 +1889,68 @@ export const brandProfiles = [
     }
   },
   {
+    "id": "minimal-tech",
+    "name": "极简科技",
+    "sourceType": "style-reference",
+    "sourceStatus": "风格参考",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "ios",
+      "android"
+    ],
+    "industry": [
+      "科技",
+      "工具",
+      "健康"
+    ],
+    "styles": [
+      "功能主义",
+      "极简"
+    ],
+    "completeness": "组件规范",
+    "foundations": {
+      "colors": {
+        "canvas": "#F4F6F4",
+        "ink": "#151716",
+        "accent": "#C8FF3D",
+        "signal": "#168143"
+      },
+      "typography": {
+        "display": "系统无衬线 700",
+        "body": "系统无衬线 400",
+        "scale": "32 / 24 / 16 / 14"
+      },
+      "spacing": "4px 基线，16px 控件间距，32px 模块间距",
+      "radius": "6px 数据容器，22px 主操作",
+      "elevation": "一层低对比边框，不使用玻璃拟态",
+      "grid": "12 列 Web，8pt 移动端节奏",
+      "motion": "150ms 状态反馈，遵从 reduced-motion"
+    },
+    "components": {
+      "button": "高对比单一 accent，只用于主操作",
+      "card": "平整信息面，明确标题、数值和一个状态",
+      "navigation": "图标和文字均有可访问名称，选中态可见",
+      "form": "44px 最小触达区，错误不只依赖红色",
+      "dialog": "动作分级明确，危险动作需要二次确认"
+    },
+    "visualLanguage": {
+      "photography": "产品和环境图干净、无文字、无商标，留出数据和说明空间",
+      "illustration": "用于空状态和解释，避免伪 UI glyph",
+      "iconography": "统一代码图标库，20-24px，1.75-2px stroke"
+    },
+    "contentVoice": "直接、可扫描，以任务和状态为中心。",
+    "accessibility": "普通文本 4.5:1；所有图标按钮提供 aria-label；目标至少 44px。",
+    "dos": [
+      "将色彩留给状态和行动",
+      "让数值与任务先于装饰被读取"
+    ],
+    "donts": [
+      "不要用位图承担导航或控制 glyph",
+      "不要在单张卡片堆叠过多微型数据"
+    ]
+  },
+  {
     "id": "mui",
     "name": "MUI",
     "organization": "MUI",
@@ -1961,6 +2084,68 @@ export const brandProfiles = [
         "disclaimer": "Compiled from public Shopify Polaris documentation with no affiliation or endorsement. Names and marks belong to their respective owners."
       }
     }
+  },
+  {
+    "id": "soft-lifestyle",
+    "name": "柔和生活方式",
+    "sourceType": "style-reference",
+    "sourceStatus": "风格参考",
+    "reviewedAt": "2026-08-13",
+    "platforms": [
+      "web",
+      "ios"
+    ],
+    "industry": [
+      "生活方式",
+      "内容",
+      "健康"
+    ],
+    "styles": [
+      "亲和",
+      "柔和",
+      "极简"
+    ],
+    "completeness": "基础规范",
+    "foundations": {
+      "colors": {
+        "paper": "#FFFDF8",
+        "ink": "#282421",
+        "accent": "#6D9D8B",
+        "warm": "#E9C9A5"
+      },
+      "typography": {
+        "display": "人文无衬线或开源衬线替代",
+        "body": "系统无衬线",
+        "scale": "34 / 24 / 16 / 14"
+      },
+      "spacing": "4px 基线，20px 移动端边距，40px 内容节奏",
+      "radius": "10px 图片和轻量内容组",
+      "elevation": "非常轻的柔阴影，仅用于浮层",
+      "grid": "单列阅读优先，桌面最大行宽 72ch",
+      "motion": "200ms 温和转场，不依赖动画理解内容"
+    },
+    "components": {
+      "button": "圆角主操作配清晰文字，次操作保持线性",
+      "card": "信息有限的独立项目，避免卡片套卡片",
+      "navigation": "移动端优先，当前页有文字和颜色双重提示",
+      "form": "单题一步，保留明确帮助文案",
+      "dialog": "轻量短流程，关闭和返回始终可见"
+    },
+    "visualLanguage": {
+      "photography": "自然光、真诚日常场景、无文字无 logo",
+      "illustration": "少量角色或手绘质感承载情绪，不承担操作",
+      "iconography": "统一、克制的代码图标"
+    },
+    "contentVoice": "温和但不含糊，用具体下一步取代空泛鼓励。",
+    "accessibility": "保持可读对比度；动效提供 reduced-motion；触摸目标不低于 44px。",
+    "dos": [
+      "一次推进一个清楚动作",
+      "让情绪性图片和真实文案分层"
+    ],
+    "donts": [
+      "不要以品牌名或商标生成图片",
+      "不要让柔色降低关键文字的可读性"
+    ]
   },
   {
     "id": "tdesign",

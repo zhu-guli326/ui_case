@@ -1,7 +1,7 @@
-import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./vocabulary-data.js?v=20260822-layout-section-v1";
-import { vocabularyComponentEntries } from "./src/features/vocabulary/vocabulary-component-data.js?v=20260822-form-details-v1";
+import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./data/index.js?v=20260830-data-split-v1";
+import { vocabularyComponentEntries } from "./vocabulary-component-data.js?v=20260822-form-details-v1";
 import { vocabularyPreviewMarkup } from "./vocabulary-preview.js?v=20260823-top-nav-v1";
-import { resolveVocabularyCategoryIntent } from "./src/features/vocabulary/vocabulary-search.mjs?v=20260824-category-intent-v1";
+import { resolveVocabularyCategoryIntent } from "./vocabulary-search.mjs?v=20260824-category-intent-v1";
 
 const vocabularyEntries = [...baseVocabularyEntries, ...vocabularyComponentEntries];
 const vocabularyById = Object.fromEntries(vocabularyEntries.map((entry) => [entry.id, entry]));
