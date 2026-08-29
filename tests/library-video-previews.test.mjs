@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 test("every library case has a video preview as the primary mode", () => {
-  const script = fs.readFileSync(path.join(repoRoot, "library.js"), "utf8");
+  const script = fs.readFileSync(path.join(repoRoot, "src", "features", "library", "library.js"), "utf8");
   const casesDir = path.join(repoRoot, "catalog", "cases");
   const cases = fs.readdirSync(casesDir).filter((file) => file.endsWith(".json")).map((file) => JSON.parse(fs.readFileSync(path.join(casesDir, file), "utf8")));
   const videos = cases.map((item) => item.video).filter(Boolean);
