@@ -512,32 +512,19 @@ fieldset legend { margin: 0 0 10px; padding: 0; color: var(--dna-muted); font-si
   position: relative;
   overflow: hidden;
   min-height: 280px;
+  margin: 0;
   border-radius: var(--dna-radius);
-  background: linear-gradient(145deg, var(--dna-accent-soft), color-mix(in srgb, var(--dna-accent) 16%, var(--dna-canvas)));
+  background: var(--dna-accent-soft);
 }
-.sample-visual::before {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 72% 30%, color-mix(in srgb, var(--dna-accent) 58%, white) 0 2.5%, transparent 3%),
-    linear-gradient(120deg, transparent 50%, color-mix(in srgb, var(--dna-accent) 12%, transparent) 50%);
-  content: "";
-}
-.sample-visual div {
-  position: absolute;
-  right: 12%;
-  bottom: -14%;
-  width: 56%;
-  aspect-ratio: 1;
-  border: 1px solid color-mix(in srgb, var(--dna-accent) 48%, white);
-  border-radius: 50%;
-  box-shadow: 0 0 0 38px color-mix(in srgb, var(--dna-accent) 9%, transparent), 0 0 0 76px color-mix(in srgb, var(--dna-accent) 6%, transparent);
-}
+.sample-visual img { display: block; width: 100%; height: 100%; min-height: inherit; object-fit: cover; }
 .sample-visual span {
   position: absolute;
   right: 16px;
   bottom: 14px;
-  color: color-mix(in srgb, var(--dna-ink) 55%, transparent);
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 55%);
+  color: #fff;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: .1em;
@@ -597,7 +584,7 @@ fieldset legend { margin: 0 0 10px; padding: 0; color: var(--dna-muted); font-si
 /* Cards view */
 .v-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: calc(var(--dna-space) * 1.6); }
 .v-card { position: relative; display: grid; gap: 8px; padding-bottom: 14px; border: 1px solid var(--dna-hairline); border-radius: var(--dna-radius); background: var(--dna-surface); overflow: hidden; }
-.v-card .v-cover { display: block; height: 96px; }
+.v-card .v-cover { display: block; width: 100%; height: 112px; object-fit: cover; }
 .v-card h4 { margin: 4px 14px 0; font-family: var(--dna-display); font-size: 15px; font-weight: 800; }
 .v-card p { margin: 0 14px; color: var(--dna-muted); font-size: 12px; line-height: 1.6; }
 .v-card footer { display: flex; align-items: center; justify-content: space-between; margin: 6px 14px 0; }
@@ -687,7 +674,7 @@ fieldset legend { margin: 0 0 10px; padding: 0; color: var(--dna-muted); font-si
 .v-article-title { margin: 0; font-family: var(--dna-display); font-size: clamp(26px, 2.8vw, 40px); font-weight: 830; letter-spacing: -.03em; line-height: 1.16; }
 .v-article-meta { display: flex; align-items: center; gap: 10px; color: var(--dna-muted); font-size: 12px; }
 .v-article-meta b { color: var(--dna-ink); }
-.v-avatar { width: 28px; height: 28px; flex: 0 0 28px; border-radius: 50%; background: linear-gradient(135deg, var(--dna-accent), color-mix(in srgb, var(--dna-accent) 45%, var(--dna-ink))); }
+.v-avatar { width: 28px; height: 28px; flex: 0 0 28px; border-radius: 50%; object-fit: cover; background: var(--dna-accent-soft); }
 .v-article-hero { min-height: 240px; }
 .v-article p { margin: 0; color: color-mix(in srgb, var(--dna-ink) 86%, var(--dna-muted)); font-size: 14px; line-height: 1.9; }
 .v-article blockquote {
@@ -708,9 +695,9 @@ fieldset legend { margin: 0 0 10px; padding: 0; color: var(--dna-muted); font-si
 .v-product { display: grid; gap: 14px; }
 .v-product-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(18px, 2.6vw, 40px); align-items: start; }
 .v-gallery { display: grid; gap: 10px; }
-.v-gallery-main { min-height: 280px; border-radius: var(--dna-radius); }
+.v-gallery-main { display: block; width: 100%; height: 280px; border-radius: var(--dna-radius); background: var(--dna-accent-soft); object-fit: contain; }
 .v-thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.v-thumbs i { display: block; height: 62px; border-radius: calc(var(--dna-radius) * .55); border: 1px solid var(--dna-hairline); }
+.v-thumbs img { display: block; width: 100%; height: 62px; border: 1px solid var(--dna-hairline); border-radius: calc(var(--dna-radius) * .55); object-fit: cover; }
 .v-stars { color: var(--dna-accent); font-size: 13px; letter-spacing: 2px; }
 .v-stars b { color: var(--dna-ink); letter-spacing: 0; }
 .v-stars span { color: var(--dna-muted); letter-spacing: 0; }
