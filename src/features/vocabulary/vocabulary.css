@@ -1,7 +1,9 @@
 /* Vocabulary stylesheet entry point.
  *
- * The preserved production cascade lives in legacy/vocabulary-runtime.css.
- * Keep this file small so coding agents can locate the real styling boundary
- * without loading the entire historical stylesheet by default.
+ * The former 163KB legacy stylesheet is split into focused modules.
+ * Import order preserves the original production cascade exactly.
  */
-@import url("./legacy/vocabulary-runtime.css?v=20260829-context-v1");
+@import url("./styles/cards.css?v=20260829-vocab-modules-v1");
+@import url("./styles/flip-card.css?v=20260829-vocab-modules-v1");
+@import url("./styles/detail.css?v=20260829-vocab-modules-v1");
+@import url("./styles/responsive.css?v=20260829-vocab-modules-v1");
