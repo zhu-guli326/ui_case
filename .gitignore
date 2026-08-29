@@ -5,6 +5,7 @@ build/
 .image2-ui/
 tmp/
 /screenshots/
+/screenshot-*.png
 /.edge-*/
 /.tmp-edge-*/
 /*-audit.png
