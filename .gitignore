@@ -10,6 +10,8 @@ tmp/
 /*-audit.png
 /artifacts/layout-audit/
 /artifacts/screenshots/
+/artifacts/*.png
+/artifacts/*.provenance.json
 *.patch
 demo/*/screenshots/*
 !demo/*/screenshots/library-preview-2x.png
