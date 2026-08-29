@@ -12,9 +12,11 @@
 - generated audit, compare, patch, coverage, build, and cache outputs
 - binary media such as `*.png`, `*.jpg`, `*.jpeg`, `*.webp`, `*.gif`, `*.mp4`
 - `node_modules/**`, `dist/**`, `build/**`, `coverage/**`
+- generated `catalog/index.js` unless validating build output
 
 ## Generated visual artifacts
 - Keep screenshot and audit outputs untracked.
+- Keep generated `artifacts/*.png` and provenance files untracked.
 - Never embed image binaries as base64 in HTML, JS, or CSS.
 - Reference normal asset paths instead.
 
@@ -26,9 +28,11 @@
 - Avoid opening entire files over 50 KB unless necessary.
 - For CSS, locate relevant selectors before reading full stylesheets.
 - For JS, locate relevant exports, handlers, data, or render functions before reading full modules.
+- For catalog changes, edit the exact source JSON under `catalog/cases`, `catalog/styles`, `catalog/brands`, or `catalog/components`; do not inspect the 232KB generated bundle.
 
 ## Main feature locations
-- Vocabulary: `src/features/vocabulary/`
-- Skills: `src/features/skills/`
-- Library: `src/features/library/`
-- Launcher: `src/features/launcher/`
+- Vocabulary: `src/features/vocabulary/` — follow its local `AGENTS.md`; CSS is split into cards / flip-card / detail / responsive entries.
+- Skills: `src/features/skills/` — follow its local `AGENTS.md`; data, web data, filters, rendering, and runtime are separate modules.
+- Library: root `library.js` plus `src/features/library/` responsibility modules.
+- Launcher: `src/features/launcher/launcher-dna.css` and `launcher-dna.js`.
+- Catalog: `catalog/` — follow `catalog/AGENTS.md`; `catalog/index.js` is generated output.
