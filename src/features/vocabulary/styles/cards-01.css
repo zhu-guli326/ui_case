@@ -1,0 +1,60 @@
+/* Palette comes from src/core/app-shell/design-tokens.css; this :root only
+ * carries vocabulary layout tokens. */
+:root {
+  --mint: #dff5e8;
+  --coral: #ffe6df;
+  --radius: 8px;
+  --content-width: 1816px;
+  font-family: var(--font-sans-cjk);
+}
+.vp-component-entry { display: grid; width: 100%; min-height: 132px; align-content: center; gap: 8px; padding: 18px; border: 1px solid var(--vp-line); border-radius: 8px; background: var(--vp-panel); text-align: left; }
+.vp-component-entry__type { color: var(--vp-green); font-size: 8px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.vp-component-entry strong { font-size: 17px; line-height: 1.2; }
+.vp-component-entry small { color: var(--vp-muted); font-size: 9px; line-height: 1.5; }
+.vp-component-entry__layout { display: flex; gap: 5px; }
+.vp-component-entry__layout i { display: block; width: 34px; height: 5px; border-radius: 3px; background: var(--vp-line); }
+.vp-component-entry__layout i:first-child { width: 58px; background: var(--vp-green); }
+.vp-component-button-preview { min-height: 164px; align-content: start; }
+.vp-component-button-preview strong { min-height: 24px; }
+.vp-component-button-stage, .vp-component-toolbar, .vp-component-text-row, .vp-component-icon-row, .vp-component-phone-scene { position: relative; display: flex; min-height: 54px; align-items: center; gap: 8px; padding: 9px; overflow: hidden; border: 1px solid var(--vp-line); border-radius: 6px; background: color-mix(in srgb, var(--vp-panel) 72%, var(--vp-soft)); }
+.vp-component-btn { display: inline-flex; min-height: 30px; align-items: center; justify-content: center; padding: 0 12px; border-radius: 5px; color: var(--vp-ink); font-size: 9px; font-weight: 800; white-space: nowrap; }
+.vp-component-btn.is-solid { background: var(--vp-green); color: #fff; box-shadow: 0 7px 14px color-mix(in srgb, var(--vp-green) 22%, transparent); }
+.vp-component-btn.is-outline { border: 1px solid var(--vp-green); color: var(--vp-green); }
+.vp-component-btn.is-muted { border: 1px solid var(--vp-line); color: var(--vp-muted); }
+.vp-component-btn.is-ghost { background: color-mix(in srgb, var(--vp-green) 10%, transparent); color: var(--vp-green); }
+.vp-component-btn.is-text { min-height: auto; padding: 0; color: var(--vp-green); }
+.vp-component-btn.is-danger { background: #b84a3a; color: #fff; }
+.vp-component-button-stage > i { width: 38px; height: 5px; border-radius: 3px; background: var(--vp-line); }
+.vp-component-toolbar { justify-content: flex-end; }
+.vp-component-toolbar > span:not(.vp-component-btn) { width: 24px; height: 24px; border-radius: 4px; background: var(--vp-line); opacity: .72; }
+.vp-component-text-row { justify-content: space-between; }
+.vp-component-text-row > i { width: 58%; height: 7px; border-radius: 4px; background: var(--vp-line); }
+.vp-component-icon-row { justify-content: center; }
+.vp-component-icon-btn { display: grid; width: 30px; height: 30px; place-items: center; border: 1px solid var(--vp-line); border-radius: 50%; color: var(--vp-muted); font-size: 13px; }
+.vp-component-icon-btn.is-active { border-color: var(--vp-green); background: var(--vp-green); color: #fff; }
+.vp-component-phone-scene { display: grid; align-content: start; min-height: 76px; padding: 10px 44px 10px 10px; }
+.vp-component-phone-scene i { display: block; height: 7px; border-radius: 4px; background: var(--vp-line); }
+.vp-component-phone-scene i:nth-child(1) { width: 76%; }
+.vp-component-phone-scene i:nth-child(2) { width: 58%; }
+.vp-component-phone-scene i:nth-child(3) { width: 68%; margin-top: 12px; }
+.vp-component-fab { position: absolute; right: 12px; bottom: 12px; display: grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; background: var(--vp-green); color: #fff; font-size: 22px; box-shadow: 0 10px 18px color-mix(in srgb, var(--vp-green) 26%, transparent); }
+.vp-component-split-btn { display: inline-grid; grid-template-columns: minmax(0, 1fr) 34px; width: 156px; min-height: 34px; overflow: hidden; border: 1px solid var(--vp-green); border-radius: 5px; color: #fff; font-size: 9px; font-weight: 850; }
+.vp-component-split-btn span, .vp-component-split-btn b { display: grid; place-items: center; background: var(--vp-green); }
+.vp-component-split-btn b { border-left: 1px solid color-mix(in srgb, #fff 38%, transparent); font-size: 13px; }
+.vp-component-warning { width: 24px; height: 24px; border-radius: 50%; background: color-mix(in srgb, #b84a3a 18%, var(--vp-panel)); }
+.vocabulary-preview[class*="vocabulary-preview--component-"] { background: #fff !important; }
+.vocabulary-preview[class*="vocabulary-preview--component-"] .vp-canvas { height: 100%; padding: 8px; background: #fff !important; }
+.vocabulary-preview[class*="vocabulary-preview--component-"] .vp-component-entry { height: 100%; min-height: 0; background: #fff !important; }
+.vp-variant-scene { position: relative; display: grid; width: 100%; height: 100%; min-height: 150px; overflow: hidden; border: 1px solid var(--vp-line); border-radius: 6px; background: #fff; color: var(--vp-ink); }
+.vp-variant-scene--hero { display: block; min-height: 150px; padding: 0; background: #eef3ef; }
+.vp-variant-scene--hero strong { max-width: 210px; font-size: 18px; line-height: 1.08; }
+.vp-variant-kicker, .vp-form-variant-head small { color: var(--vp-green); font-size: 7px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.vp-variant-line { display: block; width: 45%; height: 5px; border-radius: 3px; background: var(--vp-line); }
+.vp-variant-action { width: max-content; min-height: 23px; padding: 5px 8px; border-radius: 4px; background: var(--vp-green); color: #fff; font-size: 7px; font-weight: 800; }
+.vp-hero-real-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.vp-hero-real-overlay { position: absolute; z-index: 1; inset: 0; background: linear-gradient(90deg, rgba(249,251,249,.96) 0 46%, rgba(249,251,249,.28) 72%, transparent); }
+.vp-hero-real-copy { position: relative; z-index: 2; display: grid; width: 57%; height: 100%; min-height: 150px; align-content: center; gap: 7px; padding: 18px 22px; }
+.vp-variant-scene--centered .vp-hero-real-overlay { background: rgba(248,250,248,.78); backdrop-filter: blur(1px); }
+.vp-variant-scene--centered .vp-hero-real-copy { width: 72%; margin: 0 auto; justify-items: center; text-align: center; }
+.vp-variant-scene--centered .vp-variant-line { width: 62%; }
+.vp-variant-scene--split .vp-hero-real-image { left: 52%; width: 48%; }
