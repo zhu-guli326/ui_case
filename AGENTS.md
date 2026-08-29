@@ -1,13 +1,39 @@
-# ONDesign Agent Rules
+# ONDesign Agent Development Rules
 
-## Product source of truth
+This file is the single source of truth for AI-assisted website development in this repository. Read it before changing the site.
 
-- `main` contains the one current production version of ONDesign.
-- Git history is the archive. Do not keep old visual versions, abandoned experiments, or parallel implementations in the working tree.
-- When the user asks to modify a page, edit the current canonical implementation. Do not create another page/CSS/JS version to show an alternative unless the user explicitly asks for a separate persistent variant.
-- A visual reference is guidance for the current page, not a reason to create `v2`, `final`, `reference-layout`, `redesign`, `fix`, or override files.
+## 1. Core rule: replace, do not accumulate
 
-## Global framework / App Shell contract
+`main` contains only the current production version of ONDesign. Git history is the archive and rollback mechanism.
+
+When the user asks to modify, redesign, replace, optimize, restructure, or update an existing page or feature, treat the request as a **replacement of the current implementation by default**, not as permission to keep another version beside it.
+
+Required behavior:
+
+- Identify the current canonical HTML/CSS/JS/data implementation first.
+- Modify the canonical files in place whenever the responsibility is unchanged.
+- If the new implementation supersedes old code, delete the old code in the same change.
+- Delete obsolete selectors, functions, DOM blocks, data fields, modules, assets, imports and event handlers once the replacement is active.
+- Delete files that become unused after the replacement.
+- Remove old references from HTML, JS, CSS, manifests, tests/checks and generated inputs.
+- If code moves into a better stable responsibility module, migrate it and delete the old location in the same change.
+- Never keep the previous design as commented code, hidden DOM, `display:none`, disabled feature flags, fallback branches, compatibility bridges, backup constants or unused assets just in case.
+- Do not create parallel files such as `*-v2`, `*-v3`, `*-new`, `*-old`, `*-backup`, `*-final`, `*-reference-layout`, `*-override`, `*-fix`, `*-hardening`, `*-legacy`, `*-compat` or `*-redesign`.
+- A reference website or screenshot is guidance for replacing the current design, not a reason to preserve both designs in source.
+- If the user explicitly asks for two persistent product variants, then two implementations may exist; otherwise assume there should be only one.
+
+### Replacement completion checklist
+
+Before considering a requested replacement complete:
+
+1. Confirm the new implementation is wired to the public route.
+2. Search for the superseded selector/function/file/import/asset names.
+3. Remove dead code and dead files revealed by that search.
+4. Remove temporary migration scripts or workflows used only to perform the change.
+5. Run the relevant repository checks.
+6. Confirm the working tree represents only the current product, while the previous version exists only in Git history.
+
+## 2. Global framework / App Shell contract
 
 The global framework is fixed across public pages. Page features own page content; they do not own site chrome.
 
@@ -40,15 +66,28 @@ Canonical shared files:
 - When the user asks to redesign one page, do not change the shared header/navigation/footer unless they explicitly ask for a global framework change.
 - Page-specific headers, toolbars, tabs and sidebars are allowed inside `<main>` when they are part of that page's content; they must not masquerade as or replace the global navigation.
 
-## Single Source of Truth
+## 3. Single Source of Truth
 
 - Each public page has one current production implementation on `main`.
-- Never create parallel feature files such as `*-v2`, `*-v3`, `*-new`, `*-old`, `*-backup`, `*-final`, `*-reference-layout`, `*-override`, `*-fix`, `*-hardening`, `*-legacy`, `*-compat`, or `*-redesign`.
-- When a redesign is accepted, merge it into the canonical page CSS/JS and delete the superseded implementation in the same change.
-- Split files only by stable responsibility such as data, filtering, rendering, preview, i18n, detail, or reusable components — never by design iteration.
+- Split files only by stable responsibility such as data, filtering, rendering, preview, i18n, detail or reusable components — never by design iteration.
 - Avoid inline page `<style>` patches for normal feature work. Put accepted styles into the canonical feature stylesheet.
+- Do not introduce a compatibility layer merely to avoid updating callers. Update callers and remove the obsolete interface when the product no longer needs it.
+- Do not keep duplicate data in an override file when the canonical source can be corrected instead.
 
-## Default scope
+## 4. Default development workflow
+
+For every website change:
+
+1. Read this file.
+2. Identify the public route and canonical feature files from the map below.
+3. Search the exact selector, function, id, slug or domain involved before reading large files.
+4. Edit only the current implementation and genuinely shared dependencies.
+5. Replace old implementation rather than layering on top of it.
+6. Delete superseded code/files/assets immediately after the new implementation is connected.
+7. Run targeted checks.
+8. Re-scan for stale version files, old imports, dead references and temporary tooling.
+
+## 5. Default scope
 
 - Work only in the requested public page, its direct feature implementation, and shared dependencies that are genuinely required.
 - Search exact selectors, functions, slugs, ids, or domains before opening large files.
@@ -56,23 +95,23 @@ Canonical shared files:
 - Root HTML files are deployed URL entries, not implementation locations.
 - Do not add root JS/CSS/MJS implementations.
 
-## Do not load by default
+## 6. Do not load by default
 
 - `demo/**` unless the task names that demo or case.
-- `scripts/**` and `.github/**` unless the task concerns build, deployment, repository structure, or CI.
+- `scripts/**` and `.github/**` unless the task concerns build, deployment, repository structure or CI.
 - generated reports, audit output, screenshots, caches or temporary migration files.
 - binary media (`*.png`, `*.jpg`, `*.jpeg`, `*.webp`, `*.gif`, `*.mp4`) unless the visual asset itself is the task.
 - generated `catalog/index.js` unless validating the catalog build.
 
-## Context efficiency
+## 7. Context efficiency
 
 - Treat tracked text files over 30 KB as context hotspots: search first and read only the relevant range.
 - Avoid reading an entire file over 50 KB unless the task requires the full file.
 - For CSS, locate the relevant selector first.
-- For JS, locate the relevant export, handler, data object, or renderer first.
-- For catalog changes, edit exact source JSON under `catalog/cases`, `catalog/styles`, `catalog/brands`, or `catalog/components`; do not edit generated `catalog/index.js` directly.
+- For JS, locate the relevant export, handler, data object or renderer first.
+- For catalog changes, edit exact source JSON under `catalog/cases`, `catalog/styles`, `catalog/brands` or `catalog/components`; do not edit generated `catalog/index.js` directly.
 
-## Current canonical feature map
+## 8. Current canonical feature map
 
 ### Home
 
@@ -84,7 +123,7 @@ Canonical shared files:
 ### Info pages
 
 - `about.html`, `contact.html`, `privacy.html` share `src/features/info/info.css`.
-- These pages still use the same global App Shell as every other full page.
+- These pages use the same global App Shell as every other full page.
 
 ### Vocabulary
 
@@ -122,7 +161,7 @@ Canonical shared files:
 
 - Public URL: `launcher.html`.
 - Canonical core: `src/features/launcher/launcher-dna.css` and `src/features/launcher/launcher-dna.js`.
-- Other Launcher files are allowed only when they own a distinct stable responsibility (for example design-system catalog or preview i18n), not another Launcher version.
+- Other Launcher files are allowed only when they own a distinct stable responsibility, not another Launcher version.
 - Do not recreate workspace/state/url/hardening/simplified compatibility architectures.
 
 ### Brands
@@ -135,16 +174,36 @@ Canonical shared files:
 - Source data: `catalog/cases/*.json`, `catalog/styles/*.json`, `catalog/brands/*.json`, `catalog/components/*.json`.
 - `catalog/index.js` is generated output; do not hand-edit it.
 
-## Repository cleanliness
+## 9. Repository cleanliness
 
-- Do not keep one-shot migration scripts, temporary workflows, screenshots, process notes, benchmark dumps, or abandoned experiments after a migration is complete.
-- Do not embed image binaries as base64 in HTML, CSS, or JS.
+The repository should contain product source and durable development infrastructure, not development history.
+
+- Git history is the only default archive for replaced source.
+- Do not keep one-shot migration scripts, temporary workflows, screenshots, process notes, benchmark dumps or abandoned experiments after a migration is complete.
+- Do not keep source files whose only purpose is to preserve how the site used to work.
+- Do not keep unused visual assets after their last production reference has been removed.
+- Do not embed image binaries as base64 in HTML, CSS or JS.
 - Do not recreate deleted `docs/**`, `references/**`, `tests/**`, `lab/**`, `src/legacy/**`, or feature `legacy/**` process structures unless the user explicitly requests a new product feature that genuinely needs them.
+- Do not create extra agent documentation under feature folders. Update this root `AGENTS.md` instead.
 
-## Validation
+## 10. Validation
 
 For normal repository changes, use the current lightweight checks:
 
 - `npm run build:catalog -- --check` when catalog/source data is affected.
 - `npm run check` for public paths, shared shell contract and canonical feature naming.
 - Keep CI green before considering a structural refactor complete.
+
+## 11. Final self-check for the Agent
+
+Before reporting a website update as complete, answer these questions internally:
+
+- Did I change the canonical implementation rather than create a second version?
+- Is any part of the old implementation still present only because I was afraid to delete it?
+- Are there stale imports, selectors, event handlers, data fields or media references left behind?
+- Did I leave a temporary migration workflow/script or compatibility bridge?
+- Did I accidentally modify the global App Shell for a page-only request?
+- Does the public route load the new implementation and only the new implementation?
+- Can every old production version now be recovered from Git history instead of the current source tree?
+
+If any answer indicates leftover historical source, clean it up before finishing.
