@@ -22,6 +22,7 @@ jobs:
       - name: Split Vocabulary data and remove bridges
         run: |
           node scripts/vocabulary_refactor_once.mjs
+          node scripts/site_dead_ref_cleanup_once.mjs
           node --check src/features/vocabulary/vocabulary.js
           npm run build:catalog
           npm run build:catalog -- --check
