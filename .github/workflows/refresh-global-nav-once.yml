@@ -1,0 +1,92 @@
+name: Refresh global navigation once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/refresh-global-nav-once.yml
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Refresh shared navigation site-wide
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const path = require('node:path');
+
+          const shellPath = 'src/core/app-shell/app-shell.js';
+          let shell = fs.readFileSync(shellPath, 'utf8');
+          const required = [
+            '"nav.library": { zh: "导航栏", en: "Navigation" }',
+            '"nav.designSkills": { zh: "设计精选", en: "Design Picks" }',
+            '"nav.skills": { zh: "设计精选", en: "Design Picks" }'
+          ];
+          for (const text of required) {
+            if (!shell.includes(text)) throw new Error(`Shared navigation copy is not current: ${text}`);
+          }
+
+          const ignored = new Set(['.git', 'node_modules']);
+          const htmlFiles = [];
+          function walk(dir) {
+            for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+              if (ignored.has(entry.name)) continue;
+              const full = path.join(dir, entry.name);
+              if (entry.isDirectory()) walk(full);
+              else if (entry.isFile() && full.endsWith('.html')) htmlFiles.push(full);
+            }
+          }
+          walk('.');
+
+          const version = '20260830-global-nav-v3';
+          let touched = 0;
+          let references = 0;
+          for (const file of htmlFiles) {
+            const before = fs.readFileSync(file, 'utf8');
+            if (!/app-shell\.js(?:\?v=[^"'\s<>]+)?/.test(before)) continue;
+            references += 1;
+            const after = before.replace(/app-shell\.js(?:\?v=[^"'\s<>]+)?/g, `app-shell.js?v=${version}`);
+            if (after !== before) {
+              fs.writeFileSync(file, after);
+              touched += 1;
+              console.log(`updated ${file}`);
+            }
+          }
+
+          if (!references) throw new Error('No shared app-shell references found.');
+          console.log(`Shared shell references: ${references}; files updated: ${touched}`);
+
+          // Ensure every page that uses the global shell now points at exactly the same fresh version.
+          for (const file of htmlFiles) {
+            const source = fs.readFileSync(file, 'utf8');
+            const matches = [...source.matchAll(/app-shell\.js(?:\?v=[^"'\s<>]+)?/g)].map((match) => match[0]);
+            for (const match of matches) {
+              if (match !== `app-shell.js?v=${version}`) {
+                throw new Error(`Stale global navigation asset in ${file}: ${match}`);
+              }
+            }
+          }
+          NODE
+
+          git diff --check
+
+      - name: Commit global navigation refresh
+        run: |
+          if git diff --quiet; then
+            echo "Global navigation is already refreshed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -u
+          git commit -m "fix(nav): refresh shared navigation site-wide"
+          git pull --rebase origin main
+          git push origin HEAD:main
