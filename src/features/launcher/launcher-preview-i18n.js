@@ -5,7 +5,7 @@
   const dictionary = {
     '每个产品第一次打开画布时都要回答同样的问题：主色是什么、标题用什么气质、卡片有多圆。没有 DNA 时，这些答案散落在每一次临时决定里。': 'Every product faces the same questions when a canvas opens for the first time: What is the accent color? What should the headline feel like? How rounded should the cards be? Without DNA, those answers get scattered across one-off decisions.',
     '我们把答案压缩成五组变量——方向、颜色、字体、形状与密度。它们像基因一样进入每个新页面，决定气质，而不是规定布局。': 'We compress those answers into five variable groups—direction, color, typography, shape, and density. Like genes, they flow into every new page to shape its character without dictating the layout.',
-    '先选一个方向确定整体气质，密度与留白随之匹配；再把颜色、字体、圆角与间距固化成可复用的规则。': 'Choose a direction to set the overall character, then let density and whitespace follow. Lock color, typography, radius, and spacing into reusable rules.',
+    '先选一个方向确定整体气质，密度与留白随之匹配；再把颜色、字体、圆角与间距固化成可复用的规则。': 'Choose a direction to set the overall character first; density and whitespace follow. Then lock color, typography, radius, and spacing into reusable rules.',
     '清晰的颜色、字体、形状与间距，让设计不再从头开始。': 'Clear color, typography, shape, and spacing keep every page from starting over.',
     '让每一个页面，都拥有同一种气质。': 'Give every page a consistent design character.',
     '方向、色彩、字体、形状与密度如何协同。': 'How direction, color, type, shape, and density work together.',
@@ -199,6 +199,51 @@
       : '在开始前端开发前，搭建并保存一套可复用的界面设计 DNA。';
   }
 
+  function buildLibraryUrl(caseId = '') {
+    const params = new URLSearchParams({ lang: language() });
+    if (caseId) params.set('case', caseId);
+    return `./library.html?${params.toString()}`;
+  }
+
+  function currentCaseIdFromLink(link) {
+    if (link?.dataset.directionCardCase) return link.dataset.directionCardCase;
+    const raw = link?.getAttribute('href');
+    if (!raw) return '';
+    try { return new URL(raw, window.location.href).searchParams.get('case') || ''; }
+    catch { return ''; }
+  }
+
+  function openCaseLibrary(caseId = '') {
+    const dialog = document.querySelector('[data-case-library-dialog]');
+    const frame = document.querySelector('[data-case-library-frame]');
+    const fullLink = document.querySelector('[data-case-library-full]');
+    if (!dialog) return;
+
+    dialog.dataset.caseId = caseId;
+    const url = buildLibraryUrl(caseId);
+    if (frame) frame.setAttribute('src', url);
+    if (fullLink) fullLink.setAttribute('href', url);
+
+    if (typeof dialog.showModal === 'function') {
+      if (!dialog.open) dialog.showModal();
+    } else {
+      dialog.setAttribute('open', '');
+    }
+  }
+
+  function installCaseDialogLinks() {
+    document.querySelectorAll('[data-direction-case-link], [data-direction-card-case]').forEach((link) => {
+      if (link.dataset.caseDialogBound === 'true') return;
+      link.dataset.caseDialogBound = 'true';
+      link.removeAttribute('target');
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        openCaseLibrary(currentCaseIdFromLink(link));
+      });
+    });
+  }
+
   function syncLanguageLinks() {
     const lang = language();
     document.querySelectorAll('.direction-live iframe').forEach((frame) => {
@@ -215,6 +260,13 @@
       url.searchParams.set('lang', lang);
       link.setAttribute('href', `./library.html${url.search}`);
     });
+
+    const dialog = document.querySelector('[data-case-library-dialog]');
+    if (dialog?.dataset.caseId) {
+      const url = buildLibraryUrl(dialog.dataset.caseId);
+      document.querySelector('[data-case-library-frame]')?.setAttribute('src', url);
+      document.querySelector('[data-case-library-full]')?.setAttribute('href', url);
+    }
   }
 
   function getFontButtons() {
@@ -275,6 +327,7 @@
   }
 
   installFontSelect();
+  installCaseDialogLinks();
   sync();
   window.addEventListener('image2:languagechange', sync);
 })();
