@@ -38,7 +38,7 @@ i18n?.addTranslations({
   "vocabulary.searchLabel": { zh: "搜索 UI 词条", en: "Search UI terms" },
   "vocabulary.searchPlaceholder": { zh: "搜索术语、英文名或你想说的话…", en: "Search a term or describe what you need…" },
   "vocabulary.filterByCategory": { zh: "按分类筛选", en: "Filter by category" },
-  "vocabulary.termDirectory": { zh: "词条目录", en: "Term directory" },
+  "vocabulary.termDirectory": { zh: "分类筛选", en: "Filters" },
   "vocabulary.termHelpTitle": { zh: "看不懂一个词？", en: "Not sure what a term means?" },
   "vocabulary.termHelpBody": { zh: "先点开卡片看“你可能会说”，再对照组成结构和容易混淆。", en: "Open a card and start with the plain-language request, then compare its anatomy and commonly confused patterns." },
   "vocabulary.openGuide": { zh: "打开规范长文", en: "Open the full guide" },

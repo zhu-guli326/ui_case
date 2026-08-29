@@ -143,9 +143,13 @@ body.vocabulary-page .taxonomy {
 }
 
 body.vocabulary-page .taxonomy-heading {
-  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
   color: var(--muted);
   font-size: 11px;
+  font-weight: 800;
 }
 
 body.vocabulary-page .taxonomy-heading span:last-child {
@@ -162,31 +166,49 @@ body.vocabulary-page .taxonomy-heading span:last-child {
 body.vocabulary-page .taxonomy nav { gap: 3px; }
 
 body.vocabulary-page .taxonomy-link {
-  min-height: 36px;
-  padding: 0 10px;
-  border-color: transparent;
-  border-radius: 999px;
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr) auto;
+  gap: 7px;
+  min-height: 30px;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
   background: transparent;
   color: var(--muted);
   font-size: 10px;
+  text-align: left;
 }
 
-body.vocabulary-page .taxonomy-link b { font-size: 9px; }
+body.vocabulary-page .taxonomy-link::before {
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  content: "";
+}
+
+body.vocabulary-page .taxonomy-link b { color: var(--quiet); font-size: 9px; }
 
 body.vocabulary-page .taxonomy-link:hover {
-  border-color: var(--line);
-  background: rgba(255, 255, 255, .38);
+  background: transparent;
   color: var(--ink);
 }
 
 body.vocabulary-page .taxonomy-link.is-selected {
-  border-color: var(--dark);
-  background: var(--dark);
-  color: #fff;
-  font-weight: 800;
+  border-color: 0;
+  background: transparent;
+  color: var(--ink);
+  font-weight: 850;
 }
 
-body.vocabulary-page .taxonomy-link.is-selected b { color: rgba(255, 255, 255, .68); }
+body.vocabulary-page .taxonomy-link.is-selected::before {
+  border-color: var(--green);
+  background: var(--green);
+  box-shadow: inset 0 0 0 2px var(--page);
+}
+
+body.vocabulary-page .taxonomy-link.is-selected b { color: var(--quiet); }
 
 body.vocabulary-page .taxonomy-note {
   margin-top: 22px;
@@ -263,30 +285,84 @@ body.library-page .sidebar {
   border-right: 1px solid var(--line);
 }
 
-body.library-page .sidebar-label { color: var(--muted); font-size: 11px; }
-body.library-page .category-nav { gap: 3px; margin-top: 16px; }
-
-body.library-page .category-link {
-  min-height: 36px;
-  padding: 0 10px;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  color: var(--muted);
-  font-size: 10px;
+body.library-page .filter-sidebar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
 }
 
-body.library-page .category-link b { font-size: 9px; }
+body.library-page .filter-sidebar-head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+body.library-page .filter-sidebar-head small {
+  display: grid;
+  min-width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--surface-soft);
+  color: var(--quiet);
+  font-size: 9px;
+}
+
+body.library-page .category-nav { gap: 3px; margin-top: 20px; }
+
+body.library-page .category-link {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr) auto;
+  gap: 7px;
+  min-height: 30px;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 10px;
+  text-align: left;
+}
+
+body.library-page .category-link::before {
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  content: "";
+}
+
+body.library-page .category-link b { color: var(--quiet); font-size: 9px; }
 
 body.library-page .category-link:hover {
-  border-color: var(--line);
-  background: rgba(255, 255, 255, .38);
+  background: transparent;
   color: var(--ink);
 }
 
 body.library-page .category-link.is-active {
-  border-color: var(--dark);
-  background: var(--dark);
-  color: #fff;
+  background: transparent;
+  color: var(--ink);
+  font-weight: 850;
+}
+
+body.library-page .category-link.is-active::before {
+  border-color: var(--green);
+  background: var(--green);
+  box-shadow: inset 0 0 0 2px var(--page);
+}
+
+body.library-page .category-link.is-active b { color: var(--quiet); }
+
+body.library-page .sidebar-skills-heading p,
+body.library-page .sidebar-social p {
+  color: var(--quiet);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: .05em;
 }
 
 body.library-page .sidebar-skills,
@@ -453,12 +529,33 @@ body.library-page .demo-card-body { background: var(--surface); }
 
   body.vocabulary-page .taxonomy nav {
     display: flex;
+    gap: 8px;
     overflow-x: auto;
     margin-inline: -18px;
     padding-inline: 18px;
   }
 
-  body.vocabulary-page .taxonomy-link { width: auto; flex: 0 0 auto; }
+  body.vocabulary-page .taxonomy-link {
+    display: flex;
+    gap: 0;
+    width: auto;
+    min-height: 36px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+  }
+
+  body.vocabulary-page .taxonomy-link::before { display: none; }
+
+  body.vocabulary-page .taxonomy-link.is-selected {
+    border-color: var(--dark);
+    background: var(--dark);
+    color: #fff;
+  }
 
   body.vocabulary-page .results-heading {
     align-items: stretch;
@@ -466,6 +563,41 @@ body.library-page .demo-card-body { background: var(--surface); }
   }
 
   body.library-page .library-shell { padding: 24px 18px 64px; }
+
+  body.library-page .filter-sidebar-head { margin-bottom: 0; }
+
+  body.library-page .category-nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    margin-top: 13px;
+  }
+
+  body.library-page .category-link {
+    display: flex;
+    gap: 0;
+    width: auto;
+    min-height: 38px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  body.library-page .category-link::before { display: none; }
+
+  body.library-page .category-link.is-active {
+    border-color: var(--dark);
+    background: var(--dark);
+    color: #fff;
+  }
+
+  body.library-page .category-link.is-active b { color: rgba(255, 255, 255, .68); }
 
   body.library-page .sidebar {
     position: static;
