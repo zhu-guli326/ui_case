@@ -18,13 +18,20 @@ const forbiddenRootImplementation = [
   "library-technical-fixes.js", "CONTEXT.md", "DESIGN.md", "PRODUCT.md",
 ];
 
-test("repository root keeps public entry points separate from implementation", () => {
+test("repository keeps public entry points separate from implementation and research", () => {
   for (const file of forbiddenRootImplementation) {
     assert.equal(existsSync(path.join(root, file)), false, `${file} should not live at repository root`);
   }
-  assert.equal(existsSync(path.join(root, "ui-reference-benchmark")), false, "reference benchmark should live under references/");
-  assert.equal(existsSync(path.join(root, "src", "features", "learn")), false, "retired Learn implementation should stay deleted");
-  assert.equal(existsSync(path.join(root, "src", "legacy")), false, "retired legacy shell implementation should stay deleted");
+
+  for (const retired of [
+    ["docs"],
+    ["references"],
+    ["src", "features", "learn"],
+    ["src", "legacy"],
+    ["src", "features", "vocabulary", "legacy"],
+  ]) {
+    assert.equal(existsSync(path.join(root, ...retired)), false, `${retired.join("/")} should stay deleted`);
+  }
 
   for (const file of [
     ["src", "core", "app-shell", "app-shell.js"],
@@ -56,12 +63,6 @@ test("repository root keeps public entry points separate from implementation", (
     ["src", "features", "vocabulary", "vocabulary-preview.js"],
     ["src", "features", "vocabulary", "vocabulary.js"],
     ["src", "features", "vocabulary", "vocabulary.css"],
-    ["docs", "ARCHITECTURE.md"],
-    ["docs", "CONTEXT.md"],
-    ["docs", "DESIGN.md"],
-    ["docs", "PRODUCT.md"],
-    ["docs", "notes", "design-system-split-workflow.md"],
-    ["references", "ui-reference-benchmark", "INDEX.md"],
   ]) {
     assert.equal(existsSync(path.join(root, ...file)), true, `${file.join("/")} should exist`);
   }
