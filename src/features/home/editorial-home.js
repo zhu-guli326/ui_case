@@ -26,10 +26,6 @@ function applyLanguage(event) {
     if (value) element.textContent = value;
   });
 
-  document.querySelectorAll("[data-zh-placeholder][data-en-placeholder]").forEach((element) => {
-    element.placeholder = element.dataset[`${language}Placeholder`];
-  });
-
   document.querySelectorAll("[data-smart-lang-link]").forEach((link) => {
     const target = new URL(link.dataset.smartLangLink, location.href);
     target.searchParams.set("lang", language);
@@ -53,15 +49,6 @@ filterButtons.forEach((button) => {
       card.hidden = filter !== "all" && !categories.includes(filter);
     });
   });
-});
-
-document.querySelector("#projectSearchForm")?.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const query = document.querySelector("#projectSearchInput")?.value.trim();
-  const target = new URL("./library.html", location.href);
-  target.searchParams.set("lang", currentLanguage());
-  if (query) target.searchParams.set("q", query);
-  location.href = target.href;
 });
 
 applyLanguage();

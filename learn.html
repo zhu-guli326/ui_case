@@ -4,66 +4,41 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="/favicon.svg?v=20260828-green-v2" type="image/svg+xml" sizes="any">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="light dark">
   <meta name="description" content="ONDesign：从真实 UI 案例、界面词汇和设计系统出发，与 AI 一起构建可运行的界面。">
   <title>ONDesign · 从设计参考到真实界面</title>
   <link rel="stylesheet" href="./src/core/app-shell/language-switch.css?v=20260821-capsule-nav-v2">
   <link rel="stylesheet" href="./src/components/site-header/site-header.css?v=20260821-capsule-nav-v4">
-  <link rel="stylesheet" href="./src/features/home/squarespace-home.css?v=20260829-project-home-v2">
+  <link rel="stylesheet" href="./src/features/home/squarespace-home.css?v=20260829-reference-layout-v1">
   <script src="./src/core/app-shell/app-shell.js?v=20260821-capsule-nav-v5"></script>
   <script src="./src/core/analytics/clarity.js"></script>
   <script src="./src/core/analytics/analytics.config.js?v=20260829-root-cleanup-v1"></script>
   <script src="./src/core/analytics/analytics.js?v=20260829-root-cleanup-v1" defer></script>
-  <script src="./src/features/home/editorial-home.js?v=20260829-project-home-v1" defer></script>
+  <script src="./src/features/home/editorial-home.js?v=20260829-reference-layout-v1" defer></script>
 </head>
 <body class="project-home">
   <image2-site-header data-site-header></image2-site-header>
   <main>
-    <header class="project-hero project-ai-hero" id="top">
+    <header class="project-hero" id="top">
+      <img class="project-hero-image" src="./demo/squarespace-cinematic/assets/workspace.webp" alt="现代设计工作室实景">
+      <span class="project-hero-overlay" aria-hidden="true"></span>
       <div class="project-hero-content">
         <p class="project-eyebrow">ONDesign · AI UI DESIGN WORKFLOW</p>
-        <h1 data-zh="用 AI 做 UI，从来没有这么清晰。" data-en="Building UI with AI has never been clearer.">用 AI 做 UI，从来没有这么清晰。</h1>
-        <p class="project-hero-lede" data-zh="不需要先懂代码，从一个真实参考开始。" data-en="No coding expertise required. Start from a real reference.">不需要先懂代码，从一个真实参考开始。</p>
-        <div class="ai-entry-grid">
-          <a class="ai-entry-card ai-entry-build" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><span class="ai-entry-tag">01 · IMAGE TO UI</span><div class="ai-prompt-chip"><i></i><span data-zh="描述你想做的页面…" data-en="Describe the interface you want…">描述你想做的页面…</span></div><img src="./demo/fufu-bakery/mobile-preview.png" alt="从参考图生成界面的真实案例"><strong data-zh="从参考图开始" data-en="Build from a reference">从参考图开始</strong><small data-zh="拆解结构、定义规则、生成页面" data-en="Decompose, define, and build">拆解结构、定义规则、生成页面</small></a>
-          <a class="ai-entry-card ai-entry-explore" href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span class="ai-entry-tag">02 · EXPLORE</span><div class="ai-entry-mosaic"><img src="./demo/plate-play/mobile-preview.png" alt="Plate Play 案例"><img src="./demo/relay/mobile-preview.png" alt="RELAY 案例"><img src="./demo/fithub/mobile-preview.png" alt="FitHub 案例"><img src="./demo/organique-food/mobile-preview.png" alt="Organique 案例"></div><strong data-zh="浏览真实案例" data-en="Browse real cases">浏览真实案例</strong><small data-zh="从页面、组件和风格找到方向" data-en="Find direction through pages, components, and styles">从页面、组件和风格找到方向</small></a>
+        <h1 data-zh="找到参考。理解设计。做出真实界面。" data-en="Find references. Understand design. Build real interfaces.">找到参考。理解设计。做出真实界面。</h1>
+        <p data-zh="从真实案例出发，用界面词汇、设计系统与 Design DNA 把模糊感觉变成 AI 能理解、能执行的设计语言。" data-en="Start with real cases, then use UI vocabulary, design systems, and Design DNA to turn a feeling into a language AI can understand and execute.">从真实案例出发，用界面词汇、设计系统与 Design DNA 把模糊感觉变成 AI 能理解、能执行的设计语言。</p>
+        <div class="project-hero-actions">
+          <a class="button-outline-light" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html" data-zh="开始设计" data-en="Start designing">开始设计</a>
+          <a class="text-link-light" href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span data-zh="浏览真实案例" data-en="Browse real cases">浏览真实案例</span> ↗</a>
         </div>
       </div>
+      <a class="project-scroll" href="#overview"><span data-zh="向下探索" data-en="Explore">向下探索</span><i></i></a>
     </header>
-
-    <section class="project-search-band">
-      <div class="project-search-inner">
-        <p class="section-eyebrow">FIND YOUR DIRECTION</p>
-        <h2 data-zh="找到适合你的设计方向" data-en="Find the right direction for your interface">找到适合你的设计方向</h2>
-        <form class="project-search-form" id="projectSearchForm"><input id="projectSearchInput" type="search" data-zh-placeholder="搜索页面、组件、风格或品牌" data-en-placeholder="Search pages, components, styles, or brands" placeholder="搜索页面、组件、风格或品牌" aria-label="搜索 ONDesign 案例"><button type="submit" aria-label="搜索">→</button></form>
-        <div class="search-avatars" aria-hidden="true"><img src="./demo/squarespace-cinematic/assets/barber-portrait.webp" alt=""><img src="./demo/squarespace-cinematic/assets/people.webp" alt=""><img src="./demo/squarespace-cinematic/assets/flowers.webp" alt=""><img src="./demo/squarespace-cinematic/assets/objects.webp" alt=""></div>
-        <p data-zh="不知道搜什么？试试 Dashboard、Editorial、Mobile 或 Apple。" data-en="Not sure what to search? Try Dashboard, Editorial, Mobile, or Apple.">不知道搜什么？试试 Dashboard、Editorial、Mobile 或 Apple。</p>
-      </div>
-    </section>
-
-    <section class="project-collage" aria-label="ONDesign 真实案例墙">
-      <div class="collage-center"><p>MADE WITH</p><h2>ONDesign</h2></div>
-      <a class="collage-card collage-1" href="./demo/fufu-bakery/index.html"><img src="./demo/fufu-bakery/mobile-preview.png" alt="FuFu Bakery"></a>
-      <a class="collage-card collage-2" href="./demo/plate-play/index.html"><img src="./demo/plate-play/mobile-preview.png" alt="Plate Play"></a>
-      <a class="collage-card collage-3" href="./demo/relay/index.html"><img src="./demo/relay/mobile-preview.png" alt="RELAY"></a>
-      <a class="collage-card collage-4" href="./demo/fithub/index.html"><img src="./demo/fithub/mobile-preview.png" alt="FitHub"></a>
-      <a class="collage-card collage-5" href="./demo/organique-food/index.html"><img src="./demo/organique-food/mobile-preview.png" alt="Organique Food"></a>
-      <a class="collage-card collage-6" href="./demo/volt-route/index.html"><img src="./demo/volt-route/mobile-preview.png" alt="Volt Route"></a>
-    </section>
-
-    <section class="project-photo-showcase">
-      <img class="photo-showcase-bg" src="./demo/squarespace-cinematic/assets/workspace.webp" alt="现代设计工作室实景">
-      <span class="photo-showcase-overlay" aria-hidden="true"></span>
-      <div class="photo-showcase-copy"><p class="section-eyebrow">FROM REFERENCE TO INTERFACE</p><h2 data-zh="把想要的感觉，变成真实页面。" data-en="Turn the feeling you want into a working interface.">把想要的感觉，变成真实页面。</h2><a class="button-filled" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html" data-zh="开始设计" data-en="Start designing">开始设计</a></div>
-      <div class="photo-showcase-cards" aria-hidden="true"><img src="./demo/plate-play/mobile-preview.png" alt=""><img src="./demo/fufu-bakery/mobile-preview.png" alt=""><img src="./demo/relay/mobile-preview.png" alt=""></div>
-    </section>
 
     <section class="project-stats" id="overview" aria-label="ONDesign 内容概览">
       <div class="project-container project-stats-grid">
         <article><strong>19</strong><span data-zh="真实案例" data-en="Real cases">真实案例</span></article>
         <article><strong>57</strong><span data-zh="可复用组件" data-en="Reusable components">可复用组件</span></article>
         <article><strong>19</strong><span data-zh="设计系统" data-en="Design systems">设计系统</span></article>
-        <article><strong>01</strong><span data-zh="从参考到实现的路径" data-en="Path from reference to build">从参考到实现的路径</span></article>
       </div>
     </section>
 
@@ -72,36 +47,86 @@
         <header class="section-heading section-heading-center">
           <p class="section-eyebrow">REAL INTERFACE CASES</p>
           <h2 data-zh="先找到对的方向，再开始生成。" data-en="Find the right direction before you build.">先找到对的方向，再开始生成。</h2>
-          <p data-zh="不是一组只能收藏的封面。每个案例都帮助你识别布局、组件、状态与视觉语言。" data-en="More than images to save. Each case helps you identify layout, components, states, and visual language.">不是一组只能收藏的封面。每个案例都帮助你识别布局、组件、状态与视觉语言。</p>
+          <p data-zh="每个案例都可以真实打开与体验，帮助你识别布局、组件、状态和视觉语言。" data-en="Every case is real and interactive, helping you identify layouts, components, states, and visual language.">每个案例都可以真实打开与体验，帮助你识别布局、组件、状态和视觉语言。</p>
         </header>
-        <div class="case-filters" role="group" aria-label="案例筛选"><button class="is-active" type="button" data-case-filter="all" aria-pressed="true" data-zh="全部" data-en="All">全部</button><button type="button" data-case-filter="mobile" aria-pressed="false" data-zh="移动端" data-en="Mobile">移动端</button><button type="button" data-case-filter="editorial" aria-pressed="false" data-zh="编辑感" data-en="Editorial">编辑感</button><button type="button" data-case-filter="vivid" aria-pressed="false" data-zh="高表现力" data-en="Expressive">高表现力</button></div>
-        <div class="project-case-grid">
-          <a class="project-case" data-case-category="mobile editorial" href="./demo/fufu-bakery/index.html?lang=zh" data-smart-lang-link="./demo/fufu-bakery/index.html"><img src="./demo/fufu-bakery/mobile-preview.png" alt="FuFu Bakery 移动端界面案例"><span class="case-shade" aria-hidden="true"></span><small>MOBILE · BRAND</small><div><h3>FuFu Bakery</h3><p data-zh="品牌化烘焙会员体验" data-en="Branded bakery membership experience">品牌化烘焙会员体验</p><i>↗</i></div></a>
-          <a class="project-case" data-case-category="mobile vivid" href="./demo/plate-play/index.html?lang=zh" data-smart-lang-link="./demo/plate-play/index.html"><img src="./demo/plate-play/mobile-preview.png" alt="Plate Play 移动端界面案例"><span class="case-shade" aria-hidden="true"></span><small>MOBILE · VIVID</small><div><h3>Plate Play</h3><p data-zh="高表现力食谱与内容体验" data-en="Expressive recipe and content experience">高表现力食谱与内容体验</p><i>↗</i></div></a>
-          <a class="project-case" data-case-category="mobile editorial" href="./demo/relay/index.html?lang=zh" data-smart-lang-link="./demo/relay/index.html"><img src="./demo/relay/mobile-preview.png" alt="RELAY 移动端界面案例"><span class="case-shade" aria-hidden="true"></span><small>MOBILE · UTILITY</small><div><h3>RELAY</h3><p data-zh="克制的移动工具界面" data-en="A restrained mobile utility interface">克制的移动工具界面</p><i>↗</i></div></a>
+        <div class="case-filters" role="group" aria-label="案例筛选">
+          <button class="is-active" type="button" data-case-filter="all" aria-pressed="true" data-zh="全部" data-en="All">全部</button>
+          <button type="button" data-case-filter="mobile" aria-pressed="false" data-zh="移动端" data-en="Mobile">移动端</button>
+          <button type="button" data-case-filter="editorial" aria-pressed="false" data-zh="编辑感" data-en="Editorial">编辑感</button>
+          <button type="button" data-case-filter="vivid" aria-pressed="false" data-zh="高表现力" data-en="Expressive">高表现力</button>
         </div>
-        <div class="section-link"><a href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span data-zh="查看全部案例" data-en="View all cases">查看全部案例</span> <i>↗</i></a></div>
+        <div class="project-case-grid">
+          <a class="project-case" data-case-category="mobile editorial" href="./demo/fufu-bakery/index.html?lang=zh" data-smart-lang-link="./demo/fufu-bakery/index.html">
+            <img src="./demo/fufu-bakery/mobile-preview.png" alt="FuFu Bakery 移动端界面案例"><span class="case-shade" aria-hidden="true"></span><small>MOBILE · BRAND</small>
+            <div><h3>FuFu Bakery</h3><p data-zh="品牌化烘焙会员体验" data-en="Branded bakery membership experience">品牌化烘焙会员体验</p><i>↗</i></div>
+          </a>
+          <a class="project-case" data-case-category="mobile vivid" href="./demo/plate-play/index.html?lang=zh" data-smart-lang-link="./demo/plate-play/index.html">
+            <img src="./demo/plate-play/mobile-preview.png" alt="Plate Play 移动端界面案例"><span class="case-shade" aria-hidden="true"></span><small>MOBILE · VIVID</small>
+            <div><h3>Plate Play</h3><p data-zh="高表现力食谱与内容体验" data-en="Expressive recipe and content experience">高表现力食谱与内容体验</p><i>↗</i></div>
+          </a>
+          <a class="project-case" data-case-category="mobile editorial" href="./demo/relay/index.html?lang=zh" data-smart-lang-link="./demo/relay/index.html">
+            <img src="./demo/relay/mobile-preview.png" alt="RELAY 移动端界面案例"><span class="case-shade" aria-hidden="true"></span><small>MOBILE · UTILITY</small>
+            <div><h3>RELAY</h3><p data-zh="克制的移动工具界面" data-en="A restrained mobile utility interface">克制的移动工具界面</p><i>↗</i></div>
+          </a>
+        </div>
+        <div class="section-link"><a href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span data-zh="查看全部案例" data-en="View all cases">查看全部案例</span> ↗</a></div>
       </div>
     </section>
 
     <section class="project-section project-capabilities" id="capabilities">
       <div class="project-container">
-        <header class="section-heading"><p class="section-eyebrow">ONE CONNECTED SYSTEM</p><h2 data-zh="从“我喜欢这个”，到“把它做出来”。" data-en="From “I like this” to “build it.”">从“我喜欢这个”，到“把它做出来”。</h2></header>
+        <header class="section-heading">
+          <p class="section-eyebrow">ONE CONNECTED SYSTEM</p>
+          <h2 data-zh="把“我喜欢这个”，变成可以执行的设计决定。" data-en="Turn “I like this” into design decisions you can execute.">把“我喜欢这个”，变成可以执行的设计决定。</h2>
+        </header>
         <div class="capability-grid">
-          <a href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span>01</span><strong data-zh="探索真实案例" data-en="Explore real cases">探索真实案例</strong><p data-zh="按页面、组件、风格和来源找到可以真正打开与体验的参考。" data-en="Find references you can actually open and inspect by page, component, style, and source.">按页面、组件、风格和来源找到可以真正打开与体验的参考。</p><i>↗</i></a>
-          <a href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html"><span>02</span><strong>UI Vocabulary</strong><p data-zh="把模糊描述翻译成标准界面模式，并查看组件的不同状态。" data-en="Translate fuzzy descriptions into standard UI patterns and inspect component states.">把模糊描述翻译成标准界面模式，并查看组件的不同状态。</p><i>↗</i></a>
-          <a href="./brands.html?lang=zh" data-smart-lang-link="./brands.html"><span>03</span><strong data-zh="设计系统参考" data-en="Design system references">设计系统参考</strong><p data-zh="理解不同品牌如何处理颜色、字体、间距、组件和交互规则。" data-en="See how brands handle color, type, spacing, components, and interaction rules.">理解不同品牌如何处理颜色、字体、间距、组件和交互规则。</p><i>↗</i></a>
-          <a href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><span>04</span><strong>Design DNA</strong><p data-zh="确定视觉方向与基础规范，预览效果并保存为可复用规则。" data-en="Define a visual direction and foundation, preview the result, and save reusable rules.">确定视觉方向与基础规范，预览效果并保存为可复用规则。</p><i>↗</i></a>
+          <a href="./library.html?lang=zh" data-smart-lang-link="./library.html"><img src="./assets/home/orbit-cards/visual-direction.webp" alt="真实案例与视觉方向界面"><span class="capability-shade"></span><small>01 · EXPLORE</small><div><strong data-zh="探索真实案例" data-en="Explore real cases">探索真实案例</strong><p data-zh="找到能打开、能体验、能继续拆解的设计参考。" data-en="Find references you can open, experience, and decompose.">找到能打开、能体验、能继续拆解的设计参考。</p><i>↗</i></div></a>
+          <a href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html"><img src="./assets/home/orbit-cards/component-states.webp" alt="UI 组件与状态界面"><span class="capability-shade"></span><small>02 · VOCABULARY</small><div><strong>UI Vocabulary</strong><p data-zh="把模糊描述翻译成标准组件、模式与状态。" data-en="Translate fuzzy descriptions into standard components, patterns, and states.">把模糊描述翻译成标准组件、模式与状态。</p><i>↗</i></div></a>
+          <a href="./brands.html?lang=zh" data-smart-lang-link="./brands.html"><img src="./assets/home/orbit-cards/material-dna.webp" alt="设计系统材质与规范界面"><span class="capability-shade"></span><small>03 · SYSTEMS</small><div><strong data-zh="设计系统参考" data-en="Design system references">设计系统参考</strong><p data-zh="理解品牌如何组织颜色、字体、间距和交互。" data-en="See how brands organize color, type, spacing, and interaction.">理解品牌如何组织颜色、字体、间距和交互。</p><i>↗</i></div></a>
+          <a href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><img src="./assets/home/orbit-cards/responsive-prototype.webp" alt="Design DNA 响应式原型界面"><span class="capability-shade"></span><small>04 · BUILD</small><div><strong>Design DNA</strong><p data-zh="确定视觉规则，预览效果，再交给 AI 生成页面。" data-en="Define visual rules, preview the result, then build with AI.">确定视觉规则，预览效果，再交给 AI 生成页面。</p><i>↗</i></div></a>
         </div>
       </div>
     </section>
 
-    <section class="project-editorial"><div class="project-editorial-media"><img src="./demo/squarespace-cinematic/assets/architecture.webp" alt="现代城市建筑实景"></div><div class="project-editorial-copy"><p class="section-eyebrow">WHY ONDESIGN</p><h2 data-zh="不是再收藏一张图，而是让参考真正变得可执行。" data-en="Don't just save another image. Make the reference executable.">不是再收藏一张图，而是让参考真正变得可执行。</h2><p data-zh="ONDesign 把“看起来不错”拆成可以讨论和修改的决定：页面结构、视觉层级、组件模式、交互状态、响应式与设计语言。" data-en="ONDesign breaks “this looks good” into decisions you can discuss and change: structure, hierarchy, component patterns, interaction states, responsiveness, and visual language.">ONDesign 把“看起来不错”拆成可以讨论和修改的决定：页面结构、视觉层级、组件模式、交互状态、响应式与设计语言。</p><a href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html"><span data-zh="学习界面语言" data-en="Learn interface language">学习界面语言</span> ↗</a></div></section>
+    <section class="project-showcase" aria-label="从参考到界面的工作流">
+      <div class="showcase-copy">
+        <p class="section-eyebrow">FROM REFERENCE TO INTERFACE</p>
+        <h2 data-zh="一套可以看见、理解、修改并真正落地的工作流。" data-en="A workflow you can see, understand, edit, and put into practice.">一套可以看见、理解、修改并真正落地的工作流。</h2>
+        <p data-zh="真实参考、布局地图、组件状态、响应式原型与视觉检查，在同一条路径里彼此连接。" data-en="Real references, layout maps, component states, responsive prototypes, and visual checks connect in one path.">真实参考、布局地图、组件状态、响应式原型与视觉检查，在同一条路径里彼此连接。</p>
+      </div>
+      <div class="showcase-scene">
+        <a class="showcase-card showcase-card-1" href="./library.html?lang=zh" data-smart-lang-link="./library.html"><img src="./assets/home/orbit-cards/visual-direction.webp" alt="选择视觉方向"><span data-zh="视觉方向" data-en="Visual direction">视觉方向</span></a>
+        <a class="showcase-card showcase-card-2" href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html"><img src="./assets/home/orbit-cards/layout-map.webp" alt="拆解页面布局"><span data-zh="布局地图" data-en="Layout map">布局地图</span></a>
+        <a class="showcase-card showcase-card-3" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><img src="./assets/home/orbit-cards/responsive-prototype.webp" alt="生成响应式原型"><span data-zh="响应式原型" data-en="Responsive prototype">响应式原型</span></a>
+        <a class="showcase-card showcase-card-4" href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html"><img src="./assets/home/orbit-cards/component-states.webp" alt="检查组件状态"><span data-zh="组件状态" data-en="Component states">组件状态</span></a>
+        <a class="showcase-card showcase-card-5" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><img src="./assets/home/orbit-cards/visual-check.webp" alt="完成视觉检查"><span data-zh="视觉检查" data-en="Visual check">视觉检查</span></a>
+      </div>
+    </section>
 
-    <section class="project-section project-method" id="method"><div class="project-container"><header class="section-heading"><p class="section-eyebrow">THE ONDESIGN METHOD</p><h2 data-zh="一条从参考到页面的清晰路径。" data-en="A clear path from reference to interface.">一条从参考到页面的清晰路径。</h2></header><ol class="method-rows"><li><span>01</span><strong>EXPLORE</strong><p data-zh="寻找真实案例与视觉方向" data-en="Find real cases and a visual direction">寻找真实案例与视觉方向</p></li><li><span>02</span><strong>DECOMPOSE</strong><p data-zh="拆解页面、组件与状态" data-en="Break down pages, components, and states">拆解页面、组件与状态</p></li><li><span>03</span><strong>DEFINE</strong><p data-zh="确定 UI 词汇与 Design DNA" data-en="Define UI vocabulary and Design DNA">确定 UI 词汇与 Design DNA</p></li><li><span>04</span><strong>BUILD</strong><p data-zh="让 AI 生成可运行的页面" data-en="Use AI to build a working interface">让 AI 生成可运行的页面</p></li><li><span>05</span><strong>VERIFY</strong><p data-zh="检查细节并局部迭代" data-en="Review details and iterate precisely">检查细节并局部迭代</p></li></ol></div></section>
+    <section class="project-editorial">
+      <div class="project-container">
+        <p class="section-eyebrow">WHY ONDESIGN</p>
+        <blockquote data-zh="“我做 ONDesign，不是为了再收藏一批漂亮截图，而是想把‘我喜欢这个’变成 AI 能理解、能执行，也能继续修改的设计语言。”" data-en="“I built ONDesign not to collect more pretty screenshots, but to turn ‘I like this’ into a design language AI can understand, execute, and keep refining.”">“我做 ONDesign，不是为了再收藏一批漂亮截图，而是想把‘我喜欢这个’变成 AI 能理解、能执行，也能继续修改的设计语言。”</blockquote>
+        <div class="editorial-author"><span>朱脑壳</span><small>ONDesign Creator</small></div>
+      </div>
+    </section>
 
-    <section class="project-cta"><div class="project-container project-cta-inner"><div><p class="section-eyebrow">START WITH A REAL REFERENCE</p><h2 data-zh="找到一个方向，开始你的下一版界面。" data-en="Find a direction and build your next interface.">找到一个方向，开始你的下一版界面。</h2></div><div class="project-cta-actions"><a class="button-filled" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html" data-zh="开始设计" data-en="Start designing">开始设计</a><a class="button-outline" href="./library.html?lang=zh" data-smart-lang-link="./library.html" data-zh="浏览案例库" data-en="Browse the library">浏览案例库</a></div></div></section>
+    <section class="project-cta">
+      <div class="project-container project-cta-inner">
+        <div><p class="section-eyebrow">START WITH A REAL REFERENCE</p><h2 data-zh="找到一个方向，开始你的下一版界面。" data-en="Find a direction and build your next interface.">找到一个方向，开始你的下一版界面。</h2></div>
+        <div class="project-cta-actions"><a class="button-filled" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html" data-zh="开始设计" data-en="Start designing">开始设计</a><a class="button-outline" href="./library.html?lang=zh" data-smart-lang-link="./library.html" data-zh="浏览案例库" data-en="Browse the library">浏览案例库</a></div>
+      </div>
+    </section>
   </main>
-  <footer class="project-footer"><div class="project-container"><span>ONDesign · AI UI Design Workflow</span><a href="#top" data-zh="返回顶部 ↑" data-en="Back to top ↑">返回顶部 ↑</a></div></footer>
+
+  <footer class="project-footer">
+    <div class="project-container footer-grid">
+      <div class="footer-brand"><strong>ONDesign</strong><p data-zh="从设计参考到真实界面。" data-en="From design references to real interfaces.">从设计参考到真实界面。</p></div>
+      <nav><strong data-zh="探索" data-en="Explore">探索</strong><a href="./library.html?lang=zh" data-smart-lang-link="./library.html" data-zh="真实案例" data-en="Real cases">真实案例</a><a href="./brands.html?lang=zh" data-smart-lang-link="./brands.html" data-zh="设计系统" data-en="Design systems">设计系统</a></nav>
+      <nav><strong data-zh="学习" data-en="Learn">学习</strong><a href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html">UI Vocabulary</a><a href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html">Design DNA</a></nav>
+      <nav><strong data-zh="开始" data-en="Start">开始</strong><a href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html" data-zh="开始设计" data-en="Start designing">开始设计</a><a href="#top" data-zh="返回顶部 ↑" data-en="Back to top ↑">返回顶部 ↑</a></nav>
+    </div>
+    <div class="project-container footer-bottom"><span>© 2026 ONDesign</span><span>AI UI Design Workflow</span></div>
+  </footer>
 </body>
 </html>
