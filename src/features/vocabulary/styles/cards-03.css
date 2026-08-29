@@ -1,0 +1,60 @@
+.vp-variant-scene--borderless small { color: var(--vp-green); font-size: 6px; font-weight: 800; }
+.vp-variant-scene--borderless strong { font-size: 9px; }
+.vp-variant-scene--modal { place-items: center; background: #eef2ef; }
+.vp-modal-variant-backdrop { position: absolute; inset: 0; background: rgba(29, 44, 36, .12); }
+.vp-modal-variant-box { position: relative; z-index: 1; display: grid; width: 68%; gap: 6px; padding: 13px; border: 1px solid var(--vp-line); border-radius: 7px; background: #fff; box-shadow: 0 9px 20px rgba(28, 42, 34, .12); }
+.vp-modal-variant-box small { color: var(--vp-green); font-size: 6px; text-transform: uppercase; }
+.vp-modal-variant-box strong { font-size: 11px; }
+.vp-modal-variant-box p { margin: 0; color: var(--vp-muted); font-size: 7px; line-height: 1.4; }
+.vp-modal-variant-box > div { display: flex; justify-content: end; gap: 5px; margin-top: 3px; }
+.vp-modal-variant-box > div span, .vp-modal-variant-box > div b { padding: 4px 7px; border: 1px solid var(--vp-line); border-radius: 4px; font-size: 7px; }
+.vp-modal-variant-box > div b { border-color: var(--vp-green); background: var(--vp-green); color: #fff; }
+.vp-variant-scene--fullscreen .vp-modal-variant-box { width: 84%; height: 82%; align-content: center; }
+.vp-variant-scene--bottom-sheet { align-items: end; }
+.vp-variant-scene--bottom-sheet .vp-modal-variant-box { width: 100%; border-radius: 9px 9px 0 0; }
+.vp-variant-scene--media .vp-modal-variant-box { width: 48%; padding-bottom: 38px; }
+.vp-variant-scene--form { grid-template-columns: 34% 1fr; gap: 12px; align-items: center; padding: 13px; background: #f7f9f7; }
+.vp-form-variant-head { display: grid; gap: 7px; }
+.vp-form-variant-head strong { font-size: 13px; line-height: 1.15; }
+.vp-form-variant-head p { margin: 0; color: var(--vp-muted); font-size: 7px; line-height: 1.45; }
+.vp-form-variant-body { display: grid; gap: 5px; padding: 10px; border: 1px solid var(--vp-line); border-radius: 6px; background: #fff; }
+.vp-form-variant-body label { display: grid; gap: 3px; }
+.vp-form-variant-body label span { color: var(--vp-muted); font-size: 7px; }
+.vp-form-variant-body label i { display: block; height: 18px; border: 1px solid var(--vp-line); border-radius: 3px; background: #fff; }
+.vp-form-variant-body em { width: max-content; margin-top: 2px; padding: 5px 8px; border-radius: 4px; background: var(--vp-green); color: #fff; font-size: 7px; font-style: normal; font-weight: 800; }
+.vp-form-variant-step { color: var(--vp-green); font-size: 7px; letter-spacing: .12em; }
+.vp-variant-scene--multi .vp-form-variant-body { grid-template-columns: 1fr 1fr; }
+.vp-variant-scene--inline { grid-template-columns: 1fr; }
+.vp-variant-scene--conversational .vp-form-variant-body { background: linear-gradient(180deg, #fff, #f2f7f3); }
+.vp-form-progress { display: flex; align-items: center; gap: 4px; }
+.vp-form-progress span { display: grid; width: 16px; height: 16px; place-items: center; border: 1px solid var(--vp-line); border-radius: 50%; color: var(--vp-muted); font-size: 6px; }
+.vp-form-progress span.is-done, .vp-form-progress span.is-active { border-color: var(--vp-green); background: var(--vp-green); color: #fff; }
+.vp-form-progress i { width: 13px; height: 1px; background: var(--vp-line); }
+.vp-form-step-copy { display: grid; gap: 2px; margin: 3px 0; }
+.vp-form-step-copy small, .vp-conversation-progress + small { color: var(--vp-green); font-size: 6px; }
+.vp-form-step-copy b { font-size: 10px; }
+.vp-inline-display, .vp-inline-edit { display: grid; gap: 5px; padding: 9px; border: 1px solid var(--vp-line); border-radius: 5px; }
+.vp-inline-display small { color: var(--vp-muted); font-size: 6px; }
+.vp-inline-display > div, .vp-inline-edit > div, .vp-login-options { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.vp-inline-display b { font-size: 9px; }
+.vp-inline-display span, .vp-login-options b { color: var(--vp-green); font-size: 7px; }
+.vp-inline-edit input { width: 100%; min-height: 24px; padding: 0 6px; border: 1px solid var(--vp-green); border-radius: 3px; color: var(--vp-ink); font-size: 7px; }
+.vp-inline-edit button, .vp-inline-edit > div b { padding: 4px 6px; border: 1px solid var(--vp-line); border-radius: 3px; background: #fff; color: var(--vp-muted); font-size: 6px; }
+.vp-inline-edit > div b { border-color: var(--vp-green); background: var(--vp-green); color: #fff; }
+.vp-conversation-progress { height: 3px; overflow: hidden; border-radius: 2px; background: var(--vp-line); }
+.vp-conversation-progress span { display: block; height: 100%; background: var(--vp-green); }
+.vp-conversation-question { margin: 5px 0; font-size: 10px; line-height: 1.35; }
+.vp-conversation-options { display: grid; gap: 4px; }
+.vp-conversation-options span { padding: 6px 7px; border: 1px solid var(--vp-line); border-radius: 4px; color: var(--vp-muted); font-size: 7px; }
+.vp-conversation-options span.is-active { border-color: var(--vp-green); background: color-mix(in srgb, var(--vp-green) 8%, #fff); color: var(--vp-green); font-weight: 800; }
+.vp-login-options span { color: var(--vp-muted); font-size: 7px; }
+.vp-checkout-layout { display: grid; grid-template-columns: 1fr .8fr; gap: 7px; }
+.vp-checkout-layout > div { display: grid; gap: 5px; }
+.vp-checkout-layout aside { padding: 7px; border-radius: 4px; background: var(--vp-soft); }
+.vp-checkout-layout aside small { color: var(--vp-green); font-size: 6px; font-weight: 800; }
+.vp-checkout-layout aside p, .vp-checkout-layout aside strong { display: flex; justify-content: space-between; gap: 4px; margin: 6px 0 0; color: var(--vp-muted); font-size: 6px; }
+.vp-checkout-layout aside strong { padding-top: 5px; border-top: 1px solid var(--vp-line); color: var(--vp-ink); font-size: 7px; }
+.vp-variant-scene--tabs { align-content: start; gap: 10px; padding: 14px; background: #f8faf8; }
+.vp-tabs-variant-title { font-size: 11px; font-weight: 800; }
+.vp-tabs-variant-bar { display: flex; gap: 13px; border-bottom: 1px solid var(--vp-line); }
+.vp-tabs-variant-bar span { padding-bottom: 6px; color: var(--vp-muted); font-size: 7px; }
