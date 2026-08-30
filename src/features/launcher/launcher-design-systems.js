@@ -139,34 +139,18 @@ function swatchHtml(colors = []) {
   return colors.slice(0, 4).map((color) => `<i style="background:${esc(color)}"></i>`).join("");
 }
 
-function ensureField() {
-  const rulesBody = document.querySelector("#dna-rules .dna-section-body");
-  if (!rulesBody) return;
-  rulesBody.querySelector("[data-design-system-bootstrap]")?.remove();
-  document.querySelector(".ds-dialog")?.remove();
-  if (field?.isConnected) return;
-  field = rulesBody.querySelector("[data-design-system-field]");
+function bindStaticField() {
+  field = document.querySelector("[data-design-system-field]");
   if (!field) {
-    field = document.createElement("fieldset");
-    field.className = "ds-field";
-    field.dataset.designSystemField = "";
-    field.innerHTML = `
-      <legend>${txt("设计规范", "Design system")}</legend>
-      <button class="ds-trigger" type="button" aria-expanded="false" data-ds-trigger>
-        <span class="ds-trigger-copy"><strong>${txt("选择设计规范", "Choose a design system")}</strong><small>${txt("73 套真实网站规范，可直接预览并应用", "73 real-site systems with inline previews")}</small></span>
-        <span class="ds-trigger-side" aria-hidden="true"><span class="ds-trigger-swatches"><i></i><i></i><i></i><i></i></span><span class="ds-trigger-arrow"></span></span>
-      </button>
-      <div class="ds-menu" data-ds-menu hidden>
-        <div class="ds-menu-head"><input class="ds-search" type="search" placeholder="${txt("搜索 Linear、Apple、Figma…", "Search Linear, Apple, Figma…")}" aria-label="${txt("搜索设计规范", "Search design systems")}"><span class="ds-count" data-ds-count></span></div>
-        <div class="ds-list" data-ds-list></div>
-      </div>
-      <p class="ds-note">${txt("来源：VoltAgent/awesome-design-md（MIT）。选择后同步颜色、字体、圆角与间距；下方仍可继续微调。", "Source: VoltAgent/awesome-design-md (MIT). Selection syncs color, typography, radius and spacing; fine-tune below.")}</p>`;
-    rulesBody.prepend(field);
+    console.warn("[ONDesign] Static design-system field is missing from launcher.html");
+    return false;
   }
   trigger = field.querySelector("[data-ds-trigger]");
   menu = field.querySelector("[data-ds-menu]");
   list = field.querySelector("[data-ds-list]");
   searchInput = field.querySelector(".ds-search");
+  if (!trigger || !menu || !list || !searchInput) return false;
+
   if (trigger.dataset.bound !== "true") {
     trigger.dataset.bound = "true";
     trigger.addEventListener("click", (event) => {
@@ -176,11 +160,28 @@ function ensureField() {
       trigger.setAttribute("aria-expanded", String(open));
       if (open) {
         renderOptions();
-        requestAnimationFrame(() => searchInput?.focus());
+        requestAnimationFrame(() => searchInput.focus());
       }
     });
     searchInput.addEventListener("input", renderOptions);
   }
+  return true;
+}
+
+function syncStaticLabels() {
+  if (!field) return;
+  const legend = field.querySelector("legend");
+  const note = field.querySelector(".ds-note");
+  if (legend) legend.textContent = txt("设计规范", "Design system");
+  if (searchInput) {
+    searchInput.placeholder = txt("搜索 Linear、Apple、Figma…", "Search Linear, Apple, Figma…");
+    searchInput.setAttribute("aria-label", txt("搜索设计规范", "Search design systems"));
+  }
+  if (note) note.textContent = txt(
+    "来源：VoltAgent/awesome-design-md（MIT）。选择后同步颜色、字体、圆角与间距；下方仍可继续微调。",
+    "Source: VoltAgent/awesome-design-md (MIT). Selection syncs color, typography, radius and spacing; fine-tune below.",
+  );
+  updateTrigger();
 }
 
 function filteredEntries() {
@@ -197,10 +198,11 @@ function optionHtml(entry) {
 }
 
 function renderOptions() {
-  if (!list) return;
+  if (!list || !field) return;
   observer?.disconnect();
   const entries = filteredEntries();
-  field.querySelector("[data-ds-count]").textContent = `${entries.length} / ${DESIGN_SYSTEMS.length}`;
+  const count = field.querySelector("[data-ds-count]");
+  if (count) count.textContent = `${entries.length} / ${DESIGN_SYSTEMS.length}`;
   list.innerHTML = entries.length ? entries.map(optionHtml).join("") : `<div class="ds-empty">${txt("没有匹配的设计规范", "No matching design systems")}</div>`;
   observer = new IntersectionObserver((items) => {
     items.forEach((item) => {
@@ -295,13 +297,13 @@ function updateTrigger() {
   const small = trigger.querySelector("small");
   const swatches = trigger.querySelectorAll(".ds-trigger-swatches i");
   if (!selectedEntry || !selectedSpec) {
-    strong.textContent = txt("选择设计规范", "Choose a design system");
-    small.textContent = txt("73 套真实网站规范，可直接预览并应用", "73 real-site systems with inline previews");
-    swatches.forEach((node) => node.style.background = "#eee");
+    if (strong) strong.textContent = txt("选择设计规范", "Choose a design system");
+    if (small) small.textContent = txt("73 套真实网站规范，可直接预览并应用", "73 real-site systems with inline previews");
+    swatches.forEach((node) => { node.style.background = "#eee"; });
     return;
   }
-  strong.textContent = selectedEntry.name;
-  small.textContent = `${primaryFont(selectedSpec)} · ${radiusValue(selectedSpec)} · ${spacingValue(selectedSpec)}`;
+  if (strong) strong.textContent = selectedEntry.name;
+  if (small) small.textContent = `${primaryFont(selectedSpec)} · ${radiusValue(selectedSpec)} · ${spacingValue(selectedSpec)}`;
   const palette = paletteFor(selectedSpec);
   [palette.accent, palette.surface, palette.canvas, palette.ink].forEach((color, index) => { if (swatches[index]) swatches[index].style.background = color; });
 }
@@ -316,23 +318,14 @@ async function restoreSelection() {
 }
 
 function syncLanguage() {
-  const wasOpen = menu && !menu.hidden;
-  const query = searchInput?.value || "";
-  field?.remove();
-  field = trigger = menu = list = searchInput = null;
-  ensureField();
-  if (searchInput) searchInput.value = query;
-  updateTrigger();
-  if (wasOpen) {
-    menu.hidden = false;
-    trigger.setAttribute("aria-expanded", "true");
-    renderOptions();
-  }
+  if (!field) return;
+  const wasOpen = !menu.hidden;
+  syncStaticLabels();
+  if (wasOpen) renderOptions();
 }
 
 function openDropdown() {
-  ensureField();
-  if (!menu || !trigger) return;
+  if (!field || !menu || !trigger) return;
   menu.hidden = false;
   trigger.setAttribute("aria-expanded", "true");
   renderOptions();
@@ -340,7 +333,8 @@ function openDropdown() {
 
 function init() {
   createStyles();
-  ensureField();
+  if (!bindStaticField()) return;
+  syncStaticLabels();
   restoreSelection();
   document.addEventListener("click", (event) => {
     if (!event.target.closest("[data-design-system-field]")) closeMenu();
