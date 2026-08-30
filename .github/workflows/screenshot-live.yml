@@ -1,0 +1,29 @@
+name: Capture live homepage
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for Pages deployment
+        run: sleep 90
+      - name: Capture live page
+        run: |
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          if [ -z "$BROWSER" ]; then
+            echo "No Chromium-based browser found" >&2
+            exit 1
+          fi
+          "$BROWSER" --headless --disable-gpu --no-sandbox --hide-scrollbars --window-size=1440,1100 --screenshot=ondesign-live.png 'https://www.ondesign.tech/learn.html?lang=en'
+      - name: Upload screenshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: ondesign-live-screenshot
+          path: ondesign-live.png
+          if-no-files-found: error
