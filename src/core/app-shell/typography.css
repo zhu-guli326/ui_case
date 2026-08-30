@@ -110,10 +110,10 @@ html[lang^="zh"] {
 
   --type-display-weight: 600;
   --type-display-tracking: 0;
-  --type-display-leading: 1.18;
+  --type-display-leading: 1.2;
   --type-heading-weight: 600;
   --type-heading-tracking: 0;
-  --type-heading-leading: 1.28;
+  --type-heading-leading: 1.35;
   --type-body-weight: 400;
   --type-body-tracking: 0;
   --type-body-leading: 1.7;
@@ -228,6 +228,47 @@ select {
   font-weight: var(--type-label-weight);
   letter-spacing: var(--type-label-tracking);
   line-height: var(--type-label-leading);
+}
+
+/*
+ * Global Chinese presentation guard.
+ * Existing feature CSS still contains a few historical Latin tracking values.
+ * On Chinese pages these language-critical properties must always resolve to
+ * the canonical CJK tokens, no matter which feature stylesheet is loaded later.
+ */
+html[lang^="zh"] body {
+  font-family: var(--type-font-body) !important;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+html[lang^="zh"] body :is(h1, h2, blockquote) {
+  font-family: var(--type-font-display) !important;
+  font-weight: var(--type-display-weight) !important;
+  letter-spacing: 0 !important;
+  line-height: var(--type-display-leading) !important;
+}
+
+html[lang^="zh"] body :is(h3, h4, h5, h6) {
+  font-family: var(--type-font-display) !important;
+  font-weight: var(--type-heading-weight) !important;
+  letter-spacing: 0 !important;
+  line-height: var(--type-heading-leading) !important;
+}
+
+html[lang^="zh"] body :is(p, li, dt, dd, td, th, label, figcaption) {
+  font-family: var(--type-font-body) !important;
+  letter-spacing: 0 !important;
+}
+
+html[lang^="zh"] body :is(button, input, textarea, select) {
+  font-family: var(--type-font-body) !important;
+  letter-spacing: 0 !important;
+}
+
+html[lang^="zh"] body [data-zh] {
+  letter-spacing: 0 !important;
 }
 
 /* Homepage mappings keep its existing scale but consume only global tokens. */
