@@ -11,6 +11,7 @@
   <title>设计 Skill 观察 · ONDesign</title>
   <link rel="stylesheet" href="./src/core/app-shell/site-shell.css">
   <link rel="stylesheet" href="./src/features/skills/skills.css">
+  <link rel="stylesheet" href="./src/core/app-shell/directory-page.css">
   <link rel="stylesheet" href="./src/features/skills/skills-web-masonry.css">
   <script src="./src/core/app-shell/app-shell.js"></script>
   <script src="./src/core/adsense/adsense.js" defer></script>
@@ -18,7 +19,7 @@
   <script src="./src/core/analytics/analytics.js" defer></script>
   <script type="module" src="./src/features/skills/skills.js"></script>
 </head>
-<body class="skills-document">
+<body class="skills-document directory-page">
   <svg class="icon-sprite" aria-hidden="true">
     <symbol id="ondesign-icon-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></symbol>
     <symbol id="ondesign-icon-external-link" viewBox="0 0 24 24"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></symbol>
@@ -28,9 +29,9 @@
   </svg>
   <image2-site-header data-site-header></image2-site-header>
 
-  <main class="skills-page">
-    <section class="skills-hero" aria-labelledby="skillsHeroTitle">
-      <div class="hero-discovery">
+  <main class="skills-page directory-page-main">
+    <section class="skills-hero directory-hero" aria-labelledby="skillsHeroTitle">
+      <div class="hero-discovery directory-hero-copy">
         <p class="eyebrow" data-i18n="skills.heroEyebrow">DESIGN SKILL MAP</p>
         <h1 id="skillsHeroTitle" data-i18n="skills.heroTitle">设计 Skill 能力地图</h1>
         <p id="skillsHeroBody" data-i18n="skills.heroBody">这里不是仓库排行榜，而是一张设计能力地图。先选择你要完成的工作，再比较 Skill 的用途、维护状态与调用方式。</p>
@@ -42,19 +43,19 @@
           </a>
         </div>
       </div>
-      <aside class="hero-overview" aria-label="资源概览" data-i18n-attr="aria-label:skills.overview">
+      <aside class="hero-overview directory-hero-overview" aria-label="资源概览" data-i18n-attr="aria-label:skills.overview">
         <header><span data-i18n="skills.overview">资源概览</span><div class="hero-update-note"><span data-i18n="skills.updateCount">本次更新</span><strong id="heroUpdateCount">+8</strong><small id="heroUpdateLabel">新增演示 Skill</small></div></header>
-        <div class="hero-primary-stat"><strong id="skillsHeroCount">53</strong><span id="skillsHeroKind">Design Skills</span></div>
+        <div class="hero-primary-stat directory-primary-stat"><strong id="skillsHeroCount">53</strong><span id="skillsHeroKind">Design Skills</span></div>
         <dl><div><dt data-i18n="skills.taskPaths">任务路径</dt><dd>4</dd></div><div><dt data-i18n="skills.categories">能力分类</dt><dd>13</dd></div><div><dt data-i18n="skills.dataSource">数据来源</dt><dd>GitHub</dd></div></dl>
       </aside>
     </section>
 
-    <section class="repo-section" aria-labelledby="repoTitle">
+    <section class="repo-section directory-section" aria-labelledby="repoTitle">
       <h2 class="visually-hidden" id="repoTitle" data-i18n="skills.repoTitle">浏览设计 Skills</h2>
 
-      <div class="repo-toolbar" aria-label="Skill 搜索与结果数量" data-i18n-attr="aria-label:skills.repoToolbarLabel">
-        <label class="repo-search"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><input id="repoSearch" type="search" autocomplete="off" data-i18n-placeholder="skills.repoSearch" placeholder="搜索名称、用途或仓库" data-i18n-attr="aria-label:skills.repoSearch"></label>
-        <div class="repo-toolbar-actions">
+      <div class="repo-toolbar directory-toolbar" aria-label="Skill 搜索与结果数量" data-i18n-attr="aria-label:skills.repoToolbarLabel">
+        <label class="repo-search search-field"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><input id="repoSearch" type="search" autocomplete="off" data-i18n-placeholder="skills.repoSearch" placeholder="搜索名称、用途或仓库" data-i18n-attr="aria-label:skills.repoSearch"></label>
+        <div class="repo-toolbar-actions directory-toolbar-actions">
           <div class="repo-sort" id="repoSort" aria-label="排序方式">
             <button class="is-active" type="button" data-repo-sort="CURATED" data-i18n="skills.sortCurated">精选</button>
             <button type="button" data-repo-sort="STARS" data-i18n="skills.sortStars">Stars</button>
@@ -65,7 +66,7 @@
       </div>
 
       <div class="directory-layout" id="directoryLayout">
-        <aside class="filter-sidebar" id="filterSidebar" aria-label="Skill 分类筛选">
+        <aside class="filter-sidebar directory-sidebar" id="filterSidebar" aria-label="Skill 分类筛选">
           <div class="sidebar-mode-filter">
             <p data-i18n="skills.directoryModeLabel">浏览类型</p>
             <div class="directory-mode-tabs">
@@ -76,7 +77,7 @@
           <header class="filter-sidebar-head"><p data-i18n="skills.filters">分类筛选</p><small id="categoryCount">13</small></header>
           <div class="repo-facets" id="repoFacets"></div>
         </aside>
-        <div class="repo-list" id="repoList" aria-live="polite"></div>
+        <div class="repo-list directory-content" id="repoList" aria-live="polite"></div>
       </div>
     </section>
 
