@@ -10,132 +10,111 @@
   <meta name="description" content="UI 词典：按类别浏览页面结构、导航、内容、控件和反馈形式。" data-i18n-attr="content:vocabulary.metaDescription">
   <title data-i18n="vocabulary.pageTitle">UI 词典 · ONDesign</title>
   <link rel="stylesheet" href="./src/core/app-shell/site-shell.css">
-<link rel="stylesheet" href="./src/features/vocabulary/vocabulary.css">
+  <link rel="stylesheet" href="./src/features/vocabulary/vocabulary.css">
   <link rel="stylesheet" href="./src/core/app-shell/directory-page.css">
-<script src="./src/core/app-shell/app-shell.js"></script>
+  <script src="./src/core/app-shell/app-shell.js"></script>
   <script src="./src/core/adsense/adsense.js" defer></script>
   <script type="module" src="./src/features/vocabulary/vocabulary.js"></script>
 </head>
 <body class="vocabulary-page directory-page">
   <a class="skip-link" href="#vocabularyResults" data-i18n="vocabulary.skipResults">跳到词条列表</a>
   <image2-site-header data-site-header></image2-site-header>
-  <main>
-    <section class="vocab-hero" aria-labelledby="pageTitle">
-      <div class="hero-copy">
+
+  <main class="directory-page-main">
+    <section class="vocab-hero directory-hero" aria-labelledby="pageTitle">
+      <div class="hero-copy directory-hero-copy">
         <p class="eyebrow" data-i18n="vocabulary.heroEyebrow">UI 词汇 / 从需求到代码</p>
         <h1 id="pageTitle" data-i18n="vocabulary.heading">UI 词典</h1>
         <p class="hero-intro" data-i18n="vocabulary.intro">把页面基础、导航、内容、控件和反馈整理成一套可搜索的 UI 词典，先看结构，再选择适合的形式和实现方式。</p>
       </div>
-    </section>
-
-    <section class="vocab-toolbar" aria-label="词条搜索和筛选" data-i18n-attr="aria-label:vocabulary.searchAndFilter">
-      <label class="search-field" for="vocabularySearch">
-        <span class="search-icon" aria-hidden="true"></span>
-        <input id="vocabularySearch" type="search" autocomplete="off" aria-label="搜索 UI 词条" placeholder="搜索术语、英文名或你想说的话…" data-i18n-attr="aria-label:vocabulary.searchLabel,placeholder:vocabulary.searchPlaceholder">
-        <kbd aria-hidden="true">⌘ K</kbd>
-      </label>
-    </section>
-
-    <div class="vocab-layout">
-      <aside class="taxonomy" aria-label="词条目录" data-i18n-attr="aria-label:vocabulary.termDirectory">
-        <div class="taxonomy-heading"><span data-i18n="vocabulary.termDirectory">分类筛选</span><span id="resultCount">71 条</span></div>
-        <nav id="taxonomyNav"></nav>
-        <div class="taxonomy-note"><strong data-i18n="vocabulary.termHelpTitle">看不懂一个词？</strong><p data-i18n="vocabulary.termHelpBody">先点开卡片看“你可能会说”，再对照组成结构和容易混淆。</p><span data-i18n="vocabulary.openGuide">打开规范长文</span> <span aria-hidden="true">↗</span></div>
+      <aside class="vocab-overview directory-hero-overview" aria-label="词典概览">
+        <header><span>词典概览</span><small>UI VOCABULARY</small></header>
+        <div class="directory-primary-stat"><strong>71</strong><span>UI Terms</span></div>
+        <dl><div><dt>浏览方式</dt><dd>搜索 + 筛选</dd></div><div><dt>学习路径</dt><dd>结构 → 形式 → 实现</dd></div><div><dt>用途</dt><dd>从需求到代码</dd></div></dl>
       </aside>
+    </section>
 
-      <section class="results-column" id="vocabularyResults" aria-labelledby="resultsTitle">
-        <div class="results-heading">
-          <div><p class="eyebrow" id="resultsEyebrow" data-i18n="vocabulary.resultsEyebrow">按界面作用浏览</p><h2 id="resultsTitle" data-i18n="vocabulary.allTerms">所有词条</h2></div>
-          <div class="results-actions"><label class="sort-control" for="sortSelect"><span data-i18n="vocabulary.sort">排序</span><select id="sortSelect" data-i18n-attr="aria-label:vocabulary.sort"><option value="recommended" data-i18n="vocabulary.sortRecommended">推荐顺序</option><option value="az" data-i18n="vocabulary.sortName">中文名称</option><option value="category" data-i18n="vocabulary.sortCategory">分类</option><option value="favorites" data-i18n="vocabulary.sortFavorites">我的收藏</option></select></label><button class="share-view-button" id="shareView" type="button" data-i18n="vocabulary.shareView">复制当前链接</button></div>
-        </div>
-        <p class="results-summary" id="resultsSummary" role="status" aria-live="polite" aria-atomic="true" data-i18n="vocabulary.resultsIntro">从页面基础开始，逐步看到控件、内容和反馈状态。</p>
-        <section class="style-cover-gallery" id="styleCoverGallery" aria-labelledby="styleCoverGalleryTitle" hidden>
-          <h2 class="sr-only" id="styleCoverGalleryTitle" data-i18n="vocabulary.styleCoverTitle">设计风格示例</h2>
-          <div class="style-cover-groups">
-            <section class="style-cover-group" aria-labelledby="styleMinimalGroup">
-              <header class="style-cover-group-heading"><span>01</span><h3 id="styleMinimalGroup">Minimal &amp; Modern <em data-i18n="vocabulary.styleMinimalZh">现代极简</em></h3></header>
-              <div class="style-cover-grid">
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/minimal-modern.webp" alt="科技极简 Web UI 页面封面" loading="eager" decoding="async"></figure><div class="style-cover-copy"><span>01</span><h4>Tech Minimal <em data-i18n="vocabulary.styleTechMinimal">科技极简</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/luxury-minimal.webp" alt="奢华极简 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>02</span><h4>Luxury Minimal <em data-i18n="vocabulary.styleLuxuryMinimal">奢华极简</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/editorial-minimal.webp" alt="编辑式极简 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>03</span><h4>Editorial Minimal <em data-i18n="vocabulary.styleEditorialMinimal">编辑式极简</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/swiss-style.webp" alt="瑞士国际主义 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>04</span><h4>Swiss Style <em data-i18n="vocabulary.styleSwiss">瑞士国际主义风格</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/swiss-geometric.webp" alt="瑞士几何 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>05</span><h4>Swiss Geometric <em data-i18n="vocabulary.styleSwissGeometric">瑞士几何风格</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/swiss-typographic.webp" alt="瑞士黑白字体 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>06</span><h4>Swiss Typographic <em data-i18n="vocabulary.styleSwissTypographic">瑞士黑白字体</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/swiss-dots-color.webp" alt="瑞士圆点色彩 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>07</span><h4>Swiss Dots &amp; Color <em data-i18n="vocabulary.styleSwissDots">瑞士圆点色彩</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/warm-minimal.webp" alt="温暖极简 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>08</span><h4>Warm Minimal <em data-i18n="vocabulary.styleWarmMinimal">温暖极简</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/tactile-future.webp" alt="丝绒奢华 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>09</span><h4>Velvet Luxe <em data-i18n="vocabulary.styleVelvetLuxe">丝绒奢华</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/monochrome.webp" alt="单色主义 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>10</span><h4>Monochrome <em data-i18n="vocabulary.styleMonochrome">单色主义</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/bento-grid.webp" alt="网格卡片 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>11</span><h4>Bento Grid <em data-i18n="vocabulary.styleBentoGrid">网格卡片</em></h4></div></article>
-              </div>
-            </section>
-            <section class="style-cover-group" aria-labelledby="styleGraphicGroup">
-              <header class="style-cover-group-heading"><span>02</span><h3 id="styleGraphicGroup">Graphic &amp; Experimental <em data-i18n="vocabulary.styleGraphicZh">图形与实验</em></h3></header>
-              <div class="style-cover-grid">
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/graphic-experimental.webp" alt="新粗野主义 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>01</span><h4>Neo-Brutalism <em data-i18n="vocabulary.styleNeoBrutalism">新粗野主义</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/anti-design.webp" alt="反设计 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>02</span><h4>Anti-Design <em data-i18n="vocabulary.styleAntiDesign">反设计</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/memphis.webp" alt="孟菲斯 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>03</span><h4>Memphis <em data-i18n="vocabulary.styleMemphis">孟菲斯风格</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/dopamine-design.webp" alt="多巴胺设计 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>04</span><h4>Dopamine Design <em data-i18n="vocabulary.styleDopamine">多巴胺设计</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/pixel.webp" alt="像素风格 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>05</span><h4>Pixel <em data-i18n="vocabulary.stylePixel">像素风格</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/glitch-art.webp" alt="故障艺术 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>06</span><h4>Glitch Art <em data-i18n="vocabulary.styleGlitchArt">故障艺术</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/kinetic-typography.webp" alt="动态字体 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>07</span><h4>Kinetic Typography <em data-i18n="vocabulary.styleKineticTypography">动态字体</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/surreal-3d.webp" alt="超现实三维 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>08</span><h4>Surreal 3D <em data-i18n="vocabulary.styleSurreal3D">超现实三维</em></h4></div></article>
-                <article class="style-cover-card"><figure><img src="./assets/style-covers/maximalism.webp" alt="极繁主义 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>09</span><h4>Maximalism <em data-i18n="vocabulary.styleMaximalism">极繁主义</em></h4></div></article>
-              </div>
-            </section>
-          </div>
-        </section>
-        <section class="navigation-deep-dive" id="navigationDeepDive" aria-labelledby="navigationDeepDiveTitle" hidden>
-          <header class="deep-dive-heading">
-            <div>
-              <p class="eyebrow" data-i18n="vocabulary.navigationEyebrow">深入了解 / 导航模式</p>
-              <h2 id="navigationDeepDiveTitle" data-i18n="vocabulary.navigationDeepTitle">导航不是只有一种栏</h2>
-            </div>
-            <p data-i18n="vocabulary.navigationDeepIntro">先判断它服务的是全局、局部、层级还是临时任务，再选择位置和样式。下面 8 种模式看起来相似，但承担的导航范围完全不同。</p>
-          </header>
-          <div class="navigation-principles" id="navigationPrinciples"></div>
-          <div class="navigation-pattern-grid" id="navigationPatternGrid"></div>
-          <section class="navigation-matrix" aria-labelledby="navigationMatrixTitle">
-            <div class="matrix-heading">
-              <div><p class="eyebrow" data-i18n="vocabulary.matrixEyebrow">选择判断</p><h3 id="navigationMatrixTitle" data-i18n="vocabulary.navigationMatrixTitle">到底该选哪一种？</h3></div>
-              <p data-i18n="vocabulary.navigationMatrixIntro">不要从“哪种更好看”开始，先看信息范围、入口数量、设备和切换频率。</p>
-            </div>
-            <div class="navigation-matrix-table" id="navigationMatrixTable"></div>
-          </section>
-          <footer class="navigation-sources">
-            <span data-i18n="vocabulary.navigationSources">参考规范</span>
-            <a href="https://m3.material.io/components/navigation-bar/overview" target="_blank" rel="noreferrer">Material 3</a>
-            <a href="https://developer.apple.com/design/human-interface-guidelines/tab-bars" target="_blank" rel="noreferrer">Apple HIG</a>
-            <a href="https://carbondesignsystem.com/components/UI-shell-side-nav/usage/" target="_blank" rel="noreferrer">Carbon</a>
-            <a href="https://www.w3.org/WAI/ARIA/apg/patterns/" target="_blank" rel="noreferrer">WAI-ARIA APG</a>
-          </footer>
-        </section>
-        <div class="entry-grid" id="entryGrid"></div>
-        <div class="empty-state" id="emptyState" hidden>
-          <span class="empty-mark" aria-hidden="true">?</span>
-          <h3 data-i18n="vocabulary.noMatches">暂时没有匹配的词条</h3>
-          <p data-i18n="vocabulary.noMatchesHint">试试更短的关键词，或清除当前分类筛选。</p>
-          <button class="secondary-button" id="clearSearch" type="button" data-i18n="vocabulary.clearFilters">清除筛选</button>
+    <section class="directory-section" aria-labelledby="resultsTitle">
+      <section class="vocab-toolbar directory-toolbar" aria-label="词条搜索和筛选" data-i18n-attr="aria-label:vocabulary.searchAndFilter">
+        <label class="search-field" for="vocabularySearch">
+          <span class="search-icon" aria-hidden="true"></span>
+          <input id="vocabularySearch" type="search" autocomplete="off" aria-label="搜索 UI 词条" placeholder="搜索术语、英文名或你想说的话…" data-i18n-attr="aria-label:vocabulary.searchLabel,placeholder:vocabulary.searchPlaceholder">
+          <kbd aria-hidden="true">⌘ K</kbd>
+        </label>
+        <div class="results-actions directory-toolbar-actions">
+          <label class="sort-control" for="sortSelect"><span data-i18n="vocabulary.sort">排序</span><select id="sortSelect" data-i18n-attr="aria-label:vocabulary.sort"><option value="recommended" data-i18n="vocabulary.sortRecommended">推荐顺序</option><option value="az" data-i18n="vocabulary.sortName">中文名称</option><option value="category" data-i18n="vocabulary.sortCategory">分类</option><option value="favorites" data-i18n="vocabulary.sortFavorites">我的收藏</option></select></label>
+          <button class="share-view-button" id="shareView" type="button" data-i18n="vocabulary.shareView">复制当前链接</button>
         </div>
       </section>
-    </div>
 
+      <div class="vocab-layout directory-layout">
+        <aside class="taxonomy directory-sidebar" aria-label="词条目录" data-i18n-attr="aria-label:vocabulary.termDirectory">
+          <div class="taxonomy-heading"><span data-i18n="vocabulary.termDirectory">分类筛选</span><span id="resultCount">71 条</span></div>
+          <nav id="taxonomyNav"></nav>
+          <div class="taxonomy-note"><strong data-i18n="vocabulary.termHelpTitle">看不懂一个词？</strong><p data-i18n="vocabulary.termHelpBody">先点开卡片看“你可能会说”，再对照组成结构和容易混淆。</p><span data-i18n="vocabulary.openGuide">打开规范长文</span> <span aria-hidden="true">↗</span></div>
+        </aside>
+
+        <section class="results-column directory-content" id="vocabularyResults" aria-labelledby="resultsTitle">
+          <div class="results-heading">
+            <div><p class="eyebrow" id="resultsEyebrow" data-i18n="vocabulary.resultsEyebrow">按界面作用浏览</p><h2 id="resultsTitle" data-i18n="vocabulary.allTerms">所有词条</h2></div>
+          </div>
+          <p class="results-summary" id="resultsSummary" role="status" aria-live="polite" aria-atomic="true" data-i18n="vocabulary.resultsIntro">从页面基础开始，逐步看到控件、内容和反馈状态。</p>
+          <section class="style-cover-gallery" id="styleCoverGallery" aria-labelledby="styleCoverGalleryTitle" hidden>
+            <h2 class="sr-only" id="styleCoverGalleryTitle" data-i18n="vocabulary.styleCoverTitle">设计风格示例</h2>
+            <div class="style-cover-groups">
+              <section class="style-cover-group" aria-labelledby="styleMinimalGroup">
+                <header class="style-cover-group-heading"><span>01</span><h3 id="styleMinimalGroup">Minimal &amp; Modern <em data-i18n="vocabulary.styleMinimalZh">现代极简</em></h3></header>
+                <div class="style-cover-grid">
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/minimal-modern.webp" alt="科技极简 Web UI 页面封面" loading="eager" decoding="async"></figure><div class="style-cover-copy"><span>01</span><h4>Tech Minimal <em data-i18n="vocabulary.styleTechMinimal">科技极简</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/luxury-minimal.webp" alt="奢华极简 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>02</span><h4>Luxury Minimal <em data-i18n="vocabulary.styleLuxuryMinimal">奢华极简</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/editorial-minimal.webp" alt="编辑式极简 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>03</span><h4>Editorial Minimal <em data-i18n="vocabulary.styleEditorialMinimal">编辑式极简</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/swiss-style.webp" alt="瑞士国际主义 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>04</span><h4>Swiss Style <em data-i18n="vocabulary.styleSwiss">瑞士国际主义风格</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/swiss-geometric.webp" alt="瑞士几何 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>05</span><h4>Swiss Geometric <em data-i18n="vocabulary.styleSwissGeometric">瑞士几何风格</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/swiss-typographic.webp" alt="瑞士黑白字体 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>06</span><h4>Swiss Typographic <em data-i18n="vocabulary.styleSwissTypographic">瑞士黑白字体</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/swiss-dots-color.webp" alt="瑞士圆点色彩 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>07</span><h4>Swiss Dots &amp; Color <em data-i18n="vocabulary.styleSwissDots">瑞士圆点色彩</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/warm-minimal.webp" alt="温暖极简 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>08</span><h4>Warm Minimal <em data-i18n="vocabulary.styleWarmMinimal">温暖极简</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/tactile-future.webp" alt="丝绒奢华 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>09</span><h4>Velvet Luxe <em data-i18n="vocabulary.styleVelvetLuxe">丝绒奢华</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/monochrome.webp" alt="单色主义 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>10</span><h4>Monochrome <em data-i18n="vocabulary.styleMonochrome">单色主义</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/bento-grid.webp" alt="网格卡片 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>11</span><h4>Bento Grid <em data-i18n="vocabulary.styleBentoGrid">网格卡片</em></h4></div></article>
+                </div>
+              </section>
+              <section class="style-cover-group" aria-labelledby="styleGraphicGroup">
+                <header class="style-cover-group-heading"><span>02</span><h3 id="styleGraphicGroup">Graphic &amp; Experimental <em data-i18n="vocabulary.styleGraphicZh">图形与实验</em></h3></header>
+                <div class="style-cover-grid">
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/graphic-experimental.webp" alt="新粗野主义 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>01</span><h4>Neo-Brutalism <em data-i18n="vocabulary.styleNeoBrutalism">新粗野主义</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/anti-design.webp" alt="反设计 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>02</span><h4>Anti-Design <em data-i18n="vocabulary.styleAntiDesign">反设计</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/memphis.webp" alt="孟菲斯 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>03</span><h4>Memphis <em data-i18n="vocabulary.styleMemphis">孟菲斯风格</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/dopamine-design.webp" alt="多巴胺设计 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>04</span><h4>Dopamine Design <em data-i18n="vocabulary.styleDopamine">多巴胺设计</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/pixel.webp" alt="像素风格 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>05</span><h4>Pixel <em data-i18n="vocabulary.stylePixel">像素风格</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/glitch-art.webp" alt="故障艺术 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>06</span><h4>Glitch Art <em data-i18n="vocabulary.styleGlitchArt">故障艺术</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/kinetic-typography.webp" alt="动态字体 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>07</span><h4>Kinetic Typography <em data-i18n="vocabulary.styleKineticTypography">动态字体</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/surreal-3d.webp" alt="超现实三维 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>08</span><h4>Surreal 3D <em data-i18n="vocabulary.styleSurreal3D">超现实三维</em></h4></div></article>
+                  <article class="style-cover-card"><figure><img src="./assets/style-covers/maximalism.webp" alt="极繁主义 Web UI 页面封面" loading="lazy" decoding="async"></figure><div class="style-cover-copy"><span>09</span><h4>Maximalism <em data-i18n="vocabulary.styleMaximalism">极繁主义</em></h4></div></article>
+                </div>
+              </section>
+            </div>
+          </section>
+          <section class="navigation-deep-dive" id="navigationDeepDive" aria-labelledby="navigationDeepDiveTitle" hidden>
+            <header class="deep-dive-heading"><div><p class="eyebrow" data-i18n="vocabulary.navigationEyebrow">深入了解 / 导航模式</p><h2 id="navigationDeepDiveTitle" data-i18n="vocabulary.navigationDeepTitle">导航不是只有一种栏</h2></div><p data-i18n="vocabulary.navigationDeepIntro">先判断它服务的是全局、局部、层级还是临时任务，再选择位置和样式。下面 8 种模式看起来相似，但承担的导航范围完全不同。</p></header>
+            <div class="navigation-principles" id="navigationPrinciples"></div>
+            <div class="navigation-pattern-grid" id="navigationPatternGrid"></div>
+            <section class="navigation-matrix" aria-labelledby="navigationMatrixTitle">
+              <div class="matrix-heading"><div><p class="eyebrow" data-i18n="vocabulary.matrixEyebrow">选择判断</p><h3 id="navigationMatrixTitle" data-i18n="vocabulary.navigationMatrixTitle">到底该选哪一种？</h3></div><p data-i18n="vocabulary.navigationMatrixIntro">不要从“哪种更好看”开始，先看信息范围、入口数量、设备和切换频率。</p></div>
+              <div class="navigation-matrix-table" id="navigationMatrixTable"></div>
+            </section>
+            <footer class="navigation-sources"><span data-i18n="vocabulary.navigationSources">参考规范</span><a href="https://m3.material.io/components/navigation-bar/overview" target="_blank" rel="noreferrer">Material 3</a><a href="https://developer.apple.com/design/human-interface-guidelines/tab-bars" target="_blank" rel="noreferrer">Apple HIG</a><a href="https://carbondesignsystem.com/components/UI-shell-side-nav/usage/" target="_blank" rel="noreferrer">Carbon</a><a href="https://www.w3.org/WAI/ARIA/apg/patterns/" target="_blank" rel="noreferrer">WAI-ARIA APG</a></footer>
+          </section>
+          <div class="entry-grid" id="entryGrid"></div>
+          <div class="empty-state" id="emptyState" hidden><span class="empty-mark" aria-hidden="true">?</span><h3 data-i18n="vocabulary.noMatches">暂时没有匹配的词条</h3><p data-i18n="vocabulary.noMatchesHint">试试更短的关键词，或清除当前分类筛选。</p><button class="secondary-button" id="clearSearch" type="button" data-i18n="vocabulary.clearFilters">清除筛选</button></div>
+        </section>
+      </div>
+    </section>
   </main>
+
   <footer class="vocab-footer"><p><strong data-i18n="vocabulary.fullGuide">完整规范：</strong><span data-i18n="vocabulary.fullGuideBody">保留了原来的 Markdown 版词典，适合复制到项目文档和 code review。</span></p><span data-i18n="vocabulary.readGuide">阅读规范版</span> <span aria-hidden="true">↗</span></footer>
 
-  <dialog class="term-dialog" id="termDialog" aria-labelledby="termDialogTitle">
-    <div class="term-dialog-shell">
-      <form method="dialog" class="dialog-close-form"><button class="icon-button dialog-close" type="submit" aria-label="关闭词条详情" title="关闭" data-i18n-attr="aria-label:vocabulary.closeDetails,title:common.close">×</button></form>
-      <div class="term-dialog-content" id="termDialogContent"></div>
-    </div>
-  </dialog>
-
+  <dialog class="term-dialog" id="termDialog" aria-labelledby="termDialogTitle"><div class="term-dialog-shell"><form method="dialog" class="dialog-close-form"><button class="icon-button dialog-close" type="submit" aria-label="关闭词条详情" title="关闭" data-i18n-attr="aria-label:vocabulary.closeDetails,title:common.close">×</button></form><div class="term-dialog-content" id="termDialogContent"></div></div></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
-  <footer class="site-footer" data-site-footer>
-    <div class="site-footer-inner">
-      <p><strong>ONDesign</strong><span>AI × UI design learning studio</span></p>
-      <nav aria-label="页脚导航"><a href="./learn.html" data-i18n="footer.learn">学习路径</a><a href="./vocabulary.html" data-i18n="footer.vocabulary">UI 词典</a><a href="./library.html" data-i18n="footer.library">案例库</a><a href="https://github.com/zhu-guli326/image2_UI_skill" target="_blank" rel="noopener noreferrer">GitHub</a></nav>
-      <small>© 2026 ONDesign. Content and examples are for learning purposes.</small>
-    </div>
-  </footer>
+  <footer class="site-footer" data-site-footer><div class="site-footer-inner"><p><strong>ONDesign</strong><span>AI × UI design learning studio</span></p><nav aria-label="页脚导航"><a href="./learn.html" data-i18n="footer.learn">学习路径</a><a href="./vocabulary.html" data-i18n="footer.vocabulary">UI 词典</a><a href="./library.html" data-i18n="footer.library">案例库</a><a href="https://github.com/zhu-guli326/image2_UI_skill" target="_blank" rel="noopener noreferrer">GitHub</a></nav><small>© 2026 ONDesign. Content and examples are for learning purposes.</small></div></footer>
 </body>
 </html>
