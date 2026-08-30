@@ -6,6 +6,7 @@ import {
 } from "./design-systems-catalog.js";
 
 const STORAGE_KEY = "ondesign:design-system-preset:v2";
+const STYLE_HREF = "./src/features/launcher/launcher-design-systems.css";
 const cache = new Map();
 let selectedEntry = null;
 let selectedSpec = null;
@@ -106,6 +107,14 @@ const pxNumber = (value, fallback) => {
   return match ? Number(match[0]) : fallback;
 };
 
+function ensureStylesheet() {
+  if (document.querySelector(`link[href="${STYLE_HREF}"]`)) return;
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = STYLE_HREF;
+  document.head.append(link);
+}
+
 function brandInitials(entry) {
   if (!entry) return "DS";
   const parts = entry.name.replace(/\([^)]*\)/g, "").trim().split(/[\s.-]+/).filter(Boolean);
@@ -169,7 +178,7 @@ function parseDesign(text, entry) {
       if (section === "description" && topValue) result.description = topValue;
       continue;
     }
-    if (section === "colors" || section === "rounded" || section === "spacing") {
+    if (["colors", "rounded", "spacing"].includes(section)) {
       const match = line.match(/^\s{2}([\w-]+):\s*["']?([^"']+?)["']?\s*$/);
       if (match) result[section][match[1]] = match[2].trim();
     } else if (section === "typography") {
@@ -209,8 +218,7 @@ async function loadSpec(entry) {
 
 function pickColor(spec, names, fallback) {
   for (const name of names) if (spec.colors[name]) return cssValue(spec.colors[name], fallback);
-  const values = Object.values(spec.colors).filter(Boolean);
-  return cssValue(values[0], fallback);
+  return cssValue(Object.values(spec.colors).find(Boolean), fallback);
 }
 
 function paletteFor(spec) {
@@ -235,29 +243,13 @@ function typographyList(spec) {
 function primaryFont(spec) {
   return typographyList(spec).find(([, value]) => value?.fontFamily)?.[1]?.fontFamily || "system-ui";
 }
+
 function radiusValue(spec) {
   return spec.rounded.md || spec.rounded.base || spec.rounded.sm || Object.values(spec.rounded)[0] || "8px";
 }
+
 function spacingValue(spec) {
   return spec.spacing.md || spec.spacing.base || spec.spacing.sm || Object.values(spec.spacing)[0] || "16px";
-}
-
-function createStyles() {
-  if (document.getElementById("ondesign-design-system-style")) return;
-  const style = document.createElement("style");
-  style.id = "ondesign-design-system-style";
-  style.textContent = `
-    .ds-field{margin:0 0 16px;padding:0;border:0}.ds-field>legend{margin:0 0 8px;padding:0;color:var(--ant-text,#262626);font-size:13px;font-weight:500}
-    .ds-trigger{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;width:100%;min-height:58px;padding:9px 11px;border:1px solid var(--ant-border,#d9d9d9);border-radius:7px;background:#fff;text-align:left;transition:border-color .16s ease,box-shadow .16s ease}.ds-trigger:hover,.ds-trigger[aria-expanded="true"]{border-color:var(--ant-primary,#18a957)}.ds-trigger[aria-expanded="true"]{box-shadow:0 0 0 2px rgb(24 169 87 / 10%)}
-    .ds-brand-logo{position:relative;display:grid;place-items:center;flex:0 0 auto;width:30px;height:30px;border:1px solid #ececec;border-radius:8px;background:#fff;overflow:hidden}.ds-brand-logo img{display:block;width:22px;height:22px;object-fit:contain}.ds-brand-logo b{display:none;color:#595959;font-size:10px;font-weight:700;letter-spacing:-.02em}.ds-brand-logo.is-fallback{background:#f5f5f5}.ds-brand-logo.is-fallback img{display:none}.ds-brand-logo.is-fallback b{display:block}.ds-trigger-logo{width:34px;height:34px;border-radius:9px}.ds-trigger-logo img{width:25px;height:25px}
-    .ds-trigger-copy{min-width:0;display:grid;gap:2px}.ds-trigger-copy strong{overflow:hidden;color:var(--ant-text,#262626);font-size:13px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}.ds-trigger-copy small{overflow:hidden;color:var(--ant-text-secondary,#737373);font-size:11px;text-overflow:ellipsis;white-space:nowrap}.ds-trigger-side{display:flex;align-items:center;gap:9px}.ds-trigger-swatches{display:flex;gap:3px}.ds-trigger-swatches i{display:block;width:13px;height:28px;border:1px solid rgb(0 0 0 / 7%);border-radius:3px;background:#eee}.ds-trigger-arrow{width:7px;height:7px;border-right:1.5px solid #777;border-bottom:1.5px solid #777;transform:translateY(-2px) rotate(45deg);transition:transform .16s ease}.ds-trigger[aria-expanded="true"] .ds-trigger-arrow{transform:translateY(2px) rotate(225deg)}
-    .ds-menu{margin-top:8px;border:1px solid var(--ant-border,#d9d9d9);border-radius:9px;background:#fff;box-shadow:0 8px 24px rgb(0 0 0 / 8%);overflow:hidden}.ds-menu[hidden]{display:none}.ds-menu-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px;padding:8px;border-bottom:1px solid #f0f0f0}.ds-search{width:100%;min-height:34px;padding:0 10px;border:1px solid #d9d9d9;border-radius:6px;background:#fff;color:#262626;font:inherit;font-size:12px;outline:0}.ds-search:focus{border-color:#18a957;box-shadow:0 0 0 2px rgb(24 169 87 / 10%)}.ds-count{padding-right:4px;color:#8c8c8c;font-size:10px;white-space:nowrap}
-    .ds-list{max-height:330px;padding:6px;overflow:auto;background:#fafafa}.ds-option{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;width:100%;min-height:62px;padding:8px 9px;border:1px solid transparent;border-radius:7px;background:transparent;text-align:left}.ds-option:hover{border-color:#d9d9d9;background:#fff}.ds-option.is-selected{border-color:#18a957;background:#f0f9f3}.ds-option-copy{min-width:0;display:grid;gap:3px}.ds-option-title{display:flex;align-items:center;gap:7px;min-width:0}.ds-option-title strong{overflow:hidden;color:#262626;font-size:12px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}.ds-option-title span{flex:0 0 auto;padding:2px 5px;border-radius:999px;background:#f0f0f0;color:#737373;font-size:8px}.ds-option-copy small{overflow:hidden;color:#8c8c8c;font-size:9.5px;text-overflow:ellipsis;white-space:nowrap}.ds-option-preview{display:grid;gap:4px;justify-items:end}.ds-option-swatches{display:flex;gap:2px}.ds-option-swatches i{display:block;width:15px;height:22px;border:1px solid rgb(0 0 0 / 6%);border-radius:3px;background:#ececec}.ds-option-meta{max-width:148px;overflow:hidden;color:#8c8c8c;font-size:8.5px;text-overflow:ellipsis;white-space:nowrap}.ds-option[data-loaded="false"] .ds-option-swatches i{background:linear-gradient(90deg,#f1f1f1,#e5e5e5,#f1f1f1);background-size:200% 100%;animation:ds-shimmer 1.2s linear infinite}.ds-empty{padding:28px 12px;color:#8c8c8c;font-size:12px;text-align:center}
-    .ds-note{margin:6px 0 0;color:#8c8c8c;font-size:10px;line-height:1.45}.ds-note a{color:#595959;text-underline-offset:3px}
-    body[data-design-system] [data-preview-stage]{--dna-radius:var(--ds-radius,var(--dna-radius))}body[data-design-system] [data-preview-stage] .sample-visual{border-radius:var(--ds-radius,var(--dna-radius))!important}
-    @keyframes ds-shimmer{to{background-position:-200% 0}}
-  `;
-  document.head.append(style);
 }
 
 function swatchHtml(colors = []) {
@@ -266,10 +258,7 @@ function swatchHtml(colors = []) {
 
 function bindStaticField() {
   field = document.querySelector("[data-design-system-field]");
-  if (!field) {
-    console.warn("[ONDesign] Static design-system field is missing from launcher.html");
-    return false;
-  }
+  if (!field) return false;
   trigger = field.querySelector("[data-ds-trigger]");
   menu = field.querySelector("[data-ds-menu]");
   list = field.querySelector("[data-ds-list]");
@@ -310,8 +299,8 @@ function syncStaticLabels() {
     searchInput.setAttribute("aria-label", txt("搜索设计规范", "Search design systems"));
   }
   if (note) note.textContent = txt(
-    "来源：VoltAgent/awesome-design-md（MIT）。选择后同步颜色、字体、圆角与间距；下方仍可继续微调。",
-    "Source: VoltAgent/awesome-design-md (MIT). Selection syncs color, typography, radius and spacing; fine-tune below.",
+    "先选择一套规范作为基础，再在下方微调颜色、字体、圆角与间距。来源：VoltAgent/awesome-design-md（MIT）。",
+    "Choose a system as the foundation, then fine-tune color, typography, radius and spacing below. Source: VoltAgent/awesome-design-md (MIT).",
   );
   updateTrigger();
 }
@@ -351,8 +340,7 @@ function renderOptions() {
       event.stopPropagation();
       const entry = DESIGN_SYSTEMS.find((item) => item.slug === button.dataset.dsSlug);
       if (!entry) return;
-      const spec = await loadSpec(entry);
-      applyDesignSystem(entry, spec);
+      applyDesignSystem(entry, await loadSpec(entry));
       closeMenu();
     });
   });
@@ -422,17 +410,14 @@ function applyDesignSystem(entry, spec, { silent = false } = {}) {
   const dockRadius = document.querySelector("#dockRadius");
   if (dockRadius) dockRadius.textContent = `${radius}px ${txt("圆角", "radius")}`;
   const dockPalette = document.querySelectorAll("#dockPalette i");
-  [palette.accent, palette.surface, palette.canvas, palette.ink].forEach((color, index) => { if (dockPalette[index]) dockPalette[index].style.background = color; });
+  [palette.accent, palette.surface, palette.canvas, palette.ink].forEach((color, index) => {
+    if (dockPalette[index]) dockPalette[index].style.background = color;
+  });
   updateTrigger();
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ slug: entry.slug })); } catch {}
 
   window.dispatchEvent(new CustomEvent("ondesign:designsystemapply", {
-    detail: {
-      slug: entry.slug,
-      name: entry.name,
-      radius,
-      radiusSource: radiusValue(spec),
-    },
+    detail: { slug: entry.slug, name: entry.name, radius, radiusSource: radiusValue(spec) },
   }));
   if (!silent) window.dispatchEvent(new CustomEvent("ondesign:designsystemchange", { detail: { slug: entry.slug, name: entry.name, radius } }));
 }
@@ -445,7 +430,7 @@ function updateTrigger() {
   const brandLogo = trigger.querySelector(".ds-trigger-logo");
   if (!selectedEntry || !selectedSpec) {
     if (strong) strong.textContent = txt("选择设计规范", "Choose a design system");
-    if (small) small.textContent = txt("73 套真实网站规范，可直接预览并应用", "73 real-site systems with inline previews");
+    if (small) small.textContent = txt("先选基础规范，再微调 Token", "Choose a foundation, then fine-tune tokens");
     setBrandLogo(brandLogo, null);
     swatches.forEach((node) => { node.style.background = "#eee"; });
     return;
@@ -454,7 +439,9 @@ function updateTrigger() {
   if (small) small.textContent = `${primaryFont(selectedSpec)} · ${radiusValue(selectedSpec)} · ${spacingValue(selectedSpec)}`;
   setBrandLogo(brandLogo, selectedEntry);
   const palette = paletteFor(selectedSpec);
-  [palette.accent, palette.surface, palette.canvas, palette.ink].forEach((color, index) => { if (swatches[index]) swatches[index].style.background = color; });
+  [palette.accent, palette.surface, palette.canvas, palette.ink].forEach((color, index) => {
+    if (swatches[index]) swatches[index].style.background = color;
+  });
 }
 
 async function restoreSelection() {
@@ -481,7 +468,7 @@ function openDropdown() {
 }
 
 function init() {
-  createStyles();
+  ensureStylesheet();
   if (!bindStaticField()) return;
   syncStaticLabels();
   restoreSelection();
