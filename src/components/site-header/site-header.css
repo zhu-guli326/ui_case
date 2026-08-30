@@ -29,23 +29,30 @@ body {
   animation-timing-function: ease-out;
 }
 
+/*
+ * GLOBAL HEADER CONTRACT
+ * ----------------------
+ * All public pages use this exact header geometry. Feature/page styles must
+ * never restyle the site header. Important declarations intentionally protect
+ * the shared chrome from legacy page-level overrides while those are removed.
+ */
 .site-header {
   --site-header-accent: #18a957;
-  position: sticky;
+  position: sticky !important;
   z-index: 40;
-  top: 8px;
-  display: flex;
-  width: calc(100% - 32px);
-  min-height: 68px;
-  align-items: center;
-  gap: clamp(24px, 4vw, 56px);
-  margin: 8px auto 16px;
-  padding: 7px 18px 7px 24px;
-  border: 1px solid color-mix(in srgb, var(--line, var(--site-line)) 58%, transparent);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--surface, var(--site-surface)) 72%, #ededed);
-  box-shadow: 0 8px 30px rgba(25, 28, 25, .045);
-  backdrop-filter: blur(20px);
+  top: 8px !important;
+  display: flex !important;
+  width: calc(100% - 32px) !important;
+  min-height: 68px !important;
+  align-items: center !important;
+  gap: clamp(24px, 4vw, 56px) !important;
+  margin: 8px auto 16px !important;
+  padding: 7px 18px 7px 24px !important;
+  border: 1px solid color-mix(in srgb, var(--line, var(--site-line)) 58%, transparent) !important;
+  border-radius: 999px !important;
+  background: color-mix(in srgb, var(--surface, var(--site-surface)) 72%, #ededed) !important;
+  box-shadow: 0 8px 30px rgba(25, 28, 25, .045) !important;
+  backdrop-filter: blur(20px) !important;
   view-transition-name: image2-site-header;
 }
 
@@ -101,6 +108,14 @@ body {
 }
 
 .site-nav-community { margin-left: auto; }
+
+/* One global desktop order, independent of DOM insertion or page scripts. */
+.site-nav-community > a:not(.site-nav-social):not(.site-nav-github):not(.site-nav-start) { order: 10; }
+.site-nav-community > .site-nav-library { order: 20; }
+.site-nav-community > .site-nav-start { order: 30; }
+.site-nav-community > .site-nav-x { order: 40; }
+.site-nav-community > .site-nav-github { order: 50; }
+.site-nav-community > .site-nav-xhs { order: 60; }
 
 nav.site-nav.site-nav > a,
 .site-nav-primary > a,
@@ -213,6 +228,23 @@ nav.site-nav.site-nav > a[aria-current="page"]::after,
   color: var(--ink, var(--site-ink));
 }
 
+/* Library dropdown behavior belongs to the global Header component. */
+@media (hover: hover) and (pointer: fine) {
+  .site-nav-more[open]::after {
+    content: "";
+    position: absolute;
+    z-index: 79;
+    top: 100%;
+    right: 0;
+    width: max(100%, 250px);
+    height: 8px;
+  }
+
+  .site-nav-more[open] > .site-nav-menu { top: calc(100% + 4px); }
+  .site-nav-more[open]:not(:hover) > .site-nav-menu { display: none; }
+  .site-nav-more[open]:not(:hover) > summary::after { transform: none; }
+}
+
 .site-nav-star-glyph { font-size: 15px; line-height: 1; }
 .site-nav-stars { min-width: 1ch; color: inherit; font-weight: 650; }
 .site-nav-social {
@@ -230,8 +262,7 @@ nav.site-nav.site-nav > a[aria-current="page"]::after,
 .site-xhs-svg rect { fill: #ff2442; }
 .site-xhs-svg text { fill: #fff; font: 850 9px/1 ui-sans-serif, system-ui, sans-serif; letter-spacing: .01em; }
 
-/* Keep the primary workflow entry in the same visual language as the rest of the nav.
- * It remains slightly heavier, but is no longer a separate black button style. */
+/* Keep the primary workflow entry in the same visual language as the rest of the nav. */
 .site-nav-community > .site-nav-start {
   min-height: 42px;
   gap: 5px;
@@ -311,7 +342,7 @@ body.site-shell-active > .site-header { flex: 0 0 auto; }
 .site-shell-frame.is-current { view-transition-name: image2-page-content; }
 
 @media (max-width: 940px) {
-  .site-header { gap: 22px; padding-left: 18px; }
+  .site-header { gap: 22px !important; padding-left: 18px !important; }
   .site-brand-wordmark { width: 88px; }
   .site-nav.site-nav { gap: 16px; }
   .site-nav-primary, .site-nav-community { gap: 13px; }
@@ -321,13 +352,14 @@ body.site-shell-active > .site-header { flex: 0 0 auto; }
 
 @media (max-width: 700px) {
   .site-header {
-    top: 6px;
-    display: flex;
-    width: calc(100% - 16px);
-    min-height: 58px;
-    gap: 14px;
-    margin: 6px auto 10px;
-    padding: 6px 8px 6px 14px;
+    top: 6px !important;
+    display: flex !important;
+    width: calc(100% - 16px) !important;
+    min-height: 58px !important;
+    gap: 14px !important;
+    margin: 6px auto 10px !important;
+    padding: 6px 8px 6px 14px !important;
+    border-radius: 999px !important;
   }
 
   .site-brand { gap: 6px; }
