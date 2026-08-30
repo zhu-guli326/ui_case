@@ -3,19 +3,16 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
     repoList,
     repoSearch,
     repoFacets,
-    topTaskFilters,
     repoCount,
     repoSyncStatus,
     skillsHeroCount,
     skillsHeroKind,
     skillsHeroBody,
-    heroBrowseLink,
     heroUpdateCount,
     heroUpdateLabel,
     categoryCount,
     repoSortButtons,
     directoryModeButtons,
-    taskRailLabel,
     repoSort,
     repoInspector
   } = elements;
@@ -41,13 +38,6 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
 
   function renderRepositoryFilters() {
     if (state.activeDirectoryMode === "WEB") {
-      const filters = [{ key: "ALL", zh: "全部网站", en: "All websites" }, ...designReferenceGroups];
-      if (topTaskFilters) topTaskFilters.innerHTML = filters.map((filter) => {
-        const itemCount = filter.key === "ALL" ? designReferenceWebsites.length : designReferenceWebsites.filter((item) => item.group === filter.key).length;
-        const label = state.currentLanguage === "en" ? filter.en : filter.zh;
-        const isActive = filter.key === "ALL" ? state.activeCategories.size === 0 : state.activeCategories.has(filter.key);
-        return `<button class="repo-filter${isActive ? " is-active" : ""}" type="button" aria-pressed="${isActive}" data-repo-filter="${escapeHtml(filter.key)}"><span>${escapeHtml(label)}</span><b>${itemCount}</b></button>`;
-      }).join("");
       if (categoryCount) categoryCount.textContent = String(designReferenceGroups.length);
       if (repoFacets) repoFacets.innerHTML = `<section class="facet-group"><h3><span>${state.currentLanguage === "en" ? "Website purpose" : "网站用途"}</span><b>${designReferenceWebsites.length}</b></h3><div class="repo-subfilters">${designReferenceGroups.map((group) => {
         const itemCount = designReferenceWebsites.filter((item) => item.group === group.key).length;
@@ -55,18 +45,6 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
         return `<button class="repo-subfilter${isActive ? " is-active" : ""}" type="button" aria-pressed="${isActive}" data-repo-filter="${escapeHtml(group.key)}"><span>${escapeHtml(state.currentLanguage === "en" ? group.en : group.zh)}</span><b>${itemCount}</b></button>`;
       }).join("")}</div></section><section class="facet-group"><h3><span>${state.currentLanguage === "en" ? "Source code" : "源代码"}</span><b>${designReferenceWebsites.filter((item) => item.openSource).length}</b></h3><div class="repo-subfilters"><button class="repo-subfilter${state.activeSourceOnly ? " is-active" : ""}" type="button" aria-pressed="${state.activeSourceOnly}" data-source-filter="OPEN"><span>${state.currentLanguage === "en" ? "With source code" : "有源代码"}</span><b>${designReferenceWebsites.filter((item) => item.openSource).length}</b></button></div></section>`;
     } else {
-      const filters = [{ key: "ALL", zh: "全部能力", en: "All capabilities", categories: null }, ...categoryGroups];
-      const pathFilters = filters.map((filter) => {
-        const items = getRepositoryItems();
-        const itemCount = filter.key === "ALL" ? items.length : items.filter((item) => filter.categories.includes(item.category)).length;
-        const label = state.currentLanguage === "en" ? filter.en : filter.zh;
-        const selectedCount = filter.key === "ALL" ? 0 : filter.categories.filter((category) => state.activeCategories.has(category)).length;
-        const isActive = filter.key === "ALL" ? state.activeCategories.size === 0 : selectedCount === filter.categories.length;
-        const isPartial = filter.key !== "ALL" && selectedCount > 0 && !isActive;
-        return `<button class="repo-filter${isActive ? " is-active" : ""}${isPartial ? " is-partial" : ""}" type="button" aria-pressed="${isActive}" data-repo-filter="${escapeHtml(filter.key)}"><span>${escapeHtml(label)}</span><b>${itemCount}</b></button>`;
-      }).join("");
-      if (topTaskFilters) topTaskFilters.innerHTML = pathFilters;
-
       const repositoryItems = getRepositoryItems();
       const categories = [...new Set(repositoryItems.map((item) => item.category))];
       if (categoryCount) categoryCount.textContent = String(categories.length);
@@ -84,25 +62,8 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
 
     document.querySelectorAll("[data-repo-filter]").forEach((button) => button.addEventListener("click", () => {
       const filterKey = button.dataset.repoFilter;
-      if (filterKey === "ALL") {
-        state.activeCategories.clear();
-      } else if (state.activeDirectoryMode === "SKILL") {
-        const group = categoryGroups.find((item) => item.key === filterKey);
-        if (group) {
-          const availableCategories = new Set(getRepositoryItems().map((item) => item.category));
-          const groupCategories = group.categories.filter((category) => availableCategories.has(category));
-          const allSelected = groupCategories.every((category) => state.activeCategories.has(category));
-          groupCategories.forEach((category) => allSelected ? state.activeCategories.delete(category) : state.activeCategories.add(category));
-        } else if (state.activeCategories.has(filterKey)) {
-          state.activeCategories.delete(filterKey);
-        } else {
-          state.activeCategories.add(filterKey);
-        }
-      } else if (state.activeCategories.has(filterKey)) {
-        state.activeCategories.delete(filterKey);
-      } else {
-        state.activeCategories.add(filterKey);
-      }
+      if (state.activeCategories.has(filterKey)) state.activeCategories.delete(filterKey);
+      else state.activeCategories.add(filterKey);
       track(state.activeDirectoryMode === "WEB" ? "website_filter_select" : "skill_filter_select", { categories: [...state.activeCategories] });
       renderRepositories();
     }));
@@ -154,12 +115,6 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
     if (skillsHeroBody) skillsHeroBody.textContent = isWebMode
       ? (state.currentLanguage === "en" ? "A focused reference directory for finding visual direction, studying product UI, refining interface details and exploring creative web work." : "这是一份按设计用途整理的网站目录。可以用它寻找整体方向、拆解产品 UI、研究局部细节，或发现更有创意的网页表达。")
       : (state.currentLanguage === "en" ? "This is a map of design capabilities, not a repository leaderboard. Start with the work you need to do, then compare purpose, activity and invocation." : "这里不是仓库排行榜，而是一张设计能力地图。先选择你要完成的工作，再比较 Skill 的用途、维护状态与调用方式。");
-    if (heroBrowseLink) heroBrowseLink.textContent = isWebMode
-      ? (state.currentLanguage === "en" ? "Browse all websites" : "浏览全部网站")
-      : (state.currentLanguage === "en" ? "Browse all Skills" : "浏览全部 Skills");
-    if (taskRailLabel) taskRailLabel.textContent = isWebMode
-      ? (state.currentLanguage === "en" ? "Explore by purpose" : "按用途探索")
-      : (state.currentLanguage === "en" ? "Explore by task" : "按任务探索");
     if (repoSort) repoSort.hidden = isWebMode;
     if (repoSyncStatus) repoSyncStatus.hidden = isWebMode;
     if (repoSearch) {
