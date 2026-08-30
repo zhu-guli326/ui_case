@@ -1,0 +1,136 @@
+/* Homepage semantic section themes.
+ * Dark and light sections own their own readable foreground hierarchy.
+ * Do not rely on inherited body text colors for section content.
+ */
+
+body.project-home {
+  --home-light-bg: var(--ds-color-bg, #ffffff);
+  --home-light-surface: var(--ds-color-surface, #ffffff);
+  --home-light-text: var(--ds-color-text, #1f1f1f);
+  --home-light-muted: var(--ds-color-text-secondary, #666666);
+  --home-light-subtle: var(--ds-color-text-tertiary, #8c8c8c);
+  --home-light-line: var(--ds-color-border, #e5e5e5);
+
+  --home-dark-bg: #050505;
+  --home-dark-surface: #111111;
+  --home-dark-text: rgba(255, 255, 255, .96);
+  --home-dark-muted: rgba(255, 255, 255, .76);
+  --home-dark-subtle: rgba(255, 255, 255, .58);
+  --home-dark-line: rgba(255, 255, 255, .16);
+}
+
+/* DARK SECTIONS */
+.project-hero,
+.featured-cases,
+.project-stats,
+.project-showcase,
+.project-editorial,
+.project-footer {
+  color-scheme: dark;
+  --home-section-bg: var(--home-dark-bg);
+  --home-section-surface: var(--home-dark-surface);
+  --home-section-text: var(--home-dark-text);
+  --home-section-muted: var(--home-dark-muted);
+  --home-section-subtle: var(--home-dark-subtle);
+  --home-section-line: var(--home-dark-line);
+  color: var(--home-section-text);
+}
+
+.project-stats,
+.project-showcase,
+.project-editorial,
+.project-footer {
+  background: var(--home-section-bg);
+}
+
+.project-hero h1,
+.project-showcase h2,
+.project-editorial blockquote,
+.project-footer strong,
+.featured-cases h2,
+.project-stats strong {
+  color: var(--home-section-text);
+}
+
+.project-hero-content > p:not(.project-eyebrow),
+.showcase-copy > p:last-child,
+.project-editorial .editorial-author,
+.project-footer p,
+.project-footer a,
+.project-stats span,
+.featured-carousel-footer {
+  color: var(--home-section-muted);
+}
+
+.project-hero .project-eyebrow,
+.project-showcase .section-eyebrow,
+.project-editorial .section-eyebrow {
+  color: rgba(255, 255, 255, .94);
+}
+
+.project-showcase .showcase-copy h2 {
+  color: rgba(255, 255, 255, .94);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, .24);
+}
+
+.project-showcase .showcase-copy > p:last-child {
+  color: rgba(255, 255, 255, .74);
+}
+
+.project-stats article {
+  border-color: var(--home-section-line);
+}
+
+/* LIGHT SECTIONS */
+.project-capabilities,
+.project-cta {
+  color-scheme: light;
+  --home-section-bg: var(--home-light-bg);
+  --home-section-surface: var(--home-light-surface);
+  --home-section-text: var(--home-light-text);
+  --home-section-muted: var(--home-light-muted);
+  --home-section-subtle: var(--home-light-subtle);
+  --home-section-line: var(--home-light-line);
+  background: var(--home-section-bg);
+  color: var(--home-section-text);
+}
+
+.project-capabilities .section-heading h2,
+.project-cta h2 {
+  color: var(--home-section-text);
+}
+
+.project-capabilities .section-heading > p:last-child,
+.project-cta p {
+  color: var(--home-section-muted);
+}
+
+.project-capabilities .section-eyebrow,
+.project-cta .section-eyebrow {
+  color: var(--ds-color-primary, #18a957);
+}
+
+/* Explicit aliases for future homepage sections. */
+.home-theme-dark {
+  color-scheme: dark;
+  --home-section-bg: var(--home-dark-bg);
+  --home-section-surface: var(--home-dark-surface);
+  --home-section-text: var(--home-dark-text);
+  --home-section-muted: var(--home-dark-muted);
+  --home-section-subtle: var(--home-dark-subtle);
+  --home-section-line: var(--home-dark-line);
+  background: var(--home-section-bg);
+  color: var(--home-section-text);
+}
+
+.home-theme-light {
+  color-scheme: light;
+  --home-section-bg: var(--home-light-bg);
+  --home-section-surface: var(--home-light-surface);
+  --home-section-text: var(--home-light-text);
+  --home-section-muted: var(--home-light-muted);
+  --home-section-subtle: var(--home-light-subtle);
+  --home-section-line: var(--home-light-line);
+  background: var(--home-section-bg);
+  color: var(--home-section-text);
+}
