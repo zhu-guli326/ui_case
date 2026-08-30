@@ -108,14 +108,14 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
       if (count) count.textContent = button.dataset.directoryMode === "WEB" ? String(designReferenceWebsites.length) : String(getRepositoryItems().length);
     });
     if (skillsHeroCount) skillsHeroCount.textContent = String(totalCount);
-    if (skillsHeroKind) skillsHeroKind.textContent = isWebMode ? "Design Websites" : "Design Skills";
+    if (skillsHeroKind) skillsHeroKind.textContent = isWebMode ? "Design Websites" : "Design Skills & Tools";
     if (heroUpdateCount) heroUpdateCount.textContent = isWebMode ? "+13" : "+8";
     if (heroUpdateLabel) heroUpdateLabel.textContent = isWebMode
       ? (state.currentLanguage === "en" ? "new Web resources" : "新增 Web 资源")
-      : (state.currentLanguage === "en" ? "presentation Skills" : "新增演示 Skill");
+      : (state.currentLanguage === "en" ? "new skills & tools" : "新增 Skill 与工具");
     if (skillsHeroBody) skillsHeroBody.textContent = isWebMode
       ? (state.currentLanguage === "en" ? "A focused reference directory for finding visual direction, studying product UI, refining interface details and exploring creative web work." : "这是一份按设计用途整理的网站目录。可以用它寻找整体方向、拆解产品 UI、研究局部细节，或发现更有创意的网页表达。")
-      : (state.currentLanguage === "en" ? "This is a map of design capabilities, not a repository leaderboard. Start with the work you need to do, then compare purpose, activity and invocation." : "这里不是仓库排行榜，而是一张设计能力地图。先选择你要完成的工作，再比较 Skill 的用途、维护状态与调用方式。");
+      : (state.currentLanguage === "en" ? "A practical map of design skills, tools and resources. Start with the work you need to do, then compare what each option is best for and how it fits your workflow." : "这是一张设计 Skill、工具与资源地图。先从你要完成的工作出发，再比较它们各自适合的场景与使用方式。");
     if (repoSort) repoSort.hidden = isWebMode;
     if (repoSyncStatus) repoSyncStatus.hidden = isWebMode;
     if (repoSearch) {
