@@ -128,5 +128,25 @@
     </div>
     <div class="project-container footer-bottom"><span>© 2026 ONDesign</span><span>AI UI Design Workflow</span></div>
   </footer>
+
+  <script>
+    (() => {
+      const fixHomepageNavOrder = () => {
+        const nav = document.querySelector('.site-header .site-nav-community');
+        if (!nav) return;
+        const start = nav.querySelector('.site-nav-start');
+        const firstSocial = nav.querySelector('.site-nav-social, .site-nav-github');
+        if (start && firstSocial) nav.insertBefore(start, firstSocial);
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fixHomepageNavOrder, { once: true });
+      } else {
+        fixHomepageNavOrder();
+      }
+
+      window.addEventListener('image2:languagechange', () => requestAnimationFrame(fixHomepageNavOrder));
+    })();
+  </script>
 </body>
 </html>
