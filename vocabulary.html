@@ -27,14 +27,18 @@
         <h1 id="pageTitle" data-i18n="vocabulary.heading">UI 词典</h1>
         <p class="hero-intro" data-i18n="vocabulary.intro">把页面基础、导航、内容、控件和反馈整理成一套可搜索的 UI 词典，先看结构，再选择适合的形式和实现方式。</p>
       </div>
-      <aside class="vocab-overview directory-hero-overview" aria-label="词典概览">
-        <header><span>词典概览</span><small>UI VOCABULARY</small></header>
-        <div class="directory-primary-stat"><strong>71</strong><span>UI Terms</span></div>
-        <dl><div><dt>浏览方式</dt><dd>搜索 + 筛选</dd></div><div><dt>学习路径</dt><dd>结构 → 形式 → 实现</dd></div><div><dt>用途</dt><dd>从需求到代码</dd></div></dl>
+      <aside class="vocab-overview directory-hero-overview" aria-label="词典概览" data-i18n-attr="aria-label:vocabulary.overviewLabel">
+        <header><span data-i18n="vocabulary.overviewTitle">词典概览</span><small>UI VOCABULARY</small></header>
+        <div class="directory-primary-stat"><strong>71</strong><span data-i18n="vocabulary.overviewTerms">UI 词条</span></div>
+        <dl>
+          <div><dt data-i18n="vocabulary.overviewBrowseLabel">浏览方式</dt><dd data-i18n="vocabulary.overviewBrowseValue">搜索 + 筛选</dd></div>
+          <div><dt data-i18n="vocabulary.overviewPathLabel">学习路径</dt><dd data-i18n="vocabulary.overviewPathValue">结构 → 形式 → 实现</dd></div>
+          <div><dt data-i18n="vocabulary.overviewPurposeLabel">用途</dt><dd data-i18n="vocabulary.overviewPurposeValue">从需求到代码</dd></div>
+        </dl>
       </aside>
     </section>
 
-    <section class="directory-section" aria-label="UI 词条目录">
+    <section class="directory-section" aria-label="UI 词条目录" data-i18n-attr="aria-label:vocabulary.directoryLabel">
       <section class="vocab-toolbar directory-toolbar" aria-label="词条搜索和筛选" data-i18n-attr="aria-label:vocabulary.searchAndFilter">
         <label class="search-field" for="vocabularySearch">
           <span class="search-icon" aria-hidden="true"></span>
@@ -54,7 +58,7 @@
           <div class="taxonomy-note"><strong data-i18n="vocabulary.termHelpTitle">看不懂一个词？</strong><p data-i18n="vocabulary.termHelpBody">先点开卡片看“你可能会说”，再对照组成结构和容易混淆。</p><span data-i18n="vocabulary.openGuide">打开规范长文</span> <span aria-hidden="true">↗</span></div>
         </aside>
 
-        <section class="results-column directory-content" id="vocabularyResults" aria-label="UI 词条列表">
+        <section class="results-column directory-content" id="vocabularyResults" aria-label="UI 词条列表" data-i18n-attr="aria-label:vocabulary.resultsListLabel">
           <div class="results-heading visually-hidden" aria-hidden="true"><div><p id="resultsEyebrow" data-i18n="vocabulary.resultsEyebrow">按界面作用浏览</p><h2 id="resultsTitle" data-i18n="vocabulary.allTerms">所有词条</h2></div></div>
           <p class="results-summary visually-hidden" id="resultsSummary" role="status" aria-live="polite" aria-atomic="true" data-i18n="vocabulary.resultsIntro">从页面基础开始，逐步看到控件、内容和反馈状态。</p>
           <section class="style-cover-gallery" id="styleCoverGallery" aria-labelledby="styleCoverGalleryTitle" hidden>
@@ -113,6 +117,6 @@
 
   <dialog class="term-dialog" id="termDialog" aria-labelledby="termDialogTitle"><div class="term-dialog-shell"><form method="dialog" class="dialog-close-form"><button class="icon-button dialog-close" type="submit" aria-label="关闭词条详情" title="关闭" data-i18n-attr="aria-label:vocabulary.closeDetails,title:common.close">×</button></form><div class="term-dialog-content" id="termDialogContent"></div></div></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
-  <footer class="site-footer" data-site-footer><div class="site-footer-inner"><p><strong>ONDesign</strong><span>AI × UI design learning studio</span></p><nav aria-label="页脚导航"><a href="./learn.html" data-i18n="footer.learn">学习路径</a><a href="./vocabulary.html" data-i18n="footer.vocabulary">UI 词典</a><a href="./library.html" data-i18n="footer.library">案例库</a><a href="https://github.com/zhu-guli326/image2_UI_skill" target="_blank" rel="noopener noreferrer">GitHub</a></nav><small>© 2026 ONDesign. Content and examples are for learning purposes.</small></div></footer>
+  <footer class="site-footer" data-site-footer><div class="site-footer-inner"><p><strong>ONDesign</strong><span>AI × UI design learning studio</span></p><nav aria-label="页脚导航" data-i18n-attr="aria-label:vocabulary.footerNav"><a href="./learn.html" data-i18n="footer.learn">学习路径</a><a href="./vocabulary.html" data-i18n="footer.vocabulary">UI 词典</a><a href="./library.html" data-i18n="footer.library">案例库</a><a href="https://github.com/zhu-guli326/image2_UI_skill" target="_blank" rel="noopener noreferrer">GitHub</a></nav><small>© 2026 ONDesign. Content and examples are for learning purposes.</small></div></footer>
 </body>
 </html>
