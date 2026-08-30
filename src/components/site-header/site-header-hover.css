@@ -1,0 +1,14 @@
+/* Desktop hover behavior for the Library navigation menu.
+ * The <details> element may keep its open attribute after a click, but on
+ * pointer devices the menu itself should only remain visible while the
+ * pointer is inside the Library trigger/menu region.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .site-nav-more[open]:not(:hover) > .site-nav-menu {
+    display: none;
+  }
+
+  .site-nav-more[open]:not(:hover) > summary::after {
+    transform: none;
+  }
+}
