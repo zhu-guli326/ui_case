@@ -318,6 +318,7 @@ body.site-shell-active > :not(image2-site-header):not(.site-app-shell):not(scrip
 }
 
 body.site-shell-active > .site-header { flex: 0 0 auto; }
+body.project-home > .site-header { top: 0; width: 100%; margin: 0; border-top: 0; border-right: 0; border-left: 0; border-radius: 0; box-shadow: none; }
 
 .site-app-shell {
   position: relative;

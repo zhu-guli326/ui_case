@@ -223,21 +223,20 @@ function variantStateMarkup(entry) {
   const localized = localizedEntry(entry);
   const states = localized.states || [];
   return `<div class="entry-variant-panel" data-variant-panel data-entry-variant="${escapeHtml(entry.id)}" data-variant-index="0">
-    <div class="entry-variant-heading"><strong>${escapeHtml(localized.name)} · ${escapeHtml(tr("状态变体", "State variants"))}</strong><button class="entry-variant-back" type="button" data-flip-card aria-pressed="true">${escapeHtml(tr("返回介绍", "Back to intro"))} ↶</button></div>
+    <div class="entry-variant-heading"><div class="entry-variant-title"><span>${escapeHtml(tr("状态变体", "State variants"))}</span><strong>${escapeHtml(localized.name)}</strong></div><button class="entry-variant-back" type="button" data-flip-card aria-pressed="true">${escapeHtml(tr("返回介绍", "Back to intro"))} ↶</button></div>
+    <div class="entry-state-controls"><span class="entry-state-label">${escapeHtml(tr("选择要预览的状态", "Choose a state to preview"))}</span><div class="entry-state-tabs" role="group" aria-label="${escapeHtml(tr(`${localized.name}状态`, `${localized.name} states`))}">${states.slice(0, 4).map((state, index) => `<button class="${index === 0 ? "is-active" : ""}" type="button" data-variant-state="${index}" data-variant-copy="${escapeHtml(state[1])}" aria-pressed="${index === 0}">${escapeHtml(state[0])}</button>`).join("")}</div><div class="entry-variant-active" data-variant-active aria-live="polite">${escapeHtml(states[0]?.[1] || localized.role)}</div></div>
     <div class="entry-state-preview" data-variant-preview>${detailPreviewMarkup(entry)}</div>
-    <div class="entry-context-tags" aria-label="${escapeHtml(tr("词条标签", "Term tags"))}">${(localized.tags || []).slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
-    <div class="entry-state-tabs" role="group" aria-label="${escapeHtml(tr(`${localized.name}状态`, `${localized.name} states`))}">${states.slice(0, 4).map((state, index) => `<button class="${index === 0 ? "is-active" : ""}" type="button" data-variant-state="${index}" data-variant-copy="${escapeHtml(state[1])}" aria-pressed="${index === 0}">${escapeHtml(state[0])}</button>`).join("")}</div>
-    <div class="entry-variant-active" data-variant-active aria-live="polite">${escapeHtml(states[0]?.[1] || localized.role)}</div>
+    <div class="entry-context-row"><span>${escapeHtml(tr("适用标签", "Pattern tags"))}</span><div class="entry-context-tags" aria-label="${escapeHtml(tr("词条标签", "Term tags"))}">${(localized.tags || []).slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div></div>
   </div>`;
 }
 
 function guidanceBackMarkup(entry) {
   const localized = localizedEntry(entry);
   return `<div class="entry-variant-panel entry-guidance-panel">
-    <div class="entry-variant-heading"><strong>${escapeHtml(localized.name)} · ${escapeHtml(tr("设计说明", "Design guidance"))}</strong><button class="entry-variant-back" type="button" data-flip-card aria-pressed="true">${escapeHtml(tr("返回介绍", "Back to intro"))} ↶</button></div>
+    <div class="entry-variant-heading"><div class="entry-variant-title"><span>${escapeHtml(tr("设计说明", "Design guidance"))}</span><strong>${escapeHtml(localized.name)}</strong></div><button class="entry-variant-back" type="button" data-flip-card aria-pressed="true">${escapeHtml(tr("返回介绍", "Back to intro"))} ↶</button></div>
     <div class="entry-state-preview">${detailPreviewMarkup(entry)}</div>
-    <div class="entry-context-tags" aria-label="${escapeHtml(tr("词条标签", "Term tags"))}">${(localized.tags || []).slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
     <div class="entry-variant-active">${escapeHtml(`${localized.definition} ${localized.role}`.trim())}</div>
+    <div class="entry-context-row"><span>${escapeHtml(tr("适用标签", "Pattern tags"))}</span><div class="entry-context-tags" aria-label="${escapeHtml(tr("词条标签", "Term tags"))}">${(localized.tags || []).slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div></div>
   </div>`;
 }
 
@@ -276,8 +275,10 @@ function cardMarkup(entry) {
 }
 
 function setCardFlipped(card, flipped, { moveFocus = true } = {}) {
+  if (!card) return;
   const front = card.querySelector(".entry-card-front");
   const back = card.querySelector(".entry-card-back");
+  if (!front || !back) return;
   card.classList.toggle("is-flipped", flipped);
   front.setAttribute("aria-hidden", String(flipped));
   back.setAttribute("aria-hidden", String(!flipped));
@@ -291,6 +292,14 @@ function setCardFlipped(card, flipped, { moveFocus = true } = {}) {
       : front.querySelector("[data-flip-card]");
     target?.focus({ preventScroll: true });
   });
+}
+
+function handleEntryGridClick(event) {
+  const flipButton = event.target.closest("[data-flip-card]");
+  if (!flipButton || !entryGrid.contains(flipButton)) return;
+  event.stopPropagation();
+  const card = flipButton.closest(".entry-card");
+  setCardFlipped(card, !card?.classList.contains("is-flipped"));
 }
 
 function renderEntries() {
@@ -320,11 +329,6 @@ function renderEntries() {
     : state.category === "favorites"
       ? currentLanguage === "en" ? `You saved ${list.length} ${list.length === 1 ? "term" : "terms"}` : `你收藏了 ${list.length} 个词条`
       : currentLanguage === "en" ? `${categoryLabel(state.category)} · ${list.length} ${list.length === 1 ? "term" : "terms"}` : `${categoryLabel(state.category)} · ${list.length} 个词条`;
-  document.querySelectorAll("[data-flip-card]").forEach((button) => button.addEventListener("click", (event) => {
-    event.stopPropagation();
-    const card = button.closest(".entry-card");
-    setCardFlipped(card, !card.classList.contains("is-flipped"));
-  }));
   document.querySelectorAll("[data-copy-prompt]").forEach((button) => button.addEventListener("click", (event) => {
     event.stopPropagation();
     copyPrompt(button.dataset.copyPrompt);
@@ -550,6 +554,7 @@ function showToast(message) {
 
 $("#vocabularySearch").value = state.query;
 $("#sortSelect").value = state.sort;
+entryGrid.addEventListener("click", handleEntryGridClick);
 $("#vocabularySearch").addEventListener("input", (event) => { state.query = event.target.value; syncUrlState(); renderNavigationDeepDive(); renderEntries(); });
 $("#sortSelect").addEventListener("change", (event) => { state.sort = event.target.value; syncUrlState({ historyMode: "push" }); renderEntries(); });
 $("#clearSearch").addEventListener("click", () => { state.query = ""; state.category = "all"; $("#vocabularySearch").value = ""; syncUrlState({ historyMode: "push" }); render(); $("#vocabularySearch").focus(); });
