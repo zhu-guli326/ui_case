@@ -54,15 +54,13 @@ button { cursor: pointer; }
 }
 .hero-discovery > p:not(.eyebrow) { max-width: 760px; margin: 20px 0 0; color: var(--ant-text-secondary); font-size: 15px; line-height: 1.75; }
 .hero-links { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 28px; }
-.hero-repo-link, .solid-link, .quiet-link { display: inline-flex; min-height: 40px; align-items: center; justify-content: center; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; transition: .16s ease; }
+.hero-repo-link { display: inline-flex; min-height: 40px; align-items: center; justify-content: center; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; transition: .16s ease; }
 .hero-repo-link { display: inline-grid; min-height: 44px; grid-template-columns: 18px minmax(0,1fr) auto; gap: 10px; padding: 6px 14px; border: 1px solid #1f1f1f; background: #1f1f1f; color: #fff; }
 .hero-repo-link > span { display: grid; gap: 1px; }
 .hero-repo-link small { color: rgba(255,255,255,.6); font-size: 9px; font-weight: 500; }
 .hero-repo-link strong { font-size: 12px; }
 .hero-repo-link > .skills-icon { width: 13px; height: 13px; color: rgba(255,255,255,.65); }
 .hero-repo-link:hover { border-color: #333; background: #333; }
-.quiet-link { gap: 6px; min-height: 44px; padding: 0 15px; border: 1px solid var(--ant-border); background: #fff; }
-.quiet-link:hover { border-color: var(--ant-primary); color: var(--ant-primary); }
 
 .hero-overview { padding: clamp(28px, 3vw, 44px); border-left: 1px solid var(--ant-border); }
 .hero-overview > header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 18px; border-bottom: 1px solid var(--ant-border); color: var(--ant-text-secondary); font-size: 13px; font-weight: 600; }
@@ -78,29 +76,6 @@ button { cursor: pointer; }
 .hero-overview dl > div:last-child { padding-right: 0; border: 0; }
 .hero-overview dt { color: var(--ant-text-tertiary); font-size: 10px; }
 .hero-overview dd { margin: 7px 0 0; font-size: 15px; font-weight: 600; }
-
-/* Task tabs */
-.task-rail {
-  display: grid;
-  grid-template-columns: 100px minmax(0,1fr);
-  gap: 16px;
-  align-items: center;
-  min-height: 64px;
-  padding: 10px 16px;
-  border: 1px solid var(--ant-border);
-  border-radius: var(--ant-radius);
-  background: var(--ant-surface);
-  box-shadow: var(--ant-shadow);
-}
-.task-rail > span { color: var(--ant-text-secondary); font-size: 12px; font-weight: 600; }
-.repo-path-filters { display: flex; min-width: 0; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: none; }
-.repo-path-filters::-webkit-scrollbar { display: none; }
-.repo-filter { display: inline-flex; min-height: 36px; flex: 0 0 auto; align-items: center; gap: 8px; padding: 0 13px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--ant-text-secondary); font-size: 12px; font-weight: 500; }
-.repo-filter b { color: var(--ant-text-tertiary); font-size: 10px; }
-.repo-filter:hover { background: var(--ant-fill); color: var(--ant-text); }
-.repo-filter.is-active { background: var(--ant-primary); color: #fff; }
-.repo-filter.is-active b { color: rgba(255,255,255,.75); }
-.repo-filter.is-partial { background: var(--ant-primary-bg); color: var(--ant-primary); }
 
 /* Directory card */
 .repo-section { padding-top: 16px; }
@@ -252,7 +227,6 @@ button { cursor: pointer; }
   .skills-hero { grid-template-columns: 1fr; }
   .hero-discovery { padding: 30px 24px; }
   .hero-overview { border-top: 1px solid var(--ant-border); border-left: 0; }
-  .task-rail { grid-template-columns: 1fr; gap: 8px; }
   .repo-toolbar { grid-template-columns: 1fr; }
   .repo-toolbar-actions { align-items: stretch; }
   .repo-sort { align-self: flex-start; }
@@ -278,7 +252,7 @@ button { cursor: pointer; }
 
 @media (max-width: 430px) {
   .hero-links { align-items: stretch; flex-direction: column; }
-  .hero-repo-link, .quiet-link { width: 100%; }
+  .hero-repo-link { width: 100%; }
   .repo-facets { grid-template-columns: 1fr; }
 }
 
@@ -352,8 +326,7 @@ body.skills-document .hero-links {
   margin-top: 40px;
 }
 
-body.skills-document .hero-repo-link,
-body.skills-document .quiet-link {
+body.skills-document .hero-repo-link {
   min-height: 62px;
   border-radius: 8px;
   font-size: 15px;
@@ -376,10 +349,6 @@ body.skills-document .hero-repo-link small {
 
 body.skills-document .hero-repo-link strong {
   font-size: 14px;
-}
-
-body.skills-document .quiet-link {
-  padding: 0 22px;
 }
 
 body.skills-document .hero-overview {
@@ -437,42 +406,6 @@ body.skills-document .hero-overview dd {
   font-size: 18px;
 }
 
-/* Current task-level filter layout */
-body.skills-document .repo-section {
-  padding-top: 18px;
-}
-
-body.skills-document .task-rail {
-  grid-template-columns: 150px minmax(0, 1fr);
-  gap: 18px;
-  min-height: 92px;
-  margin-bottom: 18px;
-  padding: 12px 22px;
-  border-radius: 12px;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, .035);
-}
-
-body.skills-document .task-rail > span {
-  font-size: 15px;
-  font-weight: 650;
-}
-
-body.skills-document .repo-path-filters {
-  gap: 8px;
-}
-
-body.skills-document .repo-filter {
-  min-height: 52px;
-  gap: 10px;
-  padding: 0 20px;
-  border-radius: 8px;
-  font-size: 15px;
-}
-
-body.skills-document .repo-filter b {
-  font-size: 12px;
-}
-
 /* Current full-width directory rhythm */
 body.skills-document .repo-toolbar {
   margin-bottom: 18px;
@@ -511,10 +444,6 @@ body.skills-document .web-reference-visual video {
 }
 
 /* WEB mode uses sidebar filtering and one continuous card grid. */
-body.skills-document:has(.directory-mode-tabs [data-directory-mode="WEB"].is-active) .task-rail {
-  display: none;
-}
-
 body.skills-document .repo-list.is-web-list {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
@@ -575,27 +504,13 @@ body.skills-document .repo-list.is-web-list .web-reference-group > header {
     margin-top: 28px;
   }
 
-  body.skills-document .hero-repo-link,
-  body.skills-document .quiet-link {
+  body.skills-document .hero-repo-link {
     min-height: 52px;
     font-size: 13px;
   }
 
   body.skills-document .hero-overview {
     padding: 26px;
-  }
-
-  body.skills-document .task-rail {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    min-height: 0;
-    padding: 16px;
-  }
-
-  body.skills-document .repo-filter {
-    min-height: 44px;
-    padding: 0 15px;
-    font-size: 13px;
   }
 
   body.skills-document .repo-toolbar {
@@ -612,7 +527,6 @@ body.skills-document .repo-list.is-web-list .web-reference-group > header {
     grid-template-columns: 1fr;
   }
 }
-
 
 /* Compact Skills hero — canonical current layout. */
 /* Compact the Skills intro so the directory appears earlier in the first viewport. */
@@ -657,8 +571,7 @@ body.skills-document .hero-links {
   margin-top: 23px;
 }
 
-body.skills-document .hero-repo-link,
-body.skills-document .quiet-link {
+body.skills-document .hero-repo-link {
   min-height: 46px;
   border-radius: 7px;
   font-size: 13px;
@@ -681,10 +594,6 @@ body.skills-document .hero-repo-link strong {
 
 body.skills-document .hero-repo-link small {
   font-size: 9px;
-}
-
-body.skills-document .quiet-link {
-  padding: 0 16px;
 }
 
 body.skills-document .hero-overview {
