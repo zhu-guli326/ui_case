@@ -22,16 +22,39 @@ jobs:
           fi
           npm install --no-save playwright-core@1.55.0
           node <<'NODE'
+          const fs = require('fs');
           const { chromium } = require('playwright-core');
           (async () => {
-            const browser = await chromium.launch({
-              headless: true,
-              executablePath: process.env.BROWSER,
-              args: ['--no-sandbox']
-            });
+            const browser = await chromium.launch({ headless: true, executablePath: process.env.BROWSER, args: ['--no-sandbox'] });
             const page = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
+            const responses = [];
+            page.on('response', (res) => {
+              if (res.url().includes('/assets/home/figures/')) responses.push({ url: res.url(), status: res.status(), contentType: res.headers()['content-type'] || '' });
+            });
             await page.goto('https://www.ondesign.tech/learn.html?lang=en', { waitUntil: 'networkidle' });
             await page.waitForTimeout(1500);
+            const cards = await page.locator('#capabilities .capability-grid > a').evaluateAll(nodes => nodes.map((card) => {
+              const img = card.querySelector('img');
+              return {
+                title: card.querySelector('strong')?.textContent,
+                imgSrc: img?.src,
+                naturalWidth: img?.naturalWidth,
+                naturalHeight: img?.naturalHeight,
+                complete: img?.complete,
+                backgroundImage: getComputedStyle(card).backgroundImage
+              };
+            }));
+            const directChecks = await page.evaluate(async () => {
+              const urls = [...document.querySelectorAll('#capabilities .capability-grid > a img')].map(img => img.src);
+              return Promise.all(urls.map(async (url) => {
+                try {
+                  const r = await fetch(url, { cache: 'no-store' });
+                  const b = new Uint8Array(await r.arrayBuffer());
+                  return { url, status: r.status, contentType: r.headers.get('content-type'), size: b.length, magic: Array.from(b.slice(0, 12)) };
+                } catch (e) { return { url, error: String(e) }; }
+              }));
+            });
+            fs.writeFileSync('diagnostics.json', JSON.stringify({ responses, cards, directChecks }, null, 2));
             const section = page.locator('#capabilities');
             await section.scrollIntoViewIfNeeded();
             await page.waitForTimeout(600);
@@ -39,9 +62,11 @@ jobs:
             await browser.close();
           })();
           NODE
-      - name: Upload screenshot
+      - name: Upload screenshot and diagnostics
         uses: actions/upload-artifact@v4
         with:
           name: ondesign-capabilities-screenshot
-          path: ondesign-capabilities.png
+          path: |
+            ondesign-capabilities.png
+            diagnostics.json
           if-no-files-found: error
