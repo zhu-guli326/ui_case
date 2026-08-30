@@ -1,0 +1,43 @@
+/* WEB mode: natural-height masonry flow.
+ * Cards keep their native preview ratio and move upward independently,
+ * avoiding row-height gaps created by the regular CSS grid.
+ */
+body.skills-document .repo-list.is-web-list {
+  display: block;
+  column-count: 3;
+  column-gap: 16px;
+}
+
+body.skills-document .repo-list.is-web-list .web-reference-group,
+body.skills-document .repo-list.is-web-list .web-reference-group > .web-reference-grid {
+  display: contents;
+}
+
+body.skills-document .repo-list.is-web-list .web-reference-group > header {
+  display: none;
+}
+
+body.skills-document .repo-list.is-web-list .web-reference-card {
+  display: inline-flex;
+  width: 100%;
+  margin: 0 0 16px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  vertical-align: top;
+}
+
+body.skills-document .repo-list.is-web-list .repo-empty {
+  column-span: all;
+}
+
+@media (max-width: 820px) {
+  body.skills-document .repo-list.is-web-list {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 620px) {
+  body.skills-document .repo-list.is-web-list {
+    column-count: 1;
+  }
+}
