@@ -3,7 +3,7 @@ const SUPPORTED_LANGUAGES = new Set(["zh", "en"]);
 const CAPABILITY_FIGURES = [
   {
     stage: "01 · DEFINE",
-    image: "./assets/home/figures/steve-jobs.webp?v=20260830-2",
+    image: "./assets/home/figures/steve-jobs.webp?v=20260831-1",
     alt: { zh: "史蒂夫·乔布斯像素人物肖像", en: "Pixel portrait of Steve Jobs" },
     name: { zh: "史蒂夫·乔布斯", en: "Steve Jobs" },
     thinking: { zh: "判断 / 聚焦 / 取舍", en: "Judgment / Focus / Trade-offs" },
@@ -11,7 +11,7 @@ const CAPABILITY_FIGURES = [
   },
   {
     stage: "02 · CREATE",
-    image: "./assets/home/figures/leonardo-da-vinci.webp",
+    image: "./assets/home/figures/leonardo-da-vinci.webp?v=20260831-1",
     alt: { zh: "达·芬奇像素人物肖像", en: "Pixel portrait of Leonardo da Vinci" },
     name: { zh: "达·芬奇", en: "Leonardo da Vinci" },
     thinking: { zh: "创造 / 整合 / 表达", en: "Creativity / Integration / Expression" },
@@ -19,7 +19,7 @@ const CAPABILITY_FIGURES = [
   },
   {
     stage: "03 · BUILD",
-    image: "./assets/home/figures/bill-gates.webp",
+    image: "./assets/home/figures/bill-gates.webp?v=20260831-1",
     alt: { zh: "比尔·盖茨像素人物肖像", en: "Pixel portrait of Bill Gates" },
     name: { zh: "比尔·盖茨", en: "Bill Gates" },
     thinking: { zh: "软件 / 系统 / 实现", en: "Software / Systems / Execution" },
@@ -27,7 +27,7 @@ const CAPABILITY_FIGURES = [
   },
   {
     stage: "04 · ITERATE",
-    image: "./assets/home/figures/thomas-edison.webp",
+    image: "./assets/home/figures/thomas-edison.webp?v=20260831-1",
     alt: { zh: "爱迪生像素人物肖像", en: "Pixel portrait of Thomas Edison" },
     name: { zh: "爱迪生", en: "Thomas Edison" },
     thinking: { zh: "实验 / 验证 / 迭代", en: "Experiment / Validate / Iterate" },
@@ -54,12 +54,21 @@ function renderCapabilityFigures(language) {
     const stage = card.querySelector("small");
     const title = card.querySelector("strong");
     const copy = card.querySelector("p");
+    const imageUrl = new URL(figure.image, location.href).href;
+
+    card.style.backgroundImage = `url("${imageUrl}")`;
+    card.style.backgroundSize = "cover";
+    card.style.backgroundPosition = "center";
+    card.style.backgroundRepeat = "no-repeat";
 
     if (image) {
-      image.src = figure.image;
+      image.src = imageUrl;
       image.alt = figure.alt[language];
-      image.loading = "lazy";
+      image.loading = "eager";
       image.decoding = "async";
+      image.style.display = "block";
+      image.style.opacity = "1";
+      image.style.visibility = "visible";
     }
     if (stage) stage.textContent = figure.stage;
     if (title) {
