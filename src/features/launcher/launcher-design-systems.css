@@ -209,11 +209,19 @@
   color: #262626;
   font: inherit;
   font-size: 12px;
-  outline: 0;
+  outline: none;
+  box-shadow: none;
+  transition: border-color .16s ease, box-shadow .16s ease;
 }
 
-.ds-search:focus {
+.ds-search:hover {
+  border-color: #bfbfbf;
+}
+
+.ds-search:focus,
+.ds-search:focus-visible {
   border-color: #18a957;
+  outline: none !important;
   box-shadow: 0 0 0 2px rgb(24 169 87 / 10%);
 }
 
