@@ -258,11 +258,13 @@ body.library-page .sidebar-social small { font-size: 9px; }
 
 body.directory-page .directory-content { min-width: 0; padding: 0; }
 
-body.library-page .catalog-bar,
-body.vocabulary-page .results-heading { display: flex; min-height: 54px; align-items: end; justify-content: space-between; margin: 0 0 16px; padding: 0 0 16px; border-bottom: 1px solid var(--directory-border); }
-body.library-page .catalog-bar h2,
-body.vocabulary-page .results-heading h2 { margin: 6px 0 0; color: var(--directory-text); font-size: 24px; font-weight: 650; letter-spacing: -.03em; }
-body.vocabulary-page .results-summary { margin: -6px 0 18px; color: var(--directory-secondary); font-size: 11px; }
+/* Result cards begin immediately after the sidebar. The old per-category
+ * heading/summary navigation is intentionally removed from the visible UI. */
+body.vocabulary-page .results-heading,
+body.vocabulary-page .results-summary { display: none !important; margin: 0 !important; padding: 0 !important; min-height: 0 !important; border: 0 !important; }
+
+body.library-page .catalog-bar { display: flex; min-height: 54px; align-items: end; justify-content: space-between; margin: 0 0 16px; padding: 0 0 16px; border-bottom: 1px solid var(--directory-border); }
+body.library-page .catalog-bar h2 { margin: 6px 0 0; color: var(--directory-text); font-size: 24px; font-weight: 650; letter-spacing: -.03em; }
 body.library-page .demo-gallery,
 body.vocabulary-page .entry-grid { gap: 16px; }
 body.library-page .demo-card,
