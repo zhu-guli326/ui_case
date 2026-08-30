@@ -295,6 +295,30 @@
   font-size: 8px;
 }
 
+.ds-option-title .ds-scope-tag {
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  color: #8c8c8c;
+}
+
+.ds-option[data-ds-scope="product-ui"] .ds-scope-tag {
+  border-color: #d8f0e1;
+  background: #f3fbf6;
+  color: #128746;
+}
+
+.ds-option[data-ds-scope="brand-web"] .ds-scope-tag {
+  border-color: #e6e6e6;
+  background: #f5f5f5;
+  color: #666;
+}
+
+.ds-option[data-ds-scope="historical"] .ds-scope-tag {
+  border-color: #f0dfc0;
+  background: #fff8e8;
+  color: #9a6700;
+}
+
 .ds-option-copy small {
   overflow: hidden;
   color: #8c8c8c;
@@ -380,48 +404,6 @@ body[data-design-system] [data-preview-stage] .sample-visual {
   border-radius: var(--ds-radius, var(--dna-radius)) !important;
 }
 
-/* Cursor in awesome-design-md describes the public marketing site, whose
- * orange CTA palette is correct for cursor.com. Launcher, however, uses
- * design-system presets as product UI foundations. Keep Cursor's preset
- * aligned with the editor/product surface instead: compact, neutral and
- * dark-first. This override is intentionally scoped to Cursor only. */
-.ds-option[data-ds-slug="cursor"] .ds-option-swatches i:nth-child(1),
-body[data-design-system="cursor"] .ds-trigger-swatches i:nth-child(1) { background: #1e1e1e !important; }
-.ds-option[data-ds-slug="cursor"] .ds-option-swatches i:nth-child(2),
-body[data-design-system="cursor"] .ds-trigger-swatches i:nth-child(2) { background: #252525 !important; }
-.ds-option[data-ds-slug="cursor"] .ds-option-swatches i:nth-child(3),
-body[data-design-system="cursor"] .ds-trigger-swatches i:nth-child(3) { background: #343434 !important; }
-.ds-option[data-ds-slug="cursor"] .ds-option-swatches i:nth-child(4),
-body[data-design-system="cursor"] .ds-trigger-swatches i:nth-child(4) { background: #f2f2f2 !important; }
-
-.ds-option[data-ds-slug="cursor"] .ds-option-meta,
-body[data-design-system="cursor"] .ds-trigger-copy small {
-  font-size: 0;
-}
-
-.ds-option[data-ds-slug="cursor"] .ds-option-meta::after {
-  content: "system-ui · 6px · 8px";
-  font-size: 8.5px;
-}
-
-body[data-design-system="cursor"] .ds-trigger-copy small::after {
-  content: "system-ui · 6px · 8px";
-  font-size: 11px;
-}
-
-body[data-design-system="cursor"] {
-  --dna-accent: #c7c7c7 !important;
-  --dna-accent-soft: #303030 !important;
-  --dna-canvas: #1e1e1e !important;
-  --dna-surface: #252525 !important;
-  --dna-ink: #f2f2f2 !important;
-  --dna-muted: #a3a3a3 !important;
-  --dna-radius: 6px !important;
-  --ds-radius: 6px !important;
-  --dna-space: 8px !important;
-  --dna-display: system-ui, -apple-system, "Segoe UI", sans-serif !important;
-}
-
 @keyframes ds-shimmer {
   to { background-position: -200% 0; }
 }
@@ -432,5 +414,6 @@ body[data-design-system="cursor"] {
   #dna-rules .rule-field { padding: 12px; }
   .ds-option { grid-template-columns: auto minmax(0, 1fr); }
   .ds-option-preview { display: none; }
+  .ds-scope-tag { display: none; }
   #dna-rules .palette-list { grid-template-columns: 1fr !important; }
 }
