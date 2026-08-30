@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Wait for live site
-        run: sleep 12
+        run: sleep 70
       - name: Capture capability section
         run: |
           export BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
