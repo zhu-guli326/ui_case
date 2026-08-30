@@ -47,3 +47,20 @@ html[lang^="zh"] :where(h1, h2, h3) {
 html[lang^="zh"] :where(h4, h5, h6) {
   font-weight: 600;
 }
+
+/* CJK display headings should not inherit the tight negative tracking used for Latin.
+   Keep the rhythm closer to Ant Design's Chinese typography: natural tracking,
+   a little more line height, and a slightly calmer display size. */
+html[lang^="zh"] .system-explainer-heading h2 {
+  max-width: 920px;
+  font-size: clamp(44px, 4.8vw, 68px);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+html[lang^="zh"] .system-explainer-heading > p:last-child {
+  letter-spacing: 0;
+  line-height: 1.75;
+}
