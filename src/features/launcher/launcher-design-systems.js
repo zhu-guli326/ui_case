@@ -256,6 +256,11 @@ function swatchHtml(colors = []) {
   return colors.slice(0, 4).map((color) => `<i style="background:${esc(color)}"></i>`).join("");
 }
 
+function resetListScroll() {
+  if (!list) return;
+  list.scrollTop = 0;
+}
+
 function bindStaticField() {
   field = document.querySelector("[data-design-system-field]");
   if (!field) return false;
@@ -281,10 +286,14 @@ function bindStaticField() {
       trigger.setAttribute("aria-expanded", String(open));
       if (open) {
         renderOptions();
+        resetListScroll();
         requestAnimationFrame(() => searchInput.focus());
       }
     });
-    searchInput.addEventListener("input", renderOptions);
+    searchInput.addEventListener("input", () => {
+      renderOptions();
+      resetListScroll();
+    });
   }
   return true;
 }
@@ -457,7 +466,10 @@ function syncLanguage() {
   if (!field) return;
   const wasOpen = !menu.hidden;
   syncStaticLabels();
-  if (wasOpen) renderOptions();
+  if (wasOpen) {
+    renderOptions();
+    resetListScroll();
+  }
 }
 
 function openDropdown() {
@@ -465,6 +477,7 @@ function openDropdown() {
   menu.hidden = false;
   trigger.setAttribute("aria-expanded", "true");
   renderOptions();
+  resetListScroll();
 }
 
 function init() {
