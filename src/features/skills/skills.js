@@ -22,6 +22,8 @@ const elements = {
   repoFacets: document.querySelector("#repoFacets"),
   repoCount: document.querySelector("#repoCount"),
   repoSyncStatus: document.querySelector("#repoSyncStatus"),
+  skillsHeroEyebrow: document.querySelector(".hero-discovery .eyebrow"),
+  skillsHeroTitle: document.querySelector("#skillsHeroTitle"),
   skillsHeroCount: document.querySelector("#skillsHeroCount"),
   skillsHeroKind: document.querySelector("#skillsHeroKind"),
   skillsHeroBody: document.querySelector("#skillsHeroBody"),
@@ -332,11 +334,16 @@ async function loadRepositoryData() {
 
 function renderPage(language = "zh") {
   state.currentLanguage = language === "en" ? "en" : "zh";
-  document.title = state.currentLanguage === "en" ? "Design Skill Directory · ONDesign" : "设计 Skill 观察 · ONDesign";
+  document.title = state.currentLanguage === "en" ? "Design Skills & Tools · ONDesign" : "设计 Skill 与工具 · ONDesign";
   const description = document.querySelector('meta[name="description"]');
   if (description) description.content = state.currentLanguage === "en"
-    ? "A curated directory of open-source design Skills and tools."
-    : "设计 Skill 观察与可复制提示词。";
+    ? "A curated directory of design skills, tools and practical UI resources."
+    : "设计 Skill、工具与实用 UI 资源精选。";
+  if (elements.skillsHeroEyebrow) elements.skillsHeroEyebrow.textContent = state.currentLanguage === "en" ? "DESIGN SKILLS & TOOLS" : "DESIGN SKILLS & TOOLS";
+  if (elements.skillsHeroTitle) elements.skillsHeroTitle.textContent = state.currentLanguage === "en" ? "Design Skills & Tools Map" : "设计 Skill 与工具地图";
+  if (elements.skillsHeroBody) elements.skillsHeroBody.textContent = state.currentLanguage === "en"
+    ? "A practical map of design skills, tools and resources. Start with the work you need to do, then compare what each option is best for and how it fits your workflow."
+    : "这是一张设计 Skill、工具与资源地图。先从你要完成的工作出发，再比较它们各自适合的场景与使用方式。";
   if (elements.skillsHeroCount) elements.skillsHeroCount.textContent = String(getRepositoryItems().length);
   renderer.renderRepositories();
 }
