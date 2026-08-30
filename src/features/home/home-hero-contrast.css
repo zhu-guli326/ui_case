@@ -1,0 +1,45 @@
+/* Homepage hero contrast guard.
+ * Keep text legible across both zh-CN and en regardless of later token layers.
+ */
+body.project-home .project-hero .project-hero-overlay {
+  background:
+    radial-gradient(circle at 50% 46%, rgba(0, 0, 0, .18) 0%, rgba(0, 0, 0, .34) 54%, rgba(0, 0, 0, .5) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, .24), rgba(0, 0, 0, .48)),
+    linear-gradient(90deg, rgba(0, 0, 0, .26), rgba(0, 0, 0, .12) 52%, rgba(0, 0, 0, .28));
+}
+
+body.project-home .project-hero .project-hero-content {
+  color: #fff;
+  text-shadow: 0 1px 18px rgba(0, 0, 0, .2);
+}
+
+body.project-home .project-hero .project-eyebrow {
+  color: rgba(255, 255, 255, .96);
+}
+
+body.project-home .project-hero .project-hero-content h1 {
+  color: #fff;
+  text-shadow: 0 2px 34px rgba(0, 0, 0, .34);
+}
+
+body.project-home .project-hero .project-hero-content > p:not(.project-eyebrow) {
+  color: rgba(255, 255, 255, .94);
+  text-shadow: 0 1px 18px rgba(0, 0, 0, .36);
+}
+
+body.project-home .project-hero .button-outline-light,
+body.project-home .project-hero .text-link-light {
+  color: #fff;
+}
+
+body.project-home .project-hero .button-outline-light {
+  border-color: rgba(255, 255, 255, .74);
+  background: rgba(0, 0, 0, .08);
+  backdrop-filter: blur(5px);
+}
+
+body.project-home .project-hero .button-outline-light:hover {
+  border-color: #fff;
+  background: #fff;
+  color: #111;
+}
