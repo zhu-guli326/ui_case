@@ -97,6 +97,28 @@
     }
   }
 
+  function syncFontSelectLanguage() {
+    const select = document.querySelector('[data-font-select]');
+    const presets = window.ONDesignFontPresets;
+    if (!select || !Array.isArray(presets) || !presets.length) return;
+
+    const lang = language();
+    const presetById = new Map(presets.map((preset) => [preset.id, preset]));
+    [...select.options].forEach((option) => {
+      const preset = presetById.get(option.value);
+      if (!preset) return;
+      option.textContent = lang === 'en' ? preset.en : preset.zh;
+    });
+
+    const groupLabels = lang === 'en'
+      ? ['System / local fonts', 'Google Fonts · CJK', 'Google Fonts · Latin']
+      : ['系统 / 本机字体', 'Google Fonts · 中文', 'Google Fonts · 英文'];
+    [...select.querySelectorAll('optgroup')].forEach((group, index) => {
+      if (groupLabels[index]) group.label = groupLabels[index];
+    });
+    select.setAttribute('aria-label', lang === 'en' ? 'Typography' : '字体');
+  }
+
   function translatePreviewSamples() {
     if (!previewRoot) return;
     const pairs = [
@@ -136,6 +158,7 @@
   function sync() {
     installCaseDialogLinks();
     syncLanguageLinks();
+    syncFontSelectLanguage();
     syncDirectionPreviewSizes();
     syncWorkspaceAlignment();
     translatePreviewSamples();
@@ -146,10 +169,7 @@
     syncWorkspaceAlignment();
   });
   window.addEventListener('image2:languagechange', sync);
-  window.addEventListener('load', () => {
-    syncDirectionPreviewSizes();
-    syncWorkspaceAlignment();
-  }, { once: true });
+  window.addEventListener('load', sync, { once: true });
 
   sync();
 })();
