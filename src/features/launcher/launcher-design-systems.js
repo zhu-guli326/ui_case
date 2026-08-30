@@ -4,6 +4,11 @@ import {
   DESIGN_SYSTEM_SOURCE_REPO as SOURCE_REPO,
   DESIGN_SYSTEM_SOURCE_BASE as SOURCE_BASE,
 } from "./design-systems-catalog.js";
+import {
+  designSystemUsage,
+  designSystemUsageLabel,
+  normalizeDesignSystemForLauncher,
+} from "./design-system-usage.js";
 
 const STORAGE_KEY = "ondesign:design-system-preset:v2";
 const STYLE_HREF = "./src/features/launcher/launcher-design-systems.css";
@@ -210,8 +215,8 @@ async function loadSpec(entry) {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return response.text();
     })
-    .then((text) => parseDesign(text, entry))
-    .catch((error) => ({ description: entry.description, colors: {}, typography: {}, rounded: {}, spacing: {}, components: [], raw: "", error: String(error) }));
+    .then((text) => normalizeDesignSystemForLauncher(entry, parseDesign(text, entry)))
+    .catch((error) => normalizeDesignSystemForLauncher(entry, { description: entry.description, colors: {}, typography: {}, rounded: {}, spacing: {}, components: [], raw: "", error: String(error) }));
   cache.set(entry.slug, request);
   return request;
 }
@@ -308,22 +313,24 @@ function syncStaticLabels() {
     searchInput.setAttribute("aria-label", txt("搜索设计规范", "Search design systems"));
   }
   if (note) note.textContent = txt(
-    "先选择一套规范作为基础，再在下方微调颜色、字体、圆角与间距。来源：VoltAgent/awesome-design-md（MIT）。",
-    "Choose a system as the foundation, then fine-tune color, typography, radius and spacing below. Source: VoltAgent/awesome-design-md (MIT).",
+    "所有来源都会先经过 UI Coding 适配；品牌官网与历史页面只保留可复用的视觉特征，不直接继承营销页级 Token。来源：VoltAgent/awesome-design-md（MIT）。",
+    "Every source is normalized for UI Coding first. Brand websites and historical pages keep reusable visual cues without directly inheriting marketing-scale tokens. Source: VoltAgent/awesome-design-md (MIT).",
   );
   updateTrigger();
 }
 
 function filteredEntries() {
   const query = (searchInput?.value || "").trim().toLowerCase();
-  return DESIGN_SYSTEMS.filter((entry) => !query || `${entry.name} ${entry.slug} ${entry.description} ${CATEGORY_LABELS[entry.category]?.zh || ""} ${CATEGORY_LABELS[entry.category]?.en || ""}`.toLowerCase().includes(query));
+  return DESIGN_SYSTEMS.filter((entry) => !query || `${entry.name} ${entry.slug} ${entry.description} ${CATEGORY_LABELS[entry.category]?.zh || ""} ${CATEGORY_LABELS[entry.category]?.en || ""} ${designSystemUsageLabel(entry, lang())}`.toLowerCase().includes(query));
 }
 
 function optionHtml(entry) {
   const category = CATEGORY_LABELS[entry.category]?.[lang()] || entry.category;
-  return `<button type="button" class="ds-option${selectedEntry?.slug === entry.slug ? " is-selected" : ""}" data-ds-slug="${esc(entry.slug)}" data-loaded="false">
+  const usage = designSystemUsage(entry);
+  const scope = designSystemUsageLabel(entry, lang());
+  return `<button type="button" class="ds-option${selectedEntry?.slug === entry.slug ? " is-selected" : ""}" data-ds-slug="${esc(entry.slug)}" data-ds-scope="${esc(usage.scope)}" data-loaded="false">
     ${brandLogoHtml(entry)}
-    <span class="ds-option-copy"><span class="ds-option-title"><strong>${esc(entry.name)}</strong><span>${esc(category)}</span></span><small>${esc(entry.description)}</small></span>
+    <span class="ds-option-copy"><span class="ds-option-title"><strong>${esc(entry.name)}</strong><span>${esc(category)}</span><span class="ds-scope-tag">${esc(scope)}</span></span><small>${esc(entry.description)}</small></span>
     <span class="ds-option-preview"><span class="ds-option-swatches"><i></i><i></i><i></i><i></i></span><span class="ds-option-meta">${txt("加载预览…", "Loading preview…")}</span></span>
   </button>`;
 }
@@ -375,8 +382,10 @@ function closeMenu() {
 function buildPrompt(entry, spec) {
   const palette = paletteFor(spec);
   const type = typographyList(spec);
+  const usage = designSystemUsage(entry);
   return [
     `${txt("设计规范", "Design system")}: ${entry.name}`,
+    `${txt("适用范围", "Usage scope")}: ${designSystemUsageLabel(entry, lang())}`,
     `${txt("来源", "Source")}: ${SOURCE_REPO}/design-md/${entry.slug}/DESIGN.md`,
     `${txt("视觉方向", "Visual direction")}: ${spec.description || entry.description}`,
     `${txt("核心颜色", "Core colors")}: accent ${palette.accent}; canvas ${palette.canvas}; surface ${palette.surface}; ink ${palette.ink}; muted ${palette.muted}`,
@@ -384,7 +393,9 @@ function buildPrompt(entry, spec) {
     `${txt("圆角", "Radius")}: ${Object.entries(spec.rounded).slice(0, 8).map(([key, value]) => `${key} ${value}`).join(", ") || radiusValue(spec)}`,
     `${txt("间距", "Spacing")}: ${Object.entries(spec.spacing).slice(0, 8).map(([key, value]) => `${key} ${value}`).join(", ") || spacingValue(spec)}`,
     `${txt("组件", "Components")}: ${spec.components.slice(0, 16).join(", ") || "Follow source DESIGN.md component rules."}`,
-    txt("复用要求：新页面持续遵循这套视觉语言，保持表面层级、字体层级、间距节奏与组件状态一致；不要复制品牌素材或打包专有字体文件。", "Reuse rule: keep surface hierarchy, type scale, spacing rhythm and component states consistent across pages. Do not copy brand assets or proprietary font files."),
+    usage.scope === "product-ui"
+      ? txt("复用要求：以产品 UI 为基准复用视觉语言，保持表面层级、字体层级、间距节奏与组件状态一致；不要复制品牌素材或打包专有字体文件。", "Reuse rule: use this as a product UI foundation, keeping surface hierarchy, type scale, spacing rhythm and component states consistent. Do not copy brand assets or proprietary font files.")
+      : txt("适配要求：该来源主要是品牌官网/历史视觉参考。只复用品牌色、气质和可迁移的视觉语言；不要复制营销页的大标题、摄影布局、超大 section 间距或展示型几何到产品 UI。", "Adaptation rule: this source is primarily a brand website or historical visual reference. Reuse brand color, tone and transferable visual language only; do not copy marketing-scale headlines, photography layouts, oversized section spacing or display geometry into product UI."),
   ].join("\n");
 }
 
@@ -407,6 +418,7 @@ function applyDesignSystem(entry, spec, { silent = false } = {}) {
   root.style.setProperty("--dna-space", `${spacing}px`);
   root.style.setProperty("--dna-display", `"${primaryFont(spec)}",system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif`);
   document.body.dataset.designSystem = entry.slug;
+  document.body.dataset.designSystemScope = designSystemUsage(entry).scope;
 
   const prompt = document.querySelector("#dnaPrompt");
   if (prompt) prompt.textContent = promptSnapshot;
@@ -426,9 +438,9 @@ function applyDesignSystem(entry, spec, { silent = false } = {}) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ slug: entry.slug })); } catch {}
 
   window.dispatchEvent(new CustomEvent("ondesign:designsystemapply", {
-    detail: { slug: entry.slug, name: entry.name, radius, radiusSource: radiusValue(spec) },
+    detail: { slug: entry.slug, name: entry.name, radius, radiusSource: radiusValue(spec), scope: designSystemUsage(entry).scope },
   }));
-  if (!silent) window.dispatchEvent(new CustomEvent("ondesign:designsystemchange", { detail: { slug: entry.slug, name: entry.name, radius } }));
+  if (!silent) window.dispatchEvent(new CustomEvent("ondesign:designsystemchange", { detail: { slug: entry.slug, name: entry.name, radius, scope: designSystemUsage(entry).scope } }));
 }
 
 function updateTrigger() {
@@ -445,7 +457,7 @@ function updateTrigger() {
     return;
   }
   if (strong) strong.textContent = selectedEntry.name;
-  if (small) small.textContent = `${primaryFont(selectedSpec)} · ${radiusValue(selectedSpec)} · ${spacingValue(selectedSpec)}`;
+  if (small) small.textContent = `${designSystemUsageLabel(selectedEntry, lang())} · ${primaryFont(selectedSpec)} · ${radiusValue(selectedSpec)} · ${spacingValue(selectedSpec)}`;
   setBrandLogo(brandLogo, selectedEntry);
   const palette = paletteFor(selectedSpec);
   [palette.accent, palette.surface, palette.canvas, palette.ink].forEach((color, index) => {
@@ -490,7 +502,7 @@ function init() {
   });
   document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeMenu(); });
   window.addEventListener("image2:languagechange", syncLanguage);
-  window.ONDesignDesignSystems = { entries: DESIGN_SYSTEMS, open: openDropdown, load: loadSpec, apply: applyDesignSystem };
+  window.ONDesignDesignSystems = { entries: DESIGN_SYSTEMS, open: openDropdown, load: loadSpec, apply: applyDesignSystem, usage: designSystemUsage };
 }
 
 init();
