@@ -4,8 +4,49 @@ body.project-home .project-hero-content {
   transform: translateY(-36px);
 }
 
+/* Hero message: keep the short question as the eyebrow and the Design DNA promise as the headline. */
+body.project-home .project-hero .project-eyebrow {
+  font-size: 0;
+}
+
+body.project-home .project-hero .project-eyebrow::after {
+  content: "喜欢这个？";
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  line-height: 1.4;
+  text-transform: none;
+}
+
+html[lang^="en"] body.project-home .project-hero .project-eyebrow::after {
+  content: "Like this?";
+}
+
+body.project-home .project-hero h1 {
+  font-size: 0;
+}
+
+body.project-home .project-hero h1::after {
+  content: "让 AI Coding 理解你的设计 DNA";
+  display: block;
+  font-size: clamp(54px, 7vw, 96px);
+  font-weight: 300;
+  letter-spacing: -.065em;
+  line-height: .94;
+  text-wrap: balance;
+}
+
+html[lang^="en"] body.project-home .project-hero h1::after {
+  content: "DESIGN DNA FOR AI CODING";
+}
+
 @media (max-width: 700px) {
   body.project-home .project-hero-content {
     transform: translateY(-20px);
+  }
+
+  body.project-home .project-hero h1::after {
+    font-size: clamp(48px, 10vw, 72px);
   }
 }
