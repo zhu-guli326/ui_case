@@ -1,0 +1,42 @@
+name: Safe Launcher Cache Cleanup Once
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Remove manual cache tag only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('launcher.html')
+          s = p.read_text(encoding='utf-8')
+          tag = '?v=20260830-fonts-v3'
+          if tag not in s:
+              raise SystemExit('expected launcher cache tag not found; refusing to change anything')
+          p.write_text(s.replace(tag, ''), encoding='utf-8')
+          PY
+      - name: Verify repository contracts
+        run: |
+          npm run build:catalog -- --check
+          npm run check
+      - name: Commit verified cleanup and remove this workflow
+        run: |
+          git rm .github/workflows/safe-launcher-cache-cleanup-once.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add launcher.html
+          git commit -m "chore: remove manual launcher cache version"
+          git push origin HEAD:main
