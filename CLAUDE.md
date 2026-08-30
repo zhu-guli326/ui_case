@@ -11,4 +11,5 @@ Critical default behavior:
 - Do not keep old CSS, JS, DOM, assets, hidden fallbacks, commented backups, compatibility bridges, `v2/final/fix/override/legacy` files, or temporary migration tooling after the replacement is complete.
 - Git history is the archive and rollback mechanism.
 - Page-only changes must not create or restyle a page-specific global navigation; the shared App Shell remains global.
+- For cleanup-only work, follow the live-route preservation and transitive-dependency checks in `AGENTS.md`; preserve uncertain runtime dependencies instead of deleting them.
 - Before finishing, follow the replacement completion checklist and final Agent self-check in `AGENTS.md`.
