@@ -1,46 +1,71 @@
-/* Global typography tokens. Keep font stacks aligned with catalog/font-presets.js. */
+/*
+ * ONDesign global language typography tokens.
+ * Loaded by site-shell.css after design-tokens.css so every public page uses
+ * the same Chinese/English type contract. Page CSS should consume these
+ * semantic tokens instead of inventing local tracking/leading values.
+ */
 :root {
   /* Font families */
   --font-sans-en: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-sans-zh: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC", sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
-  /* Backward-compatible aliases. Language selectors below remap these. */
-  --font-sans-cjk: var(--font-sans-zh);
-  --font-display-cjk: var(--font-sans-zh);
+  /* Number tokens stay language-neutral. */
   --font-number: var(--font-sans-en);
-
-  /* Number tokens */
   --number-font-variant: tabular-nums lining-nums;
   --number-font-features: "tnum" 1, "lnum" 1;
 
-  /* Neutral fallback semantic typography tokens */
+  /* Neutral fallback = English. */
   --type-font-body: var(--font-sans-en);
   --type-font-display: var(--font-sans-en);
+
+  --type-display-size-xl: clamp(54px, 7vw, 96px);
+  --type-display-size-lg: clamp(44px, 5.5vw, 78px);
+  --type-display-size-md: clamp(42px, 5.2vw, 72px);
+  --type-heading-size: 32px;
+  --type-title-size: 20px;
+  --type-body-size: 15px;
+  --type-body-size-lg: 17px;
+  --type-caption-size: 12px;
+
   --type-display-weight: 300;
   --type-display-tracking: -0.055em;
   --type-display-leading: 0.98;
+
   --type-heading-weight: 500;
   --type-heading-tracking: -0.025em;
-  --type-heading-leading: 1.16;
+  --type-heading-leading: 1.14;
+
   --type-body-weight: 400;
   --type-body-tracking: 0;
   --type-body-leading: 1.6;
+
   --type-caption-weight: 500;
-  --type-caption-tracking: 0.02em;
+  --type-caption-tracking: 0.015em;
   --type-caption-leading: 1.5;
+
   --type-label-weight: 600;
   --type-label-tracking: 0.1em;
   --type-label-leading: 1.4;
+
+  /* Backward-compatible font aliases. */
+  --font-sans-cjk: var(--type-font-body);
+  --font-display-cjk: var(--type-font-display);
 }
 
-/* English typography system: tighter display rhythm and optical negative tracking. */
+/* English: editorial Latin rhythm can use optical negative tracking. */
 html[lang^="en"] {
-  --font-sans-cjk: var(--font-sans-en);
-  --font-display-cjk: var(--font-sans-en);
-  --font-number: var(--font-sans-en);
   --type-font-body: var(--font-sans-en);
   --type-font-display: var(--font-sans-en);
+
+  --type-display-size-xl: clamp(54px, 7vw, 96px);
+  --type-display-size-lg: clamp(44px, 5.5vw, 78px);
+  --type-display-size-md: clamp(42px, 5.2vw, 72px);
+  --type-heading-size: 32px;
+  --type-title-size: 20px;
+  --type-body-size: 15px;
+  --type-body-size-lg: 17px;
+  --type-caption-size: 12px;
 
   --type-display-weight: 300;
   --type-display-tracking: -0.055em;
@@ -57,15 +82,31 @@ html[lang^="en"] {
   --type-label-weight: 600;
   --type-label-tracking: 0.1em;
   --type-label-leading: 1.4;
+
+  /* Canonical --ds-* aliases: components using design tokens stay aligned. */
+  --ds-font-sans: var(--type-font-body);
+  --ds-font-size-body: var(--type-body-size);
+  --ds-font-size-body-lg: var(--type-body-size-lg);
+  --ds-font-weight-heading: var(--type-heading-weight);
+  --ds-line-height-body: var(--type-body-leading);
+  --ds-line-height-heading: var(--type-heading-leading);
+  --ds-letter-spacing-body: var(--type-body-tracking);
+  --ds-letter-spacing-heading: var(--type-heading-tracking);
 }
 
-/* Chinese typography system: Ant Design-like CJK rhythm — no negative tracking, calmer weights, more breathing room. */
+/* Chinese: Ant Design-like CJK rhythm. Never apply Latin negative tracking. */
 html[lang^="zh"] {
-  --font-sans-cjk: var(--font-sans-zh);
-  --font-display-cjk: var(--font-sans-zh);
-  --font-number: var(--font-sans-en);
   --type-font-body: var(--font-sans-zh);
   --type-font-display: var(--font-sans-zh);
+
+  --type-display-size-xl: clamp(50px, 6.2vw, 84px);
+  --type-display-size-lg: clamp(44px, 4.8vw, 68px);
+  --type-display-size-md: clamp(40px, 4.8vw, 64px);
+  --type-heading-size: 30px;
+  --type-title-size: 20px;
+  --type-body-size: 14px;
+  --type-body-size-lg: 16px;
+  --type-caption-size: 12px;
 
   --type-display-weight: 600;
   --type-display-tracking: 0;
@@ -83,6 +124,16 @@ html[lang^="zh"] {
   --type-label-tracking: 0.08em;
   --type-label-leading: 1.45;
 
+  /* Canonical --ds-* aliases: all pages/components receive the same CJK rules. */
+  --ds-font-sans: var(--type-font-body);
+  --ds-font-size-body: var(--type-body-size);
+  --ds-font-size-body-lg: var(--type-body-size-lg);
+  --ds-font-weight-heading: var(--type-heading-weight);
+  --ds-line-height-body: var(--type-body-leading);
+  --ds-line-height-heading: var(--type-heading-leading);
+  --ds-letter-spacing-body: var(--type-body-tracking);
+  --ds-letter-spacing-heading: var(--type-heading-tracking);
+
   font-synthesis: none;
 }
 
@@ -94,6 +145,9 @@ body {
 }
 
 body {
+  font-size: var(--type-body-size);
+  font-weight: var(--type-body-weight);
+  line-height: var(--type-body-leading);
   letter-spacing: var(--type-body-tracking);
 }
 
@@ -110,7 +164,7 @@ select {
   font-feature-settings: var(--number-font-features);
 }
 
-/* Base semantic mapping. Component CSS can still own size and spacing. */
+/* Global semantic element mapping. */
 :where(h1, h2, blockquote) {
   font-family: var(--type-font-display);
   font-weight: var(--type-display-weight);
@@ -132,101 +186,111 @@ select {
   line-height: var(--type-body-leading);
 }
 
-/* Homepage typography mapping. Specificity is intentionally higher than page CSS so language tokens always win. */
-html[lang^="en"] body.project-home .project-hero h1,
-html[lang^="en"] body.project-home .section-heading h2,
-html[lang^="en"] body.project-home .project-cta h2,
-html[lang^="en"] body.project-home .showcase-copy h2,
-html[lang^="en"] body.project-home .project-editorial blockquote,
-html[lang^="en"] body.project-home .system-explainer-heading h2 {
-  font-family: var(--type-font-display);
-  font-weight: var(--type-display-weight);
-  letter-spacing: var(--type-display-tracking);
+:where(small, .caption, [data-caption]) {
+  font-family: var(--type-font-body);
+  font-size: var(--type-caption-size);
+  font-weight: var(--type-caption-weight);
+  letter-spacing: var(--type-caption-tracking);
+  line-height: var(--type-caption-leading);
 }
 
-html[lang^="en"] body.project-home .project-hero h1 { line-height: 0.94; }
-html[lang^="en"] body.project-home .section-heading h2,
-html[lang^="en"] body.project-home .project-cta h2 { line-height: 0.98; }
-html[lang^="en"] body.project-home .showcase-copy h2 { line-height: 0.96; }
-html[lang^="en"] body.project-home .project-editorial blockquote { line-height: 1.04; }
-html[lang^="en"] body.project-home .system-explainer-heading h2 { line-height: 1.02; }
-
-html[lang^="zh"] body.project-home .project-hero h1,
-html[lang^="zh"] body.project-home .section-heading h2,
-html[lang^="zh"] body.project-home .project-cta h2,
-html[lang^="zh"] body.project-home .showcase-copy h2,
-html[lang^="zh"] body.project-home .project-editorial blockquote,
-html[lang^="zh"] body.project-home .system-explainer-heading h2 {
+/* Reusable semantic typography utilities for new pages/components. */
+.type-display {
   font-family: var(--type-font-display);
   font-weight: var(--type-display-weight);
   letter-spacing: var(--type-display-tracking);
   line-height: var(--type-display-leading);
 }
 
-/* CJK display sizes stay slightly calmer so multi-line headings do not feel cramped. */
-html[lang^="zh"] body.project-home .project-hero h1 {
-  font-size: clamp(50px, 6.2vw, 84px);
-  line-height: 1.12;
-}
-
-html[lang^="zh"] body.project-home .section-heading h2,
-html[lang^="zh"] body.project-home .project-cta h2,
-html[lang^="zh"] body.project-home .showcase-copy h2 {
-  line-height: 1.18;
-}
-
-html[lang^="zh"] body.project-home .project-editorial blockquote {
-  line-height: 1.2;
-}
-
-html[lang^="zh"] body.project-home .system-explainer-heading h2 {
-  max-width: 920px;
-  font-size: clamp(44px, 4.8vw, 68px);
-  line-height: 1.2;
-  text-wrap: balance;
-}
-
-/* Supporting copy also follows the active language system. */
-html[lang^="en"] body.project-home :where(
-  .project-hero-content > p:not(.project-eyebrow),
-  .section-heading > p:last-child,
-  .showcase-copy > p:last-child,
-  .system-explainer-heading > p:last-child,
-  .capability-grid p,
-  .project-case p
-) {
-  font-family: var(--type-font-body);
-  letter-spacing: var(--type-body-tracking);
-  line-height: var(--type-body-leading);
-}
-
-html[lang^="zh"] body.project-home :where(
-  .project-hero-content > p:not(.project-eyebrow),
-  .section-heading > p:last-child,
-  .showcase-copy > p:last-child,
-  .system-explainer-heading > p:last-child,
-  .capability-grid p,
-  .project-case p
-) {
-  font-family: var(--type-font-body);
-  letter-spacing: var(--type-body-tracking);
-  line-height: var(--type-body-leading);
-}
-
-/* Card titles: Latin can stay optically tight; Chinese never uses negative tracking. */
-html[lang^="en"] body.project-home :where(.capability-grid strong, .project-case h3) {
+.type-heading {
+  font-family: var(--type-font-display);
+  font-weight: var(--type-heading-weight);
   letter-spacing: var(--type-heading-tracking);
   line-height: var(--type-heading-leading);
 }
 
-html[lang^="zh"] body.project-home :where(.capability-grid strong, .project-case h3) {
-  font-weight: var(--type-heading-weight);
-  letter-spacing: 0;
-  line-height: 1.28;
+.type-body {
+  font-family: var(--type-font-body);
+  font-weight: var(--type-body-weight);
+  letter-spacing: var(--type-body-tracking);
+  line-height: var(--type-body-leading);
 }
 
-/* Uppercase labels remain a separate token because their content is Latin even on the Chinese page. */
-body.project-home :where(.section-eyebrow, .project-eyebrow, .project-scroll, .project-stats span, .capability-grid small, .project-case > small, .featured-carousel-footer) {
+.type-caption {
+  font-family: var(--type-font-body);
+  font-weight: var(--type-caption-weight);
+  letter-spacing: var(--type-caption-tracking);
+  line-height: var(--type-caption-leading);
+}
+
+.type-label {
+  font-family: var(--type-font-body);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  line-height: var(--type-label-leading);
+}
+
+/* Homepage mappings keep its existing scale but consume only global tokens. */
+body.project-home .project-hero h1,
+body.project-home .section-heading h2,
+body.project-home .project-cta h2,
+body.project-home .showcase-copy h2,
+body.project-home .project-editorial blockquote,
+body.project-home .system-explainer-heading h2 {
+  font-family: var(--type-font-display);
+  font-weight: var(--type-display-weight);
+  letter-spacing: var(--type-display-tracking);
+  line-height: var(--type-display-leading);
+}
+
+body.project-home .project-hero h1 {
+  font-size: var(--type-display-size-xl);
+}
+
+body.project-home .section-heading h2,
+body.project-home .project-cta h2,
+body.project-home .showcase-copy h2,
+body.project-home .project-editorial blockquote {
+  font-size: var(--type-display-size-md);
+}
+
+body.project-home .system-explainer-heading h2 {
+  max-width: 920px;
+  font-size: var(--type-display-size-lg);
+  text-wrap: balance;
+}
+
+body.project-home :where(
+  .project-hero-content > p:not(.project-eyebrow),
+  .section-heading > p:last-child,
+  .showcase-copy > p:last-child,
+  .system-explainer-heading > p:last-child,
+  .capability-grid p,
+  .project-case p
+) {
+  font-family: var(--type-font-body);
+  font-weight: var(--type-body-weight);
+  letter-spacing: var(--type-body-tracking);
+  line-height: var(--type-body-leading);
+}
+
+body.project-home :where(.capability-grid strong, .project-case h3) {
+  font-family: var(--type-font-display);
+  font-weight: var(--type-heading-weight);
+  letter-spacing: var(--type-heading-tracking);
+  line-height: var(--type-heading-leading);
+}
+
+/* Uppercase Latin labels intentionally use the label tracking token in both languages. */
+body.project-home :where(
+  .section-eyebrow,
+  .project-eyebrow,
+  .project-scroll,
+  .project-stats span,
+  .capability-grid small,
+  .project-case > small,
+  .featured-carousel-footer
+) {
   font-weight: var(--type-label-weight);
   letter-spacing: var(--type-label-tracking);
   line-height: var(--type-label-leading);
