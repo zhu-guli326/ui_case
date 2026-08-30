@@ -34,7 +34,7 @@
       </aside>
     </section>
 
-    <section class="directory-section" aria-labelledby="resultsTitle">
+    <section class="directory-section" aria-label="UI 词条目录">
       <section class="vocab-toolbar directory-toolbar" aria-label="词条搜索和筛选" data-i18n-attr="aria-label:vocabulary.searchAndFilter">
         <label class="search-field" for="vocabularySearch">
           <span class="search-icon" aria-hidden="true"></span>
@@ -54,11 +54,9 @@
           <div class="taxonomy-note"><strong data-i18n="vocabulary.termHelpTitle">看不懂一个词？</strong><p data-i18n="vocabulary.termHelpBody">先点开卡片看“你可能会说”，再对照组成结构和容易混淆。</p><span data-i18n="vocabulary.openGuide">打开规范长文</span> <span aria-hidden="true">↗</span></div>
         </aside>
 
-        <section class="results-column directory-content" id="vocabularyResults" aria-labelledby="resultsTitle">
-          <div class="results-heading">
-            <div><p class="eyebrow" id="resultsEyebrow" data-i18n="vocabulary.resultsEyebrow">按界面作用浏览</p><h2 id="resultsTitle" data-i18n="vocabulary.allTerms">所有词条</h2></div>
-          </div>
-          <p class="results-summary" id="resultsSummary" role="status" aria-live="polite" aria-atomic="true" data-i18n="vocabulary.resultsIntro">从页面基础开始，逐步看到控件、内容和反馈状态。</p>
+        <section class="results-column directory-content" id="vocabularyResults" aria-label="UI 词条列表">
+          <div class="results-heading visually-hidden" aria-hidden="true"><div><p id="resultsEyebrow" data-i18n="vocabulary.resultsEyebrow">按界面作用浏览</p><h2 id="resultsTitle" data-i18n="vocabulary.allTerms">所有词条</h2></div></div>
+          <p class="results-summary visually-hidden" id="resultsSummary" role="status" aria-live="polite" aria-atomic="true" data-i18n="vocabulary.resultsIntro">从页面基础开始，逐步看到控件、内容和反馈状态。</p>
           <section class="style-cover-gallery" id="styleCoverGallery" aria-labelledby="styleCoverGalleryTitle" hidden>
             <h2 class="sr-only" id="styleCoverGalleryTitle" data-i18n="vocabulary.styleCoverTitle">设计风格示例</h2>
             <div class="style-cover-groups">
