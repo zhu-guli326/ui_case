@@ -1,0 +1,33 @@
+/* Homepage featured-case scale refinement.
+ * Make the visual carousel feel lighter while preserving the same layered interaction. */
+body.project-home .project-case {
+  width: min(54vw, 820px);
+}
+
+body.project-home .project-case[data-position="left"] {
+  transform: translate3d(calc(-50% - clamp(340px, 42vw, 650px)), -46%, -130px) translateX(var(--drag-x)) rotateY(8deg) rotateZ(-3deg) scale(.74);
+}
+
+body.project-home .project-case[data-position="right"] {
+  transform: translate3d(calc(-50% + clamp(340px, 42vw, 650px)), -46%, -130px) translateX(var(--drag-x)) rotateY(-8deg) rotateZ(3deg) scale(.74);
+}
+
+@media (max-width: 900px) {
+  body.project-home .project-case {
+    width: min(66vw, 700px);
+  }
+}
+
+@media (max-width: 680px) {
+  body.project-home .project-case {
+    width: 82vw;
+  }
+
+  body.project-home .project-case[data-position="left"] {
+    transform: translate3d(calc(-50% - 73vw), -47%, -130px) translateX(var(--drag-x)) rotateY(7deg) rotateZ(-3deg) scale(.7);
+  }
+
+  body.project-home .project-case[data-position="right"] {
+    transform: translate3d(calc(-50% + 73vw), -47%, -130px) translateX(var(--drag-x)) rotateY(-7deg) rotateZ(3deg) scale(.7);
+  }
+}
