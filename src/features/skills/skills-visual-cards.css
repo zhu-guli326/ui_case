@@ -1,0 +1,81 @@
+/* Image-first Skill cards.
+ * Skill directory cards are for visual browsing first; operational metadata
+ * remains available in detail views instead of competing with the cover.
+ */
+
+.repo-list:not(.is-web-list) {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.repo-list:not(.is-web-list) .repo-row {
+  align-self: start;
+}
+
+.repo-list:not(.is-web-list) .repo-scene {
+  aspect-ratio: 4 / 3;
+}
+
+.repo-list:not(.is-web-list) .repo-cover-image {
+  height: calc(100% - 28px);
+  object-fit: cover;
+  object-position: top center;
+}
+
+.repo-list:not(.is-web-list) .repo-card-body {
+  min-height: 0;
+  padding: 14px 16px 16px;
+}
+
+.repo-list:not(.is-web-list) .repo-main {
+  gap: 8px;
+}
+
+.repo-list:not(.is-web-list) .repo-category {
+  margin: 0 0 1px;
+}
+
+.repo-list:not(.is-web-list) .repo-main > a {
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.repo-list:not(.is-web-list) .repo-description {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  color: var(--ant-text-secondary);
+  font-size: 11px;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+/* Secondary repository metadata belongs in the detail view, not the cover wall. */
+.repo-list:not(.is-web-list) .repo-focus,
+.repo-list:not(.is-web-list) .repo-footer {
+  display: none;
+}
+
+@media (max-width: 1280px) {
+  .repo-list:not(.is-web-list) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .repo-list:not(.is-web-list) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .repo-list:not(.is-web-list) {
+    grid-template-columns: 1fr;
+  }
+
+  .repo-list:not(.is-web-list) .repo-scene {
+    aspect-ratio: 16 / 10;
+  }
+}
