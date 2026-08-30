@@ -32,6 +32,12 @@ export function getFilteredRepositories({ items, activeCategories, searchQuery, 
   return filtered.sort((a, b) => Number(hasReplacementCover(b)) - Number(hasReplacementCover(a)));
 }
 
+function getWebPreviewPriority(item) {
+  if (item.previewType === "video" && item.previewSrc) return 2;
+  if (item.previewImage || item.previewSrc) return 1;
+  return 0;
+}
+
 export function getFilteredWebsites({ items, activeCategories, searchQuery, activeSourceOnly, currentLanguage }) {
   const query = searchQuery.trim().toLowerCase();
   return items.filter((item) => {
@@ -42,5 +48,5 @@ export function getFilteredWebsites({ items, activeCategories, searchQuery, acti
       .some((value) => String(value || "").toLowerCase().includes(query));
     const sourceMatch = !activeSourceOnly || item.openSource;
     return categoryMatch && searchMatch && sourceMatch;
-  });
+  }).sort((a, b) => getWebPreviewPriority(b) - getWebPreviewPriority(a));
 }
