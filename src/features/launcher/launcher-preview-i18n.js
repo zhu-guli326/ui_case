@@ -1,9 +1,6 @@
 (() => {
   const previewRoot = document.querySelector('.preview-page');
-  const FONT_STORAGE_KEY = 'ondesign:launcher-font-preset:v2';
-
   const language = () => (window.image2I18n?.language === 'en' || document.documentElement.lang.startsWith('en') ? 'en' : 'zh');
-  const text = (zh, en) => (language() === 'en' ? en : zh);
 
   const directionPreviewSizes = {
     fithub: [390, 844],
@@ -11,29 +8,6 @@
     'plate-play': [390, 844],
     'volt-route': [390, 844],
   };
-
-  const fontPresets = [
-    { id: 'system-sans', base: 'sans', zh: '系统无衬线', en: 'System sans', descZh: 'System UI · PingFang SC', descEn: 'System UI · PingFang SC', stack: 'system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif' },
-    { id: 'songti', base: 'serif', zh: '宋体', en: 'Songti', descZh: 'Songti SC · SimSun', descEn: 'Songti SC · SimSun', stack: '"Songti SC","STSong","SimSun","Noto Serif SC",Georgia,serif' },
-    { id: 'mono', base: 'mono', zh: '等宽', en: 'Monospace', descZh: 'SFMono · Consolas', descEn: 'SFMono · Consolas', stack: 'ui-monospace,"SFMono-Regular",Consolas,"Liberation Mono",monospace' },
-    { id: 'hei', base: 'hei', zh: '黑体', en: 'Heiti', descZh: 'SimHei · Microsoft YaHei', descEn: 'SimHei · Microsoft YaHei', stack: '"SimHei","Microsoft YaHei","PingFang SC","Noto Sans SC",sans-serif' },
-    { id: 'kaiti', base: 'kai', zh: '楷体', en: 'Kaiti', descZh: 'Kaiti SC · KaiTi', descEn: 'Kaiti SC · KaiTi', stack: '"Kaiti SC","STKaiti",KaiTi,"TW-Kai",cursive' },
-    { id: 'fangsong', base: 'fangsong', zh: '仿宋', en: 'Fangsong', descZh: 'STFangsong · FangSong', descEn: 'STFangsong · FangSong', stack: '"Fangsong SC","STFangsong",FangSong,"SimSun",serif' },
-    { id: 'yuan', base: 'yuan', zh: '圆体', en: 'Rounded CJK', descZh: 'Yuanti SC · YouYuan', descEn: 'Yuanti SC · YouYuan', stack: '"Yuanti SC",YouYuan,"PingFang SC","Microsoft YaHei",sans-serif' },
-    { id: 'geometric', base: 'geometric', zh: '几何无衬线', en: 'Geometric sans', descZh: 'Futura · Century Gothic', descEn: 'Futura · Century Gothic', stack: 'Futura,"Century Gothic","Avenir Next","Trebuchet MS",sans-serif' },
-    { id: 'noto-sans-sc', base: 'hei', zh: 'Noto Sans SC', en: 'Noto Sans SC', descZh: 'Google Fonts · 中文无衬线', descEn: 'Google Fonts · CJK sans', stack: '"Noto Sans SC","Source Han Sans SC","PingFang SC","Microsoft YaHei",sans-serif' },
-    { id: 'noto-serif-sc', base: 'serif', zh: 'Noto Serif SC', en: 'Noto Serif SC', descZh: 'Google Fonts · 中文衬线', descEn: 'Google Fonts · CJK serif', stack: '"Noto Serif SC","Source Han Serif SC","Songti SC","SimSun",serif' },
-    { id: 'zcool-qingke', base: 'hei', zh: 'ZCOOL QingKe HuangYou', en: 'ZCOOL QingKe HuangYou', descZh: 'Google Fonts · 中文标题', descEn: 'Google Fonts · CJK display', stack: '"ZCOOL QingKe HuangYou","Noto Sans SC","Microsoft YaHei",sans-serif' },
-    { id: 'zcool-xiaowei', base: 'serif', zh: 'ZCOOL XiaoWei', en: 'ZCOOL XiaoWei', descZh: 'Google Fonts · 中文衬线', descEn: 'Google Fonts · CJK serif', stack: '"ZCOOL XiaoWei","Noto Serif SC","Songti SC",serif' },
-    { id: 'ma-shan-zheng', base: 'kai', zh: 'Ma Shan Zheng', en: 'Ma Shan Zheng', descZh: 'Google Fonts · 中文手写', descEn: 'Google Fonts · CJK handwriting', stack: '"Ma Shan Zheng","Kaiti SC",KaiTi,cursive' },
-    { id: 'long-cang', base: 'kai', zh: 'Long Cang', en: 'Long Cang', descZh: 'Google Fonts · 中文书写', descEn: 'Google Fonts · CJK handwriting', stack: '"Long Cang","Kaiti SC",KaiTi,cursive' },
-    { id: 'liu-jian-mao-cao', base: 'kai', zh: 'Liu Jian Mao Cao', en: 'Liu Jian Mao Cao', descZh: 'Google Fonts · 中文草书', descEn: 'Google Fonts · CJK cursive', stack: '"Liu Jian Mao Cao","Kaiti SC",KaiTi,cursive' },
-    { id: 'zhi-mang-xing', base: 'kai', zh: 'Zhi Mang Xing', en: 'Zhi Mang Xing', descZh: 'Google Fonts · 中文行书', descEn: 'Google Fonts · CJK running script', stack: '"Zhi Mang Xing","Kaiti SC",KaiTi,cursive' },
-  ];
-
-  let fontSelect = null;
-  let activeFontId = 'system-sans';
-  let designSystemActive = false;
 
   function syncDirectionPreviewSizes() {
     document.querySelectorAll('.direction-live').forEach((wrap) => {
@@ -68,8 +42,11 @@
 
   function currentCaseIdFromLink(link) {
     if (link?.dataset.directionCardCase) return link.dataset.directionCardCase;
-    try { return new URL(link?.getAttribute('href') || '', window.location.href).searchParams.get('case') || ''; }
-    catch { return ''; }
+    try {
+      return new URL(link?.getAttribute('href') || '', window.location.href).searchParams.get('case') || '';
+    } catch {
+      return '';
+    }
   }
 
   function openCaseLibrary(caseId = '') {
@@ -83,7 +60,9 @@
     if (fullLink) fullLink.href = url;
     if (typeof dialog.showModal === 'function') {
       if (!dialog.open) dialog.showModal();
-    } else dialog.setAttribute('open', '');
+    } else {
+      dialog.setAttribute('open', '');
+    }
   }
 
   function installCaseDialogLinks() {
@@ -118,89 +97,6 @@
     }
   }
 
-  function selectedFontPreset() {
-    return fontPresets.find((item) => item.id === activeFontId) || fontPresets[0];
-  }
-
-  function updatePromptTypography(preset) {
-    const prompt = document.querySelector('#dnaPrompt');
-    if (!prompt) return;
-    const label = language() === 'en' ? preset.en : preset.zh;
-    const line = language() === 'en' ? `Typography: ${label}` : `字体：${label}`;
-    const pattern = language() === 'en' ? /^Typography:.*$/m : /^字体：.*$/m;
-    if (pattern.test(prompt.textContent)) prompt.textContent = prompt.textContent.replace(pattern, line);
-  }
-
-  function reapplyFontOverride() {
-    if (designSystemActive) return;
-    const preset = selectedFontPreset();
-    document.documentElement.style.setProperty('--dna-display', preset.stack);
-    const dock = document.querySelector('#dockFont');
-    if (dock) dock.textContent = language() === 'en' ? preset.en : preset.zh;
-    const rules = document.querySelector('[data-section-value="rules"]');
-    if (rules) {
-      const palette = (rules.textContent || '').split(' · ')[0] || text('配色', 'Palette');
-      rules.textContent = `${palette} · ${language() === 'en' ? preset.en : preset.zh}`;
-    }
-    updatePromptTypography(preset);
-  }
-
-  function renderFontOptions() {
-    if (!fontSelect) return;
-    const current = activeFontId;
-    fontSelect.replaceChildren(...fontPresets.map((preset) => {
-      const option = document.createElement('option');
-      option.value = preset.id;
-      const label = language() === 'en' ? preset.en : preset.zh;
-      const desc = language() === 'en' ? preset.descEn : preset.descZh;
-      option.textContent = `${label} · ${desc}`;
-      return option;
-    }));
-    fontSelect.value = fontPresets.some((item) => item.id === current) ? current : fontPresets[0].id;
-    fontSelect.setAttribute('aria-label', text('字体', 'Typography'));
-  }
-
-  function installFontSelect() {
-    const field = document.querySelector('.font-field');
-    const hiddenList = field?.querySelector('.type-list');
-    if (!field || !hiddenList) return;
-
-    let control = field.querySelector('.font-select-control');
-    if (!control) {
-      control = document.createElement('div');
-      control.className = 'select-control font-select-control';
-      fontSelect = document.createElement('select');
-      fontSelect.dataset.fontCompactSelect = '';
-      control.append(fontSelect);
-      hiddenList.before(control);
-    } else fontSelect = control.querySelector('select');
-
-    hiddenList.style.display = 'none';
-    try {
-      const saved = JSON.parse(localStorage.getItem(FONT_STORAGE_KEY) || 'null');
-      if (saved?.id && fontPresets.some((item) => item.id === saved.id)) activeFontId = saved.id;
-      else {
-        const selectedBase = hiddenList.querySelector('button.is-selected[data-value]')?.dataset.value;
-        activeFontId = fontPresets.find((item) => item.base === selectedBase)?.id || 'system-sans';
-      }
-    } catch {}
-
-    renderFontOptions();
-    if (fontSelect.dataset.bound !== 'true') {
-      fontSelect.dataset.bound = 'true';
-      fontSelect.addEventListener('change', () => {
-        designSystemActive = false;
-        document.body.removeAttribute('data-design-system');
-        const preset = fontPresets.find((item) => item.id === fontSelect.value) || fontPresets[0];
-        activeFontId = preset.id;
-        hiddenList.querySelector(`button[data-value="${preset.base}"]`)?.click();
-        try { localStorage.setItem(FONT_STORAGE_KEY, JSON.stringify({ id: preset.id })); } catch {}
-        window.requestAnimationFrame(reapplyFontOverride);
-      });
-    }
-    if (!designSystemActive) window.requestAnimationFrame(reapplyFontOverride);
-  }
-
   function translatePreviewSamples() {
     if (!previewRoot) return;
     const pairs = [
@@ -217,6 +113,7 @@
       ['创建账户', 'Create account'], ['退出登录', 'Sign out'], ['退出', 'Sign out'],
       ['浅色', 'Light'], ['深色', 'Dark'], ['跟随系统', 'Follow system'], ['界面语言', 'Interface language'],
     ];
+
     if (!previewRoot.dataset.originalHtml) previewRoot.dataset.originalHtml = previewRoot.innerHTML;
     if (language() === 'zh') {
       if (previewRoot.dataset.translated === 'true') {
@@ -241,19 +138,9 @@
     syncLanguageLinks();
     syncDirectionPreviewSizes();
     syncWorkspaceAlignment();
-    installFontSelect();
-    renderFontOptions();
-    if (!designSystemActive) window.requestAnimationFrame(reapplyFontOverride);
     translatePreviewSamples();
   }
 
-  document.addEventListener('click', (event) => {
-    if (designSystemActive) return;
-    if (event.target.closest('[data-choice-group], .palette-option, .direction-card')) {
-      window.requestAnimationFrame(reapplyFontOverride);
-    }
-  });
-  window.addEventListener('ondesign:designsystemchange', () => { designSystemActive = true; });
   window.addEventListener('resize', () => {
     syncDirectionPreviewSizes();
     syncWorkspaceAlignment();
