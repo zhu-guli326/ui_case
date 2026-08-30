@@ -1,28 +1,100 @@
-/* Keep this stack aligned with the system-ui-cjk preset in catalog/font-presets.js. */
+/* Global typography tokens. Keep font stacks aligned with catalog/font-presets.js. */
 :root {
-  --font-sans-cjk: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
-  --font-display-cjk: var(--font-sans-cjk);
+  /* Font families */
+  --font-sans-en: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans-zh: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC", sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  --font-number: var(--font-sans-cjk);
+
+  /* Backward-compatible aliases. Language selectors below remap these. */
+  --font-sans-cjk: var(--font-sans-zh);
+  --font-display-cjk: var(--font-sans-zh);
+  --font-number: var(--font-sans-en);
+
+  /* Number tokens */
   --number-font-variant: tabular-nums lining-nums;
   --number-font-features: "tnum" 1, "lnum" 1;
+
+  /* Neutral fallback semantic typography tokens */
+  --type-font-body: var(--font-sans-en);
+  --type-font-display: var(--font-sans-en);
+  --type-display-weight: 300;
+  --type-display-tracking: -0.055em;
+  --type-display-leading: 0.98;
+  --type-heading-weight: 500;
+  --type-heading-tracking: -0.025em;
+  --type-heading-leading: 1.16;
+  --type-body-weight: 400;
+  --type-body-tracking: 0;
+  --type-body-leading: 1.6;
+  --type-caption-weight: 500;
+  --type-caption-tracking: 0.02em;
+  --type-caption-leading: 1.5;
+  --type-label-weight: 600;
+  --type-label-tracking: 0.1em;
+  --type-label-leading: 1.4;
+}
+
+/* English typography system: tighter display rhythm and optical negative tracking. */
+html[lang^="en"] {
+  --font-sans-cjk: var(--font-sans-en);
+  --font-display-cjk: var(--font-sans-en);
+  --font-number: var(--font-sans-en);
+  --type-font-body: var(--font-sans-en);
+  --type-font-display: var(--font-sans-en);
+
+  --type-display-weight: 300;
+  --type-display-tracking: -0.055em;
+  --type-display-leading: 0.98;
+  --type-heading-weight: 500;
+  --type-heading-tracking: -0.025em;
+  --type-heading-leading: 1.14;
+  --type-body-weight: 400;
+  --type-body-tracking: 0;
+  --type-body-leading: 1.6;
+  --type-caption-weight: 500;
+  --type-caption-tracking: 0.015em;
+  --type-caption-leading: 1.5;
+  --type-label-weight: 600;
+  --type-label-tracking: 0.1em;
+  --type-label-leading: 1.4;
+}
+
+/* Chinese typography system: Ant Design-like CJK rhythm — no negative tracking, calmer weights, more breathing room. */
+html[lang^="zh"] {
+  --font-sans-cjk: var(--font-sans-zh);
+  --font-display-cjk: var(--font-sans-zh);
+  --font-number: var(--font-sans-en);
+  --type-font-body: var(--font-sans-zh);
+  --type-font-display: var(--font-sans-zh);
+
+  --type-display-weight: 600;
+  --type-display-tracking: 0;
+  --type-display-leading: 1.18;
+  --type-heading-weight: 600;
+  --type-heading-tracking: 0;
+  --type-heading-leading: 1.28;
+  --type-body-weight: 400;
+  --type-body-tracking: 0;
+  --type-body-leading: 1.7;
+  --type-caption-weight: 400;
+  --type-caption-tracking: 0;
+  --type-caption-leading: 1.65;
+  --type-label-weight: 600;
+  --type-label-tracking: 0.08em;
+  --type-label-leading: 1.45;
+
+  font-synthesis: none;
 }
 
 html,
 body {
-  font-family: var(--font-sans-cjk);
-  font-variant-numeric: var(--number-font-variant);
-  font-feature-settings: var(--number-font-features);
-}
-
-:where(.number, [data-number]) {
-  font-family: var(--font-number);
+  font-family: var(--type-font-body);
   font-variant-numeric: var(--number-font-variant);
   font-feature-settings: var(--number-font-features);
 }
 
 body {
-  letter-spacing: 0;
+  letter-spacing: var(--type-body-tracking);
 }
 
 button,
@@ -32,35 +104,130 @@ select {
   font-family: inherit;
 }
 
-html[lang^="zh"] {
-  font-synthesis: none;
+:where(.number, [data-number]) {
+  font-family: var(--font-number);
+  font-variant-numeric: var(--number-font-variant);
+  font-feature-settings: var(--number-font-features);
 }
 
-html[lang^="zh"] :where(h1, h2, h3, h4, h5, h6, p, blockquote) {
-  letter-spacing: 0;
+/* Base semantic mapping. Component CSS can still own size and spacing. */
+:where(h1, h2, blockquote) {
+  font-family: var(--type-font-display);
+  font-weight: var(--type-display-weight);
+  letter-spacing: var(--type-display-tracking);
+  line-height: var(--type-display-leading);
 }
 
-html[lang^="zh"] :where(h1, h2, h3) {
-  font-weight: 700;
+:where(h3, h4, h5, h6) {
+  font-family: var(--type-font-display);
+  font-weight: var(--type-heading-weight);
+  letter-spacing: var(--type-heading-tracking);
+  line-height: var(--type-heading-leading);
 }
 
-html[lang^="zh"] :where(h4, h5, h6) {
-  font-weight: 600;
+:where(p) {
+  font-family: var(--type-font-body);
+  font-weight: var(--type-body-weight);
+  letter-spacing: var(--type-body-tracking);
+  line-height: var(--type-body-leading);
 }
 
-/* CJK display headings should not inherit the tight negative tracking used for Latin.
-   Keep the rhythm closer to Ant Design's Chinese typography: natural tracking,
-   a little more line height, and a slightly calmer display size. */
-html[lang^="zh"] .system-explainer-heading h2 {
+/* Homepage typography mapping. Specificity is intentionally higher than page CSS so language tokens always win. */
+html[lang^="en"] body.project-home .project-hero h1,
+html[lang^="en"] body.project-home .section-heading h2,
+html[lang^="en"] body.project-home .project-cta h2,
+html[lang^="en"] body.project-home .showcase-copy h2,
+html[lang^="en"] body.project-home .project-editorial blockquote,
+html[lang^="en"] body.project-home .system-explainer-heading h2 {
+  font-family: var(--type-font-display);
+  font-weight: var(--type-display-weight);
+  letter-spacing: var(--type-display-tracking);
+}
+
+html[lang^="en"] body.project-home .project-hero h1 { line-height: 0.94; }
+html[lang^="en"] body.project-home .section-heading h2,
+html[lang^="en"] body.project-home .project-cta h2 { line-height: 0.98; }
+html[lang^="en"] body.project-home .showcase-copy h2 { line-height: 0.96; }
+html[lang^="en"] body.project-home .project-editorial blockquote { line-height: 1.04; }
+html[lang^="en"] body.project-home .system-explainer-heading h2 { line-height: 1.02; }
+
+html[lang^="zh"] body.project-home .project-hero h1,
+html[lang^="zh"] body.project-home .section-heading h2,
+html[lang^="zh"] body.project-home .project-cta h2,
+html[lang^="zh"] body.project-home .showcase-copy h2,
+html[lang^="zh"] body.project-home .project-editorial blockquote,
+html[lang^="zh"] body.project-home .system-explainer-heading h2 {
+  font-family: var(--type-font-display);
+  font-weight: var(--type-display-weight);
+  letter-spacing: var(--type-display-tracking);
+  line-height: var(--type-display-leading);
+}
+
+/* CJK display sizes stay slightly calmer so multi-line headings do not feel cramped. */
+html[lang^="zh"] body.project-home .project-hero h1 {
+  font-size: clamp(50px, 6.2vw, 84px);
+  line-height: 1.12;
+}
+
+html[lang^="zh"] body.project-home .section-heading h2,
+html[lang^="zh"] body.project-home .project-cta h2,
+html[lang^="zh"] body.project-home .showcase-copy h2 {
+  line-height: 1.18;
+}
+
+html[lang^="zh"] body.project-home .project-editorial blockquote {
+  line-height: 1.2;
+}
+
+html[lang^="zh"] body.project-home .system-explainer-heading h2 {
   max-width: 920px;
   font-size: clamp(44px, 4.8vw, 68px);
-  font-weight: 600;
-  letter-spacing: 0;
   line-height: 1.2;
   text-wrap: balance;
 }
 
-html[lang^="zh"] .system-explainer-heading > p:last-child {
+/* Supporting copy also follows the active language system. */
+html[lang^="en"] body.project-home :where(
+  .project-hero-content > p:not(.project-eyebrow),
+  .section-heading > p:last-child,
+  .showcase-copy > p:last-child,
+  .system-explainer-heading > p:last-child,
+  .capability-grid p,
+  .project-case p
+) {
+  font-family: var(--type-font-body);
+  letter-spacing: var(--type-body-tracking);
+  line-height: var(--type-body-leading);
+}
+
+html[lang^="zh"] body.project-home :where(
+  .project-hero-content > p:not(.project-eyebrow),
+  .section-heading > p:last-child,
+  .showcase-copy > p:last-child,
+  .system-explainer-heading > p:last-child,
+  .capability-grid p,
+  .project-case p
+) {
+  font-family: var(--type-font-body);
+  letter-spacing: var(--type-body-tracking);
+  line-height: var(--type-body-leading);
+}
+
+/* Card titles: Latin can stay optically tight; Chinese never uses negative tracking. */
+html[lang^="en"] body.project-home :where(.capability-grid strong, .project-case h3) {
+  letter-spacing: var(--type-heading-tracking);
+  line-height: var(--type-heading-leading);
+}
+
+html[lang^="zh"] body.project-home :where(.capability-grid strong, .project-case h3) {
+  font-weight: var(--type-heading-weight);
   letter-spacing: 0;
-  line-height: 1.75;
+  line-height: 1.28;
+}
+
+/* Uppercase labels remain a separate token because their content is Latin even on the Chinese page. */
+body.project-home :where(.section-eyebrow, .project-eyebrow, .project-scroll, .project-stats span, .capability-grid small, .project-case > small, .featured-carousel-footer) {
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  line-height: var(--type-label-leading);
 }
