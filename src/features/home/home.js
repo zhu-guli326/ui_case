@@ -174,8 +174,57 @@ if (carousel) {
   }
 }
 
+function initStatsCounter() {
+  const stats = document.querySelector("#overview");
+  const numbers = [...(stats?.querySelectorAll("strong") || [])];
+  if (!stats || !numbers.length) return;
+
+  const targets = numbers.map((node) => Number.parseInt(node.textContent, 10) || 0);
+  if (reducedMotion.matches || !("IntersectionObserver" in window)) {
+    numbers.forEach((node, index) => { node.textContent = String(targets[index]); });
+    return;
+  }
+
+  numbers.forEach((node) => {
+    node.textContent = "0";
+    node.style.opacity = ".5";
+    node.style.transform = "translateY(12px)";
+    node.style.transition = "opacity 280ms ease, transform 420ms cubic-bezier(.2,.78,.18,1)";
+  });
+
+  const observer = new IntersectionObserver(([entry]) => {
+    if (!entry.isIntersecting) return;
+    observer.disconnect();
+
+    numbers.forEach((node, index) => {
+      const target = targets[index];
+      const delay = index * 110;
+      const duration = 920 + index * 90;
+
+      window.setTimeout(() => {
+        node.style.opacity = "1";
+        node.style.transform = "translateY(0)";
+        const startedAt = performance.now();
+
+        const tick = (now) => {
+          const progress = Math.min(1, (now - startedAt) / duration);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          node.textContent = String(Math.round(target * eased));
+          if (progress < 1) requestAnimationFrame(tick);
+          else node.textContent = String(target);
+        };
+
+        requestAnimationFrame(tick);
+      }, delay);
+    });
+  }, { threshold: .38 });
+
+  observer.observe(stats);
+}
+
 renderCarousel();
 scheduleAutoplay();
+initStatsCounter();
 
 applyLanguage();
 if (window.image2I18n?.registerPage) window.image2I18n.registerPage((language) => applyLanguage({ detail: language }));
