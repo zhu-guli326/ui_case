@@ -17,6 +17,82 @@ let searchInput = null;
 let observer = null;
 let promptSnapshot = "";
 
+const BRAND_DOMAINS = {
+  claude: "claude.ai",
+  cohere: "cohere.com",
+  elevenlabs: "elevenlabs.io",
+  minimax: "minimax.io",
+  "mistral.ai": "mistral.ai",
+  ollama: "ollama.com",
+  "opencode.ai": "opencode.ai",
+  replicate: "replicate.com",
+  runwayml: "runwayml.com",
+  "together.ai": "together.ai",
+  voltagent: "voltagent.dev",
+  "x.ai": "x.ai",
+  cursor: "cursor.com",
+  expo: "expo.dev",
+  lovable: "lovable.dev",
+  raycast: "raycast.com",
+  superhuman: "superhuman.com",
+  vercel: "vercel.com",
+  warp: "warp.dev",
+  clickhouse: "clickhouse.com",
+  composio: "composio.dev",
+  hashicorp: "hashicorp.com",
+  mongodb: "mongodb.com",
+  posthog: "posthog.com",
+  sanity: "sanity.io",
+  sentry: "sentry.io",
+  supabase: "supabase.com",
+  cal: "cal.com",
+  intercom: "intercom.com",
+  "linear.app": "linear.app",
+  mintlify: "mintlify.com",
+  notion: "notion.so",
+  resend: "resend.com",
+  zapier: "zapier.com",
+  airtable: "airtable.com",
+  clay: "clay.com",
+  figma: "figma.com",
+  framer: "framer.com",
+  miro: "miro.com",
+  webflow: "webflow.com",
+  binance: "binance.com",
+  coinbase: "coinbase.com",
+  kraken: "kraken.com",
+  mastercard: "mastercard.com",
+  revolut: "revolut.com",
+  stripe: "stripe.com",
+  wise: "wise.com",
+  airbnb: "airbnb.com",
+  meta: "meta.com",
+  nike: "nike.com",
+  shopify: "shopify.com",
+  starbucks: "starbucks.com",
+  apple: "apple.com",
+  hp: "hp.com",
+  ibm: "ibm.com",
+  nvidia: "nvidia.com",
+  pinterest: "pinterest.com",
+  playstation: "playstation.com",
+  spacex: "spacex.com",
+  spotify: "spotify.com",
+  theverge: "theverge.com",
+  uber: "uber.com",
+  vodafone: "vodafone.com",
+  wired: "wired.com",
+  bmw: "bmw.com",
+  "bmw-m": "bmw-m.com",
+  bugatti: "bugatti.com",
+  ferrari: "ferrari.com",
+  lamborghini: "lamborghini.com",
+  renault: "renault.com",
+  tesla: "tesla.com",
+  "dell-1996": "dell.com",
+  "nintendo-2001": "nintendo.com",
+};
+
 const lang = () => (window.image2I18n?.language === "en" || document.documentElement.lang.startsWith("en") ? "en" : "zh");
 const txt = (zh, en) => (lang() === "en" ? en : zh);
 const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (ch) => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch]));
@@ -29,6 +105,53 @@ const pxNumber = (value, fallback) => {
   const match = String(value || "").match(/-?\d+(?:\.\d+)?/);
   return match ? Number(match[0]) : fallback;
 };
+
+function brandInitials(entry) {
+  if (!entry) return "DS";
+  const parts = entry.name.replace(/\([^)]*\)/g, "").trim().split(/[\s.-]+/).filter(Boolean);
+  return (parts.length > 1 ? `${parts[0][0]}${parts[1][0]}` : parts[0]?.slice(0, 2) || "DS").toUpperCase();
+}
+
+function brandLogoUrl(entry) {
+  const domain = BRAND_DOMAINS[entry?.slug];
+  if (!domain) return "";
+  return `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(`https://${domain}`)}&sz=128`;
+}
+
+function brandLogoHtml(entry, extraClass = "") {
+  const url = brandLogoUrl(entry);
+  const classes = `ds-brand-logo${extraClass ? ` ${extraClass}` : ""}${url ? "" : " is-fallback"}`;
+  return `<span class="${classes}" data-brand-logo="${esc(entry?.slug || "")}"><img src="${esc(url)}" alt="${esc(entry ? `${entry.name} logo` : "")}" loading="lazy" decoding="async"><b aria-hidden="true">${esc(brandInitials(entry))}</b></span>`;
+}
+
+function bindLogoFallbacks(root = document) {
+  root.querySelectorAll?.("[data-brand-logo]").forEach((node) => {
+    const image = node.querySelector("img");
+    if (!image || image.dataset.logoBound === "true") return;
+    image.dataset.logoBound = "true";
+    const fallback = () => node.classList.add("is-fallback");
+    const ready = () => node.classList.remove("is-fallback");
+    image.addEventListener("error", fallback, { once: true });
+    image.addEventListener("load", ready, { once: true });
+    if (!image.getAttribute("src") || (image.complete && image.naturalWidth === 0)) fallback();
+    else if (image.complete && image.naturalWidth > 0) ready();
+  });
+}
+
+function setBrandLogo(node, entry) {
+  if (!node) return;
+  const image = node.querySelector("img");
+  const fallback = node.querySelector("b");
+  const url = brandLogoUrl(entry);
+  node.dataset.brandLogo = entry?.slug || "";
+  if (fallback) fallback.textContent = brandInitials(entry);
+  if (!image) return;
+  image.alt = entry ? `${entry.name} logo` : "";
+  image.dataset.logoBound = "";
+  image.src = url;
+  node.classList.toggle("is-fallback", !url);
+  bindLogoFallbacks(node.parentElement || node);
+}
 
 function parseDesign(text, entry) {
   const result = { description: entry.description, colors: {}, typography: {}, rounded: {}, spacing: {}, components: [], raw: text };
@@ -125,10 +248,11 @@ function createStyles() {
   style.id = "ondesign-design-system-style";
   style.textContent = `
     .ds-field{margin:0 0 16px;padding:0;border:0}.ds-field>legend{margin:0 0 8px;padding:0;color:var(--ant-text,#262626);font-size:13px;font-weight:500}
-    .ds-trigger{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;min-height:54px;padding:9px 11px;border:1px solid var(--ant-border,#d9d9d9);border-radius:7px;background:#fff;text-align:left;transition:border-color .16s ease,box-shadow .16s ease}.ds-trigger:hover,.ds-trigger[aria-expanded="true"]{border-color:var(--ant-primary,#18a957)}.ds-trigger[aria-expanded="true"]{box-shadow:0 0 0 2px rgb(24 169 87 / 10%)}
+    .ds-trigger{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;width:100%;min-height:58px;padding:9px 11px;border:1px solid var(--ant-border,#d9d9d9);border-radius:7px;background:#fff;text-align:left;transition:border-color .16s ease,box-shadow .16s ease}.ds-trigger:hover,.ds-trigger[aria-expanded="true"]{border-color:var(--ant-primary,#18a957)}.ds-trigger[aria-expanded="true"]{box-shadow:0 0 0 2px rgb(24 169 87 / 10%)}
+    .ds-brand-logo{position:relative;display:grid;place-items:center;flex:0 0 auto;width:30px;height:30px;border:1px solid #ececec;border-radius:8px;background:#fff;overflow:hidden}.ds-brand-logo img{display:block;width:22px;height:22px;object-fit:contain}.ds-brand-logo b{display:none;color:#595959;font-size:10px;font-weight:700;letter-spacing:-.02em}.ds-brand-logo.is-fallback{background:#f5f5f5}.ds-brand-logo.is-fallback img{display:none}.ds-brand-logo.is-fallback b{display:block}.ds-trigger-logo{width:34px;height:34px;border-radius:9px}.ds-trigger-logo img{width:25px;height:25px}
     .ds-trigger-copy{min-width:0;display:grid;gap:2px}.ds-trigger-copy strong{overflow:hidden;color:var(--ant-text,#262626);font-size:13px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}.ds-trigger-copy small{overflow:hidden;color:var(--ant-text-secondary,#737373);font-size:11px;text-overflow:ellipsis;white-space:nowrap}.ds-trigger-side{display:flex;align-items:center;gap:9px}.ds-trigger-swatches{display:flex;gap:3px}.ds-trigger-swatches i{display:block;width:13px;height:28px;border:1px solid rgb(0 0 0 / 7%);border-radius:3px;background:#eee}.ds-trigger-arrow{width:7px;height:7px;border-right:1.5px solid #777;border-bottom:1.5px solid #777;transform:translateY(-2px) rotate(45deg);transition:transform .16s ease}.ds-trigger[aria-expanded="true"] .ds-trigger-arrow{transform:translateY(2px) rotate(225deg)}
     .ds-menu{margin-top:8px;border:1px solid var(--ant-border,#d9d9d9);border-radius:9px;background:#fff;box-shadow:0 8px 24px rgb(0 0 0 / 8%);overflow:hidden}.ds-menu[hidden]{display:none}.ds-menu-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px;padding:8px;border-bottom:1px solid #f0f0f0}.ds-search{width:100%;min-height:34px;padding:0 10px;border:1px solid #d9d9d9;border-radius:6px;background:#fff;color:#262626;font:inherit;font-size:12px;outline:0}.ds-search:focus{border-color:#18a957;box-shadow:0 0 0 2px rgb(24 169 87 / 10%)}.ds-count{padding-right:4px;color:#8c8c8c;font-size:10px;white-space:nowrap}
-    .ds-list{max-height:330px;padding:6px;overflow:auto;background:#fafafa}.ds-option{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;min-height:58px;padding:8px 9px;border:1px solid transparent;border-radius:7px;background:transparent;text-align:left}.ds-option:hover{border-color:#d9d9d9;background:#fff}.ds-option.is-selected{border-color:#18a957;background:#f0f9f3}.ds-option-copy{min-width:0;display:grid;gap:3px}.ds-option-title{display:flex;align-items:center;gap:7px;min-width:0}.ds-option-title strong{overflow:hidden;color:#262626;font-size:12px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}.ds-option-title span{flex:0 0 auto;padding:2px 5px;border-radius:999px;background:#f0f0f0;color:#737373;font-size:8px}.ds-option-copy small{overflow:hidden;color:#8c8c8c;font-size:9.5px;text-overflow:ellipsis;white-space:nowrap}.ds-option-preview{display:grid;gap:4px;justify-items:end}.ds-option-swatches{display:flex;gap:2px}.ds-option-swatches i{display:block;width:15px;height:22px;border:1px solid rgb(0 0 0 / 6%);border-radius:3px;background:#ececec}.ds-option-meta{max-width:148px;overflow:hidden;color:#8c8c8c;font-size:8.5px;text-overflow:ellipsis;white-space:nowrap}.ds-option[data-loaded="false"] .ds-option-swatches i{background:linear-gradient(90deg,#f1f1f1,#e5e5e5,#f1f1f1);background-size:200% 100%;animation:ds-shimmer 1.2s linear infinite}.ds-empty{padding:28px 12px;color:#8c8c8c;font-size:12px;text-align:center}
+    .ds-list{max-height:330px;padding:6px;overflow:auto;background:#fafafa}.ds-option{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;width:100%;min-height:62px;padding:8px 9px;border:1px solid transparent;border-radius:7px;background:transparent;text-align:left}.ds-option:hover{border-color:#d9d9d9;background:#fff}.ds-option.is-selected{border-color:#18a957;background:#f0f9f3}.ds-option-copy{min-width:0;display:grid;gap:3px}.ds-option-title{display:flex;align-items:center;gap:7px;min-width:0}.ds-option-title strong{overflow:hidden;color:#262626;font-size:12px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}.ds-option-title span{flex:0 0 auto;padding:2px 5px;border-radius:999px;background:#f0f0f0;color:#737373;font-size:8px}.ds-option-copy small{overflow:hidden;color:#8c8c8c;font-size:9.5px;text-overflow:ellipsis;white-space:nowrap}.ds-option-preview{display:grid;gap:4px;justify-items:end}.ds-option-swatches{display:flex;gap:2px}.ds-option-swatches i{display:block;width:15px;height:22px;border:1px solid rgb(0 0 0 / 6%);border-radius:3px;background:#ececec}.ds-option-meta{max-width:148px;overflow:hidden;color:#8c8c8c;font-size:8.5px;text-overflow:ellipsis;white-space:nowrap}.ds-option[data-loaded="false"] .ds-option-swatches i{background:linear-gradient(90deg,#f1f1f1,#e5e5e5,#f1f1f1);background-size:200% 100%;animation:ds-shimmer 1.2s linear infinite}.ds-empty{padding:28px 12px;color:#8c8c8c;font-size:12px;text-align:center}
     .ds-note{margin:6px 0 0;color:#8c8c8c;font-size:10px;line-height:1.45}.ds-note a{color:#595959;text-underline-offset:3px}
     body[data-design-system] [data-preview-stage]{--dna-radius:var(--ds-radius,var(--dna-radius))}body[data-design-system] [data-preview-stage] .sample-visual{border-radius:var(--ds-radius,var(--dna-radius))!important}
     @keyframes ds-shimmer{to{background-position:-200% 0}}
@@ -151,6 +275,13 @@ function bindStaticField() {
   list = field.querySelector("[data-ds-list]");
   searchInput = field.querySelector(".ds-search");
   if (!trigger || !menu || !list || !searchInput) return false;
+
+  if (!trigger.querySelector(".ds-trigger-logo")) {
+    const shell = document.createElement("span");
+    shell.innerHTML = brandLogoHtml(null, "ds-trigger-logo");
+    trigger.prepend(shell.firstElementChild);
+  }
+  bindLogoFallbacks(trigger);
 
   if (trigger.dataset.bound !== "true") {
     trigger.dataset.bound = "true";
@@ -193,6 +324,7 @@ function filteredEntries() {
 function optionHtml(entry) {
   const category = CATEGORY_LABELS[entry.category]?.[lang()] || entry.category;
   return `<button type="button" class="ds-option${selectedEntry?.slug === entry.slug ? " is-selected" : ""}" data-ds-slug="${esc(entry.slug)}" data-loaded="false">
+    ${brandLogoHtml(entry)}
     <span class="ds-option-copy"><span class="ds-option-title"><strong>${esc(entry.name)}</strong><span>${esc(category)}</span></span><small>${esc(entry.description)}</small></span>
     <span class="ds-option-preview"><span class="ds-option-swatches"><i></i><i></i><i></i><i></i></span><span class="ds-option-meta">${txt("加载预览…", "Loading preview…")}</span></span>
   </button>`;
@@ -205,6 +337,7 @@ function renderOptions() {
   const count = field.querySelector("[data-ds-count]");
   if (count) count.textContent = `${entries.length} / ${DESIGN_SYSTEMS.length}`;
   list.innerHTML = entries.length ? entries.map(optionHtml).join("") : `<div class="ds-empty">${txt("没有匹配的设计规范", "No matching design systems")}</div>`;
+  bindLogoFallbacks(list);
   observer = new IntersectionObserver((items) => {
     items.forEach((item) => {
       if (!item.isIntersecting) return;
@@ -309,14 +442,17 @@ function updateTrigger() {
   const strong = trigger.querySelector("strong");
   const small = trigger.querySelector("small");
   const swatches = trigger.querySelectorAll(".ds-trigger-swatches i");
+  const brandLogo = trigger.querySelector(".ds-trigger-logo");
   if (!selectedEntry || !selectedSpec) {
     if (strong) strong.textContent = txt("选择设计规范", "Choose a design system");
     if (small) small.textContent = txt("73 套真实网站规范，可直接预览并应用", "73 real-site systems with inline previews");
+    setBrandLogo(brandLogo, null);
     swatches.forEach((node) => { node.style.background = "#eee"; });
     return;
   }
   if (strong) strong.textContent = selectedEntry.name;
   if (small) small.textContent = `${primaryFont(selectedSpec)} · ${radiusValue(selectedSpec)} · ${spacingValue(selectedSpec)}`;
+  setBrandLogo(brandLogo, selectedEntry);
   const palette = paletteFor(selectedSpec);
   [palette.accent, palette.surface, palette.canvas, palette.ink].forEach((color, index) => { if (swatches[index]) swatches[index].style.background = color; });
 }
