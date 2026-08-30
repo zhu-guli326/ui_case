@@ -7,12 +7,11 @@
  * 1. Consume the canonical --ds-* tokens below.
  * 2. Do not create a second page-level palette, spacing scale, radius scale,
  *    control-height scale, shadow system, or typography scale.
- * 3. Chinese and English may differ in typography/density only; component
- *    geometry, semantic colors, states, spacing rhythm and elevation remain
- *    shared unless a documented exception is approved.
- * 4. ONDesign green is the global primary brand color. Chinese UI follows
- *    Ant Design hierarchy/density; English UI keeps the ONDesign tone while
- *    using the same component system.
+ * 3. Shared geometry/colors live here. Language-specific typography lives in
+ *    typography.css and is loaded globally by site-shell.css immediately after
+ *    this file. There must be no second Chinese/English typography definition.
+ * 4. ONDesign green is the global primary brand color. Chinese typography
+ *    follows an Ant Design-like CJK rhythm; English keeps a tighter Latin rhythm.
  *
  * Legacy aliases (--page, --surface, --ant-*) are kept for existing pages.
  * New implementation should prefer --ds-* directly.
@@ -100,8 +99,9 @@
   --ds-focus-ring: 0 0 0 3px rgba(24, 169, 87, .12);
 
   /* ------------------------------------------------------------
-   * 06 Typography — shared semantic scale
-   * Language selectors below tune font/line-height only.
+   * 06 Typography — shared size names only.
+   * Chinese/English family, weight, tracking and leading are defined once in
+   * typography.css and mapped back onto these --ds-* aliases globally.
    * ------------------------------------------------------------ */
   --ds-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
   --ds-font-mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
@@ -126,6 +126,8 @@
   --ds-line-height-heading: 1.35;
   --ds-line-height-body: 1.5715;
   --ds-line-height-relaxed: 1.75;
+  --ds-letter-spacing-body: 0;
+  --ds-letter-spacing-heading: 0;
 
   /* ------------------------------------------------------------
    * 07 Layout
@@ -170,8 +172,8 @@
   --green: var(--ds-color-primary);
   --green-soft: var(--ds-color-primary-soft);
 
-  /* Ant-compatible aliases are available globally so shared components do
-   * not change geometry when language switches. */
+  /* Ant-compatible aliases remain global so language switching never changes
+   * component geometry or semantic colors. */
   --ant-primary: var(--ds-color-primary);
   --ant-primary-hover: var(--ds-color-primary-hover);
   --ant-primary-active: var(--ds-color-primary-active);
@@ -207,28 +209,6 @@
   --ant-shadow: var(--ds-shadow-md);
 }
 
-/* Chinese: Ant Design typography/density baseline. */
-html[lang="zh-CN"] {
-  --ds-font-size-body: 14px;
-  --ds-font-size-body-lg: 16px;
-  --ds-font-weight-heading: 700;
-  --ds-line-height-body: 1.5715;
-  --ds-line-height-heading: 1.35;
-  --ds-letter-spacing-body: 0;
-  --ds-letter-spacing-heading: 0;
-}
-
-/* English: same UI geometry; slightly more editorial typography only. */
-html[lang="en"] {
-  --ds-font-size-body: 15px;
-  --ds-font-size-body-lg: 17px;
-  --ds-font-weight-heading: 600;
-  --ds-line-height-body: 1.55;
-  --ds-line-height-heading: 1.22;
-  --ds-letter-spacing-body: 0;
-  --ds-letter-spacing-heading: -.02em;
-}
-
 html,
 body {
   font-family: var(--ds-font-sans);
@@ -239,12 +219,12 @@ body {
   background: var(--ds-color-bg-page);
   font-size: var(--ds-font-size-body);
   line-height: var(--ds-line-height-body);
-  letter-spacing: var(--ds-letter-spacing-body, 0);
+  letter-spacing: var(--ds-letter-spacing-body);
 }
 
 :where(h1, h2, h3, h4, h5, h6) {
   color: var(--ds-color-text);
-  letter-spacing: var(--ds-letter-spacing-heading, 0);
+  letter-spacing: var(--ds-letter-spacing-heading);
 }
 
 :where(button, input, textarea, select) {
