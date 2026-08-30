@@ -7,7 +7,7 @@ const CAPABILITY_FIGURES = [
     alt: { zh: "史蒂夫·乔布斯像素人物肖像", en: "Pixel portrait of Steve Jobs" },
     name: { zh: "史蒂夫·乔布斯", en: "Steve Jobs" },
     thinking: { zh: "判断 / 聚焦 / 取舍", en: "Judgment / Focus / Trade-offs" },
-    tagline: { zh: "理解真正重要的事", en: "Understand what truly matters." },
+    tagline: { zh: "先砍掉不重要的。", en: "Cut what doesn’t matter first." },
   },
   {
     stage: "02 · CREATE",
@@ -15,7 +15,7 @@ const CAPABILITY_FIGURES = [
     alt: { zh: "达·芬奇像素人物肖像", en: "Pixel portrait of Leonardo da Vinci" },
     name: { zh: "达·芬奇", en: "Leonardo da Vinci" },
     thinking: { zh: "创造 / 整合 / 表达", en: "Creativity / Integration / Expression" },
-    tagline: { zh: "让想法形成完整体验", en: "Turn ideas into a complete experience." },
+    tagline: { zh: "把想法拼成完整体验。", en: "Turn the pieces into one experience." },
   },
   {
     stage: "03 · BUILD",
@@ -23,7 +23,7 @@ const CAPABILITY_FIGURES = [
     alt: { zh: "比尔·盖茨像素人物肖像", en: "Pixel portrait of Bill Gates" },
     name: { zh: "比尔·盖茨", en: "Bill Gates" },
     thinking: { zh: "软件 / 系统 / 实现", en: "Software / Systems / Execution" },
-    tagline: { zh: "把想法变成真正运行的产品", en: "Turn ideas into products that truly run." },
+    tagline: { zh: "让它真的跑起来。", en: "Make it actually run." },
   },
   {
     stage: "04 · ITERATE",
@@ -31,7 +31,7 @@ const CAPABILITY_FIGURES = [
     alt: { zh: "爱迪生像素人物肖像", en: "Pixel portrait of Thomas Edison" },
     name: { zh: "爱迪生", en: "Thomas Edison" },
     thinking: { zh: "实验 / 验证 / 迭代", en: "Experiment / Validate / Iterate" },
-    tagline: { zh: "不断验证，直到它真正成立", en: "Keep testing until it truly works." },
+    tagline: { zh: "不对就改，直到对。", en: "If it’s wrong, change it until it works." },
   },
 ];
 
@@ -88,13 +88,13 @@ function renderCapabilityFigures(language) {
 function applyLanguage(event) {
   const language = currentLanguage(event);
   document.documentElement.lang = language === "en" ? "en" : "zh-CN";
-  document.title = language === "en" ? "ONDesign · From reference to interface" : "ONDesign · 从设计参考到真实界面";
+  document.title = language === "en" ? "ONDesign · Find references. Build with AI." : "ONDesign · 看参考，拆设计，交给 AI 做";
 
   const description = document.querySelector('meta[name="description"]');
   if (description) {
     description.content = language === "en"
-      ? "ONDesign connects real UI cases, interface vocabulary, design systems, and an AI building workspace."
-      : "ONDesign：从真实 UI 案例、界面词汇和设计系统出发，与 AI 一起构建可运行的界面。";
+      ? "ONDesign helps you find real UI references, break down the design, and hand clearer decisions to AI coding."
+      : "ONDesign：看真实参考，拆字体、颜色、组件和设计规则，再交给 AI Coding 去做。";
   }
 
   document.querySelectorAll("[data-zh][data-en]").forEach((element) => {
