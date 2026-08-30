@@ -51,6 +51,7 @@ function renderCapabilityFigures(language) {
     if (!figure) return;
 
     const image = card.querySelector("img");
+    const shade = card.querySelector(".capability-shade");
     const stage = card.querySelector("small");
     const title = card.querySelector("strong");
     const copy = card.querySelector("p");
@@ -69,6 +70,9 @@ function renderCapabilityFigures(language) {
       image.style.display = "block";
       image.style.opacity = "1";
       image.style.visibility = "visible";
+    }
+    if (shade) {
+      shade.style.background = "linear-gradient(180deg, rgba(0,0,0,0) 38%, rgba(0,0,0,.16) 52%, rgba(0,0,0,.72) 74%, rgba(0,0,0,.96) 100%)";
     }
     if (stage) stage.textContent = figure.stage;
     if (title) {
