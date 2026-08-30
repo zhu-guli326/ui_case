@@ -2,15 +2,12 @@
  *
  * Single source of truth for the site palette and the small shared
  * primitives (eyebrow, skip link) that feature stylesheets used to
- * redefine per page.
+ * redefine per page. Link this stylesheet first on every entry page so
+ * feature CSS can override tokens only where a page owns a deliberate
+ * art direction (currently: Learn).
  *
- * Language rule:
- * - Chinese pages use Ant Design as the canonical UI foundation.
- * - English pages keep the existing ONDesign visual foundation.
- *
- * Ant Design here means component geometry, hierarchy, spacing, neutral
- * surfaces and interaction rhythm. ONDesign keeps its green brand accent
- * instead of replacing it with Ant Design blue.
+ * Values follow the directory-page / Skills palette, which the
+ * directory layer documents as the visual source of truth.
  */
 :root {
   color-scheme: light;
@@ -33,74 +30,6 @@
   /* Accent */
   --accent: #18a957;
   --accent-soft: #e7f5ec;
-  --green: var(--accent);
-  --green-soft: var(--accent-soft);
-}
-
-/*
- * Chinese UI foundation = Ant Design.
- *
- * These are the canonical tokens for every page rendered with lang=zh.
- * Feature styles should consume these tokens instead of defining another
- * Chinese-only design system. Brand green remains the primary color.
- */
-html[lang="zh-CN"] {
-  /* Ant Design semantic colors */
-  --ant-primary: #18a957;
-  --ant-primary-hover: #35b86d;
-  --ant-primary-active: #128746;
-  --ant-primary-bg: #eaf7ef;
-  --ant-primary-bg-hover: #d8f0e1;
-
-  --ant-text: #1f1f1f;
-  --ant-text-secondary: #666666;
-  --ant-text-tertiary: #8c8c8c;
-  --ant-text-quaternary: #bfbfbf;
-
-  --ant-bg-layout: #f5f5f5;
-  --ant-bg-container: #ffffff;
-  --ant-fill-secondary: #f5f5f5;
-  --ant-fill-tertiary: #fafafa;
-
-  --ant-border: #d9d9d9;
-  --ant-border-secondary: #f0f0f0;
-
-  /* Ant Design geometry */
-  --ant-radius-sm: 4px;
-  --ant-radius: 6px;
-  --ant-radius-lg: 8px;
-  --ant-radius-xl: 12px;
-  --ant-control-height-sm: 24px;
-  --ant-control-height: 32px;
-  --ant-control-height-lg: 40px;
-
-  /* Ant Design 4px spacing rhythm */
-  --ant-space-1: 4px;
-  --ant-space-2: 8px;
-  --ant-space-3: 12px;
-  --ant-space-4: 16px;
-  --ant-space-5: 20px;
-  --ant-space-6: 24px;
-  --ant-space-8: 32px;
-  --ant-space-10: 40px;
-  --ant-space-12: 48px;
-
-  /* Ant Design elevation */
-  --ant-shadow-sm: 0 1px 2px rgba(0, 0, 0, .03), 0 1px 6px -1px rgba(0, 0, 0, .02);
-  --ant-shadow: 0 6px 16px 0 rgba(0, 0, 0, .08), 0 3px 6px -4px rgba(0, 0, 0, .12), 0 9px 28px 8px rgba(0, 0, 0, .05);
-
-  /* Map existing ONDesign tokens onto the Ant Design Chinese baseline. */
-  --page: var(--ant-bg-layout);
-  --surface: var(--ant-bg-container);
-  --surface-soft: var(--ant-fill-secondary);
-  --ink: var(--ant-text);
-  --muted: var(--ant-text-secondary);
-  --quiet: var(--ant-text-tertiary);
-  --line: var(--ant-border-secondary);
-  --line-strong: var(--ant-border);
-  --dark: #1f1f1f;
-  --accent: var(--ant-primary);
-  --accent-soft: var(--ant-primary-bg);
   --green: var(--accent);
   --green-soft: var(--accent-soft);
 }
