@@ -6,32 +6,32 @@ const CAPABILITY_FIGURES = [
     image: "./assets/home/figures/steve-jobs.webp?v=20260831-1",
     alt: { zh: "史蒂夫·乔布斯像素人物肖像", en: "Pixel portrait of Steve Jobs" },
     name: { zh: "史蒂夫·乔布斯", en: "Steve Jobs" },
-    thinking: { zh: "判断 / 聚焦 / 取舍", en: "Judgment / Focus / Trade-offs" },
-    tagline: { zh: "先砍掉不重要的。", en: "Cut what doesn’t matter first." },
+    thinking: { zh: "目标 / 页面 / 参考", en: "Goal / Page / Reference" },
+    tagline: { zh: "先说清楚要做什么，找准参考。", en: "Define what you’re building and pick the right reference." },
   },
   {
     stage: "02 · CREATE",
     image: "./assets/home/figures/leonardo-da-vinci.webp?v=20260831-1",
     alt: { zh: "达·芬奇像素人物肖像", en: "Pixel portrait of Leonardo da Vinci" },
     name: { zh: "达·芬奇", en: "Leonardo da Vinci" },
-    thinking: { zh: "创造 / 整合 / 表达", en: "Creativity / Integration / Expression" },
-    tagline: { zh: "把想法拼成完整体验。", en: "Turn the pieces into one experience." },
+    thinking: { zh: "拆图 / 布局 / 视觉", en: "Breakdown / Layout / Visuals" },
+    tagline: { zh: "把参考图拆成布局、字体、颜色和组件。", en: "Break the reference into layout, type, color, and components." },
   },
   {
     stage: "03 · BUILD",
     image: "./assets/home/figures/bill-gates.webp?v=20260831-1",
     alt: { zh: "比尔·盖茨像素人物肖像", en: "Pixel portrait of Bill Gates" },
     name: { zh: "比尔·盖茨", en: "Bill Gates" },
-    thinking: { zh: "软件 / 系统 / 实现", en: "Software / Systems / Execution" },
-    tagline: { zh: "让它真的跑起来。", en: "Make it actually run." },
+    thinking: { zh: "Design DNA / AI Coding / 实现", en: "Design DNA / AI Coding / Build" },
+    tagline: { zh: "把规则交给 AI Coding，先生成能跑的页面。", en: "Hand the rules to AI coding and get a working page first." },
   },
   {
     stage: "04 · ITERATE",
     image: "./assets/home/figures/thomas-edison.webp?v=20260831-1",
     alt: { zh: "爱迪生像素人物肖像", en: "Pixel portrait of Thomas Edison" },
     name: { zh: "爱迪生", en: "Thomas Edison" },
-    thinking: { zh: "实验 / 验证 / 迭代", en: "Experiment / Validate / Iterate" },
-    tagline: { zh: "不对就改，直到对。", en: "If it’s wrong, change it until it works." },
+    thinking: { zh: "对照 / 调整 / 验证", en: "Compare / Refine / Validate" },
+    tagline: { zh: "边看边改，直到像、顺、能用。", en: "Compare, refine, and keep going until it looks right and works." },
   },
 ];
 
@@ -101,6 +101,17 @@ function applyLanguage(event) {
     const value = element.dataset[language];
     if (value) element.textContent = value;
   });
+
+  const capabilityEyebrow = document.querySelector("#capabilities .section-eyebrow");
+  const capabilityHeading = document.querySelector("#capabilities .section-heading h2");
+  if (capabilityEyebrow) capabilityEyebrow.textContent = "IMAGE2 WORKFLOW";
+  if (capabilityHeading) {
+    capabilityHeading.removeAttribute("data-zh");
+    capabilityHeading.removeAttribute("data-en");
+    capabilityHeading.textContent = language === "en"
+      ? "From a reference image to a page that actually runs."
+      : "从一张参考图，到真正跑起来的页面。";
+  }
 
   renderCapabilityFigures(language);
 
