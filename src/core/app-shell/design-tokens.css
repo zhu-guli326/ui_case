@@ -1,130 +1,297 @@
-/* Canonical design tokens shared by every public page.
+/*
+ * ONDesign Global Design Tokens
+ * =============================
+ * THIS FILE IS THE REQUIRED DESIGN BASELINE FOR EVERY PUBLIC PAGE.
  *
- * Single source of truth for the site palette and the small shared
- * primitives (eyebrow, skip link) that feature stylesheets used to
- * redefine per page.
+ * Rules for all new pages and components:
+ * 1. Consume the canonical --ds-* tokens below.
+ * 2. Do not create a second page-level palette, spacing scale, radius scale,
+ *    control-height scale, shadow system, or typography scale.
+ * 3. Chinese and English may differ in typography/density only; component
+ *    geometry, semantic colors, states, spacing rhythm and elevation remain
+ *    shared unless a documented exception is approved.
+ * 4. ONDesign green is the global primary brand color. Chinese UI follows
+ *    Ant Design hierarchy/density; English UI keeps the ONDesign tone while
+ *    using the same component system.
  *
- * Language rule:
- * - Chinese pages use Ant Design as the canonical UI foundation.
- * - English pages keep the existing ONDesign visual foundation.
- *
- * Ant Design here means component geometry, hierarchy, spacing, neutral
- * surfaces and interaction rhythm. ONDesign keeps its green brand accent
- * instead of replacing it with Ant Design blue.
+ * Legacy aliases (--page, --surface, --ant-*) are kept for existing pages.
+ * New implementation should prefer --ds-* directly.
  */
+
 :root {
   color-scheme: light;
 
-  /* Surfaces */
-  --page: #f6f5f1;
-  --surface: #fffefa;
-  --surface-soft: #efeee9;
+  /* ------------------------------------------------------------
+   * 01 Brand + semantic color
+   * ------------------------------------------------------------ */
+  --ds-color-primary: #18a957;
+  --ds-color-primary-hover: #35b86d;
+  --ds-color-primary-active: #128746;
+  --ds-color-primary-soft: #eaf7ef;
+  --ds-color-primary-soft-hover: #d8f0e1;
 
-  /* Ink */
-  --ink: #24231f;
-  --muted: #77746d;
-  --quiet: #a19d94;
+  --ds-color-text: #1f1f1f;
+  --ds-color-text-secondary: #666666;
+  --ds-color-text-tertiary: #8c8c8c;
+  --ds-color-text-disabled: #bfbfbf;
+  --ds-color-text-inverse: #ffffff;
 
-  /* Lines and dark surfaces */
-  --line: #ddd9d0;
-  --line-strong: #c8c3b9;
-  --dark: #20231f;
+  --ds-color-bg-page: #f5f5f5;
+  --ds-color-bg-container: #ffffff;
+  --ds-color-bg-subtle: #fafafa;
+  --ds-color-bg-muted: #f5f5f5;
+  --ds-color-bg-dark: #1f1f1f;
 
-  /* Accent */
-  --accent: #18a957;
-  --accent-soft: #e7f5ec;
-  --green: var(--accent);
-  --green-soft: var(--accent-soft);
+  --ds-color-border: #d9d9d9;
+  --ds-color-border-subtle: #f0f0f0;
+  --ds-color-border-strong: #bfbfbf;
+
+  --ds-color-success: #18a957;
+  --ds-color-warning: #faad14;
+  --ds-color-danger: #ff4d4f;
+  --ds-color-info: #1677ff;
+
+  /* ------------------------------------------------------------
+   * 02 Spacing — 4px base rhythm
+   * ------------------------------------------------------------ */
+  --ds-space-0: 0;
+  --ds-space-1: 4px;
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-5: 20px;
+  --ds-space-6: 24px;
+  --ds-space-8: 32px;
+  --ds-space-10: 40px;
+  --ds-space-12: 48px;
+  --ds-space-16: 64px;
+  --ds-space-20: 80px;
+  --ds-space-24: 96px;
+
+  /* ------------------------------------------------------------
+   * 03 Radius
+   * ------------------------------------------------------------ */
+  --ds-radius-xs: 2px;
+  --ds-radius-sm: 4px;
+  --ds-radius-md: 6px;
+  --ds-radius-lg: 8px;
+  --ds-radius-xl: 12px;
+  --ds-radius-2xl: 16px;
+  --ds-radius-pill: 999px;
+
+  /* ------------------------------------------------------------
+   * 04 Controls
+   * ------------------------------------------------------------ */
+  --ds-control-height-sm: 24px;
+  --ds-control-height-md: 32px;
+  --ds-control-height-lg: 40px;
+  --ds-control-height-xl: 48px;
+  --ds-control-padding-x-sm: 8px;
+  --ds-control-padding-x-md: 12px;
+  --ds-control-padding-x-lg: 16px;
+
+  /* ------------------------------------------------------------
+   * 05 Elevation
+   * ------------------------------------------------------------ */
+  --ds-shadow-none: none;
+  --ds-shadow-sm: 0 1px 2px rgba(0, 0, 0, .03), 0 1px 6px -1px rgba(0, 0, 0, .02);
+  --ds-shadow-md: 0 6px 16px rgba(0, 0, 0, .08), 0 3px 6px -4px rgba(0, 0, 0, .12);
+  --ds-shadow-lg: 0 12px 32px rgba(0, 0, 0, .12), 0 6px 16px rgba(0, 0, 0, .06);
+  --ds-focus-ring: 0 0 0 3px rgba(24, 169, 87, .12);
+
+  /* ------------------------------------------------------------
+   * 06 Typography — shared semantic scale
+   * Language selectors below tune font/line-height only.
+   * ------------------------------------------------------------ */
+  --ds-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  --ds-font-mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  --ds-font-size-xs: 12px;
+  --ds-font-size-sm: 13px;
+  --ds-font-size-body: 14px;
+  --ds-font-size-body-lg: 16px;
+  --ds-font-size-title-sm: 18px;
+  --ds-font-size-title: 20px;
+  --ds-font-size-heading-sm: 24px;
+  --ds-font-size-heading: 32px;
+  --ds-font-size-display-sm: 40px;
+  --ds-font-size-display: 48px;
+
+  --ds-font-weight-regular: 400;
+  --ds-font-weight-medium: 500;
+  --ds-font-weight-semibold: 600;
+  --ds-font-weight-bold: 700;
+
+  --ds-line-height-tight: 1.25;
+  --ds-line-height-heading: 1.35;
+  --ds-line-height-body: 1.5715;
+  --ds-line-height-relaxed: 1.75;
+
+  /* ------------------------------------------------------------
+   * 07 Layout
+   * ------------------------------------------------------------ */
+  --ds-page-gutter: 36px;
+  --ds-page-gutter-tablet: 24px;
+  --ds-page-gutter-mobile: 16px;
+  --ds-content-max: 1440px;
+  --ds-content-readable: 720px;
+  --ds-sidebar-width: 224px;
+  --ds-header-height: 68px;
+
+  /* ------------------------------------------------------------
+   * 08 Motion + z-index
+   * ------------------------------------------------------------ */
+  --ds-duration-fast: 120ms;
+  --ds-duration-base: 180ms;
+  --ds-duration-slow: 260ms;
+  --ds-ease-standard: cubic-bezier(.2, 0, 0, 1);
+
+  --ds-z-base: 1;
+  --ds-z-sticky: 30;
+  --ds-z-header: 40;
+  --ds-z-dropdown: 80;
+  --ds-z-modal: 100;
+  --ds-z-toast: 120;
+
+  /* ------------------------------------------------------------
+   * 09 Backward-compatible ONDesign aliases
+   * ------------------------------------------------------------ */
+  --page: var(--ds-color-bg-page);
+  --surface: var(--ds-color-bg-container);
+  --surface-soft: var(--ds-color-bg-muted);
+  --ink: var(--ds-color-text);
+  --muted: var(--ds-color-text-secondary);
+  --quiet: var(--ds-color-text-tertiary);
+  --line: var(--ds-color-border-subtle);
+  --line-strong: var(--ds-color-border);
+  --dark: var(--ds-color-bg-dark);
+  --accent: var(--ds-color-primary);
+  --accent-soft: var(--ds-color-primary-soft);
+  --green: var(--ds-color-primary);
+  --green-soft: var(--ds-color-primary-soft);
+
+  /* Ant-compatible aliases are available globally so shared components do
+   * not change geometry when language switches. */
+  --ant-primary: var(--ds-color-primary);
+  --ant-primary-hover: var(--ds-color-primary-hover);
+  --ant-primary-active: var(--ds-color-primary-active);
+  --ant-primary-bg: var(--ds-color-primary-soft);
+  --ant-primary-bg-hover: var(--ds-color-primary-soft-hover);
+  --ant-text: var(--ds-color-text);
+  --ant-text-secondary: var(--ds-color-text-secondary);
+  --ant-text-tertiary: var(--ds-color-text-tertiary);
+  --ant-text-quaternary: var(--ds-color-text-disabled);
+  --ant-bg-layout: var(--ds-color-bg-page);
+  --ant-bg-container: var(--ds-color-bg-container);
+  --ant-fill-secondary: var(--ds-color-bg-muted);
+  --ant-fill-tertiary: var(--ds-color-bg-subtle);
+  --ant-border: var(--ds-color-border);
+  --ant-border-secondary: var(--ds-color-border-subtle);
+  --ant-radius-sm: var(--ds-radius-sm);
+  --ant-radius: var(--ds-radius-md);
+  --ant-radius-lg: var(--ds-radius-lg);
+  --ant-radius-xl: var(--ds-radius-xl);
+  --ant-control-height-sm: var(--ds-control-height-sm);
+  --ant-control-height: var(--ds-control-height-md);
+  --ant-control-height-lg: var(--ds-control-height-lg);
+  --ant-space-1: var(--ds-space-1);
+  --ant-space-2: var(--ds-space-2);
+  --ant-space-3: var(--ds-space-3);
+  --ant-space-4: var(--ds-space-4);
+  --ant-space-5: var(--ds-space-5);
+  --ant-space-6: var(--ds-space-6);
+  --ant-space-8: var(--ds-space-8);
+  --ant-space-10: var(--ds-space-10);
+  --ant-space-12: var(--ds-space-12);
+  --ant-shadow-sm: var(--ds-shadow-sm);
+  --ant-shadow: var(--ds-shadow-md);
 }
 
-/*
- * Chinese UI foundation = Ant Design.
- *
- * These are the canonical tokens for every page rendered with lang=zh.
- * Feature styles should consume these tokens instead of defining another
- * Chinese-only design system. Brand green remains the primary color.
- */
+/* Chinese: Ant Design typography/density baseline. */
 html[lang="zh-CN"] {
-  /* Ant Design semantic colors */
-  --ant-primary: #18a957;
-  --ant-primary-hover: #35b86d;
-  --ant-primary-active: #128746;
-  --ant-primary-bg: #eaf7ef;
-  --ant-primary-bg-hover: #d8f0e1;
-
-  --ant-text: #1f1f1f;
-  --ant-text-secondary: #666666;
-  --ant-text-tertiary: #8c8c8c;
-  --ant-text-quaternary: #bfbfbf;
-
-  --ant-bg-layout: #f5f5f5;
-  --ant-bg-container: #ffffff;
-  --ant-fill-secondary: #f5f5f5;
-  --ant-fill-tertiary: #fafafa;
-
-  --ant-border: #d9d9d9;
-  --ant-border-secondary: #f0f0f0;
-
-  /* Ant Design geometry */
-  --ant-radius-sm: 4px;
-  --ant-radius: 6px;
-  --ant-radius-lg: 8px;
-  --ant-radius-xl: 12px;
-  --ant-control-height-sm: 24px;
-  --ant-control-height: 32px;
-  --ant-control-height-lg: 40px;
-
-  /* Ant Design 4px spacing rhythm */
-  --ant-space-1: 4px;
-  --ant-space-2: 8px;
-  --ant-space-3: 12px;
-  --ant-space-4: 16px;
-  --ant-space-5: 20px;
-  --ant-space-6: 24px;
-  --ant-space-8: 32px;
-  --ant-space-10: 40px;
-  --ant-space-12: 48px;
-
-  /* Ant Design elevation */
-  --ant-shadow-sm: 0 1px 2px rgba(0, 0, 0, .03), 0 1px 6px -1px rgba(0, 0, 0, .02);
-  --ant-shadow: 0 6px 16px 0 rgba(0, 0, 0, .08), 0 3px 6px -4px rgba(0, 0, 0, .12), 0 9px 28px 8px rgba(0, 0, 0, .05);
-
-  /* Map existing ONDesign tokens onto the Ant Design Chinese baseline. */
-  --page: var(--ant-bg-layout);
-  --surface: var(--ant-bg-container);
-  --surface-soft: var(--ant-fill-secondary);
-  --ink: var(--ant-text);
-  --muted: var(--ant-text-secondary);
-  --quiet: var(--ant-text-tertiary);
-  --line: var(--ant-border-secondary);
-  --line-strong: var(--ant-border);
-  --dark: #1f1f1f;
-  --accent: var(--ant-primary);
-  --accent-soft: var(--ant-primary-bg);
-  --green: var(--accent);
-  --green-soft: var(--accent-soft);
+  --ds-font-size-body: 14px;
+  --ds-font-size-body-lg: 16px;
+  --ds-font-weight-heading: 700;
+  --ds-line-height-body: 1.5715;
+  --ds-line-height-heading: 1.35;
+  --ds-letter-spacing-body: 0;
+  --ds-letter-spacing-heading: 0;
 }
 
-/* Shared eyebrow / kicker label. Feature stylesheets must not redefine
- * .eyebrow unless the page owns a distinct art direction. */
+/* English: same UI geometry; slightly more editorial typography only. */
+html[lang="en"] {
+  --ds-font-size-body: 15px;
+  --ds-font-size-body-lg: 17px;
+  --ds-font-weight-heading: 600;
+  --ds-line-height-body: 1.55;
+  --ds-line-height-heading: 1.22;
+  --ds-letter-spacing-body: 0;
+  --ds-letter-spacing-heading: -.02em;
+}
+
+html,
+body {
+  font-family: var(--ds-font-sans);
+  color: var(--ds-color-text);
+}
+
+body {
+  background: var(--ds-color-bg-page);
+  font-size: var(--ds-font-size-body);
+  line-height: var(--ds-line-height-body);
+  letter-spacing: var(--ds-letter-spacing-body, 0);
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+  color: var(--ds-color-text);
+  letter-spacing: var(--ds-letter-spacing-heading, 0);
+}
+
+:where(button, input, textarea, select) {
+  font: inherit;
+}
+
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--ds-color-primary);
+  outline-offset: 2px;
+}
+
+/* Shared kicker label. */
 .eyebrow {
   margin: 0;
-  color: var(--accent);
-  font-size: 11px;
-  font-weight: 850;
-  letter-spacing: 1.25px;
+  color: var(--ds-color-primary);
+  font-size: var(--ds-font-size-xs);
+  font-weight: var(--ds-font-weight-bold);
+  letter-spacing: .08em;
 }
 
 /* Shared skip link. */
 .skip-link {
   position: fixed;
-  top: 10px;
-  left: 12px;
-  z-index: 100;
-  padding: 9px 12px;
-  background: var(--dark);
-  color: #fff;
+  top: var(--ds-space-2);
+  left: var(--ds-space-3);
+  z-index: var(--ds-z-toast);
+  padding: var(--ds-space-2) var(--ds-space-3);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-color-bg-dark);
+  color: var(--ds-color-text-inverse);
   transform: translateY(-160%);
 }
 
 .skip-link:focus { transform: none; }
+
+@media (max-width: 900px) {
+  :root { --ds-page-gutter: var(--ds-page-gutter-tablet); }
+}
+
+@media (max-width: 640px) {
+  :root { --ds-page-gutter: var(--ds-page-gutter-mobile); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ds-duration-fast: 1ms;
+    --ds-duration-base: 1ms;
+    --ds-duration-slow: 1ms;
+  }
+}
