@@ -30,45 +30,46 @@
           <a class="text-link-light" href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span data-zh="浏览真实案例" data-en="Browse real cases">浏览真实案例</span> ↗</a>
         </div>
       </div>
-      <a class="project-scroll" href="#overview"><span data-zh="向下探索" data-en="Explore">向下探索</span><i></i></a>
+      <a class="project-scroll" href="#cases"><span data-zh="向下探索" data-en="Explore">向下探索</span><i></i></a>
     </header>
+
+    <section class="featured-cases" id="cases" aria-labelledby="featuredCasesTitle">
+      <header class="featured-cases-heading">
+        <p class="section-eyebrow">REAL INTERFACE CASES</p>
+        <h2 id="featuredCasesTitle" data-zh="滑动探索真实界面方向" data-en="Swipe through real interface directions">滑动探索真实界面方向</h2>
+      </header>
+      <div class="featured-carousel" data-featured-carousel aria-roledescription="carousel" aria-label="精选界面案例">
+        <button class="featured-carousel-arrow featured-carousel-prev" type="button" data-carousel-prev aria-label="上一个案例">←</button>
+        <div class="featured-carousel-viewport" data-carousel-viewport tabindex="0">
+          <div class="featured-carousel-track">
+            <a class="project-case" data-case-slide href="./library.html?lang=zh" data-smart-lang-link="./library.html">
+              <img src="./assets/home/case-hackathon.jpg" alt="黑绿像素风 Hackathon 网站界面"><span class="case-shade" aria-hidden="true"></span><small>WEB · EXPERIMENTAL</small>
+              <div><h3>Hackathon</h3><p data-zh="实验性活动落地页" data-en="Experimental event landing page">实验性活动落地页</p><i>↗</i></div>
+            </a>
+            <a class="project-case" data-case-slide href="./library.html?lang=zh" data-smart-lang-link="./library.html">
+              <img src="./assets/home/case-product-designer.jpg" alt="橙色像素风产品设计师作品集界面"><span class="case-shade" aria-hidden="true"></span><small>PORTFOLIO · PRODUCT</small>
+              <div><h3>Product Designer</h3><p data-zh="高表现力个人作品集" data-en="Expressive personal portfolio">高表现力个人作品集</p><i>↗</i></div>
+            </a>
+            <a class="project-case" data-case-slide href="./library.html?lang=zh" data-smart-lang-link="./library.html">
+              <img src="./assets/home/case-monument-magazine.jpg" alt="黑白编辑风 Monument 杂志首页"><span class="case-shade" aria-hidden="true"></span><small>EDITORIAL · MAGAZINE</small>
+              <div><h3>Monument</h3><p data-zh="文化杂志编辑式首页" data-en="Editorial culture magazine">文化杂志编辑式首页</p><i>↗</i></div>
+            </a>
+          </div>
+        </div>
+        <button class="featured-carousel-arrow featured-carousel-next" type="button" data-carousel-next aria-label="下一个案例">→</button>
+        <div class="featured-carousel-footer">
+          <div class="featured-carousel-dots" data-carousel-dots aria-label="选择案例"></div>
+          <span data-zh="拖动或滑动切换" data-en="Drag or swipe to explore">拖动或滑动切换</span>
+          <a href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span data-zh="查看全部案例" data-en="View all cases">查看全部案例</span> ↗</a>
+        </div>
+      </div>
+    </section>
 
     <section class="project-stats" id="overview" aria-label="ONDesign 内容概览">
       <div class="project-container project-stats-grid">
         <article><strong>19</strong><span data-zh="真实案例" data-en="Real cases">真实案例</span></article>
         <article><strong>57</strong><span data-zh="可复用组件" data-en="Reusable components">可复用组件</span></article>
         <article><strong>19</strong><span data-zh="设计系统" data-en="Design systems">设计系统</span></article>
-      </div>
-    </section>
-
-    <section class="project-section project-cases" id="cases">
-      <div class="project-container">
-        <header class="section-heading section-heading-center">
-          <p class="section-eyebrow">REAL INTERFACE CASES</p>
-          <h2 data-zh="先找到对的方向，再开始生成。" data-en="Find the right direction before you build.">先找到对的方向，再开始生成。</h2>
-          <p data-zh="每个案例都可以真实打开与体验，帮助你识别布局、组件、状态和视觉语言。" data-en="Every case is real and interactive, helping you identify layouts, components, states, and visual language.">每个案例都可以真实打开与体验，帮助你识别布局、组件、状态和视觉语言。</p>
-        </header>
-        <div class="case-filters" role="group" aria-label="案例筛选">
-          <button class="is-active" type="button" data-case-filter="all" aria-pressed="true" data-zh="全部" data-en="All">全部</button>
-          <button type="button" data-case-filter="mobile" aria-pressed="false" data-zh="移动端" data-en="Mobile">移动端</button>
-          <button type="button" data-case-filter="editorial" aria-pressed="false" data-zh="编辑感" data-en="Editorial">编辑感</button>
-          <button type="button" data-case-filter="vivid" aria-pressed="false" data-zh="高表现力" data-en="Expressive">高表现力</button>
-        </div>
-        <div class="project-case-grid">
-          <a class="project-case" data-case-category="mobile editorial" href="./demo/fufu-bakery/index.html?lang=zh" data-smart-lang-link="./demo/fufu-bakery/index.html">
-            <img src="./assets/home/case-hackathon.jpg" alt="黑绿像素风 Hackathon 网站界面"><span class="case-shade" aria-hidden="true"></span><small>MOBILE · BRAND</small>
-            <div><h3>FuFu Bakery</h3><p data-zh="品牌化烘焙会员体验" data-en="Branded bakery membership experience">品牌化烘焙会员体验</p><i>↗</i></div>
-          </a>
-          <a class="project-case" data-case-category="mobile vivid" href="./demo/plate-play/index.html?lang=zh" data-smart-lang-link="./demo/plate-play/index.html">
-            <img src="./assets/home/case-product-designer.jpg" alt="橙色像素风产品设计师作品集界面"><span class="case-shade" aria-hidden="true"></span><small>MOBILE · VIVID</small>
-            <div><h3>Plate Play</h3><p data-zh="高表现力食谱与内容体验" data-en="Expressive recipe and content experience">高表现力食谱与内容体验</p><i>↗</i></div>
-          </a>
-          <a class="project-case" data-case-category="mobile editorial" href="./demo/fithub/index.html?lang=zh" data-smart-lang-link="./demo/fithub/index.html">
-            <img src="./assets/home/case-monument-magazine.jpg" alt="黑白编辑风 Monument 杂志首页"><span class="case-shade" aria-hidden="true"></span><small>MOBILE · UTILITY</small>
-            <div><h3>FITHUB</h3><p data-zh="极简训练规划界面" data-en="A minimal training planner interface">极简训练规划界面</p><i>↗</i></div>
-          </a>
-        </div>
-        <div class="section-link"><a href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span data-zh="查看全部案例" data-en="View all cases">查看全部案例</span> ↗</a></div>
       </div>
     </section>
 

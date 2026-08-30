@@ -31,25 +31,151 @@ function applyLanguage(event) {
     target.searchParams.set("lang", language);
     link.href = `${target.pathname.split("/").pop()}${target.search}${target.hash}`;
   });
+
+  if (previousButton) previousButton.setAttribute("aria-label", language === "en" ? "Previous case" : "上一个案例");
+  if (nextButton) nextButton.setAttribute("aria-label", language === "en" ? "Next case" : "下一个案例");
+  carouselDots.forEach((dot, index) => dot.setAttribute("aria-label", language === "en" ? `Show case ${index + 1}` : `显示第 ${index + 1} 个案例`));
 }
 
-const filterButtons = [...document.querySelectorAll("[data-case-filter]")];
-const caseCards = [...document.querySelectorAll("[data-case-category]")];
+const carousel = document.querySelector("[data-featured-carousel]");
+const carouselViewport = carousel?.querySelector("[data-carousel-viewport]");
+const caseCards = [...(carousel?.querySelectorAll("[data-case-slide]") || [])];
+const previousButton = carousel?.querySelector("[data-carousel-prev]");
+const nextButton = carousel?.querySelector("[data-carousel-next]");
+const dotsContainer = carousel?.querySelector("[data-carousel-dots]");
+const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+let activeCase = Math.min(1, caseCards.length - 1);
+let autoplayTimer = 0;
+let dragStart = null;
+let dragDistance = 0;
+let suppressNextClick = false;
 
-filterButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    const filter = button.dataset.caseFilter;
-    filterButtons.forEach((item) => {
-      const selected = item === button;
-      item.classList.toggle("is-active", selected);
-      item.setAttribute("aria-pressed", String(selected));
-    });
-    caseCards.forEach((card) => {
-      const categories = card.dataset.caseCategory.split(/\s+/);
-      card.hidden = filter !== "all" && !categories.includes(filter);
-    });
+const carouselDots = caseCards.map((_, index) => {
+  const dot = document.createElement("button");
+  dot.type = "button";
+  dot.addEventListener("click", () => setActiveCase(index));
+  dotsContainer?.append(dot);
+  return dot;
+});
+
+function relativeCasePosition(index) {
+  let offset = index - activeCase;
+  const midpoint = Math.floor(caseCards.length / 2);
+  if (offset > midpoint) offset -= caseCards.length;
+  if (offset < -midpoint) offset += caseCards.length;
+  return offset;
+}
+
+function renderCarousel() {
+  caseCards.forEach((card, index) => {
+    const offset = relativeCasePosition(index);
+    card.dataset.position = offset === 0 ? "active" : offset < 0 ? "left" : "right";
+    card.toggleAttribute("aria-current", offset === 0);
+    card.tabIndex = offset === 0 ? 0 : -1;
+  });
+  carouselDots.forEach((dot, index) => {
+    const selected = index === activeCase;
+    dot.classList.toggle("is-active", selected);
+    dot.setAttribute("aria-pressed", String(selected));
+  });
+}
+
+function scheduleAutoplay() {
+  clearTimeout(autoplayTimer);
+  if (!carousel || reducedMotion.matches || document.hidden) return;
+  autoplayTimer = window.setTimeout(() => setActiveCase(activeCase + 1), 5600);
+}
+
+function setActiveCase(index) {
+  if (!caseCards.length) return;
+  activeCase = (index + caseCards.length) % caseCards.length;
+  carouselViewport?.style.setProperty("--drag-x", "0px");
+  renderCarousel();
+  scheduleAutoplay();
+}
+
+previousButton?.addEventListener("click", () => setActiveCase(activeCase - 1));
+nextButton?.addEventListener("click", () => setActiveCase(activeCase + 1));
+
+caseCards.forEach((card, index) => {
+  card.addEventListener("click", (event) => {
+    if (suppressNextClick) {
+      event.preventDefault();
+      suppressNextClick = false;
+      return;
+    }
+    if (index !== activeCase) {
+      event.preventDefault();
+      setActiveCase(index);
+    }
   });
 });
+
+carouselViewport?.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    setActiveCase(activeCase - 1);
+  }
+  if (event.key === "ArrowRight") {
+    event.preventDefault();
+    setActiveCase(activeCase + 1);
+  }
+});
+
+carouselViewport?.addEventListener("pointerdown", (event) => {
+  if (event.button !== 0) return;
+  dragStart = event.clientX;
+  dragDistance = 0;
+  carouselViewport.setPointerCapture(event.pointerId);
+  carouselViewport.classList.add("is-dragging");
+  clearTimeout(autoplayTimer);
+});
+
+carouselViewport?.addEventListener("pointermove", (event) => {
+  if (dragStart === null) return;
+  dragDistance = event.clientX - dragStart;
+  const restrainedDistance = Math.max(-110, Math.min(110, dragDistance * .32));
+  carouselViewport.style.setProperty("--drag-x", `${restrainedDistance}px`);
+});
+
+function finishDrag(event) {
+  if (dragStart === null) return;
+  if (carouselViewport?.hasPointerCapture(event.pointerId)) carouselViewport.releasePointerCapture(event.pointerId);
+  carouselViewport?.classList.remove("is-dragging");
+  carouselViewport?.style.setProperty("--drag-x", "0px");
+  if (Math.abs(dragDistance) > 52) {
+    suppressNextClick = true;
+    setActiveCase(activeCase + (dragDistance < 0 ? 1 : -1));
+  } else {
+    scheduleAutoplay();
+  }
+  dragStart = null;
+  dragDistance = 0;
+}
+
+carouselViewport?.addEventListener("pointerup", finishDrag);
+carouselViewport?.addEventListener("pointercancel", finishDrag);
+carousel?.addEventListener("mouseenter", () => clearTimeout(autoplayTimer));
+carousel?.addEventListener("mouseleave", scheduleAutoplay);
+carousel?.addEventListener("focusin", () => clearTimeout(autoplayTimer));
+carousel?.addEventListener("focusout", scheduleAutoplay);
+document.addEventListener("visibilitychange", scheduleAutoplay);
+reducedMotion.addEventListener?.("change", scheduleAutoplay);
+
+if (carousel) {
+  if (reducedMotion.matches || !("IntersectionObserver" in window)) carousel.classList.add("is-visible");
+  else {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      carousel.classList.add("is-visible");
+      observer.disconnect();
+    }, { threshold: .18 });
+    observer.observe(carousel);
+  }
+}
+
+renderCarousel();
+scheduleAutoplay();
 
 applyLanguage();
 if (window.image2I18n?.registerPage) window.image2I18n.registerPage((language) => applyLanguage({ detail: language }));
