@@ -1,5 +1,40 @@
 const SUPPORTED_LANGUAGES = new Set(["zh", "en"]);
 
+const CAPABILITY_FIGURES = [
+  {
+    stage: "01 · DEFINE",
+    image: "./assets/home/figures/steve-jobs.webp",
+    alt: { zh: "史蒂夫·乔布斯像素人物肖像", en: "Pixel portrait of Steve Jobs" },
+    name: { zh: "史蒂夫·乔布斯", en: "Steve Jobs" },
+    thinking: { zh: "判断 / 聚焦 / 取舍", en: "Judgment / Focus / Trade-offs" },
+    tagline: { zh: "理解真正重要的事", en: "Understand what truly matters." },
+  },
+  {
+    stage: "02 · CREATE",
+    image: "./assets/home/figures/leonardo-da-vinci.webp",
+    alt: { zh: "达·芬奇像素人物肖像", en: "Pixel portrait of Leonardo da Vinci" },
+    name: { zh: "达·芬奇", en: "Leonardo da Vinci" },
+    thinking: { zh: "创造 / 整合 / 表达", en: "Creativity / Integration / Expression" },
+    tagline: { zh: "让想法形成完整体验", en: "Turn ideas into a complete experience." },
+  },
+  {
+    stage: "03 · BUILD",
+    image: "./assets/home/figures/bill-gates.webp",
+    alt: { zh: "比尔·盖茨像素人物肖像", en: "Pixel portrait of Bill Gates" },
+    name: { zh: "比尔·盖茨", en: "Bill Gates" },
+    thinking: { zh: "软件 / 系统 / 实现", en: "Software / Systems / Execution" },
+    tagline: { zh: "把想法变成真正运行的产品", en: "Turn ideas into products that truly run." },
+  },
+  {
+    stage: "04 · ITERATE",
+    image: "./assets/home/figures/thomas-edison.webp",
+    alt: { zh: "爱迪生像素人物肖像", en: "Pixel portrait of Thomas Edison" },
+    name: { zh: "爱迪生", en: "Thomas Edison" },
+    thinking: { zh: "实验 / 验证 / 迭代", en: "Experiment / Validate / Iterate" },
+    tagline: { zh: "不断验证，直到它真正成立", en: "Keep testing until it truly works." },
+  },
+];
+
 function currentLanguage(event) {
   const detail = event?.detail;
   const eventLanguage = typeof detail === "string" ? detail : detail?.language || detail?.lang || detail?.value;
@@ -7,6 +42,38 @@ function currentLanguage(event) {
   if (SUPPORTED_LANGUAGES.has(window.image2I18n?.language)) return window.image2I18n.language;
   const queryLanguage = new URLSearchParams(location.search).get("lang");
   return SUPPORTED_LANGUAGES.has(queryLanguage) ? queryLanguage : "zh";
+}
+
+function renderCapabilityFigures(language) {
+  const cards = [...document.querySelectorAll("#capabilities .capability-grid > a")];
+  cards.forEach((card, index) => {
+    const figure = CAPABILITY_FIGURES[index];
+    if (!figure) return;
+
+    const image = card.querySelector("img");
+    const stage = card.querySelector("small");
+    const title = card.querySelector("strong");
+    const copy = card.querySelector("p");
+
+    if (image) {
+      image.src = figure.image;
+      image.alt = figure.alt[language];
+      image.loading = "lazy";
+      image.decoding = "async";
+    }
+    if (stage) stage.textContent = figure.stage;
+    if (title) {
+      title.removeAttribute("data-zh");
+      title.removeAttribute("data-en");
+      title.textContent = figure.name[language];
+    }
+    if (copy) {
+      copy.removeAttribute("data-zh");
+      copy.removeAttribute("data-en");
+      copy.style.minHeight = "0";
+      copy.innerHTML = `<span style="display:block">${figure.thinking[language]}</span><span style="display:block;margin-top:4px;color:rgba(255,255,255,.9)">${figure.tagline[language]}</span>`;
+    }
+  });
 }
 
 function applyLanguage(event) {
@@ -25,6 +92,8 @@ function applyLanguage(event) {
     const value = element.dataset[language];
     if (value) element.textContent = value;
   });
+
+  renderCapabilityFigures(language);
 
   document.querySelectorAll("[data-smart-lang-link]").forEach((link) => {
     const target = new URL(link.dataset.smartLangLink, location.href);
