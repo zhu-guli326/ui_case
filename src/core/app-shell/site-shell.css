@@ -1,4 +1,5 @@
 @import url("./design-tokens.css");
+@import url("./typography.css");
 @import url("./language-switch.css");
 @import url("../../components/site-header/site-header.css");
 @import url("../../components/site-header/site-header-github.css");
@@ -16,7 +17,9 @@
 /*
  * Canonical ONDesign site chrome.
  *
- * Public pages load this file once. Feature styles own only page content and
- * must not restyle the shared header, primary navigation, language switch,
- * brand, or footer.
+ * Public pages load this file once. Global design and language typography
+ * tokens are loaded here so feature pages consume one shared system.
+ * Feature styles own only page content and must not restyle the shared header,
+ * primary navigation, language switch, brand, footer, or redefine typography
+ * scales locally.
  */
