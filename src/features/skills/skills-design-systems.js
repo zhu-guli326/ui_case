@@ -31,7 +31,7 @@ function sourceOnlyActive() {
 }
 
 function activeCoreCategory() {
-  return $$("#topTaskFilters [data-repo-filter].is-active").some((button) => button.dataset.repoFilter !== "ALL");
+  return $$("#repoFacets [data-repo-filter].is-active").some((button) => !button.dataset.awesomeDesignSystems);
 }
 
 function visibleSystems() {
@@ -53,7 +53,7 @@ function installStyle() {
     .web-reference-system-preview strong{position:relative;z-index:1;font-size:clamp(30px,5vw,64px);font-weight:760;letter-spacing:-.05em}
     .web-reference-system-preview span{position:absolute;left:18px;bottom:16px;z-index:1;font-size:11px;font-weight:760;letter-spacing:.12em;text-transform:uppercase;opacity:.55}
     .awesome-design-systems-group header p a{color:inherit;text-underline-offset:3px}
-    .repo-filter[data-awesome-design-systems],.repo-subfilter[data-awesome-design-systems]{white-space:nowrap}
+    .repo-subfilter[data-awesome-design-systems]{white-space:nowrap}
   `;
   document.head.appendChild(style);
 }
@@ -80,16 +80,6 @@ function cardMarkup(item, index, groupLabel) {
 function ensureFilterButtons() {
   if (!isWebMode()) return;
   const lang = LANG();
-  const top = $("#topTaskFilters");
-  if (top && !$("[data-awesome-design-systems]", top)) {
-    const button = document.createElement("button");
-    button.className = `repo-filter${designSystemsOnly ? " is-active" : ""}`;
-    button.type = "button";
-    button.dataset.awesomeDesignSystems = "top";
-    button.setAttribute("aria-pressed", String(designSystemsOnly));
-    button.innerHTML = `<span>${lang === "en" ? "Design systems" : "设计系统"}</span><b>${designSystems.length}</b>`;
-    top.appendChild(button);
-  }
   const facetList = $("#repoFacets .facet-group .repo-subfilters");
   if (facetList && !$("[data-awesome-design-systems]", facetList)) {
     const button = document.createElement("button");
@@ -101,7 +91,7 @@ function ensureFilterButtons() {
     facetList.appendChild(button);
   }
   const count = $("#categoryCount");
-  const coreCount = $$("#topTaskFilters [data-repo-filter]").filter((button) => button.dataset.repoFilter !== "ALL").length;
+  const coreCount = $$("#repoFacets [data-repo-filter]").length;
   if (count && coreCount) count.textContent = String(coreCount + 1);
 }
 
@@ -111,7 +101,7 @@ function syncFilterVisuals() {
     button.setAttribute("aria-pressed", String(designSystemsOnly));
   });
   if (designSystemsOnly) {
-    $$("#topTaskFilters [data-repo-filter], #repoFacets [data-repo-filter]").forEach((button) => {
+    $$("#repoFacets [data-repo-filter]").forEach((button) => {
       button.classList.remove("is-active");
       button.setAttribute("aria-pressed", "false");
     });
@@ -173,7 +163,6 @@ function installEvents() {
     const awesomeButton = event.target.closest("[data-awesome-design-systems]");
     if (awesomeButton) {
       designSystemsOnly = !designSystemsOnly;
-      if (!designSystemsOnly) $("#topTaskFilters [data-repo-filter='ALL']")?.click();
       scheduleRender();
       return;
     }
