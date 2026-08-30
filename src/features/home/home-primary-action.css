@@ -1,0 +1,34 @@
+/* Homepage primary CTA states use the canonical global ONDesign tokens. */
+body.project-home .project-hero .button-outline-light {
+  border-color: rgba(255, 255, 255, .78);
+  background: rgba(255, 255, 255, .94);
+  color: var(--ds-color-text);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .12);
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease,
+    transform 120ms ease;
+}
+
+body.project-home .project-hero .button-outline-light:hover {
+  border-color: var(--ds-color-primary-hover);
+  background: var(--ds-color-primary-hover);
+  color: var(--ds-color-text-inverse);
+  box-shadow: 0 8px 24px rgba(24, 169, 87, .24);
+}
+
+body.project-home .project-hero .button-outline-light:active {
+  border-color: var(--ds-color-primary-active);
+  background: var(--ds-color-primary-active);
+  color: var(--ds-color-text-inverse);
+  box-shadow: 0 3px 12px rgba(24, 169, 87, .2);
+  transform: translateY(1px) scale(.985);
+}
+
+body.project-home .project-hero .button-outline-light:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--ds-color-primary) 34%, transparent);
+  outline-offset: 3px;
+  border-color: var(--ds-color-primary);
+}
