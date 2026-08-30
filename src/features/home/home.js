@@ -3,7 +3,7 @@ const SUPPORTED_LANGUAGES = new Set(["zh", "en"]);
 const CAPABILITY_FIGURES = [
   {
     stage: "01 · DEFINE",
-    image: "./assets/home/figures/steve-jobs.webp",
+    image: "./assets/home/figures/steve-jobs.webp?v=20260830-2",
     alt: { zh: "史蒂夫·乔布斯像素人物肖像", en: "Pixel portrait of Steve Jobs" },
     name: { zh: "史蒂夫·乔布斯", en: "Steve Jobs" },
     thinking: { zh: "判断 / 聚焦 / 取舍", en: "Judgment / Focus / Trade-offs" },
