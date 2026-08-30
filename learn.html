@@ -9,95 +9,6 @@
   <title>ONDesign · 从设计参考到真实界面</title>
   <link rel="stylesheet" href="./src/core/app-shell/site-shell.css">
   <link rel="stylesheet" href="./src/features/home/home.css">
-  <style>
-    body.project-home > .site-header {
-      top: 0;
-      width: 100%;
-      margin: 0;
-      border-right: 0;
-      border-left: 0;
-      border-top: 0;
-      border-radius: 0;
-      box-shadow: none;
-    }
-
-    .showcase-card .system-preview {
-      position: relative;
-      display: block;
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      overflow: hidden;
-      padding: 18px;
-      border-bottom: 1px solid #303030;
-      background:
-        radial-gradient(circle at 78% 12%, rgba(115, 255, 178, .12), transparent 36%),
-        linear-gradient(145deg, #101312, #171a19 62%, #0d0f0e);
-      color: #f5f7f6;
-    }
-    .system-preview::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-      background-size: 18px 18px;
-      mask-image: linear-gradient(to bottom, #000, transparent 86%);
-    }
-    .system-preview > * { position: relative; z-index: 1; }
-    .system-kicker { display: block; margin-bottom: 10px; color: #79f2ac; font-size: 7px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
-
-    .type-preview .type-hero { display: flex; align-items: end; justify-content: space-between; margin-bottom: 13px; }
-    .type-preview .type-aa { font-family: Georgia, "Times New Roman", serif; font-size: 64px; font-weight: 400; letter-spacing: -.08em; line-height: .8; }
-    .type-preview .type-meta { color: #8c938f; font-size: 7px; line-height: 1.6; text-align: right; }
-    .type-preview .type-row { display: grid; grid-template-columns: 30px 1fr; align-items: center; gap: 9px; margin-top: 7px; color: #8c938f; font-size: 6px; }
-    .type-preview .type-row i { display: block; height: 2px; border-radius: 999px; background: #dce2df; }
-    .type-preview .type-row:nth-child(4) i { width: 86%; opacity: .8; }
-    .type-preview .type-row:nth-child(5) i { width: 66%; opacity: .55; }
-
-    .color-preview .swatches { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-top: 12px; }
-    .color-preview .swatches i { display: block; aspect-ratio: .72; border: 1px solid rgba(255,255,255,.08); border-radius: 4px; }
-    .color-preview .swatches i:nth-child(1) { background: #73f2a7; }
-    .color-preview .swatches i:nth-child(2) { background: #2fb96b; }
-    .color-preview .swatches i:nth-child(3) { background: #183d2a; }
-    .color-preview .swatches i:nth-child(4) { background: #2b302e; }
-    .color-preview .swatches i:nth-child(5) { background: #f3f6f4; }
-    .color-preview .token-row { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; color: #7d8581; font-size: 6px; }
-    .color-preview .token-row b { color: #dfe5e2; font-weight: 500; }
-
-    .spacing-preview .spacing-stack { display: grid; gap: 8px; margin-top: 11px; }
-    .spacing-preview .spacing-row { display: grid; grid-template-columns: 24px 1fr 18px; align-items: center; gap: 7px; color: #7f8883; font-size: 6px; }
-    .spacing-preview .spacing-row i { display: block; height: 7px; border-radius: 2px; background: linear-gradient(90deg, rgba(115,242,167,.95), rgba(115,242,167,.16)); }
-    .spacing-preview .spacing-row:nth-child(2) i { width: 24%; }
-    .spacing-preview .spacing-row:nth-child(3) i { width: 40%; }
-    .spacing-preview .spacing-row:nth-child(4) i { width: 62%; }
-    .spacing-preview .spacing-row:nth-child(5) i { width: 86%; }
-    .spacing-preview .spacing-row strong { color: #dce3df; font-size: 6px; font-weight: 500; text-align: right; }
-
-    .surface-preview .surface-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
-    .surface-preview .surface-grid i { display: block; height: 50px; border: 1px solid #303633; background: #181c1a; }
-    .surface-preview .surface-grid i:nth-child(1) { border-radius: 2px; }
-    .surface-preview .surface-grid i:nth-child(2) { border-radius: 8px; }
-    .surface-preview .surface-grid i:nth-child(3) { border-radius: 14px; box-shadow: 0 9px 22px rgba(0,0,0,.45); }
-    .surface-preview .surface-grid i:nth-child(4) { border-radius: 26px; box-shadow: inset 0 0 0 1px rgba(115,242,167,.18), 0 12px 26px rgba(0,0,0,.48); }
-
-    .component-preview .component-ui { display: grid; gap: 8px; margin-top: 12px; }
-    .component-preview .ui-input { display: flex; height: 28px; align-items: center; padding: 0 9px; border: 1px solid #3a403d; border-radius: 5px; color: #818984; font-size: 6px; }
-    .component-preview .ui-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
-    .component-preview .ui-actions i { display: grid; height: 27px; place-items: center; border: 1px solid #3a403d; border-radius: 5px; color: #cbd2ce; font-size: 6px; font-style: normal; }
-    .component-preview .ui-actions i:first-child { border-color: #73f2a7; background: #73f2a7; color: #08110c; }
-    .component-preview .ui-toggle { display: flex; align-items: center; justify-content: space-between; color: #8b938e; font-size: 6px; }
-    .component-preview .ui-toggle i { position: relative; display: block; width: 28px; height: 15px; border-radius: 99px; background: #21452f; }
-    .component-preview .ui-toggle i::after { content: ""; position: absolute; top: 3px; right: 3px; width: 9px; height: 9px; border-radius: 50%; background: #73f2a7; }
-
-    @media (max-width: 700px) {
-      body.project-home > .site-header {
-        top: 0;
-        width: 100%;
-        margin: 0;
-      }
-      .showcase-card .system-preview { padding: 14px; }
-    }
-  </style>
   <script src="./src/core/app-shell/app-shell.js"></script>
   <script src="./src/core/analytics/clarity.js"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
@@ -185,53 +96,23 @@
       </div>
       <div class="showcase-scene">
         <a class="showcase-card showcase-card-1" href="./brands.html?lang=zh" data-smart-lang-link="./brands.html">
-          <span class="system-preview type-preview" aria-hidden="true">
-            <small class="system-kicker">TYPE SCALE</small>
-            <span class="type-hero"><b class="type-aa">Aa</b><span class="type-meta">Inter<br>400 / 500 / 700</span></span>
-            <span class="type-row"><em>H1 · 64</em><i></i></span>
-            <span class="type-row"><em>H2 · 40</em><i></i></span>
-            <span class="type-row"><em>Body · 16</em><i></i></span>
-          </span>
+          <span class="system-preview type-preview" aria-hidden="true"><small class="system-kicker">TYPE SCALE</small><span class="type-hero"><b class="type-aa">Aa</b><span class="type-meta">Inter<br>400 / 500 / 700</span></span><span class="type-row"><em>H1 · 64</em><i></i></span><span class="type-row"><em>H2 · 40</em><i></i></span><span class="type-row"><em>Body · 16</em><i></i></span></span>
           <span data-zh="字体系统" data-en="Typography">字体系统</span>
         </a>
         <a class="showcase-card showcase-card-2" href="./brands.html?lang=zh" data-smart-lang-link="./brands.html">
-          <span class="system-preview color-preview" aria-hidden="true">
-            <small class="system-kicker">COLOR TOKENS</small>
-            <span class="swatches"><i></i><i></i><i></i><i></i><i></i></span>
-            <span class="token-row"><span>--brand-primary</span><b>#73F2A7</b></span>
-            <span class="token-row"><span>--surface-900</span><b>#171A19</b></span>
-          </span>
+          <span class="system-preview color-preview" aria-hidden="true"><small class="system-kicker">COLOR TOKENS</small><span class="swatches"><i></i><i></i><i></i><i></i><i></i></span><span class="token-row"><span>--brand-primary</span><b>#73F2A7</b></span><span class="token-row"><span>--surface-900</span><b>#171A19</b></span></span>
           <span data-zh="色彩 Token" data-en="Color tokens">色彩 Token</span>
         </a>
         <a class="showcase-card showcase-card-3" href="./brands.html?lang=zh" data-smart-lang-link="./brands.html">
-          <span class="system-preview spacing-preview" aria-hidden="true">
-            <small class="system-kicker">SPACING SCALE</small>
-            <span class="spacing-stack">
-              <span class="spacing-row"><span>01</span><i></i><strong>4</strong></span>
-              <span class="spacing-row"><span>02</span><i></i><strong>8</strong></span>
-              <span class="spacing-row"><span>03</span><i></i><strong>12</strong></span>
-              <span class="spacing-row"><span>04</span><i></i><strong>16</strong></span>
-              <span class="spacing-row"><span>05</span><i></i><strong>24</strong></span>
-            </span>
-          </span>
+          <span class="system-preview spacing-preview" aria-hidden="true"><small class="system-kicker">SPACING SCALE</small><span class="spacing-stack"><span class="spacing-row"><span>01</span><i></i><strong>4</strong></span><span class="spacing-row"><span>02</span><i></i><strong>8</strong></span><span class="spacing-row"><span>03</span><i></i><strong>12</strong></span><span class="spacing-row"><span>04</span><i></i><strong>16</strong></span><span class="spacing-row"><span>05</span><i></i><strong>24</strong></span></span></span>
           <span data-zh="间距与网格" data-en="Spacing &amp; grid">间距与网格</span>
         </a>
         <a class="showcase-card showcase-card-4" href="./brands.html?lang=zh" data-smart-lang-link="./brands.html">
-          <span class="system-preview surface-preview" aria-hidden="true">
-            <small class="system-kicker">SURFACE TOKENS</small>
-            <span class="surface-grid"><i></i><i></i><i></i><i></i></span>
-          </span>
+          <span class="system-preview surface-preview" aria-hidden="true"><small class="system-kicker">SURFACE TOKENS</small><span class="surface-grid"><i></i><i></i><i></i><i></i></span></span>
           <span data-zh="圆角与层级" data-en="Radius &amp; elevation">圆角与层级</span>
         </a>
         <a class="showcase-card showcase-card-5" href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html">
-          <span class="system-preview component-preview" aria-hidden="true">
-            <small class="system-kicker">COMPONENT STATES</small>
-            <span class="component-ui">
-              <span class="ui-input">Email address</span>
-              <span class="ui-actions"><i>Primary</i><i>Secondary</i></span>
-              <span class="ui-toggle"><span>Enabled</span><i></i></span>
-            </span>
-          </span>
+          <span class="system-preview component-preview" aria-hidden="true"><small class="system-kicker">COMPONENT STATES</small><span class="component-ui"><span class="ui-input">Email address</span><span class="ui-actions"><i>Primary</i><i>Secondary</i></span><span class="ui-toggle"><span>Enabled</span><i></i></span></span></span>
           <span data-zh="组件与状态" data-en="Components &amp; states">组件与状态</span>
         </a>
       </div>
@@ -262,25 +143,5 @@
     </div>
     <div class="project-container footer-bottom"><span>© 2026 ONDesign</span><span>AI UI Design Workflow</span></div>
   </footer>
-
-  <script>
-    (() => {
-      const fixHomepageNavOrder = () => {
-        const nav = document.querySelector('.site-header .site-nav-community');
-        if (!nav) return;
-        const start = nav.querySelector('.site-nav-start');
-        const firstSocial = nav.querySelector('.site-nav-social, .site-nav-github');
-        if (start && firstSocial) nav.insertBefore(start, firstSocial);
-      };
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fixHomepageNavOrder, { once: true });
-      } else {
-        fixHomepageNavOrder();
-      }
-
-      window.addEventListener('image2:languagechange', () => requestAnimationFrame(fixHomepageNavOrder));
-    })();
-  </script>
 </body>
 </html>
