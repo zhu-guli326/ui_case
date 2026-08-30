@@ -4,6 +4,26 @@
  * pointer is inside the Library trigger/menu region.
  */
 @media (hover: hover) and (pointer: fine) {
+  .site-nav-more {
+    position: relative;
+  }
+
+  /* Bridge the small visual gap between the trigger and dropdown so moving
+   * the pointer into the menu does not briefly leave the <details> hit area. */
+  .site-nav-more[open]::after {
+    content: "";
+    position: absolute;
+    z-index: 79;
+    top: 100%;
+    right: 0;
+    width: max(100%, 250px);
+    height: 8px;
+  }
+
+  .site-nav-more[open] > .site-nav-menu {
+    top: calc(100% + 4px);
+  }
+
   .site-nav-more[open]:not(:hover) > .site-nav-menu {
     display: none;
   }
