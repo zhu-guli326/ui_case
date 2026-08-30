@@ -11,19 +11,37 @@ jobs:
   capture:
     runs-on: ubuntu-latest
     steps:
-      - name: Wait for Pages deployment
-        run: sleep 90
-      - name: Capture live page
+      - name: Wait for live site
+        run: sleep 12
+      - name: Capture capability section
         run: |
-          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          export BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
           if [ -z "$BROWSER" ]; then
             echo "No Chromium-based browser found" >&2
             exit 1
           fi
-          "$BROWSER" --headless --disable-gpu --no-sandbox --hide-scrollbars --window-size=1440,1100 --screenshot=ondesign-live.png 'https://www.ondesign.tech/learn.html?lang=en'
+          npm install --no-save playwright-core@1.55.0
+          node <<'NODE'
+          const { chromium } = require('playwright-core');
+          (async () => {
+            const browser = await chromium.launch({
+              headless: true,
+              executablePath: process.env.BROWSER,
+              args: ['--no-sandbox']
+            });
+            const page = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
+            await page.goto('https://www.ondesign.tech/learn.html?lang=en', { waitUntil: 'networkidle' });
+            await page.waitForTimeout(1500);
+            const section = page.locator('#capabilities');
+            await section.scrollIntoViewIfNeeded();
+            await page.waitForTimeout(600);
+            await section.screenshot({ path: 'ondesign-capabilities.png' });
+            await browser.close();
+          })();
+          NODE
       - name: Upload screenshot
         uses: actions/upload-artifact@v4
         with:
-          name: ondesign-live-screenshot
-          path: ondesign-live.png
+          name: ondesign-capabilities-screenshot
+          path: ondesign-capabilities.png
           if-no-files-found: error
