@@ -357,7 +357,9 @@ if (elements.repoClearFilters) elements.repoClearFilters.addEventListener("click
 document.addEventListener("click", (event) => {
   const button = event.target.closest("[data-source-filter]");
   if (!button) return;
-  state.activeSourceOnly = !state.activeSourceOnly;
+  const nextSourceOnly = !state.activeSourceOnly;
+  state.activeSourceOnly = nextSourceOnly;
+  if (state.activeDirectoryMode === "WEB" && nextSourceOnly) state.activeCategories.clear();
   track(state.activeDirectoryMode === "WEB" ? "source_filter_select" : "skill_filter_select", { sourceOnly: state.activeSourceOnly });
   renderer.renderRepositories();
 });
