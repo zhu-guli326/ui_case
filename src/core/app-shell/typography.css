@@ -3,11 +3,22 @@
   --font-sans-cjk: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
   --font-display-cjk: var(--font-sans-cjk);
   --font-mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --font-number: var(--font-sans-cjk);
+  --number-font-variant: tabular-nums lining-nums;
+  --number-font-features: "tnum" 1, "lnum" 1;
 }
 
 html,
 body {
   font-family: var(--font-sans-cjk);
+  font-variant-numeric: var(--number-font-variant);
+  font-feature-settings: var(--number-font-features);
+}
+
+:where(.number, [data-number]) {
+  font-family: var(--font-number);
+  font-variant-numeric: var(--number-font-variant);
+  font-feature-settings: var(--number-font-features);
 }
 
 body {
