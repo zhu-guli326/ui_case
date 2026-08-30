@@ -165,6 +165,9 @@ For every website change:
 
 - Public URL: `launcher.html`.
 - Canonical core: `src/features/launcher/launcher-dna.css` and `src/features/launcher/launcher-dna.js`.
+- `launcher-design-systems.js` owns the design-system picker/runtime and uses `design-systems-catalog.js` as its canonical catalog source.
+- `launcher-preview-i18n.js` owns Launcher preview localization.
+- `DESIGN_SYSTEMS_NOTICE.md` is required attribution/license documentation for the design-system source and must be retained while that source is used.
 - Other Launcher files are allowed only when they own a distinct stable responsibility, not another Launcher version.
 - Do not recreate workspace/state/url/hardening/simplified compatibility architectures.
 
@@ -189,6 +192,15 @@ The repository should contain product source and durable development infrastruct
 - Do not embed image binaries as base64 in HTML, CSS or JS.
 - Do not recreate deleted `docs/**`, `references/**`, `tests/**`, `lab/**`, `src/legacy/**`, or feature `legacy/**` process structures unless the user explicitly requests a new product feature that genuinely needs them.
 - Do not create extra agent documentation under feature folders. Update this root `AGENTS.md` instead.
+
+### Cleanup safety / live-route preservation
+
+- For cleanup-only work, preserve the current live behavior: do not change DOM structure, CSS values, routes, public data contracts, user-visible copy, or interaction behavior unless the task explicitly asks for that product change.
+- Before deleting a runtime module, trace both direct references from public HTML and transitive imports starting from the canonical JS entrypoint. A file not imported directly by HTML may still be required at runtime.
+- Before deleting an asset, search HTML, CSS `url(...)`, JS/data objects, catalog source, iframe/demo references, and generated inputs. If reachability cannot be disproved, keep the file.
+- Do not treat a zero-result code search as sufficient proof for deletion when dynamic paths, generated data, or runtime lookup may be involved.
+- For cleanup work, prefer no deletion over an uncertain deletion. Report high-risk candidates instead of removing them.
+- A cleanup is complete only after the canonical public routes still point to the same production entrypoints and the repository checks pass.
 
 ## 10. Validation
 
