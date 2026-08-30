@@ -1,0 +1,63 @@
+name: Add Cleanup Safety Rules Once
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update-rules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Add live-route cleanup safety rules
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('AGENTS.md')
+          s = p.read_text(encoding='utf-8')
+          marker = '## 10. Validation'
+          heading = '### Cleanup safety / live-route preservation'
+          if heading not in s:
+              block = '''### Cleanup safety / live-route preservation
+
+- For cleanup-only work, preserve the current live behavior: do not change DOM structure, CSS values, routes, public data contracts, user-visible copy, or interaction behavior unless the task explicitly asks for that product change.
+- Before deleting a runtime module, trace both direct references from public HTML and transitive imports starting from the canonical JS entrypoint. A file not imported directly by HTML may still be required at runtime.
+- Before deleting an asset, search HTML, CSS `url(...)`, JS/data objects, catalog source, iframe/demo references, and generated inputs. If reachability cannot be disproved, keep the file.
+- Do not treat a zero-result code search as sufficient proof for deletion when dynamic paths, generated data, or runtime lookup may be involved.
+- For cleanup work, prefer no deletion over an uncertain deletion. Report high-risk candidates instead of removing them.
+- A cleanup is complete only after the canonical public routes still point to the same production entrypoints and the repository checks pass.
+
+'''
+              if marker not in s:
+                  raise SystemExit('validation marker missing; refusing to rewrite AGENTS.md')
+              s = s.replace(marker, block + marker, 1)
+          launcher_anchor = '- Canonical core: `src/features/launcher/launcher-dna.css` and `src/features/launcher/launcher-dna.js`.'
+          launcher_extra = '''- `launcher-design-systems.js` owns the design-system picker/runtime and uses `design-systems-catalog.js` as its canonical catalog source.
+- `launcher-preview-i18n.js` owns Launcher preview localization.
+- `DESIGN_SYSTEMS_NOTICE.md` is required attribution/license documentation for the design-system source and must be retained while that source is used.'''
+          if launcher_extra not in s:
+              if launcher_anchor not in s:
+                  raise SystemExit('launcher anchor missing; refusing to rewrite AGENTS.md')
+              s = s.replace(launcher_anchor, launcher_anchor + '\n' + launcher_extra, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Verify repository contracts
+        run: |
+          npm run build:catalog -- --check
+          npm run check
+      - name: Commit verified rules and remove this workflow
+        run: |
+          git rm .github/workflows/add-cleanup-safety-rules-once.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add AGENTS.md
+          git commit -m "docs: codify live-route cleanup safety"
+          git push origin HEAD:main
