@@ -262,6 +262,8 @@ function applyDesignSystem(entry, spec, { silent = false } = {}) {
   selectedSpec = spec;
   promptSnapshot = buildPrompt(entry, spec);
   const palette = paletteFor(spec);
+  const radius = Math.max(0, pxNumber(radiusValue(spec), 8));
+  const spacing = Math.max(4, pxNumber(spacingValue(spec), 16));
   const root = document.documentElement;
   root.style.setProperty("--dna-accent", palette.accent);
   root.style.setProperty("--dna-accent-soft", `color-mix(in srgb, ${palette.accent} 12%, ${palette.surface})`);
@@ -269,8 +271,8 @@ function applyDesignSystem(entry, spec, { silent = false } = {}) {
   root.style.setProperty("--dna-surface", palette.surface);
   root.style.setProperty("--dna-ink", palette.ink);
   root.style.setProperty("--dna-muted", palette.muted);
-  root.style.setProperty("--dna-radius", `${Math.max(0, pxNumber(radiusValue(spec), 8))}px`);
-  root.style.setProperty("--dna-space", `${Math.max(4, pxNumber(spacingValue(spec), 16))}px`);
+  root.style.setProperty("--dna-radius", `${radius}px`);
+  root.style.setProperty("--dna-space", `${spacing}px`);
   root.style.setProperty("--dna-display", `"${primaryFont(spec)}",system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif`);
   document.body.dataset.designSystem = entry.slug;
 
@@ -283,12 +285,21 @@ function applyDesignSystem(entry, spec, { silent = false } = {}) {
   const dockFont = document.querySelector("#dockFont");
   if (dockFont) dockFont.textContent = primaryFont(spec);
   const dockRadius = document.querySelector("#dockRadius");
-  if (dockRadius) dockRadius.textContent = `${Math.max(0, pxNumber(radiusValue(spec), 8))}px ${txt("圆角", "radius")}`;
+  if (dockRadius) dockRadius.textContent = `${radius}px ${txt("圆角", "radius")}`;
   const dockPalette = document.querySelectorAll("#dockPalette i");
   [palette.accent, palette.surface, palette.canvas, palette.ink].forEach((color, index) => { if (dockPalette[index]) dockPalette[index].style.background = color; });
   updateTrigger();
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ slug: entry.slug })); } catch {}
-  if (!silent) window.dispatchEvent(new CustomEvent("ondesign:designsystemchange", { detail: { slug: entry.slug, name: entry.name } }));
+
+  window.dispatchEvent(new CustomEvent("ondesign:designsystemapply", {
+    detail: {
+      slug: entry.slug,
+      name: entry.name,
+      radius,
+      radiusSource: radiusValue(spec),
+    },
+  }));
+  if (!silent) window.dispatchEvent(new CustomEvent("ondesign:designsystemchange", { detail: { slug: entry.slug, name: entry.name, radius } }));
 }
 
 function updateTrigger() {
