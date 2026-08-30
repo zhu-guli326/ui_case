@@ -62,6 +62,7 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
 
     document.querySelectorAll("[data-repo-filter]").forEach((button) => button.addEventListener("click", () => {
       const filterKey = button.dataset.repoFilter;
+      if (state.activeDirectoryMode === "WEB") state.activeSourceOnly = false;
       if (state.activeCategories.has(filterKey)) state.activeCategories.delete(filterKey);
       else state.activeCategories.add(filterKey);
       track(state.activeDirectoryMode === "WEB" ? "website_filter_select" : "skill_filter_select", { categories: [...state.activeCategories] });
