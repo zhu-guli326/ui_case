@@ -14,6 +14,7 @@ body.directory-page {
   --directory-radius: 8px;
   --directory-shell-radius: 12px;
   --directory-shadow: 0 6px 20px rgba(0,0,0,.045);
+  --directory-floating-search-width: 620px;
   margin: 0;
   background: #f5f6f7;
   color: var(--directory-text);
@@ -26,7 +27,7 @@ body.directory-page *::after { box-sizing: border-box; }
 body.directory-page .directory-page-main {
   width: 100%;
   margin: 0;
-  padding: 20px 36px 72px;
+  padding: 20px 36px 144px;
 }
 
 /* Canonical hero ------------------------------------------------------- */
@@ -150,14 +151,16 @@ body.library-page .stats-panel strong { font-size: 32px; font-weight: 520; }
 /* Canonical directory card -------------------------------------------- */
 body.directory-page .directory-section { padding-top: 14px; }
 
+/* Search is visually detached into one shared bottom dock. The toolbar now
+ * holds only each page's secondary controls (sort, result count, sync, etc.). */
 body.directory-page .directory-toolbar {
   display: grid;
-  grid-template-columns: minmax(260px,420px) minmax(0,1fr);
-  gap: 16px;
+  grid-template-columns: minmax(0,1fr);
+  gap: 12px;
   align-items: center;
-  min-height: 72px;
+  min-height: 58px;
   margin: 0 0 18px;
-  padding: 16px 18px;
+  padding: 10px 14px;
   border: 1px solid var(--directory-border);
   border-radius: var(--directory-shell-radius);
   background: var(--directory-surface);
@@ -182,7 +185,45 @@ body.directory-page .search-field input { width: 100%; border: 0; outline: 0; ba
 body.directory-page .search-field input::placeholder { color: #bfbfbf; }
 body.directory-page .search-field kbd { color: var(--directory-tertiary); font-size: 9px; }
 
-body.directory-page .directory-toolbar-actions { display: flex; min-width: 0; align-items: center; justify-content: flex-end; gap: 10px; }
+/* Shared floating search: third use becomes one shared implementation.
+ * Keeping the original input in the toolbar preserves each page's existing
+ * JS bindings while CSS removes it from toolbar flow and docks it centrally. */
+body.directory-page .directory-toolbar > .search-field {
+  position: fixed;
+  z-index: 120;
+  left: 50%;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  width: min(var(--directory-floating-search-width), calc(100vw - 32px));
+  min-height: 58px;
+  padding: 0 16px;
+  border: 1px solid rgba(31,31,31,.13);
+  border-radius: 16px;
+  background: rgba(255,255,255,.96);
+  box-shadow: 0 18px 48px rgba(0,0,0,.14), 0 2px 8px rgba(0,0,0,.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transform: translateX(-50%);
+  transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease;
+}
+body.directory-page .directory-toolbar > .search-field:focus-within {
+  border-color: var(--directory-primary);
+  box-shadow: 0 18px 48px rgba(0,0,0,.16), 0 0 0 3px rgba(24,169,87,.12);
+}
+body.directory-page .directory-toolbar > .search-field input { font-size: 14px; }
+body.directory-page .directory-toolbar > .search-field > svg,
+body.directory-page .directory-toolbar > .search-field .search-icon { flex: 0 0 auto; }
+body.directory-page .directory-toolbar > .search-field kbd {
+  flex: 0 0 auto;
+  padding: 4px 7px;
+  border: 1px solid var(--directory-border);
+  border-radius: 6px;
+  background: #fafafa;
+  color: var(--directory-tertiary);
+  font-size: 9px;
+}
+body.directory-page:has(dialog[open]) .directory-toolbar > .search-field { opacity: 0; pointer-events: none; }
+
+body.directory-page .directory-toolbar-actions { display: flex; min-width: 0; align-items: center; justify-content: flex-end; justify-self: end; gap: 10px; }
 body.directory-page .directory-result-count { margin: 0; justify-self: end; color: var(--directory-secondary); font-size: 12px; }
 
 body.vocabulary-page .sort-control { display: inline-flex; min-height: 38px; align-items: center; gap: 8px; padding: 0 10px; border-radius: 7px; background: var(--directory-fill); color: var(--directory-secondary); font-size: 11px; }
@@ -281,10 +322,16 @@ body.library-page .demo-card-body { background: var(--directory-surface); }
 }
 
 @media (max-width:820px) {
-  body.directory-page .directory-page-main { padding: 16px 16px 56px; }
+  body.directory-page .directory-page-main { padding: 16px 16px 124px; }
   body.directory-page .directory-toolbar { grid-template-columns: 1fr; border-radius: 10px; }
   body.directory-page .directory-toolbar-actions,
-  body.directory-page .directory-result-count { justify-self: stretch; justify-content: flex-start; }
+  body.directory-page .directory-result-count { justify-self: end; justify-content: flex-end; }
+  body.directory-page .directory-toolbar > .search-field {
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    width: calc(100vw - 24px);
+    min-height: 54px;
+    border-radius: 14px;
+  }
   body.directory-page .directory-layout { display: block; }
   body.directory-page .directory-sidebar { position: static; margin-bottom: 16px; border-radius: 10px; }
   body.library-page .category-nav,
@@ -309,7 +356,7 @@ body.library-page .demo-card-body { background: var(--directory-surface); }
   body.directory-page .directory-hero-overview dl { grid-template-columns: 1fr 1fr; gap: 18px; }
   body.directory-page .directory-hero-overview dl > div { padding: 0; border-right: 0; }
   body.directory-page .directory-hero-overview dl > div:last-child { grid-column: 1/-1; }
-  body.directory-page .directory-toolbar-actions { flex-wrap: wrap; }
+  body.directory-page .directory-toolbar-actions { flex-wrap: wrap; width: 100%; }
   body.vocabulary-page .sort-control,
   body.vocabulary-page .share-view-button { width: 100%; }
   body.vocabulary-page .sort-control select { flex: 1; }
@@ -321,5 +368,6 @@ body.library-page .demo-card-body { background: var(--directory-surface); }
   body.directory-page .demo-card,
   body.directory-page .entry-card,
   body.directory-page .category-link,
-  body.directory-page .taxonomy-link { transition: none; }
+  body.directory-page .taxonomy-link,
+  body.directory-page .directory-toolbar > .search-field { transition: none; }
 }
