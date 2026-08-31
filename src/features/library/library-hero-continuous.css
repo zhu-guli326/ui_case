@@ -1,66 +1,92 @@
-/* Library hero only: keep the current visual language while removing the split-card feeling. */
+/* Library hero only: one continuous container with a single internal divider.
+ * This file is imported by site-shell before directory-page.css, so the hero
+ * declarations intentionally use !important to preserve the page-specific
+ * contract against the later shared directory geometry. */
 body.library-page .directory-hero {
-  grid-template-columns: minmax(0, 1fr) minmax(220px, 320px);
-  gap: 0;
-  overflow: hidden;
-  border: 1px solid var(--directory-border);
-  border-radius: var(--directory-shell-radius);
-  background: var(--directory-surface);
-  box-shadow: var(--directory-shadow);
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 320px) !important;
+  gap: 0 !important;
+  align-items: stretch !important;
+  overflow: hidden !important;
+  border: 1px solid var(--directory-border) !important;
+  border-radius: var(--directory-shell-radius) !important;
+  background: var(--directory-surface) !important;
+  box-shadow: var(--directory-shadow) !important;
 }
 
 body.library-page .directory-hero-copy,
 body.library-page .directory-hero-overview {
-  min-height: 318px;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
+  min-width: 0 !important;
+  min-height: 318px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.library-page .directory-hero-copy {
+  padding: 38px 48px 36px !important;
 }
 
 body.library-page .directory-hero-overview {
-  display: grid;
-  place-items: center;
-  border-left: 1px solid var(--directory-border);
+  display: grid !important;
+  place-items: center !important;
+  padding: 32px !important;
+  border-left: 1px solid var(--directory-border) !important;
+  color: inherit !important;
+  text-decoration: none !important;
   pointer-events: none;
 }
 
 body.library-page .stats-panel {
-  grid-template-columns: 1fr;
-  align-content: center;
-  padding: 32px;
+  grid-template-columns: 1fr !important;
+  align-content: center !important;
+  padding: 32px !important;
 }
 
 body.library-page .stats-panel > span {
-  min-height: 0;
-  padding: 0;
-  border-right: 0;
-  text-align: center;
+  display: grid !important;
+  min-height: 0 !important;
+  gap: var(--ds-space-2) !important;
+  align-content: center !important;
+  padding: 0 !important;
+  border: 0 !important;
+  text-align: center !important;
 }
 
 body.library-page .stats-panel > span:nth-child(n + 2) {
-  display: none;
+  display: none !important;
 }
 
 body.library-page .stats-panel small {
-  font-size: var(--ds-font-size-xs);
+  color: var(--directory-tertiary) !important;
+  font-family: var(--type-font-body) !important;
+  font-size: var(--ds-font-size-xs) !important;
+  font-weight: var(--ds-font-weight-regular) !important;
+  letter-spacing: 0 !important;
+  line-height: var(--ds-line-height-body) !important;
 }
 
 body.library-page .stats-panel strong {
-  margin-top: var(--ds-space-2);
-  font-size: var(--ds-font-size-display);
-  font-weight: var(--ds-font-weight-medium);
-  line-height: 1;
+  margin: 0 !important;
+  color: var(--directory-text) !important;
+  font-family: var(--font-number) !important;
+  font-size: var(--ds-font-size-display) !important;
+  font-weight: var(--ds-font-weight-semibold) !important;
+  font-variant-numeric: var(--number-font-variant) !important;
+  font-feature-settings: var(--number-font-features) !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1 !important;
 }
 
 @media (max-width: 900px) {
   body.library-page .directory-hero {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
 
   body.library-page .directory-hero-overview {
-    min-height: 132px;
-    border-top: 1px solid var(--directory-border);
-    border-left: 0;
+    min-height: 132px !important;
+    border-top: 1px solid var(--directory-border) !important;
+    border-left: 0 !important;
   }
 }
