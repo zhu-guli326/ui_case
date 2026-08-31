@@ -4,7 +4,7 @@ export const repositories = [
   { slug: "pbakaus/impeccable", category: "DESIGN", title: "pbakaus / impeccable", fallback: "帮助 AI 更好理解设计语言与界面质量的 skill。", focus: "设计语言 / UI 品质" },
   { slug: "greensock/GSAP", category: "MOTION", title: "greensock / GSAP", coverType: "video", coverSrc: "./assets/skills/repositories/greensock-gsap-cover.mp4", detailMediaType: "video", detailMediaSrc: "./assets/skills/repositories/greensock-gsap-cover.mp4", extraTags: { zh: ["强推", "动效"], en: ["Strong pick", "Motion"] }, fallback: "现代 Web 动画的成熟工具与生态。", focus: "动效系统 / 交互反馈" },
   { slug: "Leonxlnx/taste-skill", category: "DESIGN", title: "Leonxlnx / taste-skill", coverImage: "./assets/skills/repositories/leonxlnx-taste-skill-cover.png", detailMediaSrc: "./assets/skills/repositories/leonxlnx-taste-skill-detail.png", fallback: "让 AI 避免生成无聊、通用、模板化界面的设计品味 skill。", focus: "去模板感 / 视觉判断" },
-  { slug: "yanliudesign/mono-color-skill", category: "DESIGN", title: "mono-color", skillName: "mono-color", coverImage: "./assets/skills/repositories/yanliudesign-mono-color-skill-cover.png", detailMediaSrc: "./assets/skills/repositories/yanliudesign-mono-color-skill-cover.png", fallback: "把主题、短句、物件或照片转成原创的单色或受控双色编辑印刷视觉，适合海报、Zine、包装与社交媒体封面。", focus: "单色海报 / 双色印刷 / 编辑排版" },
+  { slug: "yanliudesign/mono-color-skill", category: "POSTER", title: "mono-color", skillName: "mono-color", coverImage: "./assets/skills/repositories/yanliudesign-mono-color-skill-cover.png", detailMediaSrc: "./assets/skills/repositories/yanliudesign-mono-color-skill-cover.png", fallback: "把主题、短句、物件或照片转成单色或受控双色的编辑海报视觉，强调暖纸质感、半调照片、主动留白与克制排版，适合海报、Zine、包装与社交媒体封面。", focus: "单色海报 / 双色印刷 / 编辑排版" },
   { slug: "mattpocock/skills", category: "ENGINEERING", title: "mattpocock / skills", coverType: "video", coverSrc: "./assets/skills/repositories/mattpocock-skills-cover.mp4", coverImage: "./assets/skills/repositories/mattpocock-skills-cover.png", detailMediaType: "video", detailMediaSrc: "./assets/skills/repositories/mattpocock-skills-cover.mp4", fallback: "面向真实工程工作的可复用 agent skills。", focus: "工程工作流 / Agent" },
   { slug: "anthropics/skills", category: "DESIGN", title: "anthropics / skills", coverImage: "./assets/skills/repositories/anthropics-skills-cover.png", detailMediaSrc: "./assets/skills/repositories/anthropics-skills-cover.png", fallback: "包含 frontend-design 等面向真实创作任务的官方 skill 集合。", focus: "界面构建 / 创作工作流" },
   { slug: "vercel-labs/agent-skills", category: "FRONTEND", title: "vercel-labs / agent-skills", coverImage: "./assets/skills/repositories/vercel-labs-agent-skills-cover.svg", detailMediaSrc: "./assets/skills/repositories/vercel-labs-agent-skills-cover.svg", fallback: "面向 Web 产品的设计规范、React 模式与前端质量检查。", focus: "Web 规范 / React 质量" },
@@ -61,7 +61,7 @@ export const repositoriesEn = [
   { fallback: "A skill that helps AI understand design language and interface quality.", focus: "Design language / UI quality" },
   { fallback: "A mature toolkit and ecosystem for modern Web animation.", focus: "Motion systems / interaction feedback" },
   { fallback: "A design-taste skill that helps AI avoid bland, generic, templated interfaces.", focus: "Less templated / visual judgment" },
-  { fallback: "Turns a theme, phrase, object or photograph into an original one-ink or controlled two-ink editorial print visual for posters, zines, packaging and social covers.", focus: "Monochrome posters / duotone print / editorial layout" },
+  { fallback: "Turns a theme, phrase, object or photograph into an original one-ink or controlled two-ink editorial poster visual with warm paper, halftone imagery, active negative space and restrained typography, for posters, zines, packaging and social covers.", focus: "Monochrome posters / duotone print / editorial layout" },
   { fallback: "Reusable agent skills for real-world engineering work.", focus: "Engineering workflow / Agent" },
   { fallback: "An official collection of skills for real creative tasks, including frontend-design.", focus: "Interface building / creative workflow" },
   { fallback: "Design guidelines, React patterns and frontend quality checks for Web products.", focus: "Web guidelines / React quality" },
@@ -156,7 +156,7 @@ export const skillsTranslations = {
 };
 
 export const categoryGroups = [
-  { key: "creative", zh: "体验创作", en: "Experience & craft", categories: ["DESIGN", "UX", "MOTION", "VIDEO", "A11Y"] },
+  { key: "creative", zh: "体验创作", en: "Experience & craft", categories: ["DESIGN", "POSTER", "UX", "MOTION", "VIDEO", "A11Y"] },
   { key: "build", zh: "构建系统", en: "Build & systems", categories: ["FRONTEND", "SYSTEM", "ENGINEERING", "3D"] },
   { key: "agent", zh: "Agent 协作", en: "Agent workflows", categories: ["AI DESIGN", "REVIEW", "DIRECTORY"] },
   { key: "presentation", zh: "演示与汇报", en: "Presentation", categories: ["PRESENTATION"] }
@@ -164,6 +164,7 @@ export const categoryGroups = [
 
 export const categoryLabels = {
   DESIGN: { zh: "界面设计", en: "Interface design" },
+  POSTER: { zh: "海报设计", en: "Poster design" },
   UX: { zh: "用户体验", en: "User experience" },
   MOTION: { zh: "动效", en: "Motion" },
   VIDEO: { zh: "视频创作", en: "Video" },
@@ -181,6 +182,7 @@ export const categoryLabels = {
 export const categoryVisuals = {
   VIDEO: { zh: "导演下一幕", en: "Direct the\nnext scene" },
   DESIGN: { zh: "从意图到\n界面", en: "From intent\nto interface" },
+  POSTER: { zh: "让一张海报\n有编辑张力", en: "Give a poster\neditorial tension" },
   MOTION: { zh: "让动效\n有目的", en: "Motion has\na purpose" },
   ENGINEERING: { zh: "更有把握地\n交付", en: "Ship with\nconfidence" },
   FRONTEND: { zh: "为真实使用\n而构建", en: "Build for\nreal use" },
