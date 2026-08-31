@@ -3,6 +3,7 @@
 @import url("./language-switch.css");
 @import url("../../components/site-header/site-header.css");
 @import url("../../components/site-header/site-header-github.css");
+@import url("../../components/site-header/site-header-typography.css");
 @import url("../../components/site-header/site-footer.css");
 @import url("../../features/home/home-ant-zh.css");
 @import url("../../features/home/home-carousel-position.css");
