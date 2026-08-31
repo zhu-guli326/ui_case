@@ -99,6 +99,29 @@ const BRAND_DOMAINS = {
   "nintendo-2001": "nintendo.com",
 };
 
+const FEATURED_DESIGN_SYSTEM_SLUGS = [
+  "apple",
+  "figma",
+  "notion",
+  "linear.app",
+  "vercel",
+  "stripe",
+  "airbnb",
+  "shopify",
+  "spotify",
+  "nike",
+  "tesla",
+  "ibm",
+  "nvidia",
+  "cursor",
+  "claude",
+  "supabase",
+  "webflow",
+  "framer",
+];
+const FEATURED_DESIGN_SYSTEM_RANK = new Map(FEATURED_DESIGN_SYSTEM_SLUGS.map((slug, index) => [slug, index]));
+const CATALOG_DESIGN_SYSTEM_RANK = new Map(DESIGN_SYSTEMS.map((entry, index) => [entry.slug, index]));
+
 const lang = () => (window.image2I18n?.language === "en" || document.documentElement.lang.startsWith("en") ? "en" : "zh");
 const txt = (zh, en) => (lang() === "en" ? en : zh);
 const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (ch) => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch]));
@@ -319,9 +342,18 @@ function syncStaticLabels() {
   updateTrigger();
 }
 
+function designSystemOrder(entry) {
+  const featuredRank = FEATURED_DESIGN_SYSTEM_RANK.get(entry.slug);
+  if (featuredRank != null) return featuredRank;
+  return FEATURED_DESIGN_SYSTEM_SLUGS.length + (CATALOG_DESIGN_SYSTEM_RANK.get(entry.slug) ?? DESIGN_SYSTEMS.length);
+}
+
 function filteredEntries() {
   const query = (searchInput?.value || "").trim().toLowerCase();
-  return DESIGN_SYSTEMS.filter((entry) => !query || `${entry.name} ${entry.slug} ${entry.description} ${CATEGORY_LABELS[entry.category]?.zh || ""} ${CATEGORY_LABELS[entry.category]?.en || ""} ${designSystemUsageLabel(entry, lang())}`.toLowerCase().includes(query));
+  return DESIGN_SYSTEMS
+    .filter((entry) => !query || `${entry.name} ${entry.slug} ${entry.description} ${CATEGORY_LABELS[entry.category]?.zh || ""} ${CATEGORY_LABELS[entry.category]?.en || ""} ${designSystemUsageLabel(entry, lang())}`.toLowerCase().includes(query))
+    .slice()
+    .sort((left, right) => designSystemOrder(left) - designSystemOrder(right));
 }
 
 function optionHtml(entry) {
