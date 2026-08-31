@@ -68,9 +68,12 @@ The old template gallery is no longer a template catalog. It is a compact “看
 - Chinese title: `看点啥`.
 - Keep the supporting copy short and conversational; explain that users can jump into App, Web, Skills, tools or UI vocabulary.
 - Primary tags: `App 设计`, `Web 设计`, `设计 Skill`, `设计工具`, `UI 词库`.
-- Show the category entries in a single horizontal row on desktop; do not expand into a multi-row catalog grid.
-- On narrower screens, allow horizontal scrolling rather than stacking a long catalog.
-- Each category entry should act as a navigation doorway into the relevant ONDesign resource area, not as a full browsing experience on the home page.
+- The five tags are mutually exclusive tabs/switches, not navigation links. Clicking a tag changes the preview content shown below and updates the active state.
+- Show only the preview for the currently selected category instead of displaying all five category cards at the same time.
+- The preview itself should not be the primary navigation target.
+- Put a compact `查看更多 ↗` link at the lower-right of the section. This link is the navigation action and must update its destination to match the currently selected tag/category.
+- On narrower screens, keep the tabs horizontally scrollable if needed; do not stack a long catalog.
+- The section remains a lightweight home-page entry, not a full browsing experience.
 
 ## Interaction rules
 
