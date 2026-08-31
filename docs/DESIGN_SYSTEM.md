@@ -87,6 +87,21 @@ Use the shared semantic scale:
 
 Chinese headings should use strong, clear hierarchy and no artificial letter spacing. English headings may use modest negative tracking through the language tokens.
 
+#### Global header typography
+
+The shared site header must use the same typography contract on every public page. Header geometry, pill shape, icon sizing and control treatment are separate concerns and must not be changed as part of typography-only cleanup.
+
+- Primary navigation: `14px`, medium (`500`) weight, body font family, normal letter spacing, Ant Design-like body line-height.
+- Current / primary workflow item: semibold (`600`), without changing font size or tracking.
+- Chinese navigation: always `0` letter spacing; never use monospace or Latin negative tracking.
+- English navigation: use the same body-family navigation treatment for consistency; no decorative tracking in application chrome.
+- Language switch labels: same body font, `14px`, medium weight; selected state may use semibold.
+- GitHub star count: use the global number font with tabular numerals and semibold weight.
+- Dropdown item typography follows the same body scale; descriptions use the global caption scale.
+- Responsive font-size reductions are allowed, but each breakpoint must remain global and identical across pages.
+
+The canonical header typography implementation lives in `src/components/site-header/site-header-typography.css` and is imported by `site-shell.css` after the base header styles.
+
 ### Layout
 
 - Page gutter: `--ds-page-gutter`
@@ -110,6 +125,7 @@ Before merging a new page, verify:
 8. No page-local `:root` block creates another design system.
 9. No new feature stylesheet redefines `--accent`, `--page`, or `--surface` as a separate brand system.
 10. Focus, hover, active, disabled and selected states are visible and consistent.
+11. Shared header typography is inherited from `site-header-typography.css`; pages must not override navigation font family, size, weight, line-height, or tracking.
 
 ## Allowed exceptions
 
