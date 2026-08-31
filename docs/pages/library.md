@@ -9,6 +9,7 @@ Last updated: 2026-09-01
 - Canonical runtime: `src/features/library/library.js`
 - Canonical styles: `src/features/library/library.css`, `library-cards.css`, `library-detail.css`
 - Shared knowledge-directory geometry and floating search: `src/core/app-shell/directory-page.css`
+- Library hero continuity override: `src/features/library/library-hero-continuous.css`
 - Supporting data / filter / card / detail / search / preview modules remain split by stable responsibility
 
 ## Page goal
@@ -30,7 +31,7 @@ A user should be able to find a relevant case, understand what makes it useful, 
 
 ## Information structure
 
-1. Library orientation / context
+1. Library orientation / context + case count in one continuous hero container
 2. Compact secondary toolbar for result metadata or page-specific controls
 3. Category filtering + visual case grid / collection
 4. Focused preview / detail
@@ -40,6 +41,8 @@ A user should be able to find a relevant case, understand what makes it useful, 
 ## Interaction rules
 
 - Visual evidence should dominate over metadata.
+- The hero should read as one continuous container rather than two detached cards; use a subtle internal divider only.
+- Hero statistics show only the total case count. Do not show style count or GitHub Stars in this area.
 - Cards should be easy to scan and should not all be forced into an identical media ratio when that harms the source material.
 - Detail views should add information rather than repeat the card.
 - Avoid excessive blank space on desktop browsing views.
@@ -58,6 +61,8 @@ A user should be able to find a relevant case, understand what makes it useful, 
 
 ## Remove / avoid
 
+- Detached hero cards with a large gap between copy and statistics.
+- Style-count and GitHub-Star statistics in the hero.
 - Vocabulary-style teaching definitions as the main content.
 - Skills directory responsibilities.
 - Launcher configuration workflow.
