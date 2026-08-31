@@ -1,6 +1,6 @@
 # Library Page Requirements
 
-Last updated: 2026-08-31
+Last updated: 2026-09-01
 
 ## Page identity
 
@@ -8,6 +8,7 @@ Last updated: 2026-08-31
 - Product role: reusable UI case / asset library
 - Canonical runtime: `src/features/library/library.js`
 - Canonical styles: `src/features/library/library.css`, `library-cards.css`, `library-detail.css`
+- Shared knowledge-directory geometry and floating search: `src/core/app-shell/directory-page.css`
 - Supporting data / filter / card / detail / search / preview modules remain split by stable responsibility
 
 ## Page goal
@@ -30,10 +31,11 @@ A user should be able to find a relevant case, understand what makes it useful, 
 ## Information structure
 
 1. Library orientation / context
-2. Search and filtering
-3. Visual case grid / collection
+2. Compact secondary toolbar for result metadata or page-specific controls
+3. Category filtering + visual case grid / collection
 4. Focused preview / detail
 5. Source / demo / relevant next action
+6. Persistent bottom-centered floating search for global case discovery
 
 ## Interaction rules
 
@@ -42,6 +44,8 @@ A user should be able to find a relevant case, understand what makes it useful, 
 - Detail views should add information rather than repeat the card.
 - Avoid excessive blank space on desktop browsing views.
 - Search and filter interactions must remain predictable and reversible.
+- The primary search field is detached from the content toolbar and remains a centered floating control at the bottom of the viewport; reserve page-bottom space so it never covers the last usable content.
+- The floating search uses the same shared geometry as Vocabulary and Skills, while keeping Library-specific placeholder text and search behavior.
 - Chinese and English versions should preserve equivalent functionality.
 
 ## Keep
@@ -58,6 +62,7 @@ A user should be able to find a relevant case, understand what makes it useful, 
 - Skills directory responsibilities.
 - Launcher configuration workflow.
 - Duplicate historical card implementations or redesign layers.
+- A second inline search field in the page toolbar while the shared floating search is active.
 
 ## Modification boundary
 
