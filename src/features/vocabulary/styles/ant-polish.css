@@ -1,0 +1,341 @@
+/* Ant Design-inspired hierarchy pass for vocabulary cards.
+ * Keeps the existing card/variant interactions while reducing decorative weight,
+ * nested containers, oversized radii and competing green surfaces.
+ */
+
+/* ---- Card surface ------------------------------------------------------- */
+.entry-card {
+  border-radius: 12px;
+}
+
+.entry-card:hover {
+  transform: translateY(-2px);
+}
+
+.entry-card-face {
+  border-color: #f0f0f0;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .03), 0 4px 12px rgba(0, 0, 0, .04);
+}
+
+.entry-card:hover .entry-card-face {
+  border-color: #d9d9d9;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .07);
+}
+
+.entry-card-front {
+  background: #fff;
+}
+
+.entry-card-back {
+  background: #f7f8fa;
+  color: #262626;
+}
+
+.entry-card-back::before,
+.entry-card-back::after {
+  display: none;
+}
+
+.entry-visual {
+  margin-top: 0;
+  border-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+/* ---- Back face layout -------------------------------------------------- */
+.entry-card-back-shell {
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 12px;
+  padding: 16px;
+}
+
+.entry-variant-panel {
+  display: grid;
+  min-height: 0;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  gap: 12px;
+  overflow: hidden;
+  padding: 16px;
+  border: 1px solid #f0f0f0;
+  border-radius: 10px;
+  background: #fff;
+  color: #262626;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.entry-variant-heading {
+  grid-row: 1;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 2px;
+}
+
+.entry-variant-title {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  gap: 0;
+}
+
+.entry-variant-title strong {
+  order: 1;
+  overflow: hidden;
+  color: #262626;
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: -.01em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.entry-variant-title span {
+  order: 2;
+  color: #8c8c8c;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.entry-variant-title span::before {
+  margin: 0 6px;
+  color: #bfbfbf;
+  content: "·";
+}
+
+.entry-variant-back {
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  background: #fff;
+  color: #595959;
+  font-size: 11px;
+  font-weight: 500;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .02);
+}
+
+.entry-variant-back:hover,
+.entry-variant-back:focus-visible {
+  border-color: var(--accent);
+  background: #fff;
+  color: var(--accent);
+  outline: none;
+}
+
+/* Preview is the visual focus. */
+.entry-state-preview {
+  grid-row: 2;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: none;
+}
+
+/* Metadata follows the preview and visually behaves like Ant Tags. */
+.entry-context-row {
+  grid-row: 3;
+  align-items: center;
+  gap: 8px;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.entry-context-row > span {
+  color: #8c8c8c;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.entry-context-tags {
+  gap: 6px;
+}
+
+.entry-context-tags span,
+.entry-tags span,
+.detail-tags span {
+  padding: 3px 7px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  background: #fafafa;
+  color: #595959;
+  box-shadow: none;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+/* State selection becomes one clear segmented control instead of three CTA pills. */
+.entry-state-controls {
+  grid-row: 4;
+  display: grid;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.entry-state-label {
+  display: none;
+}
+
+.entry-state-tabs {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  padding: 2px;
+  border-radius: 7px;
+  background: #f5f5f5;
+}
+
+.entry-state-tabs button {
+  min-height: 30px;
+  flex: 1 0 auto;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: #595959;
+  font-size: 11px;
+  font-weight: 500;
+  box-shadow: none;
+}
+
+.entry-state-tabs button:hover,
+.entry-state-tabs button:focus-visible {
+  background: rgba(255, 255, 255, .62);
+  color: #262626;
+  outline: none;
+}
+
+.entry-state-tabs button.is-active {
+  border: 0;
+  background: #fff;
+  color: var(--accent);
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .08), 0 0 0 1px rgba(0, 0, 0, .02);
+}
+
+.entry-state-controls .entry-variant-active,
+.entry-variant-active {
+  min-height: 0;
+  padding-top: 0;
+  border-top: 0;
+  color: #8c8c8c;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- Actions ----------------------------------------------------------- */
+.entry-card-back-actions {
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: auto;
+}
+
+.entry-copy-prompt-button {
+  width: auto;
+  min-height: 32px;
+  padding: 0 13px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+}
+
+.entry-copy-prompt-button b {
+  font-size: 13px;
+}
+
+.entry-copy-prompt-button:hover,
+.entry-copy-prompt-button:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 82%, #000);
+  background: color-mix(in srgb, var(--accent) 88%, #000);
+  color: #fff;
+  outline: none;
+}
+
+/* Remove pill-heavy language from the front face as well. */
+.entry-flip-tag {
+  border-radius: 4px;
+}
+
+.entry-flip-button,
+.entry-front-copy-button,
+.entry-detail-button {
+  border-radius: 6px;
+}
+
+/* Guidance cards share the same hierarchy. */
+.entry-guidance-panel {
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+}
+
+.entry-guidance-panel > .entry-state-preview {
+  grid-row: 2;
+}
+
+.entry-guidance-panel > .entry-variant-active {
+  grid-row: 3;
+  padding: 8px 10px;
+  border: 1px solid #f0f0f0;
+  border-radius: 6px;
+  background: #fafafa;
+  color: #595959;
+  white-space: normal;
+}
+
+.entry-guidance-panel > .entry-context-row {
+  grid-row: 4;
+}
+
+@media (max-width: 720px) {
+  .entry-card-back-shell {
+    padding: 12px;
+  }
+
+  .entry-variant-panel {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .entry-variant-title strong {
+    font-size: 15px;
+  }
+
+  .entry-variant-title span {
+    font-size: 10px;
+  }
+
+  .entry-context-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .entry-card-back-actions {
+    justify-content: stretch;
+  }
+
+  .entry-copy-prompt-button {
+    width: 100%;
+  }
+}
