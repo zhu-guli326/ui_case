@@ -3,18 +3,6 @@
  * inside 02 基础规范 / Basic rules. Keep runtime palette values in JS.
  */
 
-/* Launcher Chinese chrome must never inherit a selected design-system font.
- * Keep the controls on one known CJK UI stack; preview typography is isolated
- * in .preview-page and continues to use the chosen Design DNA font. */
-html[lang^="zh"] #dna-rules,
-html[lang^="zh"] #dna-rules :is(summary, h2, p, b, span, legend, button, input, select, option, optgroup, small, strong) {
-  font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif !important;
-  font-synthesis: none;
-  letter-spacing: 0;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-}
-
 #dna-rules .dna-section-body {
   display: grid;
   gap: 12px;
