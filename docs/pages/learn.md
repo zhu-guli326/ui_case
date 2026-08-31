@@ -9,6 +9,7 @@ Last updated: 2026-09-01
 - Product role: ONDesign main landing / learning entry
 - Canonical implementation: `src/features/home/home.css`, `src/features/home/home.js`
 - Home vertical-rhythm override: `src/features/home/home-compact-spacing.css`
+- Home ending cleanup: `src/features/home/home-ending-cleanup.css`
 
 ## Page goal
 
@@ -45,7 +46,7 @@ Preferred narrative order:
 5. Idea-to-demo workflow: image2 to ui / DEFINE → CREATE → BUILD → ITERATE
 6. What defines Design DNA: style / structure / components / specifications
 7. Examples: from idea to interface
-8. Start Designing CTA
+8. One focused Start Designing CTA
 
 The page may evolve visually, but it should preserve a clear story from problem → method → proof → action.
 
@@ -80,6 +81,14 @@ The old template gallery is no longer a template catalog. It is a compact “看
 - On narrower screens, keep the tabs horizontally scrollable if needed; do not stack a long catalog.
 - The section remains a lightweight home-page entry, not a full browsing experience.
 
+### Final CTA
+
+- Do not use a full-screen creator quote / self-attribution section before the final CTA.
+- The old `WHY I MADE THIS / ONDesign Creator` editorial block is not part of the final home narrative and should remain removed from presentation.
+- Keep only one focused final action into Start Designing.
+- Do not repeat a secondary “browse more cases” button at the bottom; case browsing is already available earlier in the page.
+- The final CTA should feel compact, calm and connected to the footer rather than like another oversized hero screen.
+
 ## Interaction rules
 
 - Favor large visual examples over dense text.
@@ -108,6 +117,8 @@ The old template gallery is no longer a template catalog. It is a compact “看
 - Launcher configuration responsibilities.
 - Duplicated navigation or page-specific global header.
 - Oversized vertical whitespace that makes each section feel disconnected from the next.
+- Creator/self-quote sections that repeat the product thesis instead of advancing the user journey.
+- Duplicate final CTA buttons that send users back to content already surfaced above.
 
 ## Modification boundary
 
