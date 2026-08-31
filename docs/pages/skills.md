@@ -72,7 +72,9 @@ Category wording can be refined, but the structure should remain intuitive and s
 - A flipped card state should reveal additional useful content rather than repeat the front.
 - Resources that cannot meaningfully flip should not fake a flip interaction.
 - Source-code availability should remain visible and filterable.
-- The primary search field is detached from the content toolbar and remains a centered floating control at the bottom of the viewport; reserve page-bottom space so it never covers the last usable content.
+- The primary search field is detached from the content toolbar and remains centered at the bottom of the viewport.
+- On desktop pointer devices, the floating search stays icon-sized while idle and expands only on hover or keyboard/input focus; this compact resting state must not block page content.
+- Touch layouts should remain directly usable without requiring hover.
 - The floating search uses the same shared geometry as Library and Vocabulary, while keeping Skills-specific placeholder text and filtering behavior.
 - Chinese and English modes should expose equivalent resources and functionality.
 
