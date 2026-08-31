@@ -50,6 +50,7 @@ The page may evolve visually, but it should preserve a clear story from problem 
 
 The four-card workflow should explain the path from an idea to a runnable demo. The primary hierarchy is the action/stage, not the historical figure used as the visual metaphor.
 
+- Section eyebrow: `image2 to ui`.
 - Section heading: communicate “从一个 Idea 到一个 Demo，你需要经历这 4 步。” / equivalent English copy.
 - Stage 01: `DEFINE` — clarify the goal, page and references.
 - Stage 02: `CREATE` — turn references into layout, typography, color and components.
@@ -57,6 +58,8 @@ The four-card workflow should explain the path from an idea to a runnable demo. 
 - Stage 04: `ITERATE` — compare, adjust and validate until the demo looks right and works well.
 - `DEFINE / CREATE / BUILD / ITERATE` must be more visually prominent than the names of Steve Jobs, Leonardo da Vinci, Bill Gates or Thomas Edison.
 - Historical figures are supporting metaphors only; they should not become the main information users have to read.
+- The four cards must share the same text baseline and vertical rhythm: stage title, person name, role/thinking line, and description should align across all cards.
+- Add a compact source link aligned to the lower-right of this section pointing to `https://github.com/zhu-guli326/image2_UI_skill.git`.
 
 ### Lightweight discovery strip
 
