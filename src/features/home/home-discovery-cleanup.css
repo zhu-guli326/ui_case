@@ -1,0 +1,7 @@
+/* Home discovery section cleanup.
+ * The main question already establishes the section, so the redundant
+ * EXPLORE eyebrow is intentionally omitted in both languages.
+ */
+.project-home .discovery-strip .template-gallery-heading > .section-eyebrow {
+  display: none !important;
+}
