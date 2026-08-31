@@ -68,7 +68,7 @@
 #capabilities .capability-grid > a::after {
   z-index: 3;
   inset: 1px;
-  border: 1px solid rgba(255, 255, 255, calc(.08 + var(--pointer-from-center) * .12));
+  border: 1px solid rgba(255, 255, 255, .14);
   background: linear-gradient(
     135deg,
     rgba(255,255,255,.17),
