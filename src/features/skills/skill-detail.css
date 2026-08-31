@@ -20,3 +20,45 @@
 @media(max-width:850px){.detail-layout{grid-template-columns:1fr}.detail-sidebar{position:static;grid-template-columns:1fr 1fr}.detail-output{grid-template-columns:1fr;min-height:0}.detail-output-ui{min-height:270px}}
 @media(max-width:620px){.skill-detail-page{width:min(100% - 32px,560px);padding-top:35px}.detail-hero{grid-template-columns:1fr;gap:24px;padding:38px 0 30px}.detail-install{justify-self:start}.detail-tabs{gap:18px;overflow-x:auto}.detail-output{padding:24px}.detail-output-ui{min-height:210px;padding:12px}.detail-output-ui i{min-height:75px}.detail-prose{padding:24px}.detail-use-grid,.detail-sidebar{grid-template-columns:1fr}.detail-command{grid-template-columns:1fr}.detail-command button{justify-self:start}.detail-hero h1{font-size:45px}}
 html[lang="zh-CN"] .skill-detail-page h1,html[lang="zh-CN"] .skill-detail-page h2,html[lang="zh-CN"] .skill-detail-page h3{font-family:var(--font-display-cjk);font-weight:700;letter-spacing:0;line-height:1.12}
+
+/* Skill output typography follows the global Ant Design-like CJK type scale. */
+.detail-output-copy span {
+  font-family:var(--type-font-body);
+  font-size:var(--ds-font-size-xs);
+  font-weight:var(--ds-font-weight-semibold);
+  letter-spacing:.08em;
+  line-height:var(--ds-line-height-body);
+  opacity:.62;
+}
+.detail-output-copy strong {
+  max-width:13em;
+  margin-top:var(--ds-space-5);
+  font-family:var(--type-font-display);
+  font-size:var(--ds-font-size-display-sm);
+  font-weight:var(--ds-font-weight-semibold);
+  letter-spacing:0;
+  line-height:var(--ds-line-height-heading);
+  white-space:pre-line;
+  word-break:keep-all;
+  overflow-wrap:normal;
+  text-wrap:balance;
+}
+.detail-output-copy p {
+  margin:var(--ds-space-6) 0 0;
+  font-family:var(--type-font-body);
+  font-size:var(--ds-font-size-body);
+  font-weight:var(--ds-font-weight-regular);
+  line-height:var(--ds-line-height-body);
+  letter-spacing:0;
+  opacity:.72;
+}
+html[lang^="zh"] .detail-output-copy strong {
+  font-size:var(--ds-font-size-display-sm);
+  font-weight:var(--ds-font-weight-semibold);
+  line-height:var(--ds-line-height-heading);
+  letter-spacing:0;
+}
+@media(max-width:620px){
+  .detail-output-copy strong{font-size:var(--ds-font-size-heading);max-width:none;}
+  .detail-output-copy p{font-size:var(--ds-font-size-sm);}
+}
