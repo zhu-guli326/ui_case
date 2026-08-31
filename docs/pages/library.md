@@ -10,6 +10,7 @@ Last updated: 2026-09-01
 - Canonical styles: `src/features/library/library.css`, `library-cards.css`, `library-detail.css`
 - Shared knowledge-directory geometry and floating search: `src/core/app-shell/directory-page.css`
 - Library hero continuity override: `src/features/library/library-hero-continuous.css`
+- Shared knowledge-page cleanup: `src/core/app-shell/knowledge-directory-cleanup.css`
 - Supporting data / filter / card / detail / search / preview modules remain split by stable responsibility
 
 ## Page goal
@@ -32,11 +33,10 @@ A user should be able to find a relevant case, understand what makes it useful, 
 ## Information structure
 
 1. Library orientation / context + case count in one continuous hero container
-2. Compact secondary toolbar for result metadata or page-specific controls
-3. Category filtering + visual case grid / collection
-4. Focused preview / detail
-5. Source / demo / relevant next action
-6. Persistent bottom-centered floating search for global case discovery
+2. Category filtering + visual case grid / collection
+3. Focused preview / detail
+4. Source / demo / relevant next action
+5. Persistent bottom-centered floating search for global case discovery
 
 ## Interaction rules
 
@@ -48,6 +48,7 @@ A user should be able to find a relevant case, understand what makes it useful, 
 - Avoid excessive blank space on desktop browsing views.
 - Search and filter interactions must remain predictable and reversible.
 - The primary search field is detached from the content toolbar and remains centered at the bottom of the viewport.
+- Once search is detached, do not leave an inline result-count toolbar or a secondary “精选案例 / 从画面开始” heading between the hero and the case grid.
 - On desktop pointer devices, the floating search stays icon-sized while idle and expands only on hover or keyboard/input focus; this compact resting state must not block page content.
 - Touch layouts should remain directly usable without requiring hover.
 - The floating search uses the same shared geometry as Vocabulary and Skills, while keeping Library-specific placeholder text and search behavior.
@@ -65,6 +66,8 @@ A user should be able to find a relevant case, understand what makes it useful, 
 
 - Detached hero cards with a large gap between copy and statistics.
 - Style-count and GitHub-Star statistics in the hero.
+- Result-count-only toolbars above the content list.
+- Redundant section-intro headings such as “精选案例 / 从画面开始”.
 - Vocabulary-style teaching definitions as the main content.
 - Skills directory responsibilities.
 - Launcher configuration workflow.
