@@ -1,0 +1,114 @@
+/* Home-only vertical rhythm override.
+ * Keep the editorial hierarchy, but remove oversized blank bands between
+ * sections. Loaded from site-shell before home.css, so !important is used
+ * intentionally to protect this page contract from legacy spacing values. */
+
+body.project-home .project-hero {
+  height: 92vh !important;
+  min-height: 620px !important;
+}
+
+body.project-home .project-hero-content {
+  transform: translateY(-12px) !important;
+}
+
+body.project-home .project-hero h1 {
+  margin-bottom: 22px !important;
+}
+
+body.project-home .project-hero-actions {
+  margin-top: 28px !important;
+}
+
+body.project-home .project-stats-grid {
+  padding-block: 56px !important;
+}
+
+body.project-home .project-section {
+  padding-block: clamp(64px, 7vw, 88px) !important;
+}
+
+body.project-home .section-heading {
+  margin-bottom: 36px !important;
+}
+
+body.project-home .section-heading > p:last-child {
+  margin-top: 18px !important;
+}
+
+body.project-home .project-showcase {
+  padding: 80px 0 56px !important;
+}
+
+body.project-home .showcase-copy > p:last-child {
+  margin-top: 20px !important;
+}
+
+body.project-home .showcase-scene {
+  margin-top: 8px !important;
+}
+
+body.project-home .template-gallery {
+  padding-block: clamp(64px, 7vw, 88px) !important;
+}
+
+body.project-home .template-gallery-heading > p:last-child {
+  margin-top: 20px !important;
+}
+
+body.project-home .template-filters {
+  margin: 34px 0 30px !important;
+}
+
+body.project-home .project-editorial {
+  padding-block: clamp(80px, 9vw, 112px) !important;
+}
+
+body.project-home .editorial-author {
+  margin-top: 32px !important;
+}
+
+body.project-home .project-cta {
+  padding-block: clamp(64px, 7vw, 88px) !important;
+}
+
+body.project-home .project-footer {
+  padding-top: 56px !important;
+}
+
+body.project-home .footer-grid {
+  padding-bottom: 60px !important;
+}
+
+@media (max-width: 680px) {
+  body.project-home .project-hero {
+    min-height: 640px !important;
+  }
+
+  body.project-home .project-section {
+    padding-block: 56px !important;
+  }
+
+  body.project-home .project-showcase {
+    padding-top: 64px !important;
+    padding-bottom: 48px !important;
+  }
+
+  body.project-home .showcase-scene {
+    margin-top: 32px !important;
+  }
+
+  body.project-home .template-gallery,
+  body.project-home .project-editorial,
+  body.project-home .project-cta {
+    padding-block: 56px !important;
+  }
+
+  body.project-home .template-filters {
+    margin: 28px 0 24px !important;
+  }
+
+  body.project-home .footer-grid {
+    padding-bottom: 44px !important;
+  }
+}
