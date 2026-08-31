@@ -137,8 +137,10 @@ const previousButton = carousel?.querySelector("[data-carousel-prev]");
 const nextButton = carousel?.querySelector("[data-carousel-next]");
 const dotsContainer = carousel?.querySelector("[data-carousel-dots]");
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+const autoplayDelay = 5200;
 let activeCase = Math.min(1, caseCards.length - 1);
 let autoplayTimer = 0;
+let carouselInView = !("IntersectionObserver" in window);
 let dragStart = null;
 let dragDistance = 0;
 let suppressNextClick = false;
@@ -175,8 +177,11 @@ function renderCarousel() {
 
 function scheduleAutoplay() {
   clearTimeout(autoplayTimer);
-  if (!carousel || reducedMotion.matches || document.hidden) return;
-  autoplayTimer = window.setTimeout(() => setActiveCase(activeCase + 1), 5600);
+  carousel?.classList.remove("is-autoplaying");
+  if (!carousel || reducedMotion.matches || document.hidden || !carouselInView || dragStart !== null) return;
+  void carousel.offsetWidth;
+  carousel.classList.add("is-autoplaying");
+  autoplayTimer = window.setTimeout(() => setActiveCase(activeCase + 1), autoplayDelay);
 }
 
 function setActiveCase(index) {
@@ -222,6 +227,7 @@ carouselViewport?.addEventListener("pointerdown", (event) => {
   carouselViewport.setPointerCapture(event.pointerId);
   carouselViewport.classList.add("is-dragging");
   clearTimeout(autoplayTimer);
+  carousel?.classList.remove("is-autoplaying");
 });
 
 carouselViewport?.addEventListener("pointermove", (event) => {
@@ -236,32 +242,32 @@ function finishDrag(event) {
   if (carouselViewport?.hasPointerCapture(event.pointerId)) carouselViewport.releasePointerCapture(event.pointerId);
   carouselViewport?.classList.remove("is-dragging");
   carouselViewport?.style.setProperty("--drag-x", "0px");
-  if (Math.abs(dragDistance) > 52) {
+  const completedDistance = dragDistance;
+  dragStart = null;
+  dragDistance = 0;
+  if (Math.abs(completedDistance) > 52) {
     suppressNextClick = true;
-    setActiveCase(activeCase + (dragDistance < 0 ? 1 : -1));
+    setActiveCase(activeCase + (completedDistance < 0 ? 1 : -1));
   } else {
     scheduleAutoplay();
   }
-  dragStart = null;
-  dragDistance = 0;
 }
 
 carouselViewport?.addEventListener("pointerup", finishDrag);
 carouselViewport?.addEventListener("pointercancel", finishDrag);
-carousel?.addEventListener("mouseenter", () => clearTimeout(autoplayTimer));
-carousel?.addEventListener("mouseleave", scheduleAutoplay);
-carousel?.addEventListener("focusin", () => clearTimeout(autoplayTimer));
-carousel?.addEventListener("focusout", scheduleAutoplay);
 document.addEventListener("visibilitychange", scheduleAutoplay);
 reducedMotion.addEventListener?.("change", scheduleAutoplay);
 
 if (carousel) {
-  if (reducedMotion.matches || !("IntersectionObserver" in window)) carousel.classList.add("is-visible");
+  if (!("IntersectionObserver" in window)) {
+    carouselInView = true;
+    carousel.classList.add("is-visible");
+  }
   else {
     const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) return;
-      carousel.classList.add("is-visible");
-      observer.disconnect();
+      carouselInView = entry.isIntersecting;
+      if (carouselInView) carousel.classList.add("is-visible");
+      scheduleAutoplay();
     }, { threshold: .18 });
     observer.observe(carousel);
   }
