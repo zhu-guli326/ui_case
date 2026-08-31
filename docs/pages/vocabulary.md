@@ -1,6 +1,6 @@
 # Vocabulary Page Requirements
 
-Last updated: 2026-08-31
+Last updated: 2026-09-01
 
 ## Page identity
 
@@ -8,6 +8,7 @@ Last updated: 2026-08-31
 - Product role: UI vocabulary / visual language learning and reference page
 - Canonical runtime: `src/features/vocabulary/vocabulary.js`
 - Main styles: `src/features/vocabulary/vocabulary.css` and responsibility styles under `src/features/vocabulary/styles/`
+- Shared knowledge-directory geometry and floating search: `src/core/app-shell/directory-page.css`
 - Supporting data / preview / i18n modules remain split by stable responsibility under `src/features/vocabulary/`
 
 ## Page goal
@@ -40,10 +41,12 @@ A user should be able to:
 Preferred structure:
 
 1. Page title / short orientation
-2. Category navigation or filtering
-3. Visual vocabulary list / cards
-4. Focused preview / example area
-5. Optional concise explanation / reusable prompt
+2. Compact secondary toolbar for sort / share controls
+3. Category navigation or filtering
+4. Visual vocabulary list / cards
+5. Focused preview / example area
+6. Optional concise explanation / reusable prompt
+7. Persistent bottom-centered floating search for vocabulary discovery
 
 The page should behave more like a visual directory + learning reference than a form-heavy editor.
 
@@ -52,6 +55,8 @@ The page should behave more like a visual directory + learning reference than a 
 - A vocabulary item should reveal its meaning primarily through visuals.
 - Large example imagery / previews should receive more emphasis than long body copy.
 - Search and category changes should be easy to understand and reversible.
+- The primary search field is detached from the content toolbar and remains a centered floating control at the bottom of the viewport; reserve page-bottom space so it never covers the last usable content.
+- The floating search uses the same shared geometry as Library and Skills, while keeping Vocabulary-specific placeholder text, keyboard behavior and search logic.
 - Card behavior and preview behavior should remain consistent inside the page.
 - If cards support flipped states or variants, the interaction must have a clear learning purpose rather than decorative complexity.
 - Card flip and state-variant controls must remain repeatably clickable after card re-rendering, search/filter changes and language switching; interaction handling should live on a persistent parent rather than depend on one-time listeners attached to replaceable card DOM.
@@ -74,6 +79,7 @@ The page should behave more like a visual directory + learning reference than a 
 - Large blocks of generic design theory without visual evidence.
 - Duplicate detail-page architecture when an inline focused preview is enough.
 - Multiple overlapping navigation systems.
+- A second inline search field in the page toolbar while the shared floating search is active.
 
 ## Modification boundary
 
