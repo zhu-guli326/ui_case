@@ -8,6 +8,7 @@ Last updated: 2026-09-01
 - `index.html` only redirects here
 - Product role: ONDesign main landing / learning entry
 - Canonical implementation: `src/features/home/home.css`, `src/features/home/home.js`
+- Home vertical-rhythm override: `src/features/home/home-compact-spacing.css`
 
 ## Page goal
 
@@ -88,6 +89,8 @@ The old template gallery is no longer a template catalog. It is a compact “看
 - Maintain ONDesign's green brand direction unless a global design decision changes it.
 - Do not turn the page into a catalog grid; catalogs belong to Library / Vocabulary / Skills.
 - Keep the primary Start Designing path obvious without adding configuration controls that belong to Launcher.
+- Keep desktop vertical rhythm compact enough that adjacent sections feel connected. Avoid large blank bands created by section padding; default content sections should generally sit in a roughly 64–88px vertical-padding range, with only intentional hero/editorial moments allowed to exceed it.
+- Section headings, supporting copy and tab/filter groups should use compact internal spacing so the page stays relaxed without feeling empty.
 
 ## Keep
 
@@ -104,6 +107,7 @@ The old template gallery is no longer a template catalog. It is a compact “看
 - Full case-library browsing.
 - Launcher configuration responsibilities.
 - Duplicated navigation or page-specific global header.
+- Oversized vertical whitespace that makes each section feel disconnected from the next.
 
 ## Modification boundary
 
