@@ -1,0 +1,68 @@
+/* Reliability override for vocabulary cards.
+ *
+ * CSS 3D flip/backface hit-testing can become intermittent in Chromium when
+ * cards are re-rendered and nested controls are layered above transformed
+ * faces. Keep the same front/back learning model but use a simple 2D state
+ * transition so every visible control keeps a stable pointer target.
+ */
+.entry-card {
+  perspective: none;
+}
+
+.entry-card-inner,
+.entry-card.is-flipped .entry-card-inner,
+.entry-card.is-static .entry-card-inner {
+  transform: none !important;
+  transform-style: flat;
+  transition: none;
+}
+
+.entry-card-face {
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+  transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
+}
+
+.entry-card-front {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0) !important;
+  pointer-events: auto;
+}
+
+.entry-card-back {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(8px) !important;
+  pointer-events: none;
+}
+
+.entry-card.is-flipped .entry-card-front {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-8px) !important;
+  pointer-events: none;
+}
+
+.entry-card.is-flipped .entry-card-back {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0) !important;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+
+.entry-card:not(.is-flipped) .entry-card-front {
+  transition-delay: 0s;
+}
+
+/* Keep the explicit full-face hit areas available as a fallback, but the
+ * delegated JS handler no longer depends on them as the only clickable area. */
+.entry-flip-hitarea {
+  touch-action: manipulation;
+}
+
+.entry-card button,
+.entry-card a {
+  touch-action: manipulation;
+}
