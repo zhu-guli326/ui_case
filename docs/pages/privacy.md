@@ -12,6 +12,10 @@ Last updated: 2026-08-31
 
 Present privacy-related information clearly, accurately and separately from product marketing or feature workflows.
 
+## Core user task
+
+A visitor should be able to understand what privacy-relevant services or data practices apply to the site, what external services are involved when relevant, and where to find policy contact or update information.
+
 ## Core functions
 
 - Explain relevant privacy practices in readable language.
@@ -24,6 +28,13 @@ Present privacy-related information clearly, accurately and separately from prod
 2. Data or service practices that need disclosure
 3. External services / analytics disclosures where applicable
 4. Contact or policy update information when applicable
+
+## Interaction rules
+
+- Keep the page policy-focused and easy to scan.
+- Links to external policies or services should be clearly labeled and accurate.
+- Do not hide material privacy information behind unrelated product interactions.
+- When site integrations change privacy-relevant behavior, review this document and the visible policy content together.
 
 ## Keep
 
