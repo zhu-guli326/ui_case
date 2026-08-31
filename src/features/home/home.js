@@ -1,5 +1,21 @@
 const SUPPORTED_LANGUAGES = new Set(["zh", "en"]);
 
+const templateFilters = [...document.querySelectorAll("[data-template-filter]")];
+const templateCards = [...document.querySelectorAll("[data-template-category]")];
+
+function filterTemplates(category) {
+  templateFilters.forEach((button) => {
+    const selected = button.dataset.templateFilter === category;
+    button.classList.toggle("is-active", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+  templateCards.forEach((card) => {
+    card.classList.toggle("is-hidden", category !== "all" && card.dataset.templateCategory !== category);
+  });
+}
+
+templateFilters.forEach((button) => button.addEventListener("click", () => filterTemplates(button.dataset.templateFilter)));
+
 const CAPABILITY_FIGURES = [
   {
     stage: "01 · DEFINE",
