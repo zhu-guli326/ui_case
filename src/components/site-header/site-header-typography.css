@@ -1,22 +1,36 @@
 /*
  * Global site-header typography contract.
- * Header typography and navigation state are protected from page-level styles.
- * Geometry, radii, control sizes and icon layout still belong to site-header.css.
+ *
+ * The header is one shared component. Chinese and English may resolve to
+ * different glyph-capable font families, but navigation geometry and visual
+ * metrics must stay identical when the language changes.
  */
+
+:root {
+  --site-header-nav-size: 14px;
+  --site-header-nav-weight: 500;
+  --site-header-nav-active-weight: 600;
+  --site-header-nav-line-height: 1.4;
+  --site-header-nav-tracking: 0;
+  --site-header-menu-size: 14px;
+  --site-header-menu-small-size: 12px;
+  --site-header-language-size: 11px;
+  --site-header-star-size: 12px;
+}
 
 .site-header nav.site-nav.site-nav > a,
 .site-header .site-nav-primary > a,
 .site-header .site-nav-community > a,
 .site-header .site-nav-more > summary {
   font-family: var(--type-font-body) !important;
-  font-size: var(--ds-font-size-body) !important;
-  font-weight: var(--ds-font-weight-medium) !important;
-  letter-spacing: var(--ds-letter-spacing-body) !important;
-  line-height: var(--ds-line-height-body) !important;
+  font-size: var(--site-header-nav-size) !important;
+  font-weight: var(--site-header-nav-weight) !important;
+  letter-spacing: var(--site-header-nav-tracking) !important;
+  line-height: var(--site-header-nav-line-height) !important;
 }
 
 /* App-shell wraps translated labels in spans. They must never inherit page-level
- * span typography (home/editorial pages used to change Explore independently). */
+ * span typography or language-specific body metrics. */
 .site-header nav.site-nav.site-nav > a > span[data-i18n],
 .site-header .site-nav-primary > a > span[data-i18n],
 .site-header .site-nav-community > a > span[data-i18n],
@@ -35,10 +49,10 @@
 .site-header .site-nav-more.is-current > summary,
 .site-header .site-nav-community > .site-nav-start {
   font-family: var(--type-font-body) !important;
-  font-size: var(--ds-font-size-body) !important;
-  font-weight: var(--ds-font-weight-semibold) !important;
-  letter-spacing: var(--ds-letter-spacing-body) !important;
-  line-height: var(--ds-line-height-body) !important;
+  font-size: var(--site-header-nav-size) !important;
+  font-weight: var(--site-header-nav-active-weight) !important;
+  letter-spacing: var(--site-header-nav-tracking) !important;
+  line-height: var(--site-header-nav-line-height) !important;
 }
 
 /* Current-page state is owned globally. Feature pages must not invent their own
@@ -65,96 +79,71 @@
   content: none !important;
 }
 
-html[lang^="zh"] .site-header nav.site-nav.site-nav > a,
-html[lang^="zh"] .site-header .site-nav-primary > a,
-html[lang^="zh"] .site-header .site-nav-community > a,
-html[lang^="zh"] .site-header .site-nav-more > summary {
-  letter-spacing: 0 !important;
-}
-
 .site-header .site-nav-more > summary::after {
   font-family: var(--type-font-body) !important;
-  font-size: var(--ds-font-size-xs) !important;
-  font-weight: var(--ds-font-weight-semibold) !important;
+  font-size: 12px !important;
+  font-weight: var(--site-header-nav-active-weight) !important;
   letter-spacing: 0 !important;
   line-height: 1 !important;
 }
 
 .site-header .site-nav-menu a {
   font-family: var(--type-font-body) !important;
-  font-size: var(--ds-font-size-body) !important;
-  font-weight: var(--ds-font-weight-regular) !important;
-  letter-spacing: var(--ds-letter-spacing-body) !important;
-  line-height: var(--ds-line-height-body) !important;
+  font-size: var(--site-header-menu-size) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.55 !important;
 }
 
 .site-header .site-nav-menu a strong {
   font-family: var(--type-font-body) !important;
-  font-size: var(--ds-font-size-body) !important;
-  font-weight: var(--ds-font-weight-medium) !important;
-  letter-spacing: var(--ds-letter-spacing-body) !important;
-  line-height: var(--ds-line-height-heading) !important;
+  font-size: var(--site-header-menu-size) !important;
+  font-weight: var(--site-header-nav-weight) !important;
+  letter-spacing: 0 !important;
+  line-height: 1.35 !important;
 }
 
 .site-header .site-nav-menu a small {
   font-family: var(--type-font-body) !important;
-  font-size: var(--ds-font-size-xs) !important;
-  font-weight: var(--ds-font-weight-regular) !important;
-  letter-spacing: var(--ds-letter-spacing-body) !important;
-  line-height: var(--ds-line-height-body) !important;
+  font-size: var(--site-header-menu-small-size) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.5 !important;
 }
 
 .site-header .global-language-switch button {
   font-family: var(--type-font-body) !important;
-  font-size: var(--ds-font-size-body) !important;
-  font-weight: var(--ds-font-weight-medium) !important;
-  letter-spacing: var(--ds-letter-spacing-body) !important;
-  line-height: var(--ds-line-height-body) !important;
+  font-size: var(--site-header-language-size) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  line-height: 1 !important;
 }
 
 .site-header .global-language-switch button[aria-pressed="true"] {
-  font-weight: var(--ds-font-weight-semibold) !important;
+  font-weight: 700 !important;
 }
 
 .site-header .site-nav-github .site-nav-stars {
   font-family: var(--font-number) !important;
-  font-size: var(--ds-font-size-body) !important;
-  font-weight: var(--ds-font-weight-semibold) !important;
+  font-size: var(--site-header-star-size) !important;
+  font-weight: 600 !important;
   font-variant-numeric: var(--number-font-variant) !important;
   font-feature-settings: var(--number-font-features) !important;
   letter-spacing: 0 !important;
-  line-height: var(--ds-line-height-body) !important;
+  line-height: 1 !important;
 }
 
 @media (max-width: 940px) {
-  .site-header nav.site-nav.site-nav > a,
-  .site-header .site-nav-primary > a,
-  .site-header .site-nav-community > a,
-  .site-header .site-nav-more > summary,
-  .site-header .site-nav-community > .site-nav-start,
-  .site-header .global-language-switch button,
-  .site-header .site-nav-github .site-nav-stars {
-    font-size: var(--ds-font-size-sm) !important;
-  }
+  :root { --site-header-nav-size: 13px; }
 }
 
 @media (max-width: 700px) {
-  .site-header nav.site-nav.site-nav > a,
-  .site-header .site-nav-primary > a,
-  .site-header .site-nav-community > a,
-  .site-header .site-nav-more > summary,
-  .site-header .site-nav-community > .site-nav-start,
-  .site-header .global-language-switch button {
-    font-size: var(--ds-font-size-xs) !important;
+  :root {
+    --site-header-nav-size: 12px;
+    --site-header-language-size: 10px;
   }
 }
 
 @media (max-width: 390px) {
-  .site-header nav.site-nav.site-nav > a,
-  .site-header .site-nav-primary > a,
-  .site-header .site-nav-community > a,
-  .site-header .site-nav-more > summary,
-  .site-header .site-nav-community > .site-nav-start {
-    font-size: 11px !important;
-  }
+  :root { --site-header-nav-size: 11px; }
 }
