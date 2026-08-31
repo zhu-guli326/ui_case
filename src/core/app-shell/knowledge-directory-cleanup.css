@@ -1,0 +1,41 @@
+/*
+ * Shared cleanup for the three knowledge-directory pages:
+ * Library, Vocabulary and Skills.
+ *
+ * Search is now a bottom-centered floating control. The old inline toolbar
+ * should not leave behind result-count, sort/sync, or empty card chrome.
+ */
+body.directory-page .directory-toolbar {
+  min-height: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+body.directory-page .directory-toolbar > :not(.search-field) {
+  display: none !important;
+}
+
+/* Library no longer needs the secondary “精选案例 / 从画面开始” heading. */
+body.library-page .catalog-bar {
+  display: none !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+/* Keep content starting immediately after the hero/filters. */
+body.directory-page .directory-section {
+  padding-top: 14px;
+}
+
+body.library-page .directory-layout,
+body.vocabulary-page .directory-layout,
+body.skills-document .directory-layout {
+  margin-top: 0 !important;
+}
