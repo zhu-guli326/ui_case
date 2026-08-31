@@ -55,6 +55,8 @@ The page should behave more like a visual directory + learning reference than a 
 - Card behavior and preview behavior should remain consistent inside the page.
 - If cards support flipped states or variants, the interaction must have a clear learning purpose rather than decorative complexity.
 - Card flip and state-variant controls must remain repeatably clickable after card re-rendering, search/filter changes and language switching; interaction handling should live on a persistent parent rather than depend on one-time listeners attached to replaceable card DOM.
+- Interaction reliability takes priority over decorative 3D flip effects. Avoid transform/backface-based hit testing when it makes pointer targets intermittent; a simple front/back state transition is preferred if it is more dependable.
+- The visible card surface should remain a reliable toggle target, while explicit controls such as favorite, copy Prompt, state buttons and detail actions must keep their own independent behavior.
 - Chinese and English content must switch through the global language system.
 
 ## Keep
