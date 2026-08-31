@@ -58,6 +58,17 @@ The four-card workflow should explain the path from an idea to a runnable demo. 
 - `DEFINE / CREATE / BUILD / ITERATE` must be more visually prominent than the names of Steve Jobs, Leonardo da Vinci, Bill Gates or Thomas Edison.
 - Historical figures are supporting metaphors only; they should not become the main information users have to read.
 
+### Lightweight discovery strip
+
+The old template gallery is no longer a template catalog. It is a compact “看点啥” discovery entry that helps users choose what kind of design resource they want to explore next.
+
+- Chinese title: `看点啥`.
+- Keep the supporting copy short and conversational; explain that users can jump into App, Web, Skills, tools or UI vocabulary.
+- Primary tags: `App 设计`, `Web 设计`, `设计 Skill`, `设计工具`, `UI 词库`.
+- Show the category entries in a single horizontal row on desktop; do not expand into a multi-row catalog grid.
+- On narrower screens, allow horizontal scrolling rather than stacking a long catalog.
+- Each category entry should act as a navigation doorway into the relevant ONDesign resource area, not as a full browsing experience on the home page.
+
 ## Interaction rules
 
 - Favor large visual examples over dense text.
