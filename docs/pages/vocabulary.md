@@ -55,7 +55,9 @@ The page should behave more like a visual directory + learning reference than a 
 - A vocabulary item should reveal its meaning primarily through visuals.
 - Large example imagery / previews should receive more emphasis than long body copy.
 - Search and category changes should be easy to understand and reversible.
-- The primary search field is detached from the content toolbar and remains a centered floating control at the bottom of the viewport; reserve page-bottom space so it never covers the last usable content.
+- The primary search field is detached from the content toolbar and remains centered at the bottom of the viewport.
+- On desktop pointer devices, the floating search stays icon-sized while idle and expands only on hover or keyboard/input focus; this compact resting state must not block page content.
+- Touch layouts should remain directly usable without requiring hover.
 - The floating search uses the same shared geometry as Library and Skills, while keeping Vocabulary-specific placeholder text, keyboard behavior and search logic.
 - Card behavior and preview behavior should remain consistent inside the page.
 - If cards support flipped states or variants, the interaction must have a clear learning purpose rather than decorative complexity.
