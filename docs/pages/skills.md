@@ -8,6 +8,7 @@ Last updated: 2026-09-01
 - Product role: design Skill + Web reference discovery directory
 - Canonical implementation: `src/features/skills/skills.css` and responsibility modules listed in `AGENTS.md`
 - Shared knowledge-directory geometry and floating search: `src/core/app-shell/directory-page.css`
+- Shared knowledge-page cleanup: `src/core/app-shell/knowledge-directory-cleanup.css`
 - Supported top-level modes: `SKILL` and `WEB`
 
 ## Page goal
@@ -57,12 +58,11 @@ Category wording can be refined, but the structure should remain intuitive and s
 ## Information structure
 
 1. Mode / directory context
-2. Compact secondary toolbar for sort / sync / result controls
-3. Filter controls
-4. Resource list / visual cards
-5. Focused inspector / flipped detail when useful
-6. Direct action: visit, copy prompt, inspect source availability, etc.
-7. Persistent bottom-centered floating search for Skill / Web resource discovery
+2. Filter controls
+3. Resource list / visual cards
+4. Focused inspector / flipped detail when useful
+5. Direct action: visit, copy prompt, inspect source availability, etc.
+6. Persistent bottom-centered floating search for Skill / Web resource discovery
 
 ## Interaction rules
 
@@ -73,6 +73,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Resources that cannot meaningfully flip should not fake a flip interaction.
 - Source-code availability should remain visible and filterable.
 - The primary search field is detached from the content toolbar and remains centered at the bottom of the viewport.
+- Once search is detached, do not keep an inline result-count, sort/sync or empty toolbar strip above the directory content.
 - On desktop pointer devices, the floating search stays icon-sized while idle and expands only on hover or keyboard/input focus; this compact resting state must not block page content.
 - Touch layouts should remain directly usable without requiring hover.
 - The floating search uses the same shared geometry as Library and Vocabulary, while keeping Skills-specific placeholder text and filtering behavior.
@@ -90,6 +91,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 
 - Duplicate filter systems.
 - Task-search controls that do not improve resource discovery.
+- Result-count / sort / sync-only toolbar chrome after search moves to the floating dock.
 - Large empty margins that reduce browsing efficiency.
 - Repeated buttons or repeated resource metadata.
 - Recreating Library or Vocabulary inside this page.
