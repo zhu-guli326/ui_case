@@ -16,6 +16,89 @@ function filterTemplates(category) {
 
 templateFilters.forEach((button) => button.addEventListener("click", () => filterTemplates(button.dataset.templateFilter)));
 
+const discoveryStrip = document.querySelector(".discovery-strip");
+const discoveryTabs = [...(discoveryStrip?.querySelectorAll(".template-filters a") || [])];
+const discoveryCards = [...(discoveryStrip?.querySelectorAll(".template-grid .template-card") || [])];
+const discoveryRoutes = discoveryTabs.map((tab) => tab.dataset.smartLangLink || tab.getAttribute("href") || "./library.html");
+let activeDiscoveryIndex = 0;
+let discoveryMoreLink = null;
+
+function localizedRoute(route, language = currentLanguage()) {
+  const target = new URL(route, location.href);
+  target.searchParams.set("lang", language);
+  return `${target.pathname.split("/").pop()}${target.search}${target.hash}`;
+}
+
+function ensureDiscoveryEnhancement() {
+  if (!discoveryStrip || !discoveryTabs.length || !discoveryCards.length) return;
+
+  discoveryTabs.forEach((tab, index) => {
+    tab.setAttribute("role", "tab");
+    tab.removeAttribute("target");
+    tab.addEventListener("click", (event) => {
+      event.preventDefault();
+      renderDiscovery(index);
+    });
+  });
+
+  discoveryCards.forEach((card) => {
+    card.addEventListener("click", (event) => event.preventDefault());
+    card.setAttribute("aria-disabled", "true");
+  });
+
+  const footer = document.createElement("div");
+  footer.className = "discovery-footer";
+  discoveryMoreLink = document.createElement("a");
+  discoveryMoreLink.className = "discovery-more";
+  discoveryMoreLink.innerHTML = '<span data-zh="查看更多" data-en="View more">查看更多</span> ↗';
+  footer.append(discoveryMoreLink);
+  discoveryStrip.querySelector(".project-container")?.append(footer);
+
+  const style = document.createElement("style");
+  style.textContent = `
+    .discovery-strip .template-filters a { cursor: pointer; }
+    .discovery-strip .template-filters a.is-active { border-color: #111; background: #111; color: #fff; }
+    .discovery-strip .template-grid { display: block !important; }
+    .discovery-strip .template-card { display: none; width: min(100%, 860px); aspect-ratio: 16 / 9; margin: 0 auto; cursor: default; }
+    .discovery-strip .template-card.is-active-discovery { display: block; }
+    .discovery-footer { display: flex; justify-content: flex-end; margin-top: 22px; }
+    .discovery-more { display: inline-flex; align-items: center; gap: 7px; padding-bottom: 6px; border-bottom: 1px solid #111; color: #111; font-size: 14px; text-decoration: none; }
+    @media (max-width: 680px) {
+      .discovery-strip .template-card { width: 100%; aspect-ratio: 4 / 5; }
+      .discovery-footer { margin-top: 18px; }
+    }
+  `;
+  document.head.append(style);
+
+  renderDiscovery(0);
+}
+
+function renderDiscovery(index) {
+  if (!discoveryTabs.length || !discoveryCards.length) return;
+  activeDiscoveryIndex = Math.max(0, Math.min(index, discoveryTabs.length - 1));
+
+  discoveryTabs.forEach((tab, tabIndex) => {
+    const selected = tabIndex === activeDiscoveryIndex;
+    tab.classList.toggle("is-active", selected);
+    tab.setAttribute("aria-selected", String(selected));
+    tab.setAttribute("aria-pressed", String(selected));
+    tab.tabIndex = selected ? 0 : -1;
+  });
+
+  discoveryCards.forEach((card, cardIndex) => {
+    const selected = cardIndex === activeDiscoveryIndex;
+    card.classList.toggle("is-active-discovery", selected);
+    card.hidden = !selected;
+    card.setAttribute("aria-hidden", String(!selected));
+  });
+
+  if (discoveryMoreLink) {
+    const route = discoveryRoutes[activeDiscoveryIndex] || "./library.html";
+    discoveryMoreLink.dataset.smartLangLink = route;
+    discoveryMoreLink.href = localizedRoute(route);
+  }
+}
+
 const CAPABILITY_FIGURES = [
   {
     stage: "01 · DEFINE",
@@ -123,7 +206,7 @@ function applyLanguage(event) {
 
   const capabilityEyebrow = document.querySelector("#capabilities .section-eyebrow");
   const capabilityHeading = document.querySelector("#capabilities .section-heading h2");
-  if (capabilityEyebrow) capabilityEyebrow.textContent = "IMAGE2 WORKFLOW";
+  if (capabilityEyebrow) capabilityEyebrow.textContent = "image2 to ui";
   if (capabilityHeading) {
     capabilityHeading.removeAttribute("data-zh");
     capabilityHeading.removeAttribute("data-en");
@@ -139,6 +222,8 @@ function applyLanguage(event) {
     target.searchParams.set("lang", language);
     link.href = `${target.pathname.split("/").pop()}${target.search}${target.hash}`;
   });
+
+  renderDiscovery(activeDiscoveryIndex);
 
   if (previousButton) previousButton.setAttribute("aria-label", language === "en" ? "Previous case" : "上一个案例");
   if (nextButton) nextButton.setAttribute("aria-label", language === "en" ? "Next case" : "下一个案例");
@@ -336,6 +421,7 @@ function initStatsCounter() {
   observer.observe(stats);
 }
 
+ensureDiscoveryEnhancement();
 renderCarousel();
 scheduleAutoplay();
 initStatsCounter();
