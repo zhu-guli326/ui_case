@@ -46,7 +46,7 @@ Preferred narrative order:
 
 The page may evolve visually, but it should preserve a clear story from problem → method → proof → action.
 
-## Visual / content rules
+## Interaction rules
 
 - Favor large visual examples over dense text.
 - Keep section hierarchy strong and editorial rather than dashboard-like.
@@ -54,6 +54,7 @@ The page may evolve visually, but it should preserve a clear story from problem 
 - Chinese typography and English typography may use different spacing / line-height treatment where needed.
 - Maintain ONDesign's green brand direction unless a global design decision changes it.
 - Do not turn the page into a catalog grid; catalogs belong to Library / Vocabulary / Skills.
+- Keep the primary Start Designing path obvious without adding configuration controls that belong to Launcher.
 
 ## Keep
 
