@@ -7,6 +7,7 @@ Last updated: 2026-09-01
 - Public route: `skills.html`
 - Product role: design Skill + Web reference discovery directory
 - Canonical implementation: `src/features/skills/skills.css` and responsibility modules listed in `AGENTS.md`
+- Shared knowledge-directory geometry and floating search: `src/core/app-shell/directory-page.css`
 - Supported top-level modes: `SKILL` and `WEB`
 
 ## Page goal
@@ -56,10 +57,12 @@ Category wording can be refined, but the structure should remain intuitive and s
 ## Information structure
 
 1. Mode / directory context
-2. Filter controls
-3. Resource list / visual cards
-4. Focused inspector / flipped detail when useful
-5. Direct action: visit, copy prompt, inspect source availability, etc.
+2. Compact secondary toolbar for sort / sync / result controls
+3. Filter controls
+4. Resource list / visual cards
+5. Focused inspector / flipped detail when useful
+6. Direct action: visit, copy prompt, inspect source availability, etc.
+7. Persistent bottom-centered floating search for Skill / Web resource discovery
 
 ## Interaction rules
 
@@ -69,6 +72,8 @@ Category wording can be refined, but the structure should remain intuitive and s
 - A flipped card state should reveal additional useful content rather than repeat the front.
 - Resources that cannot meaningfully flip should not fake a flip interaction.
 - Source-code availability should remain visible and filterable.
+- The primary search field is detached from the content toolbar and remains a centered floating control at the bottom of the viewport; reserve page-bottom space so it never covers the last usable content.
+- The floating search uses the same shared geometry as Library and Vocabulary, while keeping Skills-specific placeholder text and filtering behavior.
 - Chinese and English modes should expose equivalent resources and functionality.
 
 ## Keep
@@ -86,6 +91,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Large empty margins that reduce browsing efficiency.
 - Repeated buttons or repeated resource metadata.
 - Recreating Library or Vocabulary inside this page.
+- A second inline search field in the page toolbar while the shared floating search is active.
 
 ## Modification boundary
 
