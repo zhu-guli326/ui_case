@@ -22,6 +22,7 @@ const CAPABILITY_FIGURES = [
     image: "./assets/home/figures/steve-jobs.png",
     alt: { zh: "史蒂夫·乔布斯像素人物肖像", en: "Pixel portrait of Steve Jobs" },
     name: { zh: "DEFINE", en: "DEFINE" },
+    person: { zh: "史蒂夫·乔布斯", en: "Steve Jobs" },
     thinking: { zh: "确定目标 / 页面 / 参考", en: "Goal / Page / Reference" },
     tagline: { zh: "先确定做什么、为谁做，以及参考什么。", en: "Clarify what you are building, who it is for, and what should guide it." },
   },
@@ -30,6 +31,7 @@ const CAPABILITY_FIGURES = [
     image: "./assets/home/figures/leonardo-da-vinci.png",
     alt: { zh: "达·芬奇像素人物肖像", en: "Pixel portrait of Leonardo da Vinci" },
     name: { zh: "CREATE", en: "CREATE" },
+    person: { zh: "达·芬奇", en: "Leonardo da Vinci" },
     thinking: { zh: "拆解 / 组合 / 视觉方向", en: "Break down / Compose / Visual direction" },
     tagline: { zh: "把参考转成布局、字体、颜色和组件。", en: "Turn references into layout, typography, color, and components." },
   },
@@ -38,6 +40,7 @@ const CAPABILITY_FIGURES = [
     image: "./assets/home/figures/bill-gates.png",
     alt: { zh: "比尔·盖茨像素人物肖像", en: "Pixel portrait of Bill Gates" },
     name: { zh: "BUILD", en: "BUILD" },
+    person: { zh: "比尔·盖茨", en: "Bill Gates" },
     thinking: { zh: "Design DNA / AI Coding / Demo", en: "Design DNA / AI Coding / Demo" },
     tagline: { zh: "把设计规则交给 AI Coding，做出能运行的 Demo。", en: "Hand the design rules to AI Coding and build a runnable demo." },
   },
@@ -46,6 +49,7 @@ const CAPABILITY_FIGURES = [
     image: "./assets/home/figures/thomas-edison.png",
     alt: { zh: "爱迪生像素人物肖像", en: "Pixel portrait of Thomas Edison" },
     name: { zh: "ITERATE", en: "ITERATE" },
+    person: { zh: "爱迪生", en: "Thomas Edison" },
     thinking: { zh: "对照 / 调整 / 验证", en: "Compare / Refine / Validate" },
     tagline: { zh: "对照目标持续迭代，让 Demo 更像、更顺、更能用。", en: "Compare, refine, and validate until the demo looks right and works well." },
   },
@@ -95,7 +99,7 @@ function renderCapabilityFigures(language) {
       copy.removeAttribute("data-zh");
       copy.removeAttribute("data-en");
       copy.style.minHeight = "0";
-      copy.innerHTML = `<span style="display:block">${figure.thinking[language]}</span><span style="display:block;margin-top:4px;color:rgba(255,255,255,.9)">${figure.tagline[language]}</span>`;
+      copy.innerHTML = `<span style="display:block;font-weight:650;color:#fff">${figure.person[language]}</span><span style="display:block;margin-top:4px">${figure.thinking[language]}</span><span style="display:block;margin-top:4px;color:rgba(255,255,255,.9)">${figure.tagline[language]}</span>`;
     }
   });
 }
