@@ -19,7 +19,53 @@ templateFilters.forEach((button) => button.addEventListener("click", () => filte
 const discoveryStrip = document.querySelector(".discovery-strip");
 const discoveryTabs = [...(discoveryStrip?.querySelectorAll(".template-filters a") || [])];
 const discoveryCards = [...(discoveryStrip?.querySelectorAll(".template-grid .template-card") || [])];
-const discoveryRoutes = discoveryTabs.map((tab) => tab.dataset.smartLangLink || tab.getAttribute("href") || "./library.html");
+const DISCOVERY_PREVIEWS = [
+  {
+    src: "./assets/cases/fashion-shopping-app/hero-screen.png",
+    ratio: "9 / 16",
+    maxWidth: "390px",
+    fit: "cover",
+    position: "center top",
+    route: "./library.html",
+    alt: { zh: "ONDesign 案例库中的 Fashion Shopping App 移动端界面", en: "Fashion Shopping App mobile UI from the ONDesign case library" },
+  },
+  {
+    src: "./assets/home/case-product-designer-20260831.png",
+    ratio: "16 / 9",
+    maxWidth: "1120px",
+    fit: "cover",
+    position: "center top",
+    route: "./skills.html?mode=WEB",
+    alt: { zh: "ONDesign 收录的真实 Web 设计案例", en: "A real web design case featured in ONDesign" },
+  },
+  {
+    src: "./assets/skills/repositories/leonxlnx-taste-skill-detail.png",
+    ratio: "3 / 4",
+    maxWidth: "640px",
+    fit: "cover",
+    position: "center top",
+    route: "./skills.html",
+    alt: { zh: "ONDesign 设计 Skill 库中的 Skill 详情卡片", en: "A real Skill detail preview from the ONDesign Skills library" },
+  },
+  {
+    src: "./assets/demo-preview.gif",
+    ratio: "3 / 4",
+    maxWidth: "640px",
+    fit: "cover",
+    position: "center top",
+    route: "./launcher.html",
+    alt: { zh: "ONDesign Start Designing / Design DNA 实际工作流预览", en: "ONDesign Start Designing and Design DNA workflow preview" },
+  },
+  {
+    src: "./assets/vocabulary/generated-v2/content-display-sheet.png",
+    ratio: "3 / 4",
+    maxWidth: "640px",
+    fit: "cover",
+    position: "center top",
+    route: "./vocabulary.html",
+    alt: { zh: "ONDesign UI 词库中的内容展示与组件术语卡片", en: "Content-display and component terminology cards from ONDesign UI Vocabulary" },
+  },
+];
 let activeDiscoveryIndex = 0;
 let discoveryMoreLink = null;
 
@@ -27,6 +73,20 @@ function localizedRoute(route, language = currentLanguage()) {
   const target = new URL(route, location.href);
   target.searchParams.set("lang", language);
   return `${target.pathname.split("/").pop()}${target.search}${target.hash}`;
+}
+
+function configureDiscoveryCard(card, index) {
+  const preview = DISCOVERY_PREVIEWS[index];
+  if (!card || !preview) return;
+  const image = card.querySelector("img");
+  if (image) {
+    image.src = new URL(preview.src, location.href).href;
+    image.alt = preview.alt[currentLanguage()];
+    image.style.objectFit = preview.fit;
+    image.style.objectPosition = preview.position;
+  }
+  card.style.setProperty("--discovery-ratio", preview.ratio);
+  card.style.setProperty("--discovery-max-width", preview.maxWidth);
 }
 
 function ensureDiscoveryEnhancement() {
@@ -41,7 +101,8 @@ function ensureDiscoveryEnhancement() {
     });
   });
 
-  discoveryCards.forEach((card) => {
+  discoveryCards.forEach((card, index) => {
+    configureDiscoveryCard(card, index);
     card.addEventListener("click", (event) => event.preventDefault());
     card.setAttribute("aria-disabled", "true");
   });
@@ -59,12 +120,24 @@ function ensureDiscoveryEnhancement() {
     .discovery-strip .template-filters a { cursor: pointer; }
     .discovery-strip .template-filters a.is-active { border-color: #111; background: #111; color: #fff; }
     .discovery-strip .template-grid { display: block !important; }
-    .discovery-strip .template-card { display: none; width: min(100%, 860px); aspect-ratio: 16 / 9; margin: 0 auto; cursor: default; }
+    .discovery-strip .template-card {
+      display: none;
+      width: min(100%, var(--discovery-max-width, 860px));
+      aspect-ratio: var(--discovery-ratio, 16 / 9);
+      margin: 0 auto;
+      cursor: default;
+      overflow: hidden;
+    }
+    .discovery-strip .template-card > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
     .discovery-strip .template-card.is-active-discovery { display: block; }
     .discovery-footer { display: flex; justify-content: flex-end; margin-top: 22px; }
     .discovery-more { display: inline-flex; align-items: center; gap: 7px; padding-bottom: 6px; border-bottom: 1px solid #111; color: #111; font-size: 14px; text-decoration: none; }
     @media (max-width: 680px) {
-      .discovery-strip .template-card { width: 100%; aspect-ratio: 4 / 5; }
+      .discovery-strip .template-card { width: min(100%, var(--discovery-max-width, 100%)); }
       .discovery-footer { margin-top: 18px; }
     }
   `;
@@ -87,13 +160,15 @@ function renderDiscovery(index) {
 
   discoveryCards.forEach((card, cardIndex) => {
     const selected = cardIndex === activeDiscoveryIndex;
+    configureDiscoveryCard(card, cardIndex);
     card.classList.toggle("is-active-discovery", selected);
     card.hidden = !selected;
     card.setAttribute("aria-hidden", String(!selected));
   });
 
   if (discoveryMoreLink) {
-    const route = discoveryRoutes[activeDiscoveryIndex] || "./library.html";
+    const preview = DISCOVERY_PREVIEWS[activeDiscoveryIndex];
+    const route = preview?.route || "./library.html";
     discoveryMoreLink.dataset.smartLangLink = route;
     discoveryMoreLink.href = localizedRoute(route);
   }
