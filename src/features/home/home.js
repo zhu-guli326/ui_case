@@ -1,4 +1,8 @@
 const SUPPORTED_LANGUAGES = new Set(["zh", "en"]);
+const HOME_MOTION_SCRIPTS = [
+  "https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js",
+  "https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js",
+];
 
 const templateFilters = [...document.querySelectorAll("[data-template-filter]")];
 const templateCards = [...document.querySelectorAll("[data-template-category]")];
@@ -89,6 +93,41 @@ function configureDiscoveryCard(card, index) {
   card.style.setProperty("--discovery-max-width", preview.maxWidth);
 }
 
+function animateDiscoveryCard(card) {
+  if (!card || !window.gsap || reducedMotion.matches) return;
+  const image = card.querySelector("img");
+  window.gsap.fromTo(
+    card,
+    { autoAlpha: 0, scale: .965, filter: "blur(10px)" },
+    { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: .62, ease: "power3.out", clearProps: "opacity,visibility,transform,filter" },
+  );
+  if (image) {
+    window.gsap.fromTo(image, { scale: 1.055 }, { scale: 1, duration: .8, ease: "power3.out", clearProps: "transform" });
+  }
+}
+
+function transitionDiscovery(index) {
+  if (index === activeDiscoveryIndex) return;
+  const currentCard = discoveryCards[activeDiscoveryIndex];
+  if (!window.gsap || reducedMotion.matches || !currentCard) {
+    renderDiscovery(index);
+    return;
+  }
+
+  window.gsap.to(currentCard, {
+    autoAlpha: 0,
+    scale: .97,
+    filter: "blur(10px)",
+    duration: .2,
+    ease: "power2.in",
+    onComplete: () => {
+      window.gsap.set(currentCard, { clearProps: "opacity,visibility,transform,filter" });
+      renderDiscovery(index);
+      animateDiscoveryCard(discoveryCards[activeDiscoveryIndex]);
+    },
+  });
+}
+
 function ensureDiscoveryEnhancement() {
   if (!discoveryStrip || !discoveryTabs.length || !discoveryCards.length) return;
 
@@ -97,7 +136,7 @@ function ensureDiscoveryEnhancement() {
     tab.removeAttribute("target");
     tab.addEventListener("click", (event) => {
       event.preventDefault();
-      renderDiscovery(index);
+      transitionDiscovery(index);
     });
   });
 
@@ -114,34 +153,6 @@ function ensureDiscoveryEnhancement() {
   discoveryMoreLink.innerHTML = '<span data-zh="查看更多" data-en="View more">查看更多</span> ↗';
   footer.append(discoveryMoreLink);
   discoveryStrip.querySelector(".project-container")?.append(footer);
-
-  const style = document.createElement("style");
-  style.textContent = `
-    .discovery-strip .template-filters a { cursor: pointer; }
-    .discovery-strip .template-filters a.is-active { border-color: #111; background: #111; color: #fff; }
-    .discovery-strip .template-grid { display: block !important; }
-    .discovery-strip .template-card {
-      display: none;
-      width: min(100%, var(--discovery-max-width, 860px));
-      aspect-ratio: var(--discovery-ratio, 16 / 9);
-      margin: 0 auto;
-      cursor: default;
-      overflow: hidden;
-    }
-    .discovery-strip .template-card > img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .discovery-strip .template-card.is-active-discovery { display: block; }
-    .discovery-footer { display: flex; justify-content: flex-end; margin-top: 22px; }
-    .discovery-more { display: inline-flex; align-items: center; gap: 7px; padding-bottom: 6px; border-bottom: 1px solid #111; color: #111; font-size: 14px; text-decoration: none; }
-    @media (max-width: 680px) {
-      .discovery-strip .template-card { width: min(100%, var(--discovery-max-width, 100%)); }
-      .discovery-footer { margin-top: 18px; }
-    }
-  `;
-  document.head.append(style);
 
   renderDiscovery(0);
 }
@@ -312,6 +323,7 @@ const previousButton = carousel?.querySelector("[data-carousel-prev]");
 const nextButton = carousel?.querySelector("[data-carousel-next]");
 const dotsContainer = carousel?.querySelector("[data-carousel-dots]");
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
 let activeCase = Math.min(1, caseCards.length - 1);
 let autoplayTimer = 0;
 let dragStart = null;
@@ -496,11 +508,457 @@ function initStatsCounter() {
   observer.observe(stats);
 }
 
+const clamp = (value, min = 0, max = 100) => Math.min(Math.max(value, min), max);
+const round = (value, precision = 3) => Number(value.toFixed(precision));
+const adjust = (value, fromMin, fromMax, toMin, toMax) =>
+  round(toMin + ((toMax - toMin) * (value - fromMin)) / (fromMax - fromMin));
+
+function setWorkflowTiltVars(card, x, y) {
+  const width = card.clientWidth || 1;
+  const height = card.clientHeight || 1;
+  const percentX = clamp((100 / width) * x);
+  const percentY = clamp((100 / height) * y);
+  const centerX = percentX - 50;
+  const centerY = percentY - 50;
+
+  const properties = {
+    "--pointer-x": `${percentX}%`,
+    "--pointer-y": `${percentY}%`,
+    "--background-x": `${adjust(percentX, 0, 100, 35, 65)}%`,
+    "--background-y": `${adjust(percentY, 0, 100, 35, 65)}%`,
+    "--pointer-from-center": `${clamp(Math.hypot(percentY - 50, percentX - 50) / 50, 0, 1)}`,
+    "--pointer-from-top": `${percentY / 100}`,
+    "--pointer-from-left": `${percentX / 100}`,
+    "--rotate-x": `${round(-(centerX / 6.25))}deg`,
+    "--rotate-y": `${round(centerY / 5)}deg`,
+  };
+
+  Object.entries(properties).forEach(([property, value]) => card.style.setProperty(property, value));
+}
+
+function createWorkflowTiltEngine(card) {
+  let rafId = null;
+  let running = false;
+  let lastTs = 0;
+  let currentX = card.clientWidth / 2;
+  let currentY = card.clientHeight / 2;
+  let targetX = currentX;
+  let targetY = currentY;
+
+  const step = (timestamp) => {
+    if (!running) return;
+    if (lastTs === 0) lastTs = timestamp;
+    const deltaSeconds = (timestamp - lastTs) / 1000;
+    lastTs = timestamp;
+    const smoothing = 1 - Math.exp(-deltaSeconds / .14);
+
+    currentX += (targetX - currentX) * smoothing;
+    currentY += (targetY - currentY) * smoothing;
+    setWorkflowTiltVars(card, currentX, currentY);
+
+    const stillMoving = Math.abs(targetX - currentX) > .05 || Math.abs(targetY - currentY) > .05;
+    if (stillMoving) {
+      rafId = requestAnimationFrame(step);
+    } else {
+      running = false;
+      lastTs = 0;
+      rafId = null;
+    }
+  };
+
+  const start = () => {
+    if (running) return;
+    running = true;
+    lastTs = 0;
+    rafId = requestAnimationFrame(step);
+  };
+
+  return {
+    setTarget(x, y) {
+      targetX = x;
+      targetY = y;
+      start();
+    },
+    toCenter() {
+      this.setTarget(card.clientWidth / 2, card.clientHeight / 2);
+    },
+    isSettled() {
+      return Math.hypot(targetX - currentX, targetY - currentY) < .6;
+    },
+    cancel() {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+      running = false;
+      lastTs = 0;
+    },
+  };
+}
+
+function enhanceWorkflowCard(card) {
+  if (card.dataset.workflowTiltReady === "true") return;
+  card.dataset.workflowTiltReady = "true";
+
+  const engine = createWorkflowTiltEngine(card);
+  let enterTimer = null;
+  let settleRaf = null;
+
+  const canTilt = () => finePointer.matches && !reducedMotion.matches;
+  const pointerPosition = (event) => {
+    const rect = card.getBoundingClientRect();
+    return { x: event.clientX - rect.left, y: event.clientY - rect.top };
+  };
+
+  const onPointerEnter = (event) => {
+    if (!canTilt()) return;
+    card.classList.add("workflow-card-active", "workflow-card-entering");
+    if (enterTimer) clearTimeout(enterTimer);
+    enterTimer = window.setTimeout(() => card.classList.remove("workflow-card-entering"), 180);
+    const { x, y } = pointerPosition(event);
+    engine.setTarget(x, y);
+  };
+
+  const onPointerMove = (event) => {
+    if (!canTilt()) return;
+    const { x, y } = pointerPosition(event);
+    engine.setTarget(x, y);
+  };
+
+  const onPointerLeave = () => {
+    if (!canTilt()) return;
+    engine.toCenter();
+    if (settleRaf) cancelAnimationFrame(settleRaf);
+
+    const waitForCenter = () => {
+      if (engine.isSettled()) {
+        card.classList.remove("workflow-card-active", "workflow-card-entering");
+        settleRaf = null;
+        return;
+      }
+      settleRaf = requestAnimationFrame(waitForCenter);
+    };
+
+    settleRaf = requestAnimationFrame(waitForCenter);
+  };
+
+  const reset = () => {
+    engine.cancel();
+    card.classList.remove("workflow-card-active", "workflow-card-entering");
+    card.style.setProperty("--pointer-x", "50%");
+    card.style.setProperty("--pointer-y", "50%");
+    card.style.setProperty("--pointer-from-center", "0");
+    card.style.setProperty("--pointer-from-top", ".5");
+    card.style.setProperty("--pointer-from-left", ".5");
+    card.style.setProperty("--rotate-x", "0deg");
+    card.style.setProperty("--rotate-y", "0deg");
+  };
+
+  card.addEventListener("pointerenter", onPointerEnter);
+  card.addEventListener("pointermove", onPointerMove);
+  card.addEventListener("pointerleave", onPointerLeave);
+  reducedMotion.addEventListener?.("change", reset);
+  finePointer.addEventListener?.("change", reset);
+}
+
+function initWorkflowCardMotion() {
+  document.querySelectorAll("#capabilities .capability-grid > a").forEach(enhanceWorkflowCard);
+}
+
+function loadMotionScript(src) {
+  return new Promise((resolve, reject) => {
+    const existing = [...document.scripts].find((script) => script.src === src);
+    if (existing) {
+      if (existing.dataset.loaded === "true") resolve();
+      else {
+        existing.addEventListener("load", resolve, { once: true });
+        existing.addEventListener("error", reject, { once: true });
+      }
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = src;
+    script.async = true;
+    script.dataset.homeMotion = "true";
+    script.addEventListener("load", () => {
+      script.dataset.loaded = "true";
+      resolve();
+    }, { once: true });
+    script.addEventListener("error", reject, { once: true });
+    document.head.append(script);
+  });
+}
+
+async function ensureHomeMotionLibraries() {
+  if (window.gsap && window.ScrollTrigger) return true;
+  try {
+    if (!window.gsap) await loadMotionScript(HOME_MOTION_SCRIPTS[0]);
+    if (!window.ScrollTrigger) await loadMotionScript(HOME_MOTION_SCRIPTS[1]);
+    return Boolean(window.gsap && window.ScrollTrigger);
+  } catch (error) {
+    console.warn("Home motion enhancement unavailable; continuing with the static experience.", error);
+    return false;
+  }
+}
+
+function initHeroPointer() {
+  const hero = document.querySelector(".project-hero");
+  const image = hero?.querySelector(".project-hero-image");
+  if (!hero || !image || !finePointer.matches || reducedMotion.matches || !window.gsap) return;
+
+  const moveX = window.gsap.quickTo(image, "x", { duration: .8, ease: "power3.out" });
+  const moveY = window.gsap.quickTo(image, "y", { duration: .8, ease: "power3.out" });
+
+  hero.addEventListener("pointermove", (event) => {
+    const rect = hero.getBoundingClientRect();
+    const px = clamp(((event.clientX - rect.left) / Math.max(rect.width, 1)) * 100);
+    const py = clamp(((event.clientY - rect.top) / Math.max(rect.height, 1)) * 100);
+    hero.style.setProperty("--hero-pointer-x", `${px}%`);
+    hero.style.setProperty("--hero-pointer-y", `${py}%`);
+    moveX((px - 50) * -.08);
+    moveY((py - 50) * -.06);
+  });
+
+  hero.addEventListener("pointerleave", () => {
+    hero.style.setProperty("--hero-pointer-x", "50%");
+    hero.style.setProperty("--hero-pointer-y", "44%");
+    moveX(0);
+    moveY(0);
+  });
+}
+
+function initMagneticLinks() {
+  if (!finePointer.matches || reducedMotion.matches || !window.gsap) return;
+  const links = document.querySelectorAll(".project-hero-actions a, .project-cta-actions a, .discovery-more");
+
+  links.forEach((link) => {
+    const moveX = window.gsap.quickTo(link, "x", { duration: .35, ease: "power3.out" });
+    const moveY = window.gsap.quickTo(link, "y", { duration: .35, ease: "power3.out" });
+
+    link.addEventListener("pointermove", (event) => {
+      const rect = link.getBoundingClientRect();
+      const dx = event.clientX - (rect.left + rect.width / 2);
+      const dy = event.clientY - (rect.top + rect.height / 2);
+      moveX(clamp(dx * .16, -10, 10));
+      moveY(clamp(dy * .16, -8, 8));
+    });
+
+    link.addEventListener("pointerleave", () => {
+      moveX(0);
+      moveY(0);
+    });
+  });
+}
+
+function initHomeMotion() {
+  if (reducedMotion.matches || !window.gsap || !window.ScrollTrigger) return;
+  const { gsap, ScrollTrigger } = window;
+  gsap.registerPlugin(ScrollTrigger);
+  document.body.classList.add("home-motion-active");
+
+  const hero = document.querySelector(".project-hero");
+  const heroImage = hero?.querySelector(".project-hero-image");
+  const heroContent = hero?.querySelector(".project-hero-content");
+  const heroIntro = heroContent ? [heroContent.querySelector(".project-eyebrow"), heroContent.querySelector("h1"), heroContent.querySelector("p:not(.project-eyebrow)"), heroContent.querySelector(".project-hero-actions")].filter(Boolean) : [];
+
+  if (heroIntro.length) {
+    const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
+    intro
+      .from(heroIntro[0], { autoAlpha: 0, y: 18, duration: .55 })
+      .from(heroIntro[1], { autoAlpha: 0, y: 52, duration: .9 }, "-=.28")
+      .from(heroIntro[2], { autoAlpha: 0, y: 24, duration: .65 }, "-=.48")
+      .from(heroIntro[3], { autoAlpha: 0, y: 20, duration: .6 }, "-=.42")
+      .from(".project-scroll", { autoAlpha: 0, y: 16, duration: .5 }, "-=.24");
+  }
+
+  if (hero && heroImage && heroContent) {
+    gsap.to(heroImage, {
+      scale: 1.13,
+      ease: "none",
+      scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: .8 },
+    });
+    gsap.to(heroContent, {
+      yPercent: -13,
+      autoAlpha: .28,
+      ease: "none",
+      scrollTrigger: { trigger: hero, start: "top top", end: "bottom 18%", scrub: .8 },
+    });
+    gsap.to(".project-scroll", {
+      autoAlpha: 0,
+      y: -18,
+      ease: "none",
+      scrollTrigger: { trigger: hero, start: "top top", end: "35% top", scrub: true },
+    });
+  }
+
+  gsap.from(".featured-carousel", {
+    autoAlpha: 0,
+    filter: "blur(10px)",
+    duration: .9,
+    ease: "power3.out",
+    clearProps: "opacity,visibility,filter",
+    scrollTrigger: { trigger: "#cases", start: "top 78%", once: true },
+  });
+  gsap.from(".featured-carousel-arrow, .featured-carousel-footer", {
+    autoAlpha: 0,
+    y: 18,
+    stagger: .08,
+    duration: .65,
+    ease: "power3.out",
+    clearProps: "opacity,visibility,transform",
+    scrollTrigger: { trigger: "#cases", start: "top 68%", once: true },
+  });
+
+  gsap.from("#overview article", {
+    autoAlpha: 0,
+    y: 30,
+    stagger: .12,
+    duration: .7,
+    ease: "power3.out",
+    clearProps: "opacity,visibility,transform",
+    scrollTrigger: { trigger: "#overview", start: "top 82%", once: true },
+  });
+
+  gsap.from("#templates .template-gallery-heading > *", {
+    autoAlpha: 0,
+    y: 30,
+    stagger: .09,
+    duration: .65,
+    ease: "power3.out",
+    clearProps: "opacity,visibility,transform",
+    scrollTrigger: { trigger: "#templates", start: "top 76%", once: true },
+  });
+  gsap.from("#templates .template-filters a", {
+    autoAlpha: 0,
+    y: 18,
+    stagger: .055,
+    duration: .5,
+    ease: "power3.out",
+    clearProps: "opacity,visibility,transform",
+    scrollTrigger: { trigger: "#templates .template-filters", start: "top 86%", once: true },
+  });
+  const activeDiscoveryCard = discoveryCards[activeDiscoveryIndex];
+  if (activeDiscoveryCard) {
+    gsap.from(activeDiscoveryCard, {
+      autoAlpha: 0,
+      scale: .96,
+      filter: "blur(9px)",
+      duration: .75,
+      ease: "power3.out",
+      clearProps: "opacity,visibility,transform,filter",
+      scrollTrigger: { trigger: "#templates .template-grid", start: "top 84%", once: true },
+    });
+  }
+
+  gsap.from("#capabilities .section-heading > *", {
+    autoAlpha: 0,
+    y: 30,
+    stagger: .1,
+    duration: .7,
+    ease: "power3.out",
+    clearProps: "opacity,visibility,transform",
+    scrollTrigger: { trigger: "#capabilities", start: "top 76%", once: true },
+  });
+  gsap.from("#capabilities .capability-grid > a", {
+    autoAlpha: 0,
+    filter: "blur(10px)",
+    clipPath: "inset(9% 0 0 0 round 8px)",
+    stagger: .12,
+    duration: .8,
+    ease: "power3.out",
+    clearProps: "opacity,visibility,filter,clipPath",
+    scrollTrigger: { trigger: "#capabilities .capability-grid", start: "top 82%", once: true },
+  });
+  gsap.from("#capabilities .workflow-source", {
+    autoAlpha: 0,
+    y: 12,
+    duration: .5,
+    ease: "power3.out",
+    clearProps: "opacity,visibility,transform",
+    scrollTrigger: { trigger: "#capabilities .capability-grid", start: "bottom 90%", once: true },
+  });
+
+  gsap.from("#design-system .showcase-copy > *", {
+    autoAlpha: 0,
+    y: 28,
+    stagger: .09,
+    duration: .7,
+    ease: "power3.out",
+    clearProps: "opacity,visibility,transform",
+    scrollTrigger: { trigger: "#design-system", start: "top 72%", once: true },
+  });
+  gsap.from("#design-system .showcase-card", {
+    autoAlpha: 0,
+    y: 86,
+    rotation: 0,
+    scale: .88,
+    stagger: .11,
+    duration: .9,
+    ease: "power3.out",
+    clearProps: "opacity,visibility,transform",
+    scrollTrigger: { trigger: "#design-system .showcase-scene", start: "top 82%", once: true },
+  });
+
+  gsap.from("#design-system-live .system-explainer-heading > *", {
+    autoAlpha: 0,
+    y: 28,
+    stagger: .09,
+    duration: .7,
+    ease: "power3.out",
+    clearProps: "opacity,visibility,transform",
+    scrollTrigger: { trigger: "#design-system-live", start: "top 76%", once: true },
+  });
+
+  const liveTimeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#design-system-live .system-explainer-stage",
+      start: "top 82%",
+      end: "bottom 58%",
+      scrub: .7,
+    },
+  });
+  liveTimeline
+    .from("#design-system-live .system-app", { autoAlpha: 0, filter: "blur(14px)", duration: 1 })
+    .from("#design-system-live .system-callout-type", { autoAlpha: 0, x: -74, duration: .65, clearProps: "transform" }, .28)
+    .from("#design-system-live .system-callout-color", { autoAlpha: 0, x: 74, duration: .65, clearProps: "transform" }, .48)
+    .from("#design-system-live .system-callout-spacing", { autoAlpha: 0, x: -74, duration: .65, clearProps: "transform" }, .68)
+    .from("#design-system-live .system-callout-states", { autoAlpha: 0, x: 74, duration: .65, clearProps: "transform" }, .88);
+
+  gsap.from(".project-editorial .project-container > *, .project-cta-inner > *", {
+    autoAlpha: 0,
+    y: 34,
+    stagger: .1,
+    duration: .75,
+    ease: "power3.out",
+    clearProps: "opacity,visibility,transform",
+    scrollTrigger: { trigger: ".project-editorial", start: "top 76%", once: true },
+  });
+  gsap.from(".project-footer .footer-grid > *, .project-footer .footer-bottom > *", {
+    autoAlpha: 0,
+    y: 22,
+    stagger: .055,
+    duration: .6,
+    ease: "power3.out",
+    clearProps: "opacity,visibility,transform",
+    scrollTrigger: { trigger: ".project-footer", start: "top 88%", once: true },
+  });
+
+  initHeroPointer();
+  initMagneticLinks();
+  window.setTimeout(() => ScrollTrigger.refresh(), 120);
+}
+
 ensureDiscoveryEnhancement();
 renderCarousel();
 scheduleAutoplay();
 initStatsCounter();
+initWorkflowCardMotion();
 
 applyLanguage();
 if (window.image2I18n?.registerPage) window.image2I18n.registerPage((language) => applyLanguage({ detail: language }));
 else window.addEventListener("image2:languagechange", applyLanguage);
+
+if (!reducedMotion.matches) {
+  ensureHomeMotionLibraries().then((ready) => {
+    if (ready) initHomeMotion();
+  });
+}
