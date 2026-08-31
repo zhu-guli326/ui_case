@@ -169,6 +169,7 @@
     syncWorkspaceAlignment();
   });
   window.addEventListener('image2:languagechange', sync);
+  window.addEventListener('ondesign:fontpresetsready', syncFontSelectLanguage);
   window.addEventListener('load', sync, { once: true });
 
   sync();
