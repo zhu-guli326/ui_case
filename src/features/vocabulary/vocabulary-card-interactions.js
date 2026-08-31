@@ -1,4 +1,19 @@
-function syncCardFaces(card, flipped) {
+const INTERACTIVE_SELECTOR = [
+  "a",
+  "button",
+  "input",
+  "select",
+  "textarea",
+  "label",
+  "[contenteditable='true']",
+  "[role='button']",
+  "[data-copy-prompt]",
+  "[data-term-detail]",
+  "[data-favorite]",
+  "[data-variant-state]",
+].join(",");
+
+function setCardFaceState(card, flipped, { moveFocus = true } = {}) {
   if (!card) return;
   const front = card.querySelector(".entry-card-front");
   const back = card.querySelector(".entry-card-back");
@@ -13,12 +28,22 @@ function syncCardFaces(card, flipped) {
     button.setAttribute("aria-pressed", String(flipped));
   });
 
+  if (!moveFocus) return;
   requestAnimationFrame(() => {
     const target = flipped
       ? back.querySelector(".entry-variant-back, [data-flip-card]")
       : front.querySelector(".entry-flip-tag, [data-flip-card]");
     target?.focus({ preventScroll: true });
   });
+}
+
+function toggleCard(card, { moveFocus = true } = {}) {
+  if (!card || card.dataset.flipBusy === "true") return;
+  card.dataset.flipBusy = "true";
+  setCardFaceState(card, !card.classList.contains("is-flipped"), { moveFocus });
+  window.setTimeout(() => {
+    if (card.isConnected) delete card.dataset.flipBusy;
+  }, 140);
 }
 
 function syncVariantState(button) {
@@ -46,28 +71,47 @@ function installPersistentCardInteractions() {
   if (!grid || grid.dataset.persistentCardInteractions === "true") return;
   grid.dataset.persistentCardInteractions = "true";
 
-  // Cards are replaced whenever filters, search, language or favorites re-render
-  // the grid. Capture-phase delegation keeps flip/state controls reliable without
-  // depending on listeners attached to replaceable card nodes.
+  // Cards are replaced whenever search, filters, favorites or language cause a
+  // re-render. Keep all flip/state handling on the persistent grid so no card
+  // can lose its interaction listeners after its DOM node is replaced.
   grid.addEventListener("click", (event) => {
     if (!(event.target instanceof Element)) return;
 
-    const flipButton = event.target.closest("[data-flip-card]");
-    if (flipButton && grid.contains(flipButton)) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      const card = flipButton.closest(".entry-card");
-      if (!card) return;
-      syncCardFaces(card, !card.classList.contains("is-flipped"));
-      return;
-    }
+    const card = event.target.closest(".entry-card");
+    if (!card || !grid.contains(card)) return;
 
     const variantButton = event.target.closest("[data-variant-state]");
-    if (variantButton && grid.contains(variantButton)) {
+    if (variantButton && card.contains(variantButton)) {
       event.preventDefault();
       event.stopImmediatePropagation();
       syncVariantState(variantButton);
+      return;
     }
+
+    const explicitFlip = event.target.closest("[data-flip-card]");
+    if (explicitFlip && card.contains(explicitFlip)) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      toggleCard(card);
+      return;
+    }
+
+    // Copy, favorite and detail controls keep their existing dedicated actions.
+    // They must never trigger a card flip as a side effect.
+    if (event.target.closest(INTERACTIVE_SELECTOR)) return;
+
+    // The visible card surface itself is also a reliable toggle target. This is
+    // intentionally independent of the transparent hit-area so clicking the
+    // preview, title or empty card space still works if browser hit-testing of
+    // layered elements changes after a re-render.
+    const visibleFace = card.classList.contains("is-flipped")
+      ? event.target.closest(".entry-card-back")
+      : event.target.closest(".entry-card-front");
+    if (!visibleFace) return;
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    toggleCard(card, { moveFocus: false });
   }, true);
 }
 
