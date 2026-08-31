@@ -146,9 +146,9 @@
 
   const fontGroupLabels = {
     zh: {
-      system: '系统 / 本机字体',
-      'google-cjk': 'Google Fonts · 中文',
-      'google-latin': 'Google Fonts · 拉丁',
+      system: '系统字体',
+      'google-cjk': 'Google Fonts · 中文字体',
+      'google-latin': 'Google Fonts · 拉丁字体',
     },
     en: {
       system: 'System / Local fonts',
@@ -211,10 +211,29 @@
     [...select.options].forEach((option) => {
       const preset = presetById.get(option.value);
       if (!preset) return;
-      const name = currentLanguage === 'en' ? preset.en : preset.zh;
-      const description = currentLanguage === 'en' ? preset.descEn : preset.descZh;
-      option.textContent = description ? `${name} · ${description}` : name;
+      option.textContent = currentLanguage === 'en' ? preset.en : preset.zh;
+      option.title = currentLanguage === 'en' ? preset.descEn : preset.descZh;
     });
+  }
+
+  function syncStaticLauncherCopy() {
+    const isEnglish = language() === 'en';
+    const trigger = document.querySelector('[data-ds-trigger]');
+    const triggerSmall = trigger?.querySelector('small');
+    const note = document.querySelector('[data-design-system-field] .ds-note');
+    const hasAppliedDesignSystem = Boolean(document.body.dataset.designSystem);
+
+    if (triggerSmall && !hasAppliedDesignSystem) {
+      triggerSmall.textContent = isEnglish
+        ? 'Choose a foundation, then fine-tune design tokens'
+        : '先选基础规范，再微调设计变量';
+    }
+
+    if (note) {
+      note.textContent = isEnglish
+        ? 'Every source is normalized for UI Coding first. Brand websites and historical pages keep reusable visual cues without directly inheriting marketing-scale tokens. Source: VoltAgent/awesome-design-md (MIT).'
+        : '所有来源都会先做界面编码适配；品牌官网与历史页面只保留可复用的视觉特征，不直接继承营销页面的设计变量。来源：VoltAgent/awesome-design-md（MIT）。';
+    }
   }
 
   function syncControlAriaLabels() {
@@ -324,6 +343,7 @@
   function sync() {
     syncDocumentLanguageMeta();
     syncFontSelectLanguage();
+    syncStaticLauncherCopy();
     syncControlAriaLabels();
     installCaseDialogLinks();
     syncLanguageLinks();
