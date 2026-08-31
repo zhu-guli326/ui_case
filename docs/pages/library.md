@@ -9,7 +9,7 @@ Last updated: 2026-09-01
 - Canonical runtime: `src/features/library/library.js`
 - Canonical styles: `src/features/library/library.css`, `library-cards.css`, `library-detail.css`
 - Shared knowledge-directory geometry and floating search: `src/core/app-shell/directory-page.css`
-- Library hero continuity override: `src/features/library/library-hero-continuous.css`
+- Library hero override: `src/features/library/library-hero-continuous.css`
 - Shared knowledge-page cleanup: `src/core/app-shell/knowledge-directory-cleanup.css`
 - Supporting data / filter / card / detail / search / preview modules remain split by stable responsibility
 
@@ -32,7 +32,7 @@ A user should be able to find a relevant case, understand what makes it useful, 
 
 ## Information structure
 
-1. Library orientation / context + case count in one continuous hero container
+1. Library orientation / context in a left hero card + case-count overview in a right hero card
 2. Category filtering + visual case grid / collection
 3. Focused preview / detail
 4. Source / demo / relevant next action
@@ -41,8 +41,9 @@ A user should be able to find a relevant case, understand what makes it useful, 
 ## Interaction rules
 
 - Visual evidence should dominate over metadata.
-- The hero should read as one continuous container rather than two detached cards; use a subtle internal divider only.
+- The Library hero uses the same two-card dimensions, gap, radius and height as the UI Vocabulary hero so the three knowledge pages feel structurally consistent.
 - Hero statistics show only the total case count. Do not show style count or GitHub Stars in this area.
+- The case-count number uses the global numeric typography tokens (`--font-number`, tabular numerals).
 - Cards should be easy to scan and should not all be forced into an identical media ratio when that harms the source material.
 - Detail views should add information rather than repeat the card.
 - Avoid excessive blank space on desktop browsing views.
@@ -64,7 +65,6 @@ A user should be able to find a relevant case, understand what makes it useful, 
 
 ## Remove / avoid
 
-- Detached hero cards with a large gap between copy and statistics.
 - Style-count and GitHub-Star statistics in the hero.
 - Result-count-only toolbars above the content list.
 - Redundant section-intro headings such as “精选案例 / 从画面开始”.
