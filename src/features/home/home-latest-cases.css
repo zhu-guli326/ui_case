@@ -1,18 +1,22 @@
-/* Latest homepage featured-case artwork. */
-body.project-home .featured-carousel-track .project-case:nth-child(1) {
-  background-image: url("../../../assets/home/case-hackathon-latest.webp");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+/* Latest homepage featured-case artwork.
+ * Replace the rendered <img> content directly so later homepage card
+ * background rules cannot hide or reset these two case covers. */
+body.project-home .featured-carousel-track .project-case:nth-child(1) > img {
+  content: url("../../../assets/home/case-hackathon-latest.webp?v=20260831-2") !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
-body.project-home .featured-carousel-track .project-case:nth-child(2) {
-  background-image: url("../../../assets/home/case-product-designer-latest.webp");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-body.project-home .featured-carousel-track .project-case:nth-child(-n + 2) > img {
-  opacity: 0;
+body.project-home .featured-carousel-track .project-case:nth-child(2) > img {
+  content: url("../../../assets/home/case-product-designer-latest.webp?v=20260831-2") !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
