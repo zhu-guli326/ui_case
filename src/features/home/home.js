@@ -1,228 +1,68 @@
 const SUPPORTED_LANGUAGES = new Set(["zh", "en"]);
-const HOME_MOTION_SCRIPTS = [
-  "https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js",
-  "https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js",
-];
+const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)");
+const FINE_POINTER = window.matchMedia("(hover: hover) and (pointer: fine)");
 
-const templateFilters = [...document.querySelectorAll("[data-template-filter]")];
-const templateCards = [...document.querySelectorAll("[data-template-category]")];
+const GSAP_VERSION = "3.15.0";
+const GSAP_URL = `https://cdn.jsdelivr.net/npm/gsap@${GSAP_VERSION}/dist/gsap.min.js`;
+const SCROLL_TRIGGER_URL = `https://cdn.jsdelivr.net/npm/gsap@${GSAP_VERSION}/dist/ScrollTrigger.min.js`;
 
-function filterTemplates(category) {
-  templateFilters.forEach((button) => {
-    const selected = button.dataset.templateFilter === category;
-    button.classList.toggle("is-active", selected);
-    button.setAttribute("aria-pressed", String(selected));
-  });
-  templateCards.forEach((card) => {
-    card.classList.toggle("is-hidden", category !== "all" && card.dataset.templateCategory !== category);
-  });
-}
-
-templateFilters.forEach((button) => button.addEventListener("click", () => filterTemplates(button.dataset.templateFilter)));
-
-const discoveryStrip = document.querySelector(".discovery-strip");
-const discoveryTabs = [...(discoveryStrip?.querySelectorAll(".template-filters a") || [])];
-const discoveryCards = [...(discoveryStrip?.querySelectorAll(".template-grid .template-card") || [])];
 const DISCOVERY_PREVIEWS = [
   {
     src: "./assets/cases/fashion-shopping-app/hero-screen.png",
-    ratio: "9 / 16",
-    maxWidth: "390px",
+    route: "./library.html",
+    eyebrow: "APP DESIGN · MOBILE",
+    title: "Fashion Shopping App",
+    alt: { zh: "ONDesign 案例库中的 Fashion Shopping App 移动端界面", en: "Fashion Shopping App mobile UI from the ONDesign case library" },
+    copy: { zh: "从真实移动端页面里找布局、层级和组件参考。", en: "Use a real mobile interface to study layout, hierarchy and components." },
     fit: "cover",
     position: "center top",
-    route: "./library.html",
-    alt: { zh: "ONDesign 案例库中的 Fashion Shopping App 移动端界面", en: "Fashion Shopping App mobile UI from the ONDesign case library" },
   },
   {
     src: "./assets/home/case-product-designer-20260831.png",
-    ratio: "16 / 9",
-    maxWidth: "1120px",
+    route: "./skills.html?mode=WEB",
+    eyebrow: "WEB DESIGN · PORTFOLIO",
+    title: "Product Designer",
+    alt: { zh: "ONDesign 收录的真实官网设计案例", en: "A real website design case featured in ONDesign" },
+    copy: { zh: "从真实官网里观察大标题、图片比例、留白和视觉节奏。", en: "Study large type, image proportion, whitespace and visual rhythm from a real website." },
     fit: "cover",
     position: "center top",
-    route: "./skills.html?mode=WEB",
-    alt: { zh: "ONDesign 收录的真实 Web 设计案例", en: "A real web design case featured in ONDesign" },
   },
   {
     src: "./assets/skills/repositories/leonxlnx-taste-skill-detail.png",
-    ratio: "3 / 4",
-    maxWidth: "640px",
+    route: "./skills.html",
+    eyebrow: "DESIGN SKILL · REPOSITORY",
+    title: "Taste Skill",
+    alt: { zh: "ONDesign 设计 Skill 库中的 Skill 详情预览", en: "A Design Skill detail preview from the ONDesign Skills library" },
+    copy: { zh: "直接看已经整理好的设计能力、提示词和可复用方法。", en: "Browse reusable design capabilities, prompts and methods that are already packaged." },
     fit: "cover",
     position: "center top",
-    route: "./skills.html",
-    alt: { zh: "ONDesign 设计 Skill 库中的 Skill 详情卡片", en: "A real Skill detail preview from the ONDesign Skills library" },
   },
   {
     src: "./assets/demo-preview.gif",
-    ratio: "3 / 4",
-    maxWidth: "640px",
+    route: "./launcher.html",
+    eyebrow: "DESIGN TOOL · WORKFLOW",
+    title: "Start Designing",
+    alt: { zh: "ONDesign Start Designing 与 Design DNA 工作流预览", en: "ONDesign Start Designing and Design DNA workflow preview" },
+    copy: { zh: "把参考、字体、颜色和组件组合成一套可以继续生成的 Design DNA。", en: "Combine references, type, color and components into a Design DNA you can keep building from." },
     fit: "cover",
     position: "center top",
-    route: "./launcher.html",
-    alt: { zh: "ONDesign Start Designing / Design DNA 实际工作流预览", en: "ONDesign Start Designing and Design DNA workflow preview" },
   },
   {
     src: "./assets/vocabulary/generated-v2/content-display-sheet.png",
-    ratio: "3 / 4",
-    maxWidth: "640px",
+    route: "./vocabulary.html",
+    eyebrow: "UI VOCABULARY · PATTERNS",
+    title: "UI Vocabulary",
+    alt: { zh: "ONDesign UI 词库中的组件与术语预览", en: "Component and terminology preview from ONDesign UI Vocabulary" },
+    copy: { zh: "不知道一个界面元素叫什么时，先把词找对，再让 AI 执行。", en: "When you do not know what an interface element is called, find the right term before asking AI to execute it." },
     fit: "cover",
     position: "center top",
-    route: "./vocabulary.html",
-    alt: { zh: "ONDesign UI 词库中的内容展示与组件术语卡片", en: "Content-display and component terminology cards from ONDesign UI Vocabulary" },
   },
 ];
+
 let activeDiscoveryIndex = 0;
-let discoveryMoreLink = null;
-
-function localizedRoute(route, language = currentLanguage()) {
-  const target = new URL(route, location.href);
-  target.searchParams.set("lang", language);
-  return `${target.pathname.split("/").pop()}${target.search}${target.hash}`;
-}
-
-function configureDiscoveryCard(card, index) {
-  const preview = DISCOVERY_PREVIEWS[index];
-  if (!card || !preview) return;
-  const image = card.querySelector("img");
-  if (image) {
-    image.src = new URL(preview.src, location.href).href;
-    image.alt = preview.alt[currentLanguage()];
-    image.style.objectFit = preview.fit;
-    image.style.objectPosition = preview.position;
-  }
-  card.style.setProperty("--discovery-ratio", preview.ratio);
-  card.style.setProperty("--discovery-max-width", preview.maxWidth);
-}
-
-function animateDiscoveryCard(card) {
-  if (!card || !window.gsap || reducedMotion.matches) return;
-  const image = card.querySelector("img");
-  window.gsap.fromTo(
-    card,
-    { autoAlpha: 0, scale: .965, filter: "blur(10px)" },
-    { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: .62, ease: "power3.out", clearProps: "opacity,visibility,transform,filter" },
-  );
-  if (image) {
-    window.gsap.fromTo(image, { scale: 1.055 }, { scale: 1, duration: .8, ease: "power3.out", clearProps: "transform" });
-  }
-}
-
-function transitionDiscovery(index) {
-  if (index === activeDiscoveryIndex) return;
-  const currentCard = discoveryCards[activeDiscoveryIndex];
-  if (!window.gsap || reducedMotion.matches || !currentCard) {
-    renderDiscovery(index);
-    return;
-  }
-
-  window.gsap.to(currentCard, {
-    autoAlpha: 0,
-    scale: .97,
-    filter: "blur(10px)",
-    duration: .2,
-    ease: "power2.in",
-    onComplete: () => {
-      window.gsap.set(currentCard, { clearProps: "opacity,visibility,transform,filter" });
-      renderDiscovery(index);
-      animateDiscoveryCard(discoveryCards[activeDiscoveryIndex]);
-    },
-  });
-}
-
-function ensureDiscoveryEnhancement() {
-  if (!discoveryStrip || !discoveryTabs.length || !discoveryCards.length) return;
-
-  discoveryTabs.forEach((tab, index) => {
-    tab.setAttribute("role", "tab");
-    tab.removeAttribute("target");
-    tab.addEventListener("click", (event) => {
-      event.preventDefault();
-      transitionDiscovery(index);
-    });
-  });
-
-  discoveryCards.forEach((card, index) => {
-    configureDiscoveryCard(card, index);
-    card.addEventListener("click", (event) => event.preventDefault());
-    card.setAttribute("aria-disabled", "true");
-  });
-
-  const footer = document.createElement("div");
-  footer.className = "discovery-footer";
-  discoveryMoreLink = document.createElement("a");
-  discoveryMoreLink.className = "discovery-more";
-  discoveryMoreLink.innerHTML = '<span data-zh="查看更多" data-en="View more">查看更多</span> ↗';
-  footer.append(discoveryMoreLink);
-  discoveryStrip.querySelector(".project-container")?.append(footer);
-
-  renderDiscovery(0);
-}
-
-function renderDiscovery(index) {
-  if (!discoveryTabs.length || !discoveryCards.length) return;
-  activeDiscoveryIndex = Math.max(0, Math.min(index, discoveryTabs.length - 1));
-
-  discoveryTabs.forEach((tab, tabIndex) => {
-    const selected = tabIndex === activeDiscoveryIndex;
-    tab.classList.toggle("is-active", selected);
-    tab.setAttribute("aria-selected", String(selected));
-    tab.setAttribute("aria-pressed", String(selected));
-    tab.tabIndex = selected ? 0 : -1;
-  });
-
-  discoveryCards.forEach((card, cardIndex) => {
-    const selected = cardIndex === activeDiscoveryIndex;
-    configureDiscoveryCard(card, cardIndex);
-    card.classList.toggle("is-active-discovery", selected);
-    card.hidden = !selected;
-    card.setAttribute("aria-hidden", String(!selected));
-  });
-
-  if (discoveryMoreLink) {
-    const preview = DISCOVERY_PREVIEWS[activeDiscoveryIndex];
-    const route = preview?.route || "./library.html";
-    discoveryMoreLink.dataset.smartLangLink = route;
-    discoveryMoreLink.href = localizedRoute(route);
-  }
-}
-
-const CAPABILITY_FIGURES = [
-  {
-    stage: "01 · DEFINE",
-    image: "./assets/home/figures/steve-jobs.png",
-    alt: { zh: "史蒂夫·乔布斯像素人物肖像", en: "Pixel portrait of Steve Jobs" },
-    name: { zh: "DEFINE", en: "DEFINE" },
-    person: { zh: "史蒂夫·乔布斯", en: "Steve Jobs" },
-    thinking: { zh: "确定目标 / 页面 / 参考", en: "Goal / Page / Reference" },
-    tagline: { zh: "先确定做什么、为谁做，以及参考什么。", en: "Clarify what you are building, who it is for, and what should guide it." },
-  },
-  {
-    stage: "02 · CREATE",
-    image: "./assets/home/figures/leonardo-da-vinci.png",
-    alt: { zh: "达·芬奇像素人物肖像", en: "Pixel portrait of Leonardo da Vinci" },
-    name: { zh: "CREATE", en: "CREATE" },
-    person: { zh: "达·芬奇", en: "Leonardo da Vinci" },
-    thinking: { zh: "拆解 / 组合 / 视觉方向", en: "Break down / Compose / Visual direction" },
-    tagline: { zh: "把参考转成布局、字体、颜色和组件。", en: "Turn references into layout, typography, color, and components." },
-  },
-  {
-    stage: "03 · BUILD",
-    image: "./assets/home/figures/bill-gates.png",
-    alt: { zh: "比尔·盖茨像素人物肖像", en: "Pixel portrait of Bill Gates" },
-    name: { zh: "BUILD", en: "BUILD" },
-    person: { zh: "比尔·盖茨", en: "Bill Gates" },
-    thinking: { zh: "Design DNA / AI Coding / Demo", en: "Design DNA / AI Coding / Demo" },
-    tagline: { zh: "把设计规则交给 AI Coding，做出能运行的 Demo。", en: "Hand the design rules to AI Coding and build a runnable demo." },
-  },
-  {
-    stage: "04 · ITERATE",
-    image: "./assets/home/figures/thomas-edison.png",
-    alt: { zh: "爱迪生像素人物肖像", en: "Pixel portrait of Thomas Edison" },
-    name: { zh: "ITERATE", en: "ITERATE" },
-    person: { zh: "爱迪生", en: "Thomas Edison" },
-    thinking: { zh: "对照 / 调整 / 验证", en: "Compare / Refine / Validate" },
-    tagline: { zh: "对照目标持续迭代，让 Demo 更像、更顺、更能用。", en: "Compare, refine, and validate until the demo looks right and works well." },
-  },
-];
+let homeMotionContext = null;
+let workflowStep = 0;
+let dnaStep = 0;
 
 function currentLanguage(event) {
   const detail = event?.detail;
@@ -233,713 +73,398 @@ function currentLanguage(event) {
   return SUPPORTED_LANGUAGES.has(queryLanguage) ? queryLanguage : "zh";
 }
 
-function renderCapabilityFigures(language) {
-  const cards = [...document.querySelectorAll("#capabilities .capability-grid > a")];
-  cards.forEach((card, index) => {
-    const figure = CAPABILITY_FIGURES[index];
-    if (!figure) return;
-
-    const image = card.querySelector("img");
-    const shade = card.querySelector(".capability-shade");
-    const stage = card.querySelector("small");
-    const title = card.querySelector("strong");
-    const copy = card.querySelector("p");
-    const imageUrl = new URL(figure.image, location.href).href;
-
-    if (image) {
-      image.src = imageUrl;
-      image.alt = figure.alt[language];
-      image.loading = "lazy";
-      image.decoding = "async";
-      image.style.display = "block";
-      image.style.opacity = "1";
-      image.style.visibility = "visible";
-    }
-    if (shade) {
-      shade.style.background = "linear-gradient(180deg, rgba(0,0,0,0) 38%, rgba(0,0,0,.16) 52%, rgba(0,0,0,.72) 74%, rgba(0,0,0,.96) 100%)";
-    }
-    if (stage) stage.textContent = figure.stage;
-    if (title) {
-      title.removeAttribute("data-zh");
-      title.removeAttribute("data-en");
-      title.textContent = figure.name[language];
-    }
-    if (copy) {
-      copy.removeAttribute("data-zh");
-      copy.removeAttribute("data-en");
-      copy.style.minHeight = "0";
-      copy.innerHTML = `<span style="display:block;font-weight:650;color:#fff">${figure.person[language]}</span><span style="display:block;margin-top:4px">${figure.thinking[language]}</span><span style="display:block;margin-top:4px;color:rgba(255,255,255,.9)">${figure.tagline[language]}</span>`;
-    }
-  });
+function localizedRoute(route, language = currentLanguage()) {
+  const target = new URL(route, location.href);
+  target.searchParams.set("lang", language);
+  return `${target.pathname.split("/").pop()}${target.search}${target.hash}`;
 }
 
 function applyLanguage(event) {
   const language = currentLanguage(event);
   document.documentElement.lang = language === "en" ? "en" : "zh-CN";
-  document.title = language === "en" ? "ONDesign · Find references. Build with AI." : "ONDesign · 看参考，拆设计，交给 AI 做";
+  document.title = language === "en" ? "ONDesign · Design DNA for AI Coding" : "ONDesign · 让 AI Coding 理解你的 Design DNA";
 
   const description = document.querySelector('meta[name="description"]');
   if (description) {
     description.content = language === "en"
-      ? "ONDesign helps you find real UI references, break down the design, and hand clearer decisions to AI coding."
-      : "ONDesign：看真实参考，拆字体、颜色、组件和设计规则，再交给 AI Coding 去做。";
+      ? "ONDesign turns real UI references into reusable design rules for AI Coding."
+      : "ONDesign：从真实 UI 参考出发，把字体、颜色、组件和节奏变成 AI Coding 能执行的 Design DNA。";
   }
 
-  document.querySelectorAll("[data-zh][data-en]").forEach((element) => {
-    const value = element.dataset[language];
-    if (value) element.textContent = value;
+  document.querySelectorAll("[data-zh][data-en]").forEach((node) => {
+    const value = node.dataset[language];
+    if (value) node.textContent = value;
   });
-
-  const capabilityEyebrow = document.querySelector("#capabilities .section-eyebrow");
-  const capabilityHeading = document.querySelector("#capabilities .section-heading h2");
-  if (capabilityEyebrow) capabilityEyebrow.textContent = "image2 to ui";
-  if (capabilityHeading) {
-    capabilityHeading.removeAttribute("data-zh");
-    capabilityHeading.removeAttribute("data-en");
-    capabilityHeading.textContent = language === "en"
-      ? "From an idea to a demo, you move through four steps."
-      : "从一个 Idea 到一个 Demo，你需要经历这 4 步。";
-  }
-
-  renderCapabilityFigures(language);
 
   document.querySelectorAll("[data-smart-lang-link]").forEach((link) => {
-    const target = new URL(link.dataset.smartLangLink, location.href);
-    target.searchParams.set("lang", language);
-    link.href = `${target.pathname.split("/").pop()}${target.search}${target.hash}`;
+    const route = link.dataset.smartLangLink;
+    if (route) link.href = localizedRoute(route, language);
   });
 
-  renderDiscovery(activeDiscoveryIndex);
-
-  if (previousButton) previousButton.setAttribute("aria-label", language === "en" ? "Previous case" : "上一个案例");
-  if (nextButton) nextButton.setAttribute("aria-label", language === "en" ? "Next case" : "下一个案例");
-  carouselDots.forEach((dot, index) => dot.setAttribute("aria-label", language === "en" ? `Show case ${index + 1}` : `显示第 ${index + 1} 个案例`));
+  renderDiscovery(activeDiscoveryIndex, { animate: false, language });
 }
 
-const carousel = document.querySelector("[data-featured-carousel]");
-const carouselViewport = carousel?.querySelector("[data-carousel-viewport]");
-const caseCards = [...(carousel?.querySelectorAll("[data-case-slide]") || [])];
-const previousButton = carousel?.querySelector("[data-carousel-prev]");
-const nextButton = carousel?.querySelector("[data-carousel-next]");
-const dotsContainer = carousel?.querySelector("[data-carousel-dots]");
-const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
-const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
-let activeCase = Math.min(1, caseCards.length - 1);
-let autoplayTimer = 0;
-let dragStart = null;
-let dragDistance = 0;
-let suppressNextClick = false;
+function renderDiscovery(index, { animate = true, language = currentLanguage() } = {}) {
+  const preview = DISCOVERY_PREVIEWS[index];
+  if (!preview) return;
 
-const carouselDots = caseCards.map((_, index) => {
-  const dot = document.createElement("button");
-  dot.type = "button";
-  dot.addEventListener("click", () => setActiveCase(index));
-  dotsContainer?.append(dot);
-  return dot;
-});
+  const tabs = [...document.querySelectorAll("[data-discovery-index]")];
+  const card = document.querySelector("[data-discovery-preview]");
+  const image = document.querySelector("[data-discovery-image]");
+  const eyebrow = document.querySelector("[data-discovery-eyebrow]");
+  const title = document.querySelector("[data-discovery-title]");
+  const copy = document.querySelector("[data-discovery-copy]");
+  const link = document.querySelector("[data-discovery-link]");
 
-function relativeCasePosition(index) {
-  let offset = index - activeCase;
-  const midpoint = Math.floor(caseCards.length / 2);
-  if (offset > midpoint) offset -= caseCards.length;
-  if (offset < -midpoint) offset += caseCards.length;
-  return offset;
-}
+  const update = () => {
+    activeDiscoveryIndex = index;
+    tabs.forEach((tab, tabIndex) => {
+      const active = tabIndex === index;
+      tab.classList.toggle("is-active", active);
+      tab.setAttribute("aria-selected", String(active));
+      tab.tabIndex = active ? 0 : -1;
+    });
 
-function renderCarousel() {
-  caseCards.forEach((card, index) => {
-    const offset = relativeCasePosition(index);
-    card.dataset.position = offset === 0 ? "active" : offset < 0 ? "left" : "right";
-    card.toggleAttribute("aria-current", offset === 0);
-    card.tabIndex = offset === 0 ? 0 : -1;
-  });
-  carouselDots.forEach((dot, index) => {
-    const selected = index === activeCase;
-    dot.classList.toggle("is-active", selected);
-    dot.setAttribute("aria-pressed", String(selected));
-  });
-}
-
-function scheduleAutoplay() {
-  clearTimeout(autoplayTimer);
-  if (!carousel || reducedMotion.matches || document.hidden) return;
-  autoplayTimer = window.setTimeout(() => setActiveCase(activeCase + 1), 5600);
-}
-
-function setActiveCase(index) {
-  if (!caseCards.length) return;
-  activeCase = (index + caseCards.length) % caseCards.length;
-  carouselViewport?.style.setProperty("--drag-x", "0px");
-  renderCarousel();
-  scheduleAutoplay();
-}
-
-previousButton?.addEventListener("click", () => setActiveCase(activeCase - 1));
-nextButton?.addEventListener("click", () => setActiveCase(activeCase + 1));
-
-caseCards.forEach((card, index) => {
-  card.addEventListener("click", (event) => {
-    if (suppressNextClick) {
-      event.preventDefault();
-      suppressNextClick = false;
-      return;
+    if (image) {
+      image.src = new URL(preview.src, location.href).href;
+      image.alt = preview.alt[language];
+      image.style.objectFit = preview.fit;
+      image.style.objectPosition = preview.position;
     }
-    if (index !== activeCase) {
-      event.preventDefault();
-      setActiveCase(index);
+    if (eyebrow) eyebrow.textContent = preview.eyebrow;
+    if (title) title.textContent = preview.title;
+    if (copy) copy.textContent = preview.copy[language];
+    if (link) {
+      link.dataset.smartLangLink = preview.route;
+      link.href = localizedRoute(preview.route, language);
     }
-  });
-});
+  };
 
-carouselViewport?.addEventListener("keydown", (event) => {
-  if (event.key === "ArrowLeft") {
-    event.preventDefault();
-    setActiveCase(activeCase - 1);
-  }
-  if (event.key === "ArrowRight") {
-    event.preventDefault();
-    setActiveCase(activeCase + 1);
-  }
-});
-
-carouselViewport?.addEventListener("pointerdown", (event) => {
-  if (event.button !== 0) return;
-  dragStart = event.clientX;
-  dragDistance = 0;
-  carouselViewport.setPointerCapture(event.pointerId);
-  carouselViewport.classList.add("is-dragging");
-  clearTimeout(autoplayTimer);
-});
-
-carouselViewport?.addEventListener("pointermove", (event) => {
-  if (dragStart === null) return;
-  dragDistance = event.clientX - dragStart;
-  const restrainedDistance = Math.max(-110, Math.min(110, dragDistance * .32));
-  carouselViewport.style.setProperty("--drag-x", `${restrainedDistance}px`);
-});
-
-function finishDrag(event) {
-  if (dragStart === null) return;
-  if (carouselViewport?.hasPointerCapture(event.pointerId)) carouselViewport.releasePointerCapture(event.pointerId);
-  carouselViewport?.classList.remove("is-dragging");
-  carouselViewport?.style.setProperty("--drag-x", "0px");
-  if (Math.abs(dragDistance) > 52) {
-    suppressNextClick = true;
-    setActiveCase(activeCase + (dragDistance < 0 ? 1 : -1));
-  } else {
-    scheduleAutoplay();
-  }
-  dragStart = null;
-  dragDistance = 0;
-}
-
-carouselViewport?.addEventListener("pointerup", finishDrag);
-carouselViewport?.addEventListener("pointercancel", finishDrag);
-carousel?.addEventListener("mouseenter", () => clearTimeout(autoplayTimer));
-carousel?.addEventListener("mouseleave", scheduleAutoplay);
-carousel?.addEventListener("focusin", () => clearTimeout(autoplayTimer));
-carousel?.addEventListener("focusout", scheduleAutoplay);
-document.addEventListener("visibilitychange", scheduleAutoplay);
-reducedMotion.addEventListener?.("change", scheduleAutoplay);
-
-if (carousel) {
-  if (reducedMotion.matches || !("IntersectionObserver" in window)) carousel.classList.add("is-visible");
-  else {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) return;
-      carousel.classList.add("is-visible");
-      observer.disconnect();
-    }, { threshold: .18 });
-    observer.observe(carousel);
-  }
-}
-
-function initStatsCounter() {
-  const stats = document.querySelector("#overview");
-  const numbers = [...(stats?.querySelectorAll("strong") || [])];
-  if (!stats || !numbers.length) return;
-
-  const targets = numbers.map((node) => Number.parseInt(node.textContent, 10) || 0);
-  const formatValue = (value) => `${value}+`;
-
-  numbers.forEach((node) => {
-    node.dataset.number = "";
-  });
-
-  if (reducedMotion.matches || !("IntersectionObserver" in window)) {
-    numbers.forEach((node, index) => { node.textContent = formatValue(targets[index]); });
+  if (!animate || !window.gsap || REDUCED_MOTION.matches || !card) {
+    update();
     return;
   }
 
-  numbers.forEach((node) => {
-    node.textContent = formatValue(0);
-    node.style.opacity = ".35";
-    node.style.transform = "translateY(16px) scale(.97)";
-    node.style.transition = "opacity 360ms ease, transform 560ms cubic-bezier(.2,.78,.18,1)";
+  window.gsap.to(card, {
+    autoAlpha: 0,
+    scale: .975,
+    filter: "blur(10px)",
+    duration: .18,
+    ease: "power2.in",
+    onComplete: () => {
+      update();
+      window.gsap.fromTo(card, { autoAlpha: 0, scale: 1.025, filter: "blur(10px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: .52, ease: "power3.out", clearProps: "opacity,visibility,transform,filter" });
+    },
   });
+}
 
+function initDiscovery() {
+  document.querySelectorAll("[data-discovery-index]").forEach((tab) => {
+    tab.addEventListener("click", () => renderDiscovery(Number(tab.dataset.discoveryIndex)));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) return;
+      event.preventDefault();
+      const delta = ["ArrowDown", "ArrowRight"].includes(event.key) ? 1 : -1;
+      const next = (activeDiscoveryIndex + delta + DISCOVERY_PREVIEWS.length) % DISCOVERY_PREVIEWS.length;
+      renderDiscovery(next);
+      document.querySelector(`[data-discovery-index="${next}"]`)?.focus();
+    });
+  });
+  renderDiscovery(0, { animate: false });
+}
+
+function initStatsCounter() {
+  const section = document.querySelector("#overview");
+  const numbers = [...document.querySelectorAll("[data-count]")];
+  if (!section || !numbers.length) return;
+
+  const showFinal = () => numbers.forEach((node) => { node.textContent = `${node.dataset.count}+`; });
+  if (REDUCED_MOTION.matches || !("IntersectionObserver" in window)) {
+    showFinal();
+    return;
+  }
+
+  numbers.forEach((node) => { node.textContent = "0+"; });
   const observer = new IntersectionObserver(([entry]) => {
     if (!entry.isIntersecting) return;
     observer.disconnect();
 
     numbers.forEach((node, index) => {
-      const target = targets[index];
-      const delay = index * 130;
-      const duration = 1200 + index * 120;
-
-      window.setTimeout(() => {
-        node.style.opacity = "1";
-        node.style.transform = "translateY(0) scale(1)";
-        const startedAt = performance.now();
-
-        const tick = (now) => {
-          const progress = Math.min(1, (now - startedAt) / duration);
-          const eased = 1 - Math.pow(1 - progress, 3);
-          node.textContent = formatValue(Math.round(target * eased));
-          if (progress < 1) requestAnimationFrame(tick);
-          else node.textContent = formatValue(target);
-        };
-
-        requestAnimationFrame(tick);
-      }, delay);
+      const target = Number(node.dataset.count) || 0;
+      const startAt = performance.now() + index * 100;
+      const duration = 1100;
+      const tick = (now) => {
+        if (now < startAt) {
+          requestAnimationFrame(tick);
+          return;
+        }
+        const progress = Math.min(1, (now - startAt) / duration);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        node.textContent = `${Math.round(target * eased)}+`;
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
     });
-  }, { threshold: .35 });
+  }, { threshold: .45 });
 
-  observer.observe(stats);
+  observer.observe(section);
 }
 
-const clamp = (value, min = 0, max = 100) => Math.min(Math.max(value, min), max);
-const round = (value, precision = 3) => Number(value.toFixed(precision));
-const adjust = (value, fromMin, fromMax, toMin, toMax) =>
-  round(toMin + ((toMax - toMin) * (value - fromMin)) / (fromMax - fromMin));
+function initWorkflowTilt() {
+  document.querySelectorAll(".workflow-card").forEach((card) => {
+    const visual = card.querySelector(".workflow-card-visual");
+    if (!visual) return;
 
-function setWorkflowTiltVars(card, x, y) {
-  const width = card.clientWidth || 1;
-  const height = card.clientHeight || 1;
-  const percentX = clamp((100 / width) * x);
-  const percentY = clamp((100 / height) * y);
-  const centerX = percentX - 50;
-  const centerY = percentY - 50;
-
-  const properties = {
-    "--pointer-x": `${percentX}%`,
-    "--pointer-y": `${percentY}%`,
-    "--background-x": `${adjust(percentX, 0, 100, 35, 65)}%`,
-    "--background-y": `${adjust(percentY, 0, 100, 35, 65)}%`,
-    "--pointer-from-center": `${clamp(Math.hypot(percentY - 50, percentX - 50) / 50, 0, 1)}`,
-    "--pointer-from-top": `${percentY / 100}`,
-    "--pointer-from-left": `${percentX / 100}`,
-    "--rotate-x": `${round(-(centerX / 6.25))}deg`,
-    "--rotate-y": `${round(centerY / 5)}deg`,
-  };
-
-  Object.entries(properties).forEach(([property, value]) => card.style.setProperty(property, value));
-}
-
-function createWorkflowTiltEngine(card) {
-  let rafId = null;
-  let running = false;
-  let lastTs = 0;
-  let currentX = card.clientWidth / 2;
-  let currentY = card.clientHeight / 2;
-  let targetX = currentX;
-  let targetY = currentY;
-
-  const step = (timestamp) => {
-    if (!running) return;
-    if (lastTs === 0) lastTs = timestamp;
-    const deltaSeconds = (timestamp - lastTs) / 1000;
-    lastTs = timestamp;
-    const smoothing = 1 - Math.exp(-deltaSeconds / .14);
-
-    currentX += (targetX - currentX) * smoothing;
-    currentY += (targetY - currentY) * smoothing;
-    setWorkflowTiltVars(card, currentX, currentY);
-
-    const stillMoving = Math.abs(targetX - currentX) > .05 || Math.abs(targetY - currentY) > .05;
-    if (stillMoving) {
-      rafId = requestAnimationFrame(step);
-    } else {
-      running = false;
-      lastTs = 0;
-      rafId = null;
-    }
-  };
-
-  const start = () => {
-    if (running) return;
-    running = true;
-    lastTs = 0;
-    rafId = requestAnimationFrame(step);
-  };
-
-  return {
-    setTarget(x, y) {
-      targetX = x;
-      targetY = y;
-      start();
-    },
-    toCenter() {
-      this.setTarget(card.clientWidth / 2, card.clientHeight / 2);
-    },
-    isSettled() {
-      return Math.hypot(targetX - currentX, targetY - currentY) < .6;
-    },
-    cancel() {
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = null;
-      running = false;
-      lastTs = 0;
-    },
-  };
-}
-
-function enhanceWorkflowCard(card) {
-  if (card.dataset.workflowTiltReady === "true") return;
-  card.dataset.workflowTiltReady = "true";
-
-  const engine = createWorkflowTiltEngine(card);
-  let enterTimer = null;
-  let settleRaf = null;
-
-  const canTilt = () => finePointer.matches && !reducedMotion.matches;
-  const pointerPosition = (event) => {
-    const rect = card.getBoundingClientRect();
-    return { x: event.clientX - rect.left, y: event.clientY - rect.top };
-  };
-
-  const onPointerEnter = (event) => {
-    if (!canTilt()) return;
-    card.classList.add("workflow-card-active", "workflow-card-entering");
-    if (enterTimer) clearTimeout(enterTimer);
-    enterTimer = window.setTimeout(() => card.classList.remove("workflow-card-entering"), 180);
-    const { x, y } = pointerPosition(event);
-    engine.setTarget(x, y);
-  };
-
-  const onPointerMove = (event) => {
-    if (!canTilt()) return;
-    const { x, y } = pointerPosition(event);
-    engine.setTarget(x, y);
-  };
-
-  const onPointerLeave = () => {
-    if (!canTilt()) return;
-    engine.toCenter();
-    if (settleRaf) cancelAnimationFrame(settleRaf);
-
-    const waitForCenter = () => {
-      if (engine.isSettled()) {
-        card.classList.remove("workflow-card-active", "workflow-card-entering");
-        settleRaf = null;
-        return;
-      }
-      settleRaf = requestAnimationFrame(waitForCenter);
+    const reset = () => {
+      card.classList.remove("is-tilting");
+      visual.style.setProperty("--pointer-x", "50%");
+      visual.style.setProperty("--pointer-y", "50%");
+      visual.style.setProperty("--rotate-x", "0deg");
+      visual.style.setProperty("--rotate-y", "0deg");
     };
 
-    settleRaf = requestAnimationFrame(waitForCenter);
-  };
+    card.addEventListener("pointerenter", () => {
+      if (!FINE_POINTER.matches || REDUCED_MOTION.matches) return;
+      card.classList.add("is-tilting");
+    });
 
-  const reset = () => {
-    engine.cancel();
-    card.classList.remove("workflow-card-active", "workflow-card-entering");
-    card.style.setProperty("--pointer-x", "50%");
-    card.style.setProperty("--pointer-y", "50%");
-    card.style.setProperty("--pointer-from-center", "0");
-    card.style.setProperty("--pointer-from-top", ".5");
-    card.style.setProperty("--pointer-from-left", ".5");
-    card.style.setProperty("--rotate-x", "0deg");
-    card.style.setProperty("--rotate-y", "0deg");
-  };
+    card.addEventListener("pointermove", (event) => {
+      if (!FINE_POINTER.matches || REDUCED_MOTION.matches) return;
+      const rect = visual.getBoundingClientRect();
+      const px = Math.max(0, Math.min(100, ((event.clientX - rect.left) / Math.max(rect.width, 1)) * 100));
+      const py = Math.max(0, Math.min(100, ((event.clientY - rect.top) / Math.max(rect.height, 1)) * 100));
+      const cx = px - 50;
+      const cy = py - 50;
+      visual.style.setProperty("--pointer-x", `${px}%`);
+      visual.style.setProperty("--pointer-y", `${py}%`);
+      visual.style.setProperty("--rotate-x", `${-(cx / 6.5)}deg`);
+      visual.style.setProperty("--rotate-y", `${cy / 5.2}deg`);
+    });
 
-  card.addEventListener("pointerenter", onPointerEnter);
-  card.addEventListener("pointermove", onPointerMove);
-  card.addEventListener("pointerleave", onPointerLeave);
-  reducedMotion.addEventListener?.("change", reset);
-  finePointer.addEventListener?.("change", reset);
+    card.addEventListener("pointerleave", reset);
+    REDUCED_MOTION.addEventListener?.("change", reset);
+    FINE_POINTER.addEventListener?.("change", reset);
+  });
 }
 
-function initWorkflowCardMotion() {
-  document.querySelectorAll("#capabilities .capability-grid > a").forEach(enhanceWorkflowCard);
+function setWorkflowStep(index) {
+  workflowStep = index;
+  document.querySelectorAll("[data-workflow-dot]").forEach((node, nodeIndex) => node.classList.toggle("is-active", nodeIndex === index));
 }
 
-function loadMotionScript(src) {
+function setDnaStep(index) {
+  dnaStep = index;
+  document.querySelectorAll("[data-dna-rule]").forEach((node, nodeIndex) => node.classList.toggle("is-active", nodeIndex === index));
+  document.querySelectorAll("[data-dna-overlay]").forEach((node, nodeIndex) => node.classList.toggle("is-active", nodeIndex === index));
+}
+
+function loadScript(src, test) {
+  if (test()) return Promise.resolve();
   return new Promise((resolve, reject) => {
     const existing = [...document.scripts].find((script) => script.src === src);
     if (existing) {
-      if (existing.dataset.loaded === "true") resolve();
-      else {
-        existing.addEventListener("load", resolve, { once: true });
-        existing.addEventListener("error", reject, { once: true });
-      }
+      existing.addEventListener("load", resolve, { once: true });
+      existing.addEventListener("error", reject, { once: true });
       return;
     }
-
     const script = document.createElement("script");
     script.src = src;
     script.async = true;
-    script.dataset.homeMotion = "true";
-    script.addEventListener("load", () => {
-      script.dataset.loaded = "true";
-      resolve();
-    }, { once: true });
+    script.crossOrigin = "anonymous";
+    script.addEventListener("load", resolve, { once: true });
     script.addEventListener("error", reject, { once: true });
     document.head.append(script);
   });
 }
 
-async function ensureHomeMotionLibraries() {
-  if (window.gsap && window.ScrollTrigger) return true;
+async function ensureGsap() {
+  if (REDUCED_MOTION.matches) return false;
   try {
-    if (!window.gsap) await loadMotionScript(HOME_MOTION_SCRIPTS[0]);
-    if (!window.ScrollTrigger) await loadMotionScript(HOME_MOTION_SCRIPTS[1]);
-    return Boolean(window.gsap && window.ScrollTrigger);
+    await loadScript(GSAP_URL, () => Boolean(window.gsap));
+    await loadScript(SCROLL_TRIGGER_URL, () => Boolean(window.ScrollTrigger));
+    if (!window.gsap || !window.ScrollTrigger) return false;
+    window.gsap.registerPlugin(window.ScrollTrigger);
+    return true;
   } catch (error) {
-    console.warn("Home motion enhancement unavailable; continuing with the static experience.", error);
+    console.warn("GSAP enhancement unavailable; using the static Home experience.", error);
     return false;
   }
 }
 
 function initHeroPointer() {
-  const hero = document.querySelector(".project-hero");
-  const image = hero?.querySelector(".project-hero-image");
-  if (!hero || !image || !finePointer.matches || reducedMotion.matches || !window.gsap) return;
+  const hero = document.querySelector(".home-hero");
+  const image = hero?.querySelector(".home-hero-image");
+  if (!hero || !image || !FINE_POINTER.matches || REDUCED_MOTION.matches || !window.gsap) return;
 
   const moveX = window.gsap.quickTo(image, "x", { duration: .8, ease: "power3.out" });
   const moveY = window.gsap.quickTo(image, "y", { duration: .8, ease: "power3.out" });
-
   hero.addEventListener("pointermove", (event) => {
     const rect = hero.getBoundingClientRect();
-    const px = clamp(((event.clientX - rect.left) / Math.max(rect.width, 1)) * 100);
-    const py = clamp(((event.clientY - rect.top) / Math.max(rect.height, 1)) * 100);
-    hero.style.setProperty("--hero-pointer-x", `${px}%`);
-    hero.style.setProperty("--hero-pointer-y", `${py}%`);
+    const px = Math.max(0, Math.min(100, ((event.clientX - rect.left) / Math.max(rect.width, 1)) * 100));
+    const py = Math.max(0, Math.min(100, ((event.clientY - rect.top) / Math.max(rect.height, 1)) * 100));
+    hero.style.setProperty("--hero-x", `${px}%`);
+    hero.style.setProperty("--hero-y", `${py}%`);
     moveX((px - 50) * -.08);
-    moveY((py - 50) * -.06);
+    moveY((py - 50) * -.05);
   });
-
   hero.addEventListener("pointerleave", () => {
-    hero.style.setProperty("--hero-pointer-x", "50%");
-    hero.style.setProperty("--hero-pointer-y", "44%");
+    hero.style.setProperty("--hero-x", "50%");
+    hero.style.setProperty("--hero-y", "48%");
     moveX(0);
     moveY(0);
   });
 }
 
 function initMagneticLinks() {
-  if (!finePointer.matches || reducedMotion.matches || !window.gsap) return;
-  const links = document.querySelectorAll(".project-hero-actions a, .project-cta-actions a, .discovery-more");
-
-  links.forEach((link) => {
-    const moveX = window.gsap.quickTo(link, "x", { duration: .35, ease: "power3.out" });
-    const moveY = window.gsap.quickTo(link, "y", { duration: .35, ease: "power3.out" });
-
+  if (!FINE_POINTER.matches || REDUCED_MOTION.matches || !window.gsap) return;
+  document.querySelectorAll(".home-button-primary, .explore-more, .final-cta-link").forEach((link) => {
+    const moveX = window.gsap.quickTo(link, "x", { duration: .32, ease: "power3.out" });
+    const moveY = window.gsap.quickTo(link, "y", { duration: .32, ease: "power3.out" });
     link.addEventListener("pointermove", (event) => {
       const rect = link.getBoundingClientRect();
       const dx = event.clientX - (rect.left + rect.width / 2);
       const dy = event.clientY - (rect.top + rect.height / 2);
-      moveX(clamp(dx * .16, -10, 10));
-      moveY(clamp(dy * .16, -8, 8));
+      moveX(Math.max(-10, Math.min(10, dx * .13)));
+      moveY(Math.max(-7, Math.min(7, dy * .13)));
     });
-
-    link.addEventListener("pointerleave", () => {
-      moveX(0);
-      moveY(0);
-    });
+    link.addEventListener("pointerleave", () => { moveX(0); moveY(0); });
   });
 }
 
 function initHomeMotion() {
-  if (reducedMotion.matches || !window.gsap || !window.ScrollTrigger) return;
+  if (!window.gsap || !window.ScrollTrigger || REDUCED_MOTION.matches) return;
   const { gsap, ScrollTrigger } = window;
-  gsap.registerPlugin(ScrollTrigger);
   document.body.classList.add("home-motion-active");
 
-  const hero = document.querySelector(".project-hero");
-  const heroImage = hero?.querySelector(".project-hero-image");
-  const heroContent = hero?.querySelector(".project-hero-content");
-  const heroIntro = heroContent ? [heroContent.querySelector(".project-eyebrow"), heroContent.querySelector("h1"), heroContent.querySelector("p:not(.project-eyebrow)"), heroContent.querySelector(".project-hero-actions")].filter(Boolean) : [];
+  homeMotionContext?.revert?.();
+  homeMotionContext = gsap.context(() => {
+    const hero = document.querySelector(".home-hero");
+    const heroImage = hero?.querySelector(".home-hero-image");
+    const heroLayout = hero?.querySelector(".home-hero-layout");
+    const heroPieces = [
+      ".home-hero-title .home-kicker",
+      ".home-hero h1 span:first-child",
+      ".home-hero h1 span:last-child",
+      ".home-hero-aside > p",
+      ".home-hero-actions",
+      ".home-scroll-cue",
+    ];
 
-  if (heroIntro.length) {
-    const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
-    intro
-      .from(heroIntro[0], { autoAlpha: 0, y: 18, duration: .55 })
-      .from(heroIntro[1], { autoAlpha: 0, y: 52, duration: .9 }, "-=.28")
-      .from(heroIntro[2], { autoAlpha: 0, y: 24, duration: .65 }, "-=.48")
-      .from(heroIntro[3], { autoAlpha: 0, y: 20, duration: .6 }, "-=.42")
-      .from(".project-scroll", { autoAlpha: 0, y: 16, duration: .5 }, "-=.24");
-  }
+    gsap.timeline({ defaults: { ease: "power3.out" } })
+      .from(heroPieces[0], { autoAlpha: 0, y: 18, duration: .45 })
+      .from(heroPieces[1], { autoAlpha: 0, yPercent: 70, duration: .78 }, "-=.18")
+      .from(heroPieces[2], { autoAlpha: 0, yPercent: 70, duration: .82 }, "-=.5")
+      .from(heroPieces[3], { autoAlpha: 0, y: 26, duration: .55 }, "-=.48")
+      .from(heroPieces[4], { autoAlpha: 0, y: 18, duration: .48 }, "-=.36")
+      .from(heroPieces[5], { autoAlpha: 0, x: 16, duration: .4 }, "-=.22");
 
-  if (hero && heroImage && heroContent) {
-    gsap.to(heroImage, {
-      scale: 1.13,
-      ease: "none",
-      scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: .8 },
-    });
-    gsap.to(heroContent, {
-      yPercent: -13,
-      autoAlpha: .28,
-      ease: "none",
-      scrollTrigger: { trigger: hero, start: "top top", end: "bottom 18%", scrub: .8 },
-    });
-    gsap.to(".project-scroll", {
-      autoAlpha: 0,
-      y: -18,
-      ease: "none",
-      scrollTrigger: { trigger: hero, start: "top top", end: "35% top", scrub: true },
-    });
-  }
+    if (hero && heroImage && heroLayout) {
+      gsap.to(heroImage, { scale: 1.16, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: .8 } });
+      gsap.to(heroLayout, { yPercent: -10, autoAlpha: .18, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom 10%", scrub: .8 } });
+    }
 
-  gsap.from(".featured-carousel", {
-    autoAlpha: 0,
-    filter: "blur(10px)",
-    duration: .9,
-    ease: "power3.out",
-    clearProps: "opacity,visibility,filter",
-    scrollTrigger: { trigger: "#cases", start: "top 78%", once: true },
-  });
-  gsap.from(".featured-carousel-arrow, .featured-carousel-footer", {
-    autoAlpha: 0,
-    y: 18,
-    stagger: .08,
-    duration: .65,
-    ease: "power3.out",
-    clearProps: "opacity,visibility,transform",
-    scrollTrigger: { trigger: "#cases", start: "top 68%", once: true },
-  });
+    gsap.from(".case-story-heading > *", { autoAlpha: 0, y: 34, stagger: .1, duration: .7, ease: "power3.out", scrollTrigger: { trigger: ".case-story-heading", start: "top 78%", once: true } });
 
-  gsap.from("#overview article", {
-    autoAlpha: 0,
-    y: 30,
-    stagger: .12,
-    duration: .7,
-    ease: "power3.out",
-    clearProps: "opacity,visibility,transform",
-    scrollTrigger: { trigger: "#overview", start: "top 82%", once: true },
-  });
+    const caseViewport = document.querySelector("[data-case-viewport]");
+    const caseTrack = document.querySelector("[data-case-track]");
+    if (caseViewport && caseTrack && window.innerWidth > 720) {
+      const horizontalDistance = () => Math.max(0, caseTrack.scrollWidth - caseViewport.clientWidth + Math.max(32, window.innerWidth * .05));
+      gsap.to(caseTrack, {
+        x: () => -horizontalDistance(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".case-story-inner",
+          start: "top top",
+          end: () => `+=${Math.max(window.innerHeight * 1.5, horizontalDistance())}`,
+          pin: true,
+          scrub: .8,
+          invalidateOnRefresh: true,
+        },
+      });
+      gsap.from(".case-panel", { autoAlpha: 0, y: 44, scale: .96, stagger: .09, duration: .7, ease: "power3.out", scrollTrigger: { trigger: ".case-story-track", start: "top 78%", once: true } });
+    }
 
-  gsap.from("#templates .template-gallery-heading > *", {
-    autoAlpha: 0,
-    y: 30,
-    stagger: .09,
-    duration: .65,
-    ease: "power3.out",
-    clearProps: "opacity,visibility,transform",
-    scrollTrigger: { trigger: "#templates", start: "top 76%", once: true },
-  });
-  gsap.from("#templates .template-filters a", {
-    autoAlpha: 0,
-    y: 18,
-    stagger: .055,
-    duration: .5,
-    ease: "power3.out",
-    clearProps: "opacity,visibility,transform",
-    scrollTrigger: { trigger: "#templates .template-filters", start: "top 86%", once: true },
-  });
-  const activeDiscoveryCard = discoveryCards[activeDiscoveryIndex];
-  if (activeDiscoveryCard) {
-    gsap.from(activeDiscoveryCard, {
-      autoAlpha: 0,
-      scale: .96,
-      filter: "blur(9px)",
-      duration: .75,
-      ease: "power3.out",
-      clearProps: "opacity,visibility,transform,filter",
-      scrollTrigger: { trigger: "#templates .template-grid", start: "top 84%", once: true },
-    });
-  }
+    gsap.from(".proof-grid > *", { autoAlpha: 0, y: 28, stagger: .08, duration: .6, ease: "power3.out", scrollTrigger: { trigger: "#overview", start: "top 82%", once: true } });
+    gsap.from(".explore-copy > .home-kicker, .explore-copy > h2, .explore-copy > p", { autoAlpha: 0, y: 28, stagger: .08, duration: .65, ease: "power3.out", scrollTrigger: { trigger: ".explore-scene", start: "top 76%", once: true } });
+    gsap.from(".explore-tabs button", { autoAlpha: 0, x: -18, stagger: .055, duration: .46, ease: "power3.out", scrollTrigger: { trigger: ".explore-tabs", start: "top 84%", once: true } });
+    gsap.from(".explore-preview", { autoAlpha: 0, y: 46, scale: .965, filter: "blur(12px)", duration: .8, ease: "power3.out", clearProps: "filter", scrollTrigger: { trigger: ".explore-preview-wrap", start: "top 82%", once: true } });
 
-  gsap.from("#capabilities .section-heading > *", {
-    autoAlpha: 0,
-    y: 30,
-    stagger: .1,
-    duration: .7,
-    ease: "power3.out",
-    clearProps: "opacity,visibility,transform",
-    scrollTrigger: { trigger: "#capabilities", start: "top 76%", once: true },
-  });
-  gsap.from("#capabilities .capability-grid > a", {
-    autoAlpha: 0,
-    filter: "blur(10px)",
-    clipPath: "inset(9% 0 0 0 round 8px)",
-    stagger: .12,
-    duration: .8,
-    ease: "power3.out",
-    clearProps: "opacity,visibility,filter,clipPath",
-    scrollTrigger: { trigger: "#capabilities .capability-grid", start: "top 82%", once: true },
-  });
-  gsap.from("#capabilities .workflow-source", {
-    autoAlpha: 0,
-    y: 12,
-    duration: .5,
-    ease: "power3.out",
-    clearProps: "opacity,visibility,transform",
-    scrollTrigger: { trigger: "#capabilities .capability-grid", start: "bottom 90%", once: true },
-  });
+    const workflowCards = [...document.querySelectorAll("[data-workflow-card]")];
+    if (workflowCards.length && window.innerWidth > 720) {
+      workflowCards.forEach((card, index) => {
+        const tablet = window.innerWidth <= 1100;
+        gsap.set(card, { xPercent: tablet ? -50 : 0, yPercent: -50, autoAlpha: index === 0 ? 1 : 0, scale: index === 0 ? 1 : .88, y: index === 0 ? 0 : 90, rotation: index === 0 ? 0 : index % 2 ? 2.5 : -2.5 });
+      });
 
-  gsap.from("#design-system .showcase-copy > *", {
-    autoAlpha: 0,
-    y: 28,
-    stagger: .09,
-    duration: .7,
-    ease: "power3.out",
-    clearProps: "opacity,visibility,transform",
-    scrollTrigger: { trigger: "#design-system", start: "top 72%", once: true },
-  });
-  gsap.from("#design-system .showcase-card", {
-    autoAlpha: 0,
-    y: 86,
-    rotation: 0,
-    scale: .88,
-    stagger: .11,
-    duration: .9,
-    ease: "power3.out",
-    clearProps: "opacity,visibility,transform",
-    scrollTrigger: { trigger: "#design-system .showcase-scene", start: "top 82%", once: true },
-  });
+      const workflowTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".workflow-stage",
+          start: "top top",
+          end: "+=3000",
+          pin: true,
+          scrub: .75,
+          onUpdate: (self) => {
+            const index = Math.min(3, Math.floor(self.progress * 4));
+            if (index !== workflowStep) setWorkflowStep(index);
+          },
+        },
+      });
 
-  gsap.from("#design-system-live .system-explainer-heading > *", {
-    autoAlpha: 0,
-    y: 28,
-    stagger: .09,
-    duration: .7,
-    ease: "power3.out",
-    clearProps: "opacity,visibility,transform",
-    scrollTrigger: { trigger: "#design-system-live", start: "top 76%", once: true },
-  });
+      workflowCards.forEach((card, index) => {
+        if (index === 0) return;
+        const previous = workflowCards[index - 1];
+        const time = index;
+        workflowTimeline
+          .to(previous, { autoAlpha: .18, scale: .84, y: -72, rotation: index % 2 ? -3 : 3, duration: .55, ease: "power2.inOut" }, time - .1)
+          .to(card, { autoAlpha: 1, scale: 1, y: 0, rotation: 0, duration: .7, ease: "power3.out" }, time);
+      });
+      workflowTimeline.to(workflowCards.at(-1), { scale: 1.02, duration: .35 }, 3.8);
+    } else {
+      gsap.from(".workflow-card", { autoAlpha: 0, y: 38, stagger: .1, duration: .65, ease: "power3.out", scrollTrigger: { trigger: ".workflow-cards", start: "top 82%", once: true } });
+    }
 
-  const liveTimeline = gsap.timeline({
-    scrollTrigger: {
-      trigger: "#design-system-live .system-explainer-stage",
-      start: "top 82%",
-      end: "bottom 58%",
-      scrub: .7,
-    },
-  });
-  liveTimeline
-    .from("#design-system-live .system-app", { autoAlpha: 0, filter: "blur(14px)", duration: 1 })
-    .from("#design-system-live .system-callout-type", { autoAlpha: 0, x: -74, duration: .65, clearProps: "transform" }, .28)
-    .from("#design-system-live .system-callout-color", { autoAlpha: 0, x: 74, duration: .65, clearProps: "transform" }, .48)
-    .from("#design-system-live .system-callout-spacing", { autoAlpha: 0, x: -74, duration: .65, clearProps: "transform" }, .68)
-    .from("#design-system-live .system-callout-states", { autoAlpha: 0, x: 74, duration: .65, clearProps: "transform" }, .88);
+    gsap.from(".workflow-copy > .home-kicker, .workflow-copy > h2, .workflow-copy > p, .workflow-index, .workflow-source", { autoAlpha: 0, y: 24, stagger: .07, duration: .6, ease: "power3.out", scrollTrigger: { trigger: ".workflow-scene", start: "top 78%", once: true } });
+    gsap.from(".dna-heading > *", { autoAlpha: 0, y: 32, stagger: .08, duration: .7, ease: "power3.out", scrollTrigger: { trigger: ".dna-heading", start: "top 78%", once: true } });
 
-  gsap.from(".project-editorial .project-container > *, .project-cta-inner > *", {
-    autoAlpha: 0,
-    y: 34,
-    stagger: .1,
-    duration: .75,
-    ease: "power3.out",
-    clearProps: "opacity,visibility,transform",
-    scrollTrigger: { trigger: ".project-editorial", start: "top 76%", once: true },
-  });
-  gsap.from(".project-footer .footer-grid > *, .project-footer .footer-bottom > *", {
-    autoAlpha: 0,
-    y: 22,
-    stagger: .055,
-    duration: .6,
-    ease: "power3.out",
-    clearProps: "opacity,visibility,transform",
-    scrollTrigger: { trigger: ".project-footer", start: "top 88%", once: true },
+    const dnaStage = document.querySelector("[data-dna-stage]");
+    const dnaProduct = document.querySelector(".dna-product");
+    const dnaOverlays = [...document.querySelectorAll("[data-dna-overlay]")];
+    if (dnaStage && dnaProduct && window.innerWidth > 720) {
+      gsap.set(dnaOverlays, { autoAlpha: .12, scale: .94 });
+      gsap.set(dnaOverlays[0], { autoAlpha: 1, scale: 1 });
+      setDnaStep(0);
+
+      const dnaTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: dnaStage,
+          start: "top top",
+          end: "+=2800",
+          pin: true,
+          scrub: .72,
+          onUpdate: (self) => {
+            const index = Math.min(3, Math.floor(self.progress * 4));
+            if (index !== dnaStep) setDnaStep(index);
+          },
+        },
+      });
+
+      dnaTimeline.from(dnaProduct, { autoAlpha: 0, y: 44, scale: .94, filter: "blur(12px)", duration: .75, ease: "power3.out" }, 0);
+      dnaOverlays.forEach((overlay, index) => {
+        if (index === 0) return;
+        dnaTimeline
+          .to(dnaOverlays[index - 1], { autoAlpha: .18, scale: .95, duration: .35 }, index)
+          .to(overlay, { autoAlpha: 1, scale: 1, duration: .5, ease: "power3.out" }, index + .05);
+      });
+      dnaTimeline
+        .to(".dna-main-head h3", { color: "#73f2a7", duration: .3 }, 1.1)
+        .to(".dna-project-grid", { gap: 18, duration: .45 }, 2.1)
+        .to(".dna-component-row", { y: -4, duration: .3 }, 3.1);
+    } else {
+      gsap.from(".dna-rule, .dna-product", { autoAlpha: 0, y: 34, stagger: .08, duration: .65, ease: "power3.out", scrollTrigger: { trigger: ".dna-stage", start: "top 82%", once: true } });
+    }
+
+    gsap.from(".final-cta-inner > *", { autoAlpha: 0, y: 40, stagger: .09, duration: .72, ease: "power3.out", scrollTrigger: { trigger: ".final-cta", start: "top 76%", once: true } });
+    gsap.from(".footer-grid > *, .footer-bottom > *", { autoAlpha: 0, y: 22, stagger: .055, duration: .52, ease: "power3.out", scrollTrigger: { trigger: ".project-footer", start: "top 90%", once: true } });
   });
 
   initHeroPointer();
@@ -947,18 +472,43 @@ function initHomeMotion() {
   window.setTimeout(() => ScrollTrigger.refresh(), 120);
 }
 
-ensureDiscoveryEnhancement();
-renderCarousel();
-scheduleAutoplay();
-initStatsCounter();
-initWorkflowCardMotion();
+function destroyHomeMotion() {
+  homeMotionContext?.revert?.();
+  homeMotionContext = null;
+  window.ScrollTrigger?.getAll?.().forEach((trigger) => trigger.kill());
+  document.body.classList.remove("home-motion-active");
+  setWorkflowStep(0);
+  setDnaStep(0);
+}
 
+function handleMotionPreference() {
+  if (REDUCED_MOTION.matches) {
+    destroyHomeMotion();
+    return;
+  }
+  ensureGsap().then((ready) => { if (ready) initHomeMotion(); });
+}
+
+initDiscovery();
+initStatsCounter();
+initWorkflowTilt();
+setWorkflowStep(0);
+setDnaStep(0);
 applyLanguage();
+
 if (window.image2I18n?.registerPage) window.image2I18n.registerPage((language) => applyLanguage({ detail: language }));
 else window.addEventListener("image2:languagechange", applyLanguage);
 
-if (!reducedMotion.matches) {
-  ensureHomeMotionLibraries().then((ready) => {
-    if (ready) initHomeMotion();
-  });
-}
+handleMotionPreference();
+REDUCED_MOTION.addEventListener?.("change", handleMotionPreference);
+
+let resizeTimer = 0;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = window.setTimeout(() => {
+    if (!REDUCED_MOTION.matches && window.gsap && window.ScrollTrigger) {
+      destroyHomeMotion();
+      initHomeMotion();
+    }
+  }, 220);
+});
