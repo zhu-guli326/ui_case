@@ -54,6 +54,7 @@ The page should behave more like a visual directory + learning reference than a 
 - Search and category changes should be easy to understand and reversible.
 - Card behavior and preview behavior should remain consistent inside the page.
 - If cards support flipped states or variants, the interaction must have a clear learning purpose rather than decorative complexity.
+- Card flip and state-variant controls must remain repeatably clickable after card re-rendering, search/filter changes and language switching; interaction handling should live on a persistent parent rather than depend on one-time listeners attached to replaceable card DOM.
 - Chinese and English content must switch through the global language system.
 
 ## Keep
