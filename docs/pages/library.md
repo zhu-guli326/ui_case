@@ -47,7 +47,9 @@ A user should be able to find a relevant case, understand what makes it useful, 
 - Detail views should add information rather than repeat the card.
 - Avoid excessive blank space on desktop browsing views.
 - Search and filter interactions must remain predictable and reversible.
-- The primary search field is detached from the content toolbar and remains a centered floating control at the bottom of the viewport; reserve page-bottom space so it never covers the last usable content.
+- The primary search field is detached from the content toolbar and remains centered at the bottom of the viewport.
+- On desktop pointer devices, the floating search stays icon-sized while idle and expands only on hover or keyboard/input focus; this compact resting state must not block page content.
+- Touch layouts should remain directly usable without requiring hover.
 - The floating search uses the same shared geometry as Vocabulary and Skills, while keeping Library-specific placeholder text and search behavior.
 - Chinese and English versions should preserve equivalent functionality.
 
