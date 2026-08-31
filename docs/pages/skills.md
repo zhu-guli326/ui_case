@@ -57,8 +57,8 @@ Category wording can be refined, but the structure should remain intuitive and s
 
 ## Information structure
 
-1. Mode / directory context
-2. Filter controls
+1. Flat mode / directory context without an enclosing hero card
+2. Flat filter controls
 3. Resource list / visual cards
 4. Focused inspector / flipped detail when useful
 5. Direct action: visit, copy prompt, inspect source availability, etc.
@@ -66,6 +66,8 @@ Category wording can be refined, but the structure should remain intuitive and s
 
 ## Interaction rules
 
+- The knowledge-page shell is intentionally flat: page-level hero, overview and filter containers must not use card-style borders, rounded white panels or shadows.
+- Skill and Web resource cards remain cards because they represent real independent resources; flattening the page shell must not remove their preview, hover, flip or direct actions.
 - Filters must remain understandable and compact.
 - Avoid large unused gutters; the directory should use available desktop width effectively.
 - Cards should prioritize the actual resource and its visual evidence over decorative chrome.
@@ -89,6 +91,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 
 ## Remove / avoid
 
+- Page-level card chrome around the hero, overview or filter sidebar.
 - Duplicate filter systems.
 - Task-search controls that do not improve resource discovery.
 - Result-count / sort / sync-only toolbar chrome after search moves to the floating dock.
