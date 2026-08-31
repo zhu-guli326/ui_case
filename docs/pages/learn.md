@@ -66,6 +66,19 @@ The four-card workflow should explain the path from an idea to a runnable demo. 
 - The four cards must share the same text baseline and vertical rhythm: stage title, person name, role/thinking line, and description should align across all cards.
 - Add a compact source link aligned to the lower-right of this section pointing to `https://github.com/zhu-guli326/image2_UI_skill.git`.
 
+#### Workflow card motion enhancement
+
+The four workflow cards use the pointer-reactive motion language from React Bits `ProfileCard` (JS-CSS registry variant) while preserving the current ONDesign card content and visual hierarchy.
+
+- Desktop pointer interaction: each card tilts in 3D toward the pointer, with a soft pointer-following glare/highlight and subtle depth response.
+- Motion should interpolate smoothly rather than snap; when the pointer leaves, the card eases back to center before the active glow disappears.
+- Keep the current four portrait assets, per-stage color treatment, text content, grid proportions and source-link placement. The motion is an enhancement, not a redesign into a profile/contact card.
+- Do not add ProfileCard-specific user UI such as handle, online status, mini avatar or Contact button.
+- Do not add mobile device-orientation tilt. Touch/mobile keeps the static card presentation.
+- Do not add extra runtime dependencies solely for this effect. The current page is a static HTML/CSS/JS site, so reuse the React Bits motion math/variables in the existing vanilla-JS architecture instead of introducing React just for four cards.
+- Respect `prefers-reduced-motion: reduce`: disable pointer tilt and animated glare/transform transitions for users requesting reduced motion.
+- The enhancement must not alter card links, keyboard focus, bilingual rendering, image loading or layout dimensions.
+
 ### Lightweight discovery strip
 
 The old template gallery is no longer a template catalog. It is a compact “看点啥” discovery entry that helps users choose what kind of design resource they want to explore next.
