@@ -10,11 +10,133 @@ const publicEntries = [
   "launcher.html", "skills.html", "skill-detail.html", "about.html", "contact.html", "privacy.html"
 ];
 const shellPages = publicEntries.filter((entry) => entry !== "index.html");
-const requiredDirs = ["assets", "catalog", "demo", "src"];
+const requiredDirs = ["assets", "catalog", "demo", "src", "docs/pages"];
+const requirementManifestRelative = "docs/pages/manifest.json";
+const requirementReadmeRelative = "docs/pages/README.md";
 const failures = [];
 
-for (const entry of [...publicEntries, ...requiredDirs, "catalog/index.js"]) {
+for (const entry of [
+  ...publicEntries,
+  ...requiredDirs,
+  "AGENTS.md",
+  "catalog/index.js",
+  requirementManifestRelative,
+  requirementReadmeRelative,
+]) {
   if (!fs.existsSync(path.join(root, entry))) failures.push(`Missing required site path: ${entry}`);
+}
+
+// Per-page requirement-document contract: every full public product page owns one
+// independent document, resolved through the machine-readable manifest.
+const requiredRequirementSections = [
+  "Page identity",
+  "Page goal",
+  "Core user task",
+  "Core functions",
+  "Information structure",
+  "Interaction rules",
+  "Keep",
+  "Remove / avoid",
+  "Modification boundary",
+];
+const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const hasRequirementSection = (source, title) => new RegExp(`^##\\s+${escapeRegExp(title)}\\s*$`, "m").test(source);
+const implementationOwnershipPattern = /\b(?:Canonical (?:implementation|runtime|core|styles)|Shared implementation family|Main styles):/i;
+const requirementManifestPath = path.join(root, requirementManifestRelative);
+const requirementDir = path.join(root, "docs/pages");
+let requirementManifest = null;
+let mappedRequirementCount = 0;
+
+if (fs.existsSync(requirementManifestPath)) {
+  try {
+    requirementManifest = JSON.parse(fs.readFileSync(requirementManifestPath, "utf8"));
+  } catch (error) {
+    failures.push(`${requirementManifestRelative} is not valid JSON: ${error.message}`);
+  }
+}
+
+if (requirementManifest) {
+  const pages = requirementManifest.pages;
+  const redirects = requirementManifest.redirects ?? {};
+
+  if (!Number.isInteger(requirementManifest.version) || requirementManifest.version < 1) {
+    failures.push(`${requirementManifestRelative} must contain an integer version >= 1.`);
+  }
+  if (!pages || typeof pages !== "object" || Array.isArray(pages)) {
+    failures.push(`${requirementManifestRelative} must contain a pages object.`);
+  } else {
+    const mappedDocs = new Map();
+    mappedRequirementCount = Object.keys(pages).length;
+
+    for (const entry of shellPages) {
+      if (!pages[entry]) failures.push(`${entry} has no requirement document mapping in ${requirementManifestRelative}.`);
+    }
+
+    for (const [route, docRelative] of Object.entries(pages)) {
+      if (!shellPages.includes(route)) {
+        failures.push(`${requirementManifestRelative} maps unknown or redirect-only route as a product page: ${route}`);
+      }
+      if (typeof docRelative !== "string" || !docRelative.startsWith("docs/pages/") || !docRelative.endsWith(".md")) {
+        failures.push(`${requirementManifestRelative} must map ${route} to a Markdown file under docs/pages/.`);
+        continue;
+      }
+
+      const previousRoute = mappedDocs.get(docRelative);
+      if (previousRoute) {
+        failures.push(`Requirement document must be unique per page: ${docRelative} is mapped by both ${previousRoute} and ${route}.`);
+      } else {
+        mappedDocs.set(docRelative, route);
+      }
+
+      const docPath = path.join(root, docRelative);
+      if (!fs.existsSync(docPath)) {
+        failures.push(`${route} maps to missing requirement document: ${docRelative}`);
+        continue;
+      }
+
+      const docSource = fs.readFileSync(docPath, "utf8");
+      if (!docSource.includes(`Public route: \`${route}\``)) {
+        failures.push(`${docRelative} must declare the exact public route: ${route}.`);
+      }
+      if (!/^Last updated: \d{4}-\d{2}-\d{2}\s*$/m.test(docSource)) {
+        failures.push(`${docRelative} must contain Last updated: YYYY-MM-DD.`);
+      }
+      for (const section of requiredRequirementSections) {
+        if (!hasRequirementSection(docSource, section)) {
+          failures.push(`${docRelative} is missing required section: ${section}.`);
+        }
+      }
+      if (!implementationOwnershipPattern.test(docSource)) {
+        failures.push(`${docRelative} must identify its canonical/runtime/shared implementation ownership.`);
+      }
+    }
+
+    if (fs.existsSync(requirementDir)) {
+      for (const entry of fs.readdirSync(requirementDir, { withFileTypes: true })) {
+        if (!entry.isFile() || !entry.name.endsWith(".md") || entry.name === "README.md") continue;
+        const docRelative = `docs/pages/${entry.name}`;
+        if (!mappedDocs.has(docRelative)) failures.push(`Orphan page requirement document is not mapped in ${requirementManifestRelative}: ${docRelative}`);
+      }
+    }
+  }
+
+  if (!redirects || typeof redirects !== "object" || Array.isArray(redirects)) {
+    failures.push(`${requirementManifestRelative} redirects must be an object when provided.`);
+  } else if (pages && typeof pages === "object" && !Array.isArray(pages)) {
+    for (const entry of publicEntries) {
+      if (!pages[entry] && !redirects[entry]) {
+        failures.push(`${entry} is not covered by either pages or redirects in ${requirementManifestRelative}.`);
+      }
+    }
+
+    for (const [route, target] of Object.entries(redirects)) {
+      if (!publicEntries.includes(route)) failures.push(`${requirementManifestRelative} contains redirect for unknown public entry: ${route}`);
+      if (pages[route]) failures.push(`${route} cannot be both a product page and a redirect in ${requirementManifestRelative}.`);
+      if (typeof target !== "string" || !pages[target]) {
+        failures.push(`${route} redirect target must be a mapped product page in ${requirementManifestRelative}: ${target}`);
+      }
+    }
+  }
 }
 
 for (const entry of publicEntries) {
@@ -111,4 +233,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Site check passed. ${publicEntries.length} public entries and ${shellPages.length} shared-shell pages verified.`);
+console.log(`Site check passed. ${publicEntries.length} public entries, ${shellPages.length} shared-shell pages and ${mappedRequirementCount} page requirement documents verified.`);
