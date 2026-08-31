@@ -9,3 +9,14 @@
 @import url("./styles/responsive.css");
 @import url("./styles/ant-polish.css");
 @import url("./styles/flip-reliability.css");
+
+/* Directory shell integration: legacy Vocabulary geometry used its own
+ * centered max-widths, while the shared directory shell aligns sections to
+ * the page-main gutter. Keep hero, toolbar and results on one horizontal grid. */
+body.vocabulary-page .vocab-hero,
+body.vocabulary-page .vocab-toolbar,
+body.vocabulary-page .vocab-layout {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+}
