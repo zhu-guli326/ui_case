@@ -40,9 +40,11 @@ Preferred narrative order:
 1. Hero: Design DNA for AI Coding
 2. Why: the problem with unconstrained UI generation
 3. Comparison: without rules vs with rules
-4. What defines Design DNA: style / structure / components / specifications
-5. Examples: from idea to interface
-6. Start Designing CTA
+4. Lightweight discovery: “看点啥”
+5. Idea-to-demo workflow: image2 to ui / DEFINE → CREATE → BUILD → ITERATE
+6. What defines Design DNA: style / structure / components / specifications
+7. Examples: from idea to interface
+8. Start Designing CTA
 
 The page may evolve visually, but it should preserve a clear story from problem → method → proof → action.
 
@@ -50,6 +52,7 @@ The page may evolve visually, but it should preserve a clear story from problem 
 
 The four-card workflow should explain the path from an idea to a runnable demo. The primary hierarchy is the action/stage, not the historical figure used as the visual metaphor.
 
+- This section sits immediately after the lightweight discovery strip; the “看点啥” section should appear directly above the Steve Jobs / DEFINE card row.
 - Section eyebrow: `image2 to ui`.
 - Section heading: communicate “从一个 Idea 到一个 Demo，你需要经历这 4 步。” / equivalent English copy.
 - Stage 01: `DEFINE` — clarify the goal, page and references.
@@ -65,6 +68,7 @@ The four-card workflow should explain the path from an idea to a runnable demo. 
 
 The old template gallery is no longer a template catalog. It is a compact “看点啥” discovery entry that helps users choose what kind of design resource they want to explore next.
 
+- Place this whole section immediately before the Idea-to-demo workflow / Steve Jobs card section.
 - Chinese title: `看点啥`.
 - Keep the supporting copy short and conversational; explain that users can jump into App, Web, Skills, tools or UI vocabulary.
 - Primary tags: `App 设计`, `Web 设计`, `设计 Skill`, `设计工具`, `UI 词库`.
