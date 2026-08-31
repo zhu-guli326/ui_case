@@ -1,0 +1,66 @@
+/* Library hero only: keep the current visual language while removing the split-card feeling. */
+body.library-page .directory-hero {
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 320px);
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid var(--directory-border);
+  border-radius: var(--directory-shell-radius);
+  background: var(--directory-surface);
+  box-shadow: var(--directory-shadow);
+}
+
+body.library-page .directory-hero-copy,
+body.library-page .directory-hero-overview {
+  min-height: 318px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.library-page .directory-hero-overview {
+  display: grid;
+  place-items: center;
+  border-left: 1px solid var(--directory-border);
+  pointer-events: none;
+}
+
+body.library-page .stats-panel {
+  grid-template-columns: 1fr;
+  align-content: center;
+  padding: 32px;
+}
+
+body.library-page .stats-panel > span {
+  min-height: 0;
+  padding: 0;
+  border-right: 0;
+  text-align: center;
+}
+
+body.library-page .stats-panel > span:nth-child(n + 2) {
+  display: none;
+}
+
+body.library-page .stats-panel small {
+  font-size: var(--ds-font-size-xs);
+}
+
+body.library-page .stats-panel strong {
+  margin-top: var(--ds-space-2);
+  font-size: var(--ds-font-size-display);
+  font-weight: var(--ds-font-weight-medium);
+  line-height: 1;
+}
+
+@media (max-width: 900px) {
+  body.library-page .directory-hero {
+    grid-template-columns: 1fr;
+  }
+
+  body.library-page .directory-hero-overview {
+    min-height: 132px;
+    border-top: 1px solid var(--directory-border);
+    border-left: 0;
+  }
+}
