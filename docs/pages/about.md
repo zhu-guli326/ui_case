@@ -12,6 +12,10 @@ Last updated: 2026-08-31
 
 Give visitors a concise understanding of what ONDesign is, why it exists and what kind of design workflow it supports.
 
+## Core user task
+
+A visitor should be able to understand what ONDesign does, why Design DNA matters, and where to go next without reading internal project history or product documentation.
+
 ## Core functions
 
 - Explain the project purpose.
@@ -25,6 +29,13 @@ Give visitors a concise understanding of what ONDesign is, why it exists and wha
 2. Why it exists
 3. What users can do with it
 4. Relevant next links
+
+## Interaction rules
+
+- Keep the page primarily informational and easy to scan.
+- Use links and CTAs only when they help users continue into a core ONDesign flow.
+- Do not introduce editor-like controls or browsing systems that belong to product pages.
+- Keep Chinese and English content structurally equivalent.
 
 ## Keep
 
