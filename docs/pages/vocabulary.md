@@ -41,8 +41,8 @@ A user should be able to:
 
 Preferred structure:
 
-1. Page title / short orientation
-2. Category navigation or filtering
+1. Flat page title / short orientation without an enclosing hero card
+2. Flat category navigation or filtering
 3. Visual vocabulary list / cards
 4. Focused preview / example area
 5. Optional concise explanation / reusable prompt
@@ -52,6 +52,8 @@ The page should behave more like a visual directory + learning reference than a 
 
 ## Interaction rules
 
+- The knowledge-page shell is intentionally flat: page-level hero, overview and filter containers must not use card-style borders, rounded white panels or shadows.
+- Vocabulary items themselves may remain cards when the card represents a real interactive learning object or visual example.
 - A vocabulary item should reveal its meaning primarily through visuals.
 - Large example imagery / previews should receive more emphasis than long body copy.
 - Search and category changes should be easy to understand and reversible.
@@ -77,6 +79,7 @@ The page should behave more like a visual directory + learning reference than a 
 
 ## Remove / avoid
 
+- Page-level card chrome around the hero, overview or filter sidebar.
 - Full Launcher configuration workflow.
 - Case-library responsibilities.
 - Large blocks of generic design theory without visual evidence.
