@@ -1,0 +1,121 @@
+/*
+ * Global site-header typography contract.
+ * Typography-only: do not change header geometry, radii, control sizes or icon layout here.
+ */
+
+.site-header nav.site-nav.site-nav > a,
+.site-header .site-nav-primary > a,
+.site-header .site-nav-community > a,
+.site-header .site-nav-more > summary {
+  font-family: var(--type-font-body);
+  font-size: var(--ds-font-size-body);
+  font-weight: var(--ds-font-weight-medium);
+  letter-spacing: var(--ds-letter-spacing-body);
+  line-height: var(--ds-line-height-body);
+}
+
+.site-header nav.site-nav.site-nav > a[aria-current="page"],
+.site-header .site-nav-primary > a[aria-current="page"],
+.site-header .site-nav-community > a[aria-current="page"],
+.site-header .site-nav-more.is-current > summary,
+.site-header .site-nav-community > .site-nav-start {
+  font-family: var(--type-font-body);
+  font-size: var(--ds-font-size-body);
+  font-weight: var(--ds-font-weight-semibold);
+  letter-spacing: var(--ds-letter-spacing-body);
+  line-height: var(--ds-line-height-body);
+}
+
+html[lang^="zh"] .site-header nav.site-nav.site-nav > a,
+html[lang^="zh"] .site-header .site-nav-primary > a,
+html[lang^="zh"] .site-header .site-nav-community > a,
+html[lang^="zh"] .site-header .site-nav-more > summary {
+  letter-spacing: 0;
+}
+
+.site-header .site-nav-more > summary::after {
+  font-family: var(--type-font-body);
+  font-size: var(--ds-font-size-xs);
+  font-weight: var(--ds-font-weight-semibold);
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.site-header .site-nav-menu a {
+  font-family: var(--type-font-body);
+  font-size: var(--ds-font-size-body);
+  font-weight: var(--ds-font-weight-regular);
+  letter-spacing: var(--ds-letter-spacing-body);
+  line-height: var(--ds-line-height-body);
+}
+
+.site-header .site-nav-menu a strong {
+  font-family: var(--type-font-body);
+  font-size: var(--ds-font-size-body);
+  font-weight: var(--ds-font-weight-medium);
+  letter-spacing: var(--ds-letter-spacing-body);
+  line-height: var(--ds-line-height-heading);
+}
+
+.site-header .site-nav-menu a small {
+  font-family: var(--type-font-body);
+  font-size: var(--ds-font-size-xs);
+  font-weight: var(--ds-font-weight-regular);
+  letter-spacing: var(--ds-letter-spacing-body);
+  line-height: var(--ds-line-height-body);
+}
+
+.site-header .global-language-switch button {
+  font-family: var(--type-font-body);
+  font-size: var(--ds-font-size-body);
+  font-weight: var(--ds-font-weight-medium);
+  letter-spacing: var(--ds-letter-spacing-body);
+  line-height: var(--ds-line-height-body);
+}
+
+.site-header .global-language-switch button[aria-pressed="true"] {
+  font-weight: var(--ds-font-weight-semibold);
+}
+
+.site-header .site-nav-github .site-nav-stars {
+  font-family: var(--font-number);
+  font-size: var(--ds-font-size-body);
+  font-weight: var(--ds-font-weight-semibold);
+  font-variant-numeric: var(--number-font-variant);
+  font-feature-settings: var(--number-font-features);
+  letter-spacing: 0;
+  line-height: var(--ds-line-height-body);
+}
+
+@media (max-width: 940px) {
+  .site-header nav.site-nav.site-nav > a,
+  .site-header .site-nav-primary > a,
+  .site-header .site-nav-community > a,
+  .site-header .site-nav-more > summary,
+  .site-header .site-nav-community > .site-nav-start,
+  .site-header .global-language-switch button,
+  .site-header .site-nav-github .site-nav-stars {
+    font-size: var(--ds-font-size-sm);
+  }
+}
+
+@media (max-width: 700px) {
+  .site-header nav.site-nav.site-nav > a,
+  .site-header .site-nav-primary > a,
+  .site-header .site-nav-community > a,
+  .site-header .site-nav-more > summary,
+  .site-header .site-nav-community > .site-nav-start,
+  .site-header .global-language-switch button {
+    font-size: var(--ds-font-size-xs);
+  }
+}
+
+@media (max-width: 390px) {
+  .site-header nav.site-nav.site-nav > a,
+  .site-header .site-nav-primary > a,
+  .site-header .site-nav-community > a,
+  .site-header .site-nav-more > summary,
+  .site-header .site-nav-community > .site-nav-start {
+    font-size: 11px;
+  }
+}
