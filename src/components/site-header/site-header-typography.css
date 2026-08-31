@@ -1,17 +1,32 @@
 /*
  * Global site-header typography contract.
- * Typography-only: do not change header geometry, radii, control sizes or icon layout here.
+ * Header typography and navigation state are protected from page-level styles.
+ * Geometry, radii, control sizes and icon layout still belong to site-header.css.
  */
 
 .site-header nav.site-nav.site-nav > a,
 .site-header .site-nav-primary > a,
 .site-header .site-nav-community > a,
 .site-header .site-nav-more > summary {
-  font-family: var(--type-font-body);
-  font-size: var(--ds-font-size-body);
-  font-weight: var(--ds-font-weight-medium);
-  letter-spacing: var(--ds-letter-spacing-body);
-  line-height: var(--ds-line-height-body);
+  font-family: var(--type-font-body) !important;
+  font-size: var(--ds-font-size-body) !important;
+  font-weight: var(--ds-font-weight-medium) !important;
+  letter-spacing: var(--ds-letter-spacing-body) !important;
+  line-height: var(--ds-line-height-body) !important;
+}
+
+/* App-shell wraps translated labels in spans. They must never inherit page-level
+ * span typography (home/editorial pages used to change Explore independently). */
+.site-header nav.site-nav.site-nav > a > span[data-i18n],
+.site-header .site-nav-primary > a > span[data-i18n],
+.site-header .site-nav-community > a > span[data-i18n],
+.site-header .site-nav-more > summary > span[data-i18n] {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  letter-spacing: inherit !important;
+  line-height: inherit !important;
+  color: inherit !important;
 }
 
 .site-header nav.site-nav.site-nav > a[aria-current="page"],
@@ -19,72 +34,96 @@
 .site-header .site-nav-community > a[aria-current="page"],
 .site-header .site-nav-more.is-current > summary,
 .site-header .site-nav-community > .site-nav-start {
-  font-family: var(--type-font-body);
-  font-size: var(--ds-font-size-body);
-  font-weight: var(--ds-font-weight-semibold);
-  letter-spacing: var(--ds-letter-spacing-body);
-  line-height: var(--ds-line-height-body);
+  font-family: var(--type-font-body) !important;
+  font-size: var(--ds-font-size-body) !important;
+  font-weight: var(--ds-font-weight-semibold) !important;
+  letter-spacing: var(--ds-letter-spacing-body) !important;
+  line-height: var(--ds-line-height-body) !important;
+}
+
+/* Current-page state is owned globally. Feature pages must not invent their own
+ * color, underline, dot, border or badge treatment for Explore/Library/Start. */
+.site-header nav.site-nav.site-nav > a[aria-current="page"],
+.site-header .site-nav-primary > a[aria-current="page"],
+.site-header .site-nav-community > a[aria-current="page"],
+.site-header .site-nav-more.is-current > summary,
+.site-header .site-nav-community > .site-nav-start[aria-current="page"] {
+  border-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--site-header-accent) !important;
+}
+
+.site-header nav.site-nav.site-nav > a[aria-current="page"]::before,
+.site-header nav.site-nav.site-nav > a[aria-current="page"]::after,
+.site-header .site-nav-primary > a[aria-current="page"]::before,
+.site-header .site-nav-primary > a[aria-current="page"]::after,
+.site-header .site-nav-community > a[aria-current="page"]::before,
+.site-header .site-nav-community > a[aria-current="page"]::after,
+.site-header .site-nav-more.is-current > summary::before {
+  display: none !important;
+  content: none !important;
 }
 
 html[lang^="zh"] .site-header nav.site-nav.site-nav > a,
 html[lang^="zh"] .site-header .site-nav-primary > a,
 html[lang^="zh"] .site-header .site-nav-community > a,
 html[lang^="zh"] .site-header .site-nav-more > summary {
-  letter-spacing: 0;
+  letter-spacing: 0 !important;
 }
 
 .site-header .site-nav-more > summary::after {
-  font-family: var(--type-font-body);
-  font-size: var(--ds-font-size-xs);
-  font-weight: var(--ds-font-weight-semibold);
-  letter-spacing: 0;
-  line-height: 1;
+  font-family: var(--type-font-body) !important;
+  font-size: var(--ds-font-size-xs) !important;
+  font-weight: var(--ds-font-weight-semibold) !important;
+  letter-spacing: 0 !important;
+  line-height: 1 !important;
 }
 
 .site-header .site-nav-menu a {
-  font-family: var(--type-font-body);
-  font-size: var(--ds-font-size-body);
-  font-weight: var(--ds-font-weight-regular);
-  letter-spacing: var(--ds-letter-spacing-body);
-  line-height: var(--ds-line-height-body);
+  font-family: var(--type-font-body) !important;
+  font-size: var(--ds-font-size-body) !important;
+  font-weight: var(--ds-font-weight-regular) !important;
+  letter-spacing: var(--ds-letter-spacing-body) !important;
+  line-height: var(--ds-line-height-body) !important;
 }
 
 .site-header .site-nav-menu a strong {
-  font-family: var(--type-font-body);
-  font-size: var(--ds-font-size-body);
-  font-weight: var(--ds-font-weight-medium);
-  letter-spacing: var(--ds-letter-spacing-body);
-  line-height: var(--ds-line-height-heading);
+  font-family: var(--type-font-body) !important;
+  font-size: var(--ds-font-size-body) !important;
+  font-weight: var(--ds-font-weight-medium) !important;
+  letter-spacing: var(--ds-letter-spacing-body) !important;
+  line-height: var(--ds-line-height-heading) !important;
 }
 
 .site-header .site-nav-menu a small {
-  font-family: var(--type-font-body);
-  font-size: var(--ds-font-size-xs);
-  font-weight: var(--ds-font-weight-regular);
-  letter-spacing: var(--ds-letter-spacing-body);
-  line-height: var(--ds-line-height-body);
+  font-family: var(--type-font-body) !important;
+  font-size: var(--ds-font-size-xs) !important;
+  font-weight: var(--ds-font-weight-regular) !important;
+  letter-spacing: var(--ds-letter-spacing-body) !important;
+  line-height: var(--ds-line-height-body) !important;
 }
 
 .site-header .global-language-switch button {
-  font-family: var(--type-font-body);
-  font-size: var(--ds-font-size-body);
-  font-weight: var(--ds-font-weight-medium);
-  letter-spacing: var(--ds-letter-spacing-body);
-  line-height: var(--ds-line-height-body);
+  font-family: var(--type-font-body) !important;
+  font-size: var(--ds-font-size-body) !important;
+  font-weight: var(--ds-font-weight-medium) !important;
+  letter-spacing: var(--ds-letter-spacing-body) !important;
+  line-height: var(--ds-line-height-body) !important;
 }
 
 .site-header .global-language-switch button[aria-pressed="true"] {
-  font-weight: var(--ds-font-weight-semibold);
+  font-weight: var(--ds-font-weight-semibold) !important;
 }
 
 .site-header .site-nav-github .site-nav-stars {
-  font-family: var(--font-number);
-  font-size: var(--ds-font-size-body);
-  font-weight: var(--ds-font-weight-semibold);
-  font-variant-numeric: var(--number-font-variant);
-  font-feature-settings: var(--number-font-features);
-  letter-spacing: 0;
-  line-height: var(--ds-line-height-body);
+  font-family: var(--font-number) !important;
+  font-size: var(--ds-font-size-body) !important;
+  font-weight: var(--ds-font-weight-semibold) !important;
+  font-variant-numeric: var(--number-font-variant) !important;
+  font-feature-settings: var(--number-font-features) !important;
+  letter-spacing: 0 !important;
+  line-height: var(--ds-line-height-body) !important;
 }
 
 @media (max-width: 940px) {
@@ -95,7 +134,7 @@ html[lang^="zh"] .site-header .site-nav-more > summary {
   .site-header .site-nav-community > .site-nav-start,
   .site-header .global-language-switch button,
   .site-header .site-nav-github .site-nav-stars {
-    font-size: var(--ds-font-size-sm);
+    font-size: var(--ds-font-size-sm) !important;
   }
 }
 
@@ -106,7 +145,7 @@ html[lang^="zh"] .site-header .site-nav-more > summary {
   .site-header .site-nav-more > summary,
   .site-header .site-nav-community > .site-nav-start,
   .site-header .global-language-switch button {
-    font-size: var(--ds-font-size-xs);
+    font-size: var(--ds-font-size-xs) !important;
   }
 }
 
@@ -116,6 +155,6 @@ html[lang^="zh"] .site-header .site-nav-more > summary {
   .site-header .site-nav-community > a,
   .site-header .site-nav-more > summary,
   .site-header .site-nav-community > .site-nav-start {
-    font-size: 11px;
+    font-size: 11px !important;
   }
 }
