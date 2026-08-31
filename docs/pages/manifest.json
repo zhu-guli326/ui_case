@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "pages": {
+    "learn.html": "docs/pages/learn.md",
+    "library.html": "docs/pages/library.md",
+    "brands.html": "docs/pages/brands.md",
+    "vocabulary.html": "docs/pages/vocabulary.md",
+    "launcher.html": "docs/pages/launcher.md",
+    "skills.html": "docs/pages/skills.md",
+    "skill-detail.html": "docs/pages/skill-detail.md",
+    "about.html": "docs/pages/about.md",
+    "contact.html": "docs/pages/contact.md",
+    "privacy.html": "docs/pages/privacy.md"
+  },
+  "redirects": {
+    "index.html": "learn.html"
+  }
+}
