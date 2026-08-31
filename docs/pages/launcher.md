@@ -1,6 +1,6 @@
 # Launcher Page Requirements
 
-Last updated: 2026-08-31
+Last updated: 2026-09-01
 
 ## Page identity
 
@@ -118,6 +118,7 @@ The preview should have more visual weight than configuration controls.
 - Referencing Ant Design does **not** mean redesigning Launcher as an admin dashboard.
 - Keep the shared ONDesign App Shell unchanged unless the user explicitly requests a global navigation change.
 - Chinese and English versions must follow the global language state and keep equivalent functionality.
+- Launcher chrome typography must inherit the single global typography system from `src/core/app-shell/typography.css`. Do not add a separate Launcher-wide font-family, font-smoothing, text-rendering or synthetic-weight override layer. Design-system font choices may affect preview/specimen content only, not the Launcher control UI.
 
 ## Keep
 
@@ -137,6 +138,7 @@ The preview should have more visual weight than configuration controls.
 - AI chat as a separate major product inside Launcher.
 - Case-library browsing responsibilities.
 - Duplicate design-system runtimes or alternate Launcher implementations.
+- Duplicate Launcher typography guard stylesheets or page-wide `!important` font overrides that compete with the global typography layer.
 
 ## Modification boundary
 
