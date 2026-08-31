@@ -109,7 +109,7 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
     });
     if (skillsHeroCount) skillsHeroCount.textContent = String(totalCount);
     if (skillsHeroKind) skillsHeroKind.textContent = isWebMode ? "Design Websites" : "Design Skills & Tools";
-    if (heroUpdateCount) heroUpdateCount.textContent = isWebMode ? "+13" : "+8";
+    if (heroUpdateCount) heroUpdateCount.textContent = isWebMode ? "+13" : "+9";
     if (heroUpdateLabel) heroUpdateLabel.textContent = isWebMode
       ? (state.currentLanguage === "en" ? "new Web resources" : "新增 Web 资源")
       : (state.currentLanguage === "en" ? "new skills & tools" : "新增 Skill 与工具");
