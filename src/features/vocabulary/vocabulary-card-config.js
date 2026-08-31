@@ -1,3 +1,5 @@
+import "./vocabulary-card-interactions.js";
+
 export const interactiveVariantIds = new Set([
   "top-nav", "sidebar", "bottom-tabs", "tabs", "segmented", "search", "filter-chips", "data-table",
   "button", "checkbox", "form", "toggle", "menu",
