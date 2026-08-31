@@ -10,6 +10,48 @@
   <link rel="stylesheet" href="./src/core/app-shell/site-shell.css">
   <link rel="stylesheet" href="./src/features/home/home.css">
   <link rel="stylesheet" href="./src/features/home/home-system-explainer.css">
+  <style>
+    .discovery-strip .template-filters a {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      border: 1px solid #e2e2e2;
+      border-radius: 999px;
+      background: #fff;
+      color: #111;
+      font-size: 14px;
+      text-decoration: none;
+      transition: background .2s ease, border-color .2s ease;
+    }
+    .discovery-strip .template-filters a:hover { border-color: #cfcfcf; background: #f3f3f3; }
+    .discovery-strip .template-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+    .discovery-strip .template-card { aspect-ratio: 4 / 5.2; }
+    .discovery-strip .template-card strong { font-size: clamp(20px, 1.75vw, 28px); }
+    .discovery-strip .template-card > div { right: 64px; bottom: 22px; left: 22px; }
+    .discovery-strip .template-card > i { right: 20px; bottom: 20px; width: 40px; height: 40px; }
+    @media (max-width: 900px) {
+      .discovery-strip .template-grid {
+        display: grid;
+        grid-template-columns: none;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(260px, 42vw);
+        gap: 14px;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+      .discovery-strip .template-grid::-webkit-scrollbar { display: none; }
+      .discovery-strip .template-card { scroll-snap-align: start; }
+    }
+    @media (max-width: 680px) {
+      .discovery-strip .template-filters { justify-content: flex-start; }
+      .discovery-strip .template-filters a { flex: 0 0 auto; min-height: 40px; padding-inline: 17px; }
+      .discovery-strip .template-grid { grid-auto-columns: 78vw; }
+    }
+  </style>
   <script src="./src/core/app-shell/app-shell.js"></script>
   <script src="./src/core/analytics/clarity.js"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
@@ -112,29 +154,28 @@
       </div>
     </section>
 
-    <section class="template-gallery" id="templates" aria-labelledby="templateGalleryTitle">
+    <section class="template-gallery discovery-strip" id="templates" aria-labelledby="templateGalleryTitle">
       <div class="project-container">
         <header class="template-gallery-heading">
-          <p class="section-eyebrow">TEMPLATES</p>
-          <h2 id="templateGalleryTitle" data-zh="这里不是终点，是你的起点。" data-en="A gallery of starting points, not endings.">这里不是终点，是你的起点。</h2>
-          <p data-zh="每个模板都只是一个框架，不是最终答案。从一个开始，再把它变成真正属于你的设计。" data-en="Every template is a frame, not a finish. Begin with one — then make it entirely yours.">每个模板都只是一个框架，不是最终答案。从一个开始，再把它变成真正属于你的设计。</p>
+          <p class="section-eyebrow">EXPLORE</p>
+          <h2 id="templateGalleryTitle" data-zh="看点啥" data-en="What do you want to explore?">看点啥</h2>
+          <p data-zh="App、Web、Skill、工具、UI 词库，挑一个方向直接看。" data-en="App, Web, Skills, tools, or UI vocabulary — pick a direction and jump in.">App、Web、Skill、工具、UI 词库，挑一个方向直接看。</p>
         </header>
 
-        <div class="template-filters" role="group" aria-label="筛选模板">
-          <button class="is-active" type="button" data-template-filter="all" aria-pressed="true" data-zh="全部" data-en="All">全部</button>
-          <button type="button" data-template-filter="portfolio" aria-pressed="false" data-zh="作品集" data-en="Portfolio">作品集</button>
-          <button type="button" data-template-filter="commerce" aria-pressed="false" data-zh="电商" data-en="Commerce">电商</button>
-          <button type="button" data-template-filter="editorial" aria-pressed="false" data-zh="编辑设计" data-en="Editorial">编辑设计</button>
-          <button type="button" data-template-filter="photography" aria-pressed="false" data-zh="摄影" data-en="Photography">摄影</button>
-          <button type="button" data-template-filter="restaurants" aria-pressed="false" data-zh="餐饮" data-en="Restaurants">餐饮</button>
-        </div>
+        <nav class="template-filters" aria-label="内容分类">
+          <a href="./library.html?lang=zh" data-smart-lang-link="./library.html" data-zh="App 设计" data-en="App design">App 设计</a>
+          <a href="./skills.html?lang=zh&mode=WEB" data-smart-lang-link="./skills.html?mode=WEB" data-zh="Web 设计" data-en="Web design">Web 设计</a>
+          <a href="./skills.html?lang=zh" data-smart-lang-link="./skills.html" data-zh="设计 Skill" data-en="Design Skills">设计 Skill</a>
+          <a href="./skills.html?lang=zh" data-smart-lang-link="./skills.html" data-zh="设计工具" data-en="Design tools">设计工具</a>
+          <a href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html" data-zh="UI 词库" data-en="UI vocabulary">UI 词库</a>
+        </nav>
 
-        <div class="template-grid" data-template-grid>
-          <a class="template-card" data-template-category="portfolio" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><img src="./assets/style-covers/graphic-experimental.webp" alt="Brutal Studio 创意作品集模板" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>PORTFOLIO</small><div><strong>Brutal Studio</strong><span>OFFSET CREATIVE</span></div><i>↗</i></a>
-          <a class="template-card" data-template-category="commerce" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><img src="./assets/style-covers/tactile-future.webp" alt="Velvet Luxe 高端电商模板" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>COMMERCE</small><div><strong>Velvet Luxe</strong><span>ATELIER VOSS</span></div><i>↗</i></a>
-          <a class="template-card" data-template-category="editorial" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><img src="./assets/style-covers/editorial-minimal.webp" alt="Monument 编辑杂志模板" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>EDITORIAL</small><div><strong>Monument</strong><span>FIELD NOTES CO.</span></div><i>↗</i></a>
-          <a class="template-card" data-template-category="photography" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><img src="./assets/style-covers/maximalism.webp" alt="Cultura 影像档案模板" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>PHOTOGRAPHY</small><div><strong>Cultura Archive</strong><span>NORTHLIGHT STUDIO</span></div><i>↗</i></a>
-          <a class="template-card" data-template-category="restaurants" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><img src="./assets/style-covers/luxury-minimal.webp" alt="Aurelian 餐饮与酒店模板" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>RESTAURANTS</small><div><strong>Aurelian Table</strong><span>PALAZZO COLLECTIVE</span></div><i>↗</i></a>
+        <div class="template-grid" aria-label="设计内容入口">
+          <a class="template-card" href="./library.html?lang=zh" data-smart-lang-link="./library.html"><img src="./assets/style-covers/tactile-future.webp" alt="App 设计参考" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>APP DESIGN</small><div><strong data-zh="App 设计" data-en="App design">App 设计</strong><span>MOBILE INTERFACES</span></div><i>↗</i></a>
+          <a class="template-card" href="./skills.html?lang=zh&mode=WEB" data-smart-lang-link="./skills.html?mode=WEB"><img src="./assets/style-covers/graphic-experimental.webp" alt="Web 设计参考" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>WEB DESIGN</small><div><strong data-zh="Web 设计" data-en="Web design">Web 设计</strong><span>WEBSITES &amp; LANDING PAGES</span></div><i>↗</i></a>
+          <a class="template-card" href="./skills.html?lang=zh" data-smart-lang-link="./skills.html"><img src="./assets/style-covers/editorial-minimal.webp" alt="设计 Skill" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>DESIGN SKILLS</small><div><strong data-zh="设计 Skill" data-en="Design Skills">设计 Skill</strong><span>AI DESIGN CAPABILITIES</span></div><i>↗</i></a>
+          <a class="template-card" href="./skills.html?lang=zh" data-smart-lang-link="./skills.html"><img src="./assets/style-covers/maximalism.webp" alt="设计工具" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>DESIGN TOOLS</small><div><strong data-zh="设计工具" data-en="Design tools">设计工具</strong><span>TOOLS &amp; WORKFLOWS</span></div><i>↗</i></a>
+          <a class="template-card" href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html"><img src="./assets/style-covers/luxury-minimal.webp" alt="UI 词库" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>UI VOCABULARY</small><div><strong data-zh="UI 词库" data-en="UI vocabulary">UI 词库</strong><span>TERMS &amp; PATTERNS</span></div><i>↗</i></a>
         </div>
       </div>
     </section>
