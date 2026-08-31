@@ -133,16 +133,28 @@ nav.site-nav.site-nav > a,
   background: transparent;
   box-shadow: none;
   color: var(--ink, var(--site-ink));
-  font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-family: var(--type-font-body);
   font-size: 15px;
-  font-weight: 500;
-  letter-spacing: .015em;
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-body-tracking);
   line-height: 1;
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
   list-style: none;
   transition: color .18s ease, opacity .18s ease, transform .18s ease;
+}
+
+/* Navigation labels rendered by app-shell.js must inherit the global header
+ * type contract instead of picking up page-level span styles. */
+.site-nav-community > a > span[data-i18n],
+.site-nav-primary > a > span[data-i18n],
+nav.site-nav.site-nav > a > span[data-i18n] {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  letter-spacing: inherit !important;
+  line-height: inherit !important;
 }
 
 .site-nav-more > summary::-webkit-details-marker { display: none; }
@@ -270,10 +282,10 @@ nav.site-nav.site-nav > a[aria-current="page"]::after,
   border-radius: 0;
   background: transparent;
   color: var(--ink, var(--site-ink));
-  font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-family: var(--type-font-body);
   font-size: 15px;
   font-weight: 700;
-  letter-spacing: .015em;
+  letter-spacing: var(--type-body-tracking);
 }
 .site-nav-community > .site-nav-start::after { display: none; content: none; }
 .site-nav-community > .site-nav-start:hover,
