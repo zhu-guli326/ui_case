@@ -80,6 +80,13 @@ The old template gallery is no longer a template catalog. It is a compact “看
 - Put a compact `查看更多 ↗` link at the lower-right of the section. This link is the navigation action and must update its destination to match the currently selected tag/category.
 - On narrower screens, keep the tabs horizontally scrollable if needed; do not stack a long catalog.
 - The section remains a lightweight home-page entry, not a full browsing experience.
+- Every category must use a different preview image grounded in the current ONDesign project, never a generic hotel/e-commerce placeholder that is unrelated to the destination.
+- `App 设计`: use a real App case screenshot from the Library/case assets; present it in a `9:16` frame.
+- `Web 设计`: use a real Web case screenshot already used by ONDesign; present it in a `16:9` frame.
+- `设计 Skill`: use a real Skill repository/card/detail asset from the Skills library; present it in a `3:4` frame.
+- `设计工具`: use a real ONDesign workflow/demo preview that represents Start Designing / Design DNA usage; present it in a `3:4` frame.
+- `UI 词库`: use a real Vocabulary sheet/card asset showing actual UI terms or components; present it in a `3:4` frame.
+- The preview image should use `object-fit: cover` or a controlled crop only when needed to preserve the required frame ratio; do not distort the source image.
 
 ### Final CTA
 
