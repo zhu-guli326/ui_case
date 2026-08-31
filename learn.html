@@ -10,113 +10,11 @@
   <link rel="stylesheet" href="./src/core/app-shell/site-shell.css">
   <link rel="stylesheet" href="./src/features/home/home.css">
   <link rel="stylesheet" href="./src/features/home/home-system-explainer.css">
-  <link rel="stylesheet" href="./src/features/home/workflow-card-motion.css">
-  <style>
-    .discovery-strip .template-filters a {
-      display: inline-flex;
-      min-height: 44px;
-      align-items: center;
-      justify-content: center;
-      padding: 0 20px;
-      border: 1px solid #e2e2e2;
-      border-radius: 999px;
-      background: #fff;
-      color: #111;
-      font-size: 14px;
-      text-decoration: none;
-      transition: background .2s ease, border-color .2s ease;
-    }
-    .discovery-strip .template-filters a:hover { border-color: #cfcfcf; background: #f3f3f3; }
-    .discovery-strip .template-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
-    .discovery-strip .template-card { aspect-ratio: 4 / 5.2; }
-    .discovery-strip .template-card strong { font-size: clamp(20px, 1.75vw, 28px); }
-    .discovery-strip .template-card > div { right: 64px; bottom: 22px; left: 22px; }
-    .discovery-strip .template-card > i { right: 20px; bottom: 20px; width: 40px; height: 40px; }
-
-    .project-capabilities .section-eyebrow { color: #13a85a; }
-    .project-capabilities .capability-grid p {
-      display: grid;
-      min-height: 88px !important;
-      grid-template-rows: 20px 20px minmax(36px, auto);
-      gap: 4px;
-      align-content: start;
-      margin-top: 12px !important;
-    }
-    .project-capabilities .capability-grid p > span {
-      display: block !important;
-      margin-top: 0 !important;
-      line-height: 1.45;
-    }
-    .project-capabilities .capability-grid p > span:first-child {
-      overflow: hidden;
-      color: #fff !important;
-      font-weight: 650 !important;
-      white-space: nowrap;
-    }
-    .project-capabilities .capability-grid p > span:nth-child(2) {
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .project-capabilities .capability-grid p > span:nth-child(3) {
-      color: rgba(255,255,255,.9) !important;
-    }
-    .workflow-source {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 18px;
-    }
-    .workflow-source a {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding-bottom: 4px;
-      border-bottom: 1px solid #111;
-      color: #111;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: .02em;
-      text-decoration: none;
-    }
-    .workflow-source a:hover { opacity: .58; }
-
-    @media (max-width: 900px) {
-      .discovery-strip .template-grid {
-        display: grid;
-        grid-template-columns: none;
-        grid-auto-flow: column;
-        grid-auto-columns: minmax(260px, 42vw);
-        gap: 14px;
-        overflow-x: auto;
-        padding-bottom: 8px;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
-      }
-      .discovery-strip .template-grid::-webkit-scrollbar { display: none; }
-      .discovery-strip .template-card { scroll-snap-align: start; }
-    }
-    @media (max-width: 680px) {
-      .discovery-strip .template-filters { justify-content: flex-start; }
-      .discovery-strip .template-filters a { flex: 0 0 auto; min-height: 40px; padding-inline: 17px; }
-      .discovery-strip .template-grid { grid-auto-columns: 78vw; }
-      .workflow-source { justify-content: flex-start; margin-top: 14px; }
-    }
-  </style>
   <script src="./src/core/app-shell/app-shell.js"></script>
   <script src="./src/core/analytics/clarity.js"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
   <script src="./src/features/home/home.js" defer></script>
-  <script src="./src/features/home/workflow-card-motion.js" defer></script>
-  <script>
-    (() => {
-      const applyWorkflowLabel = () => {
-        const eyebrow = document.querySelector('#capabilities .section-eyebrow');
-        if (eyebrow) eyebrow.textContent = 'image2 to ui';
-      };
-      window.addEventListener('DOMContentLoaded', applyWorkflowLabel);
-      window.addEventListener('image2:languagechange', () => queueMicrotask(applyWorkflowLabel));
-    })();
-  </script>
 </head>
 <body class="project-home">
   <image2-site-header data-site-header></image2-site-header>
