@@ -1,0 +1,171 @@
+/*
+ * Workflow card motion
+ * Adapted for ONDesign's static HTML/CSS/JS architecture from the motion model
+ * used by React Bits ProfileCard (JS-CSS registry variant).
+ *
+ * The visual card content stays ONDesign-native; only pointer tilt, glare and depth
+ * behavior are applied here.
+ */
+
+#capabilities .capability-grid > a {
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+  --pointer-from-center: 0;
+  --pointer-from-top: .5;
+  --pointer-from-left: .5;
+  --rotate-x: 0deg;
+  --rotate-y: 0deg;
+  --workflow-card-opacity: 0;
+  --workflow-glow: rgba(125, 190, 255, .44);
+
+  isolation: isolate;
+  transform: perspective(700px) rotateX(var(--rotate-y)) rotateY(var(--rotate-x)) translateZ(0);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+  transition:
+    transform 600ms cubic-bezier(.2, .72, .2, 1),
+    box-shadow 300ms ease;
+  box-shadow:
+    rgba(0, 0, 0, .16) calc((var(--pointer-from-left) * 10px) - 5px)
+    calc((var(--pointer-from-top) * 18px) - 7px) 26px -8px;
+}
+
+#capabilities .capability-grid > a:nth-child(1) { --workflow-glow: rgba(157, 77, 255, .42); }
+#capabilities .capability-grid > a:nth-child(2) { --workflow-glow: rgba(255, 133, 31, .42); }
+#capabilities .capability-grid > a:nth-child(3) { --workflow-glow: rgba(45, 148, 255, .42); }
+#capabilities .capability-grid > a:nth-child(4) { --workflow-glow: rgba(139, 238, 75, .38); }
+
+#capabilities .capability-grid > a::before,
+#capabilities .capability-grid > a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--workflow-card-opacity);
+  transition: opacity 220ms ease;
+}
+
+#capabilities .capability-grid > a::before {
+  z-index: 2;
+  background:
+    radial-gradient(
+      circle at var(--pointer-x) var(--pointer-y),
+      rgba(255, 255, 255, .38) 0%,
+      rgba(255, 255, 255, .13) 18%,
+      transparent 46%
+    ),
+    radial-gradient(
+      circle at var(--pointer-x) var(--pointer-y),
+      var(--workflow-glow) 0%,
+      transparent 58%
+    );
+  mix-blend-mode: screen;
+  filter: saturate(1.06);
+}
+
+#capabilities .capability-grid > a::after {
+  z-index: 3;
+  inset: 1px;
+  border: 1px solid rgba(255, 255, 255, calc(.08 + var(--pointer-from-center) * .12));
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,.17),
+    transparent 26%,
+    transparent 70%,
+    rgba(255,255,255,.08)
+  );
+  mix-blend-mode: soft-light;
+}
+
+#capabilities .capability-grid > a.workflow-card-active {
+  --workflow-card-opacity: 1;
+  transition: box-shadow 160ms ease;
+  box-shadow:
+    0 22px 48px rgba(0, 0, 0, .22),
+    0 16px 44px -20px var(--workflow-glow);
+}
+
+#capabilities .capability-grid > a.workflow-card-entering {
+  transition:
+    transform 180ms ease-out,
+    box-shadow 180ms ease;
+}
+
+#capabilities .capability-grid > a > img {
+  z-index: 0;
+  transform: scale(1.015) translate3d(
+    calc((var(--pointer-from-left) - .5) * -5px),
+    calc((var(--pointer-from-top) - .5) * -4px),
+    0
+  );
+  will-change: transform;
+  transition: transform 180ms ease-out;
+}
+
+#capabilities .capability-grid > a:hover > img {
+  transform: scale(1.045) translate3d(
+    calc((var(--pointer-from-left) - .5) * -7px),
+    calc((var(--pointer-from-top) - .5) * -6px),
+    0
+  );
+}
+
+#capabilities .capability-grid > a > .capability-shade { z-index: 1; }
+#capabilities .capability-grid > a > small,
+#capabilities .capability-grid > a > div {
+  z-index: 4;
+  transform: translate3d(
+    calc((var(--pointer-from-left) - .5) * -4px),
+    calc((var(--pointer-from-top) - .5) * -4px),
+    18px
+  );
+  transition: transform 150ms ease-out;
+}
+
+@media (hover: none), (pointer: coarse), (max-width: 768px) {
+  #capabilities .capability-grid > a {
+    --workflow-card-opacity: 0;
+    transform: none !important;
+    box-shadow: none;
+    will-change: auto;
+  }
+
+  #capabilities .capability-grid > a::before,
+  #capabilities .capability-grid > a::after { display: none; }
+
+  #capabilities .capability-grid > a > img,
+  #capabilities .capability-grid > a:hover > img,
+  #capabilities .capability-grid > a > small,
+  #capabilities .capability-grid > a > div {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #capabilities .capability-grid > a,
+  #capabilities .capability-grid > a > img,
+  #capabilities .capability-grid > a > small,
+  #capabilities .capability-grid > a > div,
+  #capabilities .capability-grid > a::before,
+  #capabilities .capability-grid > a::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  #capabilities .capability-grid > a {
+    --workflow-card-opacity: 0;
+    transform: none !important;
+  }
+
+  #capabilities .capability-grid > a::before,
+  #capabilities .capability-grid > a::after { display: none; }
+
+  #capabilities .capability-grid > a > img,
+  #capabilities .capability-grid > a:hover > img,
+  #capabilities .capability-grid > a > small,
+  #capabilities .capability-grid > a > div {
+    transform: none !important;
+  }
+}
