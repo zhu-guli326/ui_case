@@ -73,15 +73,10 @@ function renderCapabilityFigures(language) {
     const copy = card.querySelector("p");
     const imageUrl = new URL(figure.image, location.href).href;
 
-    card.style.backgroundImage = `url("${imageUrl}")`;
-    card.style.backgroundSize = "cover";
-    card.style.backgroundPosition = "center";
-    card.style.backgroundRepeat = "no-repeat";
-
     if (image) {
       image.src = imageUrl;
       image.alt = figure.alt[language];
-      image.loading = "eager";
+      image.loading = "lazy";
       image.decoding = "async";
       image.style.display = "block";
       image.style.opacity = "1";
