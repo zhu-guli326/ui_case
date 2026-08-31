@@ -1,13 +1,14 @@
-/* Library hero: match the UI Vocabulary two-card hero geometry.
- * Keep Library-specific content: the overview card shows case count only.
+/* Library hero: keep the shared knowledge-page geometry without card chrome.
+ * Library-specific content remains: the overview shows case count only.
  */
 body.library-page .directory-hero {
   display: grid !important;
   grid-template-columns: minmax(0,2.7fr) minmax(340px,.95fr) !important;
-  gap: 22px !important;
+  gap: 30px !important;
   align-items: stretch !important;
   overflow: visible !important;
   border: 0 !important;
+  border-bottom: 1px solid var(--directory-border) !important;
   border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
@@ -16,22 +17,23 @@ body.library-page .directory-hero {
 body.library-page .directory-hero-copy,
 body.library-page .directory-hero-overview {
   min-width: 0 !important;
-  min-height: 318px !important;
-  overflow: hidden !important;
-  border: 1px solid var(--directory-border) !important;
-  border-radius: var(--directory-shell-radius) !important;
-  background: var(--directory-surface) !important;
-  box-shadow: 0 8px 28px rgba(0,0,0,.04) !important;
+  min-height: 286px !important;
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 body.library-page .directory-hero-copy {
-  padding: 38px 48px 36px !important;
+  padding: 34px 40px 34px 0 !important;
 }
 
 body.library-page .directory-hero-overview {
   display: grid !important;
   place-items: center !important;
-  padding: 24px 28px !important;
+  padding: 34px 0 34px 30px !important;
+  border-left: 1px solid var(--directory-border) !important;
   color: inherit !important;
   text-decoration: none !important;
   pointer-events: none;
@@ -40,7 +42,7 @@ body.library-page .directory-hero-overview {
 body.library-page .stats-panel {
   grid-template-columns: 1fr !important;
   align-content: center !important;
-  padding: 24px 28px !important;
+  padding: 0 !important;
 }
 
 body.library-page .stats-panel > span {
@@ -48,7 +50,7 @@ body.library-page .stats-panel > span {
   min-height: 92px !important;
   gap: 7px !important;
   align-content: center !important;
-  padding: 0 18px !important;
+  padding: 0 !important;
   border: 0 !important;
   text-align: left !important;
 }
@@ -87,10 +89,18 @@ body.library-page .stats-panel strong {
 @media (max-width: 900px) {
   body.library-page .directory-hero {
     grid-template-columns: 1fr !important;
-    gap: 14px !important;
+    gap: 0 !important;
+  }
+
+  body.library-page .directory-hero-copy {
+    min-height: 0 !important;
+    padding: 28px 0 24px !important;
   }
 
   body.library-page .directory-hero-overview {
-    min-height: 132px !important;
+    min-height: 0 !important;
+    padding: 22px 0 28px !important;
+    border-left: 0 !important;
+    border-top: 1px solid var(--directory-border) !important;
   }
 }
