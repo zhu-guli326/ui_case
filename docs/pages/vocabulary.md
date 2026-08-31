@@ -9,6 +9,7 @@ Last updated: 2026-09-01
 - Canonical runtime: `src/features/vocabulary/vocabulary.js`
 - Main styles: `src/features/vocabulary/vocabulary.css` and responsibility styles under `src/features/vocabulary/styles/`
 - Shared knowledge-directory geometry and floating search: `src/core/app-shell/directory-page.css`
+- Shared knowledge-page cleanup: `src/core/app-shell/knowledge-directory-cleanup.css`
 - Supporting data / preview / i18n modules remain split by stable responsibility under `src/features/vocabulary/`
 
 ## Page goal
@@ -41,12 +42,11 @@ A user should be able to:
 Preferred structure:
 
 1. Page title / short orientation
-2. Compact secondary toolbar for sort / share controls
-3. Category navigation or filtering
-4. Visual vocabulary list / cards
-5. Focused preview / example area
-6. Optional concise explanation / reusable prompt
-7. Persistent bottom-centered floating search for vocabulary discovery
+2. Category navigation or filtering
+3. Visual vocabulary list / cards
+4. Focused preview / example area
+5. Optional concise explanation / reusable prompt
+6. Persistent bottom-centered floating search for vocabulary discovery
 
 The page should behave more like a visual directory + learning reference than a form-heavy editor.
 
@@ -56,6 +56,7 @@ The page should behave more like a visual directory + learning reference than a 
 - Large example imagery / previews should receive more emphasis than long body copy.
 - Search and category changes should be easy to understand and reversible.
 - The primary search field is detached from the content toolbar and remains centered at the bottom of the viewport.
+- Once search is detached, do not keep an inline result-count, sort/share or empty toolbar strip above the vocabulary content.
 - On desktop pointer devices, the floating search stays icon-sized while idle and expands only on hover or keyboard/input focus; this compact resting state must not block page content.
 - Touch layouts should remain directly usable without requiring hover.
 - The floating search uses the same shared geometry as Library and Skills, while keeping Vocabulary-specific placeholder text, keyboard behavior and search logic.
@@ -81,6 +82,7 @@ The page should behave more like a visual directory + learning reference than a 
 - Large blocks of generic design theory without visual evidence.
 - Duplicate detail-page architecture when an inline focused preview is enough.
 - Multiple overlapping navigation systems.
+- Result-count / sort / share-only toolbar chrome after search moves to the floating dock.
 - A second inline search field in the page toolbar while the shared floating search is active.
 
 ## Modification boundary
