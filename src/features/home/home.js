@@ -21,33 +21,33 @@ const CAPABILITY_FIGURES = [
     stage: "01 · DEFINE",
     image: "./assets/home/figures/steve-jobs.png",
     alt: { zh: "史蒂夫·乔布斯像素人物肖像", en: "Pixel portrait of Steve Jobs" },
-    name: { zh: "史蒂夫·乔布斯", en: "Steve Jobs" },
-    thinking: { zh: "目标 / 页面 / 参考", en: "Goal / Page / Reference" },
-    tagline: { zh: "先说清楚要做什么，找准参考。", en: "Define what you’re building and pick the right reference." },
+    name: { zh: "DEFINE", en: "DEFINE" },
+    thinking: { zh: "确定目标 / 页面 / 参考", en: "Goal / Page / Reference" },
+    tagline: { zh: "先确定做什么、为谁做，以及参考什么。", en: "Clarify what you are building, who it is for, and what should guide it." },
   },
   {
     stage: "02 · CREATE",
     image: "./assets/home/figures/leonardo-da-vinci.png",
     alt: { zh: "达·芬奇像素人物肖像", en: "Pixel portrait of Leonardo da Vinci" },
-    name: { zh: "达·芬奇", en: "Leonardo da Vinci" },
-    thinking: { zh: "拆图 / 布局 / 视觉", en: "Breakdown / Layout / Visuals" },
-    tagline: { zh: "把参考图拆成布局、字体、颜色和组件。", en: "Break the reference into layout, type, color, and components." },
+    name: { zh: "CREATE", en: "CREATE" },
+    thinking: { zh: "拆解 / 组合 / 视觉方向", en: "Break down / Compose / Visual direction" },
+    tagline: { zh: "把参考转成布局、字体、颜色和组件。", en: "Turn references into layout, typography, color, and components." },
   },
   {
     stage: "03 · BUILD",
     image: "./assets/home/figures/bill-gates.png",
     alt: { zh: "比尔·盖茨像素人物肖像", en: "Pixel portrait of Bill Gates" },
-    name: { zh: "比尔·盖茨", en: "Bill Gates" },
-    thinking: { zh: "Design DNA / AI Coding / 实现", en: "Design DNA / AI Coding / Build" },
-    tagline: { zh: "把规则交给 AI Coding，先生成能跑的页面。", en: "Hand the rules to AI coding and get a working page first." },
+    name: { zh: "BUILD", en: "BUILD" },
+    thinking: { zh: "Design DNA / AI Coding / Demo", en: "Design DNA / AI Coding / Demo" },
+    tagline: { zh: "把设计规则交给 AI Coding，做出能运行的 Demo。", en: "Hand the design rules to AI Coding and build a runnable demo." },
   },
   {
     stage: "04 · ITERATE",
     image: "./assets/home/figures/thomas-edison.png",
     alt: { zh: "爱迪生像素人物肖像", en: "Pixel portrait of Thomas Edison" },
-    name: { zh: "爱迪生", en: "Thomas Edison" },
+    name: { zh: "ITERATE", en: "ITERATE" },
     thinking: { zh: "对照 / 调整 / 验证", en: "Compare / Refine / Validate" },
-    tagline: { zh: "边看边改，直到像、顺、能用。", en: "Compare, refine, and keep going until it looks right and works." },
+    tagline: { zh: "对照目标持续迭代，让 Demo 更像、更顺、更能用。", en: "Compare, refine, and validate until the demo looks right and works well." },
   },
 ];
 
@@ -124,8 +124,8 @@ function applyLanguage(event) {
     capabilityHeading.removeAttribute("data-zh");
     capabilityHeading.removeAttribute("data-en");
     capabilityHeading.textContent = language === "en"
-      ? "From a reference image to a page that actually runs."
-      : "从一张参考图，到真正跑起来的页面。";
+      ? "From an idea to a demo, you move through four steps."
+      : "从一个 Idea 到一个 Demo，你需要经历这 4 步。";
   }
 
   renderCapabilityFigures(language);
