@@ -1,6 +1,6 @@
 # Skills Page Requirements
 
-Last updated: 2026-08-31
+Last updated: 2026-09-01
 
 ## Page identity
 
@@ -27,6 +27,14 @@ A user should be able to quickly understand what a resource is, what kind of ref
 - Show useful visual previews / screenshots when available.
 - Allow copyable prompt / usage guidance where appropriate.
 - Support card interactions such as flipped states only when they reveal useful additional information.
+
+## Skill classification rule
+
+- Classify a Skill by its primary creative output or working capability, not simply because it is broadly related to design.
+- Interface-focused resources use `界面设计 / Interface design`.
+- Poster, editorial print, zine, risograph, monochrome print and related graphic-output resources use `海报设计 / Poster design` when poster/editorial composition is their primary capability.
+- A resource-specific category should not rename unrelated Skills globally.
+- Example: `yanliudesign/mono-color-skill` is a poster/editorial-print Skill. Its card and detail category should be `海报设计 / Poster design`, while its description should emphasize one-ink or controlled two-ink editorial visuals, halftone/image treatment, negative space and restrained typography rather than UI/interface design.
 
 ## Resource categories
 
