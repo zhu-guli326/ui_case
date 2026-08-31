@@ -32,8 +32,8 @@ A user should be able to find a relevant case, understand what makes it useful, 
 
 ## Information structure
 
-1. Library orientation / context in a left hero card + case-count overview in a right hero card
-2. Category filtering + visual case grid / collection
+1. Flat page orientation / context + case-count overview, without enclosing hero cards
+2. Flat category filtering + visual case grid / collection
 3. Focused preview / detail
 4. Source / demo / relevant next action
 5. Persistent bottom-centered floating search for global case discovery
@@ -41,7 +41,8 @@ A user should be able to find a relevant case, understand what makes it useful, 
 ## Interaction rules
 
 - Visual evidence should dominate over metadata.
-- The Library hero uses the same two-card dimensions, gap, radius and height as the UI Vocabulary hero so the three knowledge pages feel structurally consistent.
+- The knowledge-page shell is intentionally flat: page-level hero, overview and filter containers must not use card-style borders, rounded white panels or shadows.
+- Real case cards remain cards. Do not remove the visual case-card structure, hover state, preview, detail or source actions when flattening the page shell.
 - Hero statistics show only the total case count. Do not show style count or GitHub Stars in this area.
 - The case-count number uses the global numeric typography tokens (`--font-number`, tabular numerals).
 - Cards should be easy to scan and should not all be forced into an identical media ratio when that harms the source material.
@@ -65,6 +66,7 @@ A user should be able to find a relevant case, understand what makes it useful, 
 
 ## Remove / avoid
 
+- Page-level card chrome around the hero, overview or filter sidebar.
 - Style-count and GitHub-Star statistics in the hero.
 - Result-count-only toolbars above the content list.
 - Redundant section-intro headings such as “精选案例 / 从画面开始”.
