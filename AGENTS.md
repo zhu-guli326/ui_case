@@ -2,6 +2,23 @@
 
 This file is the single source of truth for AI-assisted website development in this repository. Read it before changing the site.
 
+## 0. Mandatory per-page requirement documents
+
+Every public product page must have its own independent requirement document under `docs/pages/`. These documents define the page's product purpose and modification boundary; they are not optional process notes.
+
+Required behavior for every page change:
+
+1. Read this `AGENTS.md` first.
+2. Identify the requested public route.
+3. Read that route's matching document in `docs/pages/` **before editing code**.
+4. If the current conversation lacks context, treat the page document as the primary product context instead of inferring the page from a screenshot or a one-line request.
+5. Compare the new request with the document's page goal, core functions, information structure, interaction rules, keep/remove rules and modification boundary.
+6. If the request intentionally changes the page's product responsibility or boundary, update the page document first (or in the same change before code edits are considered complete), then update the canonical implementation.
+7. Do not combine multiple pages into one requirement document. Shared site-wide behavior belongs in this file or the global design-system documentation; page-specific product decisions belong only in that page's own document.
+8. Do not silently expand a page into adjacent product responsibilities. If a requested feature belongs to another page according to the requirement documents, keep the current page focused unless the user explicitly changes that boundary.
+
+The index and naming rules live in `docs/pages/README.md`. A page requirement document is durable product context and is explicitly allowed by this repository even though temporary process documentation is otherwise discouraged.
+
 ## 1. Core rule: replace, do not accumulate
 
 `main` contains only the current production version of ONDesign. Git history is the archive and rollback mechanism.
@@ -79,13 +96,15 @@ Canonical shared files:
 For every website change:
 
 1. Read this file.
-2. Identify the public route and canonical feature files from the map below.
-3. Search the exact selector, function, id, slug or domain involved before reading large files.
-4. Edit only the current implementation and genuinely shared dependencies.
-5. Replace old implementation rather than layering on top of it.
-6. Delete superseded code/files/assets immediately after the new implementation is connected.
-7. Run targeted checks.
-8. Re-scan for stale version files, old imports, dead references and temporary tooling.
+2. Read the matching `docs/pages/<page>.md` requirement document.
+3. Identify the public route and canonical feature files from the map below.
+4. Search the exact selector, function, id, slug or domain involved before reading large files.
+5. Edit only the current implementation and genuinely shared dependencies.
+6. Replace old implementation rather than layering on top of it.
+7. Delete superseded code/files/assets immediately after the new implementation is connected.
+8. Run targeted checks.
+9. Re-scan for stale version files, old imports, dead references and temporary tooling.
+10. If the product responsibility or boundary changed, ensure the matching page document was updated too.
 
 ## 5. Default scope
 
@@ -116,6 +135,7 @@ For every website change:
 ### Home
 
 - Public URL: `learn.html` (`index.html` only redirects to it).
+- Requirement doc: `docs/pages/learn.md`.
 - CSS: `src/features/home/home.css`.
 - JS: `src/features/home/home.js`.
 - Do not create alternate Home styles or runtimes.
@@ -123,11 +143,13 @@ For every website change:
 ### Info pages
 
 - `about.html`, `contact.html`, `privacy.html` share `src/features/info/info.css`.
+- Requirement docs: `docs/pages/about.md`, `docs/pages/contact.md`, `docs/pages/privacy.md`.
 - These pages use the same global App Shell as every other full page.
 
 ### Vocabulary
 
 - Public URL: `vocabulary.html`.
+- Requirement doc: `docs/pages/vocabulary.md`.
 - Runtime: `src/features/vocabulary/vocabulary.js`.
 - Main CSS entry: `src/features/vocabulary/vocabulary.css` plus responsibility styles under `src/features/vocabulary/styles/`.
 - Data is split under `src/features/vocabulary/data/`; edit the category-specific module, not the whole data set.
@@ -140,6 +162,7 @@ For every website change:
 ### Skills
 
 - Public URLs: `skills.html`, `skill-detail.html`.
+- Requirement docs: `docs/pages/skills.md`, `docs/pages/skill-detail.md`.
 - `skills.css` — current Skills directory styling.
 - `skills.js` — directory runtime state, URL sync, media helpers, clipboard, GitHub stats and event wiring.
 - `skills-data.js` — Skill catalog, translations, category labels, visual copy and official URLs.
@@ -154,6 +177,7 @@ For every website change:
 ### Library
 
 - Public URL: `library.html`.
+- Requirement doc: `docs/pages/library.md`.
 - Page runtime: `src/features/library/library.js`.
 - Base styles: `src/features/library/library.css`.
 - Card styles: `src/features/library/library-cards.css`.
@@ -164,6 +188,7 @@ For every website change:
 ### Launcher
 
 - Public URL: `launcher.html`.
+- Requirement doc: `docs/pages/launcher.md`.
 - Canonical core: `src/features/launcher/launcher-dna.css` and `src/features/launcher/launcher-dna.js`.
 - `launcher-design-systems.js` owns the design-system picker/runtime and uses `design-systems-catalog.js` as its canonical catalog source.
 - `launcher-preview-i18n.js` owns Launcher preview localization.
@@ -174,6 +199,7 @@ For every website change:
 ### Brands
 
 - Public URL: `brands.html`.
+- Requirement doc: `docs/pages/brands.md`.
 - Canonical implementation: `src/features/brands/brands.css` and `src/features/brands/brands.js`.
 
 ### Catalog
@@ -190,7 +216,7 @@ The repository should contain product source and durable development infrastruct
 - Do not keep source files whose only purpose is to preserve how the site used to work.
 - Do not keep unused visual assets after their last production reference has been removed.
 - Do not embed image binaries as base64 in HTML, CSS or JS.
-- Do not recreate deleted `docs/**`, `references/**`, `tests/**`, `lab/**`, `src/legacy/**`, or feature `legacy/**` process structures unless the user explicitly requests a new product feature that genuinely needs them.
+- Do not recreate deleted `docs/**`, `references/**`, `tests/**`, `lab/**`, `src/legacy/**`, or feature `legacy/**` process structures unless the user explicitly requests a new product feature that genuinely needs them. The durable page requirement documents under `docs/pages/**` are an explicit exception.
 - Do not create extra agent documentation under feature folders. Update this root `AGENTS.md` instead.
 
 ### Cleanup safety / live-route preservation
@@ -214,6 +240,8 @@ For normal repository changes, use the current lightweight checks:
 
 Before reporting a website update as complete, answer these questions internally:
 
+- Did I read the requested page's `docs/pages/<page>.md` before editing?
+- If the page responsibility changed, did I update that page document too?
 - Did I change the canonical implementation rather than create a second version?
 - Is any part of the old implementation still present only because I was afraid to delete it?
 - Are there stale imports, selectors, event handlers, data fields or media references left behind?
