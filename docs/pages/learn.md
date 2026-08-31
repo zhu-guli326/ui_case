@@ -8,8 +8,7 @@ Last updated: 2026-09-01
 - `index.html` only redirects here
 - Product role: ONDesign main landing / learning entry
 - Canonical implementation: `src/features/home/home.css`, `src/features/home/home.js`
-- Home vertical-rhythm override: `src/features/home/home-compact-spacing.css`
-- Home ending cleanup: `src/features/home/home-ending-cleanup.css`
+- The existing design-system explainer may keep its dedicated visual stylesheet, but new Home interaction/runtime behavior belongs in the canonical Home files rather than new versioned or motion-only files.
 
 ## Page goal
 
@@ -75,7 +74,7 @@ The four workflow cards use the pointer-reactive motion language from React Bits
 - Keep the current four portrait assets, per-stage color treatment, text content, grid proportions and source-link placement. The motion is an enhancement, not a redesign into a profile/contact card.
 - Do not add ProfileCard-specific user UI such as handle, online status, mini avatar or Contact button.
 - Do not add mobile device-orientation tilt. Touch/mobile keeps the static card presentation.
-- Do not add extra runtime dependencies solely for this effect. The current page is a static HTML/CSS/JS site, so reuse the React Bits motion math/variables in the existing vanilla-JS architecture instead of introducing React just for four cards.
+- Do not add React solely for this effect. The current page is a static HTML/CSS/JS site, so preserve the React Bits motion model in the existing vanilla-JS architecture.
 - Respect `prefers-reduced-motion: reduce`: disable pointer tilt and animated glare/transform transitions for users requesting reduced motion.
 - The enhancement must not alter card links, keyboard focus, bilingual rendering, image loading or layout dimensions.
 
@@ -103,10 +102,8 @@ The old template gallery is no longer a template catalog. It is a compact “看
 
 ### Final CTA
 
-- Do not use a full-screen creator quote / self-attribution section before the final CTA.
-- The old `WHY I MADE THIS / ONDesign Creator` editorial block is not part of the final home narrative and should remain removed from presentation.
-- Keep only one focused final action into Start Designing.
-- Do not repeat a secondary “browse more cases” button at the bottom; case browsing is already available earlier in the page.
+- Do not use a full-screen creator quote / self-attribution section before the final CTA unless an explicit later content decision restores it.
+- Keep only one focused final action into Start Designing unless an explicit later content decision changes the CTA structure.
 - The final CTA should feel compact, calm and connected to the footer rather than like another oversized hero screen.
 
 ## Interaction rules
@@ -120,6 +117,28 @@ The old template gallery is no longer a template catalog. It is a compact “看
 - Keep the primary Start Designing path obvious without adding configuration controls that belong to Launcher.
 - Keep desktop vertical rhythm compact enough that adjacent sections feel connected. Avoid large blank bands created by section padding; default content sections should generally sit in a roughly 64–88px vertical-padding range, with only intentional hero/editorial moments allowed to exceed it.
 - Section headings, supporting copy and tab/filter groups should use compact internal spacing so the page stays relaxed without feeling empty.
+
+### Home motion system
+
+The Home page should feel calm while static and expressive while scrolling. Motion is part of the page narrative, not decorative noise.
+
+- Page-level scroll choreography uses GSAP + ScrollTrigger in the existing static architecture; do not migrate the Home page to React solely to obtain animation.
+- GSAP must be progressive enhancement: if the CDN/library is unavailable, the page must remain fully visible, navigable and functional.
+- Do not add smooth-scroll hijacking in this pass. Native scrolling remains the baseline.
+- Hero: staged entrance for eyebrow, title, supporting copy and actions; scrolling adds slow background scale/parallax and lets the hero content recede rather than disappear abruptly.
+- Featured cases: preserve the existing draggable carousel mechanics, but add a restrained entrance/depth reveal around the carousel UI without fighting its card transforms.
+- Stats: count up once when the section first enters view; do not loop.
+- Discovery: changing tabs should feel like a visual transition, using short blur/scale/fade handoffs instead of a hard image swap. The underlying tab semantics and destinations stay unchanged.
+- Idea → Demo: the section heading and the four stage cards reveal in sequence so the workflow reads as `DEFINE → CREATE → BUILD → ITERATE`; pointer tilt/glow remains a second layer of interaction on desktop.
+- Design-system cards: the typography/color/spacing/surface/component cards should assemble into view with staggered depth rather than appear as a static pile.
+- Design-system live explainer: the central product UI establishes first, then surrounding typography/spacing/color/state callouts enter in a readable order as the user scrolls through the section.
+- CTA/footer: finish with a restrained reveal; do not keep adding increasingly loud effects at the bottom of the page.
+- Micro-interactions may include subtle magnetic response on primary links/buttons and pointer-following light in the Hero, but movement must stay small enough that text remains easy to target and read.
+- Avoid permanent looping particles, continuous bouncing, scroll-jacking, excessive blur or simultaneous animation of every element.
+- Motion should use opacity/filter/clip/transform properties that stay performant and should avoid layout-thrashing animation.
+- Mobile/touch uses reduced motion complexity: no pointer-follow effects or 3D tilt, and scroll reveals should be shorter/subtler.
+- `prefers-reduced-motion: reduce` disables non-essential scroll choreography, pointer-follow, magnetic movement and 3D card tilt while preserving all content and controls.
+- All accepted Home motion code belongs in `src/features/home/home.js` and `src/features/home/home.css`; do not create separate `*-motion`, `*-animation`, `*-v2` or override runtime/style files.
 
 ## Keep
 
@@ -137,8 +156,7 @@ The old template gallery is no longer a template catalog. It is a compact “看
 - Launcher configuration responsibilities.
 - Duplicated navigation or page-specific global header.
 - Oversized vertical whitespace that makes each section feel disconnected from the next.
-- Creator/self-quote sections that repeat the product thesis instead of advancing the user journey.
-- Duplicate final CTA buttons that send users back to content already surfaced above.
+- Duplicate parallel Home motion/style/runtime files.
 
 ## Modification boundary
 
