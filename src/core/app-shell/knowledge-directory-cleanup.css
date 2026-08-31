@@ -31,11 +31,83 @@ body.library-page .catalog-bar {
 
 /* Keep content starting immediately after the hero/filters. */
 body.directory-page .directory-section {
-  padding-top: 14px;
+  padding-top: 22px;
 }
 
 body.library-page .directory-layout,
 body.vocabulary-page .directory-layout,
 body.skills-document .directory-layout {
   margin-top: 0 !important;
+}
+
+/*
+ * 2026-09-01 — flat knowledge-directory shell
+ *
+ * The page chrome itself should no longer read as a stack of cards.
+ * Keep real content objects (case cards, vocabulary cards and Skill/Web cards)
+ * untouched; only remove card treatment from the page-level hero and filters.
+ */
+body.directory-page .directory-hero-copy,
+body.directory-page .directory-hero-overview {
+  min-height: 286px;
+  overflow: visible;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.directory-page .directory-hero-copy {
+  padding: 34px 40px 34px 0 !important;
+}
+
+body.directory-page .directory-hero-overview {
+  padding: 34px 0 34px 30px !important;
+  border-left: 1px solid var(--directory-border) !important;
+}
+
+body.directory-page .directory-hero {
+  gap: 30px !important;
+  border-bottom: 1px solid var(--directory-border) !important;
+}
+
+body.directory-page .directory-sidebar {
+  overflow: visible;
+  padding: 6px 18px 6px 0 !important;
+  border: 0 !important;
+  border-right: 1px solid var(--directory-border) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Keep controls light: selected/hover state can carry the interaction hierarchy. */
+body.directory-page .filter-sidebar-head small,
+body.vocabulary-page .taxonomy-heading span:last-child {
+  background: transparent !important;
+  border: 1px solid var(--directory-border);
+}
+
+@media (max-width: 900px) {
+  body.directory-page .directory-hero {
+    gap: 0 !important;
+  }
+
+  body.directory-page .directory-hero-copy {
+    min-height: 0;
+    padding: 28px 0 24px !important;
+  }
+
+  body.directory-page .directory-hero-overview {
+    min-height: 0 !important;
+    padding: 22px 0 28px !important;
+    border-left: 0 !important;
+    border-top: 1px solid var(--directory-border) !important;
+  }
+
+  body.directory-page .directory-sidebar {
+    padding: 0 0 16px !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--directory-border) !important;
+  }
 }
