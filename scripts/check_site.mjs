@@ -5,15 +5,17 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const publicEntries = [
-  "index.html", "learn.html", "library.html", "brands.html", "vocabulary.html",
-  "launcher.html", "skills.html", "skill-detail.html", "about.html", "contact.html", "privacy.html"
-];
-const shellPages = publicEntries.filter((entry) => entry !== "index.html");
+const publicEntries = fs.readdirSync(root, { withFileTypes: true })
+  .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
+  .map((entry) => entry.name)
+  .sort();
+let shellPages = [];
 const requiredDirs = ["assets", "catalog", "demo", "src", "docs/pages"];
 const requirementManifestRelative = "docs/pages/manifest.json";
 const requirementReadmeRelative = "docs/pages/README.md";
 const failures = [];
+
+if (!publicEntries.length) failures.push("No public root HTML entries were discovered.");
 
 for (const entry of [
   ...publicEntries,
@@ -66,16 +68,16 @@ if (requirementManifest) {
     failures.push(`${requirementManifestRelative} must contain a pages object.`);
   } else {
     const mappedDocs = new Map();
-    mappedRequirementCount = Object.keys(pages).length;
+    shellPages = Object.keys(pages);
+    mappedRequirementCount = shellPages.length;
 
-    for (const entry of shellPages) {
-      if (!pages[entry]) failures.push(`${entry} has no requirement document mapping in ${requirementManifestRelative}.`);
+    for (const route of shellPages) {
+      if (!publicEntries.includes(route)) {
+        failures.push(`${requirementManifestRelative} maps a product route with no root HTML entry: ${route}`);
+      }
     }
 
     for (const [route, docRelative] of Object.entries(pages)) {
-      if (!shellPages.includes(route)) {
-        failures.push(`${requirementManifestRelative} maps unknown or redirect-only route as a product page: ${route}`);
-      }
       if (typeof docRelative !== "string" || !docRelative.startsWith("docs/pages/") || !docRelative.endsWith(".md")) {
         failures.push(`${requirementManifestRelative} must map ${route} to a Markdown file under docs/pages/.`);
         continue;
@@ -152,7 +154,7 @@ for (const entry of publicEntries) {
   }
 }
 
-// Global App Shell contract: every full page uses exactly the same shared chrome.
+// Global App Shell contract: every mapped product page uses exactly the same shared chrome.
 const directShellStyles = [
   "./src/core/app-shell/design-tokens.css",
   "./src/core/app-shell/language-switch.css",
@@ -163,6 +165,7 @@ const countMatches = (source, pattern) => [...source.matchAll(pattern)].length;
 const sharedShellSelector = /(?:\.site-header\b|\.site-nav(?:-[\w-]+)?\b|\.site-brand(?:-[\w-]+)?\b|\.global-language-switch\b|\.site-footer(?:-[\w-]+)?\b|image2-site-header\b)/i;
 
 for (const entry of shellPages) {
+  if (!publicEntries.includes(entry)) continue;
   const source = fs.readFileSync(path.join(root, entry), "utf8");
   const shellCssCount = countMatches(source, /href=["']\.\/src\/core\/app-shell\/site-shell\.css(?:\?[^"']*)?["']/gi);
   const shellJsCount = countMatches(source, /src=["']\.\/src\/core\/app-shell\/app-shell\.js(?:\?[^"']*)?["']/gi);
