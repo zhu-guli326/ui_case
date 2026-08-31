@@ -6,18 +6,24 @@ This file is the single source of truth for AI-assisted website development in t
 
 Every public product page must have its own independent requirement document under `docs/pages/`. These documents define the page's product purpose and modification boundary; they are not optional process notes.
 
+`docs/pages/manifest.json` is the single machine-readable route-to-document index. Do not maintain a second route-to-requirement mapping elsewhere.
+
 Required behavior for every page change:
 
 1. Read this `AGENTS.md` first.
 2. Identify the requested public route.
-3. Read that route's matching document in `docs/pages/` **before editing code**.
-4. If the current conversation lacks context, treat the page document as the primary product context instead of inferring the page from a screenshot or a one-line request.
-5. Compare the new request with the document's page goal, core functions, information structure, interaction rules, keep/remove rules and modification boundary.
-6. If the request intentionally changes the page's product responsibility or boundary, update the page document first (or in the same change before code edits are considered complete), then update the canonical implementation.
-7. Do not combine multiple pages into one requirement document. Shared site-wide behavior belongs in this file or the global design-system documentation; page-specific product decisions belong only in that page's own document.
-8. Do not silently expand a page into adjacent product responsibilities. If a requested feature belongs to another page according to the requirement documents, keep the current page focused unless the user explicitly changes that boundary.
+3. Resolve that route through `docs/pages/manifest.json`.
+4. Read the mapped page requirement document **before editing code**.
+5. If the current conversation lacks context, treat the page document as the primary product context instead of inferring the page from a screenshot or a one-line request.
+6. Compare the new request with the document's page goal, core user task, core functions, information structure, interaction rules, keep/remove rules and modification boundary.
+7. If the request intentionally changes a durable page responsibility, interaction contract or product boundary, update the page document first (or in the same change before code edits are considered complete), then update the canonical implementation.
+8. Do not combine multiple pages into one requirement document. Shared site-wide behavior belongs in this file or the global design-system documentation; page-specific product decisions belong only in that page's own document.
+9. Do not silently expand a page into adjacent product responsibilities. If a requested feature belongs to another page according to the requirement documents, keep the current page focused unless the user explicitly changes that boundary.
+10. For a purely cosmetic change that does not alter any durable product decision, read the page document but do not update it just to create documentation churn.
 
-The index and naming rules live in `docs/pages/README.md`. A page requirement document is durable product context and is explicitly allowed by this repository even though temporary process documentation is otherwise discouraged.
+If a requested public route has no manifest entry or no mapped document, stop treating the page as implementation-ready: create the independent page requirement document and manifest entry before the page change is considered complete.
+
+The document format and new-page protocol live in `docs/pages/README.md`. Durable page requirement documents are explicitly allowed by this repository even though temporary process documentation is otherwise discouraged.
 
 ## 1. Core rule: replace, do not accumulate
 
@@ -86,6 +92,7 @@ Canonical shared files:
 ## 3. Single Source of Truth
 
 - Each public page has one current production implementation on `main`.
+- `docs/pages/manifest.json` is the only route-to-requirement mapping; `docs/pages/README.md` explains the contract but does not duplicate the route list.
 - Split files only by stable responsibility such as data, filtering, rendering, preview, i18n, detail or reusable components — never by design iteration.
 - Avoid inline page `<style>` patches for normal feature work. Put accepted styles into the canonical feature stylesheet.
 - Do not introduce a compatibility layer merely to avoid updating callers. Update callers and remove the obsolete interface when the product no longer needs it.
@@ -96,15 +103,15 @@ Canonical shared files:
 For every website change:
 
 1. Read this file.
-2. Read the matching `docs/pages/<page>.md` requirement document.
+2. Resolve the requested route through `docs/pages/manifest.json` and read the mapped requirement document.
 3. Identify the public route and canonical feature files from the map below.
 4. Search the exact selector, function, id, slug or domain involved before reading large files.
 5. Edit only the current implementation and genuinely shared dependencies.
 6. Replace old implementation rather than layering on top of it.
 7. Delete superseded code/files/assets immediately after the new implementation is connected.
-8. Run targeted checks.
-9. Re-scan for stale version files, old imports, dead references and temporary tooling.
-10. If the product responsibility or boundary changed, ensure the matching page document was updated too.
+8. Re-read the page requirement document against the final behavior. Update it only if a durable product decision changed.
+9. Run targeted checks, including `npm run check`.
+10. Re-scan for stale version files, old imports, dead references and temporary tooling.
 
 ## 5. Default scope
 
@@ -132,10 +139,11 @@ For every website change:
 
 ## 8. Current canonical feature map
 
+The route-to-requirement mapping is not repeated here; resolve it through `docs/pages/manifest.json`. This section only maps product routes to canonical implementation responsibilities.
+
 ### Home
 
 - Public URL: `learn.html` (`index.html` only redirects to it).
-- Requirement doc: `docs/pages/learn.md`.
 - CSS: `src/features/home/home.css`.
 - JS: `src/features/home/home.js`.
 - Do not create alternate Home styles or runtimes.
@@ -143,13 +151,11 @@ For every website change:
 ### Info pages
 
 - `about.html`, `contact.html`, `privacy.html` share `src/features/info/info.css`.
-- Requirement docs: `docs/pages/about.md`, `docs/pages/contact.md`, `docs/pages/privacy.md`.
 - These pages use the same global App Shell as every other full page.
 
 ### Vocabulary
 
 - Public URL: `vocabulary.html`.
-- Requirement doc: `docs/pages/vocabulary.md`.
 - Runtime: `src/features/vocabulary/vocabulary.js`.
 - Main CSS entry: `src/features/vocabulary/vocabulary.css` plus responsibility styles under `src/features/vocabulary/styles/`.
 - Data is split under `src/features/vocabulary/data/`; edit the category-specific module, not the whole data set.
@@ -162,7 +168,6 @@ For every website change:
 ### Skills
 
 - Public URLs: `skills.html`, `skill-detail.html`.
-- Requirement docs: `docs/pages/skills.md`, `docs/pages/skill-detail.md`.
 - `skills.css` — current Skills directory styling.
 - `skills.js` — directory runtime state, URL sync, media helpers, clipboard, GitHub stats and event wiring.
 - `skills-data.js` — Skill catalog, translations, category labels, visual copy and official URLs.
@@ -177,7 +182,6 @@ For every website change:
 ### Library
 
 - Public URL: `library.html`.
-- Requirement doc: `docs/pages/library.md`.
 - Page runtime: `src/features/library/library.js`.
 - Base styles: `src/features/library/library.css`.
 - Card styles: `src/features/library/library-cards.css`.
@@ -188,7 +192,6 @@ For every website change:
 ### Launcher
 
 - Public URL: `launcher.html`.
-- Requirement doc: `docs/pages/launcher.md`.
 - Canonical core: `src/features/launcher/launcher-dna.css` and `src/features/launcher/launcher-dna.js`.
 - `launcher-design-systems.js` owns the design-system picker/runtime and uses `design-systems-catalog.js` as its canonical catalog source.
 - `launcher-preview-i18n.js` owns Launcher preview localization.
@@ -199,7 +202,6 @@ For every website change:
 ### Brands
 
 - Public URL: `brands.html`.
-- Requirement doc: `docs/pages/brands.md`.
 - Canonical implementation: `src/features/brands/brands.css` and `src/features/brands/brands.js`.
 
 ### Catalog
@@ -233,15 +235,18 @@ The repository should contain product source and durable development infrastruct
 For normal repository changes, use the current lightweight checks:
 
 - `npm run build:catalog -- --check` when catalog/source data is affected.
-- `npm run check` for public paths, shared shell contract and canonical feature naming.
+- `npm run check` for public paths, shared shell contract, canonical feature naming **and the per-page requirement-document contract**.
+- `npm run check` must fail when a full public page lacks a manifest mapping, its mapped requirement document is missing, two pages share one requirement document, a requirement document is orphaned, or required document sections are missing.
 - Keep CI green before considering a structural refactor complete.
 
 ## 11. Final self-check for the Agent
 
 Before reporting a website update as complete, answer these questions internally:
 
-- Did I read the requested page's `docs/pages/<page>.md` before editing?
-- If the page responsibility changed, did I update that page document too?
+- Did I resolve the requested route through `docs/pages/manifest.json`?
+- Did I read the mapped page requirement document before editing?
+- Does the page document still describe the final product behavior accurately?
+- If a durable page responsibility, interaction contract or boundary changed, did I update that page document too?
 - Did I change the canonical implementation rather than create a second version?
 - Is any part of the old implementation still present only because I was afraid to delete it?
 - Are there stale imports, selectors, event handlers, data fields or media references left behind?
@@ -250,7 +255,7 @@ Before reporting a website update as complete, answer these questions internally
 - Does the public route load the new implementation and only the new implementation?
 - Can every old production version now be recovered from Git history instead of the current source tree?
 
-If any answer indicates leftover historical source, clean it up before finishing.
+If any answer indicates leftover historical source or stale requirement context, fix it before finishing.
 
 ## Cache and inline-style hygiene
 
