@@ -104,6 +104,22 @@ The old template gallery is no longer a template catalog. It is a compact “看
 - `UI 词库`: use a real Vocabulary sheet/card asset showing actual UI terms or components; present it in a `3:4` frame.
 - The preview image should use `object-fit: cover` or a controlled crop only when needed to preserve the required frame ratio; do not distort the source image.
 
+### Interactive design-system canvas
+
+The `#design-system-live` scene demonstrates how a blank product surface becomes a coherent interface once design rules are introduced.
+
+- Default desktop state is intentionally sparse. Keep the black stage and the outline/shell of the central workspace visible, but suppress most internal UI content and surrounding callout cards at first.
+- Pointer movement inside the stage is the primary desktop interaction. Moving toward the upper-left, upper-right, lower-left or lower-right progressively reveals Typography, Color, Spacing and Component State content respectively.
+- The central workspace should build up at the same time: shell/topbar first, then navigation, hero/content, actions, project cards and activity/state content. It should feel like a UI being constructed, not like four independent hover cards.
+- Add a small number of secondary design-token details (for example radius, grid/layout, icon, surface/shadow or motion tokens) to make the scene richer. These details remain subordinate and should not become a dense card wall.
+- Callouts may overlap the stage perimeter but must not cover important central workspace content or one another at supported desktop widths.
+- Pointer-follow uses restrained brightness and opacity changes. Do not fill the entire stage with green glow.
+- On pointer leave, keep the most recent built state briefly, then ease toward a quieter partial state instead of instantly clearing everything.
+- Touch/mobile cannot depend on hover. When the scene enters view, reveal the system layers sequentially and leave them readable.
+- `prefers-reduced-motion: reduce` shows the complete static system immediately.
+- The old ScrollTrigger scrub timeline that forces the four callouts to appear should not compete with pointer-driven state. ScrollTrigger may reveal the section itself, while pointer/touch logic owns the internal build state.
+- Keep the implementation in existing Home files. Do not add React or create duplicate `*-motion`, `*-animation`, `*-v2` files.
+
 ### Final CTA
 
 - Do not use a full-screen creator quote / self-attribution section before the final CTA unless an explicit later content decision restores it.
@@ -129,14 +145,13 @@ The Home page should feel calm while static and expressive while scrolling. Moti
 - Page-level scroll choreography uses GSAP + ScrollTrigger in the existing static architecture; do not migrate the Home page to React solely to obtain animation.
 - GSAP must be progressive enhancement: if the CDN/library is unavailable, the page must remain fully visible, navigable and functional.
 - Do not add smooth-scroll hijacking in this pass. Native scrolling remains the baseline.
-- Hero: staged entrance for eyebrow, title, supporting copy and actions; scrolling adds slow background scale/parallax and lets the hero content recede rather than disappear abruptly.
-- Hero title: on first load, `DESIGN DNA FOR AI CODING` should use a restrained typewriter / hand-typed reveal. The title must remain readable if animation is unavailable, should play once rather than loop, should not cause layout shift, and should be disabled for `prefers-reduced-motion: reduce`.
+- Hero: staged entrance for eyebrow, title, supporting copy and actions; the title itself uses a one-time typewriter/hand-typed reveal on first load. The typing effect should finish quickly (roughly 1.5–2.2 seconds), keep the final title fully visible, avoid looping or persistent blinking, and reserve the final title width/height so the Hero does not jump while letters appear. Scrolling adds slow background scale/parallax and lets the hero content recede rather than disappear abruptly.
 - Featured cases: preserve the existing draggable carousel mechanics, but add a restrained entrance/depth reveal around the carousel UI without fighting its card transforms.
 - Stats: count up once when the section first enters view; do not loop.
 - Discovery: changing tabs should feel like a visual transition, using short blur/scale/fade handoffs instead of a hard image swap. The underlying tab semantics and destinations stay unchanged.
 - Idea → Demo: the section heading and the four stage cards reveal in sequence so the workflow reads as `DEFINE → CREATE → BUILD → ITERATE`; pointer tilt/glow remains a second layer of interaction on desktop.
 - Design-system cards: the typography/color/spacing/surface/component cards should assemble into view with staggered depth rather than appear as a static pile.
-- Design-system live explainer: the central product UI establishes first, then surrounding typography/spacing/color/state callouts enter in a readable order as the user scrolls through the section.
+- Design-system live explainer: section entrance is scroll-driven, but its internal build/reveal state follows the Interactive design-system canvas rules above.
 - CTA/footer: finish with a restrained reveal; do not keep adding increasingly loud effects at the bottom of the page.
 - Micro-interactions may include subtle magnetic response on primary links/buttons and pointer-following light in the Hero, but movement must stay small enough that text remains easy to target and read.
 - Avoid permanent looping particles, continuous bouncing, scroll-jacking, excessive blur or simultaneous animation of every element.
