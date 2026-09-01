@@ -29,3 +29,82 @@
  * primary navigation, language switch, brand, footer, or redefine typography
  * scales locally.
  */
+
+/* Home hero header variant: the first-screen navigation sits directly on the
+ * hero artwork instead of introducing a separate white chrome band. */
+body.project-home > .site-header {
+  position: absolute !important;
+  z-index: 60;
+  top: 0 !important;
+  left: 0;
+  right: 0;
+  width: 100% !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+body.project-home > .site-header .site-brand,
+body.project-home > .site-header nav.site-nav.site-nav > a,
+body.project-home > .site-header .site-nav-primary > a,
+body.project-home > .site-header .site-nav-community > a,
+body.project-home > .site-header .site-nav-more > summary {
+  color: #fff !important;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, .28);
+}
+
+body.project-home > .site-header .site-brand-logo,
+body.project-home > .site-header .site-brand-wordmark {
+  filter: brightness(0) invert(1);
+}
+
+body.project-home > .site-header nav.site-nav.site-nav > a:hover,
+body.project-home > .site-header nav.site-nav.site-nav > a:focus-visible,
+body.project-home > .site-header nav.site-nav.site-nav > a[aria-current="page"],
+body.project-home > .site-header .site-nav-primary > a:hover,
+body.project-home > .site-header .site-nav-primary > a:focus-visible,
+body.project-home > .site-header .site-nav-primary > a[aria-current="page"],
+body.project-home > .site-header .site-nav-community > a:hover,
+body.project-home > .site-header .site-nav-community > a:focus-visible,
+body.project-home > .site-header .site-nav-community > a[aria-current="page"],
+body.project-home > .site-header .site-nav-more.is-current > summary,
+body.project-home > .site-header .site-nav-more > summary:hover,
+body.project-home > .site-header .site-nav-more > summary:focus-visible {
+  color: var(--site-header-accent) !important;
+}
+
+body.project-home > .site-header .global-language-switch {
+  border-color: rgba(255, 255, 255, .3) !important;
+  background: rgba(0, 0, 0, .12) !important;
+  backdrop-filter: blur(8px);
+}
+
+body.project-home > .site-header .global-language-switch button {
+  border-color: rgba(255, 255, 255, .22) !important;
+  color: rgba(255, 255, 255, .8) !important;
+}
+
+body.project-home > .site-header .global-language-switch button:hover,
+body.project-home > .site-header .global-language-switch button:focus-visible {
+  background: rgba(255, 255, 255, .12) !important;
+  color: #fff !important;
+}
+
+body.project-home > .site-header .global-language-switch button[aria-pressed="true"] {
+  background: #fff !important;
+  color: #171a18 !important;
+}
+
+@media (max-width: 700px) {
+  body.project-home > .site-header {
+    top: 6px !important;
+    left: 8px;
+    right: 8px;
+    width: calc(100% - 16px) !important;
+    margin: 0 !important;
+    border-radius: 999px !important;
+  }
+}
