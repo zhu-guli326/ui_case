@@ -62,7 +62,10 @@ The four-card workflow should explain the path from an idea to a runnable demo. 
 - Stage 04: `ITERATE` — compare, adjust and validate until the demo looks right and works well.
 - `DEFINE / CREATE / BUILD / ITERATE` must be more visually prominent than the names of Steve Jobs, Leonardo da Vinci, Bill Gates or Thomas Edison.
 - Historical figures are supporting metaphors only; they should not become the main information users have to read.
-- The four cards must share the same text baseline and vertical rhythm: stage title, person name, role/thinking line, and description should align across all cards.
+- The four cards must share the same text baseline and vertical rhythm.
+- Stage wording must not be duplicated inside one card. Use the large translucent stage word behind the portrait as the single stage label; the top-left only shows the step number (`01` / `02` / `03` / `04`), and the lower copy starts with the person name instead of repeating `DEFINE / CREATE / BUILD / ITERATE`.
+- The large translucent stage word belongs in the upper visual field behind the portrait, while the portrait stays in front to create depth.
+- Keep the person name, role/thinking line, and concise description in the lower text area.
 - Add a compact source link aligned to the lower-right of this section pointing to `https://github.com/zhu-guli326/image2_UI_skill.git`.
 
 #### Workflow card motion enhancement
