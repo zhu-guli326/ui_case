@@ -1,6 +1,17 @@
 import { styleGuides } from "../../../catalog/index.js";
 
-const RUNTIME_VERSION = "20260829-library-runtime-v1";
+const RUNTIME_VERSION = "20260901-library-runtime-v2";
+const restoredLiveDemos = Object.freeze({
+  museum: "./demo/artmuse-ios/index.html",
+  fashion: "./demo/fashion/index.html",
+  news: "./demo/news/index.html"
+});
+
+for (const guide of styleGuides) {
+  const restoredLiveDemo = restoredLiveDemos[guide.id];
+  if (!guide.liveDemo && restoredLiveDemo) guide.liveDemo = restoredLiveDemo;
+}
+
 const guideById = new Map(styleGuides.map((guide) => [guide.id, guide]));
 const canonicalCardScreens = Object.freeze({
   "relay-music": "./demo/relay-music/screenshots/library-preview-2x.png",
