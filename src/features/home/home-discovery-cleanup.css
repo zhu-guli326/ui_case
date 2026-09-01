@@ -1,6 +1,7 @@
-/* Home discovery: restore the original five-card gallery presentation.
- * Later runtime enhancements may still initialize, but they must not collapse
- * this section into a single preview or replace the original gallery geometry.
+/* Home discovery: keep the original five-card gallery presentation while
+ * preserving the later tab interaction. All five cards stay in the layout;
+ * the selected tag/card receives a clear active state instead of collapsing
+ * the gallery into a single preview.
  */
 .project-home .discovery-strip .template-gallery-heading > .section-eyebrow {
   display: block !important;
@@ -27,12 +28,19 @@ body.project-home #templates.discovery-strip .template-filters a {
   text-decoration: none;
   opacity: 1 !important;
   transform: none !important;
+  transition: background .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease !important;
+}
+
+body.project-home #templates.discovery-strip .template-filters a:hover {
+  border-color: #bdbdbd !important;
+  background: #f5f5f5 !important;
 }
 
 body.project-home #templates.discovery-strip .template-filters a.is-active {
-  border-color: #e2e2e2 !important;
-  background: #fff !important;
-  color: #111 !important;
+  border-color: #111 !important;
+  background: #111 !important;
+  color: #fff !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,.12) !important;
 }
 
 body.project-home #templates.discovery-strip .template-grid {
@@ -50,15 +58,36 @@ body.project-home #templates.discovery-strip .template-card.home-vocab-host {
   max-width: none !important;
   aspect-ratio: 4 / 5.2 !important;
   overflow: hidden !important;
+  border: 1px solid transparent !important;
   border-radius: 8px !important;
   background-color: #202020 !important;
   background-position: center !important;
   background-size: cover !important;
   box-shadow: none !important;
-  opacity: 1 !important;
+  opacity: .56 !important;
   visibility: visible !important;
+  filter: saturate(.72) brightness(.78) !important;
+  transform: scale(.985) !important;
+  transition: opacity .28s ease, filter .28s ease, transform .34s cubic-bezier(.2,.78,.18,1), border-color .28s ease, box-shadow .28s ease !important;
+}
+
+body.project-home #templates.discovery-strip .template-card.is-active-discovery {
+  z-index: 2;
+  border-color: rgba(17,17,17,.18) !important;
+  box-shadow: 0 22px 46px rgba(0,0,0,.16) !important;
+  opacity: 1 !important;
   filter: none !important;
-  transform: none !important;
+  transform: translateY(-8px) scale(1.015) !important;
+}
+
+body.project-home #templates.discovery-strip .template-card:hover {
+  opacity: .86 !important;
+  filter: saturate(.9) brightness(.9) !important;
+}
+
+body.project-home #templates.discovery-strip .template-card.is-active-discovery:hover {
+  opacity: 1 !important;
+  filter: none !important;
 }
 
 body.project-home #templates.discovery-strip .template-card:nth-child(1) {
@@ -144,12 +173,12 @@ body.project-home #templates.discovery-strip .discovery-footer {
     grid-auto-flow: column !important;
     grid-auto-columns: minmax(260px, 42vw) !important;
     overflow-x: auto !important;
-    padding-bottom: 8px;
+    padding: 12px 0 8px;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
   }
   body.project-home #templates.discovery-strip .template-grid::-webkit-scrollbar { display: none; }
-  body.project-home #templates.discovery-strip .template-card { scroll-snap-align: start; }
+  body.project-home #templates.discovery-strip .template-card { scroll-snap-align: center; }
 }
 
 @media (max-width: 680px) {
