@@ -51,6 +51,31 @@ const PRODUCT_UI_OVERRIDES = {
     rounded: { sm: "4px", md: "6px", lg: "8px" },
     spacing: { sm: "6px", base: "8px", md: "8px", lg: "12px" },
   },
+  spotify: {
+    description: "Spotify product UI foundation. Near-black immersive surfaces with Spotify Green reserved for primary actions, active states and functional highlights.",
+    colors: {
+      primary: "#1ed760",
+      accent: "#1ed760",
+      canvas: "#121212",
+      surface: "#181818",
+      "surface-1": "#181818",
+      "surface-2": "#1f1f1f",
+      card: "#181818",
+      ink: "#ffffff",
+      text: "#ffffff",
+      muted: "#b3b3b3",
+      "text-secondary": "#b3b3b3",
+      border: "#4d4d4d",
+      "on-primary": "#000000",
+      "on-dark": "#ffffff",
+    },
+    typography: {
+      body: { fontFamily: "system-ui", fontSize: "14px", fontWeight: "400" },
+      title: { fontFamily: "system-ui", fontSize: "16px", fontWeight: "700" },
+    },
+    rounded: { sm: "6px", md: "8px", lg: "12px", pill: "9999px" },
+    spacing: { sm: "8px", base: "8px", md: "12px", lg: "16px" },
+  },
 };
 
 const clamp = (value, min, max, fallback) => {
