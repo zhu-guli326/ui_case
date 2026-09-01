@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="./src/features/library/library-cards.css">
   <link rel="stylesheet" href="./src/core/app-shell/directory-page.css">
   <link rel="stylesheet" href="./src/features/library/library-detail.css">
+  <style>#pageTitle{white-space:pre-line}</style>
   <script src="./src/core/app-shell/app-shell.js"></script>
   <script src="./src/core/adsense/adsense.js" defer></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
@@ -41,8 +42,9 @@
     <section class="catalog-heading directory-hero" id="catalogHeading" aria-labelledby="pageTitle">
       <div class="directory-hero-copy">
         <p class="kicker">UI STYLE REFERENCE</p>
-        <h1 id="pageTitle">界面风格案例库</h1>
-        <p class="intro">从已有的真实 App 演示中提炼画面、排版与交互方向。选择一个案例，复制它的风格配置，再开始做下一张界面。</p>
+        <h1 id="pageTitle">看看这些，
+再决定你想做成什么样。</h1>
+        <p class="intro">从真实案例开始找方向。看界面、试 Demo，再把喜欢的感觉带进你的设计。</p>
       </div>
       <a class="stats-panel directory-hero-overview" href="https://github.com/zhu-guli326/image2_UI_skill" target="_blank" rel="noreferrer" aria-label="打开 image2_UI_skill GitHub 项目">
         <span><small>案例</small><strong>19</strong></span>
@@ -62,16 +64,16 @@
       </section>
 
       <div class="directory-layout">
-        <aside class="sidebar directory-sidebar" aria-label="案例类别">
-          <header class="filter-sidebar-head"><p>分类筛选</p><small>7</small></header>
+        <aside class="sidebar directory-sidebar" aria-label="想看哪一类？">
+          <header class="filter-sidebar-head"><p>想看哪一类？</p><small>7</small></header>
           <nav class="category-nav" id="categoryNav">
-            <button class="category-link is-active" type="button" data-filter="all"><span>全部案例</span><b>19</b></button>
-            <button class="category-link" type="button" data-filter="culture"><span>文化内容</span><b>1</b></button>
-            <button class="category-link" type="button" data-filter="commerce"><span>零售电商</span><b>5</b></button>
-            <button class="category-link" type="button" data-filter="editorial"><span>新闻阅读</span><b>1</b></button>
-            <button class="category-link" type="button" data-filter="travel"><span>旅行体验</span><b>2</b></button>
-            <button class="category-link" type="button" data-filter="creative"><span>创意工具</span><b>3</b></button>
-            <button class="category-link" type="button" data-filter="wellness"><span>健康陪伴</span><b>7</b></button>
+            <button class="category-link is-active" type="button" data-filter="all"><span>全部</span><b>19</b></button>
+            <button class="category-link" type="button" data-filter="culture"><span>文化</span><b>1</b></button>
+            <button class="category-link" type="button" data-filter="commerce"><span>电商</span><b>5</b></button>
+            <button class="category-link" type="button" data-filter="editorial"><span>阅读</span><b>1</b></button>
+            <button class="category-link" type="button" data-filter="travel"><span>旅行</span><b>2</b></button>
+            <button class="category-link" type="button" data-filter="creative"><span>工具</span><b>3</b></button>
+            <button class="category-link" type="button" data-filter="wellness"><span>健康</span><b>7</b></button>
           </nav>
           <section class="sidebar-skills" aria-labelledby="sidebarSkillsTitle">
             <div class="sidebar-skills-heading"><p id="sidebarSkillsTitle">设计 Skill</p><a href="./skills.html">全部浏览</a></div>
@@ -94,7 +96,7 @@
 
         <section class="catalog-section directory-content" aria-labelledby="catalogTitle">
           <div class="catalog-bar">
-            <div><p class="kicker">精选案例</p><h2 id="catalogTitle">从画面开始</h2></div>
+            <div><p class="kicker">案例</p><h2 id="catalogTitle">从一个喜欢的界面开始。</h2></div>
           </div>
           <div class="demo-gallery" id="demoGallery" aria-live="polite"></div>
           <p class="empty-state" id="emptyState" hidden>没有找到匹配的案例。</p>
@@ -112,7 +114,7 @@
         <header class="preview-dialog-header"><p id="previewDialogTitle">案例预览</p></header>
         <div class="preview-dialog-details" id="previewDialogDetails"></div>
         <footer class="preview-dialog-footer">
-          <div class="preview-dialog-primary-actions"><button class="dialog-copy-button" id="previewDialogApply" type="button">应用到当前项目</button><a class="dialog-action-link" id="previewDialogStartTask" href="./launcher.html?intent=rebuild&source=library">基于此案例开始设计</a></div>
+          <div class="preview-dialog-primary-actions"><button class="dialog-copy-button" id="previewDialogApply" type="button">用这个风格</button><a class="dialog-action-link" id="previewDialogStartTask" href="./launcher.html?intent=rebuild&source=library">从这个案例开始</a></div>
           <a class="preview-dialog-lab-link" id="previewDialogComponents" href="./brands.html">在实验室中打开</a>
           <details class="preview-dialog-more-actions"><summary id="previewDialogMoreActionsSummary">更多操作</summary><div><button class="dialog-secondary-button" id="previewDialogCopy" type="button">复制图片与提示词配置</button><a id="previewDialogCompare" href="./brands.html?view=compare">与当前方案对比</a><a id="previewDialogOpenLive" target="_blank" rel="noopener" hidden>新窗口打开可点击 Demo</a></div></details>
         </footer>
