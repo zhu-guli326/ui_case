@@ -10,125 +10,90 @@ const DISCOVERY_PREVIEWS = [
     route: "./library.html",
     eyebrow: "APP DESIGN · MOBILE",
     title: "Fashion Shopping App",
-    alt: { zh: "Fashion Shopping App 局部裁切", en: "Cropped Fashion Shopping App interface" },
-    copy: { zh: "只看导航、商品层级和留白，不把整张竖屏截图塞进来。", en: "Focus on navigation, product hierarchy and spacing instead of showing the full tall screenshot." },
-    mainPosition: "50% 16%",
-    detailPosition: "50% 42%",
-    mainScale: 1.34,
-    detailScale: 2.5,
+    copy: { zh: "从移动端页面里只看层级、导航和商品信息的关系。", en: "Study only the hierarchy, navigation and product-information relationships." },
+    mainPosition: "50% 18%",
+    detailPosition: "50% 56%",
   },
   {
     src: "./assets/home/case-product-designer-20260831.png",
     route: "./skills.html?mode=WEB",
     eyebrow: "WEB DESIGN · PORTFOLIO",
     title: "Product Designer",
-    alt: { zh: "Product Designer 官网局部裁切", en: "Cropped Product Designer website" },
-    copy: { zh: "放大标题、像素图形和留白比例，只保留最有识别度的部分。", en: "Zoom into the title, pixel graphics and spacing proportions that define the visual language." },
-    mainPosition: "50% 10%",
-    detailPosition: "62% 52%",
-    mainScale: 1.12,
-    detailScale: 1.8,
+    copy: { zh: "看大标题、像素纹理和非对称留白怎么一起成立。", en: "See how oversized type, pixel texture and asymmetric space work together." },
+    mainPosition: "50% 12%",
+    detailPosition: "62% 48%",
   },
   {
     src: "./assets/skills/repositories/leonxlnx-taste-skill-detail.png",
     route: "./skills.html",
     eyebrow: "DESIGN SKILL · REPOSITORY",
     title: "Taste Skill",
-    alt: { zh: "Taste Skill 页面局部裁切", en: "Cropped Taste Skill interface" },
-    copy: { zh: "直接看结构、提示词和可复用方法，不把详情页当成整张海报展示。", en: "Read structure, prompts and reusable methods without treating the entire detail page as a poster." },
-    mainPosition: "50% 12%",
-    detailPosition: "50% 54%",
-    mainScale: 1.18,
-    detailScale: 1.9,
+    copy: { zh: "看已经整理好的设计能力、提示词和方法怎么被组织。", en: "See how reusable design capabilities, prompts and methods are organized." },
+    mainPosition: "50% 10%",
+    detailPosition: "50% 45%",
   },
   {
     src: "./assets/demo-preview.gif",
     route: "./launcher.html",
     eyebrow: "DESIGN TOOL · WORKFLOW",
     title: "Start Designing",
-    alt: { zh: "Start Designing 工作流局部裁切", en: "Cropped Start Designing workflow" },
-    copy: { zh: "把参考、字体、颜色和组件组合成可以继续生成的 Design DNA。", en: "Combine references, type, color and components into a Design DNA you can keep building from." },
-    mainPosition: "50% 20%",
-    detailPosition: "50% 60%",
-    mainScale: 1.16,
-    detailScale: 1.7,
+    copy: { zh: "看参考、字体、颜色和组件怎样被组合成可继续生成的 Design DNA。", en: "See how references, type, color and components become a Design DNA you can keep building from." },
+    mainPosition: "50% 12%",
+    detailPosition: "54% 58%",
   },
   {
     src: "./assets/vocabulary/generated-v2/content-display-sheet.png",
     route: "./vocabulary.html",
     eyebrow: "UI VOCABULARY · PATTERNS",
     title: "UI Vocabulary",
-    alt: { zh: "UI Vocabulary 局部裁切", en: "Cropped UI Vocabulary interface" },
-    copy: { zh: "不知道一个界面元素叫什么时，先把词找对，再让 AI 执行。", en: "When you do not know an interface term, identify it first and then ask AI to execute it." },
-    mainPosition: "50% 18%",
-    detailPosition: "50% 54%",
-    mainScale: 1.2,
-    detailScale: 1.9,
+    copy: { zh: "不知道一个界面元素叫什么时，先把词找对，再让 AI 执行。", en: "Find the right UI term before asking AI to execute it." },
+    mainPosition: "50% 14%",
+    detailPosition: "52% 52%",
   },
 ];
 
 const WORKFLOW_STEPS = [
   {
-    image: "./assets/home/figures/steve-jobs.png",
-    color: "#6540b7",
-    label: "01 · DEFINE",
     title: "DEFINE",
+    image: "./assets/home/figures/steve-jobs.png",
+    color: "#6b43b7",
     lead: { zh: "确定目标 / 页面 / 参考", en: "Goal / Page / Reference" },
     copy: { zh: "先确定做什么、为谁做，以及参考什么。", en: "Clarify what you are building, who it is for, and what should guide it." },
   },
   {
-    image: "./assets/home/figures/leonardo-da-vinci.png",
-    color: "#c6672c",
-    label: "02 · CREATE",
     title: "CREATE",
+    image: "./assets/home/figures/leonardo-da-vinci.png",
+    color: "#d66b2c",
     lead: { zh: "布局 / 字体 / 颜色 / 组件", en: "Layout / Type / Color / Components" },
-    copy: { zh: "把喜欢的感觉拆成真正可以执行的视觉规则。", en: "Turn the feeling you like into visual rules that can actually be executed." },
+    copy: { zh: "把参考拆成真正能执行的视觉规则。", en: "Turn references into visual rules that can actually be executed." },
   },
   {
-    image: "./assets/home/figures/bill-gates.png",
-    color: "#2867a8",
-    label: "03 · BUILD",
     title: "BUILD",
+    image: "./assets/home/figures/bill-gates.png",
+    color: "#2f68c9",
     lead: { zh: "Design DNA / AI Coding / Demo", en: "Design DNA / AI Coding / Demo" },
-    copy: { zh: "把规则交给 AI Coding，生成真正能运行的 Demo。", en: "Hand the rules to AI Coding and build a demo that actually runs." },
+    copy: { zh: "把规则交给 AI Coding，做出真正能运行的 Demo。", en: "Hand the rules to AI Coding and build a runnable demo." },
   },
   {
-    image: "./assets/home/figures/thomas-edison.png",
-    color: "#497d35",
-    label: "04 · ITERATE",
     title: "ITERATE",
+    image: "./assets/home/figures/thomas-edison.png",
+    color: "#419259",
     lead: { zh: "对照 / 调整 / 验证", en: "Compare / Refine / Validate" },
-    copy: { zh: "继续对照目标调整，直到它像、顺，而且真的能用。", en: "Keep refining against the goal until it feels right, reads clearly and works." },
+    copy: { zh: "继续对照目标调整，直到它顺、像，而且真的能用。", en: "Keep refining against the goal until it feels right and actually works." },
   },
 ];
 
-const DNA_STEPS = [
-  {
-    kicker: "01 · TYPE SCALE",
-    title: "Typography",
-    copy: { zh: "64 / 40 / 16 / 12，把层级先固定下来。", en: "64 / 40 / 16 / 12. Lock the hierarchy first." },
-  },
-  {
-    kicker: "02 · COLOR ROLES",
-    title: "Color",
-    copy: { zh: "主色、表面和状态色开始有明确职责。", en: "Primary, surface and status colors now have explicit roles." },
-  },
-  {
-    kicker: "03 · SPACING SCALE",
-    title: "Spacing",
-    copy: { zh: "4 / 8 / 16 / 24，把零散间距收进同一套 scale。", en: "4 / 8 / 16 / 24. Bring scattered gaps into one spacing scale." },
-  },
-  {
-    kicker: "04 · COMPONENT STATES",
-    title: "Components",
-    copy: { zh: "补齐按钮、输入框、开关和状态，一个完整系统才成立。", en: "Finish buttons, fields, toggles and states so the system can actually scale." },
-  },
+const DNA_NOTES = [
+  { index: "01 · TYPE SYSTEM", title: "Typography", copy: { zh: "先建立字阶，页面才有稳定层级。", en: "Start with a type scale so the page has a stable hierarchy." } },
+  { index: "02 · COLOR SYSTEM", title: "Color", copy: { zh: "再给主色、表面和状态色固定角色。", en: "Then give primary, surface and state colors fixed roles." } },
+  { index: "03 · SPACING SYSTEM", title: "Spacing", copy: { zh: "把间距统一到同一套 scale，页面节奏才一致。", en: "Use one spacing scale so the page keeps a consistent rhythm." } },
+  { index: "04 · COMPONENT SYSTEM", title: "Components", copy: { zh: "最后补齐组件状态，Design DNA 才真正可以复用。", en: "Complete component states so the Design DNA becomes truly reusable." } },
 ];
 
 let activeDiscoveryIndex = 0;
 let activeWorkflowIndex = 0;
 let activeDnaIndex = 0;
-let homeMotionContext = null;
+let motionContext = null;
 let resizeTimer = 0;
 
 function currentLanguage(event) {
@@ -166,180 +131,129 @@ function applyLanguage(event) {
 }
 
 function renderDiscovery(index, { animate = true, language = currentLanguage() } = {}) {
-  const tabs = [...document.querySelectorAll("[data-discovery-index]")];
-  const preview = document.querySelector("[data-discovery-preview]");
-  const image = document.querySelector("[data-discovery-image]");
-  const detailImage = document.querySelector("[data-discovery-detail-image]");
-  const eyebrow = document.querySelector("[data-discovery-eyebrow]");
-  const title = document.querySelector("[data-discovery-title]");
-  const copy = document.querySelector("[data-discovery-copy]");
-  const link = document.querySelector("[data-discovery-link]");
   const item = DISCOVERY_PREVIEWS[index];
+  const preview = document.querySelector("[data-discovery-preview]");
   if (!item || !preview) return;
 
   const apply = () => {
     activeDiscoveryIndex = index;
-    tabs.forEach((tab, tabIndex) => {
-      const selected = tabIndex === index;
-      tab.classList.toggle("is-active", selected);
-      tab.setAttribute("aria-selected", String(selected));
-      tab.tabIndex = selected ? 0 : -1;
+    document.querySelectorAll("[data-discovery-index]").forEach((button, buttonIndex) => {
+      const selected = buttonIndex === index;
+      button.classList.toggle("is-active", selected);
+      button.setAttribute("aria-selected", String(selected));
     });
-    [image, detailImage].forEach((node) => {
-      if (!node) return;
-      node.src = new URL(item.src, location.href).href;
-      node.alt = item.alt[language];
-    });
-    if (image) {
-      image.style.objectPosition = item.mainPosition;
-      image.style.transform = `scale(${item.mainScale})`;
+
+    const main = document.querySelector("[data-discovery-image]");
+    const detail = document.querySelector("[data-discovery-detail-image]");
+    if (main) {
+      main.src = new URL(item.src, location.href).href;
+      main.style.objectPosition = item.mainPosition;
     }
-    if (detailImage) {
-      detailImage.style.objectPosition = item.detailPosition;
-      detailImage.style.transform = `scale(${item.detailScale})`;
+    if (detail) {
+      detail.src = new URL(item.src, location.href).href;
+      detail.style.objectPosition = item.detailPosition;
     }
-    if (eyebrow) eyebrow.textContent = item.eyebrow;
-    if (title) title.textContent = item.title;
-    if (copy) copy.textContent = item.copy[language];
+    document.querySelector("[data-discovery-eyebrow]")?.replaceChildren(document.createTextNode(item.eyebrow));
+    document.querySelector("[data-discovery-title]")?.replaceChildren(document.createTextNode(item.title));
+    document.querySelector("[data-discovery-copy]")?.replaceChildren(document.createTextNode(item.copy[language]));
+    const link = document.querySelector("[data-discovery-link]");
     if (link) {
       link.dataset.smartLangLink = item.route;
       link.href = localizedRoute(item.route, language);
     }
   };
 
-  if (!animate || !window.gsap || REDUCED_MOTION.matches || index === activeDiscoveryIndex) {
+  if (!animate || !window.gsap || REDUCED_MOTION.matches) {
     apply();
     return;
   }
 
   window.gsap.timeline()
-    .to(preview, { autoAlpha: 0, y: 14, scale: .992, duration: .16, ease: "power2.in" })
+    .to(preview, { autoAlpha: 0, y: 12, scale: .99, duration: .16, ease: "power2.in" })
     .add(apply)
-    .fromTo(preview, { autoAlpha: 0, y: 24, scale: .985 }, { autoAlpha: 1, y: 0, scale: 1, duration: .5, ease: "power3.out", clearProps: "opacity,visibility,transform" });
+    .fromTo(preview, { autoAlpha: 0, y: 20, scale: .985 }, { autoAlpha: 1, y: 0, scale: 1, duration: .48, ease: "power3.out", clearProps: "opacity,visibility,transform" });
 }
 
 function initDiscovery() {
-  const tabs = [...document.querySelectorAll("[data-discovery-index]")];
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", () => renderDiscovery(Number(tab.dataset.discoveryIndex), { animate: true }));
-    tab.addEventListener("keydown", (event) => {
-      if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) return;
-      event.preventDefault();
-      const current = Number(tab.dataset.discoveryIndex);
-      const direction = event.key === "ArrowUp" || event.key === "ArrowLeft" ? -1 : 1;
-      const next = (current + direction + tabs.length) % tabs.length;
-      tabs[next].focus();
-      renderDiscovery(next, { animate: true });
-    });
+  document.querySelectorAll("[data-discovery-index]").forEach((button) => {
+    button.addEventListener("click", () => renderDiscovery(Number(button.dataset.discoveryIndex), { animate: true }));
   });
 }
 
 function renderWorkflow(index, { animate = true, language = currentLanguage() } = {}) {
-  const step = WORKFLOW_STEPS[index];
-  const focus = document.querySelector("[data-workflow-focus]");
-  const image = document.querySelector("[data-workflow-image]");
-  const label = document.querySelector("[data-workflow-index]");
-  const title = document.querySelector("[data-workflow-title]");
-  const lead = document.querySelector("[data-workflow-lead]");
-  const copy = document.querySelector("[data-workflow-copy]");
-  const ghost = document.querySelector("[data-workflow-ghost]");
-  const buttons = [...document.querySelectorAll("[data-workflow-step]")];
-  if (!step || !focus) return;
+  const item = WORKFLOW_STEPS[index];
+  const stage = document.querySelector("[data-workflow-focus]");
+  if (!item || !stage) return;
 
   const apply = () => {
     activeWorkflowIndex = index;
-    buttons.forEach((button, buttonIndex) => {
+    document.querySelectorAll("[data-workflow-step]").forEach((button, buttonIndex) => {
       button.classList.toggle("is-active", buttonIndex === index);
-      button.classList.toggle("is-built", buttonIndex < index);
-      button.setAttribute("aria-selected", String(buttonIndex === index));
     });
-    focus.style.setProperty("--stage-bg", step.color);
-    if (image) image.src = new URL(step.image, location.href).href;
-    if (label) label.textContent = step.label;
-    if (title) title.textContent = step.title;
-    if (lead) lead.textContent = step.lead[language];
-    if (copy) copy.textContent = step.copy[language];
-    if (ghost) ghost.textContent = step.title;
+    stage.style.setProperty("--stage-bg", item.color);
+    const image = document.querySelector("[data-workflow-image]");
+    if (image) image.src = new URL(item.image, location.href).href;
+    document.querySelector("[data-workflow-index]")?.replaceChildren(document.createTextNode(`0${index + 1} · ${item.title}`));
+    document.querySelector("[data-workflow-title]")?.replaceChildren(document.createTextNode(item.title));
+    document.querySelector("[data-workflow-ghost]")?.replaceChildren(document.createTextNode(item.title));
+    document.querySelector("[data-workflow-lead]")?.replaceChildren(document.createTextNode(item.lead[language]));
+    document.querySelector("[data-workflow-copy]")?.replaceChildren(document.createTextNode(item.copy[language]));
   };
 
-  if (!animate || !window.gsap || REDUCED_MOTION.matches || index === activeWorkflowIndex) {
+  if (!animate || !window.gsap || REDUCED_MOTION.matches) {
     apply();
     return;
   }
 
-  const elements = [image, label, title, lead, copy, ghost].filter(Boolean);
+  const image = stage.querySelector("[data-workflow-image]");
+  const copy = stage.querySelector(".workflow-stage-copy");
   window.gsap.timeline()
-    .to(elements, { autoAlpha: 0, y: 14, duration: .16, stagger: .015, ease: "power2.in" })
+    .to([image, copy], { autoAlpha: 0, y: 14, duration: .16, ease: "power2.in" })
     .add(apply)
-    .fromTo(elements, { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: .46, stagger: .025, ease: "power3.out", clearProps: "opacity,visibility,transform" });
+    .fromTo(image, { autoAlpha: 0, scale: 1.08 }, { autoAlpha: 1, scale: 1.04, duration: .54, ease: "power3.out" })
+    .fromTo(copy, { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: .42, ease: "power3.out" }, "-=.36");
 }
 
 function initWorkflow() {
-  const buttons = [...document.querySelectorAll("[data-workflow-step]")];
-  buttons.forEach((button) => {
-    button.setAttribute("role", "tab");
+  document.querySelectorAll("[data-workflow-step]").forEach((button) => {
     button.addEventListener("click", () => renderWorkflow(Number(button.dataset.workflowStep), { animate: true }));
-    button.addEventListener("keydown", (event) => {
-      if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) return;
-      event.preventDefault();
-      const current = Number(button.dataset.workflowStep);
-      const direction = event.key === "ArrowUp" || event.key === "ArrowLeft" ? -1 : 1;
-      const next = (current + direction + buttons.length) % buttons.length;
-      buttons[next].focus();
-      renderWorkflow(next, { animate: true });
-    });
   });
 }
 
 function renderDna(index, { animate = true, language = currentLanguage() } = {}) {
-  const step = DNA_STEPS[index];
   const scene = document.querySelector(".dna-scene");
-  const browser = document.querySelector(".dna-browser");
-  const note = document.querySelector("[data-dna-note]");
-  const kicker = document.querySelector("[data-dna-note-kicker]");
-  const title = document.querySelector("[data-dna-note-title]");
-  const copy = document.querySelector("[data-dna-note-copy]");
-  const buttons = [...document.querySelectorAll("[data-dna-rule]")];
-  if (!step || !scene) return;
+  const note = DNA_NOTES[index];
+  if (!scene || !note) return;
 
   const apply = () => {
     activeDnaIndex = index;
     scene.dataset.dnaStep = String(index);
-    buttons.forEach((button, buttonIndex) => {
+    document.querySelectorAll("[data-dna-rule]").forEach((button, buttonIndex) => {
       button.classList.toggle("is-active", buttonIndex === index);
       button.classList.toggle("is-built", buttonIndex < index);
-      button.setAttribute("aria-selected", String(buttonIndex === index));
     });
-    if (kicker) kicker.textContent = step.kicker;
-    if (title) title.textContent = step.title;
-    if (copy) copy.textContent = step.copy[language];
+    document.querySelector("[data-dna-note-index]")?.replaceChildren(document.createTextNode(note.index));
+    document.querySelector("[data-dna-note-title]")?.replaceChildren(document.createTextNode(note.title));
+    document.querySelector("[data-dna-note-copy]")?.replaceChildren(document.createTextNode(note.copy[language]));
   };
 
-  if (!animate || !window.gsap || REDUCED_MOTION.matches || index === activeDnaIndex) {
+  const noteNode = document.querySelector(".dna-note");
+  const workspace = document.querySelector(".dna-workspace");
+  if (!animate || !window.gsap || REDUCED_MOTION.matches || !noteNode || !workspace) {
     apply();
     return;
   }
 
   window.gsap.timeline()
-    .to([browser, note].filter(Boolean), { autoAlpha: .62, y: 6, duration: .15, ease: "power2.in" })
+    .to(noteNode, { autoAlpha: 0, y: 8, duration: .14, ease: "power2.in" })
     .add(apply)
-    .fromTo([browser, note].filter(Boolean), { autoAlpha: .72, y: 12 }, { autoAlpha: 1, y: 0, duration: .42, ease: "power3.out", clearProps: "opacity,visibility,transform" });
+    .fromTo(noteNode, { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: .34, ease: "power3.out" })
+    .fromTo(workspace, { scale: .996 }, { scale: 1, duration: .28, ease: "power2.out" }, "<");
 }
 
 function initDna() {
-  const buttons = [...document.querySelectorAll("[data-dna-rule]")];
-  buttons.forEach((button) => {
-    button.setAttribute("role", "tab");
+  document.querySelectorAll("[data-dna-rule]").forEach((button) => {
     button.addEventListener("click", () => renderDna(Number(button.dataset.dnaRule), { animate: true }));
-    button.addEventListener("keydown", (event) => {
-      if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) return;
-      event.preventDefault();
-      const current = Number(button.dataset.dnaRule);
-      const direction = event.key === "ArrowUp" || event.key === "ArrowLeft" ? -1 : 1;
-      const next = (current + direction + buttons.length) % buttons.length;
-      buttons[next].focus();
-      renderDna(next, { animate: true });
-    });
   });
 }
 
@@ -355,16 +269,15 @@ function initStatsCounter() {
       const target = Number(node.dataset.count) || 0;
       window.setTimeout(() => {
         const start = performance.now();
-        const duration = 900 + index * 90;
+        const duration = 900 + index * 100;
         const tick = (now) => {
           const progress = Math.min(1, (now - start) / duration);
           const eased = 1 - Math.pow(1 - progress, 3);
           node.textContent = `${Math.round(target * eased)}+`;
           if (progress < 1) requestAnimationFrame(tick);
-          else node.textContent = `${target}+`;
         };
         requestAnimationFrame(tick);
-      }, index * 70);
+      }, index * 80);
     });
   }, { threshold: .35 });
   observer.observe(section);
@@ -406,70 +319,59 @@ async function ensureGsap() {
 function initHomeMotion() {
   if (!window.gsap || !window.ScrollTrigger || REDUCED_MOTION.matches) return;
   const { gsap, ScrollTrigger } = window;
-  homeMotionContext?.revert?.();
+  motionContext?.revert?.();
 
-  homeMotionContext = gsap.context(() => {
+  motionContext = gsap.context(() => {
     gsap.timeline({ defaults: { ease: "power3.out" } })
-      .from(".home-hero-title .home-kicker", { autoAlpha: 0, y: 14, duration: .35 })
-      .from(".home-hero h1 span:first-child", { autoAlpha: 0, yPercent: 72, duration: .72 }, "-=.12")
-      .from(".home-hero h1 span:last-child", { autoAlpha: 0, yPercent: 72, duration: .78 }, "-=.5")
-      .from(".home-hero-aside", { autoAlpha: 0, y: 22, duration: .5 }, "-=.35")
-      .from(".home-scroll-cue", { autoAlpha: 0, x: 10, duration: .32 }, "-=.18");
+      .from(".home-hero-copy .home-kicker", { autoAlpha: 0, y: 16, duration: .35 })
+      .from(".home-hero h1 span", { autoAlpha: 0, yPercent: 48, stagger: .08, duration: .68 }, "-=.08")
+      .from(".home-hero-note", { autoAlpha: 0, y: 22, duration: .48 }, "-=.35")
+      .from(".hero-art-strip", { autoAlpha: 0, x: 30, duration: .56 }, "-=.42");
 
-    const hero = document.querySelector(".home-hero");
-    const heroImage = document.querySelector(".home-hero-image");
-    if (hero && heroImage) {
-      gsap.to(heroImage, { scale: 1.13, yPercent: 3, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: .8 } });
-    }
+    gsap.to(".hero-art-main img", { scale: 1.14, ease: "none", scrollTrigger: { trigger: ".home-hero", start: "top top", end: "bottom top", scrub: .8 } });
+    gsap.to(".home-hero-copy", { yPercent: -6, autoAlpha: .22, ease: "none", scrollTrigger: { trigger: ".home-hero", start: "top top", end: "bottom 15%", scrub: .8 } });
 
-    gsap.from(".case-story-heading > *", { autoAlpha: 0, y: 28, stagger: .08, duration: .56, ease: "power3.out", scrollTrigger: { trigger: ".case-story-heading", start: "top 82%", once: true } });
+    gsap.from(".case-intro > *", { autoAlpha: 0, y: 26, stagger: .07, duration: .5, scrollTrigger: { trigger: ".case-intro", start: "top 82%", once: true } });
 
-    const caseViewport = document.querySelector("[data-case-viewport]");
-    const caseTrack = document.querySelector("[data-case-track]");
-    if (caseViewport && caseTrack && window.innerWidth > 760) {
-      const horizontalDistance = () => Math.max(0, caseTrack.scrollWidth - caseViewport.clientWidth + Math.max(40, window.innerWidth * .035));
-      gsap.to(caseTrack, {
-        x: () => -horizontalDistance(),
+    const viewport = document.querySelector("[data-case-viewport]");
+    const track = document.querySelector("[data-case-track]");
+    if (viewport && track && window.innerWidth > 760) {
+      const distance = () => Math.max(0, track.scrollWidth - viewport.clientWidth + 48);
+      gsap.to(track, {
+        x: () => -distance(),
         ease: "none",
         scrollTrigger: {
           trigger: ".case-story",
           start: "top top",
-          end: () => `+=${Math.max(window.innerHeight * 1.25, horizontalDistance() * .95)}`,
+          end: () => `+=${Math.max(window.innerHeight * 1.25, distance() * .9)}`,
           pin: true,
-          scrub: .82,
+          scrub: .8,
           invalidateOnRefresh: true,
         },
       });
-      gsap.utils.toArray(".case-panel").forEach((panel) => {
-        const main = panel.querySelector(".case-crop-main img");
-        const detail = panel.querySelector(".case-crop-detail img");
-        if (main) gsap.to(main, { xPercent: -4, ease: "none", scrollTrigger: { trigger: panel, start: "left right", end: "right left", scrub: true } });
-        if (detail) gsap.to(detail, { xPercent: 6, ease: "none", scrollTrigger: { trigger: panel, start: "left right", end: "right left", scrub: true } });
-      });
     }
 
-    gsap.from(".proof-grid > *", { autoAlpha: 0, y: 18, stagger: .06, duration: .45, ease: "power3.out", scrollTrigger: { trigger: "#overview", start: "top 86%", once: true } });
-    gsap.from(".explore-copy > *", { autoAlpha: 0, y: 22, stagger: .055, duration: .48, ease: "power3.out", scrollTrigger: { trigger: ".explore-scene", start: "top 82%", once: true } });
-    gsap.from(".explore-canvas", { autoAlpha: 0, y: 34, scale: .985, duration: .64, ease: "power3.out", scrollTrigger: { trigger: ".explore-canvas", start: "top 84%", once: true } });
+    gsap.from(".proof-grid > *", { autoAlpha: 0, y: 18, stagger: .06, duration: .45, scrollTrigger: { trigger: ".proof-strip", start: "top 88%", once: true } });
+    gsap.from(".explore-head > *", { autoAlpha: 0, y: 22, stagger: .06, duration: .48, scrollTrigger: { trigger: ".explore-head", start: "top 84%", once: true } });
+    gsap.from(".explore-index button", { autoAlpha: 0, x: -16, stagger: .04, duration: .34, scrollTrigger: { trigger: ".explore-index", start: "top 86%", once: true } });
+    gsap.from(".explore-composition", { autoAlpha: 0, y: 30, duration: .6, scrollTrigger: { trigger: ".explore-composition", start: "top 84%", once: true } });
 
-    gsap.from(".workflow-heading > *", { autoAlpha: 0, y: 26, stagger: .07, duration: .52, ease: "power3.out", scrollTrigger: { trigger: ".workflow-heading", start: "top 84%", once: true } });
-    gsap.from(".workflow-rail button", { autoAlpha: 0, x: -16, stagger: .045, duration: .4, ease: "power3.out", scrollTrigger: { trigger: ".workflow-stage", start: "top 82%", once: true } });
-    gsap.from(".workflow-focus", { autoAlpha: 0, y: 26, duration: .6, ease: "power3.out", scrollTrigger: { trigger: ".workflow-stage", start: "top 82%", once: true } });
+    gsap.from(".workflow-head > *", { autoAlpha: 0, y: 22, stagger: .06, duration: .48, scrollTrigger: { trigger: ".workflow-head", start: "top 84%", once: true } });
+    gsap.from(".workflow-stage", { autoAlpha: 0, x: -24, duration: .58, scrollTrigger: { trigger: ".workflow-layout", start: "top 84%", once: true } });
+    gsap.from(".workflow-index > *", { autoAlpha: 0, x: 18, stagger: .045, duration: .4, scrollTrigger: { trigger: ".workflow-layout", start: "top 84%", once: true } });
 
-    gsap.from(".dna-heading > *", { autoAlpha: 0, y: 26, stagger: .06, duration: .5, ease: "power3.out", scrollTrigger: { trigger: ".dna-heading", start: "top 84%", once: true } });
-    gsap.from(".dna-rules", { autoAlpha: 0, x: -18, duration: .5, ease: "power3.out", scrollTrigger: { trigger: ".dna-stage", start: "top 84%", once: true } });
-    gsap.from(".dna-product", { autoAlpha: 0, y: 30, duration: .62, ease: "power3.out", scrollTrigger: { trigger: ".dna-stage", start: "top 84%", once: true } });
+    gsap.from(".dna-head > *", { autoAlpha: 0, y: 22, stagger: .06, duration: .48, scrollTrigger: { trigger: ".dna-head", start: "top 84%", once: true } });
+    gsap.from(".dna-index, .dna-workspace, .dna-note", { autoAlpha: 0, y: 24, stagger: .08, duration: .54, scrollTrigger: { trigger: ".dna-layout", start: "top 84%", once: true } });
 
-    gsap.from(".final-cta-inner > *", { autoAlpha: 0, y: 30, stagger: .07, duration: .56, ease: "power3.out", scrollTrigger: { trigger: ".final-cta", start: "top 82%", once: true } });
-    gsap.from(".footer-grid > *, .footer-bottom > *", { autoAlpha: 0, y: 16, stagger: .035, duration: .4, ease: "power3.out", scrollTrigger: { trigger: ".project-footer", start: "top 92%", once: true } });
+    gsap.from(".final-cta-grid > *", { autoAlpha: 0, y: 24, stagger: .07, duration: .5, scrollTrigger: { trigger: ".final-cta", start: "top 82%", once: true } });
   });
 
   window.setTimeout(() => ScrollTrigger.refresh(), 100);
 }
 
 function destroyHomeMotion() {
-  homeMotionContext?.revert?.();
-  homeMotionContext = null;
+  motionContext?.revert?.();
+  motionContext = null;
   window.ScrollTrigger?.getAll?.().forEach((trigger) => trigger.kill());
 }
 
@@ -503,5 +405,5 @@ window.addEventListener("resize", () => {
       destroyHomeMotion();
       initHomeMotion();
     }
-  }, 240);
+  }, 220);
 });
