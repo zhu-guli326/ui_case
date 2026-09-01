@@ -8,7 +8,7 @@ Last updated: 2026-09-01
 - Product role: Start Designing / Design DNA configurator
 - Canonical implementation: `src/features/launcher/launcher-dna.css`, `src/features/launcher/launcher-dna.js`
 - `src/features/launcher/launcher-dna.css` is the single static style entry point. It imports `launcher-dna-core.css` and `launcher-design-systems.css`; Design System chrome must not depend on JavaScript running successfully before it is styled.
-- Related responsibilities: `launcher-design-systems.js`, `design-systems-catalog.js`, `launcher-preview-i18n.js`
+- Related responsibilities: `launcher-design-systems.js`, `design-systems-catalog.js`, `design-system-usage.js`, `launcher-preview-i18n.js`
 
 ## Page goal
 
@@ -122,6 +122,9 @@ The preview should have more visual weight than configuration controls.
 - Launcher chrome and live preview must consume the same active Design System token source for typography, color, radius, spacing, border and surface relationships. Do not freeze Launcher controls to a separate font/color layer after a Design System is selected.
 - Structural responsibilities remain separated: Launcher controls define/edit the system while Preview demonstrates it, but this separation must not create a second visual token system.
 - `launcher-design-systems.js` may dynamically write active `--dna-*` variables; Launcher chrome and preview should both consume those variables consistently, with sensible defaults before a system is selected.
+- External Design System colors must be normalized into semantic `canvas / surface / ink / muted` roles before they are applied. Never fall back to an arbitrary first/brand color for a missing surface token.
+- Launcher must infer a Light or Dark preview mode from the normalized base surface/canvas, then choose the matching text hierarchy. Dark references should prefer on-dark text tokens when present; light references should prefer normal ink tokens.
+- Preview text contrast must remain readable after normalization: primary text should target at least 4.5:1 against the active surface and muted/supporting text at least 3:1, with contrast-safe fallbacks when upstream tokens are incomplete or mismatched.
 - Design-system picker chrome must be styled on first paint through the static Launcher CSS entry point; do not rely on JavaScript-only stylesheet injection for required visual correctness.
 - Empty palette placeholders that resemble missing-glyph boxes must not appear in the Design System trigger. Real palette previews belong in the opened option list or after a meaningful selection.
 
