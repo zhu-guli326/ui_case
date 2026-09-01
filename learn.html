@@ -62,15 +62,23 @@
         <header class="template-gallery-heading">
           <p class="section-eyebrow">EXPLORE</p>
           <h2 id="templateGalleryTitle" data-zh="看点啥" data-en="What do you want to explore?">看点啥</h2>
-          <p data-zh="App、官网、Skill、工具、UI 词库，切换看看你现在想关注哪一类。" data-en="App, Web, Skills, tools, or UI vocabulary — switch between categories to set your current focus.">App、官网、Skill、工具、UI 词库，切换看看你现在想关注哪一类。</p>
+          <p data-zh="App、官网、Skill、工具、UI 词库，挑一个方向直接看。" data-en="App, Web, Skills, tools, or UI vocabulary — pick a direction and jump in.">App、官网、Skill、工具、UI 词库，挑一个方向直接看。</p>
         </header>
 
-        <div class="template-filters" role="group" aria-label="内容分类">
-          <button type="button" class="is-active" data-template-filter="app" aria-pressed="true" data-zh="App 设计" data-en="App design">App 设计</button>
-          <button type="button" data-template-filter="web" aria-pressed="false" data-zh="官网设计" data-en="Web design">官网设计</button>
-          <button type="button" data-template-filter="skill" aria-pressed="false" data-zh="设计 Skill" data-en="Design Skills">设计 Skill</button>
-          <button type="button" data-template-filter="tools" aria-pressed="false" data-zh="设计工具" data-en="Design tools">设计工具</button>
-          <button type="button" data-template-filter="vocabulary" aria-pressed="false" data-zh="UI 词库" data-en="UI vocabulary">UI 词库</button>
+        <nav class="template-filters" aria-label="内容分类">
+          <a href="./library.html?lang=zh" data-smart-lang-link="./library.html" data-zh="App 设计" data-en="App design">App 设计</a>
+          <a href="./skills.html?lang=zh&mode=WEB" data-smart-lang-link="./skills.html?mode=WEB" data-zh="官网设计" data-en="Web design">官网设计</a>
+          <a href="./skills.html?lang=zh" data-smart-lang-link="./skills.html" data-zh="设计 Skill" data-en="Design Skills">设计 Skill</a>
+          <a href="./skills.html?lang=zh" data-smart-lang-link="./skills.html" data-zh="设计工具" data-en="Design tools">设计工具</a>
+          <a href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html" data-zh="UI 词库" data-en="UI vocabulary">UI 词库</a>
+        </nav>
+
+        <div class="template-grid" aria-label="设计内容入口">
+          <a class="template-card" href="./library.html?lang=zh" data-smart-lang-link="./library.html"><img src="./assets/style-covers/tactile-future.webp" alt="App 设计参考" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>APP DESIGN</small><div><strong data-zh="App 设计" data-en="App design">App 设计</strong><span>MOBILE INTERFACES</span></div><i>↗</i></a>
+          <a class="template-card" href="./skills.html?lang=zh&mode=WEB" data-smart-lang-link="./skills.html?mode=WEB"><img src="./assets/style-covers/graphic-experimental.webp" alt="官网设计参考" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>WEB DESIGN</small><div><strong data-zh="官网设计" data-en="Web design">官网设计</strong><span>WEBSITES &amp; LANDING PAGES</span></div><i>↗</i></a>
+          <a class="template-card" href="./skills.html?lang=zh" data-smart-lang-link="./skills.html"><img src="./assets/style-covers/editorial-minimal.webp" alt="设计 Skill" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>DESIGN SKILLS</small><div><strong data-zh="设计 Skill" data-en="Design Skills">设计 Skill</strong><span>AI DESIGN CAPABILITIES</span></div><i>↗</i></a>
+          <a class="template-card" href="./skills.html?lang=zh" data-smart-lang-link="./skills.html"><img src="./assets/style-covers/maximalism.webp" alt="设计工具" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>DESIGN TOOLS</small><div><strong data-zh="设计工具" data-en="Design tools">设计工具</strong><span>TOOLS &amp; WORKFLOWS</span></div><i>↗</i></a>
+          <a class="template-card" href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html"><img src="./assets/style-covers/luxury-minimal.webp" alt="UI 词库" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>UI VOCABULARY</small><div><strong data-zh="UI 词库" data-en="UI vocabulary">UI 词库</strong><span>TERMS &amp; PATTERNS</span></div><i>↗</i></a>
         </div>
       </div>
     </section>

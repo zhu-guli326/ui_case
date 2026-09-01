@@ -85,18 +85,25 @@ The four workflow cards use the pointer-reactive motion language from React Bits
 
 ### Lightweight discovery strip
 
-The old template gallery is no longer a template catalog or preview gallery. It is a compact “看点啥” tag switcher that lets users mark the category they are currently interested in without opening another layer of content on Home.
+The old template gallery is no longer a template catalog. It is a compact “看点啥” discovery entry that helps users choose what kind of design resource they want to explore next.
 
 - Place this whole section immediately before the Idea-to-demo workflow / Steve Jobs card section.
 - Chinese title: `看点啥`.
-- Keep the supporting copy short and conversational; mention App, website design, Skills, tools and UI vocabulary without turning the section into a directory.
+- Keep the supporting copy short and conversational; explain that users can jump into App, website design, Skills, tools or UI vocabulary.
 - Primary tags: `App 设计`, `官网设计`, `设计 Skill`, `设计工具`, `UI 词库`.
-- The five tags are mutually exclusive switches, not navigation links. Clicking a tag only updates the active state.
-- Do not render a preview image, preview card, title card, metadata, state badge, favorite control, secondary tags, `复制 Prompt`, `查看更多` action or any other content panel below the tags.
-- Switching tags must not create or reveal another card/container. The section ends after the tag row.
-- On narrower screens, keep the tags horizontally scrollable if needed; do not stack a long catalog.
-- Remove preview-container height, bottom margins and padding that would leave a blank band after the tags. The next workflow section should follow with normal compact page rhythm.
-- The section remains a lightweight home-page orientation control, not a browsing or navigation experience.
+- The five tags are mutually exclusive tabs/switches, not navigation links. Clicking a tag changes the preview content shown below and updates the active state.
+- Show only the preview for the currently selected category instead of displaying all five category cards at the same time.
+- The preview itself should not be the primary navigation target.
+- Put a compact `查看更多 ↗` link at the lower-right of the section. This link is the navigation action and must update its destination to match the currently selected tag/category.
+- On narrower screens, keep the tabs horizontally scrollable if needed; do not stack a long catalog.
+- The section remains a lightweight home-page entry, not a full browsing experience.
+- Every category must use a different preview image grounded in the current ONDesign project, never a generic hotel/e-commerce placeholder that is unrelated to the destination.
+- `App 设计`: use a real App case screenshot from the Library/case assets; present it in a `9:16` frame.
+- `官网设计`: use a real Web case screenshot already used by ONDesign; present it in a `16:9` frame.
+- `设计 Skill`: use a real Skill repository/card/detail asset from the Skills library; present it in a `3:4` frame.
+- `设计工具`: use a real ONDesign workflow/demo preview that represents Start Designing / Design DNA usage; present it in a `3:4` frame.
+- `UI 词库`: use a real Vocabulary sheet/card asset showing actual UI terms or components; present it in a `3:4` frame.
+- The preview image should use `object-fit: cover` or a controlled crop only when needed to preserve the required frame ratio; do not distort the source image.
 
 ### Interactive design-system canvas
 
@@ -139,7 +146,7 @@ The Home page should feel calm while static and expressive while scrolling. Moti
 - Hero: staged entrance for eyebrow, title, supporting copy and actions; the Hero title may use a one-shot hand-typed/typewriter reveal on first load, ending in the complete stable title without looping. The effect must not shift layout, and `prefers-reduced-motion` skips it.
 - Featured cases: preserve the existing draggable carousel mechanics, but add a restrained entrance/depth reveal around the carousel UI without fighting its card transforms.
 - Stats: count up once when the section first enters view; do not loop.
-- Discovery: the tag row may use the same restrained section-entry motion as surrounding Home content, but tag switching itself only changes the active state and must not animate, create or swap a preview panel.
+- Discovery: changing tabs should feel like a visual transition, using short blur/scale/fade handoffs instead of a hard image swap. The underlying tab semantics and destinations stay unchanged.
 - Idea → Demo: the section heading and the four stage cards reveal in sequence so the workflow reads as `DEFINE → CREATE → BUILD → ITERATE`; pointer tilt/glow remains a second layer of interaction on desktop.
 - Design-system cards: the typography/color/spacing/surface/component cards should assemble into view with staggered depth rather than appear as a static pile.
 - Design-system live explainer: the central product UI establishes first, then the four surrounding typography/spacing/color/state callouts enter in a readable order and remain visible after entry.

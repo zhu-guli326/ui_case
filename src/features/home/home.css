@@ -133,15 +133,15 @@ body.project-home { margin: 0; overflow-x: hidden; background: var(--home-paper)
 .showcase-card-4 { top: 70px; right: 19%; transform: rotate(-7deg); }
 .showcase-card-5 { top: 175px; right: 1%; transform: rotate(10deg); }
 
-.template-gallery { padding: clamp(64px, 7vw, 88px) 0 40px; background: #fff; color: #111; }
+.template-gallery { padding-block: clamp(96px, 10vw, 148px); background: #fff; color: #111; }
 .template-gallery-heading { max-width: 900px; margin: 0 auto; text-align: center; }
 .template-gallery-heading .section-eyebrow { color: #858585; }
 .template-gallery-heading h2 { margin: 0; font-size: clamp(44px, 5vw, 72px); font-weight: 300; letter-spacing: -.055em; line-height: 1; text-wrap: balance; }
-.template-gallery-heading > p:last-child { max-width: 670px; margin: 20px auto 0; color: #818181; font-size: 15px; line-height: 1.55; text-wrap: balance; }
-.template-filters { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 12px; margin: 36px 0 0; }
-.template-filters button { min-height: 44px; padding: 0 20px; border: 1px solid #e2e2e2; border-radius: 999px; background: #fff; color: #111; font: inherit; font-size: 14px; cursor: pointer; transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease; }
-.template-filters button:hover { border-color: #cfcfcf; background: #f3f3f3; }
-.template-filters button.is-active { border-color: #111; background: #111; color: #fff; font-weight: 600; }
+.template-gallery-heading > p:last-child { max-width: 670px; margin: 30px auto 0; color: #818181; font-size: 15px; line-height: 1.55; text-wrap: balance; }
+.template-filters { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 26px; margin: 58px 0 46px; }
+.template-filters button { min-height: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: transparent; color: #111; font: inherit; font-size: 14px; cursor: pointer; transition: background .2s ease, color .2s ease; }
+.template-filters button:hover { background: #f1f1f1; }
+.template-filters button.is-active { background: #dedede; font-weight: 600; }
 .template-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 .template-card { position: relative; display: block; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 8px; background: #d9d9d9; color: #fff; text-decoration: none; isolation: isolate; }
 .template-card.is-hidden { display: none; }
@@ -280,10 +280,9 @@ body.project-home { margin: 0; overflow-x: hidden; background: var(--home-paper)
   .showcase-card { position: relative; inset: auto; width: auto; transform: none !important; }
   .showcase-card-3 { grid-column: 1 / -1; }
   .showcase-card:hover { transform: translateY(-5px) !important; }
-  .template-gallery { padding: 56px 0 32px; }
   .template-gallery-heading h2 { font-size: 42px; }
   .template-gallery-heading > p:last-child { font-size: 14px; }
-  .template-filters { justify-content: flex-start; gap: 8px; margin: 32px 0 0; overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; }
+  .template-filters { justify-content: flex-start; gap: 8px; margin: 42px 0 30px; overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; }
   .template-filters::-webkit-scrollbar { display: none; }
   .template-filters button { flex: 0 0 auto; min-height: 40px; padding-inline: 17px; }
   .template-grid { grid-template-columns: 1fr; gap: 16px; }
