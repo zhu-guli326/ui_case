@@ -78,3 +78,76 @@
     gap: 12px;
   }
 }
+
+/* Design Skill discovery: keep the tab in-page and show four 3:4 skill cards together. */
+.discovery-strip .template-card:nth-child(3).is-active-discovery {
+  display: grid !important;
+  width: 100% !important;
+  max-width: none !important;
+  aspect-ratio: auto !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.discovery-strip .template-card:nth-child(3).is-active-discovery > img,
+.discovery-strip .template-card:nth-child(3).is-active-discovery > .template-card-shade,
+.discovery-strip .template-card:nth-child(3).is-active-discovery > small,
+.discovery-strip .template-card:nth-child(3).is-active-discovery > div {
+  position: static;
+  inset: auto;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border: 1px solid #e8e8e8;
+  border-radius: 14px;
+  box-sizing: border-box;
+  background-color: #f6f6f6;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .06);
+}
+
+.discovery-strip .template-card:nth-child(3).is-active-discovery > img {
+  content: url("../../../assets/home/discovery/skill-frontend-slides.webp");
+  object-fit: cover !important;
+  object-position: center top !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+.discovery-strip .template-card:nth-child(3).is-active-discovery > .template-card-shade {
+  background: url("../../../assets/home/discovery/skill-react-three-fiber.webp") center top / cover no-repeat;
+}
+
+.discovery-strip .template-card:nth-child(3).is-active-discovery > small {
+  padding: 0;
+  font-size: 0;
+  background: url("../../../assets/home/discovery/skill-video-shotcraft.webp") center top / cover no-repeat;
+}
+
+.discovery-strip .template-card:nth-child(3).is-active-discovery > div {
+  background: url("../../../assets/home/discovery/skill-mono-color.webp") center top / cover no-repeat;
+}
+
+.discovery-strip .template-card:nth-child(3).is-active-discovery > div > *,
+.discovery-strip .template-card:nth-child(3).is-active-discovery > i {
+  display: none !important;
+}
+
+.discovery-strip .template-card:nth-child(3).is-active-discovery:hover > img {
+  transform: none !important;
+  filter: none !important;
+}
+
+@media (max-width: 900px) {
+  .discovery-strip .template-card:nth-child(3).is-active-discovery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
