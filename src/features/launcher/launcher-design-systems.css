@@ -150,11 +150,10 @@
   gap: 10px;
 }
 
-/* The four empty placeholder bars looked like missing-glyph tofu/乱码.
- * The trigger no longer shows placeholder swatches; real palette previews
- * remain visible inside the opened design-system list. */
+/* Never show the legacy placeholder bars in the trigger. They read as tofu /
+ * broken-glyph boxes and are redundant with the palette preview in the menu. */
 .ds-trigger-swatches {
-  display: none;
+  display: none !important;
 }
 
 .ds-option-swatches {
