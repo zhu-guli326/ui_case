@@ -150,19 +150,17 @@
   gap: 10px;
 }
 
-.ds-trigger-swatches,
-.ds-option-swatches {
-  display: flex;
-  gap: 3px;
+/* The four empty placeholder bars looked like missing-glyph tofu/乱码.
+ * The trigger no longer shows placeholder swatches; real palette previews
+ * remain visible inside the opened design-system list. */
+.ds-trigger-swatches {
+  display: none;
 }
 
-.ds-trigger-swatches i {
-  display: block;
-  width: 13px;
-  height: 30px;
-  border: 1px solid rgb(0 0 0 / 7%);
-  border-radius: 4px;
-  background: #eee;
+.ds-option-swatches {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .ds-trigger-arrow {
@@ -335,10 +333,10 @@
 
 .ds-option-swatches i {
   display: block;
-  width: 15px;
-  height: 22px;
+  width: 11px;
+  height: 11px;
   border: 1px solid rgb(0 0 0 / 6%);
-  border-radius: 3px;
+  border-radius: 999px;
   background: #ececec;
 }
 
