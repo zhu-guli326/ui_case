@@ -90,15 +90,26 @@ Do not add extra editorial or creator sections between these beats unless they a
 
 - Keep only one teaching scene; do not restore the old duplicated card pile / live explainer pair.
 - One central product interface plus four rule groups: Typography, Color, Spacing, Components / states.
-- Desktop pins and progresses through the four rules; mobile stacks naturally.
 - Each rule visually demonstrates itself rather than relying on long text.
-- Second-pass refinement: central UI stays visually dominant, overlays should be quieter, and the active rule should affect the central interface enough that the user can see the system being assembled.
-- Third-pass focus treatment: use light/dark contrast as the primary attention mechanism. The central product UI is the brightest/highest-contrast object; inactive rules and overlays recede noticeably.
-- Add a restrained warm-white spotlight / vignette across the Design DNA stage. The spotlight follows the active rule position as the scroll step changes, but must not become a green page-wide glow.
-- Inactive rule rows should sit around low visual emphasis; the active row becomes fully legible and gains one small ONDesign-green focus marker.
-- Only the active floating rule card should read as fully illuminated. Other floating cards stay visible enough to preserve spatial context but should not compete for attention.
-- The active rule should also change emphasis inside the central UI: Typography favors the heading area, Color favors branded/green controls, Spacing favors the project layout, and Components favors the bottom component-state row.
-- Lighting transitions must remain soft and editorial rather than theatrical flashing. No pulsing, looping glow, or high-saturation neon treatment.
+- Central UI stays visually dominant and must remain unobstructed by explanatory cards.
+- Use light/dark contrast as the primary attention mechanism. The central product UI is the highest-contrast object; inactive steps recede noticeably.
+- Keep a restrained warm-white spotlight / vignette. The spotlight follows the active rule, but must not become a green page-wide glow.
+- Inactive rule rows use low visual emphasis; the active row becomes fully legible and gains one small ONDesign-green focus marker.
+- The active rule also changes emphasis inside the central UI: Typography favors the heading area, Color favors branded/green controls, Spacing favors the project layout, and Components favors the bottom component-state row.
+- Lighting transitions remain soft and editorial. No pulsing, looping glow, or high-saturation neon treatment.
+
+#### Design DNA 0 → 1 interaction
+
+- This scene is no longer primarily a scroll-driven four-step autoplay. It becomes a user-controlled `0 → 1` builder.
+- The four rule rows are interactive step cards. Mouse/touch click selects a step; keyboard Enter/Space also selects it.
+- Step order is explicit: `01 Typography → 02 Color → 03 Spacing → 04 Components`.
+- Selecting a step updates the right-hand product UI and the single annotation panel with a short GSAP transition.
+- The active step represents the newest rule being added. Earlier steps remain visibly “built” at medium emphasis; later steps stay muted.
+- Step 01 should read like the first usable system layer; Step 04 should read as the completed Design DNA state.
+- Only one annotation panel is visible at a time, in the safe area below the product UI. Never stack annotation cards or place them over important UI content.
+- Clicking between steps must not move the page, change the URL, or require scrolling to trigger the state.
+- ScrollTrigger may reveal the scene on entry, but it must not fight the user’s selected step or overwrite it while the user is interacting.
+- On mobile the same tap-to-select behavior is primary; do not rely on hover.
 
 ### Final CTA
 
@@ -113,8 +124,8 @@ Do not add extra editorial or creator sections between these beats unless they a
 - Native scrolling is the baseline; no smooth-scroll hijacking in this pass.
 - Do not animate layout properties when transform/opacity can do the job.
 - Avoid permanent loops, bouncing, excessive blur, particle backgrounds or simultaneous motion everywhere.
-- Desktop can use pin/scrub where it advances the story; mobile uses simpler entrance motion.
-- `prefers-reduced-motion: reduce` disables non-essential choreography and pointer tilt.
+- Desktop can use pin/scrub where it advances the story; Design DNA step selection is click/tap controlled.
+- `prefers-reduced-motion: reduce` disables non-essential choreography and pointer tilt while preserving step selection.
 - Resize must cleanly rebuild ScrollTriggers without duplicates.
 
 ## Second-pass refinement priorities
