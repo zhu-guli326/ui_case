@@ -2,6 +2,7 @@
  * Make the visual carousel feel lighter while preserving the same layered interaction. */
 body.project-home .project-case {
   width: min(54vw, 820px);
+  transition: transform .48s cubic-bezier(.2,.78,.18,1), opacity .36s ease, filter .36s ease, box-shadow .36s ease;
 }
 
 body.project-home .project-case[data-position="left"] {
