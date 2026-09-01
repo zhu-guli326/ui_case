@@ -32,9 +32,68 @@ body.skills-document .repo-list.is-web-list .repo-empty {
   column-span: all;
 }
 
+/* Keep the flat shell, but do not remove real controls. Search remains the
+ * shared floating dock; sorting, sync state and reset stay in a light row. */
+body.skills-document.directory-page .repo-toolbar.directory-toolbar {
+  height: auto !important;
+  min-height: 42px !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  margin: 0 0 14px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+body.skills-document.directory-page .repo-toolbar.directory-toolbar > .repo-toolbar-actions {
+  display: flex !important;
+  justify-self: auto !important;
+  gap: 12px !important;
+}
+
+body.skills-document.directory-page .repo-sort {
+  background: transparent !important;
+  padding: 0 !important;
+  gap: 2px !important;
+}
+
+body.skills-document.directory-page .repo-sort button {
+  min-height: 32px !important;
+  border-radius: 6px !important;
+}
+
+body.skills-document.directory-page .repo-sort button.is-active {
+  border: 1px solid var(--ant-border) !important;
+  box-shadow: none !important;
+}
+
+/* Match the divider direction to the shared single-column breakpoint. */
+@media (max-width: 1180px) {
+  body.skills-document.directory-page .directory-hero {
+    gap: 0 !important;
+  }
+  body.skills-document.directory-page .directory-hero-overview {
+    padding: 22px 0 28px !important;
+    border-left: 0 !important;
+    border-top: 1px solid var(--directory-border) !important;
+  }
+}
+
 @media (max-width: 820px) {
   body.skills-document .repo-list.is-web-list {
     column-count: 2;
+  }
+  body.skills-document.directory-page .repo-toolbar.directory-toolbar,
+  body.skills-document.directory-page .repo-toolbar.directory-toolbar > .repo-toolbar-actions {
+    width: 100% !important;
+  }
+  body.skills-document.directory-page .repo-toolbar.directory-toolbar > .repo-toolbar-actions {
+    flex-wrap: wrap !important;
+    justify-content: flex-end !important;
   }
 }
 
