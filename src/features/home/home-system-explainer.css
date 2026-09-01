@@ -1,5 +1,47 @@
 @import url("./home-system-explainer-base.css");
 
+/* Hero title: one-shot hand-typed reveal. It uses clip-path so the headline keeps
+ * its final layout dimensions and does not jump while the effect is playing. */
+.project-hero h1 {
+  position: relative;
+  clip-path: inset(0 100% 0 0);
+  animation: home-hero-typewriter 1.85s steps(24, end) .28s forwards;
+}
+
+.project-hero h1::after {
+  position: absolute;
+  top: .04em;
+  bottom: .04em;
+  left: 0;
+  width: 2px;
+  background: currentColor;
+  box-shadow: 0 0 12px rgba(255,255,255,.32);
+  content: "";
+  opacity: .95;
+  pointer-events: none;
+  transform: translateX(-1px);
+  animation:
+    home-hero-caret-travel 1.85s steps(24, end) .28s forwards,
+    home-hero-caret-finish .7s step-end 2.13s forwards;
+}
+
+@keyframes home-hero-typewriter {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes home-hero-caret-travel {
+  from { left: 0; }
+  to { left: calc(100% - 2px); }
+}
+
+@keyframes home-hero-caret-finish {
+  0%, 45% { opacity: .95; }
+  46%, 80% { opacity: 0; }
+  81%, 99% { opacity: .95; }
+  100% { opacity: 0; }
+}
+
 /* Workflow typography refinement: stronger default hierarchy without requiring hover. */
 #capabilities .capability-grid > a {
   --workflow-card-opacity: 0;
@@ -153,6 +195,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .project-hero h1 {
+    clip-path: none !important;
+    animation: none !important;
+  }
+  .project-hero h1::after { display: none !important; }
   #capabilities .capability-grid > a::before { display: block !important; opacity: 1 !important; }
   #capabilities .capability-grid > a::after { display: none !important; }
 }
