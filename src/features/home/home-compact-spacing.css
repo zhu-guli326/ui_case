@@ -37,7 +37,7 @@ body.project-home .section-heading > p:last-child {
 }
 
 body.project-home .project-showcase {
-  padding: 80px 0 56px !important;
+  padding: 80px 0 24px !important;
 }
 
 body.project-home .showcase-copy > p:last-child {
@@ -45,7 +45,12 @@ body.project-home .showcase-copy > p:last-child {
 }
 
 body.project-home .showcase-scene {
+  height: 430px !important;
   margin-top: 8px !important;
+}
+
+body.project-home .design-system-explainer {
+  padding-top: 64px !important;
 }
 
 body.project-home .template-gallery {
@@ -91,11 +96,16 @@ body.project-home .footer-grid {
 
   body.project-home .project-showcase {
     padding-top: 64px !important;
-    padding-bottom: 48px !important;
+    padding-bottom: 28px !important;
   }
 
   body.project-home .showcase-scene {
+    height: 470px !important;
     margin-top: 32px !important;
+  }
+
+  body.project-home .design-system-explainer {
+    padding-top: 56px !important;
   }
 
   body.project-home .template-gallery,
