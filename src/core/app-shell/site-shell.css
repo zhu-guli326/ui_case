@@ -30,9 +30,8 @@
  * scales locally.
  */
 
-/* Home navigation is visually integrated into the hero at the top of the page.
- * As soon as the page starts scrolling it progressively restores the normal
- * light navigation surface, so content below the hero always has clear chrome. */
+/* Home navigation is transparent only while it sits over the first-screen hero.
+ * Once the page leaves the hero state it restores the original white header. */
 body.project-home > .site-header {
   position: fixed !important;
   z-index: 60;
@@ -43,9 +42,9 @@ body.project-home > .site-header {
   margin: 0 !important;
   border: 1px solid transparent !important;
   border-radius: 999px !important;
-  background: rgba(255, 254, 250, 0) !important;
-  box-shadow: 0 8px 30px rgba(25, 28, 25, 0) !important;
-  backdrop-filter: blur(0) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
 }
 
 body.project-home > .site-header .site-brand,
@@ -133,13 +132,13 @@ body.project-home > .site-header .global-language-switch button[aria-pressed="tr
 @keyframes home-header-surface {
   from {
     border-color: transparent;
-    background: rgba(255, 254, 250, 0);
-    box-shadow: 0 8px 30px rgba(25, 28, 25, 0);
-    backdrop-filter: blur(0);
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
   }
   to {
-    border-color: rgba(221, 217, 208, .58);
-    background: rgba(255, 254, 250, .92);
+    border-color: color-mix(in srgb, var(--line, var(--site-line)) 58%, transparent);
+    background: var(--surface, var(--site-surface));
     box-shadow: 0 8px 30px rgba(25, 28, 25, .045);
     backdrop-filter: blur(20px);
   }
@@ -147,7 +146,7 @@ body.project-home > .site-header .global-language-switch button[aria-pressed="tr
 
 @keyframes home-header-ink {
   from { color: #fff; text-shadow: 0 1px 14px rgba(0, 0, 0, .28); }
-  to { color: #24231f; text-shadow: none; }
+  to { color: var(--ink, var(--site-ink)); text-shadow: none; }
 }
 
 @keyframes home-header-logo {
@@ -157,12 +156,12 @@ body.project-home > .site-header .global-language-switch button[aria-pressed="tr
 
 @keyframes home-header-language-surface {
   from { border-color: rgba(255, 255, 255, .3); background: rgba(0, 0, 0, .12); }
-  to { border-color: #ddd9d0; background: #fffefa; }
+  to { border-color: var(--line, var(--site-line)); background: var(--surface, var(--site-surface)); }
 }
 
 @keyframes home-header-language-ink {
   from { color: rgba(255, 255, 255, .82); }
-  to { color: #77746d; }
+  to { color: var(--muted, var(--site-muted)); }
 }
 
 @media (max-width: 700px) {
