@@ -20,3 +20,57 @@ body.vocabulary-page .vocab-layout {
   max-width: none;
   margin-inline: 0;
 }
+
+/* Flat-shell functional override.
+ * Search stays in the shared floating dock, but useful secondary actions
+ * remain available as a lightweight utility row rather than disappearing. */
+body.vocabulary-page.directory-page .vocab-toolbar.directory-toolbar {
+  height: auto !important;
+  min-height: 42px !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  margin: 0 0 14px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+body.vocabulary-page.directory-page .vocab-toolbar.directory-toolbar > .results-actions {
+  display: flex !important;
+  justify-self: auto !important;
+  gap: 8px !important;
+}
+
+body.vocabulary-page.directory-page .vocab-toolbar .sort-control,
+body.vocabulary-page.directory-page .vocab-toolbar .share-view-button {
+  min-height: 34px !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+}
+
+/* The shared shell becomes single-column at 1180px; switch the overview
+ * divider from vertical to horizontal at the same breakpoint. */
+@media (max-width: 1180px) {
+  body.vocabulary-page.directory-page .directory-hero {
+    gap: 0 !important;
+  }
+  body.vocabulary-page.directory-page .directory-hero-overview {
+    padding: 22px 0 28px !important;
+    border-left: 0 !important;
+    border-top: 1px solid var(--directory-border) !important;
+  }
+}
+
+@media (max-width: 620px) {
+  body.vocabulary-page.directory-page .vocab-toolbar.directory-toolbar {
+    align-items: stretch !important;
+  }
+  body.vocabulary-page.directory-page .vocab-toolbar.directory-toolbar > .results-actions {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+}
