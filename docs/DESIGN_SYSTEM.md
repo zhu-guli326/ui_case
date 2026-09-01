@@ -91,11 +91,15 @@ Chinese headings should use strong, clear hierarchy and no artificial letter spa
 
 The shared site header must use the same typography contract on every public page. Header geometry, pill shape, icon sizing and control treatment are separate concerns and must not be changed as part of typography-only cleanup.
 
-- Primary navigation: `14px`, semibold (`600`) weight, body font family, normal letter spacing, Ant Design-like body line-height.
-- All top-level navigation items use the same font weight. Current-page state is indicated by color, not by adding extra font weight.
+The font system is global; interaction states are not visually identical. Font family, size, tracking and line-height stay fixed across states, while weight and color communicate hierarchy.
+
+- Default primary navigation: `14px`, medium (`500`) weight, body font family, normal letter spacing, Ant Design-like body line-height.
+- Hover / focus: keep the same `500` weight and all typography metrics; use the global interaction color/state only.
+- Current page: same family / size / tracking / line-height, semibold (`600`) and ONDesign green.
+- Primary workflow entry (`Start Designing` / `开始设计`): semibold (`600`) even when idle; when current it also uses ONDesign green.
 - Chinese navigation: always `0` letter spacing; never use monospace or Latin negative tracking.
 - English navigation: use the same body-family navigation treatment for consistency; no decorative tracking in application chrome.
-- Language switch labels: same body font, `14px`, medium weight; selected state may use semibold.
+- Language switch labels: same body font; selected state may use a stronger weight.
 - GitHub star count: use the global number font with tabular numerals and semibold weight.
 - Dropdown item typography follows the same body scale; descriptions use the global caption scale.
 - Responsive font-size reductions are allowed, but each breakpoint must remain global and identical across pages.
