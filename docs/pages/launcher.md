@@ -7,6 +7,7 @@ Last updated: 2026-09-01
 - Public route: `launcher.html`
 - Product role: Start Designing / Design DNA configurator
 - Canonical implementation: `src/features/launcher/launcher-dna.css`, `src/features/launcher/launcher-dna.js`
+- `src/features/launcher/launcher-dna.css` is the single static style entry point. It imports `launcher-dna-core.css` and `launcher-design-systems.css`; Design System chrome must not depend on JavaScript running successfully before it is styled.
 - Related responsibilities: `launcher-design-systems.js`, `design-systems-catalog.js`, `launcher-preview-i18n.js`
 
 ## Page goal
@@ -119,6 +120,8 @@ The preview should have more visual weight than configuration controls.
 - Keep the shared ONDesign App Shell unchanged unless the user explicitly requests a global navigation change.
 - Chinese and English versions must follow the global language state and keep equivalent functionality.
 - Launcher chrome typography must inherit the single global typography system from `src/core/app-shell/typography.css`. Do not add a separate Launcher-wide font-family, font-smoothing, text-rendering or synthetic-weight override layer. Design-system font choices may affect preview/specimen content only, not the Launcher control UI.
+- Design-system picker chrome must be styled on first paint through the static Launcher CSS entry point; do not rely on JavaScript-only stylesheet injection for required visual correctness.
+- Empty palette placeholders that resemble missing-glyph boxes must not appear in the Design System trigger. Real palette previews belong in the opened option list or after a meaningful selection.
 
 ## Keep
 
@@ -139,6 +142,8 @@ The preview should have more visual weight than configuration controls.
 - Case-library browsing responsibilities.
 - Duplicate design-system runtimes or alternate Launcher implementations.
 - Duplicate Launcher typography guard stylesheets or page-wide `!important` font overrides that compete with the global typography layer.
+- JavaScript-only loading of required Launcher chrome styles.
+- Placeholder swatch bars that can be mistaken for tofu / missing glyphs.
 
 ## Modification boundary
 
