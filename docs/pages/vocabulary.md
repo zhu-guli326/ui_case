@@ -1,6 +1,6 @@
 # Vocabulary Page Requirements
 
-Last updated: 2026-09-01
+Last updated: 2026-09-02
 
 ## Page identity
 
@@ -42,18 +42,20 @@ A user should be able to:
 Preferred structure:
 
 1. Flat page title / short orientation without an enclosing hero card
-2. Flat category navigation or filtering
-3. Lightweight utility row for useful secondary actions such as sort / share when needed
-4. Visual vocabulary list / cards
-5. Focused preview / example area
-6. Optional concise explanation / reusable prompt
-7. Persistent bottom-centered floating search for vocabulary discovery
+2. A compact vocabulary count as the only hero overview statistic
+3. Flat category navigation or filtering
+4. Lightweight utility row for useful secondary actions such as sort / share when needed
+5. Visual vocabulary list / cards
+6. Focused preview / example area
+7. Optional concise explanation / reusable prompt
+8. Persistent bottom-centered floating search for vocabulary discovery
 
 The page should behave more like a visual directory + learning reference than a form-heavy editor.
 
 ## Interaction rules
 
 - The knowledge-page shell is intentionally flat: page-level hero, overview and filter containers must not use card-style borders, rounded white panels or shadows.
+- The hero overview should stay minimal. Keep the vocabulary count (`71 / UI 词条`) but do not show the former three-column metadata row for browsing method, learning path and purpose; that information is already covered by the intro and page interactions.
 - Vocabulary items themselves may remain cards when the card represents a real interactive learning object or visual example.
 - A vocabulary item should reveal its meaning primarily through visuals.
 - Large example imagery / previews should receive more emphasis than long body copy.
@@ -79,10 +81,12 @@ The page should behave more like a visual directory + learning reference than a 
 - Useful sort/share controls when they change or preserve the current view.
 - Stable responsibility modules for i18n, navigation data, cards and previews.
 - Copyable prompt support where it directly helps reuse a concept.
+- Compact hero count (`71 / UI 词条`).
 
 ## Remove / avoid
 
 - Page-level card chrome around the hero, overview or filter sidebar.
+- The hero metadata trio: `浏览方式 / 搜索 + 筛选`, `学习路径 / 结构 → 形式 → 实现`, `用途 / 从需求到代码`.
 - Full Launcher configuration workflow.
 - Case-library responsibilities.
 - Large blocks of generic design theory without visual evidence.
