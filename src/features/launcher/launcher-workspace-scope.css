@@ -1,0 +1,104 @@
+/*
+ * Launcher workspace / Preview theme boundary.
+ *
+ * External Design Systems may style the live Preview, but the editor/workspace
+ * itself stays on ONDesign's own light application chrome. Keep this file after
+ * the Foundation refinement so page-specific Design System tokens cannot leak
+ * back into the controls.
+ */
+
+html {
+  background: var(--ds-color-bg-page, #f5f5f5) !important;
+}
+
+body.dna-page {
+  background: var(--ds-color-bg-page, #f5f5f5) !important;
+  color: var(--ds-color-text, #262626) !important;
+  font-family: var(--type-font-body, var(--font-sans-cjk)) !important;
+}
+
+/* The editor column is always ONDesign UI, regardless of the selected system. */
+body.dna-page .dna-controls {
+  --dna-accent: var(--ds-color-primary, #18a957);
+  --dna-accent-soft: var(--ds-color-primary-soft, #f0f9f3);
+  --dna-canvas: var(--ds-color-bg-page, #f5f5f5);
+  --dna-surface: var(--ds-color-bg-container, #ffffff);
+  --dna-ink: var(--ds-color-text, #262626);
+  --dna-muted: var(--ds-color-text-secondary, #737373);
+  --dna-line: var(--ds-color-border, #d9d9d9);
+  --dna-hairline: var(--ds-color-border-subtle, #f0f0f0);
+  --dna-shadow: var(--ds-shadow-sm, 0 2px 8px rgb(0 0 0 / 6%));
+  --dna-display: var(--type-font-body, var(--font-sans-cjk));
+  --dna-body: var(--type-font-body, var(--font-sans-cjk));
+  --ant-primary: var(--ds-color-primary, #18a957);
+  --ant-primary-hover: var(--ds-color-primary-hover, #128a46);
+  --ant-primary-bg: var(--ds-color-primary-soft, #f0f9f3);
+  --ant-bg-layout: var(--ds-color-bg-page, #f5f5f5);
+  --ant-bg-container: var(--ds-color-bg-container, #ffffff);
+  --ant-text: var(--ds-color-text, #262626);
+  --ant-text-secondary: var(--ds-color-text-secondary, #737373);
+  --ant-border: var(--ds-color-border, #d9d9d9);
+  --ant-border-secondary: var(--ds-color-border-subtle, #f0f0f0);
+  background: var(--ds-color-bg-container, #ffffff) !important;
+  color: var(--ds-color-text, #262626) !important;
+}
+
+/* Header copy and Preview controls are also editor chrome, not Preview content. */
+body.dna-page .dna-hero,
+body.dna-page .canvas-label {
+  --dna-accent: var(--ds-color-primary, #18a957);
+  --dna-accent-soft: var(--ds-color-primary-soft, #f0f9f3);
+  --dna-canvas: var(--ds-color-bg-page, #f5f5f5);
+  --dna-surface: var(--ds-color-bg-container, #ffffff);
+  --dna-ink: var(--ds-color-text, #262626);
+  --dna-muted: var(--ds-color-text-secondary, #737373);
+  --dna-line: var(--ds-color-border, #d9d9d9);
+  --dna-hairline: var(--ds-color-border-subtle, #f0f0f0);
+  --dna-display: var(--type-font-body, var(--font-sans-cjk));
+  --dna-body: var(--type-font-body, var(--font-sans-cjk));
+}
+
+body.dna-page .dna-hero,
+body.dna-page .canvas-label,
+body.dna-page .canvas-label :where(button, select, span, h2) {
+  color: var(--ds-color-text, #262626);
+  font-family: var(--type-font-body, var(--font-sans-cjk));
+}
+
+body.dna-page .canvas-label > div > span {
+  color: var(--ds-color-primary, #18a957);
+}
+
+/*
+ * Shopify is a light product UI in Launcher. The upstream reference can expose
+ * dark/marketing tokens, so Preview gets a product-safe semantic mapping here.
+ * Keep radius and spacing inherited so the user can still fine-tune them.
+ */
+body.dna-page[data-design-system="shopify"] [data-preview-stage] {
+  --dna-accent: #008060;
+  --dna-accent-soft: #e3f1df;
+  --dna-canvas: #f6f6f7;
+  --dna-surface: #ffffff;
+  --dna-ink: #202223;
+  --dna-muted: #6d7175;
+  --dna-line: #c9cccf;
+  --dna-hairline: #e1e3e5;
+  --dna-display: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --dna-body: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: var(--dna-ink);
+}
+
+/* Preview text must always consume Preview-scoped semantic colors. */
+body.dna-page [data-preview-stage] .preview-page,
+body.dna-page [data-preview-stage] .sample-copy h3,
+body.dna-page [data-preview-stage] .sample-nav strong,
+body.dna-page [data-preview-stage] .sample-nav button,
+body.dna-page [data-preview-stage] .sample-grid strong {
+  color: var(--dna-ink);
+}
+
+body.dna-page [data-preview-stage] .sample-copy p,
+body.dna-page [data-preview-stage] .sample-nav div,
+body.dna-page [data-preview-stage] .sample-grid p {
+  color: var(--dna-muted);
+}
