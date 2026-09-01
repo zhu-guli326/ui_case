@@ -55,6 +55,8 @@ A user should be able to find a relevant case, understand what makes it useful, 
 - Touch layouts should remain directly usable without requiring hover.
 - The floating search uses the same shared geometry as Vocabulary and Skills, while keeping Library-specific placeholder text and search behavior.
 - Chinese and English versions should preserve equivalent functionality.
+- A case with a working local interactive demo must keep `可点击 Demo / Interactive demo` as a selectable preview mode in the detail dialog. Adding a video or generated screenshot must not silently remove the interactive state.
+- If a legacy case stores its video/screenshots outside the live-demo folder, Library runtime may restore the canonical `liveDemo` route explicitly. `ArtMuse / 当代美术馆导览` must point to `./demo/artmuse-ios/index.html` and remain clickable in the embedded phone preview.
 
 ## Keep
 
@@ -63,6 +65,7 @@ A user should be able to find a relevant case, understand what makes it useful, 
 - Detail / preview responsibility modules.
 - Direct source or demo paths when data provides them.
 - Current canonical Library data model.
+- Existing interactive demos and the `可点击 Demo` preview mode for cases that have runnable local demos.
 
 ## Remove / avoid
 
@@ -75,6 +78,7 @@ A user should be able to find a relevant case, understand what makes it useful, 
 - Launcher configuration workflow.
 - Duplicate historical card implementations or redesign layers.
 - A second inline search field in the page toolbar while the shared floating search is active.
+- Replacing an existing interactive demo with video-only preview metadata when the runnable demo still exists in `demo/`.
 
 ## Modification boundary
 
