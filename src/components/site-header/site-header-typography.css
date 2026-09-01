@@ -8,8 +8,9 @@
 
 :root {
   --site-header-nav-size: 14px;
-  --site-header-nav-weight: 600;
+  --site-header-nav-weight: 500;
   --site-header-nav-active-weight: 600;
+  --site-header-nav-primary-weight: 600;
   --site-header-nav-line-height: 1.4;
   --site-header-nav-tracking: 0;
   --site-header-menu-size: 14px;
@@ -18,6 +19,8 @@
   --site-header-star-size: 12px;
 }
 
+/* Global typography metrics: family / size / tracking / line-height never
+ * change between navigation states. Only weight and color express hierarchy. */
 .site-header nav.site-nav.site-nav > a,
 .site-header .site-nav-primary > a,
 .site-header .site-nav-community > a,
@@ -43,14 +46,24 @@
   color: inherit !important;
 }
 
+/* Current page: same global font metrics, semibold + brand green. */
 .site-header nav.site-nav.site-nav > a[aria-current="page"],
 .site-header .site-nav-primary > a[aria-current="page"],
 .site-header .site-nav-community > a[aria-current="page"],
-.site-header .site-nav-more.is-current > summary,
-.site-header .site-nav-community > .site-nav-start {
+.site-header .site-nav-more.is-current > summary {
   font-family: var(--type-font-body) !important;
   font-size: var(--site-header-nav-size) !important;
   font-weight: var(--site-header-nav-active-weight) !important;
+  letter-spacing: var(--site-header-nav-tracking) !important;
+  line-height: var(--site-header-nav-line-height) !important;
+}
+
+/* Start Designing is the primary workflow entry. It is intentionally semibold
+ * even when idle, but it still uses the exact same global family and metrics. */
+.site-header .site-nav-community > .site-nav-start {
+  font-family: var(--type-font-body) !important;
+  font-size: var(--site-header-nav-size) !important;
+  font-weight: var(--site-header-nav-primary-weight) !important;
   letter-spacing: var(--site-header-nav-tracking) !important;
   line-height: var(--site-header-nav-line-height) !important;
 }
@@ -77,6 +90,25 @@
 .site-header .site-nav-more.is-current > summary::before {
   display: none !important;
   content: none !important;
+}
+
+/* Hover/focus changes color only. It must not create a fake font-family or
+ * font-size shift while the pointer moves across the navigation. */
+.site-header nav.site-nav.site-nav > a:not([aria-current="page"]):hover,
+.site-header nav.site-nav.site-nav > a:not([aria-current="page"]):focus-visible,
+.site-header .site-nav-primary > a:not([aria-current="page"]):hover,
+.site-header .site-nav-primary > a:not([aria-current="page"]):focus-visible,
+.site-header .site-nav-community > a:not(.site-nav-start):not([aria-current="page"]):hover,
+.site-header .site-nav-community > a:not(.site-nav-start):not([aria-current="page"]):focus-visible,
+.site-header .site-nav-more:not(.is-current) > summary:hover,
+.site-header .site-nav-more:not(.is-current) > summary:focus-visible {
+  font-weight: var(--site-header-nav-weight) !important;
+}
+
+.site-header .site-nav-community > .site-nav-start:hover,
+.site-header .site-nav-community > .site-nav-start:focus-visible,
+.site-header .site-nav-community > .site-nav-start[aria-current="page"] {
+  font-weight: var(--site-header-nav-primary-weight) !important;
 }
 
 .site-header .site-nav-more > summary::after {
