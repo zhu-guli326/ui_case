@@ -14,6 +14,12 @@ body.dna-page .ds-trigger-swatches {
   display: none !important;
 }
 
+/* Visual direction exposes one clear case-library action only. The primary
+ * “View more cases” control stays; the repeated inline case hint/link is hidden. */
+body.dna-page #dna-direction .section-hint {
+  display: none !important;
+}
+
 /*
  * The selected Design System belongs to the live Preview only.
  *
