@@ -199,7 +199,8 @@
   }
 }
 
-/* Interactive design-system canvas: blank shell first, built system on pointer. */
+/* Interactive design-system canvas: keep all four rule cards present by default.
+ * Pointer movement enhances the central canvas, but must not hide the core rules. */
 #design-system-live {
   background:
     radial-gradient(circle at 50% 48%, rgba(115,242,167,.035), transparent 30%),
@@ -305,16 +306,17 @@
 
 #design-system-live .system-callout {
   z-index: 4;
-  opacity: 0 !important;
-  filter: blur(12px) saturate(.65);
+  opacity: 1;
+  filter: none;
   pointer-events: none;
+  transform: none;
   transition: opacity .48s ease, filter .55s ease, transform .62s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease !important;
 }
 
-#design-system-live .system-callout-type { transform: translate(-32px, 18px) scale(.92); }
-#design-system-live .system-callout-color { transform: translate(32px, 18px) scale(.92); }
-#design-system-live .system-callout-spacing { transform: translate(-32px, -18px) scale(.92); }
-#design-system-live .system-callout-states { transform: translate(32px, -18px) scale(.92); }
+#design-system-live .system-callout-type,
+#design-system-live .system-callout-color,
+#design-system-live .system-callout-spacing,
+#design-system-live .system-callout-states { transform: none; }
 
 @media (hover: hover) and (pointer: fine) {
   #design-system-live .system-explainer-stage:hover::after {
@@ -354,15 +356,10 @@
   #design-system-live .system-explainer-stage:hover .system-activity { transition-delay: .4s !important; }
 
   #design-system-live .system-explainer-stage:hover .system-callout {
-    opacity: 1 !important;
-    filter: blur(0) saturate(1);
-    transform: translate(0, 0) scale(1);
+    opacity: 1;
+    filter: none;
+    transform: none;
   }
-
-  #design-system-live .system-explainer-stage:hover .system-callout-type { transition-delay: .1s !important; }
-  #design-system-live .system-explainer-stage:hover .system-callout-color { transition-delay: .2s !important; }
-  #design-system-live .system-explainer-stage:hover .system-callout-spacing { transition-delay: .3s !important; }
-  #design-system-live .system-explainer-stage:hover .system-callout-states { transition-delay: .4s !important; }
 }
 
 @media (hover: none), (pointer: coarse), (max-width: 1180px) {
