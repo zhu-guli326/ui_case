@@ -12,14 +12,37 @@ body.dna-page .ds-trigger-swatches {
   display: none !important;
 }
 
-/* Design-system typography is preview data, never Launcher chrome typography. */
-body.dna-page .dna-controls,
-body.dna-page .dna-controls button,
-body.dna-page .dna-controls input,
-body.dna-page .dna-controls select,
-body.dna-page .dna-controls textarea,
-body.dna-page .dna-controls summary,
-body.dna-page .dna-controls legend,
-body.dna-page .dna-controls label {
-  font-family: var(--font-sans-cjk) !important;
+/* One active Design System drives both Launcher chrome and Preview.
+ * launcher-design-systems.js writes --dna-* variables at runtime; the page
+ * chrome must consume the same typography/color/radius/spacing source rather
+ * than freezing controls to a separate global font layer. */
+body.dna-page {
+  font-family: var(--dna-display, var(--font-sans-cjk));
+}
+
+body.dna-page :where(
+  button,
+  input,
+  select,
+  textarea,
+  summary,
+  legend,
+  label,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  span,
+  strong,
+  small,
+  a,
+  li,
+  dt,
+  dd,
+  figcaption
+) {
+  font-family: var(--dna-display, var(--font-sans-cjk));
 }
