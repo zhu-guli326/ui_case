@@ -193,10 +193,86 @@ function setWorkflowStep(index) {
   document.querySelectorAll("[data-workflow-dot]").forEach((node, nodeIndex) => node.classList.toggle("is-active", nodeIndex === index));
 }
 
-function setDnaStep(index) {
-  dnaStep = index;
-  document.querySelectorAll("[data-dna-rule]").forEach((node, nodeIndex) => node.classList.toggle("is-active", nodeIndex === index));
-  document.querySelectorAll("[data-dna-overlay]").forEach((node, nodeIndex) => node.classList.toggle("is-active", nodeIndex === index));
+function setDnaStep(index, { animate = true, focus = false } = {}) {
+  const rules = [...document.querySelectorAll("[data-dna-rule]")];
+  const overlays = [...document.querySelectorAll("[data-dna-overlay]")];
+  const product = document.querySelector(".dna-product");
+  if (!rules.length) return;
+
+  const next = Math.max(0, Math.min(rules.length - 1, Number(index) || 0));
+  const previous = dnaStep;
+  dnaStep = next;
+
+  rules.forEach((node, nodeIndex) => {
+    const selected = nodeIndex === next;
+    const complete = nodeIndex < next;
+    node.classList.toggle("is-active", selected);
+    node.classList.toggle("is-complete", complete);
+    node.setAttribute("aria-pressed", String(selected));
+    node.setAttribute("aria-current", selected ? "step" : "false");
+    node.style.opacity = selected ? "1" : complete ? ".68" : ".28";
+    node.style.cursor = "pointer";
+  });
+
+  overlays.forEach((node, nodeIndex) => {
+    const selected = nodeIndex === next;
+    node.classList.toggle("is-active", selected);
+    node.setAttribute("aria-hidden", String(!selected));
+  });
+
+  const scene = document.querySelector(".dna-scene");
+  if (scene) scene.dataset.dnaStep = String(next + 1);
+
+  if (focus) rules[next]?.focus({ preventScroll: true });
+  if (!animate || REDUCED_MOTION.matches || !window.gsap || previous === next) return;
+
+  const activeOverlay = overlays[next];
+  const direction = next >= previous ? 1 : -1;
+  const timeline = window.gsap.timeline({ defaults: { overwrite: "auto" } });
+
+  if (product) {
+    timeline.fromTo(product,
+      { y: direction * 8, scale: .992 },
+      { y: 0, scale: 1, duration: .42, ease: "power3.out", clearProps: "transform" },
+      0
+    );
+  }
+  if (activeOverlay) {
+    timeline.fromTo(activeOverlay,
+      { autoAlpha: 0, y: 12, scale: .97 },
+      { autoAlpha: 1, y: 0, scale: 1, duration: .38, ease: "power3.out", clearProps: "transform" },
+      .04
+    );
+  }
+}
+
+function initDnaStepper() {
+  const rules = [...document.querySelectorAll("[data-dna-rule]")];
+  if (!rules.length) return;
+
+  rules.forEach((rule, index) => {
+    rule.setAttribute("role", "button");
+    rule.setAttribute("tabindex", index === 0 ? "0" : "-1");
+    rule.setAttribute("aria-label", `${String(index + 1).padStart(2, "0")} ${rule.querySelector("strong")?.textContent || "Design DNA"}`);
+    rule.addEventListener("click", () => setDnaStep(index, { animate: true }));
+    rule.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        setDnaStep(index, { animate: true });
+        return;
+      }
+      if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      let next = index;
+      if (event.key === "Home") next = 0;
+      else if (event.key === "End") next = rules.length - 1;
+      else next = event.key === "ArrowUp" || event.key === "ArrowLeft" ? Math.max(0, index - 1) : Math.min(rules.length - 1, index + 1);
+      rules.forEach((node, nodeIndex) => { node.tabIndex = nodeIndex === next ? 0 : -1; });
+      setDnaStep(next, { animate: true, focus: true });
+    });
+  });
+
+  setDnaStep(0, { animate: false });
 }
 
 function initWorkflowTilt() {
@@ -405,49 +481,8 @@ function initHomeMotion() {
     }
 
     gsap.from(".dna-heading > *", { autoAlpha: 0, y: 26, stagger: .065, duration: .55, ease: "power3.out", scrollTrigger: { trigger: ".dna-heading", start: "top 82%", once: true } });
-
-    const dnaStage = document.querySelector("[data-dna-stage]");
-    const dnaProduct = document.querySelector(".dna-product");
-    const dnaOverlays = [...document.querySelectorAll("[data-dna-overlay]")];
-    const dnaRules = [...document.querySelectorAll("[data-dna-rule]")];
-    if (dnaStage && dnaProduct && dnaOverlays.length && window.innerWidth > 760) {
-      gsap.set(dnaOverlays, { autoAlpha: .26, scale: .97 });
-      gsap.set(dnaOverlays[0], { autoAlpha: 1, scale: 1 });
-      setDnaStep(0);
-
-      const dnaTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: dnaStage,
-          start: "top top",
-          end: "+=2350",
-          pin: true,
-          scrub: .7,
-          onUpdate: (self) => {
-            const index = Math.min(3, Math.floor(self.progress * 4));
-            if (index !== dnaStep) setDnaStep(index);
-          },
-        },
-      });
-
-      dnaTimeline.from(dnaProduct, { autoAlpha: 0, y: 30, scale: .97, duration: .55, ease: "power3.out" }, 0);
-      dnaOverlays.forEach((overlay, index) => {
-        if (index === 0) return;
-        dnaTimeline
-          .to(dnaOverlays[index - 1], { autoAlpha: .22, scale: .97, duration: .28 }, index)
-          .to(overlay, { autoAlpha: 1, scale: 1, duration: .38, ease: "power3.out" }, index + .04);
-      });
-      dnaTimeline
-        .to(".dna-main-head h3", { color: "#73f2a7", duration: .32 }, .9)
-        .to(".dna-browser", { boxShadow: "0 34px 86px rgba(0,0,0,.18)", duration: .3 }, 1.7)
-        .to(".dna-project-grid", { gap: 15, duration: .38 }, 1.95)
-        .to(".dna-component-row", { y: -4, duration: .3 }, 2.9);
-
-      dnaRules.forEach((rule, index) => {
-        gsap.to(rule, { opacity: index === 0 ? 1 : .72, duration: .2 });
-      });
-    } else {
-      gsap.from(".dna-rule, .dna-product", { autoAlpha: 0, y: 28, stagger: .065, duration: .52, ease: "power3.out", scrollTrigger: { trigger: ".dna-stage", start: "top 84%", once: true } });
-    }
+    gsap.from(".dna-rule", { autoAlpha: 0, x: -16, stagger: .07, duration: .46, ease: "power3.out", scrollTrigger: { trigger: ".dna-stage", start: "top 82%", once: true } });
+    gsap.from(".dna-product", { autoAlpha: 0, y: 28, scale: .975, duration: .62, ease: "power3.out", scrollTrigger: { trigger: ".dna-stage", start: "top 80%", once: true } });
 
     gsap.from(".final-cta-inner > *", { autoAlpha: 0, y: 30, stagger: .075, duration: .58, ease: "power3.out", scrollTrigger: { trigger: ".final-cta", start: "top 80%", once: true } });
     gsap.from(".footer-grid > *, .footer-bottom > *", { autoAlpha: 0, y: 18, stagger: .04, duration: .42, ease: "power3.out", scrollTrigger: { trigger: ".project-footer", start: "top 92%", once: true } });
@@ -465,7 +500,7 @@ function destroyHomeMotion() {
   document.body.classList.remove("home-motion-active");
   document.querySelectorAll("[data-workflow-card]").forEach((card) => card.style.removeProperty("pointer-events"));
   setWorkflowStep(0);
-  setDnaStep(0);
+  setDnaStep(dnaStep, { animate: false });
 }
 
 function handleMotionPreference() {
@@ -479,8 +514,8 @@ function handleMotionPreference() {
 initDiscovery();
 initStatsCounter();
 initWorkflowTilt();
+initDnaStepper();
 setWorkflowStep(0);
-setDnaStep(0);
 applyLanguage();
 
 if (window.image2I18n?.registerPage) window.image2I18n.registerPage((language) => applyLanguage({ detail: language }));
