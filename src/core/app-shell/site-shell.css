@@ -30,21 +30,22 @@
  * scales locally.
  */
 
-/* Home hero header variant: the first-screen navigation sits directly on the
- * hero artwork instead of introducing a separate white chrome band. */
+/* Home navigation is visually integrated into the hero at the top of the page.
+ * As soon as the page starts scrolling it progressively restores the normal
+ * light navigation surface, so content below the hero always has clear chrome. */
 body.project-home > .site-header {
-  position: absolute !important;
+  position: fixed !important;
   z-index: 60;
-  top: 0 !important;
-  left: 0;
-  right: 0;
-  width: 100% !important;
+  top: 8px !important;
+  left: 16px;
+  right: 16px;
+  width: calc(100% - 32px) !important;
   margin: 0 !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
+  border: 1px solid transparent !important;
+  border-radius: 999px !important;
+  background: rgba(255, 254, 250, 0) !important;
+  box-shadow: 0 8px 30px rgba(25, 28, 25, 0) !important;
+  backdrop-filter: blur(0) !important;
 }
 
 body.project-home > .site-header .site-brand,
@@ -84,18 +85,84 @@ body.project-home > .site-header .global-language-switch {
 
 body.project-home > .site-header .global-language-switch button {
   border-color: rgba(255, 255, 255, .22) !important;
-  color: rgba(255, 255, 255, .8) !important;
-}
-
-body.project-home > .site-header .global-language-switch button:hover,
-body.project-home > .site-header .global-language-switch button:focus-visible {
-  background: rgba(255, 255, 255, .12) !important;
-  color: #fff !important;
+  color: rgba(255, 255, 255, .82) !important;
 }
 
 body.project-home > .site-header .global-language-switch button[aria-pressed="true"] {
   background: #fff !important;
   color: #171a18 !important;
+}
+
+@supports (animation-timeline: scroll()) {
+  body.project-home > .site-header {
+    animation: home-header-surface linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 120px;
+  }
+
+  body.project-home > .site-header .site-brand,
+  body.project-home > .site-header nav.site-nav.site-nav > a,
+  body.project-home > .site-header .site-nav-primary > a,
+  body.project-home > .site-header .site-nav-community > a,
+  body.project-home > .site-header .site-nav-more > summary {
+    animation: home-header-ink linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 120px;
+  }
+
+  body.project-home > .site-header .site-brand-logo,
+  body.project-home > .site-header .site-brand-wordmark {
+    animation: home-header-logo linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 120px;
+  }
+
+  body.project-home > .site-header .global-language-switch {
+    animation: home-header-language-surface linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 120px;
+  }
+
+  body.project-home > .site-header .global-language-switch button {
+    animation: home-header-language-ink linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 120px;
+  }
+}
+
+@keyframes home-header-surface {
+  from {
+    border-color: transparent;
+    background: rgba(255, 254, 250, 0);
+    box-shadow: 0 8px 30px rgba(25, 28, 25, 0);
+    backdrop-filter: blur(0);
+  }
+  to {
+    border-color: rgba(221, 217, 208, .58);
+    background: rgba(255, 254, 250, .92);
+    box-shadow: 0 8px 30px rgba(25, 28, 25, .045);
+    backdrop-filter: blur(20px);
+  }
+}
+
+@keyframes home-header-ink {
+  from { color: #fff; text-shadow: 0 1px 14px rgba(0, 0, 0, .28); }
+  to { color: #24231f; text-shadow: none; }
+}
+
+@keyframes home-header-logo {
+  from { filter: brightness(0) invert(1); }
+  to { filter: none; }
+}
+
+@keyframes home-header-language-surface {
+  from { border-color: rgba(255, 255, 255, .3); background: rgba(0, 0, 0, .12); }
+  to { border-color: #ddd9d0; background: #fffefa; }
+}
+
+@keyframes home-header-language-ink {
+  from { color: rgba(255, 255, 255, .82); }
+  to { color: #77746d; }
 }
 
 @media (max-width: 700px) {
@@ -104,7 +171,20 @@ body.project-home > .site-header .global-language-switch button[aria-pressed="tr
     left: 8px;
     right: 8px;
     width: calc(100% - 16px) !important;
-    margin: 0 !important;
-    border-radius: 999px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.project-home > .site-header,
+  body.project-home > .site-header .site-brand,
+  body.project-home > .site-header nav.site-nav.site-nav > a,
+  body.project-home > .site-header .site-nav-primary > a,
+  body.project-home > .site-header .site-nav-community > a,
+  body.project-home > .site-header .site-nav-more > summary,
+  body.project-home > .site-header .site-brand-logo,
+  body.project-home > .site-header .site-brand-wordmark,
+  body.project-home > .site-header .global-language-switch,
+  body.project-home > .site-header .global-language-switch button {
+    animation-duration: .01ms !important;
   }
 }
