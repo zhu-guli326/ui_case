@@ -21,6 +21,116 @@ body.vocabulary-page .vocab-layout {
   margin-inline: 0;
 }
 
+/* Editorial vocabulary hero ------------------------------------------------
+ * Keep the knowledge-page shell flat, but make the first view read like an
+ * editorial directory rather than a split statistics dashboard.
+ */
+body.vocabulary-page.directory-page .vocab-hero.directory-hero {
+  grid-template-columns: 1fr !important;
+  gap: 0 !important;
+  padding: 22px 0 0 !important;
+  border-bottom: 1px solid var(--directory-border) !important;
+}
+
+body.vocabulary-page.directory-page .vocab-hero .directory-hero-copy {
+  min-height: 0 !important;
+  max-width: 1120px;
+  padding: 34px 0 38px !important;
+}
+
+body.vocabulary-page.directory-page .vocab-hero .eyebrow {
+  margin: 0 0 14px !important;
+  font-size: 12px !important;
+  letter-spacing: .04em !important;
+}
+
+body.vocabulary-page.directory-page .vocab-hero h1 {
+  margin: 0 !important;
+  font-size: clamp(52px, 5.4vw, 78px) !important;
+  line-height: .98 !important;
+  letter-spacing: -.045em !important;
+}
+
+html[lang="zh-CN"] body.vocabulary-page.directory-page .vocab-hero h1 {
+  letter-spacing: -.035em !important;
+}
+
+body.vocabulary-page.directory-page .vocab-hero .hero-intro {
+  max-width: 860px !important;
+  margin: 22px 0 0 !important;
+  color: var(--directory-secondary) !important;
+  font-size: 15px !important;
+  line-height: 1.75 !important;
+}
+
+body.vocabulary-page.directory-page .vocab-overview.directory-hero-overview {
+  display: grid !important;
+  grid-template-columns: minmax(150px, .55fr) minmax(0, 2.45fr) !important;
+  align-items: end !important;
+  gap: 48px !important;
+  min-height: 0 !important;
+  padding: 24px 0 28px !important;
+  border-left: 0 !important;
+  border-top: 1px solid var(--directory-border) !important;
+}
+
+body.vocabulary-page.directory-page .vocab-overview > header {
+  display: none !important;
+}
+
+body.vocabulary-page.directory-page .vocab-overview .directory-primary-stat {
+  display: grid !important;
+  align-content: end !important;
+  gap: 7px !important;
+  padding: 0 !important;
+}
+
+body.vocabulary-page.directory-page .vocab-overview .directory-primary-stat strong {
+  font-family: var(--font-number) !important;
+  font-size: clamp(52px, 4.2vw, 66px) !important;
+  font-weight: var(--ds-font-weight-medium, 500) !important;
+  font-variant-numeric: var(--number-font-variant) !important;
+  font-feature-settings: var(--number-font-features) !important;
+  letter-spacing: -.055em !important;
+  line-height: .9 !important;
+}
+
+body.vocabulary-page.directory-page .vocab-overview .directory-primary-stat span {
+  color: var(--directory-secondary) !important;
+  font-size: 12px !important;
+}
+
+body.vocabulary-page.directory-page .vocab-overview dl {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 28px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-top: 0 !important;
+}
+
+body.vocabulary-page.directory-page .vocab-overview dl > div {
+  min-width: 0 !important;
+  padding: 14px 0 0 18px !important;
+  border-top: 1px solid var(--directory-border) !important;
+  border-right: 0 !important;
+  border-left: 0 !important;
+}
+
+body.vocabulary-page.directory-page .vocab-overview dt {
+  color: var(--directory-tertiary) !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+}
+
+body.vocabulary-page.directory-page .vocab-overview dd {
+  margin: 8px 0 0 !important;
+  color: var(--directory-text) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  line-height: 1.45 !important;
+}
+
 /* Flat-shell functional override.
  * Search stays in the shared floating dock, but useful secondary actions
  * remain available as a lightweight utility row rather than disappearing. */
@@ -52,23 +162,50 @@ body.vocabulary-page.directory-page .vocab-toolbar .share-view-button {
   box-shadow: none !important;
 }
 
-/* The shared shell becomes single-column at 1180px; switch the overview
- * divider from vertical to horizontal at the same breakpoint. */
-@media (max-width: 1180px) {
-  body.vocabulary-page.directory-page .directory-hero {
-    gap: 0 !important;
+@media (max-width: 900px) {
+  body.vocabulary-page.directory-page .vocab-hero.directory-hero {
+    padding-top: 8px !important;
   }
-  body.vocabulary-page.directory-page .directory-hero-overview {
-    padding: 22px 0 28px !important;
-    border-left: 0 !important;
-    border-top: 1px solid var(--directory-border) !important;
+
+  body.vocabulary-page.directory-page .vocab-hero .directory-hero-copy {
+    padding: 28px 0 28px !important;
+  }
+
+  body.vocabulary-page.directory-page .vocab-overview.directory-hero-overview {
+    grid-template-columns: 120px minmax(0, 1fr) !important;
+    gap: 30px !important;
+    padding: 22px 0 26px !important;
   }
 }
 
 @media (max-width: 620px) {
+  body.vocabulary-page.directory-page .vocab-hero h1 {
+    font-size: clamp(42px, 13vw, 58px) !important;
+  }
+
+  body.vocabulary-page.directory-page .vocab-hero .hero-intro {
+    margin-top: 18px !important;
+    font-size: 14px !important;
+  }
+
+  body.vocabulary-page.directory-page .vocab-overview.directory-hero-overview {
+    grid-template-columns: 1fr !important;
+    gap: 22px !important;
+  }
+
+  body.vocabulary-page.directory-page .vocab-overview dl {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  body.vocabulary-page.directory-page .vocab-overview dl > div {
+    padding-left: 0 !important;
+  }
+
   body.vocabulary-page.directory-page .vocab-toolbar.directory-toolbar {
     align-items: stretch !important;
   }
+
   body.vocabulary-page.directory-page .vocab-toolbar.directory-toolbar > .results-actions {
     width: 100% !important;
     flex-wrap: wrap !important;
