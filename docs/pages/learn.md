@@ -4,171 +4,162 @@ Last updated: 2026-09-01
 
 ## Page identity
 
-- Public route: `learn.html`.
-- Product role: ONDesign main landing / learning entry.
-- Canonical implementation: `learn.html`, `src/features/home/home.css`, `src/features/home/home.js`.
-- Shared global navigation remains owned by the App Shell.
-- Keep static HTML/CSS/JS with GSAP + ScrollTrigger progressive enhancement.
+- Public route: `learn.html`
+- `index.html` only redirects here
+- Product role: ONDesign main landing / learning entry
+- Canonical implementation: `src/features/home/home.css`, `src/features/home/home.js`
+- The existing design-system explainer may keep its dedicated visual stylesheet, but new Home interaction/runtime behavior belongs in the canonical Home files rather than new versioned or motion-only files.
 
 ## Page goal
 
-Rebuild the entire Learn/Home page as one coherent editorial product story. The page must not look like a collection of UI cards, screenshots or demo widgets. Every screen should feel intentionally composed even before animation runs.
+Explain the value of Design DNA for AI Coding and guide users toward understanding the workflow and starting a design.
 
-## Core story
+The page should communicate the product idea visually and progressively rather than behave like a dense documentation page.
 
-`Reference → Extract rules → Define/Create/Build/Iterate → Build Design DNA → Start Designing`
+## Core user task
 
-The page should communicate that ONDesign does not simply collect screenshots. It helps turn visual references into reusable design rules AI Coding can execute.
+A visitor should quickly understand:
 
-## Canonical information structure
+1. Why AI-generated UI often feels inconsistent or generic.
+2. What Design DNA changes.
+3. What ONDesign helps define: style, structure, components and design rules.
+4. What the user can do next.
 
-1. Hero — Design DNA for AI Coding
-2. Real cases — three composed visual references
-3. Compact proof strip — 19 / 57 / 19
-4. Explore — App / Website / Skill / Tools / UI Vocabulary
-5. Workflow — DEFINE / CREATE / BUILD / ITERATE
-6. Design DNA 0 → 1 builder — Typography / Color / Spacing / Components
-7. Start Designing CTA
-8. Footer
+## Core functions
 
-## 2026-09-01 full-page reconstruction rules
+- Explain the Design DNA concept.
+- Show before/after or without/with-rules comparisons.
+- Show concrete examples of design-system decisions such as typography, spacing, color, components and layout.
+- Present a clear path into `launcher.html` / Start Designing.
+- Provide entry points into deeper learning or library content where appropriate.
+- Support Chinese and English content with equivalent structure.
 
-This pass replaces the previous Home visual system. Do not preserve a previous section merely because it already exists.
+## Information structure
 
-### Visual direction
+Preferred narrative order:
 
-- Editorial + product demo, not SaaS dashboard.
-- Strong asymmetry, oversized type, crop relationships, thin rules and negative space.
-- Structural palette: warm paper, deep charcoal, white, ONDesign green accent.
-- Reduce rounded cards, detached floating boxes, soft-glow panels and generic shadows.
-- Do not create card grids as the default information pattern.
-- Avoid repeating the same two-column section layout through the whole page.
-- Static composition must work without GSAP; motion only adds pacing and emphasis.
+1. Hero: Design DNA for AI Coding
+2. Why: the problem with unconstrained UI generation
+3. Comparison: without rules vs with rules
+4. Lightweight discovery: “看点啥”
+5. Idea-to-demo workflow: image2 to ui / DEFINE → CREATE → BUILD → ITERATE
+6. What defines Design DNA: style / structure / components / specifications
+7. Examples: from idea to interface
+8. One focused Start Designing CTA
 
-### Absolute screenshot rule
+The page may evolve visually, but it should preserve a clear story from problem → method → proof → action.
 
-**Never paste a raw source screenshot into Home as the final composition.**
+### Idea-to-demo workflow section
 
-Every source asset shown on Home must be recomposed using at least one of:
+The four-card workflow should explain the path from an idea to a runnable demo. The primary hierarchy is the action/stage, not the historical figure used as the visual metaphor.
 
-- wide viewport crop;
-- detail crop;
-- oversized zoom fragment;
-- masked strip;
-- offset crop pair;
-- editorial contact-sheet arrangement;
-- one dominant crop plus one contextual detail;
-- partial-window framing where only the useful part of the source is visible.
+- This section sits immediately after the lightweight discovery strip; the “看点啥” section should appear directly above the Steve Jobs / DEFINE card row.
+- Section eyebrow: `image2 to ui`.
+- Section heading: communicate “从一个 Idea 到一个 Demo，你需要经历这 4 步。” / equivalent English copy.
+- Stage 01: `DEFINE` — clarify the goal, page and references.
+- Stage 02: `CREATE` — turn references into layout, typography, color and components.
+- Stage 03: `BUILD` — hand Design DNA to AI Coding and produce a runnable demo.
+- Stage 04: `ITERATE` — compare, adjust and validate until the demo looks right and works well.
+- `DEFINE / CREATE / BUILD / ITERATE` must be more visually prominent than the names of Steve Jobs, Leonardo da Vinci, Bill Gates or Thomas Edison.
+- Historical figures are supporting metaphors only; they should not become the main information users have to read.
+- The four cards must share the same text baseline and vertical rhythm: stage title, person name, role/thinking line, and description should align across all cards.
+- Add a compact source link aligned to the lower-right of this section pointing to `https://github.com/zhu-guli326/image2_UI_skill.git`.
 
-Specifically forbidden:
+#### Workflow card motion enhancement
 
-- full-height mobile screenshots centered inside a large frame;
-- untouched website screenshots inside generic cards;
-- device mockups used only to disguise a full raw screenshot;
-- screenshot-in-card-in-card nesting;
-- long portrait images shown at their original proportions on desktop.
+The four workflow cards use the pointer-reactive motion language from React Bits `ProfileCard` (JS-CSS registry variant) while preserving the current ONDesign card content and visual hierarchy.
 
-## Scene requirements
+- Desktop pointer interaction: each card tilts in 3D toward the pointer, with a soft pointer-following glare/highlight and subtle depth response.
+- Motion should interpolate smoothly rather than snap; when the pointer leaves, the card eases back to center before the active glow disappears.
+- Keep the current four portrait assets, per-stage color treatment, text content, grid proportions and source-link placement. The motion is an enhancement, not a redesign into a profile/contact card.
+- Do not add ProfileCard-specific user UI such as handle, online status, mini avatar or Contact button.
+- Do not add mobile device-orientation tilt. Touch/mobile keeps the static card presentation.
+- Do not add React solely for this effect. The current page is a static HTML/CSS/JS site, so preserve the React Bits motion model in the existing vanilla-JS architecture.
+- Respect `prefers-reduced-motion: reduce`: disable pointer tilt and animated glare/transform transitions for users requesting reduced motion.
+- The enhancement must not alter card links, keyboard focus, bilingual rendering, image loading or layout dimensions.
 
-### 1. Hero
+### Lightweight discovery strip
 
-- Full-width opening scene.
-- Large typographic statement is primary; image supports it rather than becoming a screenshot hero.
-- Use the current Design DNA image as cropped atmosphere / spatial texture.
-- Composition should feel closer to a magazine cover or campaign landing page than a centered SaaS hero.
-- One primary CTA and one secondary text link only.
-- Entrance motion: restrained type reveal + crop drift.
+The old template gallery is no longer a template catalog. It is a compact “看点啥” discovery entry that helps users choose what kind of design resource they want to explore next.
 
-### 2. Real cases
+- Place this whole section immediately before the Idea-to-demo workflow / Steve Jobs card section.
+- Chinese title: `看点啥`.
+- Keep the supporting copy short and conversational; explain that users can jump into App, website design, Skills, tools or UI vocabulary.
+- Primary tags: `App 设计`, `官网设计`, `设计 Skill`, `设计工具`, `UI 词库`.
+- The five tags are mutually exclusive tabs/switches, not navigation links. Clicking a tag changes the preview content shown below and updates the active state.
+- Show only the preview for the currently selected category instead of displaying all five category cards at the same time.
+- The preview itself should not be the primary navigation target.
+- Put a compact `查看更多 ↗` link at the lower-right of the section. This link is the navigation action and must update its destination to match the currently selected tag/category.
+- On narrower screens, keep the tabs horizontally scrollable if needed; do not stack a long catalog.
+- The section remains a lightweight home-page entry, not a full browsing experience.
+- Every category must use a different preview image grounded in the current ONDesign project, never a generic hotel/e-commerce placeholder that is unrelated to the destination.
+- `App 设计`: use a real App case screenshot from the Library/case assets; present it in a `9:16` frame.
+- `官网设计`: use a real Web case screenshot already used by ONDesign; present it in a `16:9` frame.
+- `设计 Skill`: use a real Skill repository/card/detail asset from the Skills library; present it in a `3:4` frame.
+- `设计工具`: use a real ONDesign workflow/demo preview that represents Start Designing / Design DNA usage; present it in a `3:4` frame.
+- `UI 词库`: use a real Vocabulary sheet/card asset showing actual UI terms or components; present it in a `3:4` frame.
+- The preview image should use `object-fit: cover` or a controlled crop only when needed to preserve the required frame ratio; do not distort the source image.
 
-- Keep three real case sources.
-- Each case is a designed spread, not a screenshot card.
-- Use one dominant wide crop and one secondary detail fragment from the same source.
-- Case label and observation explain what to learn from it.
-- Desktop may use one horizontal GSAP sequence; mobile stacks wide compositions.
-- No full raw screenshot is visible at once.
+### Final CTA
 
-### 3. Proof strip
+- Do not use a full-screen creator quote / self-attribution section before the final CTA unless an explicit later content decision restores it.
+- Keep only one focused final action into Start Designing unless an explicit later content decision changes the CTA structure.
+- The final CTA should feel compact, calm and connected to the footer rather than like another oversized hero screen.
 
-- Keep `19 / 57 / 19` values and meanings.
-- Compact bridge only; do not make this another feature section.
+## Interaction rules
 
-### 4. Explore
+- Favor large visual examples over dense text.
+- Keep section hierarchy strong and editorial rather than dashboard-like.
+- Avoid excessive cards when a full-width composition communicates better.
+- Chinese typography and English typography may use different spacing / line-height treatment where needed.
+- Maintain ONDesign's green brand direction unless a global design decision changes it.
+- Do not turn the page into a catalog grid; catalogs belong to Library / Vocabulary / Skills.
+- Keep the primary Start Designing path obvious without adding configuration controls that belong to Launcher.
+- Keep desktop vertical rhythm compact enough that adjacent sections feel connected. Avoid large blank bands created by section padding; default content sections should generally sit in a roughly 64–88px vertical-padding range, with only intentional hero/editorial moments allowed to exceed it.
+- Section headings, supporting copy and tab/filter groups should use compact internal spacing so the page stays relaxed without feeling empty.
 
-- Heading remains `看点啥`.
-- Categories remain `App 设计`, `官网设计`, `设计 Skill`, `设计工具`, `UI 词库`.
-- Interaction is click/tap controlled.
-- Right-side preview is always a composed canvas, never a raw screenshot.
-- For tall/mobile assets, crop into horizontal windows and details.
-- Switching uses a short GSAP crop/opacity transition.
-- Category navigation should feel like an editorial index, not pills or dashboard tabs.
+### Home motion system
 
-### 5. Workflow
+The Home page should feel calm while static and expressive while scrolling. Motion is part of the page narrative, not decorative noise.
 
-- Keep four stages: DEFINE / CREATE / BUILD / ITERATE.
-- Keep existing portrait assets as supporting metaphors.
-- Remove the old four-card composition.
-- Use one large active visual stage with a compact stage rail.
-- Clicking a stage updates the portrait crop, stage color, stage word and explanation.
-- Stage text is primary; historical figure is secondary.
-- No profile-card tilt unless a future pass explicitly asks for it.
-
-### 6. Design DNA 0 → 1 builder
-
-- Click/tap controlled, never auto-overridden by ScrollTrigger.
-- Steps: `Typography → Color → Spacing → Components`.
-- Earlier steps remain visibly built; current step is active; future steps are quiet.
-- Right side is one evolving workspace.
-- The workspace should visibly gain rules as steps advance.
-- One annotation line/panel may sit outside the workspace; never cover product UI.
-- No floating annotation pile.
-- Do not rely on glow to communicate hierarchy; use contrast, layout and state.
-
-### 7. Final CTA
-
-- One decisive graphic ending.
-- Chinese copy remains: `别只收藏喜欢的设计。让它成为下一次设计的起点。`
-- One Start Designing action only.
-
-## Motion system
-
-- GSAP + ScrollTrigger for page-level choreography.
-- Native scrolling remains baseline.
-- Reserve pinning for the cases sequence only if it materially improves reading.
-- Workflow and Design DNA interactions are user-controlled, not scroll-controlled.
-- Prefer transform / opacity / clip-path.
-- No looping particles, bouncing, large blur clouds or page-wide glow.
-- Respect `prefers-reduced-motion` while keeping click/tap interactions functional.
-- Resize must not create duplicate ScrollTriggers.
-
-## Responsive rules
-
-- Desktop target checks: 1366, 1440, 1920 widths.
-- Mobile must be intentionally recomposed, not simply collapse desktop columns.
-- Long mobile screenshots still cannot appear full-height on mobile Home; crop them into useful windows.
-- Interactive rails become compact horizontal selectors where appropriate.
+- Page-level scroll choreography uses GSAP + ScrollTrigger in the existing static architecture; do not migrate the Home page to React solely to obtain animation.
+- GSAP must be progressive enhancement: if the CDN/library is unavailable, the page must remain fully visible, navigable and functional.
+- Do not add smooth-scroll hijacking in this pass. Native scrolling remains the baseline.
+- Hero: staged entrance for eyebrow, title, supporting copy and actions; scrolling adds slow background scale/parallax and lets the hero content recede rather than disappear abruptly.
+- Featured cases: preserve the existing draggable carousel mechanics, but add a restrained entrance/depth reveal around the carousel UI without fighting its card transforms.
+- Stats: count up once when the section first enters view; do not loop.
+- Discovery: changing tabs should feel like a visual transition, using short blur/scale/fade handoffs instead of a hard image swap. The underlying tab semantics and destinations stay unchanged.
+- Idea → Demo: the section heading and the four stage cards reveal in sequence so the workflow reads as `DEFINE → CREATE → BUILD → ITERATE`; pointer tilt/glow remains a second layer of interaction on desktop.
+- Design-system cards: the typography/color/spacing/surface/component cards should assemble into view with staggered depth rather than appear as a static pile.
+- Design-system live explainer: the central product UI establishes first, then surrounding typography/spacing/color/state callouts enter in a readable order as the user scrolls through the section.
+- CTA/footer: finish with a restrained reveal; do not keep adding increasingly loud effects at the bottom of the page.
+- Micro-interactions may include subtle magnetic response on primary links/buttons and pointer-following light in the Hero, but movement must stay small enough that text remains easy to target and read.
+- Avoid permanent looping particles, continuous bouncing, scroll-jacking, excessive blur or simultaneous animation of every element.
+- Motion should use opacity/filter/clip/transform properties that stay performant and should avoid layout-thrashing animation.
+- Mobile/touch uses reduced motion complexity: no pointer-follow effects or 3D tilt, and scroll reveals should be shorter/subtler.
+- `prefers-reduced-motion: reduce` disables non-essential scroll choreography, pointer-follow, magnetic movement and 3D card tilt while preserving all content and controls.
+- All accepted Home motion code belongs in `src/features/home/home.js` and `src/features/home/home.css`; do not create separate `*-motion`, `*-animation`, `*-v2` or override runtime/style files.
 
 ## Keep
 
-- Global App Shell/navigation.
-- Existing URL and bilingual behavior.
-- Existing case and workflow assets where useful.
-- Explore destinations.
+- Strong first-screen value proposition.
+- Visual storytelling.
 - Clear Start Designing path.
+- Bilingual support.
+- Shared global App Shell.
 
 ## Remove / avoid
 
-- Generic section + card-grid repetition.
-- Full raw screenshots.
-- Four-card workflow layout.
-- Floating Design DNA annotation pile.
-- Excessive green glow.
-- Glassmorphism.
-- Thick drop shadows.
-- Creator quote section.
-- Duplicate CTA actions.
-- Any redesign spilling into Library / Vocabulary / Skills / Launcher.
+- Long product-manual text.
+- Dense configuration controls.
+- Full case-library browsing.
+- Launcher configuration responsibilities.
+- Duplicated navigation or page-specific global header.
+- Oversized vertical whitespace that makes each section feel disconnected from the next.
+- Duplicate parallel Home motion/style/runtime files.
 
 ## Modification boundary
 
-This reconstruction is limited to Learn/Home. Library, Vocabulary, Skills and Launcher retain their existing responsibilities and page structures.
+Changes to `learn.html` should improve product understanding, learning progression or conversion into the next ONDesign workflow step.
+
+If a request introduces detailed configuration, case management or a large reference directory, route that responsibility to Launcher, Library, Vocabulary or Skills instead of expanding Home without an explicit product decision.
