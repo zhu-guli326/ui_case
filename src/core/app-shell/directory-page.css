@@ -414,3 +414,111 @@ body.library-page .demo-card-body { background: var(--directory-surface); }
   body.directory-page .directory-toolbar > .search-field,
   body.directory-page .directory-toolbar > .search-field input { transition: none; }
 }
+
+/* Flat knowledge-directory shell --------------------------------------
+ * The page chrome itself should not read as cards. Real content objects
+ * (case cards, vocabulary cards and Skill/Web cards) intentionally keep
+ * their card treatment and interactions.
+ */
+body.directory-page .directory-toolbar {
+  min-height: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+body.directory-page .directory-toolbar > :not(.search-field) {
+  display: none !important;
+}
+
+body.library-page .catalog-bar {
+  display: none !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+body.directory-page .directory-section { padding-top: 22px; }
+
+body.directory-page .directory-hero {
+  gap: 30px !important;
+  border-bottom: 1px solid var(--directory-border) !important;
+}
+
+body.directory-page .directory-hero-copy,
+body.directory-page .directory-hero-overview {
+  min-height: 286px;
+  overflow: visible;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.directory-page .directory-hero-copy {
+  padding: 34px 40px 34px 0 !important;
+}
+
+body.directory-page .directory-hero-overview {
+  padding: 34px 0 34px 30px !important;
+  border-left: 1px solid var(--directory-border) !important;
+}
+
+body.directory-page .directory-sidebar {
+  overflow: visible;
+  padding: 6px 18px 6px 0 !important;
+  border: 0 !important;
+  border-right: 1px solid var(--directory-border) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.directory-page .filter-sidebar-head small,
+body.vocabulary-page .taxonomy-heading span:last-child {
+  background: transparent !important;
+  border: 1px solid var(--directory-border);
+}
+
+/* Library overview is intentionally one concise metric, not a statistics card. */
+body.library-page .stats-panel {
+  grid-template-columns: 1fr !important;
+  padding: 0 !important;
+}
+body.library-page .stats-panel > span {
+  padding: 0 !important;
+  border: 0 !important;
+}
+body.library-page .stats-panel > span:nth-child(n + 2) { display: none !important; }
+body.library-page .stats-panel strong {
+  font-family: var(--font-number) !important;
+  font-size: 48px !important;
+  font-variant-numeric: var(--number-font-variant) !important;
+  font-feature-settings: var(--number-font-features) !important;
+  letter-spacing: -.045em !important;
+  line-height: 1 !important;
+}
+
+@media (max-width: 900px) {
+  body.directory-page .directory-hero { gap: 0 !important; }
+  body.directory-page .directory-hero-copy {
+    min-height: 0;
+    padding: 28px 0 24px !important;
+  }
+  body.directory-page .directory-hero-overview {
+    min-height: 0 !important;
+    padding: 22px 0 28px !important;
+    border-left: 0 !important;
+    border-top: 1px solid var(--directory-border) !important;
+  }
+  body.directory-page .directory-sidebar {
+    padding: 0 0 16px !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--directory-border) !important;
+  }
+}
