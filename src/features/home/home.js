@@ -314,6 +314,13 @@ function applyLanguage(event) {
   if (previousButton) previousButton.setAttribute("aria-label", language === "en" ? "Previous case" : "上一个案例");
   if (nextButton) nextButton.setAttribute("aria-label", language === "en" ? "Next case" : "下一个案例");
   carouselDots.forEach((dot, index) => dot.setAttribute("aria-label", language === "en" ? `Show case ${index + 1}` : `显示第 ${index + 1} 个案例`));
+
+  if (event && homeMotionInitialized && !reducedMotion.matches) {
+    window.requestAnimationFrame(() => {
+      replayHeroIntroMotion();
+      window.ScrollTrigger?.refresh();
+    });
+  }
 }
 
 const carousel = document.querySelector("[data-featured-carousel]");
@@ -329,6 +336,8 @@ let autoplayTimer = 0;
 let dragStart = null;
 let dragDistance = 0;
 let suppressNextClick = false;
+let homeMotionInitialized = false;
+let heroIntroTimeline = null;
 
 const carouselDots = caseCards.map((_, index) => {
   const dot = document.createElement("button");
@@ -749,6 +758,41 @@ function initMagneticLinks() {
   });
 }
 
+function replayHeroIntroMotion() {
+  if (reducedMotion.matches || !window.gsap) return;
+  if (window.scrollY > 120) {
+    window.ScrollTrigger?.refresh();
+    return;
+  }
+
+  const hero = document.querySelector(".project-hero");
+  const heroContent = hero?.querySelector(".project-hero-content");
+  if (!hero || !heroContent) return;
+
+  const heroIntro = [
+    heroContent.querySelector(".project-eyebrow"),
+    heroContent.querySelector("h1"),
+    heroContent.querySelector("p:not(.project-eyebrow)"),
+    heroContent.querySelector(".project-hero-actions"),
+  ].filter(Boolean);
+  const scrollHint = hero.querySelector(".project-scroll");
+  if (!heroIntro.length) return;
+
+  heroIntroTimeline?.kill();
+  window.gsap.set([...heroIntro, scrollHint].filter(Boolean), { clearProps: "opacity,visibility,transform" });
+
+  heroIntroTimeline = window.gsap.timeline({ defaults: { ease: "power3.out" } });
+  heroIntroTimeline
+    .from(heroIntro[0], { autoAlpha: 0, y: 18, duration: .55, clearProps: "opacity,visibility,transform" })
+    .from(heroIntro[1], { autoAlpha: 0, y: 52, duration: .9, clearProps: "opacity,visibility,transform" }, "-=.28")
+    .from(heroIntro[2], { autoAlpha: 0, y: 24, duration: .65, clearProps: "opacity,visibility,transform" }, "-=.48")
+    .from(heroIntro[3], { autoAlpha: 0, y: 20, duration: .6, clearProps: "opacity,visibility,transform" }, "-=.42");
+
+  if (scrollHint) {
+    heroIntroTimeline.from(scrollHint, { autoAlpha: 0, y: 16, duration: .5, clearProps: "opacity,visibility,transform" }, "-=.24");
+  }
+}
+
 function initHomeMotion() {
   if (reducedMotion.matches || !window.gsap || !window.ScrollTrigger) return;
   const { gsap, ScrollTrigger } = window;
@@ -758,17 +802,8 @@ function initHomeMotion() {
   const hero = document.querySelector(".project-hero");
   const heroImage = hero?.querySelector(".project-hero-image");
   const heroContent = hero?.querySelector(".project-hero-content");
-  const heroIntro = heroContent ? [heroContent.querySelector(".project-eyebrow"), heroContent.querySelector("h1"), heroContent.querySelector("p:not(.project-eyebrow)"), heroContent.querySelector(".project-hero-actions")].filter(Boolean) : [];
-
-  if (heroIntro.length) {
-    const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
-    intro
-      .from(heroIntro[0], { autoAlpha: 0, y: 18, duration: .55 })
-      .from(heroIntro[1], { autoAlpha: 0, y: 52, duration: .9 }, "-=.28")
-      .from(heroIntro[2], { autoAlpha: 0, y: 24, duration: .65 }, "-=.48")
-      .from(heroIntro[3], { autoAlpha: 0, y: 20, duration: .6 }, "-=.42")
-      .from(".project-scroll", { autoAlpha: 0, y: 16, duration: .5 }, "-=.24");
-  }
+  homeMotionInitialized = true;
+  replayHeroIntroMotion();
 
   if (hero && heroImage && heroContent) {
     gsap.to(heroImage, {
