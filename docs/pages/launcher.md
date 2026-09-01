@@ -68,6 +68,18 @@ The preview should have more visual weight than configuration controls.
 - Design-system picker chrome must be styled on first paint through the static Launcher CSS entry point; do not rely on JavaScript-only stylesheet injection for required visual correctness.
 - Empty palette placeholders that resemble missing-glyph boxes must not appear in the Design System trigger. Real palette previews belong in the opened option list or after a meaningful selection.
 
+### Foundation panel visual contract
+
+- `02 Foundation / 基础规范` is one continuous configuration surface, not a stack of nested cards.
+- The outer section owns the panel boundary. Inner groups (`Design system`, `Typography`, `Radius`, `Spacing`) should use spacing and subtle separators for hierarchy rather than each drawing its own container card.
+- Only interactive controls receive a visible control boundary: the Design System selector, typography select, and segmented controls.
+- The selected Design System is the visual focal control: logo, system name, concise metadata and selected state must read as one polished row; use the active Design System accent sparingly for selection/focus, not as a large decorative fill.
+- Source/normalization notes are tertiary information: smaller, quieter and visually separated from the primary selector.
+- Typography is one clean select plus one short helper line; avoid a card wrapped around a select wrapped around another card.
+- Radius and Spacing form one balanced two-column row on desktop and stack on narrow screens. Segmented controls use equal-width options and a restrained selected state.
+- Step headers (`01 / 02 / 03`) use the same compact badge geometry and alignment. Open/closed state is communicated by the chevron and subtle section treatment, not a heavy colored strip.
+- The final `Save & reuse` row should visually belong to the same continuous control column and not feel like a separate floating card.
+
 ## Keep
 
 - Design-system selection when it supports Design DNA definition.
