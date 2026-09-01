@@ -39,7 +39,7 @@ export const featuredCaseOrder = Object.freeze(["museum", "news", "notebook"]);
 export const libraryCopy = Object.freeze({
   zh: {
     modes: { image: "效果图", video: "Demo 视频", live: "可点击 Demo" },
-    categories: { all: "全部", culture: "文化", commerce: "电商", editorial: "阅读", travel: "旅行", creative: "工具", wellness: "健康" },
+    categories: { all: "全部案例", culture: "文化内容", commerce: "零售电商", editorial: "新闻阅读", travel: "旅行体验", creative: "创意工具", wellness: "健康陪伴" },
     title: "image2 UI 风格案例库", description: "image2 UI 风格案例库。", skip: "跳到案例列表", sidebarLabel: "想看哪一类？", localDemo: "本地演示", realCases: (count) => `${count} 个真实 UI 案例`, allSkills: "全部浏览", skills: [["video-shotcraft", "视频与镜头"], ["impeccable", "设计质量"], ["taste-skill", "设计品味"], ["GSAP", "动效系统"]], guides: [["使用指南", "从选择到交付"], ["项目原理", "Image2 UI"]], author: "作者动态", profile: "查看主页",
     heroTitle: "看看这些，\n再决定你想做成什么样。", heroIntro: "从真实案例开始找方向。看界面、试 Demo，再把喜欢的感觉带进你的设计。", heroAuthor: "作者主页", cases: "案例", styles: "风格", search: "搜索案例名称、使用场景或风格...", featured: "案例", searchResults: "搜索结果", startVisual: "从一个喜欢的界面开始。", searchTitle: "匹配的界面方向", count: (count) => `${count} 个案例`, empty: "没有找到匹配的案例。",
     imagePreview: "效果图预览", video: "视频", clickable: "可点击", details: "查看要点", copyConfig: "复制配置", applyProject: "用这个风格", localReference: "本地参考图", styleKeywords: "风格关键词", brands: "适用风格档案", openDetails: "查看案例详情", openPreview: "打开预览", unavailable: "效果图不可用",
@@ -48,7 +48,7 @@ export const libraryCopy = Object.freeze({
   },
   en: {
     modes: { image: "Screens", video: "Demo video", live: "Interactive demo" },
-    categories: { all: "All", culture: "Culture", commerce: "Commerce", editorial: "Reading", travel: "Travel", creative: "Tools", wellness: "Wellness" },
+    categories: { all: "All cases", culture: "Culture", commerce: "Commerce", editorial: "Editorial", travel: "Travel", creative: "Creative tools", wellness: "Wellness" },
     title: "image2 UI Style Library", description: "A visual style library of image2 UI cases.", skip: "Skip to case list", sidebarLabel: "What do you want to see?", localDemo: "Local demos", realCases: (count) => `${count} real UI cases`, allSkills: "Browse all", skills: [["video-shotcraft", "Video & shot craft"], ["impeccable", "Design quality"], ["taste-skill", "Design taste"], ["GSAP", "Motion system"]], guides: [["How to use", "From selection to delivery"], ["Principles", "Image2 UI"]], author: "Creator", profile: "View profile",
     heroTitle: "Take a look.\nThen decide what you want to make.", heroIntro: "Start with real cases. Explore the screens, try the demos, and bring the direction you like into your own design.", heroAuthor: "Creator profiles", cases: "Cases", styles: "Styles", search: "Search by case, use case, or visual style...", featured: "Cases", searchResults: "Search results", startVisual: "Start with an interface you like.", searchTitle: "Matching interface directions", count: (count) => `${count} cases`, empty: "No matching cases found.",
     imagePreview: "Screen preview", video: "Video", clickable: "Interactive", details: "View notes", copyConfig: "Copy config", applyProject: "Use this style", localReference: "Local reference", styleKeywords: "Style keywords", brands: "Compatible style profiles", openDetails: "View case details", openPreview: "Open preview", unavailable: "Screen unavailable",
