@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">
   <meta name="color-scheme" content="light dark">
-  <meta name="description" content="ONDesign：从真实参考中提取设计规则，让 AI Coding 沿着同一套 Design DNA 继续做。">
-  <title>ONDesign · Design DNA for AI Coding</title>
+  <meta name="description" content="ONDesign：从真实 UI 案例、界面词汇和设计系统出发，与 AI 一起构建可运行的界面。">
+  <title>ONDesign · 从设计参考到真实界面</title>
   <link rel="stylesheet" href="./src/core/app-shell/site-shell.css">
-  <link rel="stylesheet" href="./src/features/home/home.css">
+<link rel="stylesheet" href="./src/features/home/home.css">
   <script src="./src/core/app-shell/app-shell.js"></script>
   <script src="./src/core/analytics/clarity.js"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
@@ -17,162 +17,115 @@
 </head>
 <body class="project-home">
   <image2-site-header data-site-header></image2-site-header>
-
   <main>
-    <header class="home-hero" id="top">
-      <div class="home-hero-art" aria-hidden="true">
-        <div class="hero-art-main"><img src="./assets/home/design-dna-interior.jpg" alt=""></div>
-        <div class="hero-art-strip"><img src="./assets/home/design-dna-interior.jpg" alt=""></div>
-        <span class="hero-art-index">01 / 07</span>
-      </div>
-      <div class="home-shell home-hero-grid">
-        <div class="home-hero-copy">
-          <p class="home-kicker">ONDESIGN · AI UI DESIGN WORKFLOW</p>
-          <h1><span>DESIGN</span><span>DNA</span><span>FOR AI CODING</span></h1>
-        </div>
-        <div class="home-hero-note">
-          <p data-zh="先找到真正喜欢的设计，再把它拆成字体、颜色、组件和节奏。别让 AI 猜。" data-en="Start from design you genuinely like, then turn it into type, color, component and rhythm rules. Do not make AI guess.">先找到真正喜欢的设计，再把它拆成字体、颜色、组件和节奏。别让 AI 猜。</p>
-          <div class="home-hero-actions">
-            <a class="home-action" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><span data-zh="开始设计" data-en="Start designing">开始设计</span><i>↗</i></a>
-            <a class="home-link" href="#cases"><span data-zh="先看案例" data-en="See the cases">先看案例</span><i>↓</i></a>
-          </div>
+    <header class="project-hero" id="top">
+      <img class="project-hero-image" src="./demo/squarespace-cinematic/assets/workspace.webp" alt="现代设计工作室实景">
+      <span class="project-hero-overlay" aria-hidden="true"></span>
+      <div class="project-hero-content">
+        <p class="project-eyebrow">ONDesign · AI UI DESIGN WORKFLOW</p>
+        <h1 data-zh="找到参考。理解设计。做出真实界面。" data-en="Find references. Understand design. Build real interfaces.">找到参考。理解设计。做出真实界面。</h1>
+        <p data-zh="从真实案例出发，用界面词汇、设计系统与 Design DNA 把模糊感觉变成 AI 能理解、能执行的设计语言。" data-en="Start with real cases, then use UI vocabulary, design systems, and Design DNA to turn a feeling into a language AI can understand and execute.">从真实案例出发，用界面词汇、设计系统与 Design DNA 把模糊感觉变成 AI 能理解、能执行的设计语言。</p>
+        <div class="project-hero-actions">
+          <a class="button-outline-light" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html" data-zh="开始设计" data-en="Start designing">开始设计</a>
+          <a class="text-link-light" href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span data-zh="浏览真实案例" data-en="Browse real cases">浏览真实案例</span> ↗</a>
         </div>
       </div>
+      <a class="project-scroll" href="#overview"><span data-zh="向下探索" data-en="Explore">向下探索</span><i></i></a>
     </header>
 
-    <section class="case-story" id="cases" aria-labelledby="caseTitle">
-      <div class="home-shell case-intro">
-        <p class="home-kicker">REAL REFERENCES · 01—03</p>
-        <h2 id="caseTitle" data-zh="不是把截图存下来。是看懂它为什么成立。" data-en="Do not save the screenshot. Understand why it works.">不是把截图存下来。是看懂它为什么成立。</h2>
-        <p data-zh="每个案例只留下值得学的构图、比例、字号和节奏。" data-en="Keep only the composition, proportion, type and rhythm worth learning from.">每个案例只留下值得学的构图、比例、字号和节奏。</p>
+    <section class="project-stats" id="overview" aria-label="ONDesign 内容概览">
+      <div class="project-container project-stats-grid">
+        <article><strong>19</strong><span data-zh="真实案例" data-en="Real cases">真实案例</span></article>
+        <article><strong>57</strong><span data-zh="可复用组件" data-en="Reusable components">可复用组件</span></article>
+        <article><strong>19</strong><span data-zh="设计系统" data-en="Design systems">设计系统</span></article>
       </div>
+    </section>
 
-      <div class="case-viewport" data-case-viewport>
-        <div class="case-track" data-case-track>
-          <a class="case-spread case-orange" href="./library.html?lang=zh" data-smart-lang-link="./library.html">
-            <div class="case-copy"><small>01 · PORTFOLIO</small><strong>Product Designer</strong><p data-zh="强标题 / 像素纹理 / 非对称留白" data-en="Strong type / pixel texture / asymmetric space">强标题 / 像素纹理 / 非对称留白</p></div>
-            <div class="case-visual"><div class="case-window case-window-wide"><img src="./assets/home/case-product-designer-20260831.png" alt="Product Designer 页面局部"></div><div class="case-window case-window-detail"><img src="./assets/home/case-product-designer-20260831.png" alt="Product Designer 页面细节"></div><span class="case-number">01</span></div>
+    <section class="project-section project-cases" id="cases">
+      <div class="project-container">
+        <header class="section-heading section-heading-center">
+          <p class="section-eyebrow">REAL INTERFACE CASES</p>
+          <h2 data-zh="先找到对的方向，再开始生成。" data-en="Find the right direction before you build.">先找到对的方向，再开始生成。</h2>
+          <p data-zh="每个案例都可以真实打开与体验，帮助你识别布局、组件、状态和视觉语言。" data-en="Every case is real and interactive, helping you identify layouts, components, states, and visual language.">每个案例都可以真实打开与体验，帮助你识别布局、组件、状态和视觉语言。</p>
+        </header>
+        <div class="case-filters" role="group" aria-label="案例筛选">
+          <button class="is-active" type="button" data-case-filter="all" aria-pressed="true" data-zh="全部" data-en="All">全部</button>
+          <button type="button" data-case-filter="mobile" aria-pressed="false" data-zh="移动端" data-en="Mobile">移动端</button>
+          <button type="button" data-case-filter="editorial" aria-pressed="false" data-zh="编辑感" data-en="Editorial">编辑感</button>
+          <button type="button" data-case-filter="vivid" aria-pressed="false" data-zh="高表现力" data-en="Expressive">高表现力</button>
+        </div>
+        <div class="project-case-grid">
+          <a class="project-case" data-case-category="mobile editorial" href="./demo/fufu-bakery/index.html?lang=zh" data-smart-lang-link="./demo/fufu-bakery/index.html">
+            <img src="./demo/fufu-bakery/mobile-preview.png" alt="FuFu Bakery 移动端界面案例"><span class="case-shade" aria-hidden="true"></span><small>MOBILE · BRAND</small>
+            <div><h3>FuFu Bakery</h3><p data-zh="品牌化烘焙会员体验" data-en="Branded bakery membership experience">品牌化烘焙会员体验</p><i>↗</i></div>
           </a>
-          <a class="case-spread case-green" href="./library.html?lang=zh" data-smart-lang-link="./library.html">
-            <div class="case-copy"><small>02 · EXPERIMENTAL</small><strong>Hackathon</strong><p data-zh="黑绿对比 / 高密度信息 / 像素语言" data-en="Black-green contrast / dense information / pixel language">黑绿对比 / 高密度信息 / 像素语言</p></div>
-            <div class="case-visual"><div class="case-window case-window-wide"><img src="./assets/home/case-hackathon-20260831.png" alt="Hackathon 页面局部"></div><div class="case-window case-window-detail"><img src="./assets/home/case-hackathon-20260831.png" alt="Hackathon 页面细节"></div><span class="case-number">02</span></div>
+          <a class="project-case" data-case-category="mobile vivid" href="./demo/plate-play/index.html?lang=zh" data-smart-lang-link="./demo/plate-play/index.html">
+            <img src="./demo/plate-play/mobile-preview.png" alt="Plate Play 移动端界面案例"><span class="case-shade" aria-hidden="true"></span><small>MOBILE · VIVID</small>
+            <div><h3>Plate Play</h3><p data-zh="高表现力食谱与内容体验" data-en="Expressive recipe and content experience">高表现力食谱与内容体验</p><i>↗</i></div>
           </a>
-          <a class="case-spread case-paper" href="./library.html?lang=zh" data-smart-lang-link="./library.html">
-            <div class="case-copy"><small>03 · EDITORIAL</small><strong>Monument</strong><p data-zh="黑白编辑感 / 大比例文字 / 图像节奏" data-en="Monochrome editorial / oversized type / image pacing">黑白编辑感 / 大比例文字 / 图像节奏</p></div>
-            <div class="case-visual"><div class="case-window case-window-wide"><img src="./assets/home/case-monument-magazine-20260831.png" alt="Monument 页面局部"></div><div class="case-window case-window-detail"><img src="./assets/home/case-monument-magazine-20260831.png" alt="Monument 页面细节"></div><span class="case-number">03</span></div>
+          <a class="project-case" data-case-category="mobile editorial" href="./demo/fithub/index.html?lang=zh" data-smart-lang-link="./demo/fithub/index.html">
+            <img src="./demo/fithub/mobile-preview.png" alt="FITHUB 移动端界面案例"><span class="case-shade" aria-hidden="true"></span><small>MOBILE · UTILITY</small>
+            <div><h3>FITHUB</h3><p data-zh="极简训练规划界面" data-en="A minimal training planner interface">极简训练规划界面</p><i>↗</i></div>
           </a>
         </div>
-      </div>
-
-      <div class="home-shell case-footer"><span data-zh="向下滚动 · 横向阅读" data-en="Scroll down · read sideways">向下滚动 · 横向阅读</span><a href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span data-zh="查看全部案例" data-en="View all cases">查看全部案例</span> ↗</a></div>
-    </section>
-
-    <section class="proof-strip" id="overview" aria-label="ONDesign 内容概览">
-      <div class="home-shell proof-grid">
-        <article><strong data-count="19">19+</strong><span data-zh="真实案例" data-en="Real cases">真实案例</span></article>
-        <article><strong data-count="57">57+</strong><span data-zh="可复用组件" data-en="Reusable components">可复用组件</span></article>
-        <article><strong data-count="19">19+</strong><span data-zh="设计系统" data-en="Design systems">设计系统</span></article>
-        <p data-zh="少一点形容词，多一点可执行的视觉依据。" data-en="Use fewer adjectives and more executable visual evidence.">少一点形容词，多一点可执行的视觉依据。</p>
+        <div class="section-link"><a href="./library.html?lang=zh" data-smart-lang-link="./library.html"><span data-zh="查看全部案例" data-en="View all cases">查看全部案例</span> ↗</a></div>
       </div>
     </section>
 
-    <section class="explore-scene" id="explore" aria-labelledby="exploreTitle">
-      <div class="home-shell explore-head">
-        <p class="home-kicker">EXPLORE · PICK ONE DIRECTION</p>
-        <h2 id="exploreTitle" data-zh="看点啥" data-en="What do you want to explore?">看点啥</h2>
-        <p data-zh="选一个方向，只看真正值得拆的局部。" data-en="Pick one direction and focus only on fragments worth studying.">选一个方向，只看真正值得拆的局部。</p>
-      </div>
-
-      <div class="home-shell explore-body">
-        <div class="explore-index" role="tablist" aria-label="内容分类">
-          <button type="button" class="is-active" role="tab" aria-selected="true" data-discovery-index="0"><span>01</span><strong data-zh="App 设计" data-en="App design">App 设计</strong></button>
-          <button type="button" role="tab" aria-selected="false" data-discovery-index="1"><span>02</span><strong data-zh="官网设计" data-en="Web design">官网设计</strong></button>
-          <button type="button" role="tab" aria-selected="false" data-discovery-index="2"><span>03</span><strong data-zh="设计 Skill" data-en="Design Skill">设计 Skill</strong></button>
-          <button type="button" role="tab" aria-selected="false" data-discovery-index="3"><span>04</span><strong data-zh="设计工具" data-en="Design tools">设计工具</strong></button>
-          <button type="button" role="tab" aria-selected="false" data-discovery-index="4"><span>05</span><strong data-zh="UI 词库" data-en="UI vocabulary">UI 词库</strong></button>
-          <a class="explore-more" data-discovery-link href="./library.html?lang=zh"><span data-zh="进入这个方向" data-en="Explore this direction">进入这个方向</span> ↗</a>
-        </div>
-
-        <article class="explore-composition" data-discovery-preview>
-          <div class="explore-meta"><small data-discovery-eyebrow>APP DESIGN · MOBILE</small><span>SELECTED VIEW</span></div>
-          <div class="explore-frame explore-frame-main"><img data-discovery-image src="./assets/cases/fashion-shopping-app/hero-screen.png" alt="Fashion Shopping App 局部"></div>
-          <div class="explore-frame explore-frame-detail"><img data-discovery-detail-image src="./assets/cases/fashion-shopping-app/hero-screen.png" alt="Fashion Shopping App 细节"></div>
-          <div class="explore-caption"><strong data-discovery-title>Fashion Shopping App</strong><p data-discovery-copy data-zh="从真实移动端页面里找布局、层级和组件参考。" data-en="Use a real mobile interface to study layout, hierarchy and components.">从真实移动端页面里找布局、层级和组件参考。</p></div>
-        </article>
-      </div>
-    </section>
-
-    <section class="workflow-scene" id="workflow" aria-labelledby="workflowTitle">
-      <div class="home-shell workflow-head">
-        <p class="home-kicker">IMAGE2 TO UI · 01—04</p>
-        <h2 id="workflowTitle" data-zh="从一个 Idea 到一个 Demo，是四次判断。" data-en="From an idea to a demo: four decisions.">从一个 Idea 到一个 Demo，是四次判断。</h2>
-      </div>
-
-      <div class="home-shell workflow-layout">
-        <div class="workflow-stage" data-workflow-focus>
-          <div class="workflow-stage-art"><img data-workflow-image src="./assets/home/figures/steve-jobs.png" alt="DEFINE 阶段视觉"></div>
-          <span class="workflow-stage-ghost" data-workflow-ghost>DEFINE</span>
-          <div class="workflow-stage-copy"><small data-workflow-index>01 · DEFINE</small><strong data-workflow-title>DEFINE</strong><p data-workflow-lead data-zh="确定目标 / 页面 / 参考" data-en="Goal / Page / Reference">确定目标 / 页面 / 参考</p><span data-workflow-copy data-zh="先确定做什么、为谁做，以及参考什么。" data-en="Clarify what you are building, who it is for, and what should guide it.">先确定做什么、为谁做，以及参考什么。</span></div>
-        </div>
-
-        <div class="workflow-index" role="tablist" aria-label="Workflow stages">
-          <button type="button" class="is-active" data-workflow-step="0"><span>01</span><strong>DEFINE</strong><small data-zh="决定什么重要" data-en="Decide what matters">决定什么重要</small></button>
-          <button type="button" data-workflow-step="1"><span>02</span><strong>CREATE</strong><small data-zh="把参考拆成规则" data-en="Turn references into rules">把参考拆成规则</small></button>
-          <button type="button" data-workflow-step="2"><span>03</span><strong>BUILD</strong><small data-zh="交给 AI Coding" data-en="Build with AI Coding">交给 AI Coding</small></button>
-          <button type="button" data-workflow-step="3"><span>04</span><strong>ITERATE</strong><small data-zh="对照结果继续改" data-en="Compare and refine">对照结果继续改</small></button>
-          <a class="workflow-source" href="https://github.com/zhu-guli326/image2_UI_skill.git" target="_blank" rel="noopener noreferrer"><span data-zh="查看 image2_UI_skill" data-en="View image2_UI_skill">查看 image2_UI_skill</span> ↗</a>
+    <section class="project-section project-capabilities" id="capabilities">
+      <div class="project-container">
+        <header class="section-heading">
+          <p class="section-eyebrow">ONE CONNECTED SYSTEM</p>
+          <h2 data-zh="把“我喜欢这个”，变成可以执行的设计决定。" data-en="Turn “I like this” into design decisions you can execute.">把“我喜欢这个”，变成可以执行的设计决定。</h2>
+        </header>
+        <div class="capability-grid">
+          <a href="./library.html?lang=zh" data-smart-lang-link="./library.html"><img src="./assets/home/orbit-cards/visual-direction.webp" alt="真实案例与视觉方向界面"><span class="capability-shade"></span><small>01 · EXPLORE</small><div><strong data-zh="探索真实案例" data-en="Explore real cases">探索真实案例</strong><p data-zh="找到能打开、能体验、能继续拆解的设计参考。" data-en="Find references you can open, experience, and decompose.">找到能打开、能体验、能继续拆解的设计参考。</p><i>↗</i></div></a>
+          <a href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html"><img src="./assets/home/orbit-cards/component-states.webp" alt="UI 组件与状态界面"><span class="capability-shade"></span><small>02 · VOCABULARY</small><div><strong>UI Vocabulary</strong><p data-zh="把模糊描述翻译成标准组件、模式与状态。" data-en="Translate fuzzy descriptions into standard components, patterns, and states.">把模糊描述翻译成标准组件、模式与状态。</p><i>↗</i></div></a>
+          <a href="./brands.html?lang=zh" data-smart-lang-link="./brands.html"><img src="./assets/home/orbit-cards/material-dna.webp" alt="设计系统材质与规范界面"><span class="capability-shade"></span><small>03 · SYSTEMS</small><div><strong data-zh="设计系统参考" data-en="Design system references">设计系统参考</strong><p data-zh="理解品牌如何组织颜色、字体、间距和交互。" data-en="See how brands organize color, type, spacing, and interaction.">理解品牌如何组织颜色、字体、间距和交互。</p><i>↗</i></div></a>
+          <a href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><img src="./assets/home/orbit-cards/responsive-prototype.webp" alt="Design DNA 响应式原型界面"><span class="capability-shade"></span><small>04 · BUILD</small><div><strong>Design DNA</strong><p data-zh="确定视觉规则，预览效果，再交给 AI 生成页面。" data-en="Define visual rules, preview the result, then build with AI.">确定视觉规则，预览效果，再交给 AI 生成页面。</p><i>↗</i></div></a>
         </div>
       </div>
     </section>
 
-    <section class="dna-scene" id="design-dna" aria-labelledby="dnaTitle" data-dna-step="0">
-      <div class="home-shell dna-head">
-        <p class="home-kicker">DESIGN DNA · BUILD 0 → 1</p>
-        <h2 id="dnaTitle" data-zh="一条一条，把规则装进去。" data-en="Build the rules in, one layer at a time.">一条一条，把规则装进去。</h2>
-        <p data-zh="点左边四步，看一个普通界面怎样长成可以复用的设计系统。" data-en="Select the four steps and watch a generic interface grow into a reusable design system.">点左边四步，看一个普通界面怎样长成可以复用的设计系统。</p>
+    <section class="project-showcase" aria-label="从参考到界面的工作流">
+      <div class="showcase-copy">
+        <p class="section-eyebrow">FROM REFERENCE TO INTERFACE</p>
+        <h2 data-zh="一套可以看见、理解、修改并真正落地的工作流。" data-en="A workflow you can see, understand, edit, and put into practice.">一套可以看见、理解、修改并真正落地的工作流。</h2>
+        <p data-zh="真实参考、布局地图、组件状态、响应式原型与视觉检查，在同一条路径里彼此连接。" data-en="Real references, layout maps, component states, responsive prototypes, and visual checks connect in one path.">真实参考、布局地图、组件状态、响应式原型与视觉检查，在同一条路径里彼此连接。</p>
       </div>
-
-      <div class="home-shell dna-layout" data-dna-stage>
-        <div class="dna-index" role="tablist" aria-label="Design DNA rules">
-          <button type="button" class="dna-rule is-active" data-dna-rule="0"><span>01</span><div><strong>Typography</strong><p data-zh="统一字号、字重、行高。" data-en="Unify type scale, weight and line height.">统一字号、字重、行高。</p></div></button>
-          <button type="button" class="dna-rule" data-dna-rule="1"><span>02</span><div><strong>Color</strong><p data-zh="给主色、表面、状态色固定角色。" data-en="Give primary, surface and state colors clear roles.">给主色、表面、状态色固定角色。</p></div></button>
-          <button type="button" class="dna-rule" data-dna-rule="2"><span>03</span><div><strong>Spacing</strong><p data-zh="间距统一到同一套 scale。" data-en="Use one spacing scale.">间距统一到同一套 scale。</p></div></button>
-          <button type="button" class="dna-rule" data-dna-rule="3"><span>04</span><div><strong>Components</strong><p data-zh="补齐 Default / Hover / Active / Disabled。" data-en="Complete Default / Hover / Active / Disabled states.">补齐 Default / Hover / Active / Disabled。</p></div></button>
-        </div>
-
-        <article class="dna-workspace" aria-label="Design DNA applied to a product interface">
-          <div class="dna-toolbar"><span class="dna-dots"><i></i><i></i><i></i></span><span>ondesign / workspace</span><span>⌘K</span></div>
-          <div class="dna-workspace-body">
-            <aside class="dna-sidebar"><strong>ON</strong><nav><span class="is-active">Overview</span><span>Projects</span><span>Pages</span><span>Components</span><span>Tokens</span></nav></aside>
-            <div class="dna-main">
-              <div class="dna-main-head"><div><small>DESIGN WORKSPACE</small><h3 data-zh="同一套规则，继续长出更多页面。" data-en="One rule system, more coherent pages.">同一套规则，继续长出更多页面。</h3><p data-zh="参考、组件和 Token 放在一起。改一处，后面的页面都有依据。" data-en="Keep references, components and tokens together so every new page shares one source of truth.">参考、组件和 Token 放在一起。改一处，后面的页面都有依据。</p></div><button type="button" tabindex="-1" aria-hidden="true" data-zh="新建页面" data-en="New page">新建页面</button></div>
-              <div class="dna-project-grid"><article><i></i><strong>Commerce</strong><span>12 pages</span></article><article><i></i><strong>Dashboard</strong><span>8 pages</span></article><article><i></i><strong>Mobile</strong><span>16 screens</span></article></div>
-              <div class="dna-component-row"><span class="dna-input">Search interface…</span><span class="dna-primary">Primary</span><span class="dna-secondary">Secondary</span><span class="dna-toggle"><i></i> Enabled</span></div>
-            </div>
-          </div>
-        </article>
-
-        <div class="dna-note" aria-live="polite"><small data-dna-note-index>01 · TYPE SYSTEM</small><strong data-dna-note-title>Typography</strong><span data-dna-note-copy data-zh="先建立字阶，页面才有稳定层级。" data-en="Start with a type scale so the page has a stable hierarchy.">先建立字阶，页面才有稳定层级。</span></div>
+      <div class="showcase-scene">
+        <a class="showcase-card showcase-card-1" href="./library.html?lang=zh" data-smart-lang-link="./library.html"><img src="./assets/home/orbit-cards/visual-direction.webp" alt="选择视觉方向"><span data-zh="视觉方向" data-en="Visual direction">视觉方向</span></a>
+        <a class="showcase-card showcase-card-2" href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html"><img src="./assets/home/orbit-cards/layout-map.webp" alt="拆解页面布局"><span data-zh="布局地图" data-en="Layout map">布局地图</span></a>
+        <a class="showcase-card showcase-card-3" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><img src="./assets/home/orbit-cards/responsive-prototype.webp" alt="生成响应式原型"><span data-zh="响应式原型" data-en="Responsive prototype">响应式原型</span></a>
+        <a class="showcase-card showcase-card-4" href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html"><img src="./assets/home/orbit-cards/component-states.webp" alt="检查组件状态"><span data-zh="组件状态" data-en="Component states">组件状态</span></a>
+        <a class="showcase-card showcase-card-5" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><img src="./assets/home/orbit-cards/visual-check.webp" alt="完成视觉检查"><span data-zh="视觉检查" data-en="Visual check">视觉检查</span></a>
       </div>
     </section>
 
-    <section class="final-cta">
-      <div class="home-shell final-cta-grid">
-        <p class="home-kicker">START DESIGNING</p>
-        <h2 data-zh="别只收藏喜欢的设计。让它成为下一次设计的起点。" data-en="Do not just save good design. Make it the starting point for your next one.">别只收藏喜欢的设计。让它成为下一次设计的起点。</h2>
-        <a class="final-cta-link" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html"><span data-zh="建立你的 Design DNA" data-en="Build your Design DNA">建立你的 Design DNA</span><i>→</i></a>
+    <section class="project-editorial">
+      <div class="project-container">
+        <p class="section-eyebrow">WHY ONDESIGN</p>
+        <blockquote data-zh="“我做 ONDesign，不是为了再收藏一批漂亮截图，而是想把‘我喜欢这个’变成 AI 能理解、能执行，也能继续修改的设计语言。”" data-en="“I built ONDesign not to collect more pretty screenshots, but to turn ‘I like this’ into a design language AI can understand, execute, and keep refining.”">“我做 ONDesign，不是为了再收藏一批漂亮截图，而是想把‘我喜欢这个’变成 AI 能理解、能执行，也能继续修改的设计语言。”</blockquote>
+        <div class="editorial-author"><span>朱脑壳</span><small>ONDesign Creator</small></div>
+      </div>
+    </section>
+
+    <section class="project-cta">
+      <div class="project-container project-cta-inner">
+        <div><p class="section-eyebrow">START WITH A REAL REFERENCE</p><h2 data-zh="找到一个方向，开始你的下一版界面。" data-en="Find a direction and build your next interface.">找到一个方向，开始你的下一版界面。</h2></div>
+        <div class="project-cta-actions"><a class="button-filled" href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html" data-zh="开始设计" data-en="Start designing">开始设计</a><a class="button-outline" href="./library.html?lang=zh" data-smart-lang-link="./library.html" data-zh="浏览案例库" data-en="Browse the library">浏览案例库</a></div>
       </div>
     </section>
   </main>
 
   <footer class="project-footer">
-    <div class="home-shell footer-grid">
-      <div class="footer-brand"><strong>ONDesign</strong><p data-zh="看参考，拆设计，交给 AI 做。" data-en="Find references. Break down the design. Build with AI.">看参考，拆设计，交给 AI 做。</p></div>
-      <nav><strong data-zh="看看" data-en="Explore">看看</strong><a href="./library.html?lang=zh" data-smart-lang-link="./library.html" data-zh="真实案例" data-en="Real cases">真实案例</a><a href="./brands.html?lang=zh" data-smart-lang-link="./brands.html" data-zh="设计系统" data-en="Design systems">设计系统</a></nav>
-      <nav><strong data-zh="学一下" data-en="Learn">学一下</strong><a href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html">UI Vocabulary</a><a href="./skills.html?lang=zh" data-smart-lang-link="./skills.html">Design Skill</a></nav>
-      <nav><strong data-zh="开做" data-en="Start">开做</strong><a href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html" data-zh="开始设计" data-en="Start designing">开始设计</a><a href="#top" data-zh="回到上面 ↑" data-en="Back to top ↑">回到上面 ↑</a></nav>
+    <div class="project-container footer-grid">
+      <div class="footer-brand"><strong>ONDesign</strong><p data-zh="从设计参考到真实界面。" data-en="From design references to real interfaces.">从设计参考到真实界面。</p></div>
+      <nav><strong data-zh="探索" data-en="Explore">探索</strong><a href="./library.html?lang=zh" data-smart-lang-link="./library.html" data-zh="真实案例" data-en="Real cases">真实案例</a><a href="./brands.html?lang=zh" data-smart-lang-link="./brands.html" data-zh="设计系统" data-en="Design systems">设计系统</a></nav>
+      <nav><strong data-zh="学习" data-en="Learn">学习</strong><a href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html">UI Vocabulary</a><a href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html">Design DNA</a></nav>
+      <nav><strong data-zh="开始" data-en="Start">开始</strong><a href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html" data-zh="开始设计" data-en="Start designing">开始设计</a><a href="#top" data-zh="返回顶部 ↑" data-en="Back to top ↑">返回顶部 ↑</a></nav>
     </div>
-    <div class="home-shell footer-bottom"><span>© 2026 ONDesign</span><span>AI UI Design Workflow</span></div>
+    <div class="project-container footer-bottom"><span>© 2026 ONDesign</span><span>AI UI Design Workflow</span></div>
   </footer>
 </body>
 </html>
