@@ -65,6 +65,7 @@ The four-card workflow should explain the path from an idea to a runnable demo. 
 - The four cards must share the same text baseline and vertical rhythm.
 - Stage wording must not be duplicated inside one card. Use the large translucent stage word behind the portrait as the single stage label; the top-left only shows the step number (`01` / `02` / `03` / `04`), and the lower copy starts with the person name instead of repeating `DEFINE / CREATE / BUILD / ITERATE`.
 - The large translucent stage word belongs in the upper visual field behind the portrait, while the portrait stays in front to create depth.
+- The stage word, person name, thinking line and description must all remain clearly visible in the card's default state; hover may enhance depth/glow but must never be required to reveal readable content.
 - Keep the person name, role/thinking line, and concise description in the lower text area.
 - Add a compact source link aligned to the lower-right of this section pointing to `https://github.com/zhu-guli326/image2_UI_skill.git`.
 
