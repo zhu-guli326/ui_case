@@ -962,3 +962,171 @@ if (!reducedMotion.matches) {
     if (ready) initHomeMotion();
   });
 }
+
+// Reuse the real Vocabulary navigation cards in the Home discovery strip.
+// The Vocabulary page remains the source of truth; this renderer mirrors the
+// same three terms and code-preview structures without turning them into images.
+const HOME_VOCABULARY_DISCOVERY_INDEX = 4;
+const HOME_VOCABULARY_ITEMS = [
+  {
+    id: "top-nav",
+    zh: "顶部导航栏",
+    en: "Navbar",
+    askZh: "logo、主要栏目和登录入口都放在最上面，还要看得出当前在哪。",
+    askEn: "Put the logo, primary sections, and sign-in entry at the top, and make the current location clear.",
+    tagsZh: ["导航", "code-ui", "全局"],
+    tagsEn: ["Navigation", "Code UI", "Global"],
+    preview: "top-nav",
+  },
+  {
+    id: "sidebar",
+    zh: "侧边栏",
+    en: "Sidebar",
+    askZh: "左边固定一列放工作区和主要入口，内容滚动时它还在。",
+    askEn: "Keep workspaces and primary destinations in a column on the left while the main content scrolls.",
+    tagsZh: ["导航", "工作台", "响应式"],
+    tagsEn: ["Navigation", "Workspace", "Responsive"],
+    preview: "sidebar",
+  },
+  {
+    id: "bottom-tabs",
+    zh: "底部标签栏",
+    en: "Bottom Tab Bar",
+    askZh: "手机底部固定几个入口，首页、收藏和个人资料随时能切换。",
+    askEn: "Keep Home, Favorites, and Profile available from a fixed bar at the bottom of the phone.",
+    tagsZh: ["移动端", "导航", "code-icon"],
+    tagsEn: ["Mobile", "Navigation", "Code icon"],
+    preview: "bottom-tabs",
+  },
+];
+
+function homeVocabularyPreviewMarkup(type) {
+  if (type === "top-nav") return `
+    <div class="vp-navbar">
+      <div class="vp-navbar-head"><span class="vp-wordmark"><i></i>NORTH STUDIO</span><div class="vp-nav-links"><b class="is-active">Home</b><b>Work</b><b>About</b></div><span class="vp-nav-action">Contact</span></div>
+      <main class="vp-navbar-content"><small>FEATURED</small><strong>Make room for everyday life</strong><p>Quiet, clear, and focused on what matters most.</p><div class="vp-navbar-cards"><span><b>Projects</b><small>Design system update</small></span><span><b>Analytics</b><small>Summer product research</small></span><span><b>Team</b><small>Team working notes</small></span></div></main>
+    </div>`;
+  if (type === "sidebar") return `
+    <div class="vp-sidebar-demo"><aside class="vp-side-nav"><span class="vp-side-brand"><i></i>Workspace</span><small>MAIN MENU</small><div class="vp-side-links"><span class="is-active"><i>⌂</i>Overview</span><span><i>□</i>Projects</span><span><i>◇</i>Analytics</span><span><i>○</i>Team</span></div><div class="vp-side-user"><i></i><span>Lin Qing<small>Online</small></span></div></aside><section class="vp-side-page"><div><small>Dashboard</small><span>•••</span></div><h2>Project overview</h2><p>Updated just now</p><div class="vp-side-panels"><i><small>Visitors</small><strong>12,480</strong><em>+18.4%</em></i><i><small>Projects</small><strong>24</strong><em>8 active</em></i></div></section></div>`;
+  return `
+    <div class="vp-phone"><div class="vp-phone-head">Today<span class="vp-avatar"></span></div><div class="vp-phone-content"><small>FEATURED</small><strong>Make room for everyday life</strong><p>Quiet, clear, and focused on what matters most.</p><div class="vp-phone-card">Explore<b>→</b></div></div><div class="vp-bottom-tabs"><span class="is-active"><i>⌂</i>Home</span><span><i>◇</i>Explore</span><span><i>♡</i>Saved</span><span><i>○</i>Profile</span></div></div>`;
+}
+
+function homeVocabularyText(zh, en) {
+  return currentLanguage() === "en" ? en : zh;
+}
+
+function homeVocabularyCardMarkup(item) {
+  const category = homeVocabularyText("导航与发现", "Navigation and discovery");
+  const stateVariants = homeVocabularyText("状态变体", "STATE VARIANTS");
+  const copyPrompt = homeVocabularyText("复制 Prompt", "Copy prompt");
+  const title = homeVocabularyText(item.zh, item.en);
+  const ask = homeVocabularyText(item.askZh, item.askEn);
+  const tags = (currentLanguage() === "en" ? item.tagsEn : item.tagsZh)
+    .map((tag, index) => `<span data-zh="${item.tagsZh[index]}" data-en="${item.tagsEn[index]}">${tag}</span>`)
+    .join("");
+  return `<article class="entry-card home-vocab-card" data-entry-id="${item.id}">
+    <div class="entry-card-inner">
+      <section class="entry-card-face entry-card-front">
+        <div class="entry-card-body">
+          <div class="entry-card-meta"><span data-zh="导航与发现" data-en="Navigation and discovery">${category}</span><span class="entry-flip-tag" data-zh="状态变体 ↻" data-en="STATE VARIANTS ↻">${stateVariants} ↻</span><span class="favorite-button" aria-hidden="true">☆</span></div>
+          <h3><span data-zh="${item.zh}" data-en="${item.en}">${title}</span><em>${item.en}</em></h3>
+          <p class="entry-ask">“<span data-zh="${item.askZh}" data-en="${item.askEn}">${ask}</span>”</p>
+          <div class="entry-visual">${homeVocabularyPreviewMarkup(item.preview)}</div>
+          <div class="entry-tags">${tags}</div>
+          <span class="copy-prompt"><b data-zh="复制 Prompt" data-en="Copy prompt">${copyPrompt}</b><i aria-hidden="true">▣</i></span>
+        </div>
+      </section>
+    </div>
+  </article>`;
+}
+
+function ensureHomeVocabularyStyles() {
+  if (document.getElementById("homeVocabularyDiscoveryStyles")) return;
+  const style = document.createElement("style");
+  style.id = "homeVocabularyDiscoveryStyles";
+  style.textContent = `
+    #templates .template-card.home-vocab-host{display:block!important;width:100%!important;max-width:none!important;aspect-ratio:auto!important;overflow:visible!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#202020!important;cursor:default!important;}
+    #templates .template-card.home-vocab-host::before,#templates .template-card.home-vocab-host::after{display:none!important;}
+    #templates .home-vocab-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;width:100%;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;padding:2px 2px 8px;scrollbar-width:thin;}
+    #templates .home-vocab-card{min-width:0;scroll-snap-align:start;border:1px solid #dedede;border-radius:12px;background:#fff;box-shadow:0 4px 18px rgba(0,0,0,.035);color:#222;text-decoration:none;}
+    #templates .home-vocab-card .entry-card-inner,#templates .home-vocab-card .entry-card-face,#templates .home-vocab-card .entry-card-body{height:100%;}
+    #templates .home-vocab-card .entry-card-body{display:flex;flex-direction:column;padding:22px 20px 18px;}
+    #templates .home-vocab-card .entry-card-meta{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:10px;color:#707070;font-size:11px;line-height:1.2;}
+    #templates .home-vocab-card .entry-flip-tag{padding:7px 10px;border:1px solid #bfe1cc;border-radius:6px;background:#f4fbf6;color:#12a85a;font-size:10px;letter-spacing:.035em;white-space:nowrap;}
+    #templates .home-vocab-card .favorite-button{font-size:22px;font-weight:300;color:#aaa;line-height:1;}
+    #templates .home-vocab-card h3{display:flex;align-items:baseline;gap:8px;margin:20px 0 12px;font-size:28px;font-weight:500;letter-spacing:-.04em;line-height:1.08;}
+    #templates .home-vocab-card h3 em{color:#12a85a;font-size:13px;font-style:normal;font-weight:700;letter-spacing:0;}
+    html[lang^="en"] #templates .home-vocab-card h3 em{display:none;}
+    #templates .home-vocab-card .entry-ask{min-height:54px;margin:0 0 16px;color:#666;font-size:13px;line-height:1.55;}
+    #templates .home-vocab-card .entry-visual{display:grid;min-height:250px;place-items:center;padding:14px;border:1px solid #e8e8e8;border-radius:8px;background:#fff;overflow:hidden;}
+    #templates .home-vocab-card .entry-tags{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 16px;}
+    #templates .home-vocab-card .entry-tags span{padding:5px 8px;border:1px solid #ddd;border-radius:5px;background:#fff;color:#666;font-size:10px;}
+    #templates .home-vocab-card .copy-prompt{display:flex;min-height:42px;align-items:center;justify-content:center;gap:10px;margin-top:auto;border-radius:6px;background:#15ad59;color:#fff;font-size:12px;font-weight:700;}
+    #templates .home-vocab-card .copy-prompt i{font-style:normal;font-size:14px;}
+    #templates .vp-navbar{width:100%;border:1px solid #d9e0dc;border-radius:6px;overflow:hidden;background:#f5f8f6;color:#26302b;}
+    #templates .vp-navbar-head{display:grid;grid-template-columns:1.2fr auto auto;align-items:center;gap:12px;padding:14px;background:#fff;border-bottom:1px solid #dbe2dd;font-size:9px;}
+    #templates .vp-wordmark,#templates .vp-side-brand{display:flex;align-items:center;gap:7px;font-weight:800;}
+    #templates .vp-wordmark i,#templates .vp-side-brand i{width:13px;height:13px;border-radius:4px;background:#278b5a;}
+    #templates .vp-nav-links{display:flex;gap:14px;color:#818781;}
+    #templates .vp-nav-links .is-active{color:#16834d;}
+    #templates .vp-nav-action{padding:8px 10px;border-radius:5px;background:#278b5a;color:#fff;font-weight:700;}
+    #templates .vp-navbar-content{padding:20px 18px 24px;background:linear-gradient(135deg,#f6faf7,#eef5f0);}
+    #templates .vp-navbar-content>small,#templates .vp-phone-content>small{color:#16834d;font-size:8px;font-weight:800;letter-spacing:.04em;}
+    #templates .vp-navbar-content>strong{display:block;max-width:90%;margin:8px 0 6px;font-size:21px;line-height:1.05;}
+    #templates .vp-navbar-content>p{margin:0;color:#7b827d;font-size:9px;}
+    #templates .vp-navbar-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:15px;}
+    #templates .vp-navbar-cards span{padding:10px;border:1px solid #dce4df;border-radius:6px;background:rgba(255,255,255,.86);}
+    #templates .vp-navbar-cards b,#templates .vp-navbar-cards small{display:block;font-size:8px;}
+    #templates .vp-navbar-cards small{margin-top:4px;color:#8c928e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    #templates .vp-sidebar-demo{display:grid;width:100%;grid-template-columns:36% 64%;min-height:226px;border:1px solid #d9e0dc;border-radius:6px;overflow:hidden;background:#fff;color:#26302b;}
+    #templates .vp-side-nav{display:flex;flex-direction:column;padding:13px 10px;border-right:1px solid #dce3de;background:#f5f8f6;}
+    #templates .vp-side-nav>small{margin:13px 0 8px;color:#89918b;font-size:7px;}
+    #templates .vp-side-links{display:grid;gap:3px;font-size:8px;}
+    #templates .vp-side-links span{display:flex;align-items:center;gap:7px;padding:7px;border-radius:5px;color:#66706a;}
+    #templates .vp-side-links .is-active{background:#fff;color:#15834c;font-weight:700;}
+    #templates .vp-side-links i{font-style:normal;}
+    #templates .vp-side-user{display:flex;align-items:center;gap:7px;margin-top:auto;padding-top:10px;border-top:1px solid #dce3de;font-size:8px;}
+    #templates .vp-side-user>i{width:17px;height:17px;border-radius:50%;background:#c8ef71;}
+    #templates .vp-side-user span small{display:block;color:#16834d;font-size:7px;}
+    #templates .vp-side-page{padding:14px 13px;}
+    #templates .vp-side-page>div:first-child{display:flex;justify-content:space-between;color:#7f8983;font-size:9px;}
+    #templates .vp-side-page h2{margin:6px 0 2px;font-size:15px;font-weight:500;}
+    #templates .vp-side-page>p{margin:0;color:#7d8580;font-size:7px;}
+    #templates .vp-side-panels{display:grid;grid-template-columns:1.3fr 1fr;gap:8px;margin-top:16px;}
+    #templates .vp-side-panels>i{display:flex;min-height:96px;flex-direction:column;justify-content:center;padding:10px;border:1px solid #d9e0dc;border-radius:5px;background:#f5f8f6;font-style:normal;}
+    #templates .vp-side-panels>i:first-child{background:#d7eadf;}
+    #templates .vp-side-panels small{font-size:7px;color:#69736d;}
+    #templates .vp-side-panels strong{margin:4px 0;font-size:14px;}
+    #templates .vp-side-panels em{color:#16834d;font-size:7px;font-style:normal;}
+    #templates .vp-phone{display:flex;width:min(180px,72%);min-height:244px;flex-direction:column;border:2px solid #27322c;border-radius:14px;background:#fff;overflow:hidden;color:#26302b;}
+    #templates .vp-phone-head{display:flex;align-items:center;justify-content:space-between;padding:16px 12px 10px;font-size:9px;font-weight:800;}
+    #templates .vp-avatar{display:inline-block;width:13px;height:13px;border-radius:50%;background:#c8ef71;}
+    #templates .vp-phone-content{padding:24px 12px 12px;}
+    #templates .vp-phone-content>strong{display:block;margin:7px 0 3px;font-size:11px;line-height:1.2;}
+    #templates .vp-phone-content>p{margin:0;color:#7c847f;font-size:6px;line-height:1.45;}
+    #templates .vp-phone-card{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding:10px;border-radius:5px;background:#469e6d;color:#fff;font-size:7px;font-weight:700;}
+    #templates .vp-bottom-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:auto;padding:11px 7px;border-top:1px solid #d8dfda;font-size:6px;text-align:center;color:#747d77;}
+    #templates .vp-bottom-tabs span{display:grid;gap:3px;justify-items:center;}
+    #templates .vp-bottom-tabs i{font-style:normal;font-size:10px;}
+    #templates .vp-bottom-tabs .is-active{color:#16834d;font-weight:700;}
+    @media(max-width:1050px){#templates .home-vocab-strip{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(320px,46%);}}
+    @media(max-width:680px){#templates .home-vocab-strip{margin-inline:calc((100vw - var(--home-page))/ -2);padding-inline:20px;grid-auto-columns:minmax(286px,86vw);scroll-padding-inline:20px;}#templates .home-vocab-card .entry-card-body{padding:18px 16px 15px;}#templates .home-vocab-card h3{font-size:24px;}#templates .home-vocab-card .entry-visual{min-height:230px;}}
+  `;
+  document.head.append(style);
+}
+
+function initHomeVocabularyDiscovery() {
+  const card = discoveryCards[HOME_VOCABULARY_DISCOVERY_INDEX];
+  if (!card || card.dataset.homeVocabularyReady === "true") return;
+  card.dataset.homeVocabularyReady = "true";
+  card.classList.add("home-vocab-host");
+  card.removeAttribute("href");
+  card.removeAttribute("data-smart-lang-link");
+  card.innerHTML = `<div class="home-vocab-strip" role="group" aria-label="UI Vocabulary preview">${HOME_VOCABULARY_ITEMS.map(homeVocabularyCardMarkup).join("")}</div>`;
+  card.style.setProperty("--discovery-ratio", "auto");
+  card.style.setProperty("--discovery-max-width", "none");
+  ensureHomeVocabularyStyles();
+}
+
+initHomeVocabularyDiscovery();
