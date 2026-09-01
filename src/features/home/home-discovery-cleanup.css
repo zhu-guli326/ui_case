@@ -1,7 +1,169 @@
-/* Home discovery section cleanup.
- * The main question already establishes the section, so the redundant
- * EXPLORE eyebrow is intentionally omitted in both languages.
+/* Home discovery: restore the original five-card gallery presentation.
+ * Later runtime enhancements may still initialize, but they must not collapse
+ * this section into a single preview or replace the original gallery geometry.
  */
 .project-home .discovery-strip .template-gallery-heading > .section-eyebrow {
+  display: block !important;
+}
+
+body.project-home #templates.discovery-strip .template-filters {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+body.project-home #templates.discovery-strip .template-filters a {
+  display: inline-flex !important;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  border: 1px solid #e2e2e2 !important;
+  border-radius: 999px !important;
+  background: #fff !important;
+  color: #111 !important;
+  font-size: 14px;
+  text-decoration: none;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+body.project-home #templates.discovery-strip .template-filters a.is-active {
+  border-color: #e2e2e2 !important;
+  background: #fff !important;
+  color: #111 !important;
+}
+
+body.project-home #templates.discovery-strip .template-grid {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 16px !important;
+  align-items: stretch !important;
+}
+
+body.project-home #templates.discovery-strip .template-card,
+body.project-home #templates.discovery-strip .template-card[hidden],
+body.project-home #templates.discovery-strip .template-card.home-vocab-host {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  aspect-ratio: 4 / 5.2 !important;
+  overflow: hidden !important;
+  border-radius: 8px !important;
+  background-color: #202020 !important;
+  background-position: center !important;
+  background-size: cover !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+body.project-home #templates.discovery-strip .template-card:nth-child(1) {
+  background-image: linear-gradient(180deg, rgba(0,0,0,.03) 38%, rgba(0,0,0,.18) 60%, rgba(0,0,0,.82)), url("../../../assets/style-covers/tactile-future.webp") !important;
+}
+body.project-home #templates.discovery-strip .template-card:nth-child(2) {
+  background-image: linear-gradient(180deg, rgba(0,0,0,.03) 38%, rgba(0,0,0,.18) 60%, rgba(0,0,0,.82)), url("../../../assets/style-covers/graphic-experimental.webp") !important;
+}
+body.project-home #templates.discovery-strip .template-card:nth-child(3) {
+  background-image: linear-gradient(180deg, rgba(0,0,0,.03) 38%, rgba(0,0,0,.18) 60%, rgba(0,0,0,.82)), url("../../../assets/style-covers/editorial-minimal.webp") !important;
+}
+body.project-home #templates.discovery-strip .template-card:nth-child(4) {
+  background-image: linear-gradient(180deg, rgba(0,0,0,.03) 38%, rgba(0,0,0,.18) 60%, rgba(0,0,0,.82)), url("../../../assets/style-covers/maximalism.webp") !important;
+}
+body.project-home #templates.discovery-strip .template-card:nth-child(5) {
+  background-image: linear-gradient(180deg, rgba(0,0,0,.03) 38%, rgba(0,0,0,.18) 60%, rgba(0,0,0,.82)), url("../../../assets/style-covers/luxury-minimal.webp") !important;
+}
+
+body.project-home #templates.discovery-strip .template-card > img,
+body.project-home #templates.discovery-strip .home-vocab-strip {
   display: none !important;
+}
+
+body.project-home #templates.discovery-strip .template-card > small,
+body.project-home #templates.discovery-strip .template-card > div,
+body.project-home #templates.discovery-strip .template-card > i {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+body.project-home #templates.discovery-strip .template-card > div {
+  right: 64px !important;
+  bottom: 22px !important;
+  left: 22px !important;
+}
+
+body.project-home #templates.discovery-strip .template-card > i {
+  right: 20px !important;
+  bottom: 20px !important;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+body.project-home #templates.discovery-strip .template-card strong {
+  font-size: clamp(20px, 1.75vw, 28px) !important;
+}
+
+/* The Vocabulary card is replaced by a richer runtime preview later in the
+ * page lifecycle. Re-create the original simple card surface here. */
+body.project-home #templates.discovery-strip .template-card.home-vocab-host::before {
+  display: block !important;
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  color: #fff;
+  content: "UI VOCABULARY";
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+}
+
+body.project-home #templates.discovery-strip .template-card.home-vocab-host::after {
+  display: block !important;
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
+  left: 22px;
+  color: #fff;
+  content: "UI 词库\A TERMS & PATTERNS";
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.65;
+  white-space: pre;
+}
+
+body.project-home #templates.discovery-strip .discovery-footer {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  body.project-home #templates.discovery-strip .template-grid {
+    grid-template-columns: none !important;
+    grid-auto-flow: column !important;
+    grid-auto-columns: minmax(260px, 42vw) !important;
+    overflow-x: auto !important;
+    padding-bottom: 8px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  body.project-home #templates.discovery-strip .template-grid::-webkit-scrollbar { display: none; }
+  body.project-home #templates.discovery-strip .template-card { scroll-snap-align: start; }
+}
+
+@media (max-width: 680px) {
+  body.project-home #templates.discovery-strip .template-filters {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+  body.project-home #templates.discovery-strip .template-filters a {
+    flex: 0 0 auto;
+    min-height: 40px;
+    padding-inline: 17px;
+  }
+  body.project-home #templates.discovery-strip .template-grid {
+    grid-auto-columns: 78vw !important;
+  }
 }
