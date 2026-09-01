@@ -24,11 +24,22 @@
   mix-blend-mode: screen !important;
 }
 
+/*
+ * Keep the portrait visually lower without translating the image box away from
+ * the card edge. The image is intentionally oversized so the card is always
+ * covered, including during hover/parallax movement.
+ */
 #capabilities .capability-grid > a > img {
   z-index: 1;
+  top: -6% !important;
+  bottom: auto !important;
+  width: 100% !important;
+  height: 112% !important;
+  object-fit: cover !important;
+  object-position: center 58% !important;
   transform: translate3d(
     calc((var(--pointer-from-left) - .5) * -5px),
-    calc(5.5% + ((var(--pointer-from-top) - .5) * -4px)),
+    calc((var(--pointer-from-top) - .5) * -4px),
     0
   ) scale(1.02) !important;
 }
@@ -36,7 +47,7 @@
 #capabilities .capability-grid > a:hover > img {
   transform: translate3d(
     calc((var(--pointer-from-left) - .5) * -7px),
-    calc(6.5% + ((var(--pointer-from-top) - .5) * -6px)),
+    calc((var(--pointer-from-top) - .5) * -6px),
     0
   ) scale(1.045) !important;
 }
@@ -133,7 +144,12 @@
   #capabilities .capability-grid > a::before { display: block !important; opacity: 1 !important; }
   #capabilities .capability-grid > a::after { display: none !important; }
   #capabilities .capability-grid > a > img,
-  #capabilities .capability-grid > a:hover > img { transform: translateY(4%) scale(1.01) !important; }
+  #capabilities .capability-grid > a:hover > img {
+    top: -6% !important;
+    height: 112% !important;
+    object-position: center 58% !important;
+    transform: scale(1.02) !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
