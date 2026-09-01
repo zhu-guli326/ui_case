@@ -1,9 +1,8 @@
 /*
  * Global site-header typography contract.
  *
- * The header is one shared component. Chinese and English may resolve to
- * different glyph-capable font families, but navigation geometry and visual
- * metrics must stay identical when the language changes.
+ * The header is one shared App Shell component. Page-level Design Systems may
+ * style page content, but they must never change Header typography.
  */
 
 :root {
@@ -19,21 +18,34 @@
   --site-header-star-size: 12px;
 }
 
+/* Lock shared chrome to the global language font stack instead of inheriting
+ * page-specific typography tokens such as --dna-display. */
+html[lang^="zh"] .site-header {
+  --site-header-font-family: var(--font-sans-zh);
+}
+
+html[lang^="en"] .site-header {
+  --site-header-font-family: var(--font-sans-en);
+}
+
+.site-header {
+  font-family: var(--site-header-font-family, var(--type-font-body)) !important;
+  font-synthesis: none;
+}
+
 /* Global typography metrics: family / size / tracking / line-height never
  * change between navigation states. Only weight and color express hierarchy. */
 .site-header nav.site-nav.site-nav > a,
 .site-header .site-nav-primary > a,
 .site-header .site-nav-community > a,
 .site-header .site-nav-more > summary {
-  font-family: var(--type-font-body) !important;
+  font-family: var(--site-header-font-family, var(--type-font-body)) !important;
   font-size: var(--site-header-nav-size) !important;
   font-weight: var(--site-header-nav-weight) !important;
   letter-spacing: var(--site-header-nav-tracking) !important;
   line-height: var(--site-header-nav-line-height) !important;
 }
 
-/* App-shell wraps translated labels in spans. They must never inherit page-level
- * span typography or language-specific body metrics. */
 .site-header nav.site-nav.site-nav > a > span[data-i18n],
 .site-header .site-nav-primary > a > span[data-i18n],
 .site-header .site-nav-community > a > span[data-i18n],
@@ -51,25 +63,22 @@
 .site-header .site-nav-primary > a[aria-current="page"],
 .site-header .site-nav-community > a[aria-current="page"],
 .site-header .site-nav-more.is-current > summary {
-  font-family: var(--type-font-body) !important;
+  font-family: var(--site-header-font-family, var(--type-font-body)) !important;
   font-size: var(--site-header-nav-size) !important;
   font-weight: var(--site-header-nav-active-weight) !important;
   letter-spacing: var(--site-header-nav-tracking) !important;
   line-height: var(--site-header-nav-line-height) !important;
 }
 
-/* Start Designing is the primary workflow entry. It is intentionally semibold
- * even when idle, but it still uses the exact same global family and metrics. */
+/* Start Designing is the primary workflow entry. */
 .site-header .site-nav-community > .site-nav-start {
-  font-family: var(--type-font-body) !important;
+  font-family: var(--site-header-font-family, var(--type-font-body)) !important;
   font-size: var(--site-header-nav-size) !important;
   font-weight: var(--site-header-nav-primary-weight) !important;
   letter-spacing: var(--site-header-nav-tracking) !important;
   line-height: var(--site-header-nav-line-height) !important;
 }
 
-/* Current-page state is owned globally. Feature pages must not invent their own
- * color, underline, dot, border or badge treatment for Explore/Library/Start. */
 .site-header nav.site-nav.site-nav > a[aria-current="page"],
 .site-header .site-nav-primary > a[aria-current="page"],
 .site-header .site-nav-community > a[aria-current="page"],
@@ -92,8 +101,7 @@
   content: none !important;
 }
 
-/* Hover/focus changes color only. It must not create a fake font-family or
- * font-size shift while the pointer moves across the navigation. */
+/* Hover/focus changes color only; typography metrics stay stable. */
 .site-header nav.site-nav.site-nav > a:not([aria-current="page"]):hover,
 .site-header nav.site-nav.site-nav > a:not([aria-current="page"]):focus-visible,
 .site-header .site-nav-primary > a:not([aria-current="page"]):hover,
@@ -112,7 +120,7 @@
 }
 
 .site-header .site-nav-more > summary::after {
-  font-family: var(--type-font-body) !important;
+  font-family: var(--site-header-font-family, var(--type-font-body)) !important;
   font-size: 12px !important;
   font-weight: var(--site-header-nav-active-weight) !important;
   letter-spacing: 0 !important;
@@ -120,7 +128,7 @@
 }
 
 .site-header .site-nav-menu a {
-  font-family: var(--type-font-body) !important;
+  font-family: var(--site-header-font-family, var(--type-font-body)) !important;
   font-size: var(--site-header-menu-size) !important;
   font-weight: 400 !important;
   letter-spacing: 0 !important;
@@ -128,7 +136,7 @@
 }
 
 .site-header .site-nav-menu a strong {
-  font-family: var(--type-font-body) !important;
+  font-family: var(--site-header-font-family, var(--type-font-body)) !important;
   font-size: var(--site-header-menu-size) !important;
   font-weight: var(--site-header-nav-weight) !important;
   letter-spacing: 0 !important;
@@ -136,7 +144,7 @@
 }
 
 .site-header .site-nav-menu a small {
-  font-family: var(--type-font-body) !important;
+  font-family: var(--site-header-font-family, var(--type-font-body)) !important;
   font-size: var(--site-header-menu-small-size) !important;
   font-weight: 400 !important;
   letter-spacing: 0 !important;
@@ -144,7 +152,7 @@
 }
 
 .site-header .global-language-switch button {
-  font-family: var(--type-font-body) !important;
+  font-family: var(--site-header-font-family, var(--type-font-body)) !important;
   font-size: var(--site-header-language-size) !important;
   font-weight: 600 !important;
   letter-spacing: 0 !important;
