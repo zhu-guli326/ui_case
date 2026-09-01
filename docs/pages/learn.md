@@ -63,11 +63,11 @@ The four-card workflow should explain the path from an idea to a runnable demo. 
 - `DEFINE / CREATE / BUILD / ITERATE` must be more visually prominent than the names of Steve Jobs, Leonardo da Vinci, Bill Gates or Thomas Edison.
 - Historical figures are supporting metaphors only; they should not become the main information users have to read.
 - The four cards must share the same text baseline and vertical rhythm.
-- Stage wording must not be duplicated inside one card. Use the large translucent stage word behind the portrait as the single stage label; the top-left only shows the step number (`01` / `02` / `03` / `04`), and the lower copy starts with the person name instead of repeating `DEFINE / CREATE / BUILD / ITERATE`.
-- The large translucent stage word belongs in the upper visual field behind the portrait, while the portrait stays in front to create depth.
-- The stage word must remain clearly legible in the default state. Give the card a taller upper visual field, keep the portrait lower, and use stronger stage-word size/contrast so the word is not swallowed by the head/portrait.
-- The stage word, person name, thinking line and description must all remain clearly visible in the card's default state; hover may enhance depth/glow but must never be required to reveal readable content.
+- Approved final artwork set: purple `DEFINE / Steve Jobs`, orange `CREATE / Leonardo da Vinci`, blue `BUILD / Bill Gates`, green `ITERATE / Thomas Edison`, all using the same 3:4 halftone poster composition.
+- The stage word is baked into each approved poster image. Do not render a second HTML/CSS `DEFINE / CREATE / BUILD / ITERATE` layer over the artwork; the only separate top label is the step number (`01` / `02` / `03` / `04`).
+- Preserve the full upper composition of each poster so its baked stage word is not cropped. The poster image itself owns the stage-word size, position and person/background depth relationship.
 - Keep the person name, role/thinking line, and concise description in the lower text area.
+- The poster, person name, thinking line and description must all remain clearly visible in the card's default state; hover may enhance depth/glow but must never be required to reveal readable content.
 - Add a compact source link aligned to the lower-right of this section pointing to `https://github.com/zhu-guli326/image2_UI_skill.git`.
 
 #### Workflow card motion enhancement
@@ -76,7 +76,7 @@ The four workflow cards use the pointer-reactive motion language from React Bits
 
 - Desktop pointer interaction: each card tilts in 3D toward the pointer, with a soft pointer-following glare/highlight and subtle depth response.
 - Motion should interpolate smoothly rather than snap; when the pointer leaves, the card eases back to center before the active glow disappears.
-- Keep the current four portrait assets, per-stage color treatment, text content, grid proportions and source-link placement. The motion is an enhancement, not a redesign into a profile/contact card.
+- Keep the approved four poster assets, per-stage color treatment, text content, grid proportions and source-link placement. The motion is an enhancement, not a redesign into a profile/contact card.
 - Do not add ProfileCard-specific user UI such as handle, online status, mini avatar or Contact button.
 - Do not add mobile device-orientation tilt. Touch/mobile keeps the static card presentation.
 - Do not add React solely for this effect. The current page is a static HTML/CSS/JS site, so preserve the React Bits motion model in the existing vanilla-JS architecture.
