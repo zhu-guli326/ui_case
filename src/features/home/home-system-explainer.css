@@ -1,21 +1,67 @@
 @import url("./home-system-explainer-base.css");
 
-/* Workflow typography refinement: stronger text hierarchy without changing the card composition. */
+/* Workflow typography refinement: stronger default hierarchy without requiring hover. */
+#capabilities .capability-grid > a {
+  --workflow-card-opacity: 0;
+}
+
+/* The stage word is a permanent visual layer. Keep it separate from the hover glow. */
+#capabilities .capability-grid > a::before {
+  opacity: 1 !important;
+  background: none !important;
+  filter: none !important;
+  mix-blend-mode: soft-light !important;
+}
+
+/* Move the pointer-following light to ::after so hover remains an enhancement only. */
+#capabilities .capability-grid > a::after {
+  opacity: var(--workflow-card-opacity) !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255,255,255,.34) 0%, rgba(255,255,255,.12) 18%, transparent 46%),
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), var(--workflow-glow) 0%, transparent 58%),
+    linear-gradient(135deg, rgba(255,255,255,.15), transparent 28%, transparent 70%, rgba(255,255,255,.08)) !important;
+  mix-blend-mode: screen !important;
+}
+
+#capabilities .capability-grid > a > img {
+  z-index: 1;
+  transform: translate3d(
+    calc((var(--pointer-from-left) - .5) * -5px),
+    calc(5.5% + ((var(--pointer-from-top) - .5) * -4px)),
+    0
+  ) scale(1.02) !important;
+}
+
+#capabilities .capability-grid > a:hover > img {
+  transform: translate3d(
+    calc((var(--pointer-from-left) - .5) * -7px),
+    calc(6.5% + ((var(--pointer-from-top) - .5) * -6px)),
+    0
+  ) scale(1.045) !important;
+}
+
 #capabilities .capability-grid > a > .capability-shade {
-  background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,.08) 43%, rgba(0,0,0,.46) 64%, rgba(0,0,0,.92) 84%, rgba(0,0,0,.985) 100%) !important;
+  z-index: 3;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 26%, rgba(0,0,0,.05) 39%, rgba(0,0,0,.42) 60%, rgba(0,0,0,.92) 80%, rgba(0,0,0,.99) 100%) !important;
 }
 
 #capabilities .capability-grid > a > small::after {
+  color: #fff !important;
   font-size: 13px !important;
   font-weight: 800 !important;
   letter-spacing: .08em !important;
-  text-shadow: 0 1px 14px rgba(0,0,0,.52);
+  opacity: 1 !important;
+  text-shadow: 0 1px 14px rgba(0,0,0,.62);
 }
 
 #capabilities .capability-grid > a > div {
   right: 22px !important;
-  bottom: 26px !important;
+  bottom: 30px !important;
   left: 22px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
 }
 
 #capabilities .capability-grid > a > div > p {
@@ -25,7 +71,16 @@
   color: #fff !important;
   font-size: 14px !important;
   line-height: 1.55 !important;
-  text-shadow: 0 2px 16px rgba(0,0,0,.65);
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+  text-shadow: 0 2px 16px rgba(0,0,0,.78);
+}
+
+#capabilities .capability-grid > a > div > p > span {
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
 }
 
 #capabilities .capability-grid > a > div > p > span:first-child {
@@ -33,9 +88,9 @@
   overflow: visible !important;
   margin: 0 0 10px !important;
   color: #fff !important;
-  font-size: clamp(21px, 1.55vw, 24px) !important;
+  font-size: clamp(22px, 1.6vw, 25px) !important;
   font-weight: 800 !important;
-  letter-spacing: -.025em !important;
+  letter-spacing: -.02em !important;
   line-height: 1.15 !important;
   white-space: normal !important;
 }
@@ -44,9 +99,9 @@
   display: block !important;
   overflow: visible !important;
   margin: 0 0 8px !important;
-  color: rgba(255,255,255,.84) !important;
+  color: rgba(255,255,255,.9) !important;
   font-size: 14px !important;
-  font-weight: 560 !important;
+  font-weight: 600 !important;
   line-height: 1.45 !important;
   white-space: normal !important;
 }
@@ -54,7 +109,7 @@
 #capabilities .capability-grid > a > div > p > span:nth-child(3) {
   display: block !important;
   margin: 0 !important;
-  color: rgba(255,255,255,.97) !important;
+  color: #fff !important;
   font-size: 14px !important;
   font-weight: 500 !important;
   line-height: 1.55 !important;
@@ -63,7 +118,8 @@
 #capabilities .capability-grid > a > div > i {
   color: #fff !important;
   font-size: 18px !important;
-  text-shadow: 0 2px 12px rgba(0,0,0,.55);
+  opacity: 1 !important;
+  text-shadow: 0 2px 12px rgba(0,0,0,.65);
 }
 
 @media (max-width: 1100px) {
@@ -71,4 +127,16 @@
   #capabilities .capability-grid > a > div > p,
   #capabilities .capability-grid > a > div > p > span:nth-child(2),
   #capabilities .capability-grid > a > div > p > span:nth-child(3) { font-size: 13px !important; }
+}
+
+@media (hover: none), (pointer: coarse), (max-width: 768px) {
+  #capabilities .capability-grid > a::before { display: block !important; opacity: 1 !important; }
+  #capabilities .capability-grid > a::after { display: none !important; }
+  #capabilities .capability-grid > a > img,
+  #capabilities .capability-grid > a:hover > img { transform: translateY(4%) scale(1.01) !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #capabilities .capability-grid > a::before { display: block !important; opacity: 1 !important; }
+  #capabilities .capability-grid > a::after { display: none !important; }
 }
