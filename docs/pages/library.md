@@ -38,6 +38,18 @@ A user should be able to find a relevant case, understand what makes it useful, 
 4. Source / demo / relevant next action
 5. Persistent bottom-centered floating search for global case discovery
 
+## Copy direction
+
+- The hero should feel like a visual browsing entry, not product documentation.
+- Chinese hero title: `看看这些，\n再决定你想做成什么样。`
+- Chinese hero intro: `从真实案例开始找方向。看界面、试 Demo，再把喜欢的感觉带进你的设计。`
+- Category heading: `想看哪一类？`
+- Chinese category labels should stay short: `全部 / 文化 / 电商 / 阅读 / 旅行 / 工具 / 健康`.
+- The case-list heading should be `从一个喜欢的界面开始。`; avoid redundant kicker copy such as `精选案例 / 从画面开始`.
+- Detail explanation should use conversational copy: `为什么它看起来舒服？` with `色彩、排版、组件、动效` as the supporting scope.
+- Primary detail actions should be `用这个风格` and `从这个案例开始`.
+- English should preserve the same tone and hierarchy rather than translating older product-documentation wording literally.
+
 ## Interaction rules
 
 - Visual evidence should dominate over metadata.
