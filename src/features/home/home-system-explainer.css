@@ -304,19 +304,22 @@
   pointer-events: none;
 }
 
-#design-system-live .system-callout {
-  z-index: 4;
-  opacity: 1;
-  filter: none;
-  pointer-events: none;
-  transform: none;
-  transition: opacity .48s ease, filter .55s ease, transform .62s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease !important;
-}
-
+/* These four rule cards are core content. GSAP may try to set inline opacity /
+ * visibility while scrubbing; !important here keeps the cards permanently
+ * present and lets motion only affect the central canvas. */
+#design-system-live .system-callout,
 #design-system-live .system-callout-type,
 #design-system-live .system-callout-color,
 #design-system-live .system-callout-spacing,
-#design-system-live .system-callout-states { transform: none; }
+#design-system-live .system-callout-states {
+  z-index: 4;
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+  pointer-events: none;
+  transform: none !important;
+  transition: box-shadow .45s ease !important;
+}
 
 @media (hover: hover) and (pointer: fine) {
   #design-system-live .system-explainer-stage:hover::after {
@@ -354,12 +357,6 @@
   #design-system-live .system-explainer-stage:hover .system-app-section-title { transition-delay: .24s !important; }
   #design-system-live .system-explainer-stage:hover .system-projects { transition-delay: .32s !important; }
   #design-system-live .system-explainer-stage:hover .system-activity { transition-delay: .4s !important; }
-
-  #design-system-live .system-explainer-stage:hover .system-callout {
-    opacity: 1;
-    filter: none;
-    transform: none;
-  }
 }
 
 @media (hover: none), (pointer: coarse), (max-width: 1180px) {
@@ -375,6 +372,7 @@
   #design-system-live .system-activity,
   #design-system-live .system-callout {
     opacity: 1 !important;
+    visibility: visible !important;
     filter: none !important;
     transform: none !important;
   }
@@ -399,6 +397,7 @@
   #design-system-live .system-activity,
   #design-system-live .system-callout {
     opacity: 1 !important;
+    visibility: visible !important;
     filter: none !important;
     transform: none !important;
     transition: none !important;
