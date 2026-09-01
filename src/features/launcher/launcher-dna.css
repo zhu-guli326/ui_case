@@ -12,15 +12,19 @@ body.dna-page .ds-trigger-swatches {
   display: none !important;
 }
 
-/* One active Design System drives both Launcher chrome and Preview.
- * launcher-design-systems.js writes --dna-* variables at runtime; the page
- * chrome must consume the same typography/color/radius/spacing source rather
- * than freezing controls to a separate global font layer. */
-body.dna-page {
+/*
+ * Scope the selected Design System to the Launcher workspace only.
+ *
+ * The global App Shell (site header / footer / language switch) must always
+ * keep ONDesign's global typography. A selected Design System may change the
+ * Launcher controls and live Preview, but it must never leak into shared
+ * navigation chrome.
+ */
+body.dna-page .dna-app {
   font-family: var(--dna-display, var(--font-sans-cjk));
 }
 
-body.dna-page :where(
+body.dna-page .dna-app :where(
   button,
   input,
   select,
