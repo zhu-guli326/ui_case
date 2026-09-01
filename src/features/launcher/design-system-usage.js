@@ -51,6 +51,30 @@ const PRODUCT_UI_OVERRIDES = {
     rounded: { sm: "4px", md: "6px", lg: "8px" },
     spacing: { sm: "6px", base: "8px", md: "8px", lg: "12px" },
   },
+  shopify: {
+    description: "Shopify product UI foundation. Light neutral admin surfaces with Shopify Green reserved for primary actions, selected states and functional highlights.",
+    colors: {
+      primary: "#008060",
+      accent: "#008060",
+      canvas: "#f6f6f7",
+      surface: "#ffffff",
+      "surface-1": "#ffffff",
+      "surface-2": "#f1f2f3",
+      card: "#ffffff",
+      ink: "#202223",
+      text: "#202223",
+      muted: "#6d7175",
+      "text-secondary": "#6d7175",
+      border: "#c9cccf",
+      "on-primary": "#ffffff",
+    },
+    typography: {
+      body: { fontFamily: "system-ui", fontSize: "14px", fontWeight: "400" },
+      title: { fontFamily: "system-ui", fontSize: "16px", fontWeight: "600" },
+    },
+    rounded: { sm: "4px", md: "8px", lg: "12px" },
+    spacing: { sm: "8px", base: "8px", md: "12px", lg: "16px" },
+  },
   spotify: {
     description: "Spotify product UI foundation. Near-black immersive surfaces with Spotify Green reserved for primary actions, active states and functional highlights.",
     colors: {
