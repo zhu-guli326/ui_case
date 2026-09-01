@@ -59,10 +59,11 @@ Category wording can be refined, but the structure should remain intuitive and s
 
 1. Flat mode / directory context without an enclosing hero card
 2. Flat filter controls
-3. Resource list / visual cards
-4. Focused inspector / flipped detail when useful
-5. Direct action: visit, copy prompt, inspect source availability, etc.
-6. Persistent bottom-centered floating search for Skill / Web resource discovery
+3. Lightweight utility row for useful actions such as sort / reset / sync status
+4. Resource list / visual cards
+5. Focused inspector / flipped detail when useful
+6. Direct action: visit, copy prompt, inspect source availability, etc.
+7. Persistent bottom-centered floating search for Skill / Web resource discovery
 
 ## Interaction rules
 
@@ -75,7 +76,8 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Resources that cannot meaningfully flip should not fake a flip interaction.
 - Source-code availability should remain visible and filterable.
 - The primary search field is detached from the content toolbar and remains centered at the bottom of the viewport.
-- Once search is detached, do not keep an inline result-count, sort/sync or empty toolbar strip above the directory content.
+- Useful secondary controls such as sorting, reset and sync/status indicators should remain accessible; style them as a lightweight, borderless utility row instead of hiding them or wrapping them in another card.
+- Result-count-only or empty toolbar chrome should not remain after search moves to the floating dock.
 - On desktop pointer devices, the floating search stays icon-sized while idle and expands only on hover or keyboard/input focus; this compact resting state must not block page content.
 - Touch layouts should remain directly usable without requiring hover.
 - The floating search uses the same shared geometry as Library and Vocabulary, while keeping Skills-specific placeholder text and filtering behavior.
@@ -85,6 +87,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 
 - `SKILL` and `WEB` modes unless explicitly changed by product requirements.
 - Source-code filtering.
+- Sort / reset / sync-state controls when they provide real directory functionality.
 - URL state.
 - Existing responsibility split between data, filtering and rendering.
 - Direct links to the original resource.
@@ -94,7 +97,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Page-level card chrome around the hero, overview or filter sidebar.
 - Duplicate filter systems.
 - Task-search controls that do not improve resource discovery.
-- Result-count / sort / sync-only toolbar chrome after search moves to the floating dock.
+- Result-count-only or empty toolbar chrome after search moves to the floating dock.
 - Large empty margins that reduce browsing efficiency.
 - Repeated buttons or repeated resource metadata.
 - Recreating Library or Vocabulary inside this page.
