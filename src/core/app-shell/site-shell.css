@@ -30,9 +30,26 @@
  * scales locally.
  */
 
-/* Home navigation is transparent only while it sits over the first-screen hero.
- * Once the page leaves the hero state it restores the original white header. */
+/*
+ * Home header has two explicit visual states:
+ * 1. Hero / first screen: transparent and integrated into the artwork.
+ * 2. After the hero: restore the original solid white navigation chrome.
+ *
+ * The state is driven by scroll-linked custom properties because the shared
+ * header contract intentionally protects its core properties with !important.
+ */
 body.project-home > .site-header {
+  --home-nav-bg: rgba(255, 254, 250, 0);
+  --home-nav-border: rgba(221, 217, 208, 0);
+  --home-nav-shadow: rgba(25, 28, 25, 0);
+  --home-nav-ink: #fff;
+  --home-nav-muted: rgba(255, 255, 255, .82);
+  --home-nav-switch-bg: rgba(0, 0, 0, .12);
+  --home-nav-switch-border: rgba(255, 255, 255, .3);
+  --home-nav-active-bg: #fff;
+  --home-nav-active-ink: #171a18;
+  --home-nav-logo-filter: brightness(0) invert(1);
+
   position: fixed !important;
   z-index: 60;
   top: 8px !important;
@@ -40,10 +57,10 @@ body.project-home > .site-header {
   right: 16px;
   width: calc(100% - 32px) !important;
   margin: 0 !important;
-  border: 1px solid transparent !important;
+  border: 1px solid var(--home-nav-border) !important;
   border-radius: 999px !important;
-  background: transparent !important;
-  box-shadow: none !important;
+  background: var(--home-nav-bg) !important;
+  box-shadow: 0 8px 30px var(--home-nav-shadow) !important;
   backdrop-filter: none !important;
 }
 
@@ -52,13 +69,13 @@ body.project-home > .site-header nav.site-nav.site-nav > a,
 body.project-home > .site-header .site-nav-primary > a,
 body.project-home > .site-header .site-nav-community > a,
 body.project-home > .site-header .site-nav-more > summary {
-  color: #fff !important;
+  color: var(--home-nav-ink) !important;
   text-shadow: 0 1px 14px rgba(0, 0, 0, .28);
 }
 
 body.project-home > .site-header .site-brand-logo,
 body.project-home > .site-header .site-brand-wordmark {
-  filter: brightness(0) invert(1);
+  filter: var(--home-nav-logo-filter);
 }
 
 body.project-home > .site-header nav.site-nav.site-nav > a:hover,
@@ -77,91 +94,74 @@ body.project-home > .site-header .site-nav-more > summary:focus-visible {
 }
 
 body.project-home > .site-header .global-language-switch {
-  border-color: rgba(255, 255, 255, .3) !important;
-  background: rgba(0, 0, 0, .12) !important;
+  border-color: var(--home-nav-switch-border) !important;
+  background: var(--home-nav-switch-bg) !important;
   backdrop-filter: blur(8px);
 }
 
 body.project-home > .site-header .global-language-switch button {
-  border-color: rgba(255, 255, 255, .22) !important;
-  color: rgba(255, 255, 255, .82) !important;
+  border-color: var(--home-nav-switch-border) !important;
+  color: var(--home-nav-muted) !important;
 }
 
 body.project-home > .site-header .global-language-switch button[aria-pressed="true"] {
-  background: #fff !important;
-  color: #171a18 !important;
+  background: var(--home-nav-active-bg) !important;
+  color: var(--home-nav-active-ink) !important;
 }
 
 @supports (animation-timeline: scroll()) {
   body.project-home > .site-header {
-    animation: home-header-surface linear both;
+    animation-name: home-nav-state;
+    animation-duration: 1ms;
+    animation-fill-mode: both;
+    animation-timing-function: steps(1, end);
     animation-timeline: scroll(root block);
-    animation-range: 0 120px;
-  }
-
-  body.project-home > .site-header .site-brand,
-  body.project-home > .site-header nav.site-nav.site-nav > a,
-  body.project-home > .site-header .site-nav-primary > a,
-  body.project-home > .site-header .site-nav-community > a,
-  body.project-home > .site-header .site-nav-more > summary {
-    animation: home-header-ink linear both;
-    animation-timeline: scroll(root block);
-    animation-range: 0 120px;
-  }
-
-  body.project-home > .site-header .site-brand-logo,
-  body.project-home > .site-header .site-brand-wordmark {
-    animation: home-header-logo linear both;
-    animation-timeline: scroll(root block);
-    animation-range: 0 120px;
-  }
-
-  body.project-home > .site-header .global-language-switch {
-    animation: home-header-language-surface linear both;
-    animation-timeline: scroll(root block);
-    animation-range: 0 120px;
-  }
-
-  body.project-home > .site-header .global-language-switch button {
-    animation: home-header-language-ink linear both;
-    animation-timeline: scroll(root block);
-    animation-range: 0 120px;
+    animation-range: 0 72vh;
   }
 }
 
-@keyframes home-header-surface {
+@keyframes home-nav-state {
   from {
-    border-color: transparent;
-    background: transparent;
-    box-shadow: none;
-    backdrop-filter: none;
+    --home-nav-bg: rgba(255, 254, 250, 0);
+    --home-nav-border: rgba(221, 217, 208, 0);
+    --home-nav-shadow: rgba(25, 28, 25, 0);
+    --home-nav-ink: #fff;
+    --home-nav-muted: rgba(255, 255, 255, .82);
+    --home-nav-switch-bg: rgba(0, 0, 0, .12);
+    --home-nav-switch-border: rgba(255, 255, 255, .3);
+    --home-nav-active-bg: #fff;
+    --home-nav-active-ink: #171a18;
+    --home-nav-logo-filter: brightness(0) invert(1);
   }
   to {
-    border-color: color-mix(in srgb, var(--line, var(--site-line)) 58%, transparent);
-    background: var(--surface, var(--site-surface));
-    box-shadow: 0 8px 30px rgba(25, 28, 25, .045);
-    backdrop-filter: blur(20px);
+    --home-nav-bg: #fffefa;
+    --home-nav-border: rgba(221, 217, 208, .58);
+    --home-nav-shadow: rgba(25, 28, 25, .045);
+    --home-nav-ink: #24231f;
+    --home-nav-muted: #77746d;
+    --home-nav-switch-bg: #fffefa;
+    --home-nav-switch-border: #ddd9d0;
+    --home-nav-active-bg: #20231f;
+    --home-nav-active-ink: #fff;
+    --home-nav-logo-filter: none;
   }
 }
 
-@keyframes home-header-ink {
-  from { color: #fff; text-shadow: 0 1px 14px rgba(0, 0, 0, .28); }
-  to { color: var(--ink, var(--site-ink)); text-shadow: none; }
-}
-
-@keyframes home-header-logo {
-  from { filter: brightness(0) invert(1); }
-  to { filter: none; }
-}
-
-@keyframes home-header-language-surface {
-  from { border-color: rgba(255, 255, 255, .3); background: rgba(0, 0, 0, .12); }
-  to { border-color: var(--line, var(--site-line)); background: var(--surface, var(--site-surface)); }
-}
-
-@keyframes home-header-language-ink {
-  from { color: rgba(255, 255, 255, .82); }
-  to { color: var(--muted, var(--site-muted)); }
+/* Browsers without scroll timelines keep the normal white chrome below the
+ * first screen via a conservative sticky fallback instead of staying transparent. */
+@supports not (animation-timeline: scroll()) {
+  body.project-home > .site-header {
+    --home-nav-bg: #fffefa;
+    --home-nav-border: rgba(221, 217, 208, .58);
+    --home-nav-shadow: rgba(25, 28, 25, .045);
+    --home-nav-ink: #24231f;
+    --home-nav-muted: #77746d;
+    --home-nav-switch-bg: #fffefa;
+    --home-nav-switch-border: #ddd9d0;
+    --home-nav-active-bg: #20231f;
+    --home-nav-active-ink: #fff;
+    --home-nav-logo-filter: none;
+  }
 }
 
 @media (max-width: 700px) {
@@ -174,16 +174,5 @@ body.project-home > .site-header .global-language-switch button[aria-pressed="tr
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body.project-home > .site-header,
-  body.project-home > .site-header .site-brand,
-  body.project-home > .site-header nav.site-nav.site-nav > a,
-  body.project-home > .site-header .site-nav-primary > a,
-  body.project-home > .site-header .site-nav-community > a,
-  body.project-home > .site-header .site-nav-more > summary,
-  body.project-home > .site-header .site-brand-logo,
-  body.project-home > .site-header .site-brand-wordmark,
-  body.project-home > .site-header .global-language-switch,
-  body.project-home > .site-header .global-language-switch button {
-    animation-duration: .01ms !important;
-  }
+  body.project-home > .site-header { animation-timing-function: steps(1, end); }
 }
