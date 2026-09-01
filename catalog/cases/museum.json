@@ -4,6 +4,7 @@
   "name": "ArtMuse",
   "style": "当代美术馆导览",
   "video": "./assets/cases/museum-app/museum-app-demo.mp4",
+  "liveDemo": "./demo/artmuse-ios/index.html",
   "poster": "./assets/cases/museum-app/video-frames/01-home.png",
   "videoSequence": {
     "duration": 8,
