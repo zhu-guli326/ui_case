@@ -1,5 +1,8 @@
 @import url("../../core/app-shell/typography.css");
 
+@property --dna-spot-x { syntax: "<percentage>"; inherits: true; initial-value: 66%; }
+@property --dna-spot-y { syntax: "<percentage>"; inherits: true; initial-value: 48%; }
+
 :root {
   --home-black: #050505;
   --home-ink: #11110f;
@@ -134,20 +137,54 @@ body.project-home { margin: 0; overflow-x: hidden; background: var(--home-paper)
 .workflow-card-copy b { font-size: 11px; font-weight: 650; }
 .workflow-card-copy span { color: rgba(255,255,255,.66); font-size: 10px; line-height: 1.5; }
 
-.dna-scene { position: relative; overflow: clip; background: var(--home-paper); }
+.dna-scene {
+  --dna-spot-x: 66%;
+  --dna-spot-y: 48%;
+  position: relative;
+  overflow: clip;
+  background: #ded9cf;
+  isolation: isolate;
+  transition: --dna-spot-x .62s cubic-bezier(.2,.72,.2,1), --dna-spot-y .62s cubic-bezier(.2,.72,.2,1);
+}
+.dna-scene::before {
+  position: absolute;
+  z-index: 0;
+  inset: -6%;
+  background:
+    radial-gradient(circle at var(--dna-spot-x) var(--dna-spot-y), rgba(255,255,255,.98) 0%, rgba(255,255,255,.72) 16%, rgba(255,255,255,.26) 35%, transparent 58%),
+    radial-gradient(ellipse at 64% 52%, rgba(255,255,255,.48), transparent 42%);
+  content: "";
+  pointer-events: none;
+}
+.dna-scene::after {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(26,24,20,.08), transparent 28%, transparent 72%, rgba(26,24,20,.06));
+  content: "";
+  pointer-events: none;
+}
+.dna-scene > * { position: relative; z-index: 1; }
+.dna-scene:has(.dna-rule:nth-child(1).is-active) { --dna-spot-x: 64%; --dna-spot-y: 42%; }
+.dna-scene:has(.dna-rule:nth-child(2).is-active) { --dna-spot-x: 82%; --dna-spot-y: 39%; }
+.dna-scene:has(.dna-rule:nth-child(3).is-active) { --dna-spot-x: 62%; --dna-spot-y: 70%; }
+.dna-scene:has(.dna-rule:nth-child(4).is-active) { --dna-spot-x: 83%; --dna-spot-y: 70%; }
 .dna-heading { display: grid; grid-template-columns: minmax(0,1.25fr) minmax(280px,.75fr); gap: 62px; padding: clamp(82px,9vw,126px) 0 48px; }
 .dna-heading .home-kicker { grid-column: 1/-1; color: #77746c; }
 .dna-heading h2 { max-width: 880px; margin: 0; font-size: clamp(44px,5.4vw,80px); font-weight: 340; letter-spacing: -.06em; line-height: .95; }
 .dna-heading > p:last-child { align-self: end; max-width: 420px; margin: 0 0 6px; color: #6d6a62; font-size: 13px; line-height: 1.7; }
 .dna-stage { display: grid; min-height: 88svh; grid-template-columns: minmax(280px,.58fr) minmax(0,1.42fr); align-items: center; gap: clamp(40px,5vw,82px); padding-bottom: clamp(82px,9vw,126px); }
-.dna-rules { border-top: 1px solid var(--home-line); }
-.dna-rule { display: grid; grid-template-columns: 36px 1fr; gap: 14px; padding: 20px 0; border-bottom: 1px solid var(--home-line); color: #a09d95; transition: color .22s ease, transform .22s ease; }
+.dna-rules { border-top: 1px solid rgba(17,17,15,.12); }
+.dna-rule { position: relative; display: grid; grid-template-columns: 36px 1fr; gap: 14px; padding: 20px 0; border-bottom: 1px solid rgba(17,17,15,.12); color: #6f6c65; opacity: .34; transform: translateX(0); transition: color .3s ease, opacity .3s ease, transform .3s ease; }
+.dna-rule::before { position: absolute; top: 18px; bottom: 18px; left: -12px; width: 3px; border-radius: 999px; background: var(--home-green); box-shadow: 0 0 14px rgba(115,242,167,.18); content: ""; opacity: 0; transform: scaleY(.35); transition: opacity .3s ease, transform .3s ease; }
 .dna-rule > span { padding-top: 3px; font-size: 9px; }
 .dna-rule strong { display: block; font-size: 18px; font-weight: 620; letter-spacing: -.02em; }
 .dna-rule p { max-width: 300px; margin: 6px 0 0; font-size: 11px; line-height: 1.55; }
-.dna-rule.is-active { color: #111; transform: translateX(8px); }
+.dna-rule.is-active { color: #111; opacity: 1; transform: translateX(10px); }
+.dna-rule.is-active::before { opacity: 1; transform: scaleY(1); }
 .dna-product { position: relative; min-height: 620px; }
-.dna-browser { position: absolute; top: 50%; left: 50%; width: min(820px,100%); overflow: hidden; border: 1px solid rgba(17,17,17,.13); border-radius: 14px; background: #0c0e0d; color: #fff; transform: translate(-50%,-50%); }
+.dna-product::before { position: absolute; z-index: 0; top: 50%; left: 50%; width: 78%; height: 70%; border-radius: 50%; background: rgba(255,255,255,.72); filter: blur(62px); content: ""; pointer-events: none; transform: translate(-50%,-50%); }
+.dna-browser { position: absolute; z-index: 1; top: 50%; left: 50%; width: min(820px,100%); overflow: hidden; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; background: #090b0a; box-shadow: 0 44px 110px rgba(25,22,18,.28), 0 12px 34px rgba(25,22,18,.18), inset 0 0 0 1px rgba(255,255,255,.025); color: #fff; transform: translate(-50%,-50%); }
 .dna-browser-top { display: grid; height: 44px; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 14px; border-bottom: 1px solid rgba(255,255,255,.07); color: rgba(255,255,255,.4); font-size: 9px; }
 .dna-browser-top > span:last-child { justify-self: end; }
 .dna-dots { display: flex; gap: 4px; }
@@ -159,27 +196,27 @@ body.project-home { margin: 0; overflow-x: hidden; background: var(--home-paper)
 .dna-sidebar nav span { padding: 7px 8px; border-radius: 6px; color: rgba(255,255,255,.32); font-size: 9px; }
 .dna-sidebar nav span.is-active { background: rgba(115,242,167,.09); color: var(--home-green); }
 .dna-main { padding: clamp(22px,2.8vw,38px); }
-.dna-main-head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 28px; padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,.07); }
+.dna-main-head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 28px; padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,.07); transition: opacity .36s ease, filter .36s ease; }
 .dna-main-head small { color: var(--home-green); font-size: 8px; letter-spacing: .13em; }
-.dna-main-head h3 { max-width: 500px; margin: 10px 0 0; font-size: clamp(26px,2.8vw,40px); font-weight: 570; letter-spacing: -.043em; line-height: 1; transition: color .3s ease; }
+.dna-main-head h3 { max-width: 500px; margin: 10px 0 0; font-size: clamp(26px,2.8vw,40px); font-weight: 570; letter-spacing: -.043em; line-height: 1; transition: color .3s ease, text-shadow .3s ease; }
 .dna-main-head p { max-width: 500px; margin: 13px 0 0; color: rgba(255,255,255,.4); font-size: 10px; line-height: 1.58; }
 .dna-main-head button { min-height: 35px; padding: 0 13px; border: 0; border-radius: 7px; background: var(--home-green); color: #07130b; font-size: 9px; font-weight: 700; }
-.dna-project-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; margin-top: 24px; transition: gap .3s ease; }
+.dna-project-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; margin-top: 24px; transition: gap .3s ease, opacity .36s ease, filter .36s ease; }
 .dna-project-grid article { padding: 9px; border: 1px solid rgba(255,255,255,.07); border-radius: 8px; background: rgba(255,255,255,.02); }
 .dna-project-grid article i { display: block; height: 74px; border-radius: 6px; background: linear-gradient(135deg,#18271d,#0d130f 70%); }
 .dna-project-grid article:nth-child(2) i { background: linear-gradient(135deg,#ecebe6 0 42%,#c8cec8 42% 100%); }
 .dna-project-grid article:nth-child(3) i { background: linear-gradient(135deg,#101913,#253d2c); }
 .dna-project-grid strong { display: block; margin-top: 8px; font-size: 9px; }
 .dna-project-grid span { display: block; margin-top: 3px; color: rgba(255,255,255,.3); font-size: 7px; }
-.dna-component-row { display: grid; grid-template-columns: 1.7fr auto auto auto; align-items: center; gap: 7px; margin-top: 18px; transition: transform .3s ease; }
+.dna-component-row { display: grid; grid-template-columns: 1.7fr auto auto auto; align-items: center; gap: 7px; margin-top: 18px; transition: transform .3s ease, opacity .36s ease, filter .36s ease; }
 .dna-component-row > span { display: flex; min-height: 31px; align-items: center; padding: 0 9px; border: 1px solid rgba(255,255,255,.08); border-radius: 6px; font-size: 8px; }
 .dna-input { color: rgba(255,255,255,.25); }
 .dna-primary { border-color: var(--home-green)!important; background: var(--home-green); color: #07130b; font-weight: 700; }
 .dna-secondary { color: rgba(255,255,255,.56); }
 .dna-toggle { gap: 5px; color: rgba(255,255,255,.5); }
 .dna-toggle i { width: 18px; height: 9px; border-radius: 999px; background: var(--home-green); }
-.dna-overlay { position: absolute; z-index: 3; min-width: 164px; padding: 13px 14px; border: 1px solid rgba(17,17,17,.13); border-radius: 10px; background: rgba(246,243,235,.95); color: #111; opacity: .5; transform: scale(.97); transition: opacity .24s ease, transform .24s ease; }
-.dna-overlay.is-active { opacity: 1; transform: scale(1); }
+.dna-overlay { position: absolute; z-index: 3; min-width: 164px; padding: 13px 14px; border: 1px solid rgba(17,17,17,.12); border-radius: 10px; background: rgba(247,244,236,.93); box-shadow: 0 14px 28px rgba(32,28,23,.05); color: #111; opacity: .12; filter: saturate(.62) brightness(.9); transform: scale(.95); transition: opacity .32s ease, transform .32s ease, filter .32s ease, box-shadow .32s ease; }
+.dna-overlay.is-active { opacity: 1; filter: saturate(1) brightness(1.02); transform: scale(1); box-shadow: 0 24px 58px rgba(29,25,20,.16), 0 0 0 1px rgba(255,255,255,.72), 0 0 34px rgba(255,255,255,.32); }
 .dna-overlay > span { display: block; margin-bottom: 8px; color: #7b7870; font-size: 7px; font-weight: 700; letter-spacing: .11em; }
 .dna-overlay small { display: block; margin-top: 7px; color: #89867f; font-size: 7px; }
 .dna-overlay-type { top: 38px; left: 0; }
@@ -203,6 +240,20 @@ body.project-home { margin: 0; overflow-x: hidden; background: var(--home-paper)
 .dna-overlay-components b:nth-child(2) { background: var(--home-green); color: #07130b; }
 .dna-overlay-components b:nth-child(3) { background: #2d5d3f; }
 .dna-overlay-components b:nth-child(4) { background: #ddd; color: #888; }
+
+.dna-scene:has(.dna-rule:nth-child(1).is-active) .dna-main-head { opacity: 1; filter: none; }
+.dna-scene:has(.dna-rule:nth-child(1).is-active) .dna-project-grid,
+.dna-scene:has(.dna-rule:nth-child(1).is-active) .dna-component-row { opacity: .46; filter: saturate(.72); }
+.dna-scene:has(.dna-rule:nth-child(2).is-active) .dna-main-head { opacity: 1; filter: saturate(1.08); }
+.dna-scene:has(.dna-rule:nth-child(2).is-active) .dna-main-head h3 { color: var(--home-green); text-shadow: 0 0 22px rgba(115,242,167,.12); }
+.dna-scene:has(.dna-rule:nth-child(2).is-active) .dna-project-grid { opacity: .58; filter: saturate(.72); }
+.dna-scene:has(.dna-rule:nth-child(2).is-active) .dna-component-row { opacity: .72; }
+.dna-scene:has(.dna-rule:nth-child(3).is-active) .dna-main-head { opacity: .58; }
+.dna-scene:has(.dna-rule:nth-child(3).is-active) .dna-project-grid { opacity: 1; filter: none; }
+.dna-scene:has(.dna-rule:nth-child(3).is-active) .dna-component-row { opacity: .56; }
+.dna-scene:has(.dna-rule:nth-child(4).is-active) .dna-main-head { opacity: .52; }
+.dna-scene:has(.dna-rule:nth-child(4).is-active) .dna-project-grid { opacity: .58; filter: saturate(.72); }
+.dna-scene:has(.dna-rule:nth-child(4).is-active) .dna-component-row { opacity: 1; filter: none; transform: translateY(-4px); }
 
 .final-cta { overflow: hidden; background: var(--home-green); color: #07130b; }
 .final-cta-inner { padding: clamp(72px,8vw,106px) 0 clamp(76px,8vw,112px); }
@@ -276,21 +327,28 @@ body.project-home { margin: 0; overflow-x: hidden; background: var(--home-paper)
   .workflow-index { grid-template-columns: repeat(4,1fr); border-top: 0; gap: 6px; }
   .workflow-index li { display: grid; min-height: 54px; grid-template-columns: 1fr; align-content: center; gap: 2px; padding-left: 8px; border: 1px solid rgba(255,255,255,.1); }
   .workflow-index li.is-active { transform: none; border-color: rgba(115,242,167,.6); }
+  .dna-scene { background: var(--home-paper); }
+  .dna-scene::before, .dna-scene::after { display: none; }
   .dna-heading { display: block; padding: 72px 0 32px; }
   .dna-heading h2 { margin-top: 14px; font-size: clamp(40px,11.5vw,60px); }
   .dna-heading > p:last-child { margin-top: 18px; }
   .dna-rules { margin-bottom: 34px; }
+  .dna-rule { opacity: .58; }
+  .dna-rule.is-active { opacity: 1; }
+  .dna-rule::before { left: -7px; }
   .dna-product { min-height: 530px; }
-  .dna-browser { width: 100%; }
+  .dna-product::before { display: none; }
+  .dna-browser { width: 100%; box-shadow: 0 24px 58px rgba(25,22,18,.18); }
   .dna-browser-body { grid-template-columns: 92px 1fr; }
   .dna-sidebar { padding: 12px 9px; }
   .dna-main { padding: 18px; }
-  .dna-main-head { grid-template-columns: 1fr; }
+  .dna-main-head { grid-template-columns: 1fr; opacity: 1 !important; filter: none !important; }
   .dna-main-head button { display: none; }
-  .dna-project-grid { grid-template-columns: 1fr 1fr; }
+  .dna-project-grid { grid-template-columns: 1fr 1fr; opacity: 1 !important; filter: none !important; }
   .dna-project-grid article:nth-child(3) { display: none; }
-  .dna-component-row { grid-template-columns: 1fr 1fr; }
-  .dna-overlay { min-width: 136px; padding: 10px; }
+  .dna-component-row { grid-template-columns: 1fr 1fr; opacity: 1 !important; filter: none !important; transform: none !important; }
+  .dna-overlay { min-width: 136px; padding: 10px; opacity: .5; filter: none; }
+  .dna-overlay.is-active { opacity: 1; box-shadow: 0 16px 36px rgba(29,25,20,.12); }
   .dna-overlay-type { top: 16px; left: 4px; }
   .dna-overlay-color { top: 16px; right: 4px; }
   .dna-overlay-spacing { bottom: 16px; left: 4px; }
@@ -304,4 +362,5 @@ body.project-home { margin: 0; overflow-x: hidden; background: var(--home-paper)
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .workflow-card-visual { transform: none !important; }
   .workflow-card-visual::after { display: none; }
+  .dna-scene { --dna-spot-x: 66%; --dna-spot-y: 48%; }
 }
