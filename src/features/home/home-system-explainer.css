@@ -45,14 +45,23 @@
 /* Workflow typography refinement: stronger default hierarchy without requiring hover. */
 #capabilities .capability-grid > a {
   --workflow-card-opacity: 0;
+  aspect-ratio: 3.55 / 5 !important;
 }
 
 /* The stage word is a permanent visual layer. Keep it separate from the hover glow. */
 #capabilities .capability-grid > a::before {
+  top: 4.5% !important;
+  left: 5% !important;
+  width: 90% !important;
+  color: rgba(255,255,255,.34) !important;
+  font-size: clamp(66px, 5vw, 96px) !important;
+  font-weight: 850 !important;
+  letter-spacing: -.065em !important;
   opacity: 1 !important;
   background: none !important;
   filter: none !important;
   mix-blend-mode: soft-light !important;
+  text-shadow: 0 1px 24px rgba(255,255,255,.08);
 }
 
 /* Move the pointer-following light to ::after so hover remains an enhancement only. */
@@ -68,30 +77,30 @@
 
 #capabilities .capability-grid > a > img {
   z-index: 1;
-  top: -6% !important;
+  top: -8% !important;
   bottom: auto !important;
   width: 100% !important;
-  height: 112% !important;
+  height: 116% !important;
   object-fit: cover !important;
-  object-position: center 58% !important;
+  object-position: center 64% !important;
   transform: translate3d(
     calc((var(--pointer-from-left) - .5) * -5px),
-    calc((var(--pointer-from-top) - .5) * -4px),
+    calc(2.5% + ((var(--pointer-from-top) - .5) * -4px)),
     0
-  ) scale(1.02) !important;
+  ) scale(1.025) !important;
 }
 
 #capabilities .capability-grid > a:hover > img {
   transform: translate3d(
     calc((var(--pointer-from-left) - .5) * -7px),
-    calc((var(--pointer-from-top) - .5) * -6px),
+    calc(3% + ((var(--pointer-from-top) - .5) * -6px)),
     0
-  ) scale(1.045) !important;
+  ) scale(1.05) !important;
 }
 
 #capabilities .capability-grid > a > .capability-shade {
   z-index: 3;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 26%, rgba(0,0,0,.05) 39%, rgba(0,0,0,.42) 60%, rgba(0,0,0,.92) 80%, rgba(0,0,0,.99) 100%) !important;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 28%, rgba(0,0,0,.04) 41%, rgba(0,0,0,.4) 62%, rgba(0,0,0,.92) 82%, rgba(0,0,0,.99) 100%) !important;
 }
 
 #capabilities .capability-grid > a > small::after {
@@ -171,6 +180,7 @@
 }
 
 @media (max-width: 1100px) {
+  #capabilities .capability-grid > a::before { font-size: clamp(58px, 8vw, 88px) !important; }
   #capabilities .capability-grid > a > div > p > span:first-child { font-size: 20px !important; }
   #capabilities .capability-grid > a > div > p,
   #capabilities .capability-grid > a > div > p > span:nth-child(2),
@@ -182,10 +192,10 @@
   #capabilities .capability-grid > a::after { display: none !important; }
   #capabilities .capability-grid > a > img,
   #capabilities .capability-grid > a:hover > img {
-    top: -6% !important;
-    height: 112% !important;
-    object-position: center 58% !important;
-    transform: scale(1.02) !important;
+    top: -8% !important;
+    height: 116% !important;
+    object-position: center 64% !important;
+    transform: translateY(2%) scale(1.025) !important;
   }
 }
 
