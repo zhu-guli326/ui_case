@@ -119,13 +119,16 @@ The preview should have more visual weight than configuration controls.
 - Referencing Ant Design does **not** mean redesigning Launcher as an admin dashboard.
 - Keep the shared ONDesign App Shell unchanged unless the user explicitly requests a global navigation change.
 - Chinese and English versions must follow the global language state and keep equivalent functionality.
-- Launcher chrome typography must inherit the single global typography system from `src/core/app-shell/typography.css`. Do not add a separate Launcher-wide font-family, font-smoothing, text-rendering or synthetic-weight override layer. Design-system font choices may affect preview/specimen content only, not the Launcher control UI.
+- Launcher chrome and live preview must consume the same active Design System token source for typography, color, radius, spacing, border and surface relationships. Do not freeze Launcher controls to a separate font/color layer after a Design System is selected.
+- Structural responsibilities remain separated: Launcher controls define/edit the system while Preview demonstrates it, but this separation must not create a second visual token system.
+- `launcher-design-systems.js` may dynamically write active `--dna-*` variables; Launcher chrome and preview should both consume those variables consistently, with sensible defaults before a system is selected.
 - Design-system picker chrome must be styled on first paint through the static Launcher CSS entry point; do not rely on JavaScript-only stylesheet injection for required visual correctness.
 - Empty palette placeholders that resemble missing-glyph boxes must not appear in the Design System trigger. Real palette previews belong in the opened option list or after a meaningful selection.
 
 ## Keep
 
 - Design-system selection when it supports Design DNA definition.
+- One shared active Design System token set across Launcher chrome and Preview.
 - Real visual preview.
 - Existing stable Launcher responsibility modules.
 - Required `DESIGN_SYSTEMS_NOTICE.md` attribution while its source remains in use.
@@ -141,7 +144,7 @@ The preview should have more visual weight than configuration controls.
 - AI chat as a separate major product inside Launcher.
 - Case-library browsing responsibilities.
 - Duplicate design-system runtimes or alternate Launcher implementations.
-- Duplicate Launcher typography guard stylesheets or page-wide `!important` font overrides that compete with the global typography layer.
+- A separate Launcher-only typography/color guard that prevents active Design System tokens from affecting the control UI.
 - JavaScript-only loading of required Launcher chrome styles.
 - Placeholder swatch bars that can be mistaken for tofu / missing glyphs.
 
