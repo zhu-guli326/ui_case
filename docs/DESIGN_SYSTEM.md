@@ -91,8 +91,8 @@ Chinese headings should use strong, clear hierarchy and no artificial letter spa
 
 The shared site header must use the same typography contract on every public page. Header geometry, pill shape, icon sizing and control treatment are separate concerns and must not be changed as part of typography-only cleanup.
 
-- Primary navigation: `14px`, medium (`500`) weight, body font family, normal letter spacing, Ant Design-like body line-height.
-- Current / primary workflow item: semibold (`600`), without changing font size or tracking.
+- Primary navigation: `14px`, semibold (`600`) weight, body font family, normal letter spacing, Ant Design-like body line-height.
+- All top-level navigation items use the same font weight. Current-page state is indicated by color, not by adding extra font weight.
 - Chinese navigation: always `0` letter spacing; never use monospace or Latin negative tracking.
 - English navigation: use the same body-family navigation treatment for consistency; no decorative tracking in application chrome.
 - Language switch labels: same body font, `14px`, medium weight; selected state may use semibold.
