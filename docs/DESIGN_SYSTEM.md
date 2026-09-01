@@ -87,6 +87,15 @@ Use the shared semantic scale:
 
 Chinese headings should use strong, clear hierarchy and no artificial letter spacing. English headings may use modest negative tracking through the language tokens.
 
+#### Global App Shell typography boundary
+
+The Site Header, Footer, language switch and other shared App Shell chrome are global components. Their typography must never inherit a page-level Design System, runtime preview font or page-specific `--dna-*` variables.
+
+- Shared chrome resolves directly from the global `zh / en` font stacks.
+- Page feature CSS must scope alternate typography to the page content container, never to `body`, `html`, or an ancestor of shared App Shell components.
+- Runtime design-system variables may style a workspace or preview, but must not leak into Header / Footer.
+- The Header includes an explicit typography guard so page-level fonts cannot override it accidentally.
+
 #### Global header typography
 
 The shared site header must use the same typography contract on every public page. Header geometry, pill shape, icon sizing and control treatment are separate concerns and must not be changed as part of typography-only cleanup.
@@ -130,6 +139,7 @@ Before merging a new page, verify:
 9. No new feature stylesheet redefines `--accent`, `--page`, or `--surface` as a separate brand system.
 10. Focus, hover, active, disabled and selected states are visible and consistent.
 11. Shared header typography is inherited from `site-header-typography.css`; pages must not override navigation font family, size, weight, line-height, or tracking.
+12. Alternate page/design-system fonts are scoped below the App Shell and cannot leak into Header / Footer.
 
 ## Allowed exceptions
 
