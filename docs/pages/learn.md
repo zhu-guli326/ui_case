@@ -93,6 +93,12 @@ Do not add extra editorial or creator sections between these beats unless they a
 - Desktop pins and progresses through the four rules; mobile stacks naturally.
 - Each rule visually demonstrates itself rather than relying on long text.
 - Second-pass refinement: central UI stays visually dominant, overlays should be quieter, and the active rule should affect the central interface enough that the user can see the system being assembled.
+- Third-pass focus treatment: use light/dark contrast as the primary attention mechanism. The central product UI is the brightest/highest-contrast object; inactive rules and overlays recede noticeably.
+- Add a restrained warm-white spotlight / vignette across the Design DNA stage. The spotlight follows the active rule position as the scroll step changes, but must not become a green page-wide glow.
+- Inactive rule rows should sit around low visual emphasis; the active row becomes fully legible and gains one small ONDesign-green focus marker.
+- Only the active floating rule card should read as fully illuminated. Other floating cards stay visible enough to preserve spatial context but should not compete for attention.
+- The active rule should also change emphasis inside the central UI: Typography favors the heading area, Color favors branded/green controls, Spacing favors the project layout, and Components favors the bottom component-state row.
+- Lighting transitions must remain soft and editorial rather than theatrical flashing. No pulsing, looping glow, or high-saturation neon treatment.
 
 ### Final CTA
 
