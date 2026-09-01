@@ -1,6 +1,6 @@
 # Learn / Home Page Requirements
 
-Last updated: 2026-09-01
+Last updated: 2026-09-02
 
 ## Page identity
 
@@ -130,6 +130,7 @@ The Home page should feel calm while static and expressive while scrolling. Moti
 - GSAP must be progressive enhancement: if the CDN/library is unavailable, the page must remain fully visible, navigable and functional.
 - Do not add smooth-scroll hijacking in this pass. Native scrolling remains the baseline.
 - Hero: staged entrance for eyebrow, title, supporting copy and actions; scrolling adds slow background scale/parallax and lets the hero content recede rather than disappear abruptly.
+- Hero title: on first load, `DESIGN DNA FOR AI CODING` should use a restrained typewriter / hand-typed reveal. The title must remain readable if animation is unavailable, should play once rather than loop, should not cause layout shift, and should be disabled for `prefers-reduced-motion: reduce`.
 - Featured cases: preserve the existing draggable carousel mechanics, but add a restrained entrance/depth reveal around the carousel UI without fighting its card transforms.
 - Stats: count up once when the section first enters view; do not loop.
 - Discovery: changing tabs should feel like a visual transition, using short blur/scale/fade handoffs instead of a hard image swap. The underlying tab semantics and destinations stay unchanged.
