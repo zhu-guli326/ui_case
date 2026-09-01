@@ -65,6 +65,7 @@ The four-card workflow should explain the path from an idea to a runnable demo. 
 - The four cards must share the same text baseline and vertical rhythm.
 - Stage wording must not be duplicated inside one card. Use the large translucent stage word behind the portrait as the single stage label; the top-left only shows the step number (`01` / `02` / `03` / `04`), and the lower copy starts with the person name instead of repeating `DEFINE / CREATE / BUILD / ITERATE`.
 - The large translucent stage word belongs in the upper visual field behind the portrait, while the portrait stays in front to create depth.
+- The stage word must remain clearly legible in the default state. Give the card a taller upper visual field, keep the portrait lower, and use stronger stage-word size/contrast so the word is not swallowed by the head/portrait.
 - The stage word, person name, thinking line and description must all remain clearly visible in the card's default state; hover may enhance depth/glow but must never be required to reveal readable content.
 - Keep the person name, role/thinking line, and concise description in the lower text area.
 - Add a compact source link aligned to the lower-right of this section pointing to `https://github.com/zhu-guli326/image2_UI_skill.git`.
@@ -106,19 +107,15 @@ The old template gallery is no longer a template catalog. It is a compact “看
 
 ### Interactive design-system canvas
 
-The `#design-system-live` scene demonstrates how a blank product surface becomes a coherent interface once design rules are introduced.
+The live design-system explainer should begin as a low-information blank workspace rather than presenting every rule card at once.
 
-- Default desktop state is intentionally sparse. Keep the black stage and the outline/shell of the central workspace visible, but suppress most internal UI content and surrounding callout cards at first.
-- Pointer movement inside the stage is the primary desktop interaction. Moving toward the upper-left, upper-right, lower-left or lower-right progressively reveals Typography, Color, Spacing and Component State content respectively.
-- The central workspace should build up at the same time: shell/topbar first, then navigation, hero/content, actions, project cards and activity/state content. It should feel like a UI being constructed, not like four independent hover cards.
-- Add a small number of secondary design-token details (for example radius, grid/layout, icon, surface/shadow or motion tokens) to make the scene richer. These details remain subordinate and should not become a dense card wall.
-- Callouts may overlap the stage perimeter but must not cover important central workspace content or one another at supported desktop widths.
-- Pointer-follow uses restrained brightness and opacity changes. Do not fill the entire stage with green glow.
-- On pointer leave, keep the most recent built state briefly, then ease toward a quieter partial state instead of instantly clearing everything.
-- Touch/mobile cannot depend on hover. When the scene enters view, reveal the system layers sequentially and leave them readable.
-- `prefers-reduced-motion: reduce` shows the complete static system immediately.
-- The old ScrollTrigger scrub timeline that forces the four callouts to appear should not compete with pointer-driven state. ScrollTrigger may reveal the section itself, while pointer/touch logic owns the internal build state.
-- Keep the implementation in existing Home files. Do not add React or create duplicate `*-motion`, `*-animation`, `*-v2` files.
+- Keep the black stage and central workspace shell, but the default desktop state should be intentionally sparse/quiet.
+- Pointer movement/hover over the stage progressively reveals the workspace structure/content and the surrounding design-system callouts.
+- The reveal should communicate that typography, color, spacing and component rules are being added to an initially blank product canvas.
+- More small design-system signals may appear (grid, radius, state, surface, layout/token references), but they must support the main idea rather than become a dense card wall.
+- Pointer exit should ease back toward the sparse state instead of snapping everything off immediately.
+- Touch/mobile cannot depend on hover; show the complete explainer when the section enters normal mobile presentation.
+- `prefers-reduced-motion: reduce` shows a complete static explainer.
 
 ### Final CTA
 
@@ -145,13 +142,13 @@ The Home page should feel calm while static and expressive while scrolling. Moti
 - Page-level scroll choreography uses GSAP + ScrollTrigger in the existing static architecture; do not migrate the Home page to React solely to obtain animation.
 - GSAP must be progressive enhancement: if the CDN/library is unavailable, the page must remain fully visible, navigable and functional.
 - Do not add smooth-scroll hijacking in this pass. Native scrolling remains the baseline.
-- Hero: staged entrance for eyebrow, title, supporting copy and actions; the title itself uses a one-time typewriter/hand-typed reveal on first load. The typing effect should finish quickly (roughly 1.5–2.2 seconds), keep the final title fully visible, avoid looping or persistent blinking, and reserve the final title width/height so the Hero does not jump while letters appear. Scrolling adds slow background scale/parallax and lets the hero content recede rather than disappear abruptly.
+- Hero: staged entrance for eyebrow, title, supporting copy and actions; the Hero title may use a one-shot hand-typed/typewriter reveal on first load, ending in the complete stable title without looping. The effect must not shift layout, and `prefers-reduced-motion` skips it.
 - Featured cases: preserve the existing draggable carousel mechanics, but add a restrained entrance/depth reveal around the carousel UI without fighting its card transforms.
 - Stats: count up once when the section first enters view; do not loop.
 - Discovery: changing tabs should feel like a visual transition, using short blur/scale/fade handoffs instead of a hard image swap. The underlying tab semantics and destinations stay unchanged.
 - Idea → Demo: the section heading and the four stage cards reveal in sequence so the workflow reads as `DEFINE → CREATE → BUILD → ITERATE`; pointer tilt/glow remains a second layer of interaction on desktop.
 - Design-system cards: the typography/color/spacing/surface/component cards should assemble into view with staggered depth rather than appear as a static pile.
-- Design-system live explainer: section entrance is scroll-driven, but its internal build/reveal state follows the Interactive design-system canvas rules above.
+- Design-system live explainer: the central product UI establishes first, then surrounding typography/spacing/color/state callouts enter in a readable order as the user scrolls through the section.
 - CTA/footer: finish with a restrained reveal; do not keep adding increasingly loud effects at the bottom of the page.
 - Micro-interactions may include subtle magnetic response on primary links/buttons and pointer-following light in the Hero, but movement must stay small enough that text remains easy to target and read.
 - Avoid permanent looping particles, continuous bouncing, scroll-jacking, excessive blur or simultaneous animation of every element.
