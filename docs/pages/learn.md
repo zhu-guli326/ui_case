@@ -107,14 +107,15 @@ The old template gallery is no longer a template catalog. It is a compact “看
 
 ### Interactive design-system canvas
 
-The live design-system explainer should begin as a low-information blank workspace rather than presenting every rule card at once.
+The live design-system explainer keeps the central product workspace and the four core rule cards visible together: typography, color, spacing, and component states.
 
-- Keep the black stage and central workspace shell, but the default desktop state should be intentionally sparse/quiet.
-- Pointer movement/hover over the stage progressively reveals the workspace structure/content and the surrounding design-system callouts.
-- The reveal should communicate that typography, color, spacing and component rules are being added to an initially blank product canvas.
+- Keep the black stage and central workspace shell.
+- The four core design-system callouts must remain present in the default desktop state; users should never have to hover to discover that the section contains four rule cards.
+- Scroll/GSAP may still introduce the four callouts in a readable sequence as the section enters view, but after the entrance completes they remain visible.
+- Pointer movement/hover may progressively reveal more of the central workspace structure/content and may enhance the rule cards, but it must not be the only mechanism that makes those cards visible.
+- The visual should communicate that typography, color, spacing and component states are concrete rules applied to the same product canvas.
 - More small design-system signals may appear (grid, radius, state, surface, layout/token references), but they must support the main idea rather than become a dense card wall.
-- Pointer exit should ease back toward the sparse state instead of snapping everything off immediately.
-- Touch/mobile cannot depend on hover; show the complete explainer when the section enters normal mobile presentation.
+- Touch/mobile shows the complete explainer without depending on hover.
 - `prefers-reduced-motion: reduce` shows a complete static explainer.
 
 ### Final CTA
@@ -148,7 +149,7 @@ The Home page should feel calm while static and expressive while scrolling. Moti
 - Discovery: changing tabs should feel like a visual transition, using short blur/scale/fade handoffs instead of a hard image swap. The underlying tab semantics and destinations stay unchanged.
 - Idea → Demo: the section heading and the four stage cards reveal in sequence so the workflow reads as `DEFINE → CREATE → BUILD → ITERATE`; pointer tilt/glow remains a second layer of interaction on desktop.
 - Design-system cards: the typography/color/spacing/surface/component cards should assemble into view with staggered depth rather than appear as a static pile.
-- Design-system live explainer: the central product UI establishes first, then surrounding typography/spacing/color/state callouts enter in a readable order as the user scrolls through the section.
+- Design-system live explainer: the central product UI establishes first, then the four surrounding typography/spacing/color/state callouts enter in a readable order and remain visible after entry.
 - CTA/footer: finish with a restrained reveal; do not keep adding increasingly loud effects at the bottom of the page.
 - Micro-interactions may include subtle magnetic response on primary links/buttons and pointer-following light in the Hero, but movement must stay small enough that text remains easy to target and read.
 - Avoid permanent looping particles, continuous bouncing, scroll-jacking, excessive blur or simultaneous animation of every element.
