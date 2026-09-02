@@ -27,6 +27,10 @@ let menu = null;
 let promptObserver = null;
 let summaryObserver = null;
 
+function setText(node, value) {
+  if (node && node.textContent !== value) node.textContent = value;
+}
+
 function syncVisualCopy() {
   const visual = $("[data-design-system-field]");
   if (!visual) return;
@@ -35,21 +39,28 @@ function syncVisualCopy() {
   const note = $(".ds-note", visual);
   const search = $(".ds-search", visual);
   const rulesDesc = $('[data-i18n="dna.rulesDesc"]');
+  const visualStrong = $("[data-ds-trigger] strong", visual);
+  const visualSmall = $("[data-ds-trigger] small", visual);
   const inheritedFont = $('option[value="__design-system__"]');
 
-  if (legend) legend.textContent = text("视觉规范", "Visual system");
-  if (rulesDesc) rulesDesc.textContent = text("视觉规范 + 组件规范，再微调字体、圆角与间距。", "Visual system + component system, then fine-tune typography, radius and spacing.");
+  setText(legend, text("视觉规范", "Visual system"));
+  setText(rulesDesc, text("视觉规范 + 组件规范，再微调字体、圆角与间距。", "Visual system + component system, then fine-tune typography, radius and spacing."));
   if (search) {
     search.placeholder = text("搜索 Linear、Apple、Figma…", "Search Linear, Apple, Figma…");
     search.setAttribute("aria-label", text("搜索视觉规范", "Search visual systems"));
   }
-  if (note) note.textContent = text(
+  if (!document.body.dataset.designSystem) {
+    setText(visualStrong, text("选择视觉规范", "Choose a visual system"));
+    setText(visualSmall, text("从真实产品与品牌中提取可复用的视觉语言", "Reuse visual language extracted from real products and brands"));
+  }
+  setText(note, text(
     "视觉规范决定颜色、字体、圆角、间距与整体气质；选择后仍可继续微调。来源：VoltAgent/awesome-design-md（MIT）。",
     "The visual system controls color, typography, radius, spacing and overall character. Source: VoltAgent/awesome-design-md (MIT)."
-  );
+  ));
   if (inheritedFont) {
     const tail = inheritedFont.textContent.split("·").slice(1).join("·").trim();
-    inheritedFont.textContent = `${text("视觉规范", "Visual system")} · ${tail}`;
+    const label = `${text("视觉规范", "Visual system")} · ${tail}`;
+    setText(inheritedFont, label);
   }
 }
 
@@ -120,23 +131,23 @@ function applyGeometry() {
 
 function updateField() {
   if (!field) return;
-  $("legend", field).textContent = text("组件规范", "Component system");
-  $(".cs-trigger strong", field).textContent = current.name;
-  $(".cs-trigger small", field).textContent = `${isEn()?current.metaEn:current.metaZh} · ${text("结构 / 状态 / 交互", "structure / states / interaction")}`;
+  setText($("legend", field), text("组件规范", "Component system"));
+  setText($(".cs-trigger strong", field), current.name);
+  setText($(".cs-trigger small", field), `${isEn()?current.metaEn:current.metaZh} · ${text("结构 / 状态 / 交互", "structure / states / interaction")}`);
   const image = $(".cs-trigger .cs-logo img", field);
   image.src = logoFor(current);
   image.alt = `${current.name} logo`;
   image.closest(".cs-logo")?.classList.remove("is-fallback");
-  $(".cs-trigger .cs-logo b", field).textContent = current.short;
+  setText($(".cs-trigger .cs-logo b", field), current.short);
   image.addEventListener("error", () => image.closest(".cs-logo")?.classList.add("is-fallback"), { once:true });
   const docsLink = $("[data-cs-docs]", field);
   docsLink.href = docsFor(current);
-  docsLink.textContent = text("查看官方组件 ↗", "Official components ↗");
-  $(".cs-live-head span", field).textContent = text("组件效果", "Component preview");
-  $(".cs-demo-button", field).textContent = text("主按钮", "Primary");
-  $(".cs-demo-input span", field).textContent = text("输入框", "Input");
-  $(".cs-demo-tag", field).textContent = text("标签", "Tag");
-  $(".cs-note", field).textContent = text("组件规范只负责组件结构、状态和交互；颜色与字体继续跟随上方视觉规范。", "The component system controls structure, states and interaction; color and typography continue to follow the visual system.");
+  setText(docsLink, text("查看官方组件 ↗", "Official components ↗"));
+  setText($(".cs-live-head span", field), text("组件效果", "Component preview"));
+  setText($(".cs-demo-button", field), text("主按钮", "Primary"));
+  setText($(".cs-demo-input span", field), text("输入框", "Input"));
+  setText($(".cs-demo-tag", field), text("标签", "Tag"));
+  setText($(".cs-note", field), text("组件规范只负责组件结构、状态和交互；颜色与字体继续跟随上方视觉规范。", "The component system controls structure, states and interaction; color and typography continue to follow the visual system."));
   renderOptions();
 }
 
@@ -169,7 +180,7 @@ function decorateSummary() {
   const summary = $("#dnaSummary");
   if (!summary) return;
   const firstTerm = $("dt", summary);
-  if (firstTerm && ["设计规范","Design system"].includes(firstTerm.textContent)) firstTerm.textContent = text("视觉规范", "Visual system");
+  if (firstTerm && ["设计规范","Design system"].includes(firstTerm.textContent)) setText(firstTerm, text("视觉规范", "Visual system"));
   let row = $("[data-component-system-summary]", summary);
   if (!row) {
     row = document.createElement("div");
@@ -178,8 +189,8 @@ function decorateSummary() {
     const first = summary.firstElementChild;
     if (first?.nextSibling) summary.insertBefore(row, first.nextSibling); else summary.append(row);
   }
-  $("dt", row).textContent = text("组件规范", "Component system");
-  $("dd", row).textContent = current.name;
+  setText($("dt", row), text("组件规范", "Component system"));
+  setText($("dd", row), current.name);
 }
 
 function installObservers() {
@@ -200,7 +211,7 @@ function installObservers() {
 function toast(message) {
   const node = $("#dnaToast");
   if (!node) return;
-  node.textContent = message;
+  setText(node, message);
   node.hidden = false;
   clearTimeout(toast.timer);
   toast.timer = setTimeout(() => { node.hidden = true; }, 2000);
