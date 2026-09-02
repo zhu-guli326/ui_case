@@ -93,8 +93,134 @@ function configureDiscoveryCard(card, index) {
   card.style.setProperty("--discovery-max-width", preview.maxWidth);
 }
 
+const MULTI_DISCOVERY_INDEXES = new Set([0, 2, 3]);
+const discoveryTileMotionBound = new WeakSet();
+
+function discoveryVisualTiles(card) {
+  if (!card) return [];
+  const index = discoveryCards.indexOf(card);
+  if (!MULTI_DISCOVERY_INDEXES.has(index)) return [];
+  return [...card.children].filter((child) => child.matches("img, .template-card-shade, small, div"));
+}
+
+function animateDiscoveryTiles(card, { scrollTrigger = null } = {}) {
+  if (!card || !window.gsap || reducedMotion.matches) return false;
+  const tiles = discoveryVisualTiles(card);
+  if (tiles.length < 2) return false;
+
+  const { gsap } = window;
+  gsap.killTweensOf([card, ...tiles]);
+  gsap.set(card, { autoAlpha: 1, scale: 1, filter: "none" });
+  gsap.fromTo(
+    tiles,
+    {
+      autoAlpha: 0,
+      y: 64,
+      z: -24,
+      scale: .9,
+      rotationX: 9,
+      rotationY: (index) => (index % 2 === 0 ? -7 : 7),
+      rotationZ: (index) => (index - 1.5) * 2.2,
+      transformPerspective: 860,
+      transformOrigin: "50% 60%",
+    },
+    {
+      autoAlpha: 1,
+      y: 0,
+      z: 0,
+      scale: 1,
+      rotationX: 0,
+      rotationY: 0,
+      rotationZ: 0,
+      duration: .78,
+      stagger: .09,
+      ease: "back.out(1.45)",
+      clearProps: "opacity,visibility,transform",
+      ...(scrollTrigger ? { scrollTrigger } : {}),
+    },
+  );
+  return true;
+}
+
+function initDiscoveryTileMotion(card) {
+  const tiles = discoveryVisualTiles(card);
+  if (tiles.length < 2) return;
+
+  const canMove = () => finePointer.matches && !reducedMotion.matches && Boolean(window.gsap);
+  tiles.forEach((tile, index) => {
+    if (discoveryTileMotionBound.has(tile)) return;
+    discoveryTileMotionBound.add(tile);
+
+    const siblings = tiles.filter((item) => item !== tile);
+    tile.addEventListener("pointerenter", () => {
+      if (!canMove()) return;
+      const { gsap } = window;
+      gsap.killTweensOf(tiles);
+      gsap.to(siblings, {
+        autoAlpha: .72,
+        y: 8,
+        scale: .972,
+        duration: .28,
+        stagger: .018,
+        ease: "power2.out",
+      });
+      gsap.to(tile, {
+        y: -16,
+        z: 54,
+        scale: 1.045,
+        rotationZ: (index - 1.5) * .35,
+        boxShadow: "0 28px 58px rgba(0,0,0,.16)",
+        transformPerspective: 760,
+        duration: .34,
+        ease: "power3.out",
+      });
+    });
+
+    tile.addEventListener("pointermove", (event) => {
+      if (!canMove()) return;
+      const rect = tile.getBoundingClientRect();
+      const px = (event.clientX - rect.left) / Math.max(rect.width, 1) - .5;
+      const py = (event.clientY - rect.top) / Math.max(rect.height, 1) - .5;
+      window.gsap.to(tile, {
+        rotationY: px * 10,
+        rotationX: py * -8,
+        duration: .2,
+        ease: "power2.out",
+        overwrite: "auto",
+      });
+    });
+
+    tile.addEventListener("pointerleave", () => {
+      if (!canMove()) return;
+      const { gsap } = window;
+      gsap.to(tile, {
+        y: 0,
+        z: 0,
+        scale: 1,
+        rotationX: 0,
+        rotationY: 0,
+        rotationZ: 0,
+        boxShadow: "0 10px 30px rgba(0,0,0,.06)",
+        duration: .52,
+        ease: "back.out(1.7)",
+        clearProps: "transform,boxShadow",
+      });
+      gsap.to(siblings, {
+        autoAlpha: 1,
+        y: 0,
+        scale: 1,
+        duration: .38,
+        ease: "power3.out",
+        clearProps: "opacity,visibility,transform",
+      });
+    });
+  });
+}
+
 function animateDiscoveryCard(card) {
   if (!card || !window.gsap || reducedMotion.matches) return;
+  if (animateDiscoveryTiles(card)) return;
+
   const image = card.querySelector("img");
   window.gsap.fromTo(
     card,
@@ -142,6 +268,7 @@ function ensureDiscoveryEnhancement() {
 
   discoveryCards.forEach((card, index) => {
     configureDiscoveryCard(card, index);
+    initDiscoveryTileMotion(card);
     card.addEventListener("click", (event) => event.preventDefault());
     card.setAttribute("aria-disabled", "true");
   });
@@ -872,7 +999,9 @@ function initHomeMotion() {
     scrollTrigger: { trigger: "#templates .template-filters", start: "top 86%", once: true },
   });
   const activeDiscoveryCard = discoveryCards[activeDiscoveryIndex];
-  if (activeDiscoveryCard) {
+  if (activeDiscoveryCard && !animateDiscoveryTiles(activeDiscoveryCard, {
+    scrollTrigger: { trigger: "#templates .template-grid", start: "top 84%", once: true },
+  })) {
     gsap.from(activeDiscoveryCard, {
       autoAlpha: 0,
       scale: .96,

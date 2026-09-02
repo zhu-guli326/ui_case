@@ -146,8 +146,6 @@
   content: url("../../../assets/home/discovery/app-1.png");
   object-fit: cover !important;
   object-position: center top !important;
-  transform: none !important;
-  filter: none !important;
 }
 
 .discovery-strip .template-card:nth-child(1).is-active-discovery > .template-card-shade {
@@ -172,10 +170,6 @@
   display: none !important;
 }
 
-.discovery-strip .template-card:nth-child(1).is-active-discovery:hover > img {
-  transform: none !important;
-  filter: none !important;
-}
 
 @media (max-width: 900px) {
   .discovery-strip .template-card:nth-child(1).is-active-discovery {
@@ -222,8 +216,6 @@
   content: url("../../../assets/home/discovery/tool-1.png");
   object-fit: cover !important;
   object-position: center top !important;
-  transform: none !important;
-  filter: none !important;
 }
 
 .discovery-strip .template-card:nth-child(4).is-active-discovery > .template-card-shade {
@@ -245,10 +237,6 @@
   display: none !important;
 }
 
-.discovery-strip .template-card:nth-child(4).is-active-discovery:hover > img {
-  transform: none !important;
-  filter: none !important;
-}
 
 @media (max-width: 900px) {
   .discovery-strip .template-card:nth-child(4).is-active-discovery {
@@ -301,8 +289,6 @@
   content: url("../../../assets/home/discovery/skill-1.png");
   object-fit: cover !important;
   object-position: center top !important;
-  transform: none !important;
-  filter: none !important;
 }
 
 .discovery-strip .template-card:nth-child(3).is-active-discovery > .template-card-shade {
@@ -324,14 +310,46 @@
   display: none !important;
 }
 
-.discovery-strip .template-card:nth-child(3).is-active-discovery:hover > img {
-  transform: none !important;
-  filter: none !important;
-}
 
 @media (max-width: 900px) {
   .discovery-strip .template-card:nth-child(3).is-active-discovery {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
+  }
+}
+
+
+/* GSAP discovery-card depth: preserve the static layout while allowing the four-up previews to move independently. */
+.home-motion-active .discovery-strip .template-card:nth-child(1).is-active-discovery > img,
+.home-motion-active .discovery-strip .template-card:nth-child(1).is-active-discovery > .template-card-shade,
+.home-motion-active .discovery-strip .template-card:nth-child(1).is-active-discovery > small,
+.home-motion-active .discovery-strip .template-card:nth-child(1).is-active-discovery > div,
+.home-motion-active .discovery-strip .template-card:nth-child(3).is-active-discovery > img,
+.home-motion-active .discovery-strip .template-card:nth-child(3).is-active-discovery > .template-card-shade,
+.home-motion-active .discovery-strip .template-card:nth-child(3).is-active-discovery > small,
+.home-motion-active .discovery-strip .template-card:nth-child(3).is-active-discovery > div,
+.home-motion-active .discovery-strip .template-card:nth-child(4).is-active-discovery > img,
+.home-motion-active .discovery-strip .template-card:nth-child(4).is-active-discovery > .template-card-shade,
+.home-motion-active .discovery-strip .template-card:nth-child(4).is-active-discovery > small,
+.home-motion-active .discovery-strip .template-card:nth-child(4).is-active-discovery > div {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+  .home-motion-active .discovery-strip .template-card:nth-child(1).is-active-discovery > img,
+  .home-motion-active .discovery-strip .template-card:nth-child(1).is-active-discovery > .template-card-shade,
+  .home-motion-active .discovery-strip .template-card:nth-child(1).is-active-discovery > small,
+  .home-motion-active .discovery-strip .template-card:nth-child(1).is-active-discovery > div,
+  .home-motion-active .discovery-strip .template-card:nth-child(3).is-active-discovery > img,
+  .home-motion-active .discovery-strip .template-card:nth-child(3).is-active-discovery > .template-card-shade,
+  .home-motion-active .discovery-strip .template-card:nth-child(3).is-active-discovery > small,
+  .home-motion-active .discovery-strip .template-card:nth-child(3).is-active-discovery > div,
+  .home-motion-active .discovery-strip .template-card:nth-child(4).is-active-discovery > img,
+  .home-motion-active .discovery-strip .template-card:nth-child(4).is-active-discovery > .template-card-shade,
+  .home-motion-active .discovery-strip .template-card:nth-child(4).is-active-discovery > small,
+  .home-motion-active .discovery-strip .template-card:nth-child(4).is-active-discovery > div {
+    will-change: auto;
   }
 }
