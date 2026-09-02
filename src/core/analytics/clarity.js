@@ -32,7 +32,6 @@
       document.head.append(script);
     };
 
-    loadScript("./src/features/home/ripple-distortion.js");
     loadStyle("./src/features/home/specular-button.css");
     loadScript("./src/features/home/specular-button.js");
   }
