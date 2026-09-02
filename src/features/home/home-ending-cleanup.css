@@ -330,3 +330,119 @@ html body.project-home > footer.project-footer.project-footer > .project-contain
     text-align: left !important;
   }
 }
+
+/* Footer social row + more professional legal metadata.
+ * Keep the existing HTML untouched: the three social marks are rendered above
+ * the legal divider so the composition follows the supplied Footer 2 reference. */
+html body.project-home > footer.project-footer.project-footer > .project-container.footer-grid {
+  padding-bottom: clamp(54px, 6vw, 78px) !important;
+}
+
+html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom {
+  min-height: 154px !important;
+  align-items: flex-end !important;
+  padding: 94px 2px 34px !important;
+  border-top: 0 !important;
+}
+
+html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom::before,
+html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:first-child::before,
+html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:last-child::before {
+  position: absolute !important;
+  top: 22px !important;
+  line-height: 1 !important;
+}
+
+html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom::before {
+  left: calc(50% - 138px) !important;
+  color: #111 !important;
+  content: "𝕏" !important;
+  font-size: 27px !important;
+  font-weight: 500 !important;
+}
+
+html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:first-child::before {
+  left: 50% !important;
+  color: #171717 !important;
+  content: "◉  GitHub 321" !important;
+  font-size: 15px !important;
+  font-weight: 650 !important;
+  letter-spacing: -.01em !important;
+  transform: translateX(-50%) !important;
+  white-space: nowrap !important;
+}
+
+html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:last-child::before {
+  left: calc(50% + 116px) !important;
+  padding: 7px 11px !important;
+  border-radius: 8px !important;
+  background: #ff2f55 !important;
+  color: #fff !important;
+  content: "RED" !important;
+  font-size: 9px !important;
+  font-weight: 750 !important;
+  letter-spacing: .02em !important;
+}
+
+html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom::after {
+  position: absolute !important;
+  top: 70px !important;
+  right: 0 !important;
+  left: 0 !important;
+  height: 1px !important;
+  background: #e6e6e6 !important;
+  content: "" !important;
+}
+
+html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:first-child {
+  color: #4b4b4b !important;
+  font-size: 11px !important;
+  font-weight: 450 !important;
+  letter-spacing: .01em !important;
+}
+
+html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:first-child::after {
+  content: " · All rights reserved." !important;
+}
+
+html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:last-child {
+  max-width: 310px !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  text-align: right !important;
+}
+
+html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:last-child::after {
+  display: inline-block !important;
+  color: #333 !important;
+  content: "DESIGN SYSTEMS FOR AI CODING\AOPEN-SOURCE DESIGN WORKFLOW\AEST. 2026" !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  letter-spacing: .05em !important;
+  line-height: 1.5 !important;
+  white-space: pre-line !important;
+}
+
+@media (max-width: 560px) {
+  html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom {
+    min-height: 186px !important;
+    padding: 94px 18px 28px !important;
+  }
+
+  html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom::before {
+    left: calc(50% - 108px) !important;
+  }
+
+  html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:first-child::before {
+    font-size: 13px !important;
+  }
+
+  html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:last-child::before {
+    left: calc(50% + 88px) !important;
+  }
+
+  html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:last-child,
+  html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:last-child::after {
+    text-align: left !important;
+  }
+}
