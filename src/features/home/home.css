@@ -64,7 +64,7 @@
 }
 
 .discovery-strip .template-card:nth-child(1).is-active-discovery > img {
-  content: url("../../../assets/home/discovery/app-habit.webp");
+  content: url("../../../assets/home/discovery/app-1.png");
   object-fit: cover !important;
   object-position: center top !important;
   transform: none !important;
@@ -72,20 +72,20 @@
 }
 
 .discovery-strip .template-card:nth-child(1).is-active-discovery > .template-card-shade {
-  background: url("../../../assets/home/discovery/app-cook.webp") center top / cover no-repeat;
+  background: url("../../../assets/home/discovery/app-2.png") center top / cover no-repeat;
 }
 
 .discovery-strip .template-card:nth-child(1).is-active-discovery > small {
   padding: 0;
   font-size: 0;
-  background: url("../../../assets/home/discovery/app-ev.webp") center top / cover no-repeat;
+  background: url("../../../assets/home/discovery/app-3.png") center top / cover no-repeat;
 }
 
 .discovery-strip .template-card:nth-child(1).is-active-discovery > div {
   right: auto !important;
   bottom: auto !important;
   left: auto !important;
-  background: url("../../../assets/home/discovery/app-bakery.webp") center top / cover no-repeat;
+  background: url("../../../assets/home/discovery/app-4.png") center top / cover no-repeat;
 }
 
 .discovery-strip .template-card:nth-child(1).is-active-discovery > div > *,
