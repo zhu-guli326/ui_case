@@ -6,7 +6,23 @@
   content: none !important;
 }
 
-/* The card descriptions are direct <p> elements in learn.html, not nested spans. Hide the full description line and keep the card title + arrow only. */
-#capabilities .capability-grid > a > div > p {
+/* Support both workflow markup variants:
+ * - current HTML: title is <strong>, description is a plain <p> -> hide the <p>
+ * - legacy/local preview: title/subtitle/description are spans inside <p> -> keep first two, hide only the third
+ */
+#capabilities .capability-grid > a > div > p:not(:has(> span)) {
+  display: none !important;
+}
+
+#capabilities .capability-grid > a > div > p:has(> span) {
+  display: block !important;
+}
+
+#capabilities .capability-grid > a > div > p:has(> span) > span:first-child,
+#capabilities .capability-grid > a > div > p:has(> span) > span:nth-child(2) {
+  display: block !important;
+}
+
+#capabilities .capability-grid > a > div > p:has(> span) > span:nth-child(n+3) {
   display: none !important;
 }
