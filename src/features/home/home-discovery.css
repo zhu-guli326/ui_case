@@ -1,0 +1,301 @@
+/* "看点啥" / discovery showcase
+ * Keep this section self-contained so Home layout changes do not leak into
+ * capabilities, design-system, or other feature styles. */
+#templates {
+  --discovery-page: min(1280px, calc(100vw - 72px));
+  --discovery-gap: clamp(14px, 1.4vw, 22px);
+  --discovery-card: clamp(286px, 27vw, 402px);
+  overflow: hidden;
+  padding-block: clamp(92px, 9vw, 138px) clamp(88px, 8vw, 120px) !important;
+}
+
+#templates > .project-container {
+  display: grid;
+  width: var(--discovery-page);
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "heading tabs"
+    "stage stage"
+    "footer footer";
+  align-items: end;
+  column-gap: clamp(48px, 7vw, 112px);
+}
+
+#templates .template-gallery-heading {
+  grid-area: heading;
+  max-width: 650px;
+  margin: 0 !important;
+  text-align: left !important;
+}
+
+#templates .template-gallery-heading h2,
+html[lang="zh-CN"] #templates .template-gallery-heading h2 {
+  margin: 0 !important;
+  color: #181818 !important;
+  font-size: clamp(50px, 5.3vw, 74px) !important;
+  font-weight: 430 !important;
+  letter-spacing: -.05em !important;
+  line-height: .98 !important;
+}
+
+#templates .template-gallery-heading > p:last-child {
+  max-width: 560px !important;
+  margin: 20px 0 0 !important;
+  color: #7d7d7d !important;
+  font-size: 15px !important;
+  line-height: 1.65 !important;
+}
+
+/* Tabs: lightweight text navigation, not pill buttons. */
+#templates .template-filters {
+  grid-area: tabs;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  gap: clamp(20px, 2.25vw, 34px);
+  margin: 0 0 3px !important;
+}
+
+#templates.discovery-strip .template-filters a {
+  position: relative;
+  min-height: auto !important;
+  padding: 8px 0 11px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #a2a2a2 !important;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  transition: color .22s ease !important;
+}
+
+#templates.discovery-strip .template-filters a::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1.5px;
+  background: #151515;
+  content: "";
+  opacity: 0;
+  transform: scaleX(.35);
+  transition: opacity .22s ease, transform .28s cubic-bezier(.2,.8,.2,1);
+}
+
+#templates.discovery-strip .template-filters a:hover,
+#templates.discovery-strip .template-filters a.is-active {
+  color: #151515 !important;
+}
+
+#templates.discovery-strip .template-filters a.is-active {
+  font-weight: 650;
+}
+
+#templates.discovery-strip .template-filters a.is-active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+#templates .template-grid {
+  grid-area: stage;
+  display: block !important;
+  width: 100%;
+  margin-top: clamp(42px, 5vw, 64px);
+  overflow: visible;
+}
+
+/* App / Skill / Tools use the same horizontal rail. */
+#templates.discovery-strip .template-card:is(:nth-child(1), :nth-child(3), :nth-child(4)).is-active-discovery {
+  display: flex !important;
+  width: calc(100vw - 28px) !important;
+  max-width: none !important;
+  gap: var(--discovery-gap) !important;
+  margin-left: calc((var(--discovery-page) - (100vw - 28px)) / 2) !important;
+  padding: 2px 0 26px !important;
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-inline: contain;
+}
+
+#templates.discovery-strip .template-card:is(:nth-child(1), :nth-child(3), :nth-child(4)).is-active-discovery::-webkit-scrollbar,
+#templates .home-vocab-strip::-webkit-scrollbar {
+  display: none;
+}
+
+#templates.discovery-strip .template-card:is(:nth-child(1), :nth-child(3), :nth-child(4)).is-active-discovery > :is(img, .template-card-shade, small, div) {
+  position: relative !important;
+  inset: auto !important;
+  z-index: 1 !important;
+  flex: 0 0 var(--discovery-card) !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid #e7e7e7 !important;
+  border-radius: 14px !important;
+  background-color: #f5f5f3 !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.045) !important;
+  scroll-snap-align: start;
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, border-color .25s ease;
+}
+
+#templates.discovery-strip .template-card:nth-child(1).is-active-discovery > :is(img, .template-card-shade, small, div) {
+  aspect-ratio: 9 / 16 !important;
+}
+
+#templates.discovery-strip .template-card:is(:nth-child(3), :nth-child(4)).is-active-discovery > :is(img, .template-card-shade, small, div) {
+  aspect-ratio: 3 / 4 !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #templates.discovery-strip .template-card:is(:nth-child(1), :nth-child(3), :nth-child(4)).is-active-discovery > :is(img, .template-card-shade, small, div):hover {
+    z-index: 2 !important;
+    border-color: #d7d7d7 !important;
+    box-shadow: 0 22px 50px rgba(0,0,0,.10) !important;
+    transform: translateY(-7px);
+  }
+}
+
+/* Web currently has one strong reference, so keep it large rather than faking a rail. */
+#templates.discovery-strip .template-card:nth-child(2).is-active-discovery {
+  width: min(100%, 1180px) !important;
+  max-width: none !important;
+  aspect-ratio: 16 / 9 !important;
+  margin: 0 !important;
+  border: 1px solid #e7e7e7 !important;
+  border-radius: 14px !important;
+  background: #f5f5f3 !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.045) !important;
+}
+
+/* Vocabulary owns its card markup; only normalize its outer rail here. */
+#templates .template-grid .template-card.home-vocab-host.is-active-discovery {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+#templates .template-grid .template-card.home-vocab-host > .home-vocab-strip {
+  display: grid !important;
+  width: calc(100vw - 28px) !important;
+  max-width: none !important;
+  grid-auto-flow: column !important;
+  grid-template-columns: none !important;
+  grid-auto-columns: var(--discovery-card) !important;
+  gap: var(--discovery-gap) !important;
+  margin-left: calc((var(--discovery-page) - (100vw - 28px)) / 2) !important;
+  padding: 2px 0 26px !important;
+  overflow-x: auto !important;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+#templates .home-vocab-card {
+  scroll-snap-align: start;
+  border-radius: 14px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.045) !important;
+}
+
+#templates .discovery-footer {
+  grid-area: footer;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px !important;
+}
+
+#templates .discovery-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid #171717;
+  color: #171717;
+  font-size: 12px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+@media (max-width: 980px) {
+  #templates {
+    --discovery-page: min(100% - 40px, 760px);
+  }
+
+  #templates > .project-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "heading"
+      "tabs"
+      "stage"
+      "footer";
+    align-items: start;
+  }
+
+  #templates .template-gallery-heading {
+    max-width: 620px;
+  }
+
+  #templates .template-gallery-heading h2,
+  html[lang="zh-CN"] #templates .template-gallery-heading h2 {
+    font-size: clamp(44px, 9vw, 62px) !important;
+  }
+
+  #templates .template-filters {
+    justify-content: flex-start;
+    gap: 24px;
+    margin-top: 32px !important;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  #templates .template-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  #templates .template-grid {
+    margin-top: 36px;
+  }
+}
+
+@media (max-width: 640px) {
+  #templates {
+    --discovery-page: calc(100vw - 32px);
+    --discovery-card: min(78vw, 330px);
+    padding-block: 78px 82px !important;
+  }
+
+  #templates .template-gallery-heading h2,
+  html[lang="zh-CN"] #templates .template-gallery-heading h2 {
+    font-size: clamp(40px, 13vw, 54px) !important;
+  }
+
+  #templates .template-gallery-heading > p:last-child {
+    margin-top: 16px !important;
+    font-size: 14px !important;
+  }
+
+  #templates .template-filters {
+    gap: 20px;
+    margin-right: -16px !important;
+    padding-right: 16px;
+  }
+
+  #templates.discovery-strip .template-card:is(:nth-child(1), :nth-child(3), :nth-child(4)).is-active-discovery,
+  #templates .template-grid .template-card.home-vocab-host > .home-vocab-strip {
+    width: calc(100vw - 8px) !important;
+    margin-left: calc((var(--discovery-page) - (100vw - 8px)) / 2) !important;
+  }
+
+  #templates .discovery-footer {
+    justify-content: flex-start;
+    margin-top: 8px !important;
+  }
+}
