@@ -85,13 +85,33 @@
     return program;
   }
 
+  function ensureLabel(button) {
+    let label = button.querySelector('.specular-button__label');
+    if (label) return label;
+
+    const currentText = button.textContent.trim();
+    const zh = button.dataset.zh;
+    const en = button.dataset.en;
+    label = document.createElement('span');
+    label.className = 'specular-button__label';
+    if (zh) label.dataset.zh = zh;
+    if (en) label.dataset.en = en;
+    label.textContent = currentText;
+
+    button.removeAttribute('data-zh');
+    button.removeAttribute('data-en');
+    button.textContent = '';
+    button.append(label);
+    return label;
+  }
+
   function initButton(button) {
     if (!button || button.dataset.specularReady === 'true') return;
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches || matchMedia('(hover: none), (pointer: coarse)').matches) {
-      button.classList.add('specular-button');
-      button.dataset.specularReady = 'true';
-      return;
-    }
+    ensureLabel(button);
+    button.classList.add('specular-button');
+    button.dataset.specularReady = 'true';
+
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || matchMedia('(hover: none), (pointer: coarse)').matches) return;
 
     const fx = document.createElement('span');
     fx.className = 'specular-button__fx';
@@ -99,8 +119,6 @@
     const canvas = document.createElement('canvas');
     fx.append(canvas);
     button.append(fx);
-    button.classList.add('specular-button');
-    button.dataset.specularReady = 'true';
 
     const gl = canvas.getContext('webgl2', {
       alpha: true,
