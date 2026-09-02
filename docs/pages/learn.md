@@ -98,7 +98,9 @@ The old template gallery is no longer a template catalog. It is a compact “看
 - On narrower screens, keep the tabs horizontally scrollable if needed; do not stack a long catalog.
 - The section remains a lightweight home-page entry, not a full browsing experience.
 - Every category must use a different preview image grounded in the current ONDesign project, never a generic hotel/e-commerce placeholder that is unrelated to the destination.
-- `App 设计`: use a real App case screenshot from the Library/case assets; present it in a `9:16` frame.
+- `App 设计`: show four approved App UI visual previews at once, each in a `9:16` frame. Desktop keeps all four visible in one row; narrow screens use a compact `2×2` arrangement.
+- Approved Home App references for this four-screen group: habit/routine tracker, bright recipe/cooking app, dark EV charging dashboard, and illustrated bakery app.
+- Preserve each App source image without distortion or extra copy/overlay additions; the four-screen group remains a lightweight preview rather than a second App catalog.
 - `官网设计`: use a real Web case screenshot already used by ONDesign; present it in a `16:9` frame.
 - `设计 Skill`: show four real Skill visual previews at once, each in a `3:4` frame. Desktop keeps all four visible in one row; narrow screens may use a compact `2×2` arrangement.
 - Approved Home Skill examples for this four-card group: `frontend-slides`, `react-three-fiber`, `video-shotcraft`, and `mono-color`.
