@@ -1,0 +1,13 @@
+/* Final homepage discovery sizing overrides.
+ * Keep the UI Vocabulary cards the same physical size as the other discovery tabs
+ * without changing the stable left-aligned vocabulary rail. */
+@media (min-width: 981px) {
+  html body.project-home #templates .template-grid .template-card.home-vocab-host > .home-vocab-strip {
+    grid-auto-columns: clamp(286px, 20.8vw, 338px) !important;
+  }
+
+  html body.project-home #templates .home-vocab-card {
+    width: 100% !important;
+    aspect-ratio: 4 / 5 !important;
+  }
+}
