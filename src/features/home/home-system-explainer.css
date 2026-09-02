@@ -5,3 +5,8 @@
   display: none !important;
   content: none !important;
 }
+
+/* Keep the card title and role line, but remove the lowest descriptive sentence. */
+#capabilities .capability-grid > a > div > p > span:nth-child(3) {
+  display: none !important;
+}
