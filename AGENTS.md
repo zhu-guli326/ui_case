@@ -199,11 +199,6 @@ The route-to-requirement mapping is not repeated here; resolve it through `docs/
 - Other Launcher files are allowed only when they own a distinct stable responsibility, not another Launcher version.
 - Do not recreate workspace/state/url/hardening/simplified compatibility architectures.
 
-### Brands
-
-- Public URL: `brands.html`.
-- Canonical implementation: `src/features/brands/brands.css` and `src/features/brands/brands.js`.
-
 ### Catalog
 
 - Source data: `catalog/cases/*.json`, `catalog/styles/*.json`, `catalog/brands/*.json`, `catalog/components/*.json`.
