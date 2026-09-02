@@ -34,5 +34,6 @@
 
     loadStyle("./src/features/home/specular-button.css");
     loadScript("./src/features/home/specular-button.js");
+    loadScript("./src/features/home/featured-carousel-autoplay.js");
   }
 })(window, document);
