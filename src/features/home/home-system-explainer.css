@@ -6,7 +6,7 @@
   content: none !important;
 }
 
-/* Keep the card title and role line, but remove the lowest descriptive sentence. */
-#capabilities .capability-grid > a > div > p > span:nth-child(3) {
+/* The card descriptions are direct <p> elements in learn.html, not nested spans. Hide the full description line and keep the card title + arrow only. */
+#capabilities .capability-grid > a > div > p {
   display: none !important;
 }
