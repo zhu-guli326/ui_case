@@ -56,6 +56,7 @@ The four-card workflow should explain the path from an idea to a runnable demo. 
 - This section sits immediately after the lightweight discovery strip; the “看点啥” section should appear directly above the Steve Jobs / DEFINE card row.
 - Section eyebrow: `image2 to ui`.
 - Section heading: communicate “从一个 Idea 到一个 Demo，你需要经历这 4 步。” / equivalent English copy.
+- Section heading typography should follow a restrained Ant Design-like hierarchy on white: use `rgba(0,0,0,.88)` instead of pure black, a medium Chinese weight, a looser line-height, and a smaller display scale than the generic Home H2.
 - Stage 01: `DEFINE` — clarify the goal, page and references.
 - Stage 02: `CREATE` — turn references into layout, typography, color and components.
 - Stage 03: `BUILD` — hand Design DNA to AI Coding and produce a runnable demo.
