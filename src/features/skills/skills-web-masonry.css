@@ -1,5 +1,3 @@
-@import url("./skills-directory-card.css");
-
 /* WEB mode: natural-height masonry flow.
  * Cards keep their native preview ratio and move upward independently,
  * avoiding row-height gaps created by the regular CSS grid.
