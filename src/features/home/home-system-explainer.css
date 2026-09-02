@@ -304,21 +304,21 @@
   pointer-events: none;
 }
 
-/* These four rule cards are core content. GSAP may try to set inline opacity /
- * visibility while scrubbing; !important here keeps the cards permanently
- * present and lets motion only affect the central canvas. */
+/* These four rule cards are core content and remain visible in the static fallback.
+ * Desktop GSAP may temporarily set inline opacity / transform during the one-shot
+ * entrance sequence, so do not lock those properties with !important here. */
 #design-system-live .system-callout,
 #design-system-live .system-callout-type,
 #design-system-live .system-callout-color,
 #design-system-live .system-callout-spacing,
 #design-system-live .system-callout-states {
   z-index: 4;
-  opacity: 1 !important;
-  visibility: visible !important;
-  filter: none !important;
+  opacity: 1;
+  visibility: visible;
+  filter: none;
   pointer-events: none;
-  transform: none !important;
-  transition: box-shadow .45s ease !important;
+  transform: none;
+  transition: box-shadow .45s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
