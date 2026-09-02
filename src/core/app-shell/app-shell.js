@@ -32,7 +32,6 @@
     "nav.designSkills": { zh: "设计 Skill & Tool", en: "Design Picks" },
     "nav.designSkillsHint": { zh: "浏览设计 Skill 与工具", en: "Browse curated design resources" },
     "nav.learn": { zh: "使用指南", en: "Guide" },
-    "nav.brands": { zh: "设计系统", en: "Design systems" },
     "nav.launcher": { zh: "开始设计", en: "Start Designing" },
     "nav.skills": { zh: "设计 Skill & Tool", en: "Design Picks" },
     "nav.vocabulary": { zh: "UI 词典", en: "UI vocabulary" },
@@ -159,7 +158,6 @@
       return window.location.pathname.split("/").pop() || "library.html";
     }
     if (document.body?.dataset.sitePage) return document.body.dataset.sitePage;
-    if (/\/lab\//i.test(window.location.pathname)) return "brands.html";
     return window.location.pathname.split("/").pop() || "library.html";
   }
 
@@ -311,7 +309,7 @@
   }
 
   function localizeLinks(root = document) {
-    const pages = /^(?:index|library|learn|brands|launcher|skills|vocabulary|reference|markdown)\.html$/i;
+    const pages = /^(?:index|library|learn|launcher|skills|vocabulary|reference|markdown)\.html$/i;
     root.querySelectorAll("a[href]").forEach((link) => {
       const raw = link.getAttribute("href");
       if (!raw || raw.startsWith("#") || /^(?:https?:|mailto:|tel:|javascript:)/i.test(raw)) return;
@@ -344,7 +342,7 @@
 
   // The task workspace owns same-page drawers and browser history, so it must
   // remain a top-level document rather than an embedded shell route.
-  const SHELL_PAGE_PATTERN = /\/(?:index|library|launcher|brands|learn|skills|vocabulary)\.html$/i;
+  const SHELL_PAGE_PATTERN = /\/(?:index|library|launcher|learn|skills|vocabulary)\.html$/i;
   // Keep top-level navigation on full document loads. Reusing an iframe shell
   // makes page-specific layout rules leak into the persistent header.
   const ENABLE_EMBEDDED_SHELL = false;
@@ -511,7 +509,7 @@
         if (url.origin === window.location.origin) {
           url.searchParams.set("lang", language);
           const page = url.pathname.split("/").pop() || "";
-          if (new URL(window.location.href).searchParams.get("embed") === "1" && /^(?:index|library|learn|brands|launcher|skills|vocabulary)\.html$/i.test(page)) url.searchParams.set("embed", "1");
+          if (new URL(window.location.href).searchParams.get("embed") === "1" && /^(?:index|library|learn|launcher|skills|vocabulary)\.html$/i.test(page)) url.searchParams.set("embed", "1");
         }
         return url.href;
       } catch { return value; }
