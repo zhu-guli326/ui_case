@@ -67,6 +67,26 @@ button { cursor: pointer; }
 .repo-subfilter.is-active { color: var(--ant-text); font-weight: 600; }
 .repo-subfilter.is-active::before { border-color: var(--ant-primary); background: var(--ant-primary); box-shadow: inset 0 0 0 3px #fff; }
 
+/* Keep the desktop filter rail fully readable. The shared sticky rail can be
+ * taller than the viewport when all Skill categories are present, which makes
+ * the lower filters look cropped. Let the page own vertical scrolling and give
+ * the rail enough width for labels + counts instead of clipping the content. */
+@media (min-width: 821px) {
+  body.skills-document .directory-layout {
+    grid-template-columns: clamp(240px, 22vw, 280px) minmax(0, 1fr) !important;
+    gap: 20px !important;
+  }
+
+  body.skills-document .filter-sidebar.directory-sidebar {
+    position: static !important;
+    top: auto !important;
+    width: 100%;
+    min-width: 0;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}
+
 /* Skill result cards */
 .repo-list { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; align-items: stretch; }
 .repo-row { display: flex; min-width: 0; overflow: hidden; flex-direction: column; border: 1px solid var(--ant-border); border-radius: var(--ant-radius); background: var(--ant-surface); box-shadow: var(--ant-shadow); transition: .18s ease; }
