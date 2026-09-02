@@ -1,0 +1,83 @@
+name: Remove Home Workflow Descriptions
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/remove-home-workflow-descriptions.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.head_commit.message == 'chore: remove workflow descriptions'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Remove bottom workflow copy
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          js_path = Path('src/features/home/home.js')
+          js = js_path.read_text(encoding='utf-8')
+          for line in [
+              '    tagline: { zh: "先确定做什么、为谁做，以及参考什么。", en: "Clarify what you are building, who it is for, and what should guide it." },\n',
+              '    tagline: { zh: "把参考转成布局、字体、颜色和组件。", en: "Turn references into layout, typography, color, and components." },\n',
+              '    tagline: { zh: "把设计规则交给 AI Coding，做出能运行的 Demo。", en: "Hand the design rules to AI Coding and build a runnable demo." },\n',
+              '    tagline: { zh: "对照目标持续迭代，让 Demo 更像、更顺、更能用。", en: "Compare, refine, and validate until the demo looks right and works well." },\n',
+          ]:
+              js = js.replace(line, '')
+
+          old = '      copy.innerHTML = `<span style="display:block;font-weight:650;color:#fff">${figure.person[language]}</span><span style="display:block;margin-top:4px">${figure.thinking[language]}</span><span style="display:block;margin-top:4px;color:rgba(255,255,255,.9)">${figure.tagline[language]}</span>`;'
+          new = '      copy.innerHTML = `<span style="display:block;font-weight:650;color:#fff">${figure.person[language]}</span><span style="display:block;margin-top:4px">${figure.thinking[language]}</span>`;'
+          if old not in js:
+              raise SystemExit('Expected workflow card copy renderer not found')
+          js = js.replace(old, new, 1)
+          js_path.write_text(js, encoding='utf-8')
+
+          html_path = Path('learn.html')
+          html = html_path.read_text(encoding='utf-8')
+          replacements = {
+              '<p data-zh="别靠脑补，先看看真实页面长什么样。" data-en="Skip the guesswork. Start from real interfaces.">别靠脑补，先看看真实页面长什么样。</p>': '<p></p>',
+              '<p data-zh="不知道这个东西叫什么？先把词找对。" data-en="Don’t know what it’s called? Find the right UI term first.">不知道这个东西叫什么？先把词找对。</p>': '<p></p>',
+              '<p data-zh="字体、颜色、间距，看看别人到底怎么定的。" data-en="See how others actually define type, color, and spacing.">字体、颜色、间距，看看别人到底怎么定的。</p>': '<p></p>',
+              '<p data-zh="选好规则，先看一版，再交给 AI 继续做。" data-en="Set the rules, preview a version, then let AI keep building.">选好规则，先看一版，再交给 AI 继续做。</p>': '<p></p>',
+          }
+          for old_html, new_html in replacements.items():
+              if old_html not in html:
+                  raise SystemExit(f'Expected fallback workflow copy not found: {old_html[:48]}')
+              html = html.replace(old_html, new_html, 1)
+          html_path.write_text(html, encoding='utf-8')
+
+          doc_path = Path('docs/pages/learn.md')
+          doc = doc_path.read_text(encoding='utf-8')
+          old_doc = '- Keep the person name, role/thinking line, and concise description in the lower text area.\n- The poster, person name, thinking line and description must all remain clearly visible in the card\'s default state; hover may enhance depth/glow but must never be required to reveal readable content.'
+          new_doc = '- Keep only the person name and role/thinking line in the lower text area; do not render an additional bottom description sentence.\n- The poster, person name and thinking line must all remain clearly visible in the card\'s default state; hover may enhance depth/glow but must never be required to reveal readable content.'
+          if old_doc not in doc:
+              raise SystemExit('Expected Learn workflow requirement block not found')
+          doc = doc.replace(old_doc, new_doc, 1)
+          doc_path.write_text(doc, encoding='utf-8')
+          PY
+
+      - name: Validate scoped changes
+        run: |
+          node --check src/features/home/home.js
+          git diff --check
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          rm .github/workflows/remove-home-workflow-descriptions.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/features/home/home.js learn.html docs/pages/learn.md .github/workflows/remove-home-workflow-descriptions.yml
+          git commit -m "style: remove workflow card descriptions"
+          git push origin HEAD:main
