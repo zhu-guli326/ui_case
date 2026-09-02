@@ -119,7 +119,7 @@ function smoothFlip(card, { moveFocus = true } = {}) {
     }
 
     const direction = flipped ? 1 : -1;
-    const edgeAngle = 82;
+    const edgeAngle = 89;
     const animatedElements = [outgoingFace, incomingFace, outgoingContent, incomingContent];
 
     gsap.killTweensOf([card, ...animatedElements]);
@@ -127,18 +127,19 @@ function smoothFlip(card, { moveFocus = true } = {}) {
     back.style.transition = "none";
 
     gsap.set(card, {
-      transformPerspective: 1200,
+      transformPerspective: 760,
       transformOrigin: "50% 50%",
       rotationY: 0,
       rotationX: 0,
+      z: 0,
     });
     gsap.set(outgoingFace, { opacity: 1 });
     gsap.set(incomingFace, { opacity: 1 });
     gsap.set(incomingContent, {
-      opacity: 0.72,
-      x: direction * 10,
-      scale: 0.992,
-      filter: "blur(1.5px)",
+      opacity: 0.5,
+      x: direction * 24,
+      scale: 0.972,
+      filter: "blur(3px)",
     });
 
     const timeline = gsap.timeline({
@@ -148,59 +149,61 @@ function smoothFlip(card, { moveFocus = true } = {}) {
 
     timeline
       .to(card, {
-        y: -5,
-        scale: 0.992,
+        y: -18,
+        z: 48,
+        scale: 0.965,
         rotationY: direction * edgeAngle,
-        duration: 0.3,
-        ease: "power2.in",
+        rotationX: direction * -4,
+        duration: 0.42,
+        ease: "power3.inOut",
       }, 0)
       .to(outgoingContent, {
-        opacity: 0.72,
-        x: direction * -10,
-        scale: 0.992,
-        filter: "blur(1.5px)",
-        duration: 0.24,
+        opacity: 0.5,
+        x: direction * -24,
+        scale: 0.972,
+        filter: "blur(3px)",
+        duration: 0.32,
         ease: "power2.in",
       }, 0.04)
       .call(() => {
         applyFaceState(card, flipped);
         gsap.set(card, {
           rotationY: direction * -edgeAngle,
-          y: -5,
-          scale: 0.992,
+          rotationX: direction * 4,
+          y: -18,
+          z: 48,
+          scale: 0.965,
         });
         gsap.set(incomingContent, {
-          opacity: 0.72,
-          x: direction * 10,
-          scale: 0.992,
-          filter: "blur(1.5px)",
+          opacity: 0.5,
+          x: direction * 24,
+          scale: 0.972,
+          filter: "blur(3px)",
         });
-      }, null, 0.3)
+      }, null, 0.42)
       .to(card, {
         y: 0,
-        scale: 1,
-        rotationY: 0,
-        duration: 0.38,
+        z: 0,
+        scale: 1.018,
+        rotationY: direction * -4,
+        rotationX: 0,
+        duration: 0.46,
         ease: "power3.out",
-      }, 0.3)
+      }, 0.42)
       .to(incomingContent, {
         opacity: 1,
         x: 0,
         scale: 1,
         filter: "blur(0px)",
-        duration: 0.32,
+        duration: 0.4,
         ease: "power3.out",
-      }, 0.34)
-      .to(card, {
-        scale: 1.008,
-        duration: 0.12,
-        ease: "power2.out",
-      }, 0.55)
+      }, 0.48)
       .to(card, {
         scale: 1,
-        duration: 0.16,
-        ease: "power3.out",
-      }, 0.64);
+        rotationY: 0,
+        duration: 0.22,
+        ease: "back.out(1.8)",
+      }, 0.82);
   });
 }
 
