@@ -70,7 +70,7 @@ body.project-home > .site-header .site-nav-primary > a,
 body.project-home > .site-header .site-nav-community > a,
 body.project-home > .site-header .site-nav-more > summary {
   color: var(--home-nav-ink) !important;
-  text-shadow: 0 1px 14px rgba(0, 0, 0, .28);
+  text-shadow: none !important;
 }
 
 body.project-home > .site-header .site-brand-logo,
