@@ -119,6 +119,7 @@ function smoothFlip(card, { moveFocus = true } = {}) {
     }
 
     const direction = flipped ? 1 : -1;
+    const edgeAngle = 82;
     const animatedElements = [outgoingFace, incomingFace, outgoingContent, incomingContent];
 
     gsap.killTweensOf([card, ...animatedElements]);
@@ -126,15 +127,18 @@ function smoothFlip(card, { moveFocus = true } = {}) {
     back.style.transition = "none";
 
     gsap.set(card, {
-      transformPerspective: 1100,
+      transformPerspective: 1200,
       transformOrigin: "50% 50%",
+      rotationY: 0,
+      rotationX: 0,
     });
-    gsap.set(incomingFace, { opacity: 0.12 });
+    gsap.set(outgoingFace, { opacity: 1 });
+    gsap.set(incomingFace, { opacity: 1 });
     gsap.set(incomingContent, {
-      opacity: 0,
-      y: 12,
-      scale: 0.982,
-      filter: "blur(4px)",
+      opacity: 0.72,
+      x: direction * 10,
+      scale: 0.992,
+      filter: "blur(1.5px)",
     });
 
     const timeline = gsap.timeline({
@@ -144,62 +148,59 @@ function smoothFlip(card, { moveFocus = true } = {}) {
 
     timeline
       .to(card, {
-        y: -4,
-        scale: 0.995,
-        rotationY: direction * 2.5,
-        duration: 0.15,
-        ease: "power2.out",
+        y: -5,
+        scale: 0.992,
+        rotationY: direction * edgeAngle,
+        duration: 0.3,
+        ease: "power2.in",
       }, 0)
       .to(outgoingContent, {
-        opacity: 0,
-        y: -7,
-        scale: 0.982,
-        filter: "blur(3px)",
-        duration: 0.22,
-        ease: "power2.inOut",
-      }, 0)
-      .to(outgoingFace, {
-        opacity: 0.1,
-        duration: 0.22,
-        ease: "power2.inOut",
-      }, 0.02)
-      .to(card, {
-        scaleX: 0.982,
-        rotationY: direction * 8,
-        duration: 0.18,
-        ease: "power2.inOut",
-      }, 0.12)
+        opacity: 0.72,
+        x: direction * -10,
+        scale: 0.992,
+        filter: "blur(1.5px)",
+        duration: 0.24,
+        ease: "power2.in",
+      }, 0.04)
       .call(() => {
         applyFaceState(card, flipped);
-      }, null, 0.28)
+        gsap.set(card, {
+          rotationY: direction * -edgeAngle,
+          y: -5,
+          scale: 0.992,
+        });
+        gsap.set(incomingContent, {
+          opacity: 0.72,
+          x: direction * 10,
+          scale: 0.992,
+          filter: "blur(1.5px)",
+        });
+      }, null, 0.3)
       .to(card, {
-        rotationY: direction * -2.6,
-        scaleX: 1.004,
-        scale: 1.006,
-        duration: 0.22,
+        y: 0,
+        scale: 1,
+        rotationY: 0,
+        duration: 0.38,
         ease: "power3.out",
-      }, 0.28)
-      .to(incomingFace, {
-        opacity: 1,
-        duration: 0.26,
-        ease: "power2.out",
-      }, 0.28)
+      }, 0.3)
       .to(incomingContent, {
         opacity: 1,
-        y: 0,
+        x: 0,
         scale: 1,
         filter: "blur(0px)",
-        duration: 0.34,
+        duration: 0.32,
         ease: "power3.out",
-      }, 0.31)
+      }, 0.34)
       .to(card, {
-        y: 0,
+        scale: 1.008,
+        duration: 0.12,
+        ease: "power2.out",
+      }, 0.55)
+      .to(card, {
         scale: 1,
-        scaleX: 1,
-        rotationY: 0,
-        duration: 0.3,
+        duration: 0.16,
         ease: "power3.out",
-      }, 0.43);
+      }, 0.64);
   });
 }
 
@@ -231,8 +232,9 @@ function handleFlipCapture(event) {
   smoothFlip(card, { moveFocus: Boolean(explicitFlip) });
 }
 
-// Capture on window so the polished transition owns flip clicks before the
-// older delegated reliability handler runs on #entryGrid. Other controls keep
-// their existing behavior because only flip targets/card surfaces are stopped.
+// Capture on window so this transition owns flip clicks before the persistent
+// grid handler. The card still switches its real front/back state at the
+// edge-on midpoint, preserving reliable hit testing while making the visual
+// rotation read as a true card flip.
 window.addEventListener("click", handleFlipCapture, true);
 loadGsap();
