@@ -94,13 +94,14 @@ The old template gallery is no longer a template catalog. It is a compact “看
 - Primary tags: `App 设计`, `官网设计`, `设计 Skill`, `设计工具`, `UI 词库`.
 - The five tags are mutually exclusive tabs/switches, not navigation links. Clicking a tag changes the preview content shown below and updates the active state.
 - Show only the preview for the currently selected category instead of displaying all five category cards at the same time.
-- The preview itself should not be the primary navigation target.
+- Preview cards are normally non-navigation surfaces; the current exception is `App 设计`, whose four image previews are clickable and all enter the case library.
 - Put a compact `查看更多 ↗` link at the lower-right of the section. This link is the navigation action and must update its destination to match the currently selected tag/category.
 - On narrower screens, keep the tabs horizontally scrollable if needed; do not stack a long catalog.
 - The section remains a lightweight home-page entry, not a full browsing experience.
 - Every category must use a different preview image grounded in the current ONDesign project, never a generic hotel/e-commerce placeholder that is unrelated to the destination.
 - `App 设计`: show four approved App UI visual previews at once, each in a `9:16` frame. Desktop keeps all four visible in one row; narrow screens use a compact `2×2` arrangement.
 - Approved Home App references for this four-screen group: habit/routine tracker, bright recipe/cooking app, dark EV charging dashboard, and illustrated bakery app.
+- All four App preview images click through to `library.html`, preserving the current `lang` query parameter (`zh` / `en`).
 - Preserve each App source image without distortion or extra copy/overlay additions; the four-screen group remains a lightweight preview rather than a second App catalog.
 - `官网设计`: use a real Web case screenshot already used by ONDesign; present it in a `16:9` frame.
 - `设计 Skill`: show four real Skill visual previews at once, each in a `3:4` frame. Desktop keeps all four visible in one row; narrow screens may use a compact `2×2` arrangement.
