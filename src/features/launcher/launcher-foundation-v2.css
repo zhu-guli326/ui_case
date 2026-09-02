@@ -1,0 +1,390 @@
+/* Launcher Foundation v2
+ * Single owner for the 02 Foundation layout.
+ * Visual System = appearance tokens; Component System = component structure/behavior.
+ * This file intentionally loads last so older Launcher layers cannot restyle this section.
+ */
+
+body.dna-page .dna-workspace {
+  grid-template-columns: minmax(430px, 500px) minmax(0, 1fr);
+  gap: clamp(32px, 4vw, 64px);
+}
+
+body.dna-page .dna-controls {
+  overflow: visible;
+  border: 1px solid #e8e8e5;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 10px 34px rgb(0 0 0 / 4%);
+}
+
+body.dna-page .dna-section {
+  overflow: visible;
+  border-top: 1px solid #eeeeeb;
+}
+
+body.dna-page .dna-section:first-child { border-top: 0; }
+
+body.dna-page .dna-section-head {
+  min-height: 78px;
+  grid-template-columns: 30px minmax(0, 1fr) auto 14px;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #fff !important;
+}
+
+body.dna-page .dna-section-head:hover {
+  background: #fafafa !important;
+}
+
+body.dna-page .dna-section-head > span {
+  display: block;
+  width: auto;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #18a957;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: .08em;
+}
+
+body.dna-page .dna-section-head h2 {
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+
+body.dna-page .dna-section-head p {
+  margin-top: 3px;
+  color: #8b8b86;
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+body.dna-page .dna-section-value {
+  max-width: 140px;
+  color: #9b9b96;
+  font-size: 10.5px;
+  font-weight: 500;
+}
+
+/* Foundation: one settings sheet, not nested cards. */
+body.dna-page #dna-rules .dna-section-body {
+  display: grid;
+  gap: 0;
+  padding: 4px 22px 22px;
+  border-top: 1px solid #eeeeeb;
+  background: #fff;
+}
+
+body.dna-page #dna-rules fieldset {
+  min-width: 0;
+  margin: 0;
+}
+
+body.dna-page #dna-rules > .dna-section-body > .ds-field,
+body.dna-page #dna-rules > .dna-section-body > .cs-field,
+body.dna-page #dna-rules > .dna-section-body > .font-field {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  column-gap: 18px;
+  row-gap: 10px;
+  padding: 20px 0;
+  border: 0;
+  border-bottom: 1px solid #eeeeeb;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.dna-page #dna-rules > .dna-section-body > .ds-field > legend,
+body.dna-page #dna-rules > .dna-section-body > .cs-field > legend,
+body.dna-page #dna-rules > .dna-section-body > .font-field > legend {
+  grid-column: 1;
+  grid-row: 1 / span 4;
+  align-self: start;
+  display: block;
+  margin: 4px 0 0;
+  padding: 0;
+  color: #30302d;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+
+body.dna-page #dna-rules > .dna-section-body > :is(.ds-field,.cs-field,.font-field) > legend::before {
+  display: none !important;
+  content: none !important;
+}
+
+body.dna-page #dna-rules .ds-trigger,
+body.dna-page #dna-rules .ds-menu,
+body.dna-page #dna-rules .ds-note,
+body.dna-page #dna-rules .cs-trigger,
+body.dna-page #dna-rules .cs-menu,
+body.dna-page #dna-rules .cs-live,
+body.dna-page #dna-rules .cs-note,
+body.dna-page #dna-rules .font-field .select-control,
+body.dna-page #dna-rules .font-field .field-help {
+  grid-column: 2;
+}
+
+/* Visual system selector */
+body.dna-page #dna-rules .ds-trigger {
+  min-height: 70px;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid #deded9;
+  border-radius: 12px;
+  background: #fcfcfb;
+  box-shadow: none;
+}
+
+body.dna-page #dna-rules .ds-trigger:hover,
+body.dna-page #dna-rules .ds-trigger[aria-expanded="true"] {
+  border-color: #18a957;
+  box-shadow: 0 0 0 3px rgb(24 169 87 / 8%);
+}
+
+body.dna-page #dna-rules .ds-trigger-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #fff;
+}
+
+body.dna-page #dna-rules .ds-trigger-copy strong {
+  color: #1e1e1c;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+body.dna-page #dna-rules .ds-trigger-copy small {
+  color: #888884;
+  font-size: 10.5px;
+  font-weight: 400;
+}
+
+body.dna-page #dna-rules .ds-note,
+body.dna-page #dna-rules .cs-note,
+body.dna-page #dna-rules .field-help {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: #94948f;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+body.dna-page #dna-rules .ds-menu {
+  margin-top: 0;
+  border-color: #deded9;
+  border-radius: 12px;
+  box-shadow: 0 16px 38px rgb(0 0 0 / 9%);
+}
+
+/* Component system selector */
+body.dna-page #dna-rules .cs-field {
+  position: relative;
+}
+
+body.dna-page #dna-rules .cs-trigger {
+  min-height: 70px;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid #deded9;
+  border-radius: 12px;
+  background: #fcfcfb;
+  box-shadow: none;
+}
+
+body.dna-page #dna-rules .cs-trigger:hover,
+body.dna-page #dna-rules .cs-trigger[aria-expanded="true"] {
+  border-color: #18a957;
+  box-shadow: 0 0 0 3px rgb(24 169 87 / 8%);
+}
+
+body.dna-page #dna-rules .cs-trigger-copy strong {
+  font-size: 14px;
+  font-weight: 650;
+}
+
+body.dna-page #dna-rules .cs-trigger-copy small {
+  color: #888884;
+  font-size: 10.5px;
+}
+
+body.dna-page #dna-rules .cs-menu {
+  position: static;
+  inset: auto;
+  margin: 0;
+  border-color: #deded9;
+  border-radius: 12px;
+  box-shadow: 0 16px 38px rgb(0 0 0 / 9%);
+}
+
+body.dna-page #dna-rules .cs-live {
+  margin: 0;
+  padding: 12px;
+  border: 1px solid #ecece8;
+  border-radius: 11px;
+  background: #f8f8f6;
+}
+
+body.dna-page #dna-rules .cs-live-head {
+  margin-bottom: 10px;
+  color: #8c8c87;
+  font-size: 9.5px;
+}
+
+body.dna-page #dna-rules .cs-live-row {
+  grid-template-columns: auto minmax(110px, 1fr) auto auto;
+  gap: 8px;
+}
+
+/* Typography */
+body.dna-page #dna-rules .font-field .select-control {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.dna-page #dna-rules .font-field select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 40px 0 13px;
+  border: 1px solid #deded9;
+  border-radius: 10px;
+  background-color: #fcfcfb;
+  color: #292927;
+  font-size: 11.5px;
+  font-weight: 500;
+  outline: none;
+}
+
+body.dna-page #dna-rules .font-field select:focus {
+  border-color: #18a957;
+  box-shadow: 0 0 0 3px rgb(24 169 87 / 8%);
+}
+
+/* Radius / spacing are compact token controls. */
+body.dna-page #dna-rules .rule-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0;
+  padding: 20px 0 2px 114px;
+}
+
+body.dna-page #dna-rules .rule-pair .rule-field {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.dna-page #dna-rules .rule-pair .rule-field > legend {
+  display: block;
+  margin: 0 0 8px;
+  padding: 0;
+  color: #6f6f6a;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+body.dna-page #dna-rules .rule-pair .rule-field > legend::before {
+  display: none !important;
+  content: none !important;
+}
+
+body.dna-page #dna-rules .segmented-control {
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid #e2e2dd;
+  border-radius: 10px;
+  background: #f7f7f5;
+}
+
+body.dna-page #dna-rules .segmented-control button {
+  min-height: 34px;
+  padding: 0 7px;
+  border-radius: 7px;
+  color: #777772;
+  font-size: 10.5px;
+  font-weight: 500;
+}
+
+body.dna-page #dna-rules .segmented-control button.is-selected {
+  background: #fff;
+  color: #168e4d;
+  font-weight: 650;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 7%), inset 0 0 0 1px rgb(24 169 87 / 30%);
+}
+
+/* Make selected systems clear without shouting. */
+body.dna-page[data-design-system] #dna-rules .ds-trigger,
+body.dna-page[data-component-system] #dna-rules .cs-trigger {
+  border-color: rgb(24 169 87 / 55%);
+  background: rgb(24 169 87 / 3%);
+}
+
+body.dna-page[data-design-system] #dna-rules .ds-trigger-side::before {
+  width: 22px;
+  height: 22px;
+  background: #18a957;
+  color: #fff;
+  font-size: 11px;
+}
+
+@media (max-width: 1120px) {
+  body.dna-page .dna-workspace {
+    grid-template-columns: minmax(390px, 460px) minmax(0, 1fr);
+    gap: 28px;
+  }
+}
+
+@media (max-width: 940px) {
+  body.dna-page .dna-workspace { grid-template-columns: 1fr; }
+  body.dna-page .dna-controls { overflow: hidden; }
+}
+
+@media (max-width: 560px) {
+  body.dna-page .dna-section-head {
+    grid-template-columns: 26px minmax(0, 1fr) 12px;
+    padding: 14px 16px;
+  }
+  body.dna-page .dna-section-value { display: none; }
+  body.dna-page #dna-rules .dna-section-body { padding-inline: 16px; }
+  body.dna-page #dna-rules > .dna-section-body > .ds-field,
+  body.dna-page #dna-rules > .dna-section-body > .cs-field,
+  body.dna-page #dna-rules > .dna-section-body > .font-field {
+    grid-template-columns: 1fr;
+    row-gap: 9px;
+    padding: 17px 0;
+  }
+  body.dna-page #dna-rules > .dna-section-body > :is(.ds-field,.cs-field,.font-field) > legend {
+    grid-column: 1;
+    grid-row: auto;
+    margin: 0;
+  }
+  body.dna-page #dna-rules .ds-trigger,
+  body.dna-page #dna-rules .ds-menu,
+  body.dna-page #dna-rules .ds-note,
+  body.dna-page #dna-rules .cs-trigger,
+  body.dna-page #dna-rules .cs-menu,
+  body.dna-page #dna-rules .cs-live,
+  body.dna-page #dna-rules .cs-note,
+  body.dna-page #dna-rules .font-field .select-control,
+  body.dna-page #dna-rules .font-field .field-help { grid-column: 1; }
+  body.dna-page #dna-rules .rule-pair {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding-left: 0;
+  }
+  body.dna-page #dna-rules .cs-live-row { grid-template-columns: 1fr 1fr; }
+}
