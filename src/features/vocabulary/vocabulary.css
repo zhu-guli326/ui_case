@@ -26,8 +26,9 @@ body.vocabulary-page .vocab-layout {
  * editorial directory rather than a split statistics dashboard.
  */
 body.vocabulary-page.directory-page .vocab-hero.directory-hero {
-  grid-template-columns: 1fr !important;
-  gap: 0 !important;
+  grid-template-columns: minmax(0, 1fr) max-content !important;
+  align-items: end !important;
+  column-gap: clamp(32px, 6vw, 96px) !important;
   padding: 22px 0 0 !important;
   border-bottom: 1px solid var(--directory-border) !important;
 }
@@ -64,11 +65,14 @@ body.vocabulary-page.directory-page .vocab-hero .hero-intro {
 }
 
 body.vocabulary-page.directory-page .vocab-overview.directory-hero-overview {
-  display: block !important;
+  display: flex !important;
   min-height: 0 !important;
-  padding: 24px 0 26px !important;
+  align-items: flex-end !important;
+  justify-content: flex-end !important;
+  align-self: stretch !important;
+  padding: 34px 0 38px !important;
   border-left: 0 !important;
-  border-top: 1px solid var(--directory-border) !important;
+  border-top: 0 !important;
 }
 
 body.vocabulary-page.directory-page .vocab-overview > header {
@@ -76,16 +80,17 @@ body.vocabulary-page.directory-page .vocab-overview > header {
 }
 
 body.vocabulary-page.directory-page .vocab-overview .directory-primary-stat {
-  display: grid !important;
+  display: flex !important;
   width: max-content;
-  align-content: end !important;
-  gap: 7px !important;
+  align-items: baseline !important;
+  gap: 10px !important;
   padding: 0 !important;
+  white-space: nowrap;
 }
 
 body.vocabulary-page.directory-page .vocab-overview .directory-primary-stat strong {
   font-family: var(--font-number) !important;
-  font-size: clamp(52px, 4.2vw, 66px) !important;
+  font-size: clamp(48px, 4vw, 62px) !important;
   font-weight: var(--ds-font-weight-medium, 500) !important;
   font-variant-numeric: var(--number-font-variant) !important;
   font-feature-settings: var(--number-font-features) !important;
@@ -138,6 +143,7 @@ body.vocabulary-page.directory-page .vocab-toolbar .share-view-button {
 
 @media (max-width: 900px) {
   body.vocabulary-page.directory-page .vocab-hero.directory-hero {
+    column-gap: 24px !important;
     padding-top: 8px !important;
   }
 
@@ -146,11 +152,19 @@ body.vocabulary-page.directory-page .vocab-toolbar .share-view-button {
   }
 
   body.vocabulary-page.directory-page .vocab-overview.directory-hero-overview {
-    padding: 22px 0 24px !important;
+    padding: 28px 0 !important;
+  }
+
+  body.vocabulary-page.directory-page .vocab-overview .directory-primary-stat strong {
+    font-size: 48px !important;
   }
 }
 
 @media (max-width: 620px) {
+  body.vocabulary-page.directory-page .vocab-hero.directory-hero {
+    column-gap: 16px !important;
+  }
+
   body.vocabulary-page.directory-page .vocab-hero h1 {
     font-size: clamp(42px, 13vw, 58px) !important;
   }
@@ -158,6 +172,18 @@ body.vocabulary-page.directory-page .vocab-toolbar .share-view-button {
   body.vocabulary-page.directory-page .vocab-hero .hero-intro {
     margin-top: 18px !important;
     font-size: 14px !important;
+  }
+
+  body.vocabulary-page.directory-page .vocab-overview .directory-primary-stat {
+    gap: 7px !important;
+  }
+
+  body.vocabulary-page.directory-page .vocab-overview .directory-primary-stat strong {
+    font-size: 40px !important;
+  }
+
+  body.vocabulary-page.directory-page .vocab-overview .directory-primary-stat span {
+    font-size: 11px !important;
   }
 
   body.vocabulary-page.directory-page .vocab-toolbar.directory-toolbar {
