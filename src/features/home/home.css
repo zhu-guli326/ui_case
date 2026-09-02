@@ -696,3 +696,43 @@ html[lang="zh-CN"] .featured-cases-heading h2 {
     outline-offset: 6px;
   }
 }
+
+/* React Bits ScrollReveal adaptation for the final CTA headline.
+ * Keep the current static HTML; modern browsers bind the reveal directly to scroll progress.
+ * Values mirror the requested component: baseOpacity 0, baseRotation 5deg, blurStrength 10. */
+.project-cta h2 {
+  transform-origin: 0 55%;
+}
+
+@supports (animation-timeline: view()) {
+  .project-cta h2 {
+    animation-name: project-cta-scroll-reveal;
+    animation-duration: 1ms;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: view(block);
+    animation-range: entry 4% cover 34%;
+  }
+}
+
+@keyframes project-cta-scroll-reveal {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(14px) rotate(5deg);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-cta h2 {
+    animation: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}
