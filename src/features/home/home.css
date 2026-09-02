@@ -170,7 +170,6 @@
   display: none !important;
 }
 
-
 @media (max-width: 900px) {
   .discovery-strip .template-card:nth-child(1).is-active-discovery {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -236,7 +235,6 @@
 .discovery-strip .template-card:nth-child(4).is-active-discovery > i {
   display: none !important;
 }
-
 
 @media (max-width: 900px) {
   .discovery-strip .template-card:nth-child(4).is-active-discovery {
@@ -310,14 +308,12 @@
   display: none !important;
 }
 
-
 @media (max-width: 900px) {
   .discovery-strip .template-card:nth-child(3).is-active-discovery {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
   }
 }
-
 
 /* GSAP discovery-card depth: preserve the static layout while allowing the four-up previews to move independently. */
 .home-motion-active .discovery-strip .template-card:nth-child(1).is-active-discovery > img,
@@ -351,5 +347,37 @@
   .home-motion-active .discovery-strip .template-card:nth-child(4).is-active-discovery > small,
   .home-motion-active .discovery-strip .template-card:nth-child(4).is-active-discovery > div {
     will-change: auto;
+  }
+}
+
+/* Ant-inspired workflow heading: calmer Chinese display hierarchy. */
+#capabilities .section-heading {
+  max-width: 760px;
+  margin-bottom: 48px;
+}
+
+#capabilities .section-heading h2 {
+  max-width: 740px;
+  color: rgba(0, 0, 0, .88);
+  font-size: clamp(36px, 4vw, 54px);
+  font-weight: 500;
+  letter-spacing: -.022em;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+html[lang="zh-CN"] #capabilities .section-heading h2 {
+  letter-spacing: -.012em;
+  line-height: 1.22;
+}
+
+@media (max-width: 720px) {
+  #capabilities .section-heading {
+    margin-bottom: 36px;
+  }
+
+  #capabilities .section-heading h2 {
+    font-size: clamp(32px, 9vw, 42px);
+    line-height: 1.24;
   }
 }
