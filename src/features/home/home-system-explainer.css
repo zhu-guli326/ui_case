@@ -129,11 +129,11 @@ html[lang="zh-CN"] .featured-cases-heading h2 {
   min-width: 0 !important;
 }
 
-/* Desktop discovery: cards are 1.3x larger than the previous compact pass while
- * the preview rail can extend beyond the content column without shifting the heading. */
+/* Desktop discovery: enlarge the image-based previews without letting that size
+ * leak into the vocabulary grid. Vocabulary remains a stable, left-aligned rail. */
 @media (min-width: 981px) {
   #templates {
-    --discovery-card: clamp(286px, 20.8vw, 338px) !important;
+    --discovery-card: clamp(220px, 16vw, 260px) !important;
     --discovery-gap: clamp(20px, 2.2vw, 32px) !important;
     padding-block: clamp(50px, 6vh, 68px) clamp(42px, 5vh, 58px) !important;
   }
@@ -166,15 +166,20 @@ html[lang="zh-CN"] .featured-cases-heading h2 {
     transform: translateX(-50%);
   }
 
+  #templates.discovery-strip .template-card:is(:nth-child(1), :nth-child(3), :nth-child(4)).is-active-discovery > :is(img, .template-card-shade, small, div) {
+    flex: 0 0 clamp(286px, 20.8vw, 338px) !important;
+  }
+
   #templates .template-grid .template-card.home-vocab-host > .home-vocab-strip {
-    width: min(calc(100vw - 72px), 1560px) !important;
-    max-width: none !important;
-    justify-content: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-content: start !important;
     gap: var(--discovery-gap) !important;
-    margin-left: 50% !important;
+    margin-left: 0 !important;
     padding: 8px 0 18px !important;
-    overflow-x: hidden !important;
-    transform: translateX(-50%);
+    overflow-x: auto !important;
+    transform: none !important;
+    scroll-padding-inline: 0;
   }
 
   #templates .discovery-footer {
