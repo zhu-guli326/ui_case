@@ -22,10 +22,18 @@
   right: auto !important;
   bottom: auto !important;
   left: auto !important;
-  width: 100% !important;
+  width: min(100%, 1080px) !important;
+  max-width: 1080px !important;
   height: auto !important;
-  margin: 0 !important;
+  margin: 0 auto !important;
   transform: none !important;
+}
+
+@media (max-width: 900px) {
+  #templates .template-grid .template-card.home-vocab-host > .home-vocab-strip {
+    width: 100% !important;
+    max-width: none !important;
+  }
 }
 
 /* App design discovery: show the four approved 9:16 references together. */
