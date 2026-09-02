@@ -1,5 +1,6 @@
 name: Restyle Workflow Heading
 
+# Existing workflow is touched once so GitHub Actions runs it from main.
 on:
   push:
     branches:
