@@ -41,6 +41,11 @@
   height: 100%;
 }
 
+.specular-button__label {
+  position: relative;
+  z-index: 2;
+}
+
 @media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
   .project-hero-actions .button-outline-light.specular-button {
     border: 1px solid rgba(255, 255, 255, 0.82);
