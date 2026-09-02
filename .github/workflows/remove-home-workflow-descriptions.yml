@@ -5,14 +5,13 @@ on:
     branches:
       - main
     paths:
-      - ".github/workflows/remove-home-workflow-descriptions.yml"
+      - ".github/remove-home-workflow-descriptions.trigger"
 
 permissions:
   contents: write
 
 jobs:
   patch:
-    if: github.event.head_commit.message == 'chore: remove workflow descriptions'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -75,11 +74,10 @@ jobs:
       - name: Commit changes
         shell: bash
         run: |
+          rm .github/remove-home-workflow-descriptions.trigger
           rm .github/workflows/remove-home-workflow-descriptions.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/features/home/home.js learn.html docs/pages/learn.md .github/workflows/remove-home-workflow-descriptions.yml
+          git add src/features/home/home.js learn.html docs/pages/learn.md .github/remove-home-workflow-descriptions.trigger .github/workflows/remove-home-workflow-descriptions.yml
           git commit -m "style: remove workflow card descriptions"
           git push origin HEAD:main
-
-# trigger
