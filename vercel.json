@@ -1,9 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "git": {
-    "deploymentEnabled": {
-      "ai-work": false,
-      "design-batch": false
-    }
+    "deploymentEnabled": false
   }
 }
