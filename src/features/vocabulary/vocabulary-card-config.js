@@ -1,4 +1,5 @@
 import "./vocabulary-card-interactions.js";
+import "./vocabulary-card-flip-polish.js";
 
 export const interactiveVariantIds = new Set([
   "top-nav", "sidebar", "bottom-tabs", "tabs", "segmented", "search", "filter-chips", "data-table",
