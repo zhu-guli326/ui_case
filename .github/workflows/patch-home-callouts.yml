@@ -1,9 +1,8 @@
-name: Patch home callout sequence
+name: Patch Home Callouts
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - .github/workflows/patch-home-callouts.yml
 
@@ -11,101 +10,18 @@ permissions:
   contents: write
 
 jobs:
-  patch-home-callouts:
+  patch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Patch GSAP callout sequence
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path('src/features/home/home.js')
-          text = path.read_text(encoding='utf-8')
-          old = '''  const liveTimeline = gsap.timeline({
-    scrollTrigger: {
-      trigger: "#design-system-live .system-explainer-stage",
-      start: "top 82%",
-      end: "bottom 58%",
-      scrub: .7,
-    },
-  });
-  liveTimeline
-    .from("#design-system-live .system-app", { autoAlpha: 0, filter: "blur(14px)", duration: 1 })
-    .from("#design-system-live .system-callout-type", { autoAlpha: 0, x: -74, duration: .65, clearProps: "transform" }, .28)
-    .from("#design-system-live .system-callout-color", { autoAlpha: 0, x: 74, duration: .65, clearProps: "transform" }, .48)
-    .from("#design-system-live .system-callout-spacing", { autoAlpha: 0, x: -74, duration: .65, clearProps: "transform" }, .68)
-    .from("#design-system-live .system-callout-states", { autoAlpha: 0, x: 74, duration: .65, clearProps: "transform" }, .88);'''
-          new = '''  const liveTimeline = gsap.timeline({
-    defaults: { ease: "power3.out" },
-    scrollTrigger: {
-      trigger: "#design-system-live .system-explainer-stage",
-      start: "top 78%",
-      once: true,
-    },
-  });
-  liveTimeline
-    .from("#design-system-live .system-app", {
-      autoAlpha: 0,
-      y: 22,
-      scale: .985,
-      filter: "blur(12px)",
-      duration: .68,
-      clearProps: "opacity,visibility,transform,filter",
-    })
-    .from("#design-system-live .system-callout-type", {
-      autoAlpha: 0,
-      x: -42,
-      y: -16,
-      scale: .94,
-      duration: .52,
-      clearProps: "opacity,visibility,transform",
-    }, "-=.08")
-    .from("#design-system-live .system-callout-color", {
-      autoAlpha: 0,
-      x: 42,
-      y: -16,
-      scale: .94,
-      duration: .52,
-      clearProps: "opacity,visibility,transform",
-    }, "-=.34")
-    .from("#design-system-live .system-callout-spacing", {
-      autoAlpha: 0,
-      x: -42,
-      y: 16,
-      scale: .94,
-      duration: .52,
-      clearProps: "opacity,visibility,transform",
-    }, "-=.34")
-    .from("#design-system-live .system-callout-states", {
-      autoAlpha: 0,
-      x: 42,
-      y: 16,
-      scale: .94,
-      duration: .52,
-      clearProps: "opacity,visibility,transform",
-    }, "-=.34");'''
-
-          if old not in text:
-              raise SystemExit('Expected liveTimeline block was not found; refusing to patch.')
-
-          path.write_text(text.replace(old, new, 1), encoding='utf-8')
-          PY
-
+      - name: Patch home motion
+        run: python .github/scripts/patch_home_callouts.py
       - name: Validate JavaScript
         run: node --check src/features/home/home.js
-
-      - name: Commit patch
-        shell: bash
+      - name: Commit change
         run: |
-          if git diff --quiet -- src/features/home/home.js; then
-            echo "No change needed"
-            exit 0
-          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add src/features/home/home.js
