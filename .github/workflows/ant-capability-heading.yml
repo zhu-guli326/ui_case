@@ -1,0 +1,92 @@
+name: Restyle Workflow Heading
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/ant-capability-heading.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Apply Ant-inspired Chinese heading typography
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          css_path = Path('src/features/home/home.css')
+          css = css_path.read_text(encoding='utf-8')
+          marker = '/* Ant-inspired workflow heading: calmer Chinese display hierarchy. */'
+          block = r'''
+
+/* Ant-inspired workflow heading: calmer Chinese display hierarchy. */
+#capabilities .section-heading {
+  max-width: 760px;
+  margin-bottom: 48px;
+}
+
+#capabilities .section-heading h2 {
+  max-width: 740px;
+  color: rgba(0, 0, 0, .88);
+  font-size: clamp(36px, 4vw, 54px);
+  font-weight: 500;
+  letter-spacing: -.022em;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+html[lang="zh-CN"] #capabilities .section-heading h2 {
+  letter-spacing: -.012em;
+  line-height: 1.22;
+}
+
+@media (max-width: 720px) {
+  #capabilities .section-heading {
+    margin-bottom: 36px;
+  }
+
+  #capabilities .section-heading h2 {
+    font-size: clamp(32px, 9vw, 42px);
+    line-height: 1.24;
+  }
+}
+'''
+          if marker not in css:
+              css = css.rstrip() + block + '\n'
+          css_path.write_text(css, encoding='utf-8')
+
+          doc_path = Path('docs/pages/learn.md')
+          doc = doc_path.read_text(encoding='utf-8')
+          anchor = '- Section heading: communicate “从一个 Idea 到一个 Demo，你需要经历这 4 步。” / equivalent English copy.\n'
+          addition = '- Section heading typography should follow a restrained Ant Design-like hierarchy on white: heading color around `rgba(0,0,0,.88)` instead of pure black, medium Chinese weight, looser line-height, and a smaller display scale than the generic Home H2.\n'
+          if addition not in doc:
+              if anchor not in doc:
+                  raise SystemExit('Learn workflow heading requirement anchor not found')
+              doc = doc.replace(anchor, anchor + addition, 1)
+          doc_path.write_text(doc, encoding='utf-8')
+          PY
+
+      - name: Validate scoped changes
+        run: |
+          git diff --check
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          rm .github/workflows/ant-capability-heading.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/features/home/home.css docs/pages/learn.md .github/workflows/ant-capability-heading.yml
+          git commit -m "style: soften workflow heading typography"
+          git push origin HEAD:main
