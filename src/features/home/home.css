@@ -1,5 +1,15 @@
 @import url("./home-foundation.css");
 
+/* Discovery visibility guard: custom preview hosts must still respect tab state. */
+#templates .template-grid .template-card.home-vocab-host[hidden],
+#templates .template-grid .template-card.home-vocab-host:not(.is-active-discovery) {
+  display: none !important;
+}
+
+#templates .template-grid .template-card.home-vocab-host.is-active-discovery {
+  display: block !important;
+}
+
 /* Design tools discovery: show the four supplied 3:4 references together. */
 .discovery-strip .template-card:nth-child(4).is-active-discovery {
   display: grid !important;
