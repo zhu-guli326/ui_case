@@ -85,6 +85,72 @@ body.project-home .footer-grid {
   padding-bottom: 60px !important;
 }
 
+/* Home / UI vocabulary preview: Chinese labels and tighter vertical rhythm.
+ * The preview keeps the original UI screenshots and interactions; only the
+ * card chrome is localized and the empty prompt band is removed. */
+html[lang^="zh"] body.project-home #templates .home-vocab-strip .home-vocab-card h3 {
+  font-size: 0 !important;
+}
+
+html[lang^="zh"] body.project-home #templates .home-vocab-strip .home-vocab-card h3 > * {
+  display: none !important;
+}
+
+html[lang^="zh"] body.project-home #templates .home-vocab-strip .home-vocab-card:nth-child(1) h3::before {
+  content: "导航栏";
+}
+
+html[lang^="zh"] body.project-home #templates .home-vocab-strip .home-vocab-card:nth-child(2) h3::before {
+  content: "侧边栏";
+}
+
+html[lang^="zh"] body.project-home #templates .home-vocab-strip .home-vocab-card:nth-child(3) h3::before {
+  content: "底部标签栏";
+}
+
+html[lang^="zh"] body.project-home #templates .home-vocab-strip .home-vocab-card h3::before {
+  display: block;
+  color: #12a85a;
+  font-family: var(--type-font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+body.project-home #templates .home-vocab-card {
+  aspect-ratio: 5 / 6 !important;
+}
+
+body.project-home #templates .home-vocab-card .entry-card-body {
+  padding: 14px !important;
+}
+
+body.project-home #templates .home-vocab-card .entry-ask {
+  display: none !important;
+  min-height: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.project-home #templates .home-vocab-card h3 {
+  margin: 8px 0 10px !important;
+}
+
+body.project-home #templates .home-vocab-card .entry-visual {
+  flex: 1 1 auto !important;
+  min-height: 180px !important;
+  padding: 8px !important;
+}
+
+body.project-home #templates .home-vocab-card .entry-tags {
+  margin: 8px 0 !important;
+}
+
+body.project-home #templates .home-vocab-card .copy-prompt {
+  min-height: 36px !important;
+}
+
 @media (max-width: 680px) {
   body.project-home .project-hero {
     min-height: 640px !important;
@@ -120,5 +186,10 @@ body.project-home .footer-grid {
 
   body.project-home .footer-grid {
     padding-bottom: 44px !important;
+  }
+
+  body.project-home #templates .home-vocab-card {
+    aspect-ratio: auto !important;
+    min-height: 420px !important;
   }
 }
