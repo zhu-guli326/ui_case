@@ -66,8 +66,8 @@ The four-card workflow should explain the path from an idea to a runnable demo. 
 - Approved final artwork set: purple `DEFINE / Steve Jobs`, orange `CREATE / Leonardo da Vinci`, blue `BUILD / Bill Gates`, green `ITERATE / Thomas Edison`, all using the same 3:4 halftone poster composition.
 - The stage word is baked into each approved poster image. Do not render a second HTML/CSS `DEFINE / CREATE / BUILD / ITERATE` layer over the artwork; the only separate top label is the step number (`01` / `02` / `03` / `04`).
 - Preserve the full upper composition of each poster so its baked stage word is not cropped. The poster image itself owns the stage-word size, position and person/background depth relationship.
-- Keep the person name, role/thinking line, and concise description in the lower text area.
-- The poster, person name, thinking line and description must all remain clearly visible in the card's default state; hover may enhance depth/glow but must never be required to reveal readable content.
+- Keep only the person name and role/thinking line in the lower text area; do not render an additional bottom description sentence.
+- The poster, person name and thinking line must all remain clearly visible in the card's default state; hover may enhance depth/glow but must never be required to reveal readable content.
 - Add a compact source link aligned to the lower-right of this section pointing to `https://github.com/zhu-guli326/image2_UI_skill.git`.
 
 #### Workflow card motion enhancement
