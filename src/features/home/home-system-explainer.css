@@ -358,3 +358,148 @@ body.project-home > .project-footer .footer-bottom {
     gap: 18px;
   }
 }
+
+/* Final CTA — force the actual homepage section to black/centered.
+ * This block intentionally lives at the end of the last-loaded Home stylesheet
+ * so older white CTA rules cannot override it. */
+html body.project-home .project-editorial {
+  display: block !important;
+  height: 1px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  background: #050505 !important;
+}
+
+html body.project-home .project-editorial > * {
+  visibility: hidden !important;
+}
+
+html body.project-home .project-cta {
+  position: relative !important;
+  display: grid !important;
+  min-height: min(820px, 88vh) !important;
+  place-items: center !important;
+  overflow: hidden !important;
+  padding: clamp(96px, 11vh, 148px) 24px !important;
+  border: 0 !important;
+  background: #050505 !important;
+  color: #fff !important;
+  isolation: isolate !important;
+}
+
+html body.project-home .project-cta::before {
+  position: absolute !important;
+  top: 0 !important;
+  right: clamp(28px, 5vw, 76px) !important;
+  left: clamp(28px, 5vw, 76px) !important;
+  height: 1px !important;
+  background: rgba(255,255,255,.12) !important;
+  content: "" !important;
+}
+
+html body.project-home .project-cta::after {
+  position: absolute !important;
+  bottom: clamp(42px, 6vh, 72px) !important;
+  left: 50% !important;
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+  background: #73f2a7 !important;
+  box-shadow: 0 0 0 6px rgba(115,242,167,.08) !important;
+  content: "" !important;
+  transform: translateX(-50%) !important;
+}
+
+html body.project-home .project-cta-inner {
+  position: relative !important;
+  z-index: 1 !important;
+  display: flex !important;
+  width: min(1120px, calc(100vw - 48px)) !important;
+  max-width: 1120px !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  margin-inline: auto !important;
+  text-align: center !important;
+}
+
+html body.project-home .project-cta-inner > div:first-child {
+  display: flex !important;
+  width: 100% !important;
+  max-width: 1080px !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+html body.project-home .project-cta h2,
+html[lang="zh-CN"] body.project-home .project-cta h2 {
+  order: 1 !important;
+  max-width: 1040px !important;
+  margin: 0 !important;
+  color: #f5f5f2 !important;
+  font-size: clamp(50px, 6.1vw, 96px) !important;
+  font-weight: 430 !important;
+  letter-spacing: -.055em !important;
+  line-height: .98 !important;
+  text-align: center !important;
+  text-wrap: balance !important;
+}
+
+html body.project-home .project-cta .section-eyebrow {
+  order: 2 !important;
+  display: inline-flex !important;
+  min-height: 34px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: clamp(34px, 4vw, 52px) 0 0 !important;
+  padding: 0 14px !important;
+  border: 1px solid rgba(115,242,167,.36) !important;
+  border-radius: 999px !important;
+  background: rgba(115,242,167,.06) !important;
+  color: #73f2a7 !important;
+  font-size: 10px !important;
+  font-weight: 650 !important;
+  letter-spacing: .13em !important;
+  line-height: 1 !important;
+}
+
+html body.project-home .project-cta-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-top: clamp(28px, 3vw, 42px) !important;
+}
+
+html body.project-home .project-cta-actions .button-filled {
+  min-width: 150px !important;
+  min-height: 52px !important;
+  padding-inline: 26px !important;
+  border: 1px solid #73f2a7 !important;
+  border-radius: 999px !important;
+  background: #73f2a7 !important;
+  color: #07110b !important;
+  font-size: 14px !important;
+  font-weight: 650 !important;
+  box-shadow: none !important;
+}
+
+html body.project-home .project-cta-actions .button-outline {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  html body.project-home .project-cta {
+    min-height: 76vh !important;
+    padding: 88px 18px 104px !important;
+  }
+
+  html body.project-home .project-cta h2,
+  html[lang="zh-CN"] body.project-home .project-cta h2 {
+    font-size: clamp(42px, 12vw, 66px) !important;
+    line-height: 1.02 !important;
+  }
+}
