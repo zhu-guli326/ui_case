@@ -186,3 +186,174 @@ html[lang="zh-CN"] .featured-cases-heading h2 {
     margin-top: 2px !important;
   }
 }
+
+/* Homepage footer: static adaptation of React Bits Pro footer-2.
+ * The source project is plain HTML/CSS, so reproduce the visual structure here:
+ * centered branding, curved overlays, image background, compact link pills. */
+body.project-home > .project-footer {
+  position: relative;
+  isolation: isolate;
+  min-height: 620px;
+  overflow: hidden;
+  padding: 0 0 24px !important;
+  background:
+    linear-gradient(180deg, rgba(3, 8, 5, .18) 0%, rgba(3, 8, 5, .55) 52%, rgba(3, 8, 5, .88) 100%),
+    url("../../../assets/home/case-hackathon-20260831.png") center 34% / cover no-repeat !important;
+  color: #fff;
+}
+
+body.project-home > .project-footer::before,
+body.project-home > .project-footer::after {
+  position: absolute;
+  left: 50%;
+  width: 126%;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  transform: translateX(-50%);
+  content: "";
+  pointer-events: none;
+}
+
+body.project-home > .project-footer::before {
+  z-index: 0;
+  top: -1px;
+  height: 128px;
+  background: #fff;
+}
+
+body.project-home > .project-footer::after {
+  z-index: 0;
+  top: 30px;
+  height: 118px;
+  border: 1px solid rgba(115, 242, 167, .3);
+  background: rgba(115, 242, 167, .08);
+}
+
+body.project-home > .project-footer > .project-container {
+  position: relative;
+  z-index: 1;
+}
+
+body.project-home > .project-footer .footer-grid {
+  display: flex !important;
+  width: min(920px, calc(100% - 48px));
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin-inline: auto;
+  padding: 190px 0 72px !important;
+  text-align: center;
+}
+
+body.project-home > .project-footer .footer-brand {
+  display: grid;
+  justify-items: center;
+}
+
+body.project-home > .project-footer .footer-brand strong {
+  font-size: clamp(68px, 10.8vw, 154px) !important;
+  font-weight: 450 !important;
+  letter-spacing: -.07em !important;
+  line-height: .84;
+  text-shadow: 0 8px 38px rgba(0, 0, 0, .28);
+}
+
+body.project-home > .project-footer .footer-brand p {
+  max-width: 560px !important;
+  margin: 28px auto 8px !important;
+  color: rgba(255, 255, 255, .76) !important;
+  font-size: clamp(14px, 1.2vw, 17px) !important;
+  line-height: 1.6 !important;
+}
+
+body.project-home > .project-footer .footer-grid nav {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+body.project-home > .project-footer .footer-grid nav strong {
+  display: none !important;
+}
+
+body.project-home > .project-footer .footer-grid nav a {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 17px;
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 999px;
+  background: rgba(10, 16, 12, .28);
+  color: rgba(255, 255, 255, .92) !important;
+  font-size: 12px !important;
+  font-weight: 600;
+  text-decoration: none !important;
+  backdrop-filter: blur(10px);
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body.project-home > .project-footer .footer-grid nav a:hover {
+    border-color: rgba(255, 255, 255, .72);
+    background: rgba(255, 255, 255, .12);
+    transform: translateY(-2px);
+  }
+}
+
+body.project-home > .project-footer .footer-bottom {
+  width: min(1180px, calc(100% - 48px));
+  margin-inline: auto;
+  padding-top: 18px !important;
+  border-top: 1px solid rgba(255, 255, 255, .2) !important;
+  color: rgba(255, 255, 255, .58) !important;
+  font-size: 10px !important;
+}
+
+@media (max-width: 680px) {
+  body.project-home > .project-footer {
+    min-height: 520px;
+  }
+
+  body.project-home > .project-footer::before {
+    width: 150%;
+    height: 90px;
+  }
+
+  body.project-home > .project-footer::after {
+    top: 20px;
+    width: 142%;
+    height: 84px;
+  }
+
+  body.project-home > .project-footer .footer-grid {
+    width: calc(100% - 32px);
+    gap: 14px;
+    padding: 138px 0 52px !important;
+  }
+
+  body.project-home > .project-footer .footer-brand strong {
+    font-size: clamp(56px, 20vw, 92px) !important;
+  }
+
+  body.project-home > .project-footer .footer-brand p {
+    margin-top: 20px !important;
+    font-size: 13px !important;
+  }
+
+  body.project-home > .project-footer .footer-grid nav {
+    gap: 8px;
+  }
+
+  body.project-home > .project-footer .footer-grid nav a {
+    min-height: 38px;
+    padding-inline: 13px;
+    font-size: 11px !important;
+  }
+
+  body.project-home > .project-footer .footer-bottom {
+    width: calc(100% - 32px);
+    gap: 18px;
+  }
+}
