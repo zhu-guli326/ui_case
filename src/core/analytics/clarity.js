@@ -16,9 +16,24 @@
   }
 
   if (document.body?.classList.contains("project-home") || /(?:^|\/)learn\.html$/.test(location.pathname)) {
-    const ripple = document.createElement("script");
-    ripple.src = "./src/features/home/ripple-distortion.js";
-    ripple.defer = true;
-    document.head.append(ripple);
+    const loadStyle = (href) => {
+      if (document.querySelector(`link[href="${href}"]`)) return;
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = href;
+      document.head.append(link);
+    };
+
+    const loadScript = (src) => {
+      if (document.querySelector(`script[src="${src}"]`)) return;
+      const script = document.createElement("script");
+      script.src = src;
+      script.defer = true;
+      document.head.append(script);
+    };
+
+    loadScript("./src/features/home/ripple-distortion.js");
+    loadStyle("./src/features/home/specular-button.css");
+    loadScript("./src/features/home/specular-button.js");
   }
 })(window, document);
