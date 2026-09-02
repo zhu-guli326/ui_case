@@ -944,19 +944,54 @@ function initHomeMotion() {
   });
 
   const liveTimeline = gsap.timeline({
+    defaults: { ease: "power3.out" },
     scrollTrigger: {
       trigger: "#design-system-live .system-explainer-stage",
-      start: "top 82%",
-      end: "bottom 58%",
-      scrub: .7,
+      start: "top 78%",
+      once: true,
     },
   });
   liveTimeline
-    .from("#design-system-live .system-app", { autoAlpha: 0, filter: "blur(14px)", duration: 1 })
-    .from("#design-system-live .system-callout-type", { autoAlpha: 0, x: -74, duration: .65, clearProps: "transform" }, .28)
-    .from("#design-system-live .system-callout-color", { autoAlpha: 0, x: 74, duration: .65, clearProps: "transform" }, .48)
-    .from("#design-system-live .system-callout-spacing", { autoAlpha: 0, x: -74, duration: .65, clearProps: "transform" }, .68)
-    .from("#design-system-live .system-callout-states", { autoAlpha: 0, x: 74, duration: .65, clearProps: "transform" }, .88);
+    .from("#design-system-live .system-app", {
+      autoAlpha: 0,
+      y: 22,
+      scale: .985,
+      filter: "blur(12px)",
+      duration: .68,
+      clearProps: "opacity,visibility,transform,filter",
+    })
+    .from("#design-system-live .system-callout-type", {
+      autoAlpha: 0,
+      x: -42,
+      y: -16,
+      scale: .94,
+      duration: .52,
+      clearProps: "opacity,visibility,transform",
+    }, "-=.08")
+    .from("#design-system-live .system-callout-color", {
+      autoAlpha: 0,
+      x: 42,
+      y: -16,
+      scale: .94,
+      duration: .52,
+      clearProps: "opacity,visibility,transform",
+    }, "-=.34")
+    .from("#design-system-live .system-callout-spacing", {
+      autoAlpha: 0,
+      x: -42,
+      y: 16,
+      scale: .94,
+      duration: .52,
+      clearProps: "opacity,visibility,transform",
+    }, "-=.34")
+    .from("#design-system-live .system-callout-states", {
+      autoAlpha: 0,
+      x: 42,
+      y: 16,
+      scale: .94,
+      duration: .52,
+      clearProps: "opacity,visibility,transform",
+    }, "-=.34");
 
   gsap.from(".project-editorial .project-container > *, .project-cta-inner > *", {
     autoAlpha: 0,
