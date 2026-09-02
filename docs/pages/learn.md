@@ -1,6 +1,6 @@
 # Learn / Home Page Requirements
 
-Last updated: 2026-09-02
+Last updated: 2026-09-03
 
 ## Page identity
 
@@ -51,9 +51,9 @@ The page may evolve visually, but it should preserve a clear story from problem 
 
 ### Idea-to-demo workflow section
 
-The four-card workflow should explain the path from an idea to a runnable demo. The primary hierarchy is the action/stage, not the historical figure used as the visual metaphor.
+The workflow explains the path from an idea to a runnable demo. The primary hierarchy is the action/stage, not the historical figure used as the visual metaphor.
 
-- This section sits immediately after the lightweight discovery strip; the “看点啥” section should appear directly above the Steve Jobs / DEFINE card row.
+- This section sits immediately after the lightweight discovery strip; the “看点啥” section should appear directly above the workflow.
 - Section eyebrow: `image2 to ui`.
 - Section heading: communicate “从一个 Idea 到一个 Demo，你需要经历这 4 步。” / equivalent English copy.
 - Section heading typography should follow a restrained Ant Design-like hierarchy on white: use `rgba(0,0,0,.88)` instead of pure black, a medium Chinese weight, a looser line-height, and a smaller display scale than the generic Home H2.
@@ -63,32 +63,46 @@ The four-card workflow should explain the path from an idea to a runnable demo. 
 - Stage 04: `ITERATE` — compare, adjust and validate until the demo looks right and works well.
 - `DEFINE / CREATE / BUILD / ITERATE` must be more visually prominent than the names of Steve Jobs, Leonardo da Vinci, Bill Gates or Thomas Edison.
 - Historical figures are supporting metaphors only; they should not become the main information users have to read.
-- The four cards must share the same text baseline and vertical rhythm.
 - Approved final artwork set: purple `DEFINE / Steve Jobs`, orange `CREATE / Leonardo da Vinci`, blue `BUILD / Bill Gates`, green `ITERATE / Thomas Edison`, all using the same 3:4 halftone poster composition.
-- The stage word is baked into each approved poster image. Do not render a second HTML/CSS `DEFINE / CREATE / BUILD / ITERATE` layer over the artwork; the only separate top label is the step number (`01` / `02` / `03` / `04`).
+- The stage word is baked into each approved poster image. Do not render a second stage word over the poster artwork itself.
 - Preserve the full upper composition of each poster so its baked stage word is not cropped. The poster image itself owns the stage-word size, position and person/background depth relationship.
-- Keep only the person name and role/thinking line in the lower text area; do not render an additional bottom description sentence.
-- The poster, person name and thinking line must all remain clearly visible in the card's default state; hover may enhance depth/glow but must never be required to reveal readable content.
 - Add a compact source link aligned to the lower-right of this section pointing to `https://github.com/zhu-guli326/image2_UI_skill.git`.
+
+#### Desktop workflow composition
+
+Desktop uses an editorial three-part composition inspired by the React Bits Pro `about-4` pattern rather than four equal cards in one row.
+
+- Left: show the four stage words vertically — `DEFINE`, `CREATE`, `BUILD`, `ITERATE`. Inactive stages are light gray; the current stage is near-black.
+- Center: show only the current stage's approved 3:4 portrait/poster at full readable size.
+- Right: explain what that historical figure represents in the workflow, with one large action-oriented heading plus the person's name, short thinking keywords and a concise explanation.
+- Default state is `DEFINE / Steve Jobs`.
+- Pointer hover over a stage switches the center poster and the right-side explanation to that stage. Keyboard focus must produce the same visual switch.
+- The right-side explanation should communicate the metaphor rather than biography:
+  - Steve Jobs → judgment, focus and trade-offs; decide what is worth doing first.
+  - Leonardo da Vinci → creation, synthesis and expression; organize references into a coherent visual direction.
+  - Bill Gates → software, systems and implementation; turn Design DNA into runnable product code.
+  - Thomas Edison → experimentation, validation and iteration; compare, adjust and keep testing until the result holds up.
+- The composition should stay spacious and editorial, not turn into a dashboard or four-card catalog.
+- On touch/narrow screens, keep the existing readable multi-card fallback instead of depending on hover to reveal information.
 
 #### Workflow card motion enhancement
 
-The four workflow cards use the pointer-reactive motion language from React Bits `ProfileCard` (JS-CSS registry variant) while preserving the current ONDesign card content and visual hierarchy.
+The current-stage poster keeps the pointer-reactive motion language from React Bits `ProfileCard` while using the new editorial composition.
 
-- Desktop pointer interaction: each card tilts in 3D toward the pointer, with a soft pointer-following glare/highlight and subtle depth response.
-- Motion should interpolate smoothly rather than snap; when the pointer leaves, the card eases back to center before the active glow disappears.
-- Keep the approved four poster assets, per-stage color treatment, text content, grid proportions and source-link placement. The motion is an enhancement, not a redesign into a profile/contact card.
+- Desktop pointer interaction: the active center poster tilts in 3D toward the pointer, with a soft pointer-following glare/highlight and subtle depth response.
+- Motion should interpolate smoothly rather than snap; when the pointer leaves, the poster eases back to center before the active glow disappears.
+- Keep the approved four poster assets and per-stage color treatment. The motion is an enhancement, not a redesign into a profile/contact card.
 - Do not add ProfileCard-specific user UI such as handle, online status, mini avatar or Contact button.
 - Do not add mobile device-orientation tilt. Touch/mobile keeps the static card presentation.
 - Do not add React solely for this effect. The current page is a static HTML/CSS/JS site, so preserve the React Bits motion model in the existing vanilla-JS architecture.
 - Respect `prefers-reduced-motion: reduce`: disable pointer tilt and animated glare/transform transitions for users requesting reduced motion.
-- The enhancement must not alter card links, keyboard focus, bilingual rendering, image loading or layout dimensions.
+- The enhancement must not alter keyboard focus, bilingual rendering, image loading or layout dimensions.
 
 ### Lightweight discovery strip
 
 The old template gallery is no longer a template catalog. It is a compact “看点啥” discovery entry that helps users choose what kind of design resource they want to explore next.
 
-- Place this whole section immediately before the Idea-to-demo workflow / Steve Jobs card section.
+- Place this whole section immediately before the Idea-to-demo workflow / Steve Jobs section.
 - Chinese title: `看点啥`.
 - Do not show an `EXPLORE` eyebrow/label above the `看点啥` title; the heading should start directly with the title.
 - Keep the supporting copy short and conversational; explain that users can jump into App, website design, Skills, tools or UI vocabulary.
@@ -154,7 +168,7 @@ The Home page should feel calm while static and expressive while scrolling. Moti
 - Featured cases: preserve the existing draggable carousel mechanics, but add a restrained entrance/depth reveal around the carousel UI without fighting its card transforms.
 - Stats: count up once when the section first enters view; do not loop.
 - Discovery: changing tabs should feel like a visual transition, using short blur/scale/fade handoffs instead of a hard image swap. The underlying tab semantics and destinations stay unchanged.
-- Idea → Demo: the section heading and the four stage cards reveal in sequence so the workflow reads as `DEFINE → CREATE → BUILD → ITERATE`; pointer tilt/glow remains a second layer of interaction on desktop.
+- Idea → Demo: the section heading and the four stage labels reveal in sequence so the workflow reads as `DEFINE → CREATE → BUILD → ITERATE`; the center poster/right explanation switch by stage, and pointer tilt/glow remains a second interaction layer on desktop.
 - Design-system cards: the typography/color/spacing/surface/component cards should assemble into view with staggered depth rather than appear as a static pile.
 - Design-system live explainer: the central product UI establishes first, then the four surrounding typography/spacing/color/state callouts enter in a readable order and remain visible after entry.
 - CTA/footer: finish with a restrained reveal; do not keep adding increasingly loud effects at the bottom of the page.
