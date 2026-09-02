@@ -350,7 +350,39 @@
   }
 }
 
-/* Ant-inspired workflow heading: calmer Chinese display hierarchy. */
+/* Unified Ant-inspired Chinese section-heading system for Home. */
+html[lang="zh-CN"] body.project-home {
+  --home-zh-heading-size: clamp(36px, 4vw, 54px);
+  --home-zh-heading-size-mobile: clamp(32px, 9vw, 42px);
+  --home-zh-heading-weight: 500;
+  --home-zh-heading-tracking: -.012em;
+  --home-zh-heading-line-height: 1.22;
+  --home-zh-heading-dark: rgba(0, 0, 0, .88);
+  --home-zh-heading-light: rgba(255, 255, 255, .92);
+}
+
+html[lang="zh-CN"] .template-gallery-heading h2,
+html[lang="zh-CN"] #capabilities .section-heading h2,
+html[lang="zh-CN"] .project-cta h2 {
+  color: var(--home-zh-heading-dark);
+  font-size: var(--home-zh-heading-size);
+  font-weight: var(--home-zh-heading-weight);
+  letter-spacing: var(--home-zh-heading-tracking);
+  line-height: var(--home-zh-heading-line-height);
+  text-wrap: balance;
+}
+
+html[lang="zh-CN"] .showcase-copy h2,
+html[lang="zh-CN"] .system-explainer-heading h2,
+html[lang="zh-CN"] .featured-cases-heading h2 {
+  color: var(--home-zh-heading-light);
+  font-size: var(--home-zh-heading-size);
+  font-weight: var(--home-zh-heading-weight);
+  letter-spacing: var(--home-zh-heading-tracking);
+  line-height: var(--home-zh-heading-line-height);
+  text-wrap: balance;
+}
+
 #capabilities .section-heading {
   max-width: 760px;
   margin-bottom: 48px;
@@ -358,26 +390,20 @@
 
 #capabilities .section-heading h2 {
   max-width: 740px;
-  color: rgba(0, 0, 0, .88);
-  font-size: clamp(36px, 4vw, 54px);
-  font-weight: 500;
-  letter-spacing: -.022em;
-  line-height: 1.18;
-  text-wrap: balance;
-}
-
-html[lang="zh-CN"] #capabilities .section-heading h2 {
-  letter-spacing: -.012em;
-  line-height: 1.22;
 }
 
 @media (max-width: 720px) {
-  #capabilities .section-heading {
-    margin-bottom: 36px;
+  html[lang="zh-CN"] .template-gallery-heading h2,
+  html[lang="zh-CN"] #capabilities .section-heading h2,
+  html[lang="zh-CN"] .showcase-copy h2,
+  html[lang="zh-CN"] .system-explainer-heading h2,
+  html[lang="zh-CN"] .featured-cases-heading h2,
+  html[lang="zh-CN"] .project-cta h2 {
+    font-size: var(--home-zh-heading-size-mobile);
+    line-height: 1.24;
   }
 
-  #capabilities .section-heading h2 {
-    font-size: clamp(32px, 9vw, 42px);
-    line-height: 1.24;
+  #capabilities .section-heading {
+    margin-bottom: 36px;
   }
 }
