@@ -176,3 +176,55 @@ body.project-home > .site-header .global-language-switch button[aria-pressed="tr
 @media (prefers-reduced-motion: reduce) {
   body.project-home > .site-header { animation-timing-function: steps(1, end); }
 }
+
+/* Global first-level nav typography: active, dropdown, and Start Design must use
+ * identical font metrics. Interaction states change color only, not weight. */
+.site-header nav.site-nav.site-nav > a,
+.site-header .site-nav-primary > a,
+.site-header .site-nav-community > a,
+.site-header .site-nav-more > summary,
+.site-header .site-nav-community > .site-nav-start {
+  font-family: var(--type-font-body) !important;
+  font-size: 15px !important;
+  font-weight: var(--type-label-weight) !important;
+  letter-spacing: var(--type-body-tracking) !important;
+  line-height: 1 !important;
+}
+
+.site-header nav.site-nav.site-nav > a[aria-current="page"],
+.site-header .site-nav-primary > a[aria-current="page"],
+.site-header .site-nav-community > a[aria-current="page"],
+.site-header .site-nav-more.is-current > summary,
+.site-header .site-nav-community > .site-nav-start[aria-current="page"] {
+  font-weight: var(--type-label-weight) !important;
+}
+
+.site-header :is(
+  .site-nav-primary > a,
+  .site-nav-community > a,
+  .site-nav-more > summary
+) > span[data-i18n] {
+  font: inherit !important;
+  letter-spacing: inherit !important;
+  line-height: inherit !important;
+}
+
+@media (max-width: 940px) {
+  .site-header nav.site-nav.site-nav > a,
+  .site-header .site-nav-primary > a,
+  .site-header .site-nav-community > a,
+  .site-header .site-nav-more > summary,
+  .site-header .site-nav-community > .site-nav-start {
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .site-header nav.site-nav.site-nav > a,
+  .site-header .site-nav-primary > a,
+  .site-header .site-nav-community > a,
+  .site-header .site-nav-more > summary,
+  .site-header .site-nav-community > .site-nav-start {
+    font-size: 10px !important;
+  }
+}
