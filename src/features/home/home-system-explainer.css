@@ -111,3 +111,71 @@ html[lang="zh-CN"] .featured-cases-heading h2 {
   margin-right: auto !important;
   text-align: center !important;
 }
+
+/* The full-bleed preview rail used to expand the grid track itself, which pulled
+ * the heading and tabs off the viewport center. Keep the track constrained. */
+#templates > .project-container {
+  grid-template-columns: minmax(0, 1fr) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+#templates .template-gallery-heading,
+#templates .template-filters {
+  justify-self: center !important;
+}
+
+#templates .template-grid {
+  min-width: 0 !important;
+}
+
+/* Desktop discovery should read as one complete screen: smaller cards, tighter
+ * vertical rhythm, and all four preview tiles visible without horizontal crop. */
+@media (min-width: 981px) {
+  #templates {
+    --discovery-card: clamp(220px, 16vw, 260px) !important;
+    --discovery-gap: clamp(20px, 2.2vw, 32px) !important;
+    padding-block: clamp(50px, 6vh, 68px) clamp(42px, 5vh, 58px) !important;
+  }
+
+  #templates .template-gallery-heading h2,
+  html[lang="zh-CN"] #templates .template-gallery-heading h2 {
+    font-size: clamp(56px, 5vw, 82px) !important;
+  }
+
+  #templates .template-gallery-heading > p:last-child {
+    margin-top: 18px !important;
+  }
+
+  #templates .template-filters {
+    margin-top: 26px !important;
+  }
+
+  #templates .template-grid {
+    margin-top: 42px !important;
+  }
+
+  #templates.discovery-strip .template-card:is(:nth-child(1), :nth-child(3), :nth-child(4)).is-active-discovery {
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-content: center !important;
+    gap: var(--discovery-gap) !important;
+    margin-left: 0 !important;
+    padding: 8px 0 18px !important;
+    overflow-x: hidden !important;
+  }
+
+  #templates .template-grid .template-card.home-vocab-host > .home-vocab-strip {
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-content: center !important;
+    gap: var(--discovery-gap) !important;
+    margin-left: 0 !important;
+    padding: 8px 0 18px !important;
+    overflow-x: hidden !important;
+  }
+
+  #templates .discovery-footer {
+    margin-top: 2px !important;
+  }
+}
