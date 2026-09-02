@@ -10,6 +10,24 @@
   display: block !important;
 }
 
+/*
+ * The vocabulary host replaces a normal template-card with its own grid.
+ * The base discovery rule positions every direct > div absolutely; reset that
+ * here so the vocabulary strip participates in normal flow instead of escaping
+ * the section and covering the carousel / other tab previews.
+ */
+#templates .template-grid .template-card.home-vocab-host > .home-vocab-strip {
+  position: static !important;
+  inset: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+
 /* Design tools discovery: show the four supplied 3:4 references together. */
 .discovery-strip .template-card:nth-child(4).is-active-discovery {
   display: grid !important;
