@@ -89,6 +89,7 @@ The old template gallery is no longer a template catalog. It is a compact “看
 
 - Place this whole section immediately before the Idea-to-demo workflow / Steve Jobs card section.
 - Chinese title: `看点啥`.
+- Do not show an `EXPLORE` eyebrow/label above the `看点啥` title; the heading should start directly with the title.
 - Keep the supporting copy short and conversational; explain that users can jump into App, website design, Skills, tools or UI vocabulary.
 - Primary tags: `App 设计`, `官网设计`, `设计 Skill`, `设计工具`, `UI 词库`.
 - The five tags are mutually exclusive tabs/switches, not navigation links. Clicking a tag changes the preview content shown below and updates the active state.
