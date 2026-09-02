@@ -1,0 +1,17 @@
+/* Force homepage App discovery previews to use the tracked project assets.
+ * This keeps local preview and deployed builds on the same files and busts stale CDN/browser cache. */
+.discovery-strip .template-card:nth-child(1).is-active-discovery > img {
+  content: url("../../../assets/home/discovery/app-1.png?v=20260903-1") !important;
+}
+
+.discovery-strip .template-card:nth-child(1).is-active-discovery > .template-card-shade {
+  background: url("../../../assets/home/discovery/app-2.png?v=20260903-1") center top / cover no-repeat !important;
+}
+
+.discovery-strip .template-card:nth-child(1).is-active-discovery > small {
+  background: url("../../../assets/home/discovery/app-3.png?v=20260903-1") center top / cover no-repeat !important;
+}
+
+.discovery-strip .template-card:nth-child(1).is-active-discovery > div {
+  background: url("../../../assets/home/discovery/app-4.png?v=20260903-1") center top / cover no-repeat !important;
+}
