@@ -3,7 +3,6 @@
   "pages": {
     "learn.html": "docs/pages/learn.md",
     "library.html": "docs/pages/library.md",
-    "brands.html": "docs/pages/brands.md",
     "vocabulary.html": "docs/pages/vocabulary.md",
     "launcher.html": "docs/pages/launcher.md",
     "skills.html": "docs/pages/skills.md",
