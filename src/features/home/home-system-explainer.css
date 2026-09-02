@@ -26,3 +26,23 @@
 #capabilities .capability-grid > a > div > p:has(> span) > span:nth-child(n+3) {
   display: none !important;
 }
+
+/* Final Chinese heading tone: intentionally lighter than Ant's default title color
+ * because the Home page uses large display-scale headings. */
+html[lang="zh-CN"] .template-gallery-heading h2,
+html[lang="zh-CN"] #capabilities .section-heading h2,
+html[lang="zh-CN"] .project-cta h2 {
+  color: rgba(0, 0, 0, .68) !important;
+  font-weight: 400 !important;
+  letter-spacing: -.008em !important;
+  line-height: 1.24 !important;
+}
+
+html[lang="zh-CN"] .showcase-copy h2,
+html[lang="zh-CN"] .system-explainer-heading h2,
+html[lang="zh-CN"] .featured-cases-heading h2 {
+  color: rgba(255, 255, 255, .86) !important;
+  font-weight: 400 !important;
+  letter-spacing: -.008em !important;
+  line-height: 1.24 !important;
+}
