@@ -68,9 +68,12 @@ The page should behave more like a visual directory + learning reference than a 
 - The floating search uses the same shared geometry as Library and Skills, while keeping Vocabulary-specific placeholder text, keyboard behavior and search logic.
 - Card behavior and preview behavior should remain consistent inside the page.
 - If cards support flipped states or variants, the interaction must have a clear learning purpose rather than decorative complexity.
+- Flip-capable cards should visibly communicate clickability. Use a restrained GSAP affordance: a one-time hint on newly encountered cards, subtle pointer/focus lift and tilt on desktop, and a short transition when switching front/back content. Do not use continuous pulsing or looping motion.
+- The GSAP flip enhancement must animate the stable outer card / face content around the state change rather than making a persistent `rotateY(180deg)` face transform responsible for hit testing.
 - Card flip and state-variant controls must remain repeatably clickable after card re-rendering, search/filter changes and language switching; interaction handling should live on a persistent parent rather than depend on one-time listeners attached to replaceable card DOM.
 - Interaction reliability takes priority over decorative 3D flip effects. Avoid transform/backface-based hit testing when it makes pointer targets intermittent; a simple front/back state transition is preferred if it is more dependable.
 - The visible card surface should remain a reliable toggle target, while explicit controls such as favorite, copy Prompt, state buttons and detail actions must keep their own independent behavior.
+- Respect `prefers-reduced-motion`: keep the same front/back state behavior but skip GSAP movement and decorative transitions.
 - Chinese and English content must switch through the global language system.
 
 ## Keep
