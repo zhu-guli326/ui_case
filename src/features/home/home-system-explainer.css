@@ -46,3 +46,51 @@ html[lang="zh-CN"] .featured-cases-heading h2 {
   letter-spacing: -.008em !important;
   line-height: 1.24 !important;
 }
+
+/* Learn / design-system explainer: use a real interface case instead of the CSS-built dashboard mockup.
+ * Keep the existing annotation callouts around the canvas so the section still teaches how to read a UI. */
+#design-system-live .system-app {
+  overflow: hidden !important;
+  border-color: rgba(115, 242, 167, .24) !important;
+  background-color: #050806 !important;
+  background-image: url("../../../assets/home/case-hackathon-20260831.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center top !important;
+  background-size: cover !important;
+  box-shadow: 0 42px 120px rgba(0, 0, 0, .58), 0 0 0 1px rgba(115, 242, 167, .05) !important;
+}
+
+/* Remove the synthetic dashboard layers; the real screenshot is now the content. */
+#design-system-live .system-app-topbar,
+#design-system-live .system-app-sidebar,
+#design-system-live .system-app-hero,
+#design-system-live .system-app-section-title,
+#design-system-live .system-projects,
+#design-system-live .system-activity {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+#design-system-live .system-app::before,
+#design-system-live .system-app::after {
+  display: none !important;
+  content: none !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #design-system-live .system-explainer-stage:hover .system-app {
+    border-color: rgba(115, 242, 167, .38) !important;
+    box-shadow: 0 48px 140px rgba(0, 0, 0, .64), 0 0 48px rgba(115, 242, 167, .06) !important;
+  }
+
+  #design-system-live .system-explainer-stage:hover .system-app-topbar,
+  #design-system-live .system-explainer-stage:hover .system-app-sidebar,
+  #design-system-live .system-explainer-stage:hover .system-app-hero,
+  #design-system-live .system-explainer-stage:hover .system-app-section-title,
+  #design-system-live .system-explainer-stage:hover .system-projects,
+  #design-system-live .system-explainer-stage:hover .system-activity {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+}
