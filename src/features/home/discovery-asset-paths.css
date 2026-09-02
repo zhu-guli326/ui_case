@@ -1,6 +1,5 @@
 /* Homepage App discovery image slots.
- * Old app-1.png ~ app-4.png assets have been retired.
- * Reserved replacement paths:
+ * Replacement assets live at:
  *   assets/home/discovery/app-card-01.png
  *   assets/home/discovery/app-card-02.png
  *   assets/home/discovery/app-card-03.png
@@ -8,19 +7,20 @@
  */
 
 #templates.discovery-strip .template-card:nth-child(1).is-active-discovery > img {
-  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'%3E%3Crect width='800' height='1000' fill='%23f3f3f1'/%3E%3Crect x='24' y='24' width='752' height='952' rx='34' fill='none' stroke='%23ddddda' stroke-width='2' stroke-dasharray='10 10'/%3E%3Ctext x='400' y='486' text-anchor='middle' font-family='Arial,sans-serif' font-size='28' fill='%23999994'%3EAPP IMAGE 01%3C/text%3E%3Ctext x='400' y='530' text-anchor='middle' font-family='Arial,sans-serif' font-size='18' fill='%23b1b1ac'%3Ewaiting for replacement%3C/text%3E%3C/svg%3E") !important;
-  object-fit: cover !important;
+  content: url("../../../assets/home/discovery/app-card-01.png") !important;
+  object-fit: contain !important;
   object-position: center !important;
+  background: #f3f1ec !important;
 }
 
 #templates.discovery-strip .template-card:nth-child(1).is-active-discovery > .template-card-shade {
-  background: #f3f3f1 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'%3E%3Crect width='800' height='1000' fill='%23f3f3f1'/%3E%3Crect x='24' y='24' width='752' height='952' rx='34' fill='none' stroke='%23ddddda' stroke-width='2' stroke-dasharray='10 10'/%3E%3Ctext x='400' y='486' text-anchor='middle' font-family='Arial,sans-serif' font-size='28' fill='%23999994'%3EAPP IMAGE 02%3C/text%3E%3Ctext x='400' y='530' text-anchor='middle' font-family='Arial,sans-serif' font-size='18' fill='%23b1b1ac'%3Ewaiting for replacement%3C/text%3E%3C/svg%3E") center / cover no-repeat !important;
+  background: #f3f1ec url("../../../assets/home/discovery/app-card-02.png") center / contain no-repeat !important;
 }
 
 #templates.discovery-strip .template-card:nth-child(1).is-active-discovery > small {
-  background: #f3f3f1 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'%3E%3Crect width='800' height='1000' fill='%23f3f3f1'/%3E%3Crect x='24' y='24' width='752' height='952' rx='34' fill='none' stroke='%23ddddda' stroke-width='2' stroke-dasharray='10 10'/%3E%3Ctext x='400' y='486' text-anchor='middle' font-family='Arial,sans-serif' font-size='28' fill='%23999994'%3EAPP IMAGE 03%3C/text%3E%3Ctext x='400' y='530' text-anchor='middle' font-family='Arial,sans-serif' font-size='18' fill='%23b1b1ac'%3Ewaiting for replacement%3C/text%3E%3C/svg%3E") center / cover no-repeat !important;
+  background: #f3f1ec url("../../../assets/home/discovery/app-card-03.png") center / contain no-repeat !important;
 }
 
 #templates.discovery-strip .template-card:nth-child(1).is-active-discovery > div {
-  background: #f3f3f1 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'%3E%3Crect width='800' height='1000' fill='%23f3f3f1'/%3E%3Crect x='24' y='24' width='752' height='952' rx='34' fill='none' stroke='%23ddddda' stroke-width='2' stroke-dasharray='10 10'/%3E%3Ctext x='400' y='486' text-anchor='middle' font-family='Arial,sans-serif' font-size='28' fill='%23999994'%3EAPP IMAGE 04%3C/text%3E%3Ctext x='400' y='530' text-anchor='middle' font-family='Arial,sans-serif' font-size='18' fill='%23b1b1ac'%3Ewaiting for replacement%3C/text%3E%3C/svg%3E") center / cover no-repeat !important;
+  background: #f3f1ec url("../../../assets/home/discovery/app-card-04.png") center / contain no-repeat !important;
 }
