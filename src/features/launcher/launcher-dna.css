@@ -10,6 +10,7 @@
 @import url("./launcher-component-signatures.css");
 @import url("./launcher-flat-inspector.css");
 @import url("./launcher-minimal-inspector.css");
+@import url("./launcher-inspector-clarity.css");
 
 /* Regression guard: these legacy placeholder bars were visually identical
  * to missing-glyph boxes. They must never be visible in Launcher chrome.
