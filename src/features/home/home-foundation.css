@@ -196,40 +196,6 @@ body.project-home { margin: 0; overflow-x: hidden; background: var(--home-paper)
 .footer-grid nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .footer-bottom { display: flex; justify-content: space-between; padding-top: 22px; border-top: 1px solid #292929; color: #777; font-size: 11px; letter-spacing: .05em; }
 
-#capabilities .capability-grid > a {
-  --pointer-x: 50%;
-  --pointer-y: 50%;
-  --pointer-from-center: 0;
-  --pointer-from-top: .5;
-  --pointer-from-left: .5;
-  --rotate-x: 0deg;
-  --rotate-y: 0deg;
-  --workflow-card-opacity: 0;
-  --workflow-glow: rgba(125,190,255,.44);
-  isolation: isolate;
-  transform: perspective(700px) rotateX(var(--rotate-y)) rotateY(var(--rotate-x)) translateZ(0);
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-  will-change: transform;
-  transition: transform 600ms cubic-bezier(.2,.72,.2,1), box-shadow 300ms ease;
-  box-shadow: rgba(0,0,0,.16) calc((var(--pointer-from-left) * 10px) - 5px) calc((var(--pointer-from-top) * 18px) - 7px) 26px -8px;
-}
-#capabilities .capability-grid > a:nth-child(1) { --workflow-glow: rgba(157,77,255,.42); }
-#capabilities .capability-grid > a:nth-child(2) { --workflow-glow: rgba(255,133,31,.42); }
-#capabilities .capability-grid > a:nth-child(3) { --workflow-glow: rgba(45,148,255,.42); }
-#capabilities .capability-grid > a:nth-child(4) { --workflow-glow: rgba(139,238,75,.38); }
-#capabilities .capability-grid > a::before,
-#capabilities .capability-grid > a::after { position: absolute; inset: 0; border-radius: inherit; content: ""; pointer-events: none; opacity: var(--workflow-card-opacity); transition: opacity 220ms ease; }
-#capabilities .capability-grid > a::before { z-index: 2; background: radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255,255,255,.38) 0%, rgba(255,255,255,.13) 18%, transparent 46%), radial-gradient(circle at var(--pointer-x) var(--pointer-y), var(--workflow-glow) 0%, transparent 58%); mix-blend-mode: screen; filter: saturate(1.06); }
-#capabilities .capability-grid > a::after { z-index: 3; inset: 1px; border: 1px solid rgba(255,255,255,.12); background: linear-gradient(135deg, rgba(255,255,255,.17), transparent 26%, transparent 70%, rgba(255,255,255,.08)); mix-blend-mode: soft-light; }
-#capabilities .capability-grid > a.workflow-card-active { --workflow-card-opacity: 1; transition: box-shadow 160ms ease; box-shadow: 0 22px 48px rgba(0,0,0,.22), 0 16px 44px -20px var(--workflow-glow); }
-#capabilities .capability-grid > a.workflow-card-entering { transition: transform 180ms ease-out, box-shadow 180ms ease; }
-#capabilities .capability-grid > a > img { z-index: 0; transform: scale(1.015) translate3d(calc((var(--pointer-from-left) - .5) * -5px), calc((var(--pointer-from-top) - .5) * -4px), 0); will-change: transform; transition: transform 180ms ease-out; }
-#capabilities .capability-grid > a:hover > img { transform: scale(1.045) translate3d(calc((var(--pointer-from-left) - .5) * -7px), calc((var(--pointer-from-top) - .5) * -6px), 0); }
-#capabilities .capability-grid > a > .capability-shade { z-index: 1; }
-#capabilities .capability-grid > a > small,
-#capabilities .capability-grid > a > div { z-index: 4; transform: translate3d(calc((var(--pointer-from-left) - .5) * -4px), calc((var(--pointer-from-top) - .5) * -4px), 18px); transition: transform 150ms ease-out; }
-
 @media (max-width: 900px) {
   :root { --home-page: min(100% - 40px, 1200px); }
   .project-hero h1 { font-size: clamp(48px, 10vw, 72px); }
@@ -301,32 +267,12 @@ body.project-home { margin: 0; overflow-x: hidden; background: var(--home-paper)
 
 @media (hover: none), (pointer: coarse), (max-width: 768px) {
   .project-hero::after { display: none; }
-  #capabilities .capability-grid > a { --workflow-card-opacity: 0; transform: none !important; box-shadow: none; will-change: auto; }
-  #capabilities .capability-grid > a::before,
-  #capabilities .capability-grid > a::after { display: none; }
-  #capabilities .capability-grid > a > img,
-  #capabilities .capability-grid > a:hover > img,
-  #capabilities .capability-grid > a > small,
-  #capabilities .capability-grid > a > div { transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; transition-duration: .01ms !important; }
   .project-hero::after { display: none; }
   .project-case, .project-case > img, .capability-grid img, .showcase-card, .template-card > img, .template-card > i { transition-duration: .01ms !important; }
-  #capabilities .capability-grid > a,
-  #capabilities .capability-grid > a > img,
-  #capabilities .capability-grid > a > small,
-  #capabilities .capability-grid > a > div,
-  #capabilities .capability-grid > a::before,
-  #capabilities .capability-grid > a::after { transition: none !important; animation: none !important; }
-  #capabilities .capability-grid > a { --workflow-card-opacity: 0; transform: none !important; }
-  #capabilities .capability-grid > a::before,
-  #capabilities .capability-grid > a::after { display: none; }
-  #capabilities .capability-grid > a > img,
-  #capabilities .capability-grid > a:hover > img,
-  #capabilities .capability-grid > a > small,
-  #capabilities .capability-grid > a > div { transform: none !important; }
 }
 
 .showcase-card .system-preview { position: relative; display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; padding: 18px; border-bottom: 1px solid #303030; background: radial-gradient(circle at 78% 12%, rgba(115,255,178,.12), transparent 36%), linear-gradient(145deg, #101312, #171a19 62%, #0d0f0e); color: #f5f7f6; }
