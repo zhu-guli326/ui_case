@@ -85,6 +85,8 @@ const WORKFLOW_STAGES = [
   },
 ];
 
+const WORKFLOW_STAGE_BOUNDARIES = [0.24, 0.5, 0.76];
+
 const workflow = document.querySelector("[data-workflow-explorer]");
 const workflowButtons = [...(workflow?.querySelectorAll("[data-workflow-stage]") || [])];
 const workflowPoster = workflow?.querySelector("[data-workflow-poster]");
@@ -101,6 +103,7 @@ let activeWorkflowIndex = 0;
 let workflowScrollTrigger = null;
 let workflowGsapRetryFrame = 0;
 let workflowPosterQuickSetters = null;
+let workflowPosterPointerRect = null;
 
 if (workflowDetail && workflowTitle && !workflowPerson) {
   workflowPerson = document.createElement("p");
@@ -166,27 +169,65 @@ function renderWorkflow(index = activeWorkflowIndex, { animate = true } = {}) {
     return;
   }
 
-  const transitionTargets = [workflowImage, workflowDetail].filter(Boolean);
-  window.gsap.killTweensOf(transitionTargets);
-  window.gsap.to(transitionTargets, {
-    autoAlpha: 0,
-    y: 14,
-    duration: .16,
-    ease: "power2.in",
-    overwrite: true,
+  const { gsap } = window;
+  const targets = [workflowImage, workflowDetail].filter(Boolean);
+  gsap.killTweensOf(targets);
+
+  const timeline = gsap.timeline({
+    defaults: { overwrite: "auto" },
     onComplete: () => {
-      applyWorkflowContent(nextIndex);
-      window.gsap.fromTo(
-        transitionTargets,
-        { autoAlpha: 0, y: -12 },
-        { autoAlpha: 1, y: 0, duration: .38, ease: "power3.out", overwrite: true },
-      );
+      gsap.set(targets, { clearProps: "opacity,visibility,transform,filter" });
     },
   });
+
+  if (workflowImage) {
+    timeline.to(workflowImage, {
+      autoAlpha: 0,
+      y: 18,
+      scale: 0.985,
+      filter: "blur(4px)",
+      duration: 0.2,
+      ease: "power2.inOut",
+    }, 0);
+  }
+
+  if (workflowDetail) {
+    timeline.to(workflowDetail, {
+      autoAlpha: 0,
+      y: 10,
+      duration: 0.18,
+      ease: "power2.inOut",
+    }, 0);
+  }
+
+  timeline.add(() => applyWorkflowContent(nextIndex), 0.2);
+
+  if (workflowImage) {
+    timeline.fromTo(workflowImage,
+      { autoAlpha: 0, y: -14, scale: 1.012, filter: "blur(6px)" },
+      { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.46, ease: "power3.out" },
+      0.22,
+    );
+  }
+
+  if (workflowDetail) {
+    timeline.fromTo(workflowDetail,
+      { autoAlpha: 0, y: -8 },
+      { autoAlpha: 1, y: 0, duration: 0.4, ease: "power3.out" },
+      0.28,
+    );
+  }
 }
 
 function workflowProgressForIndex(index) {
   return WORKFLOW_STAGES.length <= 1 ? 0 : index / (WORKFLOW_STAGES.length - 1);
+}
+
+function workflowIndexForProgress(progress) {
+  if (progress < WORKFLOW_STAGE_BOUNDARIES[0]) return 0;
+  if (progress < WORKFLOW_STAGE_BOUNDARIES[1]) return 1;
+  if (progress < WORKFLOW_STAGE_BOUNDARIES[2]) return 2;
+  return 3;
 }
 
 function scrollToWorkflowStage(index) {
@@ -223,10 +264,10 @@ function ensurePosterQuickSetters() {
   });
 
   workflowPosterQuickSetters = {
-    rotationX: window.gsap.quickTo(workflowPoster, "rotationX", { duration: .34, ease: "power3.out" }),
-    rotationY: window.gsap.quickTo(workflowPoster, "rotationY", { duration: .34, ease: "power3.out" }),
-    scale: window.gsap.quickTo(workflowPoster, "scale", { duration: .38, ease: "power3.out" }),
-    y: window.gsap.quickTo(workflowPoster, "y", { duration: .38, ease: "power3.out" }),
+    rotationX: window.gsap.quickTo(workflowPoster, "rotationX", { duration: 0.42, ease: "power3.out" }),
+    rotationY: window.gsap.quickTo(workflowPoster, "rotationY", { duration: 0.42, ease: "power3.out" }),
+    scale: window.gsap.quickTo(workflowPoster, "scale", { duration: 0.48, ease: "power3.out" }),
+    y: window.gsap.quickTo(workflowPoster, "y", { duration: 0.48, ease: "power3.out" }),
   };
 
   return workflowPosterQuickSetters;
@@ -234,6 +275,7 @@ function ensurePosterQuickSetters() {
 
 function resetPosterTilt() {
   if (!workflowPoster) return;
+  workflowPosterPointerRect = null;
   workflowPoster.classList.remove("is-tilting");
   workflowPoster.style.setProperty("--pointer-x", "50%");
   workflowPoster.style.setProperty("--pointer-y", "50%");
@@ -245,7 +287,7 @@ function resetPosterTilt() {
       scale: 1,
       y: 0,
       boxShadow: "0 24px 54px rgba(0, 0, 0, .11)",
-      duration: .62,
+      duration: 0.72,
       ease: "power3.out",
       overwrite: "auto",
     });
@@ -258,13 +300,14 @@ function resetPosterTilt() {
 
 workflowPoster?.addEventListener("pointerenter", () => {
   if (!workflowFinePointer.matches || workflowReducedMotion.matches) return;
+  workflowPosterPointerRect = workflowPoster.getBoundingClientRect();
   workflowPoster.classList.add("is-tilting");
   const setters = ensurePosterQuickSetters();
-  setters?.scale(1.035);
-  setters?.y(-10);
+  setters?.scale(1.018);
+  setters?.y(-6);
   window.gsap?.to(workflowPoster, {
-    boxShadow: "0 38px 82px rgba(0, 0, 0, .18)",
-    duration: .32,
+    boxShadow: "0 34px 72px rgba(0, 0, 0, .16)",
+    duration: 0.4,
     ease: "power2.out",
     overwrite: "auto",
   });
@@ -272,24 +315,25 @@ workflowPoster?.addEventListener("pointerenter", () => {
 
 workflowPoster?.addEventListener("pointermove", (event) => {
   if (!workflowFinePointer.matches || workflowReducedMotion.matches) return;
-  const rect = workflowPoster.getBoundingClientRect();
+  const rect = workflowPosterPointerRect || workflowPoster.getBoundingClientRect();
   const px = Math.max(0, Math.min(1, (event.clientX - rect.left) / Math.max(rect.width, 1)));
   const py = Math.max(0, Math.min(1, (event.clientY - rect.top) / Math.max(rect.height, 1)));
+
   workflowPoster.classList.add("is-tilting");
   workflowPoster.style.setProperty("--pointer-x", `${px * 100}%`);
   workflowPoster.style.setProperty("--pointer-y", `${py * 100}%`);
 
   const setters = ensurePosterQuickSetters();
   if (setters) {
-    setters.rotationY((px - .5) * 12);
-    setters.rotationX((.5 - py) * 9);
-    setters.scale(1.035);
-    setters.y(-10);
+    setters.rotationY((px - 0.5) * 8);
+    setters.rotationX((0.5 - py) * 6);
+    setters.scale(1.018);
+    setters.y(-6);
     return;
   }
 
-  workflowPoster.style.setProperty("--tilt-x", `${(px - .5) * 10}deg`);
-  workflowPoster.style.setProperty("--tilt-y", `${(.5 - py) * 8}deg`);
+  workflowPoster.style.setProperty("--tilt-x", `${(px - 0.5) * 8}deg`);
+  workflowPoster.style.setProperty("--tilt-y", `${(0.5 - py) * 6}deg`);
 });
 
 workflowPoster?.addEventListener("pointerleave", resetPosterTilt);
@@ -324,20 +368,19 @@ function initWorkflowScrollMotion(attempt = 0) {
 
   workflowScrollTrigger = ScrollTrigger.create({
     trigger: workflow,
-    start: "top 10%",
-    end: () => `+=${Math.max(window.innerHeight * 2.6, 1900)}`,
+    start: "top 34%",
+    end: () => `+=${Math.max(window.innerHeight * 2.15, 1600)}`,
     pin: true,
     pinSpacing: true,
     anticipatePin: 1,
     invalidateOnRefresh: true,
-    snap: {
-      snapTo: 1 / (WORKFLOW_STAGES.length - 1),
-      duration: { min: .18, max: .42 },
-      delay: .06,
-      ease: "power1.inOut",
+    onRefresh: (self) => {
+      const index = workflowIndexForProgress(self.progress);
+      workflow.style.setProperty("--workflow-scroll-progress", `${self.progress * 360}deg`);
+      renderWorkflow(index, { animate: false });
     },
     onUpdate: (self) => {
-      const index = Math.round(self.progress * (WORKFLOW_STAGES.length - 1));
+      const index = workflowIndexForProgress(self.progress);
       workflow.style.setProperty("--workflow-scroll-progress", `${self.progress * 360}deg`);
       if (index !== activeWorkflowIndex) renderWorkflow(index);
     },
@@ -350,7 +393,10 @@ workflowReducedMotion.addEventListener?.("change", () => {
 });
 workflowFinePointer.addEventListener?.("change", resetPosterTilt);
 workflowDesktop.addEventListener?.("change", () => initWorkflowScrollMotion());
-window.addEventListener("resize", () => workflowScrollTrigger?.refresh());
+window.addEventListener("resize", () => {
+  workflowPosterPointerRect = null;
+  workflowScrollTrigger?.refresh();
+});
 window.addEventListener("image2:languagechange", () => renderWorkflow(activeWorkflowIndex, { animate: false }));
 
 const workflowLanguageObserver = new MutationObserver(() => renderWorkflow(activeWorkflowIndex, { animate: false }));
