@@ -9,6 +9,7 @@ Last updated: 2026-09-03
 - Product role: ONDesign main landing / learning entry
 - Canonical implementation: `src/features/home/home.css`, `src/features/home/home.js`
 - The Idea → Demo workflow may keep its dedicated `src/features/home/home-workflow.js` interaction component as long as it is the single runtime owner for that workflow and does not duplicate behavior in another Home script.
+- The final CTA may keep its small dedicated `src/features/home/home-cta.js` typewriter component as long as it owns only that CTA interaction and does not become a second general Home motion layer.
 - The existing design-system explainer may keep its dedicated visual stylesheet, but new Home behavior must have one clear owner rather than parallel versioned, motion-only or override files.
 
 ## Page goal
@@ -148,6 +149,11 @@ The live design-system explainer keeps the central product workspace and the fou
 
 - Do not use a full-screen creator quote / self-attribution section before the final CTA unless an explicit later content decision restores it.
 - Keep only one focused final action into Start Designing unless an explicit later content decision changes the CTA structure.
+- Do not render the small `FOUND SOMETHING YOU LIKE?` eyebrow above the final CTA headline; the headline should be the first visual element in the CTA copy block.
+- The CTA headline should type once when it enters the viewport, character by character, then remain fully visible and stable. The typing caret may blink briefly after completion but must not loop the sentence.
+- Preserve bilingual text. A language switch should restart the CTA headline in the selected language when the CTA is visible.
+- Reserve the headline's final height before typing so the page does not jump while characters are appearing.
+- `prefers-reduced-motion: reduce` skips the typewriter motion and shows the complete headline immediately.
 - The final CTA should feel compact, calm and connected to the footer rather than like another oversized hero screen.
 
 ## Interaction rules
@@ -176,13 +182,13 @@ The Home page should feel calm while static and expressive while scrolling. Moti
 - Idea → Demo: desktop pins the three-column workflow for a bounded distance; scroll progress advances the current stage `DEFINE → CREATE → BUILD → ITERATE`, and the center poster/right explanation animate together. Pointer tilt/glow remains a second interaction layer.
 - Design-system cards: the typography/color/spacing/surface/component cards should assemble into view with staggered depth rather than appear as a static pile.
 - Design-system live explainer: the central product UI establishes first, then the four surrounding typography/spacing/color/state callouts enter in a readable order and remain visible after entry.
-- CTA/footer: finish with a restrained reveal; do not keep adding increasingly loud effects at the bottom of the page.
+- CTA: the final headline uses the single-run viewport typewriter owned by `home-cta.js`; do not layer the old ScrollReveal animation on top of it. Footer motion remains a restrained reveal.
 - Micro-interactions may include subtle magnetic response on primary links/buttons and pointer-following light in the Hero, but movement must stay small enough that text remains easy to target and read.
 - Avoid permanent looping particles, continuous bouncing, scroll-jacking outside the explicit workflow pin, excessive blur or simultaneous animation of every element.
 - Motion should use opacity/filter/clip/transform properties that stay performant and should avoid layout-thrashing animation.
 - Mobile/touch uses reduced motion complexity: no pinned workflow, pointer-follow effects or 3D tilt, and scroll reveals should be shorter/subtler.
 - `prefers-reduced-motion: reduce` disables non-essential scroll choreography, workflow pinning, pointer-follow, magnetic movement and 3D card tilt while preserving all content and controls.
-- General Home motion remains in `src/features/home/home.js` and `src/features/home/home.css`; workflow-specific stage switching, pinning and poster tilt are owned only by `src/features/home/home-workflow.js` and the workflow styles in `home.css`.
+- General Home motion remains in `src/features/home/home.js` and `src/features/home/home.css`; workflow-specific stage switching, pinning and poster tilt are owned only by `src/features/home/home-workflow.js`, while the final CTA typewriter is owned only by `src/features/home/home-cta.js`.
 
 ## Keep
 
