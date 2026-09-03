@@ -48,6 +48,18 @@ body.project-home #capabilities .capability-grid p > span:nth-child(2) {
   color: rgba(255, 255, 255, .84) !important;
 }
 
+/* Pull the final CTA closer to the design-system explainer.
+ * Both sections are dark, so the old bottom padding plus CTA min-height looked
+ * like one oversized empty band between the illustration and the headline. */
+body.project-home #design-system-live.design-system-explainer {
+  padding-bottom: clamp(38px, 4vw, 58px) !important;
+}
+
+html body.project-home main > .project-cta {
+  min-height: min(500px, 56vh) !important;
+  padding: clamp(54px, 6vh, 72px) 24px clamp(68px, 7vh, 88px) !important;
+}
+
 @media (max-width: 760px) {
   body.project-home #cases.featured-cases {
     padding-bottom: 6px !important;
@@ -55,6 +67,15 @@ body.project-home #capabilities .capability-grid p > span:nth-child(2) {
 
   body.project-home #overview .project-stats-grid {
     padding-block: 26px !important;
+  }
+
+  body.project-home #design-system-live.design-system-explainer {
+    padding-bottom: 34px !important;
+  }
+
+  html body.project-home main > .project-cta {
+    min-height: auto !important;
+    padding: 52px 18px 68px !important;
   }
 }
 
