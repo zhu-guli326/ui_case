@@ -163,47 +163,86 @@ function applyWorkflowContent(index) {
 
 function workflowStageScale(buttonIndex, activeIndex) {
   const distance = Math.abs(buttonIndex - activeIndex);
-  if (distance === 0) return 1.04;
-  if (distance === 1) return 0.94;
-  if (distance === 2) return 0.88;
-  return 0.84;
+  if (distance === 0) return 1.06;
+  if (distance === 1) return 0.92;
+  if (distance === 2) return 0.87;
+  return 0.83;
 }
 
 function setWorkflowButtonState(index) {
   workflowButtons.forEach((button, buttonIndex) => {
+    const wasSelected = button.classList.contains("is-active");
     const selected = buttonIndex === index;
     button.classList.toggle("is-active", selected);
     button.setAttribute("aria-selected", String(selected));
     button.tabIndex = selected ? 0 : -1;
 
     if (!workflowDesktop.matches) {
-      if (window.gsap) window.gsap.set(button, { clearProps: "transform,opacity,transformOrigin" });
+      button.style.removeProperty("transition-property");
+      button.style.removeProperty("will-change");
+      if (window.gsap) window.gsap.set(button, { clearProps: "transform,opacity,transformOrigin,y,letterSpacing" });
       else {
         button.style.removeProperty("transform");
         button.style.removeProperty("opacity");
         button.style.removeProperty("transform-origin");
+        button.style.removeProperty("letter-spacing");
       }
       return;
     }
 
+    const distance = Math.abs(buttonIndex - index);
     const scale = workflowStageScale(buttonIndex, index);
-    const opacity = selected ? 1 : Math.max(0.54, 0.8 - (Math.abs(buttonIndex - index) * 0.09));
+    const opacity = selected ? 1 : Math.max(0.5, 0.76 - (distance * 0.08));
+    const y = selected ? 0 : Math.min(distance * 2, 5);
+    const letterSpacing = selected ? "-.045em" : "-.025em";
+
+    button.style.transitionProperty = "color";
+    button.style.willChange = "transform, opacity";
 
     if (window.gsap && !workflowReducedMotion.matches) {
+      window.gsap.killTweensOf(button);
+
+      if (selected && !wasSelected) {
+        window.gsap.fromTo(
+          button,
+          {
+            scale: 0.82,
+            opacity: 0.42,
+            y: 8,
+            letterSpacing: ".01em",
+            transformOrigin: "left center",
+          },
+          {
+            scale,
+            opacity,
+            y,
+            letterSpacing,
+            transformOrigin: "left center",
+            duration: 0.62,
+            ease: "power3.out",
+            overwrite: true,
+          },
+        );
+        return;
+      }
+
       window.gsap.to(button, {
         scale,
         opacity,
+        y,
+        letterSpacing,
         transformOrigin: "left center",
-        duration: selected ? 0.5 : 0.4,
+        duration: selected ? 0.46 : 0.38,
         ease: "power3.out",
-        overwrite: "auto",
+        overwrite: true,
       });
       return;
     }
 
     button.style.transformOrigin = "left center";
-    button.style.transform = `scale(${scale})`;
+    button.style.transform = `translateY(${y}px) scale(${scale})`;
     button.style.opacity = String(opacity);
+    button.style.letterSpacing = letterSpacing;
   });
 }
 
