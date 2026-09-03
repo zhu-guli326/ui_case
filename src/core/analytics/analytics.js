@@ -77,5 +77,10 @@
     homeHeroMotion.src = "./src/features/home/home-hero-motion.js";
     homeHeroMotion.defer = true;
     document.head.append(homeHeroMotion);
+
+    const homeGlobalMotion = document.createElement("script");
+    homeGlobalMotion.src = "./src/features/home/home-global-motion.js";
+    homeGlobalMotion.defer = true;
+    document.head.append(homeGlobalMotion);
   }
 })();
