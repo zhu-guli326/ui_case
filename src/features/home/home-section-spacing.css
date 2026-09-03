@@ -66,6 +66,11 @@ body.project-home #capabilities .capability-grid p > span:nth-child(2) {
     transition: border-color .35s ease, box-shadow .45s ease;
   }
 
+  body.project-home #capabilities .capability-grid > a:hover,
+  body.project-home #capabilities .capability-grid > a.workflow-card-active {
+    --workflow-glow: .92;
+  }
+
   body.project-home #capabilities .capability-grid > a::before {
     position: absolute;
     z-index: 6;
@@ -94,6 +99,7 @@ body.project-home #capabilities .capability-grid p > span:nth-child(2) {
     transition: opacity .3s ease, border-color .3s ease;
   }
 
+  body.project-home #capabilities .capability-grid > a:hover::after,
   body.project-home #capabilities .capability-grid > a.workflow-card-active::after {
     border-color: rgba(255,255,255,.48);
     opacity: 1;
@@ -106,6 +112,7 @@ body.project-home #capabilities .capability-grid p > span:nth-child(2) {
     will-change: transform;
   }
 
+  body.project-home #capabilities .capability-grid > a:hover > img,
   body.project-home #capabilities .capability-grid > a.workflow-card-active > img {
     filter: saturate(1.08) contrast(1.025);
   }
