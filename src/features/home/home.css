@@ -636,10 +636,6 @@ html[lang="zh-CN"] .featured-cases-heading h2 {
 }
 
 /* Final CTA: keep one clear statement and let Home JS type it once on entry. */
-.project-cta .section-eyebrow {
-  display: none;
-}
-
 .project-cta h2 {
   position: relative;
   transform: none;
