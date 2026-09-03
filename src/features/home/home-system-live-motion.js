@@ -1,149 +1,109 @@
 (() => {
-  const stage = document.querySelector("#design-system-live .system-explainer-stage");
-  const app = stage?.querySelector(".system-app");
-  const callouts = [
-    stage?.querySelector(".system-callout-type"),
-    stage?.querySelector(".system-callout-color"),
-    stage?.querySelector(".system-callout-spacing"),
-    stage?.querySelector(".system-callout-states"),
-  ].filter(Boolean);
+  const section = document.querySelector("#design-system");
+  const stage = section?.querySelector(".showcase-scene");
+  const cards = [...(stage?.querySelectorAll(".showcase-card") || [])];
+  const copy = [...(section?.querySelectorAll(".showcase-copy > *") || [])];
 
-  if (!stage || !app || callouts.length < 4) return;
+  if (!section || !stage || cards.length < 2) return;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
   if (reducedMotion.matches) return;
 
-  function initMotion() {
-    if (!window.gsap || !window.ScrollTrigger) return false;
+  const depths = [12, 17, 10, 15, 13];
 
-    const { gsap, ScrollTrigger } = window;
-    gsap.registerPlugin(ScrollTrigger);
+  function bindPointerMotion() {
+    if (!finePointer.matches || stage.dataset.showcasePointerBound === "true") return;
+    stage.dataset.showcasePointerBound = "true";
 
-    // Re-run the reveal whenever the section comes back into view so the motion
-    // does not disappear after the first visit / refresh at a deep scroll position.
-    const reveal = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
-    reveal
-      .fromTo(app,
-        { autoAlpha: .2, y: 42, scale: .965, filter: "blur(18px)", transformOrigin: "50% 50%" },
-        { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: .82, clearProps: "opacity,visibility,filter" },
-      )
-      .fromTo(callouts[0],
-        { autoAlpha: 0, x: -72, y: -24, scale: .9 },
-        { autoAlpha: 1, x: 0, y: 0, scale: 1, duration: .62 },
-        "-=.18",
-      )
-      .fromTo(callouts[1],
-        { autoAlpha: 0, x: 72, y: -24, scale: .9 },
-        { autoAlpha: 1, x: 0, y: 0, scale: 1, duration: .62 },
-        "-=.42",
-      )
-      .fromTo(callouts[2],
-        { autoAlpha: 0, x: -72, y: 24, scale: .9 },
-        { autoAlpha: 1, x: 0, y: 0, scale: 1, duration: .62 },
-        "-=.42",
-      )
-      .fromTo(callouts[3],
-        { autoAlpha: 0, x: 72, y: 24, scale: .9 },
-        { autoAlpha: 1, x: 0, y: 0, scale: 1, duration: .62 },
-        "-=.42",
-      );
+    cards.forEach((card) => {
+      card.style.willChange = "translate, scale, box-shadow";
+      card.style.transition = [
+        "translate .46s cubic-bezier(.16,1,.3,1)",
+        "scale .42s cubic-bezier(.16,1,.3,1)",
+        "box-shadow .42s ease",
+      ].join(", ");
 
-    ScrollTrigger.create({
-      trigger: stage,
-      start: "top 78%",
-      end: "bottom 20%",
-      onEnter: () => reveal.restart(),
-      onEnterBack: () => reveal.restart(),
+      card.addEventListener("pointerenter", () => {
+        card.style.scale = "1.04";
+        card.style.boxShadow = "0 32px 78px rgba(0,0,0,.44)";
+      });
+
+      card.addEventListener("pointerleave", () => {
+        card.style.scale = "1";
+        card.style.boxShadow = "";
+      });
     });
 
-    // Keep the real screenshot interactive after the entrance animation: the
-    // canvas tilts toward the pointer while the four rule cards drift at
-    // different depths, preserving the old interactive-canvas feel.
-    if (finePointer.matches) {
-      const appRotX = gsap.quickTo(app, "rotationX", { duration: .45, ease: "power3.out" });
-      const appRotY = gsap.quickTo(app, "rotationY", { duration: .45, ease: "power3.out" });
-      const appX = gsap.quickTo(app, "x", { duration: .5, ease: "power3.out" });
-      const appY = gsap.quickTo(app, "y", { duration: .5, ease: "power3.out" });
+    stage.addEventListener("pointermove", (event) => {
+      const rect = stage.getBoundingClientRect();
+      const px = ((event.clientX - rect.left) / Math.max(rect.width, 1) - .5) * 2;
+      const py = ((event.clientY - rect.top) / Math.max(rect.height, 1) - .5) * 2;
 
-      const calloutSetters = callouts.map((callout, index) => ({
-        x: gsap.quickTo(callout, "x", { duration: .5 + index * .04, ease: "power3.out" }),
-        y: gsap.quickTo(callout, "y", { duration: .5 + index * .04, ease: "power3.out" }),
-      }));
-
-      stage.addEventListener("pointerenter", () => {
-        gsap.to(app, {
-          scale: 1.012,
-          boxShadow: "0 54px 150px rgba(0,0,0,.68), 0 0 64px rgba(115,242,167,.1)",
-          duration: .48,
-          ease: "power3.out",
-          overwrite: "auto",
-        });
-        gsap.to(callouts, {
-          boxShadow: "0 24px 70px rgba(0,0,0,.34)",
-          duration: .45,
-          stagger: .035,
-          ease: "power3.out",
-        });
+      cards.forEach((card, index) => {
+        const direction = index % 2 === 0 ? -1 : 1;
+        const depth = depths[index] || 12;
+        card.style.translate = `${px * depth * direction}px ${py * depth * .45}px`;
       });
+    });
 
-      stage.addEventListener("pointermove", (event) => {
-        const rect = stage.getBoundingClientRect();
-        const px = ((event.clientX - rect.left) / Math.max(rect.width, 1) - .5) * 2;
-        const py = ((event.clientY - rect.top) / Math.max(rect.height, 1) - .5) * 2;
-
-        appRotY(px * 3.2);
-        appRotX(py * -2.4);
-        appX(px * 10);
-        appY(py * 7);
-
-        const depths = [14, 12, 10, 16];
-        calloutSetters.forEach((setters, index) => {
-          const direction = index % 2 === 0 ? -1 : 1;
-          setters.x(px * depths[index] * direction);
-          setters.y(py * (depths[index] * .55));
-        });
+    stage.addEventListener("pointerleave", () => {
+      cards.forEach((card) => {
+        card.style.translate = "0 0";
+        card.style.scale = "1";
+        card.style.boxShadow = "";
       });
-
-      stage.addEventListener("pointerleave", () => {
-        appRotX(0);
-        appRotY(0);
-        appX(0);
-        appY(0);
-        calloutSetters.forEach(({ x, y }) => { x(0); y(0); });
-
-        gsap.to(app, {
-          scale: 1,
-          boxShadow: "0 42px 120px rgba(0,0,0,.58), 0 0 0 1px rgba(115,242,167,.05)",
-          duration: .72,
-          ease: "power3.out",
-          clearProps: "rotationX,rotationY,x,y",
-        });
-        gsap.to(callouts, {
-          boxShadow: "none",
-          duration: .55,
-          stagger: .025,
-          ease: "power3.out",
-          clearProps: "x,y,boxShadow",
-        });
-      });
-
-      gsap.set(app, { transformPerspective: 1200, transformOrigin: "50% 50%" });
-    }
-
-    return true;
+    });
   }
 
-  let attempts = 0;
-  function boot() {
-    if (initMotion()) return;
-    attempts += 1;
-    if (attempts < 80) window.setTimeout(boot, 75);
+  function nativeRevealFallback() {
+    if (!("IntersectionObserver" in window) || stage.dataset.showcaseRevealBound === "true") return;
+    stage.dataset.showcaseRevealBound = "true";
+
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+
+      copy.forEach((node, index) => {
+        node.animate(
+          [
+            { opacity: 0, translate: "0 24px" },
+            { opacity: 1, translate: "0 0" },
+          ],
+          {
+            duration: 560,
+            delay: index * 70,
+            easing: "cubic-bezier(.2,.8,.2,1)",
+            fill: "both",
+          },
+        );
+      });
+
+      cards.forEach((card, index) => {
+        card.animate(
+          [
+            { opacity: 0, translate: "0 72px", scale: .9 },
+            { opacity: 1, translate: "0 0", scale: 1 },
+          ],
+          {
+            duration: 820,
+            delay: 160 + index * 90,
+            easing: "cubic-bezier(.16,1,.3,1)",
+            fill: "both",
+          },
+        );
+      });
+
+      observer.disconnect();
+    }, { threshold: .16 });
+
+    observer.observe(section);
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot, { once: true });
-  } else {
-    boot();
-  }
+  bindPointerMotion();
+
+  // home.js owns the GSAP entrance reveal for this current section. If GSAP is
+  // unavailable, keep the same reveal behavior with the Web Animations API.
+  window.setTimeout(() => {
+    if (!window.gsap || !window.ScrollTrigger) nativeRevealFallback();
+  }, 1200);
 })();
