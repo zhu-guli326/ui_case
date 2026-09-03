@@ -94,7 +94,7 @@ The current-stage poster keeps the pointer-reactive motion language from React B
 
 - Desktop pointer interaction: the active center poster tilts in 3D toward the pointer, with a soft pointer-following glare/highlight and subtle depth response.
 - Stage changes use a short GSAP fade/vertical handoff for the poster and right-side copy rather than abrupt DOM swaps.
-- The progress ring reflects the pinned workflow's actual scroll progress; it is not an unrelated autoplay spinner.
+- Do not render a separate `DESIGN FLOW` progress label/ring. The active stage labels themselves communicate progress and the section footer should remain compact.
 - Motion should interpolate smoothly rather than snap; when the pointer leaves, the poster eases back to center before the active glow disappears.
 - Keep the approved four poster assets and per-stage color treatment. The motion is an enhancement, not a redesign into a profile/contact card.
 - Do not add ProfileCard-specific user UI such as handle, online status, mini avatar or Contact button.
