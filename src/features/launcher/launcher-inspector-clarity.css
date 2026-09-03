@@ -75,12 +75,12 @@ body.dna-page .cs-demo-input input {
 /* Typography: same full-width selector treatment as the system rows above. */
 body.dna-page #dna-rules .font-field {
   display: block !important;
-  padding-block: 16px !important;
+  padding: 10px 0 8px !important;
 }
 
 body.dna-page #dna-rules .font-field > legend {
   width: auto !important;
-  margin: 0 0 8px !important;
+  margin: 0 0 6px !important;
   color: color-mix(in srgb, var(--dna-ink, #202020) 88%, transparent) !important;
   font-size: 12px !important;
   font-weight: 650 !important;
@@ -89,7 +89,9 @@ body.dna-page #dna-rules .font-field > legend {
 }
 
 body.dna-page #dna-rules .font-select-control {
+  display: block !important;
   width: 100% !important;
+  max-width: none !important;
   min-width: 0 !important;
   margin: 0 !important;
 }
@@ -97,9 +99,10 @@ body.dna-page #dna-rules .font-select-control {
 body.dna-page #dna-rules .font-field select {
   display: block !important;
   width: 100% !important;
+  max-width: none !important;
   min-width: 0 !important;
-  min-height: 50px !important;
-  padding: 0 40px 0 14px !important;
+  min-height: 42px !important;
+  padding: 0 36px 0 12px !important;
   border: 1px solid color-mix(in srgb, var(--dna-ink, #202020) 12%, transparent) !important;
   border-radius: 7px !important;
   background-color: var(--dna-surface, #fff) !important;
@@ -121,7 +124,7 @@ body.dna-page #dna-rules .font-field select:focus {
 /* Radius / spacing stay readable and compact, without extra container chrome. */
 body.dna-page #dna-rules .rule-pair {
   gap: 14px !important;
-  padding-block: 13px 10px !important;
+  padding-block: 10px 10px !important;
 }
 
 body.dna-page #dna-rules .rule-pair .rule-field > legend {
