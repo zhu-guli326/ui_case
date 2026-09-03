@@ -42,163 +42,6 @@
   100% { opacity: 0; }
 }
 
-/* Workflow typography refinement: stronger default hierarchy without requiring hover. */
-#capabilities .capability-grid > a {
-  --workflow-card-opacity: 0;
-  aspect-ratio: 3.55 / 5 !important;
-}
-
-/* The stage word is a permanent visual layer. Keep it separate from the hover glow. */
-#capabilities .capability-grid > a::before {
-  top: 4.5% !important;
-  left: 5% !important;
-  width: 90% !important;
-  color: rgba(255,255,255,.34) !important;
-  font-size: clamp(66px, 5vw, 96px) !important;
-  font-weight: 850 !important;
-  letter-spacing: -.065em !important;
-  opacity: 1 !important;
-  background: none !important;
-  filter: none !important;
-  mix-blend-mode: soft-light !important;
-  text-shadow: 0 1px 24px rgba(255,255,255,.08);
-}
-
-/* Move the pointer-following light to ::after so hover remains an enhancement only. */
-#capabilities .capability-grid > a::after {
-  opacity: var(--workflow-card-opacity) !important;
-  border: 1px solid rgba(255,255,255,.12) !important;
-  background:
-    radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255,255,255,.34) 0%, rgba(255,255,255,.12) 18%, transparent 46%),
-    radial-gradient(circle at var(--pointer-x) var(--pointer-y), var(--workflow-glow) 0%, transparent 58%),
-    linear-gradient(135deg, rgba(255,255,255,.15), transparent 28%, transparent 70%, rgba(255,255,255,.08)) !important;
-  mix-blend-mode: screen !important;
-}
-
-#capabilities .capability-grid > a > img {
-  z-index: 1;
-  top: -8% !important;
-  bottom: auto !important;
-  width: 100% !important;
-  height: 116% !important;
-  object-fit: cover !important;
-  object-position: center 64% !important;
-  transform: translate3d(
-    calc((var(--pointer-from-left) - .5) * -5px),
-    calc(2.5% + ((var(--pointer-from-top) - .5) * -4px)),
-    0
-  ) scale(1.025) !important;
-}
-
-#capabilities .capability-grid > a:hover > img {
-  transform: translate3d(
-    calc((var(--pointer-from-left) - .5) * -7px),
-    calc(3% + ((var(--pointer-from-top) - .5) * -6px)),
-    0
-  ) scale(1.05) !important;
-}
-
-#capabilities .capability-grid > a > .capability-shade {
-  z-index: 3;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 28%, rgba(0,0,0,.04) 41%, rgba(0,0,0,.4) 62%, rgba(0,0,0,.92) 82%, rgba(0,0,0,.99) 100%) !important;
-}
-
-#capabilities .capability-grid > a > small::after {
-  color: #fff !important;
-  font-size: 13px !important;
-  font-weight: 800 !important;
-  letter-spacing: .08em !important;
-  opacity: 1 !important;
-  text-shadow: 0 1px 14px rgba(0,0,0,.62);
-}
-
-#capabilities .capability-grid > a > div {
-  right: 22px !important;
-  bottom: 30px !important;
-  left: 22px !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  filter: none !important;
-}
-
-#capabilities .capability-grid > a > div > p {
-  display: block !important;
-  min-height: 0 !important;
-  margin: 0 !important;
-  color: #fff !important;
-  font-size: 14px !important;
-  line-height: 1.55 !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  filter: none !important;
-  text-shadow: 0 2px 16px rgba(0,0,0,.78);
-}
-
-#capabilities .capability-grid > a > div > p > span {
-  opacity: 1 !important;
-  visibility: visible !important;
-  filter: none !important;
-}
-
-#capabilities .capability-grid > a > div > p > span:first-child {
-  display: block !important;
-  overflow: visible !important;
-  margin: 0 0 10px !important;
-  color: #fff !important;
-  font-size: clamp(22px, 1.6vw, 25px) !important;
-  font-weight: 800 !important;
-  letter-spacing: -.02em !important;
-  line-height: 1.15 !important;
-  white-space: normal !important;
-}
-
-#capabilities .capability-grid > a > div > p > span:nth-child(2) {
-  display: block !important;
-  overflow: visible !important;
-  margin: 0 0 8px !important;
-  color: rgba(255,255,255,.9) !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  line-height: 1.45 !important;
-  white-space: normal !important;
-}
-
-#capabilities .capability-grid > a > div > p > span:nth-child(3) {
-  display: block !important;
-  margin: 0 !important;
-  color: #fff !important;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  line-height: 1.55 !important;
-}
-
-#capabilities .capability-grid > a > div > i {
-  color: #fff !important;
-  font-size: 18px !important;
-  opacity: 1 !important;
-  text-shadow: 0 2px 12px rgba(0,0,0,.65);
-}
-
-@media (max-width: 1100px) {
-  #capabilities .capability-grid > a::before { font-size: clamp(58px, 8vw, 88px) !important; }
-  #capabilities .capability-grid > a > div > p > span:first-child { font-size: 20px !important; }
-  #capabilities .capability-grid > a > div > p,
-  #capabilities .capability-grid > a > div > p > span:nth-child(2),
-  #capabilities .capability-grid > a > div > p > span:nth-child(3) { font-size: 13px !important; }
-}
-
-@media (hover: none), (pointer: coarse), (max-width: 768px) {
-  #capabilities .capability-grid > a::before { display: block !important; opacity: 1 !important; }
-  #capabilities .capability-grid > a::after { display: none !important; }
-  #capabilities .capability-grid > a > img,
-  #capabilities .capability-grid > a:hover > img {
-    top: -8% !important;
-    height: 116% !important;
-    object-position: center 64% !important;
-    transform: translateY(2%) scale(1.025) !important;
-  }
-}
-
 /* Interactive design-system canvas: keep all four rule cards present by default.
  * Pointer movement enhances the central canvas, but must not hide the core rules. */
 #design-system-live {
@@ -383,12 +226,17 @@
     clip-path: none !important;
     animation: none !important;
   }
-  .project-hero h1::after { display: none !important; }
-  #capabilities .capability-grid > a::before { display: block !important; opacity: 1 !important; }
-  #capabilities .capability-grid > a::after { display: none !important; }
+
+  .project-hero h1::after {
+    display: none !important;
+  }
+
   #design-system-live .system-explainer-stage::after,
   #design-system-live .system-app::before,
-  #design-system-live .system-app::after { display: none; }
+  #design-system-live .system-app::after {
+    display: none;
+  }
+
   #design-system-live .system-app-topbar,
   #design-system-live .system-app-sidebar,
   #design-system-live .system-app-hero,
