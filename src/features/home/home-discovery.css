@@ -1,6 +1,4 @@
-/* Home discovery stylesheet entrypoint.
- * Keep the layout snapshot separate from the final asset mapping so App preview
- * image paths cannot be silently replaced by numbered placeholder files again.
+/* Home discovery layout entrypoint.
+ * Asset rendering is owned by discovery-asset-paths.css + app-discovery.js.
  */
 @import url("./home-discovery-base.css");
-@import url("./discovery-asset-paths.css");

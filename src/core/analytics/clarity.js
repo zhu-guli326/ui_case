@@ -36,5 +36,6 @@
     loadStyle("./src/features/home/discovery-asset-paths.css");
     loadScript("./src/features/home/specular-button.js");
     loadScript("./src/features/home/featured-carousel-autoplay.js");
+    loadScript("./src/features/home/app-discovery.js");
   }
 })(window, document);

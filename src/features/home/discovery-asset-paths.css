@@ -1,24 +1,94 @@
-/* Homepage App discovery image slots.
- * Single source of truth: restore the four approved semantic assets from the
- * original App discovery commit instead of using ambiguous app-1~app-4 files.
- * Order: Habit / Cook / EV / Bakery.
+/* App discovery: one explicit renderer + one explicit asset list.
+ * The legacy template-card children stay in the DOM because home.js owns tab
+ * behavior, but they are never used as image slots anymore.
  */
 
-#templates.discovery-strip .template-card:nth-child(1).is-active-discovery > img {
-  content: url("../../../assets/home/discovery/app-habit.webp") !important;
-  object-fit: contain !important;
-  object-position: center !important;
-  background: #f3f1ec !important;
+#templates.discovery-strip .template-card:nth-child(1).app-discovery-host.is-active-discovery {
+  display: block !important;
+  width: min(calc(100vw - 72px), 1560px) !important;
+  max-width: none !important;
+  margin: 0 auto !important;
+  padding: 8px 0 18px !important;
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
 }
 
-#templates.discovery-strip .template-card:nth-child(1).is-active-discovery > .template-card-shade {
-  background: #f3f1ec url("../../../assets/home/discovery/app-cook.webp") center / contain no-repeat !important;
+#templates.discovery-strip .template-card:nth-child(1).app-discovery-host > img,
+#templates.discovery-strip .template-card:nth-child(1).app-discovery-host > .template-card-shade,
+#templates.discovery-strip .template-card:nth-child(1).app-discovery-host > small,
+#templates.discovery-strip .template-card:nth-child(1).app-discovery-host > div,
+#templates.discovery-strip .template-card:nth-child(1).app-discovery-host > i {
+  display: none !important;
 }
 
-#templates.discovery-strip .template-card:nth-child(1).is-active-discovery > small {
-  background: #f3f1ec url("../../../assets/home/discovery/app-ev.webp") center / contain no-repeat !important;
+#templates.discovery-strip .template-card:nth-child(1).app-discovery-host > .app-discovery-grid {
+  display: grid !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(20px, 2.2vw, 32px);
+  list-style: none;
 }
 
-#templates.discovery-strip .template-card:nth-child(1).is-active-discovery > div {
-  background: #f3f1ec url("../../../assets/home/discovery/app-bakery.webp") center / contain no-repeat !important;
+#templates .app-discovery-item {
+  display: grid;
+  aspect-ratio: 4 / 5;
+  place-items: center;
+  overflow: hidden;
+  border: 10px solid #fff;
+  border-radius: 28px;
+  outline: 1px solid #dedede;
+  background: #f3f1ec;
+  box-shadow: 0 20px 44px rgba(0, 0, 0, .055);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, outline-color .25s ease;
+}
+
+#templates .app-discovery-item > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #templates .app-discovery-item:hover {
+    z-index: 2;
+    outline-color: #cfcfcf;
+    box-shadow: 0 30px 64px rgba(0, 0, 0, .11);
+    transform: translateY(-9px);
+  }
+}
+
+@media (max-width: 980px) {
+  #templates.discovery-strip .template-card:nth-child(1).app-discovery-host.is-active-discovery {
+    width: calc(100vw - 40px) !important;
+  }
+
+  #templates.discovery-strip .template-card:nth-child(1).app-discovery-host > .app-discovery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  #templates.discovery-strip .template-card:nth-child(1).app-discovery-host.is-active-discovery {
+    width: calc(100vw - 32px) !important;
+  }
+
+  #templates.discovery-strip .template-card:nth-child(1).app-discovery-host > .app-discovery-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  #templates .app-discovery-item {
+    border-width: 7px;
+    border-radius: 22px;
+  }
 }
