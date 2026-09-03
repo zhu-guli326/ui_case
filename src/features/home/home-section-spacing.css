@@ -171,7 +171,7 @@ html body.project-home main > .project-cta {
  * family, medium title weight, neutral tracking and comfortable CJK leading on
  * every homepage H2. Section layout and light/dark colors stay locally owned. */
 html[lang="zh-CN"] body.project-home main h2 {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
   font-size: clamp(40px, 4.2vw, 60px) !important;
   font-weight: 500 !important;
   letter-spacing: 0 !important;
@@ -180,10 +180,26 @@ html[lang="zh-CN"] body.project-home main h2 {
   text-wrap: balance;
 }
 
+/* Discovery title was still being forced to 56–82px by an older high-specificity
+ * desktop rule. Keep it on a restrained Ant-like section-heading scale instead. */
+html[lang="zh-CN"] body.project-home main #templates .template-gallery-heading h2 {
+  color: rgba(0, 0, 0, .88) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+  font-size: clamp(36px, 3vw, 42px) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.3 !important;
+}
+
 @media (max-width: 760px) {
   html[lang="zh-CN"] body.project-home main h2 {
     font-size: clamp(32px, 9vw, 42px) !important;
     letter-spacing: 0 !important;
     line-height: 1.28 !important;
+  }
+
+  html[lang="zh-CN"] body.project-home main #templates .template-gallery-heading h2 {
+    font-size: 32px !important;
+    line-height: 1.35 !important;
   }
 }
