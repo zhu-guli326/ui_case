@@ -126,6 +126,98 @@
       });
     }
 
+    // The four capability cards keep the current four-up layout and only regain
+    // a restrained interaction layer: staggered reveal, lift, image depth and
+    // pointer-following 3D tilt. No old workflow layout/state is restored here.
+    const capabilityCards = qa("#capabilities .capability-grid > a");
+    if (capabilityCards.length) {
+      gsap.fromTo(capabilityCards,
+        { autoAlpha: 0, y: 34, scale: .975 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: .68,
+          stagger: .07,
+          ease: "power3.out",
+          clearProps: "opacity,visibility,transform",
+          scrollTrigger: {
+            trigger: "#capabilities .capability-grid",
+            start: "top 84%",
+            once: true,
+          },
+        },
+      );
+
+      if (finePointer.matches) {
+        capabilityCards.forEach((card) => {
+          if (card.dataset.capabilityTilt === "true") return;
+          card.dataset.capabilityTilt = "true";
+
+          const image = q("img", card);
+          gsap.set(card, {
+            transformPerspective: 900,
+            transformOrigin: "50% 50%",
+            transformStyle: "preserve-3d",
+            willChange: "transform",
+          });
+
+          const tiltX = gsap.quickTo(card, "rotationX", { duration: .28, ease: "power3.out" });
+          const tiltY = gsap.quickTo(card, "rotationY", { duration: .28, ease: "power3.out" });
+          const lift = gsap.quickTo(card, "y", { duration: .34, ease: "power3.out" });
+          const cardScale = gsap.quickTo(card, "scale", { duration: .34, ease: "power3.out" });
+
+          card.addEventListener("pointerenter", () => {
+            lift(-8);
+            cardScale(1.015);
+            gsap.to(card, {
+              boxShadow: "0 26px 58px rgba(0,0,0,.18)",
+              duration: .34,
+              ease: "power3.out",
+            });
+            if (image) {
+              gsap.to(image, {
+                scale: 1.055,
+                filter: "brightness(1.035) saturate(1.04)",
+                duration: .55,
+                ease: "power3.out",
+                overwrite: "auto",
+              });
+            }
+          });
+
+          card.addEventListener("pointermove", (event) => {
+            const rect = card.getBoundingClientRect();
+            const px = (event.clientX - rect.left) / Math.max(rect.width, 1) - .5;
+            const py = (event.clientY - rect.top) / Math.max(rect.height, 1) - .5;
+            tiltY(gsap.utils.clamp(-5, 5, px * 10));
+            tiltX(gsap.utils.clamp(-4, 4, py * -8));
+          });
+
+          card.addEventListener("pointerleave", () => {
+            tiltX(0);
+            tiltY(0);
+            lift(0);
+            cardScale(1);
+            gsap.to(card, {
+              boxShadow: "0 0 0 rgba(0,0,0,0)",
+              duration: .48,
+              ease: "power3.out",
+            });
+            if (image) {
+              gsap.to(image, {
+                scale: 1,
+                filter: "none",
+                duration: .58,
+                ease: "power3.out",
+                overwrite: "auto",
+              });
+            }
+          });
+        });
+      }
+    }
+
     // Discovery row gets subtle breathing depth without touching image crop / paths.
     const discoveryGrid = q("#templates .template-grid");
     if (discoveryGrid) {
