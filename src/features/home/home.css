@@ -419,7 +419,7 @@ html[lang="zh-CN"] .featured-cases-heading h2 {
 }
 
 .workflow-explorer {
-  --workflow-progress-duration: 5s;
+  --workflow-scroll-progress: 0deg;
   position: relative;
   display: grid;
   width: 100%;
@@ -531,9 +531,19 @@ html[lang="zh-CN"] .featured-cases-heading h2 {
   align-self: center;
 }
 
+.workflow-detail .workflow-person {
+  max-width: 24em;
+  margin: 0 0 clamp(16px, 1.8vw, 24px);
+  color: rgba(0, 0, 0, .78);
+  font-size: clamp(17px, 1.35vw, 21px);
+  font-weight: 520;
+  letter-spacing: -.012em;
+  line-height: 1.3;
+}
+
 .workflow-detail h3 {
   max-width: 9.5em;
-  margin: 0 0 clamp(28px, 3vw, 42px);
+  margin: 0 0 clamp(22px, 2.2vw, 30px);
   color: #171717;
   font-size: clamp(46px, 4.2vw, 66px);
   font-weight: 300;
@@ -542,14 +552,14 @@ html[lang="zh-CN"] .featured-cases-heading h2 {
   text-wrap: balance;
 }
 
-.workflow-detail p {
-  max-width: 25em;
+.workflow-detail p:not(.workflow-person) {
+  max-width: 27em;
   margin: 0;
-  color: rgba(0, 0, 0, .72);
-  font-size: clamp(17px, 1.45vw, 22px);
+  color: rgba(0, 0, 0, .68);
+  font-size: clamp(17px, 1.35vw, 21px);
   font-weight: 400;
   letter-spacing: -.015em;
-  line-height: 1.58;
+  line-height: 1.62;
   text-wrap: pretty;
 }
 
@@ -576,31 +586,21 @@ html[lang="zh-CN"] .featured-cases-heading h2 {
   display: block;
   width: 38px;
   height: 38px;
-  border: 3px solid #e4e4e1;
   border-radius: 50%;
+  background: conic-gradient(#171717 var(--workflow-scroll-progress), #e4e4e1 0deg);
   box-sizing: border-box;
 }
 
 .workflow-progress i::after {
   position: absolute;
-  inset: -3px;
-  border: 3px solid transparent;
-  border-top-color: #171717;
+  inset: 3px;
   border-radius: 50%;
+  background: #fff;
   content: "";
-  animation: workflow-progress-spin var(--workflow-progress-duration) linear infinite;
-}
-
-.workflow-explorer.is-paused .workflow-progress i::after {
-  animation-play-state: paused;
 }
 
 .workflow-source {
   margin-top: clamp(42px, 5vw, 64px);
-}
-
-@keyframes workflow-progress-spin {
-  to { transform: rotate(360deg); }
 }
 
 @media (max-width: 1100px) and (min-width: 901px) {
@@ -662,13 +662,18 @@ html[lang="zh-CN"] .featured-cases-heading h2 {
     justify-self: center;
   }
 
+  .workflow-detail .workflow-person {
+    margin-bottom: 14px;
+    font-size: 15px;
+  }
+
   .workflow-detail h3 {
     max-width: 12em;
-    margin-bottom: 22px;
+    margin-bottom: 18px;
     font-size: clamp(36px, 10vw, 54px);
   }
 
-  .workflow-detail p {
+  .workflow-detail p:not(.workflow-person) {
     max-width: 32em;
     font-size: 15px;
   }
@@ -714,11 +719,6 @@ html[lang="zh-CN"] .featured-cases-heading h2 {
   .workflow-poster,
   .workflow-poster::after {
     transition: none;
-  }
-
-  .workflow-progress i::after {
-    animation: none;
-    transform: rotate(45deg);
   }
 
   .project-cta h2 {
