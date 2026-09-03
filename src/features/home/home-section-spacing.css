@@ -78,3 +78,22 @@ html body.project-home > footer.project-footer.project-footer::before {
     background-size: 235% auto !important;
   }
 }
+
+/* Canonical Chinese homepage section-title typography.
+ * Keep layout/alignment and light/dark colors owned by each section, but force
+ * every Chinese H2 to share one type scale, weight, tracking and line-height. */
+html[lang="zh-CN"] body.project-home main h2 {
+  font-size: clamp(40px, 4.2vw, 60px) !important;
+  font-weight: 400 !important;
+  letter-spacing: -.012em !important;
+  line-height: 1.16 !important;
+  text-wrap: balance;
+}
+
+@media (max-width: 760px) {
+  html[lang="zh-CN"] body.project-home main h2 {
+    font-size: clamp(32px, 9vw, 42px) !important;
+    letter-spacing: -.008em !important;
+    line-height: 1.2 !important;
+  }
+}
