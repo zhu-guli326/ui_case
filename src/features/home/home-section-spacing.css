@@ -1,0 +1,27 @@
+/* Keep adjacent homepage sections visually connected.
+ * GSAP moves inner content only; these rules remove the large static black gaps
+ * around the carousel footer and stats row. */
+body.project-home #cases.featured-cases {
+  margin-bottom: 0 !important;
+  padding-bottom: 10px !important;
+}
+
+body.project-home #overview.project-stats {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+body.project-home #overview .project-stats-grid {
+  min-height: 0 !important;
+  padding-block: clamp(30px, 3.6vw, 46px) !important;
+}
+
+@media (max-width: 760px) {
+  body.project-home #cases.featured-cases {
+    padding-bottom: 6px !important;
+  }
+
+  body.project-home #overview .project-stats-grid {
+    padding-block: 26px !important;
+  }
+}
