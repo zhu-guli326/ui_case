@@ -10,13 +10,20 @@
   <link rel="stylesheet" href="./src/core/app-shell/site-shell.css">
   <link rel="stylesheet" href="./src/features/home/home.css">
   <link rel="stylesheet" href="./src/features/home/home-system-explainer.css">
+  <link rel="stylesheet" href="./src/features/home/home-footer-crop.css">
+  <link rel="stylesheet" href="./src/features/home/home-section-spacing.css">
   <script src="./src/core/app-shell/app-shell.js"></script>
   <script src="./src/core/analytics/clarity.js"></script>
   <script src="./src/core/analytics/analytics.config.js"></script>
   <script src="./src/core/analytics/analytics.js" defer></script>
   <script src="./src/features/home/home.js" defer></script>
-  <script src="./src/features/home/home-workflow.js" defer></script>
+  <script src="./src/features/home/home-workflow-four-up.js" defer></script>
   <script src="./src/features/home/home-cta.js" defer></script>
+  <script src="./src/features/home/home-cta-motion.js" defer></script>
+  <script src="./src/features/home/home-system-live-motion.js" defer></script>
+  <script src="./src/features/home/home-hero-motion.js" defer></script>
+  <script src="./src/features/home/home-global-motion.js" defer></script>
+  <script src="./src/features/home/featured-carousel-autoplay.js" defer></script>
 </head>
 <body class="project-home">
   <image2-site-header data-site-header></image2-site-header>
@@ -75,7 +82,12 @@
         </nav>
 
         <div class="template-grid" aria-label="设计内容入口">
-          <a class="template-card" href="./library.html?lang=zh" data-smart-lang-link="./library.html" onclick="window.location.href=this.href; return false;"><img src="./assets/style-covers/tactile-future.webp" alt="App 设计参考" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>APP DESIGN</small><div><strong data-zh="App 设计" data-en="App design">App 设计</strong><span>MOBILE INTERFACES</span></div><i>↗</i></a>
+          <a class="template-card app-discovery-card" href="./library.html?lang=zh" data-smart-lang-link="./library.html" onclick="window.location.href=this.href; return false;">
+            <span class="template-card-shade app-preview-tile" role="img" aria-label="App design preview 1" style="background-image:url('./assets/home/discovery/app-1.png')"></span>
+            <span class="template-card-shade app-preview-tile" role="img" aria-label="App design preview 2" style="background-image:url('./assets/home/discovery/app-2.png')"></span>
+            <span class="template-card-shade app-preview-tile" role="img" aria-label="App design preview 3" style="background-image:url('./assets/home/discovery/app-3.png')"></span>
+            <span class="template-card-shade app-preview-tile" role="img" aria-label="App design preview 4" style="background-image:url('./assets/home/discovery/app-4.png')"></span>
+          </a>
           <a class="template-card" href="./skills.html?lang=zh&mode=WEB" data-smart-lang-link="./skills.html?mode=WEB"><img src="./assets/style-covers/graphic-experimental.webp" alt="官网设计参考" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>WEB DESIGN</small><div><strong data-zh="官网设计" data-en="Web design">官网设计</strong><span>WEBSITES &amp; LANDING PAGES</span></div><i>↗</i></a>
           <a class="template-card" href="./skills.html?lang=zh" data-smart-lang-link="./skills.html"><img src="./assets/style-covers/editorial-minimal.webp" alt="设计 Skill" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>DESIGN SKILLS</small><div><strong data-zh="设计 Skill" data-en="Design Skills">设计 Skill</strong><span>AI DESIGN CAPABILITIES</span></div><i>↗</i></a>
           <a class="template-card" href="./skills.html?lang=zh" data-smart-lang-link="./skills.html"><img src="./assets/style-covers/maximalism.webp" alt="设计工具" loading="lazy" decoding="async"><span class="template-card-shade" aria-hidden="true"></span><small>DESIGN TOOLS</small><div><strong data-zh="设计工具" data-en="Design tools">设计工具</strong><span>TOOLS &amp; WORKFLOWS</span></div><i>↗</i></a>
