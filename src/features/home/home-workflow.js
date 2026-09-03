@@ -7,13 +7,17 @@ const WORKFLOW_STAGES = [
       zh: "史蒂夫·乔布斯像素人物肖像",
       en: "Pixel portrait of Steve Jobs",
     },
+    person: {
+      zh: "史蒂夫·乔布斯",
+      en: "Steve Jobs",
+    },
     title: {
       zh: "判断什么值得做",
       en: "Decide what matters",
     },
     body: {
-      zh: "乔布斯代表判断、聚焦和取舍。先确定真正重要的目标、页面和参考，再开始设计。",
-      en: "Steve Jobs represents judgment, focus, and trade-offs. Define the goal, page, and references before you start designing.",
+      zh: "判断、聚焦和取舍。先确定真正重要的目标、页面和参考，再开始设计。",
+      en: "Judgment, focus, and trade-offs. Define the goal, page, and references before you start designing.",
     },
   },
   {
@@ -24,13 +28,17 @@ const WORKFLOW_STAGES = [
       zh: "达·芬奇像素人物肖像",
       en: "Pixel portrait of Leonardo da Vinci",
     },
+    person: {
+      zh: "达·芬奇",
+      en: "Leonardo da Vinci",
+    },
     title: {
-      zh: "把想法变成视觉",
-      en: "Turn ideas into visuals",
+      zh: "把想法组织成视觉",
+      en: "Turn ideas into a visual system",
     },
     body: {
-      zh: "达·芬奇代表创造、整合和表达。把参考拆成布局、字体、颜色与组件，再组合成完整的视觉方向。",
-      en: "Leonardo da Vinci represents creation, synthesis, and expression. Break references into layout, type, color, and components, then recombine them into one clear direction.",
+      zh: "创造、整合和表达。把参考拆成布局、字体、颜色与组件，再组合成一个完整的视觉方向。",
+      en: "Creation, synthesis, and expression. Break references into layout, type, color, and components, then combine them into one coherent visual direction.",
     },
   },
   {
@@ -41,13 +49,17 @@ const WORKFLOW_STAGES = [
       zh: "比尔·盖茨像素人物肖像",
       en: "Pixel portrait of Bill Gates",
     },
+    person: {
+      zh: "比尔·盖茨",
+      en: "Bill Gates",
+    },
     title: {
       zh: "把规则变成产品",
-      en: "Turn rules into products",
+      en: "Turn rules into a product",
     },
     body: {
-      zh: "比尔·盖茨代表软件、系统和实现。把 Design DNA 交给 AI Coding，让设计真正进入代码并运行起来。",
-      en: "Bill Gates represents software, systems, and implementation. Hand the Design DNA to AI coding so the design becomes working product code.",
+      zh: "软件、系统和实现。把 Design DNA 交给 AI Coding，让设计规则真正进入代码并运行起来。",
+      en: "Software, systems, and implementation. Hand the Design DNA to AI coding so the design rules become working product code.",
     },
   },
   {
@@ -58,13 +70,17 @@ const WORKFLOW_STAGES = [
       zh: "爱迪生像素人物肖像",
       en: "Pixel portrait of Thomas Edison",
     },
+    person: {
+      zh: "爱迪生",
+      en: "Thomas Edison",
+    },
     title: {
       zh: "不断验证，直到成立",
-      en: "Validate until it works",
+      en: "Validate until it holds up",
     },
     body: {
-      zh: "爱迪生代表实验、验证和迭代。持续对照结果、调整问题，直到界面好看、统一，也真的能用。",
-      en: "Thomas Edison represents experimentation, validation, and iteration. Compare, refine, and repeat until the interface looks coherent and works in practice.",
+      zh: "实验、验证和迭代。持续对照结果、调整问题，直到界面好看、统一，也真的能用。",
+      en: "Experimentation, validation, and iteration. Compare, refine, and repeat until the interface looks coherent and works in practice.",
     },
   },
 ];
@@ -73,13 +89,29 @@ const workflow = document.querySelector("[data-workflow-explorer]");
 const workflowButtons = [...(workflow?.querySelectorAll("[data-workflow-stage]") || [])];
 const workflowPoster = workflow?.querySelector("[data-workflow-poster]");
 const workflowImage = workflow?.querySelector("[data-workflow-image]");
+const workflowDetail = workflow?.querySelector(".workflow-detail");
 const workflowTitle = workflow?.querySelector("[data-workflow-title]");
 const workflowBody = workflow?.querySelector("[data-workflow-body]");
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+const workflowReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const workflowFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+const workflowDesktop = window.matchMedia("(min-width: 901px)");
 
+let workflowPerson = workflow?.querySelector("[data-workflow-person]");
 let activeWorkflowIndex = 0;
-let workflowTimer = 0;
+let workflowScrollTrigger = null;
+let workflowGsapRetryFrame = 0;
+
+if (workflowDetail && workflowTitle && !workflowPerson) {
+  workflowPerson = document.createElement("p");
+  workflowPerson.className = "workflow-person";
+  workflowPerson.dataset.workflowPerson = "";
+  workflowDetail.insertBefore(workflowPerson, workflowTitle);
+}
+
+WORKFLOW_STAGES.forEach((stage) => {
+  const image = new Image();
+  image.src = new URL(stage.image, location.href).href;
+});
 
 function workflowLanguage() {
   if (document.documentElement.lang === "en") return "en";
@@ -92,18 +124,9 @@ function workflowHref(route) {
   return `${target.pathname.split("/").pop()}${target.search}${target.hash}`;
 }
 
-function renderWorkflow(index = activeWorkflowIndex) {
-  if (!workflow) return;
-  activeWorkflowIndex = (index + WORKFLOW_STAGES.length) % WORKFLOW_STAGES.length;
-  const stage = WORKFLOW_STAGES[activeWorkflowIndex];
+function applyWorkflowContent(index) {
+  const stage = WORKFLOW_STAGES[index];
   const language = workflowLanguage();
-
-  workflowButtons.forEach((button, buttonIndex) => {
-    const selected = buttonIndex === activeWorkflowIndex;
-    button.classList.toggle("is-active", selected);
-    button.setAttribute("aria-selected", String(selected));
-    button.tabIndex = selected ? 0 : -1;
-  });
 
   if (workflowImage) {
     workflowImage.src = new URL(stage.image, location.href).href;
@@ -113,46 +136,79 @@ function renderWorkflow(index = activeWorkflowIndex) {
   if (workflowPoster) {
     workflowPoster.href = workflowHref(stage.route);
     workflowPoster.dataset.smartLangLink = stage.route;
-    workflowPoster.setAttribute("aria-label", `${stage.label}: ${stage.title[language]}`);
+    workflowPoster.setAttribute("aria-label", `${stage.label}: ${stage.person[language]} — ${stage.title[language]}`);
   }
 
+  if (workflowPerson) workflowPerson.textContent = stage.person[language];
   if (workflowTitle) workflowTitle.textContent = stage.title[language];
   if (workflowBody) workflowBody.textContent = stage.body[language];
 }
 
-function stopWorkflowAutoplay() {
-  window.clearInterval(workflowTimer);
-  workflowTimer = 0;
-  workflow?.classList.add("is-paused");
+function setWorkflowButtonState(index) {
+  workflowButtons.forEach((button, buttonIndex) => {
+    const selected = buttonIndex === index;
+    button.classList.toggle("is-active", selected);
+    button.setAttribute("aria-selected", String(selected));
+    button.tabIndex = selected ? 0 : -1;
+  });
 }
 
-function startWorkflowAutoplay() {
-  if (!workflow || reducedMotion.matches) return;
-  window.clearInterval(workflowTimer);
-  workflow?.classList.remove("is-paused");
-  workflowTimer = window.setInterval(() => renderWorkflow(activeWorkflowIndex + 1), 5000);
+function renderWorkflow(index = activeWorkflowIndex, { animate = true } = {}) {
+  if (!workflow) return;
+  const nextIndex = Math.max(0, Math.min(WORKFLOW_STAGES.length - 1, index));
+  const changed = nextIndex !== activeWorkflowIndex;
+  activeWorkflowIndex = nextIndex;
+  setWorkflowButtonState(nextIndex);
+
+  if (!changed || !animate || workflowReducedMotion.matches || !window.gsap) {
+    applyWorkflowContent(nextIndex);
+    return;
+  }
+
+  const transitionTargets = [workflowImage, workflowDetail].filter(Boolean);
+  window.gsap.killTweensOf(transitionTargets);
+  window.gsap.to(transitionTargets, {
+    autoAlpha: 0,
+    y: 14,
+    duration: .16,
+    ease: "power2.in",
+    overwrite: true,
+    onComplete: () => {
+      applyWorkflowContent(nextIndex);
+      window.gsap.fromTo(
+        transitionTargets,
+        { autoAlpha: 0, y: -12 },
+        { autoAlpha: 1, y: 0, duration: .38, ease: "power3.out", overwrite: true },
+      );
+    },
+  });
+}
+
+function workflowProgressForIndex(index) {
+  return WORKFLOW_STAGES.length <= 1 ? 0 : index / (WORKFLOW_STAGES.length - 1);
+}
+
+function scrollToWorkflowStage(index) {
+  const nextIndex = Math.max(0, Math.min(WORKFLOW_STAGES.length - 1, index));
+  renderWorkflow(nextIndex);
+
+  if (!workflowScrollTrigger || !workflowDesktop.matches) return;
+  const progress = workflowProgressForIndex(nextIndex);
+  const targetScroll = workflowScrollTrigger.start + ((workflowScrollTrigger.end - workflowScrollTrigger.start) * progress);
+  window.scrollTo({ top: targetScroll, behavior: workflowReducedMotion.matches ? "auto" : "smooth" });
 }
 
 workflowButtons.forEach((button, index) => {
-  button.addEventListener("mouseenter", () => {
-    stopWorkflowAutoplay();
-    renderWorkflow(index);
+  button.addEventListener("mouseenter", () => renderWorkflow(index));
+  button.addEventListener("focus", () => renderWorkflow(index));
+  button.addEventListener("click", () => scrollToWorkflowStage(index));
+  button.addEventListener("keydown", (event) => {
+    if (event.key !== "ArrowDown" && event.key !== "ArrowUp" && event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+    event.preventDefault();
+    const direction = event.key === "ArrowDown" || event.key === "ArrowRight" ? 1 : -1;
+    const nextIndex = (index + direction + WORKFLOW_STAGES.length) % WORKFLOW_STAGES.length;
+    workflowButtons[nextIndex]?.focus();
   });
-  button.addEventListener("focus", () => {
-    stopWorkflowAutoplay();
-    renderWorkflow(index);
-  });
-  button.addEventListener("click", () => {
-    stopWorkflowAutoplay();
-    renderWorkflow(index);
-  });
-});
-
-workflow?.addEventListener("mouseenter", stopWorkflowAutoplay);
-workflow?.addEventListener("mouseleave", startWorkflowAutoplay);
-workflow?.addEventListener("focusin", stopWorkflowAutoplay);
-workflow?.addEventListener("focusout", (event) => {
-  if (!workflow.contains(event.relatedTarget)) startWorkflowAutoplay();
 });
 
 function resetPosterTilt() {
@@ -165,7 +221,7 @@ function resetPosterTilt() {
 }
 
 workflowPoster?.addEventListener("pointermove", (event) => {
-  if (!finePointer.matches || reducedMotion.matches) return;
+  if (!workflowFinePointer.matches || workflowReducedMotion.matches) return;
   const rect = workflowPoster.getBoundingClientRect();
   const px = Math.max(0, Math.min(1, (event.clientX - rect.left) / Math.max(rect.width, 1)));
   const py = Math.max(0, Math.min(1, (event.clientY - rect.top) / Math.max(rect.height, 1)));
@@ -177,14 +233,68 @@ workflowPoster?.addEventListener("pointermove", (event) => {
 });
 
 workflowPoster?.addEventListener("pointerleave", resetPosterTilt);
-reducedMotion.addEventListener?.("change", () => {
+
+function destroyWorkflowScrollMotion() {
+  if (workflowGsapRetryFrame) {
+    window.cancelAnimationFrame(workflowGsapRetryFrame);
+    workflowGsapRetryFrame = 0;
+  }
+  workflowScrollTrigger?.kill(true);
+  workflowScrollTrigger = null;
+  workflow?.classList.remove("is-scroll-driven");
+  workflow?.style.setProperty("--workflow-scroll-progress", "0deg");
+}
+
+function initWorkflowScrollMotion(attempt = 0) {
+  if (!workflow || workflowReducedMotion.matches || !workflowDesktop.matches) {
+    destroyWorkflowScrollMotion();
+    return;
+  }
+
+  if (!window.gsap || !window.ScrollTrigger) {
+    if (attempt > 360) return;
+    workflowGsapRetryFrame = window.requestAnimationFrame(() => initWorkflowScrollMotion(attempt + 1));
+    return;
+  }
+
+  destroyWorkflowScrollMotion();
+  const { gsap, ScrollTrigger } = window;
+  gsap.registerPlugin(ScrollTrigger);
+  workflow.classList.add("is-scroll-driven");
+
+  workflowScrollTrigger = ScrollTrigger.create({
+    trigger: workflow,
+    start: "top 10%",
+    end: () => `+=${Math.max(window.innerHeight * 2.6, 1900)}`,
+    pin: true,
+    pinSpacing: true,
+    anticipatePin: 1,
+    invalidateOnRefresh: true,
+    snap: {
+      snapTo: 1 / (WORKFLOW_STAGES.length - 1),
+      duration: { min: .18, max: .42 },
+      delay: .06,
+      ease: "power1.inOut",
+    },
+    onUpdate: (self) => {
+      const index = Math.round(self.progress * (WORKFLOW_STAGES.length - 1));
+      workflow.style.setProperty("--workflow-scroll-progress", `${self.progress * 360}deg`);
+      if (index !== activeWorkflowIndex) renderWorkflow(index);
+    },
+  });
+}
+
+workflowReducedMotion.addEventListener?.("change", () => {
   resetPosterTilt();
-  if (reducedMotion.matches) stopWorkflowAutoplay();
-  else startWorkflowAutoplay();
+  initWorkflowScrollMotion();
 });
-finePointer.addEventListener?.("change", resetPosterTilt);
+workflowFinePointer.addEventListener?.("change", resetPosterTilt);
+workflowDesktop.addEventListener?.("change", () => initWorkflowScrollMotion());
+window.addEventListener("resize", () => workflowScrollTrigger?.refresh());
+window.addEventListener("image2:languagechange", () => renderWorkflow(activeWorkflowIndex, { animate: false }));
 
-window.addEventListener("image2:languagechange", () => renderWorkflow(activeWorkflowIndex));
+const workflowLanguageObserver = new MutationObserver(() => renderWorkflow(activeWorkflowIndex, { animate: false }));
+workflowLanguageObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
 
-renderWorkflow(0);
-startWorkflowAutoplay();
+renderWorkflow(0, { animate: false });
+initWorkflowScrollMotion();
