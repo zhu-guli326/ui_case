@@ -217,9 +217,10 @@ html body.project-home > footer.project-footer.project-footer > .project-contain
   content: "" !important;
 }
 
+/* Keep the spans static so their absolute pseudo-elements use footer-bottom as the containing block. */
 html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:first-child,
 html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:last-child {
-  position: relative !important;
+  position: static !important;
   font-size: 0 !important;
 }
 
