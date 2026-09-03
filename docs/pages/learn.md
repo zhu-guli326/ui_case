@@ -8,7 +8,8 @@ Last updated: 2026-09-03
 - `index.html` only redirects here
 - Product role: ONDesign main landing / learning entry
 - Canonical implementation: `src/features/home/home.css`, `src/features/home/home.js`
-- The existing design-system explainer may keep its dedicated visual stylesheet, but new Home interaction/runtime behavior belongs in the canonical Home files rather than new versioned or motion-only files.
+- The Idea → Demo workflow may keep its dedicated `src/features/home/home-workflow.js` interaction component as long as it is the single runtime owner for that workflow and does not duplicate behavior in another Home script.
+- The existing design-system explainer may keep its dedicated visual stylesheet, but new Home behavior must have one clear owner rather than parallel versioned, motion-only or override files.
 
 ## Page goal
 
@@ -74,28 +75,32 @@ Desktop uses an editorial three-part composition inspired by the React Bits Pro 
 
 - Left: show the four stage words vertically — `DEFINE`, `CREATE`, `BUILD`, `ITERATE`. Inactive stages are light gray; the current stage is near-black.
 - Center: show only the current stage's approved 3:4 portrait/poster at full readable size.
-- Right: explain what that historical figure represents in the workflow, with one large action-oriented heading plus the person's name, short thinking keywords and a concise explanation.
+- Right: show the historical figure's name first, then one large action-oriented heading describing their role, followed by one concise explanatory paragraph.
 - Default state is `DEFINE / Steve Jobs`.
-- Pointer hover over a stage switches the center poster and the right-side explanation to that stage. Keyboard focus must produce the same visual switch.
+- Desktop vertical scrolling is a primary interaction: GSAP + ScrollTrigger pins the workflow composition for a bounded scroll distance and advances through `DEFINE → CREATE → BUILD → ITERATE` as scroll progress moves forward. The stages snap to four readable stops rather than changing on every pixel.
+- Scrolling upward reverses the same sequence. Leaving the pinned range returns to normal page scrolling.
+- Pointer hover over a stage may directly preview that stage. Keyboard focus must produce the same visual switch, and clicking a stage may move the scroll position to its corresponding stop.
 - The right-side explanation should communicate the metaphor rather than biography:
   - Steve Jobs → judgment, focus and trade-offs; decide what is worth doing first.
   - Leonardo da Vinci → creation, synthesis and expression; organize references into a coherent visual direction.
   - Bill Gates → software, systems and implementation; turn Design DNA into runnable product code.
   - Thomas Edison → experimentation, validation and iteration; compare, adjust and keep testing until the result holds up.
 - The composition should stay spacious and editorial, not turn into a dashboard or four-card catalog.
-- On touch/narrow screens, keep the existing readable multi-card fallback instead of depending on hover to reveal information.
+- On touch/narrow screens, do not pin the section or depend on scroll-wheel behavior. Keep the readable stacked/tabbed fallback.
 
-#### Workflow card motion enhancement
+#### Workflow motion enhancement
 
-The current-stage poster keeps the pointer-reactive motion language from React Bits `ProfileCard` while using the new editorial composition.
+The current-stage poster keeps the pointer-reactive motion language from React Bits `ProfileCard` while using the editorial composition.
 
 - Desktop pointer interaction: the active center poster tilts in 3D toward the pointer, with a soft pointer-following glare/highlight and subtle depth response.
+- Stage changes use a short GSAP fade/vertical handoff for the poster and right-side copy rather than abrupt DOM swaps.
+- The progress ring reflects the pinned workflow's actual scroll progress; it is not an unrelated autoplay spinner.
 - Motion should interpolate smoothly rather than snap; when the pointer leaves, the poster eases back to center before the active glow disappears.
 - Keep the approved four poster assets and per-stage color treatment. The motion is an enhancement, not a redesign into a profile/contact card.
 - Do not add ProfileCard-specific user UI such as handle, online status, mini avatar or Contact button.
 - Do not add mobile device-orientation tilt. Touch/mobile keeps the static card presentation.
 - Do not add React solely for this effect. The current page is a static HTML/CSS/JS site, so preserve the React Bits motion model in the existing vanilla-JS architecture.
-- Respect `prefers-reduced-motion: reduce`: disable pointer tilt and animated glare/transform transitions for users requesting reduced motion.
+- Respect `prefers-reduced-motion: reduce`: disable scroll pinning, pointer tilt and animated handoffs for users requesting reduced motion.
 - The enhancement must not alter keyboard focus, bilingual rendering, image loading or layout dimensions.
 
 ### Lightweight discovery strip
@@ -163,21 +168,21 @@ The Home page should feel calm while static and expressive while scrolling. Moti
 
 - Page-level scroll choreography uses GSAP + ScrollTrigger in the existing static architecture; do not migrate the Home page to React solely to obtain animation.
 - GSAP must be progressive enhancement: if the CDN/library is unavailable, the page must remain fully visible, navigable and functional.
-- Do not add smooth-scroll hijacking in this pass. Native scrolling remains the baseline.
+- Do not add site-wide smooth-scroll hijacking. Native scrolling remains the baseline; the bounded pinned Idea → Demo section is the explicit exception.
 - Hero: staged entrance for eyebrow, title, supporting copy and actions; the Hero title may use a one-shot hand-typed/typewriter reveal on first load, ending in the complete stable title without looping. The effect must not shift layout, and `prefers-reduced-motion` skips it.
 - Featured cases: preserve the existing draggable carousel mechanics, but add a restrained entrance/depth reveal around the carousel UI without fighting its card transforms.
 - Stats: count up once when the section first enters view; do not loop.
 - Discovery: changing tabs should feel like a visual transition, using short blur/scale/fade handoffs instead of a hard image swap. The underlying tab semantics and destinations stay unchanged.
-- Idea → Demo: the section heading and the four stage labels reveal in sequence so the workflow reads as `DEFINE → CREATE → BUILD → ITERATE`; the center poster/right explanation switch by stage, and pointer tilt/glow remains a second interaction layer on desktop.
+- Idea → Demo: desktop pins the three-column workflow for a bounded distance; scroll progress advances the current stage `DEFINE → CREATE → BUILD → ITERATE`, and the center poster/right explanation animate together. Pointer tilt/glow remains a second interaction layer.
 - Design-system cards: the typography/color/spacing/surface/component cards should assemble into view with staggered depth rather than appear as a static pile.
 - Design-system live explainer: the central product UI establishes first, then the four surrounding typography/spacing/color/state callouts enter in a readable order and remain visible after entry.
 - CTA/footer: finish with a restrained reveal; do not keep adding increasingly loud effects at the bottom of the page.
 - Micro-interactions may include subtle magnetic response on primary links/buttons and pointer-following light in the Hero, but movement must stay small enough that text remains easy to target and read.
-- Avoid permanent looping particles, continuous bouncing, scroll-jacking, excessive blur or simultaneous animation of every element.
+- Avoid permanent looping particles, continuous bouncing, scroll-jacking outside the explicit workflow pin, excessive blur or simultaneous animation of every element.
 - Motion should use opacity/filter/clip/transform properties that stay performant and should avoid layout-thrashing animation.
-- Mobile/touch uses reduced motion complexity: no pointer-follow effects or 3D tilt, and scroll reveals should be shorter/subtler.
-- `prefers-reduced-motion: reduce` disables non-essential scroll choreography, pointer-follow, magnetic movement and 3D card tilt while preserving all content and controls.
-- All accepted Home motion code belongs in `src/features/home/home.js` and `src/features/home/home.css`; do not create separate `*-motion`, `*-animation`, `*-v2` or override runtime/style files.
+- Mobile/touch uses reduced motion complexity: no pinned workflow, pointer-follow effects or 3D tilt, and scroll reveals should be shorter/subtler.
+- `prefers-reduced-motion: reduce` disables non-essential scroll choreography, workflow pinning, pointer-follow, magnetic movement and 3D card tilt while preserving all content and controls.
+- General Home motion remains in `src/features/home/home.js` and `src/features/home/home.css`; workflow-specific stage switching, pinning and poster tilt are owned only by `src/features/home/home-workflow.js` and the workflow styles in `home.css`.
 
 ## Keep
 
