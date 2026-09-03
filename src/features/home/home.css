@@ -635,35 +635,39 @@ html[lang="zh-CN"] .featured-cases-heading h2 {
   }
 }
 
-/* React Bits ScrollReveal adaptation for the final CTA headline.
- * Keep the current static HTML; modern browsers bind the reveal directly to scroll progress.
- * Values mirror the requested component: baseOpacity 0, baseRotation 5deg, blurStrength 10. */
+/* Final CTA: keep one clear statement and let Home JS type it once on entry. */
+.project-cta .section-eyebrow {
+  display: none;
+}
+
 .project-cta h2 {
-  transform-origin: 0 55%;
+  position: relative;
+  transform: none;
 }
 
-@supports (animation-timeline: view()) {
-  .project-cta h2 {
-    animation-name: project-cta-scroll-reveal;
-    animation-duration: 1ms;
-    animation-timing-function: linear;
-    animation-fill-mode: both;
-    animation-timeline: view(block);
-    animation-range: entry 4% cover 34%;
-  }
+.project-cta h2::after {
+  display: inline-block;
+  width: .055em;
+  height: .82em;
+  margin-left: .06em;
+  background: #73f2a7;
+  content: "";
+  opacity: 0;
+  vertical-align: -.06em;
 }
 
-@keyframes project-cta-scroll-reveal {
-  from {
-    opacity: 0;
-    filter: blur(10px);
-    transform: translateY(14px) rotate(5deg);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0);
-    transform: translateY(0) rotate(0deg);
-  }
+.project-cta h2.is-typing::after {
+  opacity: 1;
+  animation: project-cta-caret .74s steps(1, end) infinite;
+}
+
+.project-cta h2.is-typed::after {
+  animation: project-cta-caret .74s steps(1, end) 4 forwards;
+}
+
+@keyframes project-cta-caret {
+  0%, 48% { opacity: 1; }
+  49%, 100% { opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -673,10 +677,8 @@ html[lang="zh-CN"] .featured-cases-heading h2 {
     transition: none;
   }
 
-  .project-cta h2 {
+  .project-cta h2::after {
+    display: none;
     animation: none !important;
-    opacity: 1 !important;
-    filter: none !important;
-    transform: none !important;
   }
 }
