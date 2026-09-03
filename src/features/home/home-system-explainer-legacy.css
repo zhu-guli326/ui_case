@@ -251,3 +251,109 @@
     transition: none !important;
   }
 }
+
+/* Native scroll-driven fallback for the live design-system sequence.
+ * home.js adds .home-motion-active when GSAP + ScrollTrigger are ready. Only
+ * run this fallback when that enhancement is unavailable, so the two motion
+ * systems never compete for the same elements. */
+@keyframes home-system-live-app-reveal {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+    scale: .985;
+    filter: blur(12px);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes home-system-live-callout-type {
+  from { opacity: 0; translate: -42px -16px; scale: .94; }
+  to { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+@keyframes home-system-live-callout-color {
+  from { opacity: 0; translate: 42px -16px; scale: .94; }
+  to { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+@keyframes home-system-live-callout-spacing {
+  from { opacity: 0; translate: -42px 16px; scale: .94; }
+  to { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+@keyframes home-system-live-callout-states {
+  from { opacity: 0; translate: 42px 16px; scale: .94; }
+  to { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    body:not(.home-motion-active) #design-system-live .system-explainer-stage {
+      view-timeline-name: --home-system-live-stage;
+      view-timeline-axis: block;
+    }
+
+    body:not(.home-motion-active) #design-system-live .system-app,
+    body:not(.home-motion-active) #design-system-live .system-callout {
+      animation-duration: 1ms;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --home-system-live-stage;
+    }
+
+    body:not(.home-motion-active) #design-system-live .system-app {
+      animation-name: home-system-live-app-reveal;
+      animation-range: entry 0% cover 15%;
+    }
+
+    body:not(.home-motion-active) #design-system-live .system-callout-type {
+      animation-name: home-system-live-callout-type;
+      animation-range: entry 8% cover 20%;
+    }
+
+    body:not(.home-motion-active) #design-system-live .system-callout-color {
+      animation-name: home-system-live-callout-color;
+      animation-range: entry 14% cover 26%;
+    }
+
+    body:not(.home-motion-active) #design-system-live .system-callout-spacing {
+      animation-name: home-system-live-callout-spacing;
+      animation-range: entry 20% cover 32%;
+    }
+
+    body:not(.home-motion-active) #design-system-live .system-callout-states {
+      animation-name: home-system-live-callout-states;
+      animation-range: entry 26% cover 38%;
+    }
+  }
+}
+
+/* A small spatial response remains available in fallback mode as well. Using
+ * transform here avoids fighting the scroll animation's individual translate
+ * and scale properties. */
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  body:not(.home-motion-active) #design-system-live .system-callout {
+    transition: transform .42s cubic-bezier(.16,1,.3,1), box-shadow .42s ease;
+  }
+
+  body:not(.home-motion-active) #design-system-live .system-explainer-stage:hover .system-callout-type {
+    transform: translate(-5px, -3px);
+  }
+
+  body:not(.home-motion-active) #design-system-live .system-explainer-stage:hover .system-callout-color {
+    transform: translate(5px, -3px);
+  }
+
+  body:not(.home-motion-active) #design-system-live .system-explainer-stage:hover .system-callout-spacing {
+    transform: translate(-5px, 3px);
+  }
+
+  body:not(.home-motion-active) #design-system-live .system-explainer-stage:hover .system-callout-states {
+    transform: translate(5px, 3px);
+  }
+}
