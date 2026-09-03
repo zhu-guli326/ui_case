@@ -452,7 +452,6 @@ function destroyWorkflowScrollMotion() {
   workflowScrollTrigger?.kill(true);
   workflowScrollTrigger = null;
   workflow?.classList.remove("is-scroll-driven");
-  workflow?.style.setProperty("--workflow-scroll-progress", "0deg");
   setWorkflowHeadingPinned(false);
 }
 
@@ -487,12 +486,10 @@ function initWorkflowScrollMotion(attempt = 0) {
     onRefresh: (self) => {
       setWorkflowHeadingPinned(self.isActive);
       const index = workflowIndexForProgress(self.progress);
-      workflow.style.setProperty("--workflow-scroll-progress", `${self.progress * 360}deg`);
       renderWorkflow(index, { animate: false });
     },
     onUpdate: (self) => {
       const index = workflowIndexForProgress(self.progress);
-      workflow.style.setProperty("--workflow-scroll-progress", `${self.progress * 360}deg`);
       if (index !== activeWorkflowIndex) renderWorkflow(index);
     },
   });
