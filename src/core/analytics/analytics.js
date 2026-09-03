@@ -92,5 +92,10 @@
     homeWorkflowRefinedMotion.src = "./src/features/home/home-workflow-refined-motion.js";
     homeWorkflowRefinedMotion.defer = true;
     document.head.append(homeWorkflowRefinedMotion);
+
+    const homeWorkflowCardEffect = document.createElement("script");
+    homeWorkflowCardEffect.src = "./src/features/home/home-workflow-card-effect.js";
+    homeWorkflowCardEffect.defer = true;
+    document.head.append(homeWorkflowCardEffect);
   }
 })();
