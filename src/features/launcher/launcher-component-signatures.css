@@ -1,0 +1,354 @@
+/* Final component-language layer.
+ * Loaded last so component-system anatomy stays visibly distinct in preview.
+ * Visual-system color/type tokens remain authoritative.
+ */
+
+body[data-component-system] [data-preview-stage] .v-form {
+  width: min(100%, 460px);
+  transition: padding .18s ease, gap .18s ease, border-radius .18s ease,
+    border-color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+body[data-component-system] [data-preview-stage] .v-form h4 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+body[data-component-system] [data-preview-stage] .v-form h4::after {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 0 8px;
+  border: 1px solid color-mix(in srgb, var(--dna-ink) 12%, transparent);
+  border-radius: 999px;
+  color: var(--dna-muted);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: .02em;
+}
+
+body[data-component-system="antd"] [data-preview-stage] .v-form h4::after { content: "Ant Design"; }
+body[data-component-system="shadcn"] [data-preview-stage] .v-form h4::after { content: "shadcn/ui"; }
+body[data-component-system="arco"] [data-preview-stage] .v-form h4::after { content: "Arco"; }
+body[data-component-system="semi"] [data-preview-stage] .v-form h4::after { content: "Semi"; }
+body[data-component-system="tdesign"] [data-preview-stage] .v-form h4::after { content: "TDesign"; }
+body[data-component-system="mui"] [data-preview-stage] .v-form h4::after { content: "Material UI"; }
+body[data-component-system="element"] [data-preview-stage] .v-form h4::after { content: "Element Plus"; }
+body[data-component-system="radix"] [data-preview-stage] .v-form h4::after { content: "Radix UI"; }
+
+body[data-component-system] [data-preview-stage] .v-form label {
+  transition: gap .18s ease;
+}
+
+body[data-component-system] [data-preview-stage] .v-form label > span {
+  transition: font-size .18s ease, font-weight .18s ease, color .18s ease,
+    letter-spacing .18s ease, text-transform .18s ease;
+}
+
+body[data-component-system] [data-preview-stage] .v-form :is(input:not([type="checkbox"]), select, .v-btn) {
+  transition: min-height .18s ease, border-radius .18s ease, border-color .18s ease,
+    background .18s ease, box-shadow .18s ease, padding .18s ease;
+}
+
+body[data-component-system] [data-preview-stage] .v-form .v-check input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  display: inline-grid;
+  place-items: center;
+  margin: 0;
+  border: 1px solid color-mix(in srgb, var(--dna-ink) 26%, transparent);
+  background: var(--dna-surface);
+  cursor: pointer;
+}
+
+body[data-component-system] [data-preview-stage] .v-form .v-check input[type="checkbox"]::after {
+  content: "";
+  width: 7px;
+  height: 4px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg) scale(0);
+  transform-origin: center;
+  transition: transform .12s ease;
+}
+
+body[data-component-system] [data-preview-stage] .v-form .v-check input[type="checkbox"]:checked {
+  border-color: var(--dna-accent);
+  background: var(--dna-accent);
+}
+
+body[data-component-system] [data-preview-stage] .v-form .v-check input[type="checkbox"]:checked::after {
+  transform: rotate(-45deg) scale(1);
+}
+
+/* Ant Design — outlined, balanced enterprise controls. */
+body[data-component-system="antd"] [data-preview-stage] .v-form {
+  gap: 16px !important;
+  padding: 26px !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  background: var(--dna-surface) !important;
+  box-shadow: none !important;
+}
+body[data-component-system="antd"] [data-preview-stage] .v-form h4 { font-size: 20px; font-weight: 600; }
+body[data-component-system="antd"] [data-preview-stage] .v-form label { gap: 8px; }
+body[data-component-system="antd"] [data-preview-stage] .v-form label > span { font-size: 13px; font-weight: 600; }
+body[data-component-system="antd"] [data-preview-stage] .v-form :is(input:not([type="checkbox"]), select) {
+  min-height: 40px !important;
+  padding: 0 12px !important;
+  border: 1px solid #d9d9d9 !important;
+  border-radius: 6px !important;
+  background: #fff !important;
+  box-shadow: none !important;
+}
+body[data-component-system="antd"] [data-preview-stage] .v-form :is(input:not([type="checkbox"]), select):focus {
+  border-color: var(--dna-accent) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--dna-accent) 12%, transparent) !important;
+}
+body[data-component-system="antd"] [data-preview-stage] .v-form .v-btn-primary {
+  min-height: 40px !important;
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--dna-accent) 18%, transparent) !important;
+}
+body[data-component-system="antd"] [data-preview-stage] .v-form .v-check input { border-radius: 2px; }
+
+/* shadcn/ui — monochrome, compact, subtle ring/shadow. */
+body[data-component-system="shadcn"] [data-preview-stage] .v-form {
+  gap: 18px !important;
+  padding: 26px !important;
+  border: 1px solid color-mix(in srgb, var(--dna-ink) 12%, transparent) !important;
+  border-radius: 12px !important;
+  background: var(--dna-surface) !important;
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--dna-ink) 8%, transparent) !important;
+}
+body[data-component-system="shadcn"] [data-preview-stage] .v-form h4 { font-size: 19px; font-weight: 650; letter-spacing: -.02em; }
+body[data-component-system="shadcn"] [data-preview-stage] .v-form label { gap: 7px; }
+body[data-component-system="shadcn"] [data-preview-stage] .v-form label > span { font-size: 12px; font-weight: 600; }
+body[data-component-system="shadcn"] [data-preview-stage] .v-form :is(input:not([type="checkbox"]), select) {
+  min-height: 40px !important;
+  border: 1px solid color-mix(in srgb, var(--dna-ink) 14%, transparent) !important;
+  border-radius: 7px !important;
+  background: var(--dna-surface) !important;
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--dna-ink) 6%, transparent) !important;
+}
+body[data-component-system="shadcn"] [data-preview-stage] .v-form :is(input:not([type="checkbox"]), select):focus {
+  border-color: color-mix(in srgb, var(--dna-ink) 42%, transparent) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--dna-ink) 8%, transparent) !important;
+}
+body[data-component-system="shadcn"] [data-preview-stage] .v-form .v-btn-primary {
+  min-height: 40px !important;
+  border-radius: 7px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--dna-ink) 18%, transparent) !important;
+}
+body[data-component-system="shadcn"] [data-preview-stage] .v-form .v-check input { border-radius: 4px; }
+
+/* Arco — dense, filled, square enterprise controls. */
+body[data-component-system="arco"] [data-preview-stage] .v-form {
+  gap: 11px !important;
+  padding: 18px !important;
+  border: 1px solid color-mix(in srgb, var(--dna-ink) 8%, transparent) !important;
+  border-radius: 3px !important;
+  background: color-mix(in srgb, var(--dna-canvas) 78%, var(--dna-surface)) !important;
+  box-shadow: none !important;
+}
+body[data-component-system="arco"] [data-preview-stage] .v-form h4 { font-size: 18px; font-weight: 600; }
+body[data-component-system="arco"] [data-preview-stage] .v-form label { gap: 5px; }
+body[data-component-system="arco"] [data-preview-stage] .v-form label > span { font-size: 11px; font-weight: 500; }
+body[data-component-system="arco"] [data-preview-stage] .v-form :is(input:not([type="checkbox"]), select) {
+  min-height: 32px !important;
+  padding: 0 10px !important;
+  border: 1px solid transparent !important;
+  border-radius: 2px !important;
+  background: color-mix(in srgb, var(--dna-canvas) 68%, var(--dna-surface)) !important;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--dna-ink) 5%, transparent) !important;
+}
+body[data-component-system="arco"] [data-preview-stage] .v-form .v-btn-primary {
+  min-height: 32px !important;
+  border-radius: 2px !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+}
+body[data-component-system="arco"] [data-preview-stage] .v-form .v-check input { width: 14px; height: 14px; border-radius: 2px; }
+
+/* Semi — soft filled surfaces, borderless fields, rounder controls. */
+body[data-component-system="semi"] [data-preview-stage] .v-form {
+  gap: 17px !important;
+  padding: 27px !important;
+  border: 0 !important;
+  border-radius: 16px !important;
+  background: color-mix(in srgb, var(--dna-canvas) 72%, var(--dna-surface)) !important;
+  box-shadow: none !important;
+}
+body[data-component-system="semi"] [data-preview-stage] .v-form h4 { font-size: 20px; font-weight: 650; }
+body[data-component-system="semi"] [data-preview-stage] .v-form label { gap: 7px; }
+body[data-component-system="semi"] [data-preview-stage] .v-form label > span { font-size: 12px; font-weight: 600; }
+body[data-component-system="semi"] [data-preview-stage] .v-form :is(input:not([type="checkbox"]), select) {
+  min-height: 42px !important;
+  padding: 0 13px !important;
+  border: 0 !important;
+  border-radius: 9px !important;
+  background: color-mix(in srgb, var(--dna-canvas) 62%, var(--dna-surface)) !important;
+  box-shadow: none !important;
+}
+body[data-component-system="semi"] [data-preview-stage] .v-form .v-btn-primary {
+  min-height: 42px !important;
+  border: 0 !important;
+  border-radius: 9px !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+body[data-component-system="semi"] [data-preview-stage] .v-form .v-check input { border: 0; border-radius: 5px; }
+
+/* TDesign — distinctly compact, high-density, squared controls. */
+body[data-component-system="tdesign"] [data-preview-stage] .v-form {
+  gap: 10px !important;
+  padding: 18px !important;
+  border: 1px solid color-mix(in srgb, var(--dna-ink) 10%, transparent) !important;
+  border-radius: 4px !important;
+  background: var(--dna-surface) !important;
+  box-shadow: none !important;
+}
+body[data-component-system="tdesign"] [data-preview-stage] .v-form h4 { font-size: 18px; font-weight: 600; }
+body[data-component-system="tdesign"] [data-preview-stage] .v-form label { gap: 4px; }
+body[data-component-system="tdesign"] [data-preview-stage] .v-form label > span {
+  font-size: 11px;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--dna-ink) 72%, transparent);
+}
+body[data-component-system="tdesign"] [data-preview-stage] .v-form :is(input:not([type="checkbox"]), select) {
+  min-height: 32px !important;
+  padding: 0 10px !important;
+  border: 1px solid color-mix(in srgb, var(--dna-ink) 14%, transparent) !important;
+  border-radius: 3px !important;
+  background: color-mix(in srgb, var(--dna-canvas) 46%, var(--dna-surface)) !important;
+  box-shadow: none !important;
+}
+body[data-component-system="tdesign"] [data-preview-stage] .v-form .v-btn-primary {
+  min-height: 32px !important;
+  border-radius: 3px !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+}
+body[data-component-system="tdesign"] [data-preview-stage] .v-form .v-check { margin-top: 1px; }
+body[data-component-system="tdesign"] [data-preview-stage] .v-form .v-check input { width: 14px; height: 14px; border-radius: 2px; }
+body[data-component-system="tdesign"] [data-preview-stage] .v-form > small { font-size: 10px; }
+
+/* Material UI — taller outlined fields, floating-label feel, elevation. */
+body[data-component-system="mui"] [data-preview-stage] .v-form {
+  gap: 20px !important;
+  padding: 30px !important;
+  border: 0 !important;
+  border-radius: 7px !important;
+  background: var(--dna-surface) !important;
+  box-shadow: 0 7px 24px color-mix(in srgb, var(--dna-ink) 18%, transparent) !important;
+}
+body[data-component-system="mui"] [data-preview-stage] .v-form h4 { font-size: 21px; font-weight: 500; }
+body[data-component-system="mui"] [data-preview-stage] .v-form label:not(.v-check) { position: relative; gap: 0; padding-top: 8px; }
+body[data-component-system="mui"] [data-preview-stage] .v-form label:not(.v-check) > span {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 11px;
+  padding: 0 4px;
+  background: var(--dna-surface);
+  font-size: 10px;
+  font-weight: 500;
+}
+body[data-component-system="mui"] [data-preview-stage] .v-form :is(input:not([type="checkbox"]), select) {
+  min-height: 48px !important;
+  padding: 0 13px !important;
+  border: 1px solid color-mix(in srgb, var(--dna-ink) 45%, transparent) !important;
+  border-radius: 4px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+body[data-component-system="mui"] [data-preview-stage] .v-form .v-btn-primary {
+  min-height: 42px !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: .055em !important;
+  box-shadow: 0 3px 7px color-mix(in srgb, var(--dna-ink) 24%, transparent) !important;
+}
+body[data-component-system="mui"] [data-preview-stage] .v-form .v-check input { width: 18px; height: 18px; border-radius: 2px; }
+
+/* Element Plus — clean outlined fields with inset hairline. */
+body[data-component-system="element"] [data-preview-stage] .v-form {
+  gap: 16px !important;
+  padding: 24px !important;
+  border: 1px solid #ebeef5 !important;
+  border-radius: 8px !important;
+  background: var(--dna-surface) !important;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--dna-ink) 7%, transparent) !important;
+}
+body[data-component-system="element"] [data-preview-stage] .v-form h4 { font-size: 20px; font-weight: 600; }
+body[data-component-system="element"] [data-preview-stage] .v-form label { gap: 6px; }
+body[data-component-system="element"] [data-preview-stage] .v-form label > span { font-size: 12px; font-weight: 500; }
+body[data-component-system="element"] [data-preview-stage] .v-form :is(input:not([type="checkbox"]), select) {
+  min-height: 40px !important;
+  border: 0 !important;
+  border-radius: 4px !important;
+  background: var(--dna-surface) !important;
+  box-shadow: 0 0 0 1px #dcdfe6 inset !important;
+}
+body[data-component-system="element"] [data-preview-stage] .v-form :is(input:not([type="checkbox"]), select):focus {
+  box-shadow: 0 0 0 1px var(--dna-accent) inset !important;
+}
+body[data-component-system="element"] [data-preview-stage] .v-form .v-btn-primary {
+  min-height: 40px !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+body[data-component-system="element"] [data-preview-stage] .v-form .v-check input { border-radius: 3px; }
+
+/* Radix UI — minimal transparent surfaces with explicit focus rings. */
+body[data-component-system="radix"] [data-preview-stage] .v-form {
+  gap: 15px !important;
+  padding: 22px !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+body[data-component-system="radix"] [data-preview-stage] .v-form h4 { font-size: 19px; font-weight: 600; }
+body[data-component-system="radix"] [data-preview-stage] .v-form label { gap: 6px; }
+body[data-component-system="radix"] [data-preview-stage] .v-form label > span { font-size: 12px; font-weight: 500; }
+body[data-component-system="radix"] [data-preview-stage] .v-form :is(input:not([type="checkbox"]), select) {
+  min-height: 36px !important;
+  border: 1px solid color-mix(in srgb, var(--dna-ink) 18%, transparent) !important;
+  border-radius: 7px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+body[data-component-system="radix"] [data-preview-stage] .v-form :is(input:not([type="checkbox"]), select, .v-btn):focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--dna-accent) 62%, transparent) !important;
+  outline-offset: 2px !important;
+}
+body[data-component-system="radix"] [data-preview-stage] .v-form .v-btn-primary {
+  min-height: 36px !important;
+  border-radius: 7px !important;
+  box-shadow: none !important;
+}
+body[data-component-system="radix"] [data-preview-stage] .v-form .v-check input { border-radius: 4px; }
+
+/* Mirror the signatures in the small left-side specimen too. */
+body[data-component-system="arco"] .cs-live-row :is(.cs-demo-button, .cs-demo-input input, .cs-demo-tag) { border-radius: 2px !important; min-height: 32px !important; }
+body[data-component-system="tdesign"] .cs-live-row :is(.cs-demo-button, .cs-demo-input input, .cs-demo-tag) { border-radius: 3px !important; min-height: 32px !important; }
+body[data-component-system="semi"] .cs-live-row .cs-demo-input input { border-color: transparent !important; background: color-mix(in srgb, var(--dna-canvas) 62%, #fff) !important; }
+body[data-component-system="semi"] .cs-live-row :is(.cs-demo-button, .cs-demo-input input, .cs-demo-tag) { border-radius: 9px !important; }
+body[data-component-system="mui"] .cs-live-row .cs-demo-button { min-height: 42px !important; text-transform: uppercase; letter-spacing: .05em; box-shadow: 0 2px 5px rgba(0,0,0,.18) !important; }
+body[data-component-system="mui"] .cs-live-row .cs-demo-input input { min-height: 46px !important; }
+body[data-component-system="shadcn"] .cs-live-row :is(.cs-demo-button, .cs-demo-input input) { box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+body[data-component-system="radix"] .cs-live-row .cs-demo-input input { background: transparent !important; }
+
+@media (max-width: 760px) {
+  body[data-component-system] [data-preview-stage] .v-form { width: 100%; }
+  body[data-component-system] [data-preview-stage] .v-form h4::after { display: none; }
+}
