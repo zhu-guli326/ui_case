@@ -80,9 +80,15 @@ html body.project-home main > .project-cta {
 }
 
 /* Final footer image crop.
- * The source artwork itself contains a flat gray area on the right. Zoom into
- * the photographic half far enough that only the photo fills the full-width band. */
+ * Reset legacy footer pseudo-element geometry first: old styles left this layer
+ * translated -50% with a huge bottom curve, which pushed the photo off canvas.
+ * Then zoom into the photographic half so the flat gray portion never appears. */
 html body.project-home > footer.project-footer.project-footer::before {
+  right: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  border-radius: 0 !important;
+  transform: none !important;
   background-color: #fff !important;
   background-position: left center !important;
   background-size: 205% auto !important;
