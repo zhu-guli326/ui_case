@@ -1,3 +1,11 @@
+/* Four-up workflow only. The old single-card explorer is permanently suppressed. */
+#capabilities .workflow-explorer,
+#capabilities .workflow-stage-list,
+#capabilities .workflow-poster,
+#capabilities .workflow-detail {
+  display: none !important;
+}
+
 /* Four-up workflow card effect: restore the tactile portrait interaction without changing the layout. */
 @media (hover: hover) and (pointer: fine) {
   #capabilities .capability-grid {
