@@ -1,0 +1,61 @@
+/* Ant Design-inspired Chinese display typography + darker footer image edges. */
+html[lang="zh-CN"] body.project-home #templates .template-gallery-heading h2,
+html[lang="zh-CN"] body.project-home #capabilities .section-heading h2 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif !important;
+  color: rgba(0, 0, 0, .78) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.22 !important;
+  text-wrap: balance;
+}
+
+html[lang="zh-CN"] body.project-home .showcase-copy h2,
+html[lang="zh-CN"] body.project-home .system-explainer-heading h2,
+html[lang="zh-CN"] body.project-home .featured-cases-heading h2 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif !important;
+  color: rgba(255, 255, 255, .9) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.22 !important;
+  text-wrap: balance;
+}
+
+html[lang="zh-CN"] body.project-home .project-cta.project-cta h2 {
+  max-width: 900px !important;
+  color: rgba(255, 255, 255, .9) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif !important;
+  font-size: clamp(46px, 5.3vw, 82px) !important;
+  font-weight: 400 !important;
+  letter-spacing: -.01em !important;
+  line-height: 1.18 !important;
+  text-align: center !important;
+  text-wrap: balance !important;
+}
+
+html body.project-home > footer.project-footer {
+  border: 1px solid #050505 !important;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, .82) 0%, rgba(0, 0, 0, .28) 11%, rgba(0, 0, 0, 0) 29%, rgba(0, 0, 0, 0) 71%, rgba(0, 0, 0, .28) 89%, rgba(0, 0, 0, .82) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, .28) 0%, rgba(0, 0, 0, .08) 28%, rgba(0, 0, 0, .42) 72%, rgba(0, 0, 0, .86) 100%),
+    url("../../../assets/home/case-hackathon-20260831.png") center 34% / cover no-repeat !important;
+  box-shadow:
+    inset 0 0 0 2px rgba(0, 0, 0, .9),
+    inset 96px 0 150px rgba(0, 0, 0, .5),
+    inset -96px 0 150px rgba(0, 0, 0, .5),
+    inset 0 78px 110px rgba(0, 0, 0, .22),
+    inset 0 -96px 130px rgba(0, 0, 0, .38) !important;
+}
+
+@media (max-width: 760px) {
+  html[lang="zh-CN"] body.project-home .project-cta.project-cta h2 {
+    font-size: clamp(40px, 11vw, 60px) !important;
+    line-height: 1.2 !important;
+  }
+
+  html body.project-home > footer.project-footer {
+    box-shadow:
+      inset 0 0 0 2px rgba(0, 0, 0, .9),
+      inset 42px 0 80px rgba(0, 0, 0, .5),
+      inset -42px 0 80px rgba(0, 0, 0, .5) !important;
+  }
+}

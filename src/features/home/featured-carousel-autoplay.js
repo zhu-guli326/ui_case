@@ -6,8 +6,8 @@
     if (!carousel || !nextButton || slides.length < 2) return;
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const STALE_AFTER = 6400;
-    const CHECK_EVERY = 900;
+    const STALE_AFTER = 3000;
+    const CHECK_EVERY = 250;
     let lastChangeAt = performance.now();
     let activeIndex = slides.findIndex((slide) => slide.dataset.position === 'active');
 
