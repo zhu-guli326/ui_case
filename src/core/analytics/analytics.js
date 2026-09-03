@@ -63,9 +63,7 @@
      * - home.js rewrites the first image from DISCOVERY_PREVIEWS every render.
      *
      * Mount the approved four assets as real <img> elements before home.js runs,
-     * then keep those exact sources stable if home.js tries to overwrite them.
-     * This keeps the four-card motion intact because home.js binds to these same
-     * image nodes instead of a later replacement. */
+     * then keep those exact sources stable if home.js tries to overwrite them. */
     const appCard = document.querySelector("#templates .template-grid .template-card:first-child");
     const appArtwork = [
       ["./assets/home/discovery/app-1.png", "App design preview 1"],
@@ -112,6 +110,41 @@
       });
     }
 
+    /* Permanently replace the legacy single-card workflow before home.js runs.
+     * The old left-stage / center-poster / right-copy composition must never
+     * render again. Home now owns one static four-card grid only. */
+    const legacyWorkflow = document.querySelector("#capabilities .workflow-explorer");
+    if (legacyWorkflow) {
+      const grid = document.createElement("div");
+      grid.className = "capability-grid";
+      grid.innerHTML = `
+        <a href="./library.html?lang=zh" data-smart-lang-link="./library.html">
+          <img src="./assets/home/figures/steve-jobs.png" alt="史蒂夫·乔布斯像素人物肖像" loading="lazy" decoding="async">
+          <span class="capability-shade" aria-hidden="true"></span>
+          <small>01 · DEFINE</small>
+          <div><strong data-zh="理解真正重要的事" data-en="Decide what matters">理解真正重要的事</strong><p><span data-zh="史蒂夫·乔布斯" data-en="Steve Jobs">史蒂夫·乔布斯</span><span data-zh="判断 / 聚焦 / 取舍" data-en="Judgment / focus / trade-offs">判断 / 聚焦 / 取舍</span></p><i>↗</i></div>
+        </a>
+        <a href="./vocabulary.html?lang=zh" data-smart-lang-link="./vocabulary.html">
+          <img src="./assets/home/figures/leonardo-da-vinci.png" alt="达·芬奇像素人物肖像" loading="lazy" decoding="async">
+          <span class="capability-shade" aria-hidden="true"></span>
+          <small>02 · CREATE</small>
+          <div><strong data-zh="让想法形成完整体验" data-en="Shape ideas into an experience">让想法形成完整体验</strong><p><span data-zh="达·芬奇" data-en="Leonardo da Vinci">达·芬奇</span><span data-zh="创造 / 整合 / 表达" data-en="Create / synthesize / express">创造 / 整合 / 表达</span></p><i>↗</i></div>
+        </a>
+        <a href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html">
+          <img src="./assets/home/figures/bill-gates.png" alt="比尔·盖茨像素人物肖像" loading="lazy" decoding="async">
+          <span class="capability-shade" aria-hidden="true"></span>
+          <small>03 · BUILD</small>
+          <div><strong data-zh="把想法变成真正运行的产品" data-en="Turn ideas into a working product">把想法变成真正运行的产品</strong><p><span data-zh="比尔·盖茨" data-en="Bill Gates">比尔·盖茨</span><span data-zh="软件 / 系统 / 实现" data-en="Software / systems / implementation">软件 / 系统 / 实现</span></p><i>↗</i></div>
+        </a>
+        <a href="./launcher.html?lang=zh" data-smart-lang-link="./launcher.html">
+          <img src="./assets/home/figures/thomas-edison.png" alt="爱迪生像素人物肖像" loading="lazy" decoding="async">
+          <span class="capability-shade" aria-hidden="true"></span>
+          <small>04 · ITERATE</small>
+          <div><strong data-zh="不断验证，直到成立" data-en="Validate until it works">不断验证，直到成立</strong><p><span data-zh="爱迪生" data-en="Thomas Edison">爱迪生</span><span data-zh="实验 / 验证 / 迭代" data-en="Experiment / validate / iterate">实验 / 验证 / 迭代</span></p><i>↗</i></div>
+        </a>`;
+      legacyWorkflow.replaceWith(grid);
+    }
+
     const homeFooterCrop = document.createElement("link");
     homeFooterCrop.rel = "stylesheet";
     homeFooterCrop.href = "./src/features/home/home-footer-crop.css";
@@ -141,10 +174,5 @@
     homeGlobalMotion.src = "./src/features/home/home-global-motion.js";
     homeGlobalMotion.defer = true;
     document.head.append(homeGlobalMotion);
-
-    const homeWorkflowFourUp = document.createElement("script");
-    homeWorkflowFourUp.src = "./src/features/home/home-workflow-four-up.js";
-    homeWorkflowFourUp.defer = true;
-    document.head.append(homeWorkflowFourUp);
   }
 })();
