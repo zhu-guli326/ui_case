@@ -57,3 +57,24 @@ body.project-home #capabilities .capability-grid p > span:nth-child(2) {
     padding-block: 26px !important;
   }
 }
+
+/* Final footer image crop.
+ * The source artwork itself contains a flat gray area on the right. Zoom into
+ * the photographic half far enough that only the photo fills the full-width band. */
+html body.project-home > footer.project-footer.project-footer::before {
+  background-color: #fff !important;
+  background-position: left center !important;
+  background-size: 205% auto !important;
+}
+
+@media (max-width: 900px) {
+  html body.project-home > footer.project-footer.project-footer::before {
+    background-size: 220% auto !important;
+  }
+}
+
+@media (max-width: 560px) {
+  html body.project-home > footer.project-footer.project-footer::before {
+    background-size: 235% auto !important;
+  }
+}
