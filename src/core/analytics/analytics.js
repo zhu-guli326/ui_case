@@ -62,5 +62,10 @@
     homeCtaMotion.src = "./src/features/home/home-cta-motion.js";
     homeCtaMotion.defer = true;
     document.head.append(homeCtaMotion);
+
+    const homeSystemLiveMotion = document.createElement("script");
+    homeSystemLiveMotion.src = "./src/features/home/home-system-live-motion.js";
+    homeSystemLiveMotion.defer = true;
+    document.head.append(homeSystemLiveMotion);
   }
 })();
