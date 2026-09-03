@@ -163,10 +163,10 @@ function applyWorkflowContent(index) {
 
 function workflowStageScale(buttonIndex, activeIndex) {
   const distance = Math.abs(buttonIndex - activeIndex);
-  if (distance === 0) return 1.08;
-  if (distance === 1) return 0.91;
-  if (distance === 2) return 0.84;
-  return 0.78;
+  if (distance === 0) return 1.04;
+  if (distance === 1) return 0.94;
+  if (distance === 2) return 0.88;
+  return 0.84;
 }
 
 function setWorkflowButtonState(index) {
@@ -187,14 +187,14 @@ function setWorkflowButtonState(index) {
     }
 
     const scale = workflowStageScale(buttonIndex, index);
-    const opacity = selected ? 1 : Math.max(0.46, 0.78 - (Math.abs(buttonIndex - index) * 0.1));
+    const opacity = selected ? 1 : Math.max(0.54, 0.8 - (Math.abs(buttonIndex - index) * 0.09));
 
     if (window.gsap && !workflowReducedMotion.matches) {
       window.gsap.to(button, {
         scale,
         opacity,
         transformOrigin: "left center",
-        duration: selected ? 0.52 : 0.42,
+        duration: selected ? 0.5 : 0.4,
         ease: "power3.out",
         overwrite: "auto",
       });
@@ -393,14 +393,16 @@ function setWorkflowHeadingPinned(enabled) {
 
   if (enabled) {
     workflowHeading.style.position = "sticky";
-    workflowHeading.style.top = "24px";
+    workflowHeading.style.top = "72px";
     workflowHeading.style.zIndex = "6";
+    workflowHeading.style.background = "#fff";
     return;
   }
 
   workflowHeading.style.removeProperty("position");
   workflowHeading.style.removeProperty("top");
   workflowHeading.style.removeProperty("z-index");
+  workflowHeading.style.removeProperty("background");
 }
 
 function destroyWorkflowScrollMotion() {
@@ -431,7 +433,6 @@ function initWorkflowScrollMotion(attempt = 0) {
   const { gsap, ScrollTrigger } = window;
   gsap.registerPlugin(ScrollTrigger);
   workflow.classList.add("is-scroll-driven");
-  setWorkflowHeadingPinned(true);
 
   workflowScrollTrigger = ScrollTrigger.create({
     trigger: workflow,
@@ -441,7 +442,11 @@ function initWorkflowScrollMotion(attempt = 0) {
     pinSpacing: true,
     anticipatePin: 1,
     invalidateOnRefresh: true,
+    onToggle: (self) => {
+      setWorkflowHeadingPinned(self.isActive);
+    },
     onRefresh: (self) => {
+      setWorkflowHeadingPinned(self.isActive);
       const index = workflowIndexForProgress(self.progress);
       workflow.style.setProperty("--workflow-scroll-progress", `${self.progress * 360}deg`);
       renderWorkflow(index, { animate: false });
