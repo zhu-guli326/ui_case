@@ -1,0 +1,141 @@
+/* Final clarity pass for Launcher rules.
+ * Keep the panel compact, but never remove the labels that explain what a control does.
+ */
+
+body.dna-page #dna-rules .dna-section-body {
+  padding-inline: 20px !important;
+}
+
+/* Component specimen: explicit label + preview + quiet docs action on one row. */
+body.dna-page .cs-live {
+  display: grid !important;
+  grid-template-columns: 64px minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin: 8px 0 0 !important;
+  padding: 0 !important;
+}
+
+body.dna-page .cs-live::before {
+  grid-column: 1;
+  content: "组件预览";
+  color: var(--dna-muted, #777);
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+html[lang^="en"] body.dna-page .cs-live::before {
+  content: "Preview";
+}
+
+body.dna-page .cs-live-row {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  grid-template-columns: auto minmax(100px, 1fr) auto auto !important;
+  gap: 6px !important;
+}
+
+body.dna-page .cs-live-head {
+  grid-column: 3;
+  grid-row: 1;
+  min-height: 0 !important;
+  margin: 0 !important;
+  justify-self: end;
+}
+
+body.dna-page .cs-live-head a {
+  color: var(--dna-muted, #777) !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+body.dna-page .cs-live-head a:hover {
+  color: var(--dna-accent, #18a957) !important;
+}
+
+body.dna-page .cs-demo-button,
+body.dna-page .cs-demo-input input {
+  min-height: 30px !important;
+}
+
+body.dna-page .cs-demo-button {
+  padding-inline: 10px !important;
+}
+
+body.dna-page .cs-demo-input input {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* Typography is a plain property row: label on the left, value on the right. */
+body.dna-page #dna-rules .font-field {
+  display: grid !important;
+  grid-template-columns: 64px minmax(0, 1fr) !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding-block: 13px !important;
+}
+
+body.dna-page #dna-rules .font-field > legend {
+  width: auto !important;
+  margin: 0 !important;
+  color: var(--dna-muted, #777) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  white-space: nowrap;
+}
+
+body.dna-page #dna-rules .font-select-control {
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+body.dna-page #dna-rules .font-field select {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 36px !important;
+  padding: 0 34px 0 10px !important;
+  border: 1px solid color-mix(in srgb, var(--dna-ink, #202020) 12%, transparent) !important;
+  border-radius: 7px !important;
+  background-color: var(--dna-surface, #fff) !important;
+  color: var(--dna-ink, #202020) !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  text-overflow: ellipsis;
+}
+
+/* Radius / spacing stay readable and compact, without extra container chrome. */
+body.dna-page #dna-rules .rule-pair {
+  gap: 14px !important;
+  padding-block: 13px 10px !important;
+}
+
+body.dna-page #dna-rules .rule-pair .rule-field > legend {
+  color: var(--dna-muted, #777) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+}
+
+body.dna-page #dna-rules .segmented-control button {
+  min-height: 32px !important;
+}
+
+@media (max-width: 760px) {
+  body.dna-page .cs-live {
+    grid-template-columns: 64px minmax(0, 1fr) !important;
+  }
+
+  body.dna-page .cs-live-head {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: start;
+    margin-top: 4px !important;
+  }
+}
