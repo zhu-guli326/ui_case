@@ -100,6 +100,7 @@ let workflowPerson = workflow?.querySelector("[data-workflow-person]");
 let activeWorkflowIndex = 0;
 let workflowScrollTrigger = null;
 let workflowGsapRetryFrame = 0;
+let workflowPosterQuickSetters = null;
 
 if (workflowDetail && workflowTitle && !workflowPerson) {
   workflowPerson = document.createElement("p");
@@ -211,14 +212,63 @@ workflowButtons.forEach((button, index) => {
   });
 });
 
+function ensurePosterQuickSetters() {
+  if (!workflowPoster || !window.gsap) return null;
+  if (workflowPosterQuickSetters) return workflowPosterQuickSetters;
+
+  window.gsap.set(workflowPoster, {
+    transformPerspective: 1100,
+    transformOrigin: "50% 50%",
+    force3D: true,
+  });
+
+  workflowPosterQuickSetters = {
+    rotationX: window.gsap.quickTo(workflowPoster, "rotationX", { duration: .34, ease: "power3.out" }),
+    rotationY: window.gsap.quickTo(workflowPoster, "rotationY", { duration: .34, ease: "power3.out" }),
+    scale: window.gsap.quickTo(workflowPoster, "scale", { duration: .38, ease: "power3.out" }),
+    y: window.gsap.quickTo(workflowPoster, "y", { duration: .38, ease: "power3.out" }),
+  };
+
+  return workflowPosterQuickSetters;
+}
+
 function resetPosterTilt() {
   if (!workflowPoster) return;
   workflowPoster.classList.remove("is-tilting");
-  workflowPoster.style.setProperty("--tilt-x", "0deg");
-  workflowPoster.style.setProperty("--tilt-y", "0deg");
   workflowPoster.style.setProperty("--pointer-x", "50%");
   workflowPoster.style.setProperty("--pointer-y", "50%");
+
+  if (window.gsap) {
+    window.gsap.to(workflowPoster, {
+      rotationX: 0,
+      rotationY: 0,
+      scale: 1,
+      y: 0,
+      boxShadow: "0 24px 54px rgba(0, 0, 0, .11)",
+      duration: .62,
+      ease: "power3.out",
+      overwrite: "auto",
+    });
+    return;
+  }
+
+  workflowPoster.style.setProperty("--tilt-x", "0deg");
+  workflowPoster.style.setProperty("--tilt-y", "0deg");
 }
+
+workflowPoster?.addEventListener("pointerenter", () => {
+  if (!workflowFinePointer.matches || workflowReducedMotion.matches) return;
+  workflowPoster.classList.add("is-tilting");
+  const setters = ensurePosterQuickSetters();
+  setters?.scale(1.035);
+  setters?.y(-10);
+  window.gsap?.to(workflowPoster, {
+    boxShadow: "0 38px 82px rgba(0, 0, 0, .18)",
+    duration: .32,
+    ease: "power2.out",
+    overwrite: "auto",
+  });
+});
 
 workflowPoster?.addEventListener("pointermove", (event) => {
   if (!workflowFinePointer.matches || workflowReducedMotion.matches) return;
@@ -228,8 +278,18 @@ workflowPoster?.addEventListener("pointermove", (event) => {
   workflowPoster.classList.add("is-tilting");
   workflowPoster.style.setProperty("--pointer-x", `${px * 100}%`);
   workflowPoster.style.setProperty("--pointer-y", `${py * 100}%`);
-  workflowPoster.style.setProperty("--tilt-x", `${(px - .5) * 8}deg`);
-  workflowPoster.style.setProperty("--tilt-y", `${(.5 - py) * 6}deg`);
+
+  const setters = ensurePosterQuickSetters();
+  if (setters) {
+    setters.rotationY((px - .5) * 12);
+    setters.rotationX((.5 - py) * 9);
+    setters.scale(1.035);
+    setters.y(-10);
+    return;
+  }
+
+  workflowPoster.style.setProperty("--tilt-x", `${(px - .5) * 10}deg`);
+  workflowPoster.style.setProperty("--tilt-y", `${(.5 - py) * 8}deg`);
 });
 
 workflowPoster?.addEventListener("pointerleave", resetPosterTilt);
