@@ -59,7 +59,6 @@
     // intentionally excluded so their top and bottom edges never pull apart.
     const depthLayers = [
       [q("#cases .featured-carousel-track"), -1.8],
-      [q("#capabilities .workflow-poster"), -2.1],
       [q("#design-system .showcase-scene"), -2.8],
       [q("#design-system-live .system-explainer-stage"), -2.2],
     ].filter(([node]) => Boolean(node));
@@ -102,7 +101,6 @@
     if (finePointer.matches) {
       const magneticTargets = qa([
         "#templates .template-filters a",
-        "#capabilities .workflow-stage-button",
         ".featured-carousel-arrow",
         ".project-footer nav a",
       ].join(","));
@@ -138,17 +136,6 @@
         yoyo: true,
         ease: "sine.inOut",
         transformOrigin: "50% 50%",
-      });
-    }
-
-    const workflowPoster = q("#capabilities .workflow-poster");
-    if (workflowPoster) {
-      gsap.to(workflowPoster, {
-        y: -5,
-        duration: 3.2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
       });
     }
 
