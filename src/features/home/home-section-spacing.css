@@ -107,20 +107,23 @@ html body.project-home > footer.project-footer.project-footer::before {
 }
 
 /* Canonical Chinese homepage section-title typography.
- * Keep layout/alignment and light/dark colors owned by each section, but force
- * every Chinese H2 to share one type scale, weight, tracking and line-height. */
+ * Match Ant Design's restrained system/CJK sans-serif rhythm: use the same
+ * family, medium title weight, neutral tracking and comfortable CJK leading on
+ * every homepage H2. Section layout and light/dark colors stay locally owned. */
 html[lang="zh-CN"] body.project-home main h2 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif !important;
   font-size: clamp(40px, 4.2vw, 60px) !important;
-  font-weight: 400 !important;
-  letter-spacing: -.012em !important;
-  line-height: 1.16 !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.24 !important;
+  font-synthesis: none !important;
   text-wrap: balance;
 }
 
 @media (max-width: 760px) {
   html[lang="zh-CN"] body.project-home main h2 {
     font-size: clamp(32px, 9vw, 42px) !important;
-    letter-spacing: -.008em !important;
-    line-height: 1.2 !important;
+    letter-spacing: 0 !important;
+    line-height: 1.28 !important;
   }
 }
