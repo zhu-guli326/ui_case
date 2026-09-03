@@ -1,15 +1,15 @@
 /*
  * Canonical homepage CTA.
  * This is the only final visual contract for the homepage CTA:
- * black full-screen section, centered oversized headline, green pill button.
+ * black centered section, oversized headline, green pill button.
  */
 html body.project-home main > .project-cta {
   position: relative !important;
   display: grid !important;
-  min-height: min(820px, 86vh) !important;
+  min-height: min(620px, 68vh) !important;
   place-items: center !important;
   overflow: hidden !important;
-  padding: clamp(96px, 11vh, 148px) 24px !important;
+  padding: clamp(64px, 7vh, 88px) 24px !important;
   border: 0 !important;
   background: #050505 !important;
   color: #fff !important;
@@ -92,8 +92,8 @@ html body.project-home main > .project-cta .project-cta-actions .button-outline 
 
 @media (max-width: 760px) {
   html body.project-home main > .project-cta {
-    min-height: 74vh !important;
-    padding: 88px 18px 104px !important;
+    min-height: 62vh !important;
+    padding: 64px 18px 76px !important;
   }
 
   html body.project-home main > .project-cta > .project-cta-inner {
