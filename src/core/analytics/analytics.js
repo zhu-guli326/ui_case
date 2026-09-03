@@ -82,5 +82,10 @@
     homeGlobalMotion.src = "./src/features/home/home-global-motion.js";
     homeGlobalMotion.defer = true;
     document.head.append(homeGlobalMotion);
+
+    const homeWorkflowRefinedMotion = document.createElement("script");
+    homeWorkflowRefinedMotion.src = "./src/features/home/home-workflow-refined-motion.js";
+    homeWorkflowRefinedMotion.defer = true;
+    document.head.append(homeWorkflowRefinedMotion);
   }
 })();
