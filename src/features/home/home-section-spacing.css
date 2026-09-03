@@ -18,6 +18,36 @@ body.project-home #overview .project-stats-grid {
   padding-block: clamp(30px, 3.6vw, 46px) !important;
 }
 
+/* Capability card copy must size to its content instead of being forced into
+ * fixed 20px rows. This keeps Chinese names and longer workflow descriptions
+ * from being clipped inside the portrait cards. */
+body.project-home #capabilities .capability-grid p {
+  display: flex !important;
+  min-height: 0 !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  margin-top: 12px !important;
+}
+
+body.project-home #capabilities .capability-grid p > span {
+  display: block !important;
+  min-width: 0 !important;
+  overflow: visible !important;
+  margin: 0 !important;
+  line-height: 1.45 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+}
+
+body.project-home #capabilities .capability-grid p > span:first-child {
+  color: #fff !important;
+  font-weight: 650 !important;
+}
+
+body.project-home #capabilities .capability-grid p > span:nth-child(2) {
+  color: rgba(255, 255, 255, .84) !important;
+}
+
 @media (max-width: 760px) {
   body.project-home #cases.featured-cases {
     padding-bottom: 6px !important;
