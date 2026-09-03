@@ -1,0 +1,321 @@
+/* Minimal Launcher inspector.
+ * This is intentionally the final visual layer for the left configuration panel.
+ * Keep only selection, state and controls; remove explanatory/card-like chrome.
+ */
+
+body.dna-page .dna-controls {
+  border-radius: 12px !important;
+  box-shadow: 0 5px 18px rgb(0 0 0 / 4%) !important;
+}
+
+body.dna-page #dna-rules,
+body.dna-page #dna-rules::before,
+body.dna-page #dna-rules::after {
+  box-shadow: none !important;
+}
+
+body.dna-page #dna-rules::before,
+body.dna-page #dna-rules::after {
+  display: none !important;
+  content: none !important;
+}
+
+body.dna-page #dna-rules .dna-section-body {
+  gap: 0 !important;
+  padding: 0 22px 8px !important;
+  background: var(--dna-surface, #fff) !important;
+}
+
+body.dna-page #dna-rules :is(.ds-field, .cs-field, .rule-field) {
+  padding: 16px 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--dna-ink, #202020) 8%, transparent) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.dna-page #dna-rules :is(.ds-field, .cs-field, .rule-field) > legend {
+  margin: 0 0 8px !important;
+  gap: 0 !important;
+  color: color-mix(in srgb, var(--dna-ink, #202020) 88%, transparent) !important;
+  font-size: 12px !important;
+  font-weight: 650 !important;
+  line-height: 1.3 !important;
+}
+
+body.dna-page #dna-rules :is(.ds-field, .cs-field, .rule-field) > legend::before {
+  display: none !important;
+  content: none !important;
+}
+
+/* Visual system: compact one-line selector. */
+body.dna-page .ds-trigger {
+  min-height: 50px !important;
+  grid-template-columns: 32px minmax(0, 1fr) auto !important;
+  gap: 10px !important;
+  padding: 5px 2px !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.dna-page .ds-trigger:hover,
+body.dna-page .ds-trigger[aria-expanded="true"],
+body.dna-page[data-design-system] .ds-trigger {
+  background: color-mix(in srgb, var(--dna-ink, #202020) 2.2%, transparent) !important;
+  box-shadow: none !important;
+}
+
+body.dna-page .ds-trigger-logo,
+body.dna-page .ds-brand-logo.ds-trigger-logo {
+  width: 30px !important;
+  height: 30px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+body.dna-page .ds-trigger-logo img {
+  width: 25px !important;
+  height: 25px !important;
+}
+
+body.dna-page .ds-trigger-copy {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 8px !important;
+  min-width: 0;
+}
+
+body.dna-page .ds-trigger-copy strong {
+  flex: 0 0 auto;
+  font-size: 14px !important;
+  font-weight: 650 !important;
+}
+
+body.dna-page .ds-trigger-copy small {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--dna-muted, #777) !important;
+  font-size: 10.5px !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body.dna-page[data-design-system] .ds-trigger-side::before {
+  display: none !important;
+}
+
+body.dna-page .ds-trigger-side {
+  gap: 6px !important;
+}
+
+body.dna-page .ds-note {
+  display: none !important;
+}
+
+/* Component system: same compact hierarchy. */
+body.dna-page #dna-rules .cs-field {
+  padding-block: 16px !important;
+}
+
+body.dna-page .cs-trigger {
+  min-height: 50px !important;
+  grid-template-columns: 32px minmax(0, 1fr) 14px !important;
+  gap: 10px !important;
+  padding: 5px 2px !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.dna-page .cs-trigger:hover,
+body.dna-page .cs-trigger[aria-expanded="true"] {
+  background: color-mix(in srgb, var(--dna-ink, #202020) 2.2%, transparent) !important;
+  box-shadow: none !important;
+}
+
+body.dna-page .cs-logo {
+  width: 30px !important;
+  height: 30px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+body.dna-page .cs-logo img {
+  width: 25px !important;
+  height: 25px !important;
+}
+
+body.dna-page .cs-trigger-copy {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 8px !important;
+  min-width: 0;
+}
+
+body.dna-page .cs-trigger-copy strong {
+  flex: 0 0 auto;
+  font-size: 14px !important;
+  font-weight: 650 !important;
+}
+
+body.dna-page .cs-trigger-copy small {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--dna-muted, #777) !important;
+  font-size: 10.5px !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body.dna-page .cs-live {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  margin: 7px 0 0 40px !important;
+}
+
+body.dna-page .cs-live-head {
+  min-height: 0 !important;
+  margin: 0 !important;
+}
+
+body.dna-page .cs-live-head a {
+  font-size: 10.5px !important;
+  white-space: nowrap;
+}
+
+body.dna-page .cs-live-row {
+  grid-template-columns: auto minmax(110px, 1fr) auto auto !important;
+  gap: 7px !important;
+}
+
+body.dna-page .cs-demo-button {
+  min-height: 30px !important;
+  padding-inline: 11px !important;
+  font-size: 10.5px !important;
+}
+
+body.dna-page .cs-demo-input input {
+  min-height: 30px !important;
+  padding-inline: 9px !important;
+  font-size: 10.5px !important;
+}
+
+body.dna-page .cs-demo-tag {
+  min-height: 28px !important;
+  padding-inline: 9px !important;
+  font-size: 10px !important;
+}
+
+body.dna-page .cs-demo-switch i {
+  width: 32px !important;
+  height: 18px !important;
+}
+
+body.dna-page .cs-demo-switch i::after {
+  top: 2px !important;
+  right: 2px !important;
+  width: 14px !important;
+  height: 14px !important;
+}
+
+body.dna-page .cs-note {
+  display: none !important;
+}
+
+body.dna-page .cs-menu {
+  top: 96px !important;
+}
+
+/* Typography: one short row, no helper copy. */
+body.dna-page #dna-rules .font-field {
+  display: grid !important;
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding-block: 14px !important;
+}
+
+body.dna-page #dna-rules .font-field > legend {
+  margin: 0 !important;
+}
+
+body.dna-page #dna-rules .font-field .select-control {
+  margin: 0 !important;
+}
+
+body.dna-page #dna-rules .font-field select {
+  min-height: 38px !important;
+  border-radius: 7px !important;
+  font-size: 11.5px !important;
+}
+
+body.dna-page #dna-rules .field-help {
+  display: none !important;
+}
+
+/* Radius + spacing: compact tuning row. */
+body.dna-page #dna-rules .rule-pair {
+  gap: 18px !important;
+  padding: 14px 0 12px !important;
+}
+
+body.dna-page #dna-rules .rule-pair .rule-field > legend {
+  margin-bottom: 7px !important;
+}
+
+body.dna-page #dna-rules .segmented-control {
+  border-radius: 7px !important;
+}
+
+body.dna-page #dna-rules .segmented-control button {
+  min-height: 34px !important;
+  padding-inline: 6px !important;
+  font-size: 10.5px !important;
+}
+
+/* Slightly tighten the step headers so the inspector reads as a tool, not a landing page. */
+body.dna-page .dna-section-head {
+  min-height: 82px !important;
+  padding-block: 15px !important;
+}
+
+body.dna-page .dna-section-head > span {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 8px !important;
+}
+
+body.dna-page .dna-section-head h2 {
+  font-size: 17px !important;
+}
+
+body.dna-page .dna-section-head p {
+  margin-top: 3px !important;
+  font-size: 11.5px !important;
+}
+
+@media (max-width: 760px) {
+  body.dna-page .cs-live {
+    grid-template-columns: 1fr;
+    margin-left: 40px !important;
+  }
+}
+
+@media (max-width: 540px) {
+  body.dna-page #dna-rules .font-field {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  body.dna-page #dna-rules .rule-pair {
+    grid-template-columns: 1fr !important;
+  }
+}
