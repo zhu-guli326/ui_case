@@ -1,12 +1,60 @@
 /* App discovery presentation only.
- * Artwork URLs are owned by the pre-home runtime in analytics.js so there is
- * one source of truth and home.js cannot leave stale/blank preview slots. */
-#templates.discovery-strip .template-card:nth-child(1) > img {
-  object-fit: contain !important;
-  object-position: center !important;
-  background: #f3f1ec !important;
-  opacity: 1 !important;
-  visibility: visible !important;
+ *
+ * home.js still rewrites the first <img> src to its legacy Fashion Shopping
+ * fallback during discovery renders. Keep the approved artwork independent of
+ * that legacy src by painting each of the four visual slots from the canonical
+ * /assets/home/discovery/app-*.png paths. These nth-child rules work with both
+ * DOM shapes used by the page: the original img/span/small/div slots and the
+ * four-img hydrated variant. */
+#templates.discovery-strip .template-card:nth-child(1) > :is(img, .template-card-shade, small, div) {
+  background-color: #f3f1ec !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  color: transparent !important;
+}
+
+#templates.discovery-strip .template-card:nth-child(1) > :nth-child(1) {
+  background-image: url("/assets/home/discovery/app-1.png") !important;
+}
+
+#templates.discovery-strip .template-card:nth-child(1) > :nth-child(2) {
+  background-image: url("/assets/home/discovery/app-2.png") !important;
+}
+
+#templates.discovery-strip .template-card:nth-child(1) > :nth-child(3) {
+  background-image: url("/assets/home/discovery/app-3.png") !important;
+}
+
+#templates.discovery-strip .template-card:nth-child(1) > :nth-child(4) {
+  background-image: url("/assets/home/discovery/app-4.png") !important;
+}
+
+/* For real <img> nodes, content replaces the legacy/broken src itself instead
+ * of merely sitting behind it. This prevents broken-image icons / alt text from
+ * appearing while preserving the existing GSAP card transforms. */
+#templates.discovery-strip .template-card:nth-child(1) > img:nth-child(1) {
+  content: url("/assets/home/discovery/app-1.png") !important;
+}
+
+#templates.discovery-strip .template-card:nth-child(1) > img:nth-child(2) {
+  content: url("/assets/home/discovery/app-2.png") !important;
+}
+
+#templates.discovery-strip .template-card:nth-child(1) > img:nth-child(3) {
+  content: url("/assets/home/discovery/app-3.png") !important;
+}
+
+#templates.discovery-strip .template-card:nth-child(1) > img:nth-child(4) {
+  content: url("/assets/home/discovery/app-4.png") !important;
+}
+
+#templates.discovery-strip .template-card:nth-child(1) > small {
+  font-size: 0 !important;
+}
+
+#templates.discovery-strip .template-card:nth-child(1) > div > * {
+  display: none !important;
 }
 
 #templates.discovery-strip .template-card:nth-child(1) > i {
