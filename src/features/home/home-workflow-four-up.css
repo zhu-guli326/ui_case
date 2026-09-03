@@ -1,5 +1,10 @@
 /* Four-up workflow card effect: restore the tactile portrait interaction without changing the layout. */
 @media (hover: hover) and (pointer: fine) {
+  #capabilities .capability-grid {
+    perspective: 1400px;
+    perspective-origin: 50% 45%;
+  }
+
   #capabilities .capability-grid > a {
     --workflow-x: 50%;
     --workflow-y: 50%;
@@ -16,13 +21,13 @@
     inset: 0;
     border-radius: inherit;
     background:
-      radial-gradient(circle at var(--workflow-x) var(--workflow-y), rgba(255,255,255,.28) 0%, rgba(255,255,255,.11) 16%, transparent 42%),
-      radial-gradient(circle at var(--workflow-x) var(--workflow-y), rgba(115,242,167,.18) 0%, transparent 48%);
+      radial-gradient(circle at var(--workflow-x) var(--workflow-y), rgba(255,255,255,.32) 0%, rgba(255,255,255,.12) 17%, transparent 43%),
+      radial-gradient(circle at var(--workflow-x) var(--workflow-y), rgba(115,242,167,.22) 0%, transparent 50%);
     content: "";
     opacity: var(--workflow-glow);
     mix-blend-mode: screen;
     pointer-events: none;
-    transition: opacity .28s ease;
+    transition: opacity .24s ease;
   }
 
   #capabilities .capability-grid > a::after {
@@ -31,7 +36,7 @@
     inset: 0;
     border: 1px solid rgba(255,255,255,.18);
     border-radius: inherit;
-    background: linear-gradient(115deg, rgba(255,255,255,.08), transparent 30% 70%, rgba(115,242,167,.06));
+    background: linear-gradient(115deg, rgba(255,255,255,.08), transparent 30% 70%, rgba(115,242,167,.08));
     content: "";
     opacity: .55;
     pointer-events: none;
@@ -39,7 +44,7 @@
   }
 
   #capabilities .capability-grid > a.workflow-card-active::after {
-    border-color: rgba(255,255,255,.42);
+    border-color: rgba(255,255,255,.48);
     opacity: 1;
   }
 
@@ -51,12 +56,12 @@
   }
 
   #capabilities .capability-grid > a.workflow-card-active > img {
-    filter: saturate(1.05) contrast(1.02);
+    filter: saturate(1.08) contrast(1.025);
   }
 
   #capabilities .capability-grid > a > small,
   #capabilities .capability-grid > a > div {
-    transform: translateZ(32px);
+    transform: translateZ(34px);
     backface-visibility: hidden;
   }
 }
