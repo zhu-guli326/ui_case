@@ -58,6 +58,38 @@
   }
 
   if (/\/learn\.html$/.test(location.pathname) || /\/$/.test(location.pathname)) {
+    /* Hydrate the App rail with four real images before home.js binds its
+     * multi-card motion. This avoids production-only blank cards caused by
+     * relying on CSS background images on span/small/div placeholders. */
+    const appCard = document.querySelector("#templates .template-grid .template-card:first-child");
+    const appArtwork = [
+      ["./assets/home/discovery/app-1.png", "App design preview 1"],
+      ["./assets/home/discovery/app-2.png", "App design preview 2"],
+      ["./assets/home/discovery/app-3.png", "App design preview 3"],
+      ["./assets/home/discovery/app-4.png", "App design preview 4"],
+    ];
+
+    if (appCard && appCard.dataset.appArtworkHydrated !== "true") {
+      const images = appArtwork.map(([src, alt]) => {
+        const image = document.createElement("img");
+        image.src = src;
+        image.alt = alt;
+        image.loading = "lazy";
+        image.decoding = "async";
+        return image;
+      });
+      appCard.replaceChildren(...images);
+      appCard.dataset.appArtworkHydrated = "true";
+
+      /* home.js assigns a generic fallback to the first image while it sets up
+       * the discovery tabs; restore the four approved assets after setup. */
+      window.addEventListener("load", () => {
+        images.forEach((image, index) => {
+          image.src = appArtwork[index][0];
+        });
+      }, { once: true });
+    }
+
     const homeFooterCrop = document.createElement("link");
     homeFooterCrop.rel = "stylesheet";
     homeFooterCrop.href = "./src/features/home/home-footer-crop.css";
