@@ -1,0 +1,39 @@
+/* Footer image band: preserve the source aspect ratio and crop instead of stretching. */
+html body.project-home > footer.project-footer.project-footer {
+  background-color: #242424 !important;
+  background-image: none !important;
+}
+
+html body.project-home > footer.project-footer.project-footer::before {
+  position: absolute !important;
+  z-index: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: auto !important;
+  left: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 250px !important;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, .16), rgba(0, 0, 0, .34)),
+    url("../../../assets/home/design-dna-interior.jpg") center 50% / cover no-repeat !important;
+  content: "" !important;
+  pointer-events: none !important;
+}
+
+html body.project-home > footer.project-footer.project-footer::after {
+  display: none !important;
+  content: none !important;
+}
+
+@media (max-width: 900px) {
+  html body.project-home > footer.project-footer.project-footer::before {
+    height: 205px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  html body.project-home > footer.project-footer.project-footer::before {
+    height: 170px !important;
+  }
+}
