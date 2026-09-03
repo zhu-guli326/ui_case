@@ -56,4 +56,11 @@
     launcherStability.defer = true;
     document.head.append(launcherStability);
   }
+
+  if (/\/learn\.html$/.test(location.pathname) || /\/$/.test(location.pathname)) {
+    const homeCtaMotion = document.createElement("script");
+    homeCtaMotion.src = "./src/features/home/home-cta-motion.js";
+    homeCtaMotion.defer = true;
+    document.head.append(homeCtaMotion);
+  }
 })();
