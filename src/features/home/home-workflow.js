@@ -130,6 +130,17 @@ function workflowHref(route) {
   return `${target.pathname.split("/").pop()}${target.search}${target.hash}`;
 }
 
+function applyWorkflowEditorialSpacing() {
+  if (!workflowHeading) return;
+
+  if (workflowDesktop.matches) {
+    workflowHeading.style.marginBottom = "clamp(22px, 2.1vw, 32px)";
+    return;
+  }
+
+  workflowHeading.style.removeProperty("margin-bottom");
+}
+
 function applyWorkflowContent(index) {
   const stage = WORKFLOW_STAGES[index];
   const language = workflowLanguage();
@@ -150,12 +161,49 @@ function applyWorkflowContent(index) {
   if (workflowBody) workflowBody.textContent = stage.body[language];
 }
 
+function workflowStageScale(buttonIndex, activeIndex) {
+  const distance = Math.abs(buttonIndex - activeIndex);
+  if (distance === 0) return 1.08;
+  if (distance === 1) return 0.91;
+  if (distance === 2) return 0.84;
+  return 0.78;
+}
+
 function setWorkflowButtonState(index) {
   workflowButtons.forEach((button, buttonIndex) => {
     const selected = buttonIndex === index;
     button.classList.toggle("is-active", selected);
     button.setAttribute("aria-selected", String(selected));
     button.tabIndex = selected ? 0 : -1;
+
+    if (!workflowDesktop.matches) {
+      if (window.gsap) window.gsap.set(button, { clearProps: "transform,opacity,transformOrigin" });
+      else {
+        button.style.removeProperty("transform");
+        button.style.removeProperty("opacity");
+        button.style.removeProperty("transform-origin");
+      }
+      return;
+    }
+
+    const scale = workflowStageScale(buttonIndex, index);
+    const opacity = selected ? 1 : Math.max(0.46, 0.78 - (Math.abs(buttonIndex - index) * 0.1));
+
+    if (window.gsap && !workflowReducedMotion.matches) {
+      window.gsap.to(button, {
+        scale,
+        opacity,
+        transformOrigin: "left center",
+        duration: selected ? 0.52 : 0.42,
+        ease: "power3.out",
+        overwrite: "auto",
+      });
+      return;
+    }
+
+    button.style.transformOrigin = "left center";
+    button.style.transform = `scale(${scale})`;
+    button.style.opacity = String(opacity);
   });
 }
 
@@ -408,12 +456,18 @@ function initWorkflowScrollMotion(attempt = 0) {
 
 workflowReducedMotion.addEventListener?.("change", () => {
   resetPosterTilt();
+  setWorkflowButtonState(activeWorkflowIndex);
   initWorkflowScrollMotion();
 });
 workflowFinePointer.addEventListener?.("change", resetPosterTilt);
-workflowDesktop.addEventListener?.("change", () => initWorkflowScrollMotion());
+workflowDesktop.addEventListener?.("change", () => {
+  applyWorkflowEditorialSpacing();
+  setWorkflowButtonState(activeWorkflowIndex);
+  initWorkflowScrollMotion();
+});
 window.addEventListener("resize", () => {
   workflowPosterPointerRect = null;
+  applyWorkflowEditorialSpacing();
   workflowScrollTrigger?.refresh();
 });
 window.addEventListener("image2:languagechange", () => renderWorkflow(activeWorkflowIndex, { animate: false }));
@@ -421,5 +475,6 @@ window.addEventListener("image2:languagechange", () => renderWorkflow(activeWork
 const workflowLanguageObserver = new MutationObserver(() => renderWorkflow(activeWorkflowIndex, { animate: false }));
 workflowLanguageObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
 
+applyWorkflowEditorialSpacing();
 renderWorkflow(0, { animate: false });
 initWorkflowScrollMotion();
