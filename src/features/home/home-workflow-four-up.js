@@ -56,7 +56,6 @@
     const card = document.createElement("a");
     card.href = hrefFor(stage.route);
     card.dataset.smartLangLink = stage.route;
-    card.dataset.workflowTiltReady = "true";
     card.innerHTML = `
       <img src="${stage.image}" alt="${stage.alt[lang()]}" loading="lazy" decoding="async">
       <span class="capability-shade" aria-hidden="true"></span>
@@ -72,45 +71,83 @@
   function addTilt(card) {
     const initGsap = (attempt = 0) => {
       if (!window.gsap) {
-        if (attempt < 180) requestAnimationFrame(() => initGsap(attempt + 1));
+        if (attempt < 240) requestAnimationFrame(() => initGsap(attempt + 1));
         return;
       }
+
       const { gsap } = window;
-      gsap.set(card, { transformPerspective: 1100, transformOrigin: "50% 50%", force3D: true });
+      const image = card.querySelector("img");
+      let rect = null;
+
+      const rotateX = gsap.quickTo(card, "rotationX", { duration: .32, ease: "power3.out" });
+      const rotateY = gsap.quickTo(card, "rotationY", { duration: .32, ease: "power3.out" });
+      const scale = gsap.quickTo(card, "scale", { duration: .34, ease: "power3.out" });
+      const moveY = gsap.quickTo(card, "y", { duration: .34, ease: "power3.out" });
+      const imageX = image ? gsap.quickTo(image, "x", { duration: .4, ease: "power3.out" }) : null;
+      const imageY = image ? gsap.quickTo(image, "y", { duration: .4, ease: "power3.out" }) : null;
+      const imageScale = image ? gsap.quickTo(image, "scale", { duration: .42, ease: "power3.out" }) : null;
 
       const reset = () => {
+        rect = null;
+        card.classList.remove("workflow-card-active");
+        card.style.setProperty("--workflow-x", "50%");
+        card.style.setProperty("--workflow-y", "50%");
+        card.style.setProperty("--workflow-glow", "0");
+        rotateX(0);
+        rotateY(0);
+        scale(1);
+        moveY(0);
+        imageX?.(0);
+        imageY?.(0);
+        imageScale?.(1.001);
         gsap.to(card, {
-          rotationX: 0,
-          rotationY: 0,
-          scale: 1,
-          y: 0,
           boxShadow: "0 16px 36px rgba(0,0,0,.10)",
-          duration: .65,
+          duration: .58,
           ease: "power3.out",
           overwrite: "auto",
         });
       };
 
-      card.addEventListener("pointermove", (event) => {
+      card.addEventListener("pointerenter", () => {
         if (!finePointer.matches || reducedMotion.matches) return;
-        const rect = card.getBoundingClientRect();
-        const px = Math.max(0, Math.min(1, (event.clientX - rect.left) / Math.max(rect.width, 1)));
-        const py = Math.max(0, Math.min(1, (event.clientY - rect.top) / Math.max(rect.height, 1)));
+        rect = card.getBoundingClientRect();
+        card.classList.add("workflow-card-active");
+        card.style.setProperty("--workflow-glow", "1");
+        scale(1.022);
+        moveY(-8);
+        imageScale?.(1.045);
         gsap.to(card, {
-          rotationY: (px - .5) * 7,
-          rotationX: (.5 - py) * 5,
-          scale: 1.018,
-          y: -6,
-          boxShadow: "0 28px 62px rgba(0,0,0,.18)",
-          duration: .28,
+          boxShadow: "0 34px 76px rgba(0,0,0,.20)",
+          duration: .3,
           ease: "power2.out",
           overwrite: "auto",
         });
       });
+
+      card.addEventListener("pointermove", (event) => {
+        if (!finePointer.matches || reducedMotion.matches) return;
+        rect ||= card.getBoundingClientRect();
+        const px = Math.max(0, Math.min(1, (event.clientX - rect.left) / Math.max(rect.width, 1)));
+        const py = Math.max(0, Math.min(1, (event.clientY - rect.top) / Math.max(rect.height, 1)));
+        const dx = px - .5;
+        const dy = py - .5;
+
+        card.style.setProperty("--workflow-x", `${px * 100}%`);
+        card.style.setProperty("--workflow-y", `${py * 100}%`);
+        card.style.setProperty("--workflow-glow", "1");
+
+        rotateY(dx * 11);
+        rotateX(-dy * 8);
+        imageX?.(-dx * 12);
+        imageY?.(-dy * 10);
+      });
+
       card.addEventListener("pointerleave", reset);
+      window.addEventListener("resize", () => { rect = null; });
       reducedMotion.addEventListener?.("change", reset);
       finePointer.addEventListener?.("change", reset);
     };
+
     initGsap();
   }
 
@@ -130,20 +167,28 @@
 
     workflow.replaceWith(grid);
 
-    if (window.gsap && window.ScrollTrigger && !reducedMotion.matches) {
+    const animateIn = (attempt = 0) => {
+      if (!window.gsap || !window.ScrollTrigger) {
+        if (attempt < 240) requestAnimationFrame(() => animateIn(attempt + 1));
+        return;
+      }
+      if (reducedMotion.matches) return;
+
       window.gsap.from(grid.children, {
         autoAlpha: 0,
-        y: 30,
-        scale: .97,
+        y: 34,
+        scale: .965,
+        filter: "blur(8px)",
         stagger: .09,
-        duration: .72,
+        duration: .78,
         ease: "power3.out",
-        clearProps: "opacity,visibility,transform",
+        clearProps: "opacity,visibility,filter",
         scrollTrigger: { trigger: grid, start: "top 84%", once: true },
       });
-    }
+      window.ScrollTrigger.refresh();
+    };
 
-    window.ScrollTrigger?.refresh?.();
+    animateIn();
   }
 
   if (document.readyState === "loading") {
