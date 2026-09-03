@@ -88,6 +88,8 @@ const WORKFLOW_STAGES = [
 const WORKFLOW_STAGE_BOUNDARIES = [0.24, 0.5, 0.76];
 
 const workflow = document.querySelector("[data-workflow-explorer]");
+const workflowSection = workflow?.closest("#capabilities");
+const workflowHeading = workflowSection?.querySelector(".section-heading");
 const workflowButtons = [...(workflow?.querySelectorAll("[data-workflow-stage]") || [])];
 const workflowPoster = workflow?.querySelector("[data-workflow-poster]");
 const workflowImage = workflow?.querySelector("[data-workflow-image]");
@@ -338,6 +340,21 @@ workflowPoster?.addEventListener("pointermove", (event) => {
 
 workflowPoster?.addEventListener("pointerleave", resetPosterTilt);
 
+function setWorkflowHeadingPinned(enabled) {
+  if (!workflowHeading) return;
+
+  if (enabled) {
+    workflowHeading.style.position = "sticky";
+    workflowHeading.style.top = "24px";
+    workflowHeading.style.zIndex = "6";
+    return;
+  }
+
+  workflowHeading.style.removeProperty("position");
+  workflowHeading.style.removeProperty("top");
+  workflowHeading.style.removeProperty("z-index");
+}
+
 function destroyWorkflowScrollMotion() {
   if (workflowGsapRetryFrame) {
     window.cancelAnimationFrame(workflowGsapRetryFrame);
@@ -347,6 +364,7 @@ function destroyWorkflowScrollMotion() {
   workflowScrollTrigger = null;
   workflow?.classList.remove("is-scroll-driven");
   workflow?.style.setProperty("--workflow-scroll-progress", "0deg");
+  setWorkflowHeadingPinned(false);
 }
 
 function initWorkflowScrollMotion(attempt = 0) {
@@ -365,6 +383,7 @@ function initWorkflowScrollMotion(attempt = 0) {
   const { gsap, ScrollTrigger } = window;
   gsap.registerPlugin(ScrollTrigger);
   workflow.classList.add("is-scroll-driven");
+  setWorkflowHeadingPinned(true);
 
   workflowScrollTrigger = ScrollTrigger.create({
     trigger: workflow,
