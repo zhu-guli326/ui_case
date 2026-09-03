@@ -58,6 +58,11 @@
   }
 
   if (/\/learn\.html$/.test(location.pathname) || /\/$/.test(location.pathname)) {
+    const homeFooterCrop = document.createElement("link");
+    homeFooterCrop.rel = "stylesheet";
+    homeFooterCrop.href = "./src/features/home/home-footer-crop.css";
+    document.head.append(homeFooterCrop);
+
     const homeCtaMotion = document.createElement("script");
     homeCtaMotion.src = "./src/features/home/home-cta-motion.js";
     homeCtaMotion.defer = true;
