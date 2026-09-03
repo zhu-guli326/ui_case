@@ -4,11 +4,12 @@ const ctaReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 let ctaTypingTimer = 0;
 let ctaTypingObserver = null;
-let ctaTypingVisible = false;
 let ctaTypingGeneration = 0;
 
 function ctaLanguage() {
-  if (document.documentElement.lang === "en") return "en";
+  const documentLanguage = document.documentElement.lang.toLowerCase();
+  if (documentLanguage.startsWith("en")) return "en";
+  if (documentLanguage.startsWith("zh")) return "zh";
   return new URLSearchParams(location.search).get("lang") === "en" ? "en" : "zh";
 }
 
@@ -89,6 +90,12 @@ function typeCtaHeading() {
   ctaTypingTimer = window.setTimeout(tick, 90);
 }
 
+function ctaIsInViewport() {
+  if (!ctaHeading) return false;
+  const rect = ctaHeading.getBoundingClientRect();
+  return rect.bottom > 0 && rect.top < window.innerHeight;
+}
+
 function prepareCtaTyping() {
   if (!ctaHeading) return;
   const text = ctaFullText();
@@ -104,7 +111,6 @@ function prepareCtaTyping() {
   ctaHeading.textContent = "";
   ctaTypingObserver?.disconnect();
   ctaTypingObserver = new IntersectionObserver(([entry]) => {
-    ctaTypingVisible = entry.isIntersecting;
     if (!entry.isIntersecting) return;
     ctaTypingObserver?.disconnect();
     typeCtaHeading();
@@ -119,7 +125,7 @@ if (ctaHeading) {
     window.clearTimeout(ctaTypingTimer);
     ctaTypingGeneration += 1;
     window.requestAnimationFrame(() => {
-      if (ctaTypingVisible) typeCtaHeading();
+      if (ctaIsInViewport()) typeCtaHeading();
       else prepareCtaTyping();
     });
   });
