@@ -67,5 +67,10 @@
     homeSystemLiveMotion.src = "./src/features/home/home-system-live-motion.js";
     homeSystemLiveMotion.defer = true;
     document.head.append(homeSystemLiveMotion);
+
+    const homeHeroMotion = document.createElement("script");
+    homeHeroMotion.src = "./src/features/home/home-hero-motion.js";
+    homeHeroMotion.defer = true;
+    document.head.append(homeHeroMotion);
   }
 })();
