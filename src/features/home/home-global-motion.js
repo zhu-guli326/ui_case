@@ -24,26 +24,26 @@
     const q = (selector, scope = document) => scope.querySelector(selector);
     const qa = (selector, scope = document) => [...scope.querySelectorAll(selector)];
 
-    // 1. Give every homepage chapter one shared entrance rhythm. Existing local
-    // animations continue to run on the children; this only moves the section shell.
-    const chapters = [
-      q("#cases"),
-      q("#overview"),
-      q("#templates"),
-      q("#capabilities"),
-      q("#design-system"),
-      q("#design-system-live"),
-      q(".project-cta"),
-      q(".project-footer"),
-    ].filter(Boolean);
+    // Never translate the section shell itself: moving a full section creates a
+    // visible gap between adjacent backgrounds. Animate only safe inner content.
+    const chapterEntrances = [
+      [q("#cases"), q("#cases .featured-carousel")],
+      [q("#overview"), q("#overview .project-stats-grid")],
+      [q("#templates"), q("#templates .project-container")],
+      [q("#capabilities"), q("#capabilities .project-container")],
+      [q("#design-system"), q("#design-system .showcase-copy")],
+      [q("#design-system-live"), q("#design-system-live .system-explainer-heading")],
+      [q(".project-cta"), q(".project-cta .project-cta-inner")],
+      [q(".project-footer"), q(".project-footer .footer-brand")],
+    ].filter(([section, target]) => Boolean(section && target));
 
-    chapters.forEach((section, index) => {
-      gsap.fromTo(section,
-        { autoAlpha: .9, y: index % 2 ? 34 : 46 },
+    chapterEntrances.forEach(([section, target], index) => {
+      gsap.fromTo(target,
+        { autoAlpha: .88, y: index % 2 ? 20 : 26 },
         {
           autoAlpha: 1,
           y: 0,
-          duration: 1.05,
+          duration: .92,
           ease: "power3.out",
           clearProps: "opacity,visibility,transform",
           scrollTrigger: {
@@ -55,23 +55,19 @@
       );
     });
 
-    // 2. Long-scroll depth: move safe parent layers rather than the elements that
-    // already own their own entrance / hover transforms.
+    // Keep parallax on visual layers only. The stats / section containers are
+    // intentionally excluded so their top and bottom edges never pull apart.
     const depthLayers = [
-      [q("#cases .featured-carousel-track"), -2.8],
-      [q("#overview .project-stats-grid"), -2.1],
-      [q("#templates .project-container"), -1.8],
-      [q("#capabilities .workflow-explorer"), -2.6],
-      [q("#design-system .showcase-scene"), -3.6],
-      [q("#design-system-live .system-explainer-stage"), -2.8],
-      [q(".project-cta .project-cta-inner"), -1.7],
-      [q(".project-footer .footer-grid"), -1.4],
+      [q("#cases .featured-carousel-track"), -1.8],
+      [q("#capabilities .workflow-poster"), -2.1],
+      [q("#design-system .showcase-scene"), -2.8],
+      [q("#design-system-live .system-explainer-stage"), -2.2],
     ].filter(([node]) => Boolean(node));
 
     depthLayers.forEach(([node, amount]) => {
       const trigger = node.closest("section, footer") || node;
       gsap.fromTo(node,
-        { yPercent: amount * -0.4 },
+        { yPercent: amount * -0.3 },
         {
           yPercent: amount,
           ease: "none",
@@ -85,8 +81,7 @@
       );
     });
 
-    // 3. Headings get a second, softer focus pass so the page reads as one motion
-    // system rather than a collection of unrelated card animations.
+    // Headings retain a soft focus reveal without changing section geometry.
     qa("main .section-heading h2, main .template-gallery-heading h2, main .showcase-copy h2, main .system-explainer-heading h2, main .project-cta h2")
       .forEach((heading) => {
         const section = heading.closest("section") || heading;
@@ -103,7 +98,7 @@
         );
       });
 
-    // 4. Navigation-like controls use the same magnetic response throughout Home.
+    // Navigation-like controls use the same magnetic response throughout Home.
     if (finePointer.matches) {
       const magneticTargets = qa([
         "#templates .template-filters a",
@@ -133,12 +128,11 @@
       });
     }
 
-    // 5. Discovery row gets a subtle breathing depth without touching the actual
-    // image crop / demo paths.
+    // Discovery row gets subtle breathing depth without touching image crop / paths.
     const discoveryGrid = q("#templates .template-grid");
     if (discoveryGrid) {
       gsap.to(discoveryGrid, {
-        scale: 1.008,
+        scale: 1.006,
         duration: 3.8,
         repeat: -1,
         yoyo: true,
@@ -147,11 +141,10 @@
       });
     }
 
-    // 6. Workflow poster and Design System scene receive a low-frequency float.
     const workflowPoster = q("#capabilities .workflow-poster");
     if (workflowPoster) {
       gsap.to(workflowPoster, {
-        y: -7,
+        y: -5,
         duration: 3.2,
         repeat: -1,
         yoyo: true,
@@ -173,7 +166,6 @@
       });
     }
 
-    // 7. CTA and footer close the page with a more deliberate reveal.
     const ctaActions = qa(".project-cta-actions a");
     if (ctaActions.length) {
       gsap.from(ctaActions, {
@@ -191,12 +183,12 @@
     const footerBrand = q(".project-footer .footer-brand");
     if (footerBrand) {
       gsap.fromTo(footerBrand,
-        { autoAlpha: .55, y: 44, scale: .985 },
+        { autoAlpha: .55, y: 30, scale: .99 },
         {
           autoAlpha: 1,
           y: 0,
           scale: 1,
-          duration: 1.1,
+          duration: 1.05,
           ease: "power3.out",
           clearProps: "opacity,visibility,transform",
           scrollTrigger: { trigger: ".project-footer", start: "top 72%", once: true },
@@ -204,8 +196,6 @@
       );
     }
 
-    // Keep ScrollTrigger geometry correct after lazy images and dynamic discovery
-    // previews settle into their final dimensions.
     window.setTimeout(() => ScrollTrigger.refresh(), 180);
     window.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
   }
