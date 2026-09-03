@@ -1,39 +1,30 @@
 /* Stable App discovery artwork.
- * These four images are repository assets, not runtime placeholders, so the
- * App Design rail stays identical across refreshes and motion availability. */
+ * The four App previews are real <img> elements so production cannot fall back
+ * to empty placeholder surfaces when a background-image rule is stale/cached. */
 #templates.discovery-strip .template-card:nth-child(1) > img {
-  content: url("../../../assets/home/discovery/app-1.png") !important;
   object-fit: contain !important;
   object-position: center !important;
   background: #f3f1ec !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
-#templates.discovery-strip .template-card:nth-child(1) > .template-card-shade {
-  background: #f3f1ec url("../../../assets/home/discovery/app-2.png") center / contain no-repeat !important;
+#templates.discovery-strip .template-card:nth-child(1) > img:nth-child(1) {
+  content: url("../../../assets/home/discovery/app-1.png") !important;
 }
 
-#templates.discovery-strip .template-card:nth-child(1) > small {
-  background: #f3f1ec url("../../../assets/home/discovery/app-3.png") center / contain no-repeat !important;
-  color: transparent !important;
-  font-size: 0 !important;
-  text-shadow: none !important;
+#templates.discovery-strip .template-card:nth-child(1) > img:nth-child(2) {
+  content: url("../../../assets/home/discovery/app-2.png") !important;
 }
 
-#templates.discovery-strip .template-card:nth-child(1) > div {
-  background: #f3f1ec url("../../../assets/home/discovery/app-4.png") center / contain no-repeat !important;
-  color: transparent !important;
+#templates.discovery-strip .template-card:nth-child(1) > img:nth-child(3) {
+  content: url("../../../assets/home/discovery/app-3.png") !important;
 }
 
-#templates.discovery-strip .template-card:nth-child(1) > div > * {
-  visibility: hidden !important;
+#templates.discovery-strip .template-card:nth-child(1) > img:nth-child(4) {
+  content: url("../../../assets/home/discovery/app-4.png") !important;
 }
 
 #templates.discovery-strip .template-card:nth-child(1) > i {
   display: none !important;
-}
-
-/* Keep the four artwork tiles readable even before GSAP finishes loading. */
-#templates.discovery-strip .template-card:nth-child(1) > :is(img, .template-card-shade, small, div) {
-  opacity: 1;
-  visibility: visible;
 }
