@@ -63,6 +63,11 @@
     homeFooterCrop.href = "./src/features/home/home-footer-crop.css";
     document.head.append(homeFooterCrop);
 
+    const homeSectionSpacing = document.createElement("link");
+    homeSectionSpacing.rel = "stylesheet";
+    homeSectionSpacing.href = "./src/features/home/home-section-spacing.css";
+    document.head.append(homeSectionSpacing);
+
     const homeCtaMotion = document.createElement("script");
     homeCtaMotion.src = "./src/features/home/home-cta-motion.js";
     homeCtaMotion.defer = true;
