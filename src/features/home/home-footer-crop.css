@@ -1,5 +1,5 @@
 /* Canonical homepage footer.
- * Keep the dark image band, then transition into the white Footer 2 panel used by
+ * Keep the image band, then transition into the white Footer 2 panel used by
  * the approved reference: curved shoulders, oversized black wordmark, flat links,
  * centered social row and quiet legal metadata. */
 html body.project-home > footer.project-footer.project-footer {
@@ -8,12 +8,13 @@ html body.project-home > footer.project-footer.project-footer {
   min-height: 720px !important;
   overflow: hidden !important;
   padding: 0 0 18px !important;
-  background-color: #242424 !important;
+  background-color: #fff !important;
   background-image: none !important;
   color: #111 !important;
 }
 
-/* Preserve the source image as a cropped band instead of stretching it. */
+/* Crop into the photographic part of the source so the previous flat gray area
+ * on the right never appears in the footer band. */
 html body.project-home > footer.project-footer.project-footer::before {
   position: absolute !important;
   z-index: 0 !important;
@@ -24,9 +25,11 @@ html body.project-home > footer.project-footer.project-footer::before {
   display: block !important;
   width: 100% !important;
   height: 250px !important;
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, .16), rgba(0, 0, 0, .34)),
-    url("../../../assets/home/design-dna-interior.jpg") center 50% / cover no-repeat !important;
+  background-color: #fff !important;
+  background-image: url("../../../assets/home/design-dna-interior.jpg") !important;
+  background-repeat: no-repeat !important;
+  background-position: left 50% !important;
+  background-size: 160% auto !important;
   content: "" !important;
   pointer-events: none !important;
 }
@@ -249,6 +252,7 @@ html body.project-home > footer.project-footer.project-footer > .project-contain
 
   html body.project-home > footer.project-footer.project-footer::before {
     height: 205px !important;
+    background-size: 170% auto !important;
   }
 
   html body.project-home > footer.project-footer.project-footer > .project-container.footer-grid {
@@ -291,6 +295,7 @@ html body.project-home > footer.project-footer.project-footer > .project-contain
 
   html body.project-home > footer.project-footer.project-footer::before {
     height: 170px !important;
+    background-size: 185% auto !important;
   }
 
   html body.project-home > footer.project-footer.project-footer > .project-container.footer-grid {
