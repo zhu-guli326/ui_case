@@ -1,28 +1,12 @@
-/* Stable App discovery artwork.
- * The four App previews are real <img> elements so production cannot fall back
- * to empty placeholder surfaces when a background-image rule is stale/cached. */
+/* App discovery presentation only.
+ * Artwork URLs are owned by the pre-home runtime in analytics.js so there is
+ * one source of truth and home.js cannot leave stale/blank preview slots. */
 #templates.discovery-strip .template-card:nth-child(1) > img {
   object-fit: contain !important;
   object-position: center !important;
   background: #f3f1ec !important;
   opacity: 1 !important;
   visibility: visible !important;
-}
-
-#templates.discovery-strip .template-card:nth-child(1) > img:nth-child(1) {
-  content: url("../../../assets/home/discovery/app-1.png") !important;
-}
-
-#templates.discovery-strip .template-card:nth-child(1) > img:nth-child(2) {
-  content: url("../../../assets/home/discovery/app-2.png") !important;
-}
-
-#templates.discovery-strip .template-card:nth-child(1) > img:nth-child(3) {
-  content: url("../../../assets/home/discovery/app-3.png") !important;
-}
-
-#templates.discovery-strip .template-card:nth-child(1) > img:nth-child(4) {
-  content: url("../../../assets/home/discovery/app-4.png") !important;
 }
 
 #templates.discovery-strip .template-card:nth-child(1) > i {
