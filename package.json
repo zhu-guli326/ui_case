@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "node scripts/serve_site.mjs",
     "dev:launcher": "node scripts/serve_site.mjs --port 4175",
+    "sync": "git fetch origin && git switch main && git reset --hard origin/main",
+    "sync:main": "git fetch origin && git switch main && git reset --hard origin/main",
     "sync:launcher": "git fetch origin && git reset --hard origin/review/launcher-component-systems",
     "serve": "node scripts/serve_site.mjs",
     "build:catalog": "node scripts/build_catalog.mjs",
