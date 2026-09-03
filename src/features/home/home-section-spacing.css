@@ -79,33 +79,6 @@ html body.project-home main > .project-cta {
   }
 }
 
-/* Final footer image crop.
- * Reset legacy footer pseudo-element geometry first: old styles left this layer
- * translated -50% with a huge bottom curve, which pushed the photo off canvas.
- * Then zoom into the photographic half so the flat gray portion never appears. */
-html body.project-home > footer.project-footer.project-footer::before {
-  right: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  border-radius: 0 !important;
-  transform: none !important;
-  background-color: #fff !important;
-  background-position: left center !important;
-  background-size: 205% auto !important;
-}
-
-@media (max-width: 900px) {
-  html body.project-home > footer.project-footer.project-footer::before {
-    background-size: 220% auto !important;
-  }
-}
-
-@media (max-width: 560px) {
-  html body.project-home > footer.project-footer.project-footer::before {
-    background-size: 235% auto !important;
-  }
-}
-
 /* Canonical Chinese homepage section-title typography.
  * Match Ant Design's restrained system/CJK sans-serif rhythm: use the same
  * family, medium title weight, neutral tracking and comfortable CJK leading on
