@@ -134,7 +134,7 @@ function applyWorkflowEditorialSpacing() {
   if (!workflowHeading) return;
 
   if (workflowDesktop.matches) {
-    workflowHeading.style.marginBottom = "clamp(22px, 2.1vw, 32px)";
+    workflowHeading.style.marginBottom = "clamp(14px, 1.4vw, 22px)";
     return;
   }
 
@@ -475,7 +475,7 @@ function initWorkflowScrollMotion(attempt = 0) {
 
   workflowScrollTrigger = ScrollTrigger.create({
     trigger: workflow,
-    start: "top 34%",
+    start: "top 24%",
     end: () => `+=${Math.max(window.innerHeight * 2.15, 1600)}`,
     pin: true,
     pinSpacing: true,
