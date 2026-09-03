@@ -72,21 +72,19 @@ body.dna-page .cs-demo-input input {
   min-width: 0 !important;
 }
 
-/* Typography is a plain property row: label on the left, value on the right. */
+/* Typography: same full-width selector treatment as the system rows above. */
 body.dna-page #dna-rules .font-field {
-  display: grid !important;
-  grid-template-columns: 64px minmax(0, 1fr) !important;
-  align-items: center !important;
-  gap: 10px !important;
-  padding-block: 13px !important;
+  display: block !important;
+  padding-block: 16px !important;
 }
 
 body.dna-page #dna-rules .font-field > legend {
   width: auto !important;
-  margin: 0 !important;
-  color: var(--dna-muted, #777) !important;
-  font-size: 11px !important;
-  font-weight: 500 !important;
+  margin: 0 0 8px !important;
+  color: color-mix(in srgb, var(--dna-ink, #202020) 88%, transparent) !important;
+  font-size: 12px !important;
+  font-weight: 650 !important;
+  line-height: 1.3 !important;
   white-space: nowrap;
 }
 
@@ -100,15 +98,24 @@ body.dna-page #dna-rules .font-field select {
   display: block !important;
   width: 100% !important;
   min-width: 0 !important;
-  min-height: 36px !important;
-  padding: 0 34px 0 10px !important;
+  min-height: 50px !important;
+  padding: 0 40px 0 14px !important;
   border: 1px solid color-mix(in srgb, var(--dna-ink, #202020) 12%, transparent) !important;
   border-radius: 7px !important;
   background-color: var(--dna-surface, #fff) !important;
   color: var(--dna-ink, #202020) !important;
-  font-size: 11.5px !important;
+  font-size: 13px !important;
   font-weight: 500 !important;
   text-overflow: ellipsis;
+}
+
+body.dna-page #dna-rules .font-field select:hover {
+  border-color: color-mix(in srgb, var(--dna-ink, #202020) 24%, transparent) !important;
+}
+
+body.dna-page #dna-rules .font-field select:focus {
+  border-color: var(--dna-accent, #18a957) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--dna-accent, #18a957) 10%, transparent) !important;
 }
 
 /* Radius / spacing stay readable and compact, without extra container chrome. */
