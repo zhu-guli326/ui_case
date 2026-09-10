@@ -172,7 +172,7 @@ html body.project-home > footer.project-footer.project-footer > .project-contain
 }
 
 html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom::before,
-html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:first-child::before,
+html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > .footer-github,
 html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:last-child::before {
   position: absolute !important;
   top: 22px !important;
@@ -187,10 +187,10 @@ html body.project-home > footer.project-footer.project-footer > .project-contain
   font-weight: 500 !important;
 }
 
-html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > span:first-child::before {
+html body.project-home > footer.project-footer.project-footer > .project-container.footer-bottom > .footer-github {
   left: 50% !important;
   color: #171717 !important;
-  content: "◉  GitHub 321" !important;
+  text-decoration: none;
   font-size: 15px !important;
   font-weight: 650 !important;
   letter-spacing: -.01em !important;
