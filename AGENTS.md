@@ -199,6 +199,13 @@ The route-to-requirement mapping is not repeated here; resolve it through `docs/
 - Other Launcher files are allowed only when they own a distinct stable responsibility, not another Launcher version.
 - Do not recreate workspace/state/url/hardening/simplified compatibility architectures.
 
+### Launcher Visual Lab
+
+- Public URL: `launcher-visual.html`.
+- Product role: an explicitly requested local-review visual-control prototype that may coexist with production Launcher.
+- Canonical implementation: `src/features/launcher-visual/launcher-visual.css` and `src/features/launcher-visual/launcher-visual.js`.
+- It reuses the production Launcher catalogs and must not change `launcher.html` until the user approves promotion.
+
 ### Catalog
 
 - Source data: `catalog/cases/*.json`, `catalog/styles/*.json`, `catalog/brands/*.json`, `catalog/components/*.json`.

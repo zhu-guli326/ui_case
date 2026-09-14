@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>可视化设计 DNA · ONDesign</title>
+  <meta name="description" content="用直观的视觉控制调整界面设计 DNA，并实时查看页面效果。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Doto:wght@400..700&family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./src/core/app-shell/site-shell.css">
+  <link rel="stylesheet" href="./src/features/launcher-visual/launcher-visual.css">
+  <script src="./src/core/app-shell/app-shell.js"></script>
+  <script type="module" src="./src/features/launcher-visual/launcher-visual.js"></script>
+</head>
+<body class="visual-lab-page">
+  <image2-site-header data-site-header></image2-site-header>
+
+  <main class="visual-lab" aria-labelledby="labTitle">
+    <section class="control-rail" aria-label="设计 DNA 控制台">
+      <header class="rail-heading">
+        <div>
+          <p class="eyebrow">DESIGN DNA / LAB</p>
+          <h1 id="labTitle">把感觉调出来</h1>
+        </div>
+        <span class="live-indicator"><i></i>实时</span>
+      </header>
+
+      <div class="control-section direction-section">
+        <div class="section-heading"><span>01</span><strong>视觉方向</strong></div>
+        <div class="direction-grid" role="radiogroup" aria-label="视觉方向">
+          <button class="direction-card is-active" type="button" role="radio" aria-checked="true" data-direction="restrained">
+            <span class="direction-visual restrained-visual"><i></i><i></i><i></i></span>
+            <span><strong>克制</strong><small>秩序 · 留白</small></span>
+            <b>✓</b>
+          </button>
+          <button class="direction-card" type="button" role="radio" aria-checked="false" data-direction="editorial">
+            <span class="direction-visual editorial-visual"><i>Ag</i><i></i></span>
+            <span><strong>编辑感</strong><small>网格 · 对比</small></span>
+            <b>✓</b>
+          </button>
+          <button class="direction-card" type="button" role="radio" aria-checked="false" data-direction="vivid">
+            <span class="direction-visual vivid-visual"><i></i><i></i><i></i></span>
+            <span><strong>活力</strong><small>高彩 · 直接</small></span>
+            <b>✓</b>
+          </button>
+        </div>
+      </div>
+
+      <div class="dial-row control-section">
+        <div class="dial-control">
+          <span class="dial" data-dial="density"><i></i><input class="dial-number" type="number" min="0" max="100" value="50" data-number="density" aria-label="密度数值"></span>
+          <span><strong>密度</strong><small>平衡</small></span>
+          <div class="range-row"><button type="button" data-step="-1" aria-label="降低密度">−</button><input type="range" min="0" max="100" value="50" data-control="density" aria-label="密度"><button type="button" data-step="1" aria-label="提高密度">+</button></div>
+        </div>
+        <div class="dial-control">
+          <span class="dial" data-dial="radius"><i></i><input class="dial-number" type="number" min="0" max="28" value="12" data-number="radius" aria-label="圆角数值"></span>
+          <span><strong>圆角</strong><small>12 px</small></span>
+          <div class="range-row"><button type="button" data-step="-1" aria-label="减小圆角">−</button><input type="range" min="0" max="28" value="12" data-control="radius" aria-label="圆角"><button type="button" data-step="1" aria-label="增大圆角">+</button></div>
+        </div>
+        <div class="dial-control">
+          <span class="dial" data-dial="spacing"><i></i><input class="dial-number" type="number" min="12" max="36" value="20" data-number="spacing" aria-label="间距数值"></span>
+          <span><strong>间距</strong><small>20 px</small></span>
+          <div class="range-row"><button type="button" data-step="-1" aria-label="减小间距">−</button><input type="range" min="12" max="36" value="20" data-control="spacing" aria-label="间距"><button type="button" data-step="1" aria-label="增大间距">+</button></div>
+        </div>
+      </div>
+
+      <div class="control-section palette-section">
+        <div class="section-heading"><span>02</span><strong>颜色信号</strong></div>
+        <div class="palette-grid" role="radiogroup" aria-label="颜色方案">
+          <button type="button" class="palette is-active" data-palette="lime" aria-label="荧光绿配色" aria-checked="true" role="radio"><i></i><i></i><i></i></button>
+          <button type="button" class="palette" data-palette="magenta" aria-label="洋红配色" aria-checked="false" role="radio"><i></i><i></i><i></i></button>
+          <button type="button" class="palette" data-palette="blue" aria-label="电光蓝配色" aria-checked="false" role="radio"><i></i><i></i><i></i></button>
+          <button type="button" class="palette" data-palette="orange" aria-label="暖橙配色" aria-checked="false" role="radio"><i></i><i></i><i></i></button>
+        </div>
+      </div>
+
+      <div class="control-section standards-section">
+        <div class="section-heading"><span>03</span><strong>规范来源</strong></div>
+        <div class="standard-picker" data-standard-picker="visual">
+          <div class="standard-picker-heading"><span>视觉规范</span><small data-standard-count>73 套</small></div>
+          <button class="standard-trigger" type="button" data-standard-trigger aria-haspopup="listbox" aria-expanded="false">
+            <span class="standard-logo" data-standard-selected-logo><img alt="Figma logo" decoding="async"><b aria-hidden="true">FI</b></span>
+            <span class="standard-trigger-copy"><strong data-standard-selected-name>Figma</strong><small data-visual-description>产品界面视觉语言</small></span>
+            <span class="standard-chevron" aria-hidden="true"></span>
+          </button>
+          <div class="standard-options" data-standard-options role="listbox" aria-label="视觉规范" hidden></div>
+        </div>
+        <div class="standard-picker" data-standard-picker="component">
+          <div class="standard-picker-heading"><span>组件规范</span><small data-standard-count>8 套</small></div>
+          <button class="standard-trigger" type="button" data-standard-trigger aria-haspopup="listbox" aria-expanded="false">
+            <span class="standard-logo" data-standard-selected-logo><img alt="Ant Design logo" decoding="async"><b aria-hidden="true">ANT</b></span>
+            <span class="standard-trigger-copy"><strong data-standard-selected-name>Ant Design</strong><small data-component-description>React · 企业级</small></span>
+            <span class="standard-chevron" aria-hidden="true"></span>
+          </button>
+          <div class="standard-options" data-standard-options role="listbox" aria-label="组件规范" hidden></div>
+        </div>
+      </div>
+
+      <footer class="rail-actions">
+        <button class="shuffle-button" type="button" data-shuffle aria-label="随机生成一套设计 DNA"><span>↻</span><strong>换一组</strong></button>
+        <button class="copy-button" type="button" data-copy><span>复制 DNA</span><b>⌘C</b></button>
+      </footer>
+    </section>
+
+    <section class="preview-workspace" aria-labelledby="previewTitle">
+      <header class="preview-toolbar">
+        <div>
+          <p class="eyebrow">LIVE PREVIEW</p>
+          <h2 id="previewTitle">实时预览</h2>
+        </div>
+        <div class="preview-toolbar-actions">
+          <div class="preview-content-switch" role="radiogroup" aria-label="预览内容">
+            <button class="is-active" type="button" data-view="landing" role="radio" aria-checked="true">落地页</button>
+            <button type="button" data-view="dashboard" role="radio" aria-checked="false">数据台</button>
+            <button type="button" data-view="article" role="radio" aria-checked="false">文章页</button>
+          </div>
+          <div class="device-switch" role="group" aria-label="预览设备">
+            <button type="button" class="is-active" data-device="desktop" aria-label="桌面预览"><span class="desktop-icon"></span>桌面</button>
+            <button type="button" data-device="mobile" aria-label="移动预览"><span class="mobile-icon"></span>移动</button>
+          </div>
+        </div>
+      </header>
+
+      <div class="stage-shell" data-stage-shell>
+        <div class="browser-bar"><span class="traffic"><i></i><i></i><i></i></span><small>preview.ondesign</small><b>•••</b></div>
+        <div class="preview-stage" data-preview-stage data-direction="restrained" data-palette="lime" data-view="landing">
+          <div class="generative-field" aria-hidden="true"><div class="color-wave"></div><div class="line-field" data-line-field></div></div>
+
+          <div class="sample-page landing-view" data-sample="landing">
+            <nav class="sample-nav"><strong>FORM / 01</strong><span>作品&nbsp;&nbsp;&nbsp;方法&nbsp;&nbsp;&nbsp;关于</span><button>联系</button></nav>
+            <div class="hero-layout">
+              <div class="hero-copy"><small>DESIGN FOR EVERYDAY</small><h3>让每一个页面，<br>都有自己的节奏。</h3><p>颜色、字体、形状与间距，在同一个系统里协调工作。</p><button class="primary-action">查看项目 <span>→</span></button></div>
+              <div class="hero-art"><div class="art-card"><span>01</span><strong>STRUCTURE<br>MEETS<br>FEELING</strong><i></i></div></div>
+            </div>
+            <div class="feature-row"><article><b>01</b><strong>视觉方向</strong><p>用统一语言建立第一印象。</p></article><article><b>02</b><strong>基础规范</strong><p>让关键选择变成可复用规则。</p></article><article><b>03</b><strong>持续复用</strong><p>跨页面保留相同设计气质。</p></article></div>
+          </div>
+
+          <div class="sample-page dashboard-view" data-sample="dashboard" hidden>
+            <aside><strong>FORM / 01</strong><button class="is-on">概览</button><button>项目</button><button>团队</button><button>设置</button></aside>
+            <div class="dashboard-main"><header><div><small>工作空间</small><h3>设计脉冲</h3></div><button class="primary-action">创建项目 +</button></header><div class="metric-grid"><article><small>活跃项目</small><strong>24</strong><i>+18%</i></article><article><small>完成率</small><strong>86%</strong><i>+7%</i></article><article><small>本周协作</small><strong>142</strong><i>+31%</i></article></div><div class="chart-card"><div class="chart-head"><strong>视觉一致性</strong><small>最近 7 天</small></div><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
+          </div>
+
+          <div class="sample-page article-view" data-sample="article" hidden>
+            <nav class="sample-nav"><strong>FORM / JOURNAL</strong><span>观察&nbsp;&nbsp;&nbsp;档案&nbsp;&nbsp;&nbsp;订阅</span><button>菜单</button></nav>
+            <article class="editorial-article"><small>ISSUE 24 · DESIGN SYSTEMS</small><h3>界面不是静止的画面，<br>而是一套会回应的关系。</h3><div class="article-meta"><span>阅读 06 分钟</span><span>2026.09.05</span></div><div class="article-image"><b>FORM</b><i></i></div><p>真正清晰的设计，不需要用户猜测下一步。形状、层级和反馈共同组成了界面的方向感。</p></article>
+          </div>
+        </div>
+      </div>
+
+      <footer class="token-strip" aria-label="当前设计 DNA">
+        <div><span>方向</span><strong data-token-direction>克制</strong></div>
+        <div><span>密度</span><strong data-token-density>平衡</strong></div>
+        <div><span>圆角</span><strong data-token-radius>12px</strong></div>
+        <div><span>间距</span><strong data-token-spacing>20px</strong></div>
+        <div><span>视觉规范</span><strong data-token-visual>Figma</strong></div>
+        <div><span>组件规范</span><strong data-token-component>Ant Design</strong></div>
+        <div class="token-color"><span>强调色</span><strong><i></i><b data-token-color>#22C55E</b></strong></div>
+        <p data-feedback aria-live="polite">所有调整会自动同步到预览</p>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>

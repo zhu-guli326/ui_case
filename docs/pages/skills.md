@@ -82,6 +82,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Touch layouts should remain directly usable without requiring hover.
 - The floating search uses the same shared geometry as Library and Vocabulary, while keeping Skills-specific placeholder text and filtering behavior.
 - Chinese and English modes should expose equivalent resources and functionality.
+- The directory uses a split light Nothing-inspired instrument-panel mode: the shared navigation adopts a Skills-scoped black appearance and flows into a compact black capability-overview zone, followed by a dense-to-sparse halftone transition into filters and resource results on a warm off-white canvas. The title zone should establish hierarchy without occupying a full viewport. Doto is reserved for the hero display moment and primary count, Space Grotesk carries readable content, and Space Mono carries labels and data. Red is reserved for an active signal and status colors are used only for data.
 
 ## Keep
 
