@@ -36,26 +36,27 @@ A user should be able to:
 - Support bilingual labels and descriptions.
 - Where useful, provide copyable prompt language or reusable design descriptions.
 - Support visual topics such as styles, typography, color, layout, components and motion when represented by current data.
+- In the Navigation category, compare navigation and discovery patterns with visual examples, fit guidance, limits and mobile adaptations.
 
 ## Information structure
 
 Preferred structure:
 
-1. Flat page title / short orientation without an enclosing hero card
-2. A compact vocabulary count as the only hero overview statistic
-3. Flat category navigation or filtering
-4. Lightweight utility row for useful secondary actions such as sort / share when needed
-5. Visual vocabulary list / cards
-6. Focused preview / example area
-7. Optional concise explanation / reusable prompt
-8. Persistent bottom-centered floating search for vocabulary discovery
+1. Persistent shared knowledge-directory navigation, followed by category navigation / filtering
+2. Lightweight utility row for useful secondary actions such as sort / share when needed
+3. Visual vocabulary list / cards
+4. Focused preview / example area
+5. Optional concise explanation / reusable prompt
+6. Persistent bottom-centered floating search for vocabulary discovery
 
 The page should behave more like a visual directory + learning reference than a form-heavy editor.
 
 ## Interaction rules
 
+- Keep the same shared four-destination knowledge navigation visible when moving between Library, Skills (SKILL / WEB), and Vocabulary. Highlight the current destination, including changes made with the Skills mode controls. During cross-page navigation, keep the global header and knowledge navigation visually stationary; only the content below transitions. Shared implementation: src/components/knowledge-nav/knowledge-nav.js and knowledge-nav.css.
+
 - The knowledge-page shell is intentionally flat: page-level hero, overview and filter containers must not use card-style borders, rounded white panels or shadows.
-- The hero overview should stay minimal. Keep the vocabulary count (`71 / UI 词条`) but do not show the former three-column metadata row for browsing method, learning path and purpose; that information is already covered by the intro and page interactions.
+- The page no longer keeps an independent hero or hero count; the shared knowledge-directory navigation stays visible on this route above vocabulary content.
 - Vocabulary items themselves may remain cards when the card represents a real interactive learning object or visual example.
 - A vocabulary item should reveal its meaning primarily through visuals.
 - Large example imagery / previews should receive more emphasis than long body copy.
@@ -75,6 +76,7 @@ The page should behave more like a visual directory + learning reference than a 
 - The visible card surface should remain a reliable toggle target, while explicit controls such as favorite, copy Prompt, state buttons and detail actions must keep their own independent behavior.
 - Respect `prefers-reduced-motion`: keep the same front/back state behavior but skip GSAP movement and decorative transitions.
 - Chinese and English content must switch through the global language system.
+- Selecting the Navigation category without a search query reveals the navigation-and-discovery comparison before the matching vocabulary cards.
 
 ## Keep
 
@@ -84,11 +86,12 @@ The page should behave more like a visual directory + learning reference than a 
 - Useful sort/share controls when they change or preserve the current view.
 - Stable responsibility modules for i18n, navigation data, cards and previews.
 - Copyable prompt support where it directly helps reuse a concept.
-- Compact hero count (`71 / UI 词条`).
+- Direct page switching from the Library knowledge-directory navigation.
 
 ## Remove / avoid
 
 - Page-level card chrome around the hero, overview or filter sidebar.
+- Independent vocabulary hero / overview section after switching from the shared knowledge-directory navigation.
 - The hero metadata trio: `浏览方式 / 搜索 + 筛选`, `学习路径 / 结构 → 形式 → 实现`, `用途 / 从需求到代码`.
 - Full Launcher configuration workflow.
 - Case-library responsibilities.

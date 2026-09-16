@@ -29,69 +29,6 @@
  * scales locally.
  */
 
-/* Skills carries a page-specific black instrument header while preserving the
- * shared navigation markup, geometry, behavior and ordering. */
-body.skills-document > .site-header {
-  --site-header-accent: #d71921;
-  --ink: #fff;
-  --muted: #999;
-  --line: #333;
-  --surface: #171717;
-  border-color: #333 !important;
-  background: #111 !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-}
-
-body.skills-document > .site-header .site-brand,
-body.skills-document > .site-header nav.site-nav.site-nav > a,
-body.skills-document > .site-header .site-nav-primary > a,
-body.skills-document > .site-header .site-nav-community > a,
-body.skills-document > .site-header .site-nav-more > summary {
-  color: #fff !important;
-}
-
-body.skills-document > .site-header nav.site-nav.site-nav > a:hover,
-body.skills-document > .site-header nav.site-nav.site-nav > a:focus-visible,
-body.skills-document > .site-header nav.site-nav.site-nav > a[aria-current="page"],
-body.skills-document > .site-header .site-nav-primary > a:hover,
-body.skills-document > .site-header .site-nav-primary > a:focus-visible,
-body.skills-document > .site-header .site-nav-primary > a[aria-current="page"],
-body.skills-document > .site-header .site-nav-community > a:hover,
-body.skills-document > .site-header .site-nav-community > a:focus-visible,
-body.skills-document > .site-header .site-nav-community > a[aria-current="page"],
-body.skills-document > .site-header .site-nav-more.is-current > summary,
-body.skills-document > .site-header .site-nav-more > summary:hover,
-body.skills-document > .site-header .site-nav-more > summary:focus-visible {
-  color: var(--site-header-accent) !important;
-}
-
-body.skills-document > .site-header .site-brand-logo,
-body.skills-document > .site-header .site-brand-wordmark {
-  filter: brightness(0) invert(1);
-}
-
-body.skills-document > .site-header .global-language-switch {
-  border-color: #444;
-  background: #171717;
-}
-
-body.skills-document > .site-header .global-language-switch button {
-  border-color: #444;
-  color: #999;
-}
-
-body.skills-document > .site-header .global-language-switch button:hover,
-body.skills-document > .site-header .global-language-switch button:focus-visible {
-  background: #222;
-  color: #fff;
-}
-
-body.skills-document > .site-header .global-language-switch button[aria-pressed="true"] {
-  background: #fff;
-  color: #111;
-}
-
 /*
  * Home header has two explicit visual states:
  * 1. Hero / first screen: transparent and integrated into the artwork.

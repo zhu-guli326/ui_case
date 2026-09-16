@@ -31,12 +31,21 @@ body.dna-page .dna-section::after {
 }
 
 body.dna-page .dna-section-head {
-  min-height: 96px;
-  grid-template-columns: 44px minmax(0, 1fr) auto 16px;
-  gap: 16px;
-  padding: 20px 22px;
+  min-height: 76px;
+  grid-template-columns: 28px minmax(0, 1fr) 12px;
+  gap: 10px;
+  padding: 16px;
   background: transparent !important;
 }
+
+body.dna-page .dna-section-head > .dna-section-value {
+  grid-column: 2;
+  grid-row: 2;
+  max-width: 100%;
+  margin-top: -4px;
+  font-size: 11px;
+}
+body.dna-page .dna-section-head > i { grid-column: 3; grid-row: 1; }
 
 body.dna-page .dna-section-head:hover {
   background: color-mix(in srgb, var(--dna-ink) 2.5%, var(--dna-surface)) !important;

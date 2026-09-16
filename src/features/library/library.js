@@ -33,7 +33,8 @@ const elements = {
   gallery: document.querySelector("#demoGallery"),
   searchInput: document.querySelector("#styleSearch"),
   categoryNav: document.querySelector("#categoryNav"),
-  catalogHeading: document.querySelector("#catalogHeading"),
+  categoryTotal: document.querySelector("#categoryTotal"),
+
   resultCount: document.querySelector("#resultCount"),
   emptyState: document.querySelector("#emptyState"),
   previewDialog: document.querySelector("#previewDialog"),
@@ -96,13 +97,11 @@ function updateCatalogCounts() {
   const copy = currentCopy();
   const counts = {};
   for (const guide of styleGuides) counts[guide.category] = (counts[guide.category] || 0) + 1;
+  if (elements.categoryTotal) elements.categoryTotal.textContent = copy.count(styleGuides.length).replace("个案例", "条").replace(" cases", "");
   elements.categoryNav.querySelector('[data-filter="all"] b').textContent = styleGuides.length;
   elements.categoryNav.querySelectorAll("[data-filter]:not([data-filter=all])").forEach((item) => {
     item.querySelector("b").textContent = counts[item.dataset.filter] || 0;
   });
-  document.querySelector(".stats-panel span:first-child strong").textContent = styleGuides.length;
-  document.querySelector(".stats-panel span:nth-child(2) strong").textContent = styleGuides.length;
-  document.querySelector(".sidebar-note strong").textContent = copy.realCases(styleGuides.length);
 }
 
 function getPreviewDevice(guide, mode) {
@@ -433,32 +432,12 @@ function applyLibraryLanguage() {
   document.querySelector('meta[name="description"]')?.setAttribute("content", copy.description);
   document.documentElement.style.setProperty("--unavailable-label", `"${copy.unavailable}"`);
   document.querySelector(".skip-link").textContent = copy.skip;
-  document.querySelector(".sidebar").setAttribute("aria-label", copy.sidebarLabel);
-  document.querySelector(".filter-sidebar-head p").textContent = copy.sidebarLabel;
   elements.categoryNav.querySelectorAll("[data-filter]").forEach((button) => { button.querySelector("span").textContent = copy.categories[button.dataset.filter]; });
-  document.querySelector(".sidebar-skills-heading a").textContent = copy.allSkills;
-  document.querySelectorAll(".sidebar-skills > a").forEach((link, index) => {
-    const skill = copy.skills[index];
-    if (!skill) return;
-    link.querySelector("span").textContent = skill[0];
-    link.querySelector("small").textContent = skill[1];
-  });
-  document.querySelectorAll(".sidebar-resources button").forEach((button, index) => {
-    button.querySelector("span").textContent = copy.guides[index][0];
-    button.querySelector("small").textContent = copy.guides[index][1];
-  });
-  document.querySelector(".sidebar-social p").textContent = copy.author;
-  const socialName = document.querySelector(".sidebar-social a:last-child span");
-  if (socialName) socialName.textContent = window.image2I18n?.language === "en" ? "Xiaohongshu" : "小红书";
-  const socialProfile = document.querySelector(".sidebar-social a:last-child small");
-  if (socialProfile) socialProfile.textContent = copy.profile;
-  document.querySelector(".sidebar-note span").textContent = copy.localDemo;
-  document.querySelector("#pageTitle").textContent = copy.heroTitle;
-  document.querySelector(".catalog-heading .intro").textContent = copy.heroIntro;
-  const heroAuthor = document.querySelector(".hero-social > span");
-  if (heroAuthor) heroAuthor.textContent = copy.heroAuthor;
-  document.querySelector(".stats-panel span:first-child small").textContent = copy.cases;
-  document.querySelector(".stats-panel span:nth-child(2) small").textContent = copy.styles;
+  document.querySelector(".filter-sidebar-head p").textContent = copy.filterTitle;
+  const filterNote = document.querySelector(".library-filter-note");
+  filterNote.querySelector("strong").textContent = copy.filterHelpTitle;
+  filterNote.querySelector("p").textContent = copy.filterHelpBody;
+  filterNote.querySelector("span").textContent = copy.filterHelpAction;
   elements.searchInput.placeholder = copy.search;
   document.querySelector(".search-section").setAttribute("aria-label", copy.search);
   document.querySelector(".catalog-bar .kicker").textContent = copy.featured;

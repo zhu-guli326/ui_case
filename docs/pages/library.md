@@ -9,8 +9,6 @@ Last updated: 2026-09-01
 - Canonical runtime: `src/features/library/library.js`
 - Canonical styles: `src/features/library/library.css`, `library-cards.css`, `library-detail.css`
 - Shared knowledge-directory geometry and floating search: `src/core/app-shell/directory-page.css`
-- Library hero override: `src/features/library/library-hero-continuous.css`
-- Shared knowledge-page cleanup: `src/core/app-shell/knowledge-directory-cleanup.css`
 - Supporting data / filter / card / detail / search / preview modules remain split by stable responsibility
 
 ## Page goal
@@ -32,18 +30,18 @@ A user should be able to find a relevant case, understand what makes it useful, 
 
 ## Information structure
 
-1. Flat page orientation / context + case-count overview, without enclosing hero cards
-2. Flat category filtering + visual case grid / collection
+1. Compact light knowledge directory with four numbered columns: Design Tools, Design Skills, UI Dictionary and Case Library. Each has one short description and supporting links; no repeated destination tabs or decorative dot-pattern transition.
+2. Left sidebar category filtering + visual case grid / collection
 3. Focused preview / detail
 4. Source / demo / relevant next action
 5. Persistent bottom-centered floating search for global case discovery
 
 ## Copy direction
 
-- The hero should feel like a visual browsing entry, not product documentation.
-- Chinese hero title: `看看这些，\n再决定你想做成什么样。`
-- Chinese hero intro: `从真实案例开始找方向。看界面、试 Demo，再把喜欢的感觉带进你的设计。`
-- Category heading: `想看哪一类？`
+- The Library page should avoid a large hero headline; users should reach the knowledge-directory navigation and case grid quickly.
+- The knowledge destinations are visible together as a light first-screen directory integrated with the page background; do not hide them in a dropdown menu.
+- Global navigation exposes one Knowledge Library entry linking here. Vocabulary and Skills remain reachable from this unified entry page.
+- Category sidebar heading: `分类筛选`
 - Chinese category labels should stay short: `全部 / 文化 / 电商 / 阅读 / 旅行 / 工具 / 健康`.
 - The case-list heading should be `从一个喜欢的界面开始。`; avoid redundant kicker copy such as `精选案例 / 从画面开始`.
 - Detail explanation should use conversational copy: `为什么它看起来舒服？` with `色彩、排版、组件、动效` as the supporting scope.
@@ -51,6 +49,8 @@ A user should be able to find a relevant case, understand what makes it useful, 
 - English should preserve the same tone and hierarchy rather than translating older product-documentation wording literally.
 
 ## Interaction rules
+
+- Keep the same shared four-destination knowledge navigation visible when moving between Library, Skills (SKILL / WEB), and Vocabulary. Highlight the current destination, including changes made with the Skills mode controls. During cross-page navigation, keep the global header and knowledge navigation visually stationary; only the content below transitions. Shared implementation: src/components/knowledge-nav/knowledge-nav.js and knowledge-nav.css.
 
 - Visual evidence should dominate over metadata.
 - The knowledge-page shell is intentionally flat: page-level hero, overview and filter containers must not use card-style borders, rounded white panels or shadows.
@@ -60,6 +60,7 @@ A user should be able to find a relevant case, understand what makes it useful, 
 - Cards should be easy to scan and should not all be forced into an identical media ratio when that harms the source material.
 - Detail views should add information rather than repeat the card.
 - Avoid excessive blank space on desktop browsing views.
+- Keep the desktop directory compact (roughly 280–320px tall) so real case previews appear in the first viewport. Use a two-column directory on small screens, with clearly differentiated destination titles and secondary links.
 - Search and filter interactions must remain predictable and reversible.
 - The primary search field is detached from the content toolbar and remains centered at the bottom of the viewport.
 - Once search is detached, do not leave an inline result-count toolbar or a secondary “精选案例 / 从画面开始” heading between the hero and the case grid.
@@ -82,6 +83,7 @@ A user should be able to find a relevant case, understand what makes it useful, 
 ## Remove / avoid
 
 - Page-level card chrome around the hero, overview or filter sidebar.
+- A knowledge-library dropdown in the global header.
 - Style-count and GitHub-Star statistics in the hero.
 - Result-count-only toolbars above the content list.
 - Redundant section-intro headings such as “精选案例 / 从画面开始”.

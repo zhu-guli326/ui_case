@@ -15,29 +15,15 @@
   <script src="./src/core/app-shell/app-shell.js"></script>
   <script src="./src/core/adsense/adsense.js" defer></script>
   <script type="module" src="./src/features/vocabulary/vocabulary.js"></script>
+  <link rel="stylesheet" href="./src/components/knowledge-nav/knowledge-nav.css">
+  <script type="module" src="./src/components/knowledge-nav/knowledge-nav.js"></script>
 </head>
 <body class="vocabulary-page directory-page">
   <a class="skip-link" href="#vocabularyResults" data-i18n="vocabulary.skipResults">跳到词条列表</a>
   <image2-site-header data-site-header></image2-site-header>
 
   <main class="directory-page-main">
-    <section class="vocab-hero directory-hero" aria-labelledby="pageTitle">
-      <div class="hero-copy directory-hero-copy">
-        <p class="eyebrow" data-i18n="vocabulary.heroEyebrow">UI 词汇 / 从需求到代码</p>
-        <h1 id="pageTitle" data-i18n="vocabulary.heading">UI 词典</h1>
-        <p class="hero-intro" data-i18n="vocabulary.intro">把页面基础、导航、内容、控件和反馈整理成一套可搜索的 UI 词典，先看结构，再选择适合的形式和实现方式。</p>
-      </div>
-      <aside class="vocab-overview directory-hero-overview" aria-label="词典概览" data-i18n-attr="aria-label:vocabulary.overviewLabel">
-        <header><span data-i18n="vocabulary.overviewTitle">词典概览</span><small>UI VOCABULARY</small></header>
-        <div class="directory-primary-stat"><strong>71</strong><span data-i18n="vocabulary.overviewTerms">UI 词条</span></div>
-        <dl>
-          <div><dt data-i18n="vocabulary.overviewBrowseLabel">浏览方式</dt><dd data-i18n="vocabulary.overviewBrowseValue">搜索 + 筛选</dd></div>
-          <div><dt data-i18n="vocabulary.overviewPathLabel">学习路径</dt><dd data-i18n="vocabulary.overviewPathValue">结构 → 形式 → 实现</dd></div>
-          <div><dt data-i18n="vocabulary.overviewPurposeLabel">用途</dt><dd data-i18n="vocabulary.overviewPurposeValue">从需求到代码</dd></div>
-        </dl>
-      </aside>
-    </section>
-
+    <image2-knowledge-nav></image2-knowledge-nav>
     <section class="directory-section" aria-label="UI 词条目录" data-i18n-attr="aria-label:vocabulary.directoryLabel">
       <section class="vocab-toolbar directory-toolbar" aria-label="词条搜索和筛选" data-i18n-attr="aria-label:vocabulary.searchAndFilter">
         <label class="search-field" for="vocabularySearch">
@@ -97,7 +83,7 @@
             </div>
           </section>
           <section class="navigation-deep-dive" id="navigationDeepDive" aria-labelledby="navigationDeepDiveTitle" hidden>
-            <header class="deep-dive-heading"><div><p class="eyebrow" data-i18n="vocabulary.navigationEyebrow">深入了解 / 导航模式</p><h2 id="navigationDeepDiveTitle" data-i18n="vocabulary.navigationDeepTitle">导航不是只有一种栏</h2></div><p data-i18n="vocabulary.navigationDeepIntro">先判断它服务的是全局、局部、层级还是临时任务，再选择位置和样式。下面 8 种模式看起来相似，但承担的导航范围完全不同。</p></header>
+            <header class="deep-dive-heading"><div><p class="eyebrow" data-i18n="vocabulary.navigationEyebrow">深入了解 / 导航与发现</p><h2 id="navigationDeepDiveTitle" data-i18n="vocabulary.navigationDeepTitle">导航与发现不只有一种栏</h2></div><p data-i18n="vocabulary.navigationDeepIntro">从全局入口到搜索、筛选和长内容定位，这 14 种模式覆盖不同的信息范围、使用频率和设备场景。</p></header>
             <div class="navigation-principles" id="navigationPrinciples"></div>
             <div class="navigation-pattern-grid" id="navigationPatternGrid"></div>
             <section class="navigation-matrix" aria-labelledby="navigationMatrixTitle">

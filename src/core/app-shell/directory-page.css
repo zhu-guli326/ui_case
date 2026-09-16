@@ -319,26 +319,40 @@ body.vocabulary-page .taxonomy-link b { color: var(--directory-tertiary); font-s
 body.library-page .category-link:hover,
 body.vocabulary-page .taxonomy-link:hover { background: var(--directory-fill); color: var(--directory-text); }
 body.library-page .category-link.is-active,
-body.vocabulary-page .taxonomy-link.is-selected { color: var(--directory-text); font-weight: 600; }
+body.vocabulary-page .taxonomy-link.is-selected { border-color: transparent; background: transparent; color: var(--directory-text); font-weight: 600; }
 body.library-page .category-link.is-active::before,
 body.vocabulary-page .taxonomy-link.is-selected::before { border-color: var(--directory-primary); background: var(--directory-primary); box-shadow: inset 0 0 0 3px #fff; }
 
 body.vocabulary-page .taxonomy-note,
+body.library-page .library-filter-note,
 body.library-page .sidebar-skills,
 body.library-page .sidebar-resources,
 body.library-page .sidebar-social,
 body.library-page .sidebar-note { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--directory-border); }
 body.vocabulary-page .taxonomy-note strong,
+body.library-page .library-filter-note strong,
 body.library-page .sidebar-skills-heading p,
 body.library-page .sidebar-social p { font-size: 10px; font-weight: 600; }
 body.vocabulary-page .taxonomy-note p,
 body.vocabulary-page .taxonomy-note span,
+body.library-page .library-filter-note p,
+body.library-page .library-filter-note span,
 body.library-page .sidebar-skills > a,
 body.library-page .sidebar-resources button,
 body.library-page .sidebar-social a { font-size: 10px; }
 body.library-page .sidebar-skills small,
 body.library-page .sidebar-resources small,
 body.library-page .sidebar-social small { font-size: 9px; }
+
+body.library-page .library-filter-note {
+  padding: 15px 14px;
+  border-top: 0;
+  border-left: 3px solid var(--directory-primary);
+  background: color-mix(in srgb, var(--directory-primary) 10%, #fff);
+  color: var(--directory-text);
+}
+body.library-page .library-filter-note p { margin: 7px 0 12px; color: var(--directory-secondary); line-height: 1.55; }
+body.library-page .library-filter-note span { color: var(--directory-primary); font-weight: 700; }
 
 body.directory-page .directory-content { min-width: 0; padding: 0; }
 
@@ -388,6 +402,7 @@ body.library-page .demo-card-body { background: var(--directory-surface); }
   body.library-page .sidebar-resources,
   body.library-page .sidebar-social,
   body.library-page .sidebar-note,
+  body.library-page .library-filter-note,
   body.vocabulary-page .taxonomy-note { display: none; }
 }
 

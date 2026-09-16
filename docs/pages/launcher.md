@@ -20,6 +20,10 @@ The page should guide the user through:
 
 The primary product principle is: **preview first, Prompt second.**
 
+## Core user task
+
+Choose a visual direction, refine it against the live preview, then review and export a reusable Design DNA prompt.
+
 ## Core functions
 
 1. Collect a lightweight project requirement.
@@ -38,6 +42,8 @@ The primary product principle is: **preview first, Prompt second.**
 5. Start Coding / Prompt output
 
 The preview should have more visual weight than configuration controls.
+
+The page header provides a visible Review & export action that opens the existing Save & reuse section. Desktop settings use a compact column so the live preview has the majority of the workspace width.
 
 ## Interaction rules
 

@@ -401,7 +401,8 @@ function installSectionDropdowns() {
 
 window.image2I18n?.addTranslations({
   "dna.heroTitle": { zh: "界面设计 DNA", en: "Interface DNA" },
-  "dna.heroLede": { zh: "先选一个设计方向，再按需调整规范。每次只处理一组决定，右侧同步看到真实页面效果。", en: "Pick a design direction, then adjust the foundation as needed — one decision at a time, with the real page effect syncing on the right." },
+  "dna.heroLede": { zh: "选一个喜欢的方向，边调边看，把满意的设计带进开发。", en: "Choose a direction, refine it live, and take your design into development." },
+  "dna.confirmExport": { zh: "确认并导出", en: "Review & export" },
   "dna.directionTitle": { zh: "视觉方向", en: "Visual direction" },
   "dna.directionDesc": { zh: "先确定整体气质，密度随之匹配。", en: "Set the overall temperament first; density follows." },
   "dna.dirRestrained": { zh: "克制", en: "Restrained" }, "dna.dirRestrainedDesc": { zh: "留白、秩序、柔和 · 案例「极简训练规划」", en: "Whitespace, order, softness · Case: FitHub" },

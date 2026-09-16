@@ -76,7 +76,7 @@ let dialogReturnEntryId = null;
 
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[character]));
 const navText = (pair) => tr(pair[0], pair[1]);
-const showsNavigationDeepDive = () => false;
+const showsNavigationDeepDive = () => state.category === "navigation" && !state.query.trim();
 
 function syncUrlState({ term = undefined, historyMode = "replace" } = {}) {
   const params = new URLSearchParams(window.location.search);
@@ -103,7 +103,14 @@ function navigationPreviewMarkup(type) {
   if (type === "drawer") return `<div class="nav-demo nav-demo--drawer"><div class="nav-demo-content"><small>设置</small><h4>通知偏好</h4><p>选择你希望收到的更新。</p><div class="nav-demo-toggle-row"><span>产品更新</span><b>开</b></div><div class="nav-demo-toggle-row"><span>每周摘要</span><b>关</b></div></div><div class="nav-demo-backdrop"></div><aside><b>菜单</b><span class="is-active">⌂ 首页</span><span>▣ 项目</span><span>◇ 收藏</span><span>⚙ 设置</span></aside></div>`;
   if (type === "tabs") return `<div class="nav-demo nav-demo--tabs"><b>Atlas 项目</b><nav><span class="is-active">概览</span><span>动态</span><span>文件</span><span>设置</span></nav><div class="nav-demo-content"><small>本月访问</small><strong class="nav-demo-number">12,480</strong><p>较上月增长 18.4%</p><div class="nav-demo-chart"><i></i><i></i><i></i><i></i><i></i></div></div></div>`;
   if (type === "crumbs") return `<div class="nav-demo nav-demo--crumbs"><nav><span>工作区</span><i>›</i><span>项目</span><i>›</i><b>Atlas</b></nav><h4>设计系统更新</h4><div class="nav-demo-content"><p>组件库与页面规范</p><div class="nav-demo-file-row"><span>▤</span><b>release-notes.md</b><small>刚刚更新</small></div><div class="nav-demo-file-row"><span>▤</span><b>tokens.css</b><small>昨天</small></div></div></div>`;
-  return `<div class="nav-demo nav-demo--mega"><div class="nav-demo-topbar"><b>ON</b><span class="is-active">产品</span><span>资源</span><span>学习</span></div><div class="nav-demo-mega-panel"><div><b>按团队</b><span>设计团队</span><span>产品团队</span><span>工程团队</span></div><div><b>按场景</b><span>建立品牌</span><span>做工作台</span><span>优化移动端</span></div><div><b>精选案例</b>${image(media, "设计团队在桌面前协作")}</div></div></div>`;
+  if (type === "mega") return `<div class="nav-demo nav-demo--mega"><div class="nav-demo-topbar"><b>ON</b><span class="is-active">产品</span><span>资源</span><span>学习</span></div><div class="nav-demo-mega-panel"><div><b>按团队</b><span>设计团队</span><span>产品团队</span><span>工程团队</span></div><div><b>按场景</b><span>建立品牌</span><span>做工作台</span><span>优化移动端</span></div><div><b>精选案例</b>${image(media, "设计团队在桌面前协作")}</div></div></div>`;
+  if (type === "search") return `<div class="nav-demo nav-demo--search"><div class="nav-demo-searchbox"><span>⌕</span><b>搜索案例、组件、灵感</b><em>⌘K</em></div><div class="nav-demo-content"><small>推荐搜索</small><div class="nav-demo-suggestion is-active"><b>导航栏</b><span>12 个结果</span></div><div class="nav-demo-suggestion"><b>空状态</b><span>8 个结果</span></div><div class="nav-demo-suggestion"><b>移动筛选</b><span>6 个结果</span></div></div></div>`;
+  if (type === "filters") return `<div class="nav-demo nav-demo--filters"><div class="nav-demo-content"><small>发现筛选</small><h4>设计案例库</h4><div class="nav-demo-chip-row"><span class="is-active">App</span><span>Web</span><span class="is-active">动效</span><span>工具</span></div><div class="nav-demo-card-list"><i></i><i></i><i></i></div></div></div>`;
+  if (type === "toc") return `<div class="nav-demo nav-demo--toc"><div class="nav-demo-content"><small>文章目录</small><h4>设计系统落地指南</h4><p>从组件、变量到交付流程。</p></div><aside><span class="is-active">01 基础</span><span>02 组件</span><span>03 规范</span><span>04 发布</span></aside></div>`;
+  if (type === "steps") return `<div class="nav-demo nav-demo--steps"><div class="nav-demo-content"><small>创建项目</small><h4>选择模板</h4><div class="nav-demo-step-row"><span class="is-done">1</span><span class="is-active">2</span><span>3</span><span>4</span></div><p>当前步骤可返回，也能继续。</p><button>继续</button></div></div>`;
+  if (type === "tree") return `<div class="nav-demo nav-demo--tree"><aside><b>文件</b><span>▾ 设计系统</span><span class="is-active"> tokens</span><span> components</span><span>▸ 页面模板</span></aside><div class="nav-demo-content"><small>tokens</small><h4>颜色变量</h4><div class="nav-demo-file-row"><span>▤</span><b>color.css</b><small>32 项</small></div></div></div>`;
+  if (type === "pagination") return `<div class="nav-demo nav-demo--pagination"><div class="nav-demo-content"><small>搜索结果</small><h4>第 2 页</h4><div class="nav-demo-card-list"><i></i><i></i><i></i></div><nav><span>‹</span><span>1</span><span class="is-active">2</span><span>3</span><span>…</span><span>9</span><span>›</span></nav></div></div>`;
+  return `<div class="nav-demo nav-demo--search"><div class="nav-demo-content"><h4>${escapeHtml(type)}</h4><p>Navigation pattern preview</p></div></div>`;
 }
 
 function renderNavigationDeepDive() {

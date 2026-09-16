@@ -4,7 +4,7 @@ export function createLibraryCards({
   helpers,
   actions
 }) {
-  const { gallery, searchInput, catalogHeading, resultCount, emptyState } = elements;
+  const { gallery, searchInput, resultCount, emptyState } = elements;
   const {
     currentCopy,
     localizeRecord,
@@ -16,13 +16,7 @@ export function createLibraryCards({
   } = helpers;
   const { applyCaseToProject, openPreview, setTagFilter, track } = actions;
 
-  function updateCatalogHeadingVisibility() {
-    const { activeCategory, activeTag } = getState();
-    catalogHeading.hidden = activeCategory !== "all" || Boolean(activeTag) || Boolean(searchInput.value.trim());
-  }
-
   function renderDemoGallery() {
-    updateCatalogHeadingVisibility();
     const copy = currentCopy();
     const guides = getFilteredGuides();
     const { activeTag } = getState();
@@ -77,5 +71,5 @@ export function createLibraryCards({
     }));
   }
 
-  return { renderDemoGallery, updateCatalogHeadingVisibility };
+  return { renderDemoGallery };
 }

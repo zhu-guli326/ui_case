@@ -64,7 +64,7 @@ The global framework is fixed across public pages. Page features own page conten
 
 - ONDesign brand/logo.
 - Primary navigation and all navigation item ordering/copy.
-- Library dropdown navigation.
+- One Knowledge Library navigation link to `library.html`, covering Cases, UI Vocabulary and Design Skills/Tools; no dropdown or separate global links for these destinations.
 - GitHub / X / Xiaohongshu links and GitHub star display.
 - `Start Designing` global entry.
 - Chinese / English language switch.
@@ -90,6 +90,8 @@ Canonical shared files:
 - Page-specific headers, toolbars, tabs and sidebars are allowed inside `<main>` when they are part of that page's content; they must not masquerade as or replace the global navigation.
 
 ## 3. Single Source of Truth
+
+- Knowledge Library, Skills (SKILL / WEB) and Vocabulary share one persistent content-level navigation: `src/components/knowledge-nav/knowledge-nav.js` and `knowledge-nav.css`. Mount `<image2-knowledge-nav>` inside each page's `<main>`; preserve it across destination changes and highlight the active route / mode. This component does not replace or alter the global App Shell.
 
 - Each public page has one current production implementation on `main`.
 - `docs/pages/manifest.json` is the only route-to-requirement mapping; `docs/pages/README.md` explains the contract but does not duplicate the route list.

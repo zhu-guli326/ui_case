@@ -22,20 +22,12 @@ const elements = {
   repoFacets: document.querySelector("#repoFacets"),
   repoCount: document.querySelector("#repoCount"),
   repoSyncStatus: document.querySelector("#repoSyncStatus"),
-  skillsHeroEyebrow: document.querySelector(".hero-discovery .eyebrow"),
-  skillsHeroTitle: document.querySelector("#skillsHeroTitle"),
-  skillsHeroCount: document.querySelector("#skillsHeroCount"),
-  skillsHeroKind: document.querySelector("#skillsHeroKind"),
-  skillsHeroBody: document.querySelector("#skillsHeroBody"),
-  heroUpdateCount: document.querySelector("#heroUpdateCount"),
-  heroUpdateLabel: document.querySelector("#heroUpdateLabel"),
   categoryCount: document.querySelector("#categoryCount"),
   repoSortButtons: document.querySelectorAll("[data-repo-sort]"),
   directoryModeButtons: document.querySelectorAll("[data-directory-mode]"),
   repoSort: document.querySelector("#repoSort"),
   repoInspector: document.querySelector("#repoInspector"),
-  repoClearFilters: document.querySelector("#repoClearFilters"),
-  officialSkillLink: document.querySelector("[data-official-skill-link]")
+  repoClearFilters: document.querySelector("#repoClearFilters")
 };
 
 const track = (name, properties) => window.image2Analytics?.track(name, properties);
@@ -83,6 +75,7 @@ function syncDirectoryStateToUrl() {
   const url = new URL(window.location.href);
   applyDirectoryStateToParams(url.searchParams);
   window.history.replaceState(null, "", `${url.pathname}?${url.searchParams.toString()}${url.hash}`);
+  window.dispatchEvent(new CustomEvent("image2:directorychange"));
 }
 
 function buildSkillDetailHref(slug) {
@@ -339,12 +332,6 @@ function renderPage(language = "zh") {
   if (description) description.content = state.currentLanguage === "en"
     ? "A curated directory of design skills, tools and practical UI resources."
     : "设计 Skill、工具与实用 UI 资源精选。";
-  if (elements.skillsHeroEyebrow) elements.skillsHeroEyebrow.textContent = state.currentLanguage === "en" ? "DESIGN SKILLS & TOOLS" : "DESIGN SKILLS & TOOLS";
-  if (elements.skillsHeroTitle) elements.skillsHeroTitle.textContent = state.currentLanguage === "en" ? "Design Skills & Tools Map" : "设计 Skill 与工具地图";
-  if (elements.skillsHeroBody) elements.skillsHeroBody.textContent = state.currentLanguage === "en"
-    ? "A practical map of design skills, tools and resources. Start with the work you need to do, then compare what each option is best for and how it fits your workflow."
-    : "这是一张设计 Skill、工具与资源地图。先从你要完成的工作出发，再比较它们各自适合的场景与使用方式。";
-  if (elements.skillsHeroCount) elements.skillsHeroCount.textContent = String(getRepositoryItems().length);
   renderer.renderRepositories();
 }
 
@@ -386,8 +373,6 @@ elements.directoryModeButtons.forEach((button) => button.addEventListener("click
   track("directory_mode_select", { mode: state.activeDirectoryMode });
   renderer.renderRepositories();
 }));
-
-if (elements.officialSkillLink) elements.officialSkillLink.addEventListener("click", () => track("official_skill_open", { repository: "zhu-guli326/image2_UI_skill" }));
 
 if (elements.repoList) {
   if (window.image2I18n) {

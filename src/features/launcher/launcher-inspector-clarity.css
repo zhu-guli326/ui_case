@@ -6,10 +6,10 @@ body.dna-page #dna-rules .dna-section-body {
   padding-inline: 20px !important;
 }
 
-/* Component specimen: explicit label + preview + quiet docs action on one row. */
+/* Put specimen controls on their own row so labels never squeeze the demo. */
 body.dna-page .cs-live {
   display: grid !important;
-  grid-template-columns: 64px minmax(0, 1fr) auto !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
   align-items: center !important;
   gap: 10px !important;
   margin: 10px 0 0 !important;
@@ -32,15 +32,15 @@ html[lang^="en"] body.dna-page .cs-live::before {
 }
 
 body.dna-page .cs-live-row {
-  grid-column: 2;
-  grid-row: 1;
+  grid-column: 1 / -1;
+  grid-row: 2;
   min-width: 0;
-  grid-template-columns: auto minmax(100px, 1fr) auto auto !important;
+  grid-template-columns: auto minmax(0, 1fr) auto auto !important;
   gap: 6px !important;
 }
 
 body.dna-page .cs-live-head {
-  grid-column: 3;
+  grid-column: 2;
   grid-row: 1;
   min-height: 0 !important;
   margin: 0 !important;
@@ -66,6 +66,7 @@ body.dna-page .cs-demo-input input {
 
 body.dna-page .cs-demo-button {
   padding-inline: 10px !important;
+  white-space: nowrap;
 }
 
 body.dna-page .cs-demo-input input {
@@ -146,17 +147,4 @@ body.dna-page #dna-rules .rule-pair .rule-field > legend {
 
 body.dna-page #dna-rules .segmented-control button {
   min-height: 32px !important;
-}
-
-@media (max-width: 760px) {
-  body.dna-page .cs-live {
-    grid-template-columns: 64px minmax(0, 1fr) !important;
-  }
-
-  body.dna-page .cs-live-head {
-    grid-column: 2;
-    grid-row: 2;
-    justify-self: start;
-    margin-top: 4px !important;
-  }
 }

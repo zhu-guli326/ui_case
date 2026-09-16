@@ -106,14 +106,6 @@
     ];
   }
 
-  function libraryNavigationItems() {
-    return [
-      { href: "./library.html", key: "nav.caseLibrary", hintKey: "nav.caseLibraryHint" },
-      { href: "./vocabulary.html", key: "nav.uiVocabulary", hintKey: "nav.uiVocabularyHint" },
-      { href: "./skills.html", key: "nav.designSkills", hintKey: "nav.designSkillsHint" },
-    ];
-  }
-
   function resourceNavigationItems() {
     return [
       { href: "https://x.com/JGuli49724", label: '<svg class="site-social-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.967 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/></svg>', external: true, className: "site-nav-social site-nav-x", ariaLabel: language === "en" ? "Open JGuli49724's profile on X" : "在 X 查看 JGuli49724 的主页" },
@@ -171,7 +163,7 @@
     nav.classList.add("site-nav");
     const renderLink = (item) => {
       const file = item.external ? "" : item.href.replace(/^\.\//, "");
-      const current = file === activePage ? ' aria-current="page"' : "";
+      const current = file === activePage || (item.key === "nav.library" && ["vocabulary.html", "skills.html", "skill-detail.html"].includes(activePage)) ? ' aria-current="page"' : "";
       const external = item.external ? ' target="_blank" rel="noopener noreferrer"' : "";
       const ariaLabel = item.ariaLabel ? ` aria-label="${item.ariaLabel}"` : "";
       const className = item.className ? ` class="${item.className}"` : "";
@@ -180,14 +172,8 @@
     };
     const resources = resourceNavigationItems();
     const start = renderLink({ href: "./launcher.html", key: "nav.launcher", className: "site-nav-start" });
-    const libraryPages = new Set(libraryNavigationItems().map((item) => item.href.replace(/^\.\//, "")));
-    const libraryCurrent = libraryPages.has(activePage);
-    const libraryMenu = `<details class="site-nav-more site-nav-library${libraryCurrent ? " is-current" : ""}"><summary${libraryCurrent ? ' aria-current="page"' : ""}>${t("nav.library")}</summary><div class="site-nav-menu">${libraryNavigationItems().map((item) => {
-      const file = item.href.replace(/^\.\//, "");
-      return `<a href="${resolveLocalHref(item.href)}"${file === activePage ? ' aria-current="page"' : ""}><span><strong data-i18n="${item.key}">${t(item.key)}</strong><small data-i18n="${item.hintKey}">${t(item.hintKey)}</small></span><i aria-hidden="true">↗</i></a>`;
-    }).join("")}</div></details>`;
-    nav.innerHTML = `<div class="site-nav-community">${siteNavigationItems().map(renderLink).join("")}${libraryMenu}${resources.map(renderLink).join("")}${start}</div><div class="site-nav-utility" data-language-switch></div>`;
-    nav.querySelectorAll(".site-nav-menu a").forEach((link) => link.addEventListener("click", () => link.closest("details")?.removeAttribute("open")));
+    const libraryLinks = renderLink({ href: "./library.html", key: "nav.library", className: "site-nav-library" });
+    nav.innerHTML = `<div class="site-nav-community">${siteNavigationItems().map(renderLink).join("")}${libraryLinks}${resources.map(renderLink).join("")}${start}</div><div class="site-nav-utility" data-language-switch></div>`;
   }
 
   function renderSiteHeader(target) {

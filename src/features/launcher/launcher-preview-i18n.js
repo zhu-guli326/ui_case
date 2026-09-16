@@ -169,19 +169,6 @@
     });
   }
 
-  function syncWorkspaceAlignment() {
-    const controls = document.querySelector('.dna-controls');
-    const canvas = document.querySelector('.dna-canvas');
-    const browser = document.querySelector('.preview-browser');
-    if (!controls || !canvas || !browser) return;
-    if (window.matchMedia('(max-width: 1024px)').matches) {
-      controls.style.marginTop = '0px';
-      return;
-    }
-    const offset = Math.max(0, Math.round(browser.getBoundingClientRect().top - canvas.getBoundingClientRect().top));
-    controls.style.marginTop = `${offset}px`;
-  }
-
   function syncDocumentLanguageMeta() {
     const isEnglish = language() === 'en';
     document.title = isEnglish ? 'Interface DNA · ONDesign' : '界面设计 DNA · ONDesign';
@@ -348,13 +335,11 @@
     installCaseDialogLinks();
     syncLanguageLinks();
     syncDirectionPreviewSizes();
-    syncWorkspaceAlignment();
     translatePreviewSamples();
   }
 
   window.addEventListener('resize', () => {
     syncDirectionPreviewSizes();
-    syncWorkspaceAlignment();
   });
   window.addEventListener('image2:languagechange', sync);
   window.addEventListener('load', sync, { once: true });

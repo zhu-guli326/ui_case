@@ -57,17 +57,19 @@ Category wording can be refined, but the structure should remain intuitive and s
 
 ## Information structure
 
-1. Flat mode / directory context without an enclosing hero card
-2. Flat filter controls
-3. Lightweight utility row for useful actions such as sort / reset / sync status
-4. Resource list / visual cards
-5. Focused inspector / flipped detail when useful
-6. Direct action: visit, copy prompt, inspect source availability, etc.
-7. Persistent bottom-centered floating search for Skill / Web resource discovery
+1. Persistent shared knowledge-directory navigation, followed by mode / filter controls
+2. Lightweight utility row for useful actions such as sort / reset / sync status
+3. Resource list / visual cards
+4. Focused inspector / flipped detail when useful
+5. Direct action: visit, copy prompt, inspect source availability, etc.
+6. Persistent bottom-centered floating search for Skill / Web resource discovery
 
 ## Interaction rules
 
+- Keep the same shared four-destination knowledge navigation visible when moving between Library, Skills (SKILL / WEB), and Vocabulary. Highlight the current destination, including changes made with the Skills mode controls. During cross-page navigation, keep the global header and knowledge navigation visually stationary; only the content below transitions. Shared implementation: src/components/knowledge-nav/knowledge-nav.js and knowledge-nav.css.
+
 - The knowledge-page shell is intentionally flat: page-level hero, overview and filter containers must not use card-style borders, rounded white panels or shadows.
+- The page no longer keeps an independent hero / overview section; the shared knowledge-directory navigation stays visible on this route above filters and results.
 - Skill and Web resource cards remain cards because they represent real independent resources; flattening the page shell must not remove their preview, hover, flip or direct actions.
 - Filters must remain understandable and compact.
 - Avoid large unused gutters; the directory should use available desktop width effectively.
@@ -82,7 +84,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Touch layouts should remain directly usable without requiring hover.
 - The floating search uses the same shared geometry as Library and Vocabulary, while keeping Skills-specific placeholder text and filtering behavior.
 - Chinese and English modes should expose equivalent resources and functionality.
-- The directory uses a split light Nothing-inspired instrument-panel mode: the shared navigation adopts a Skills-scoped black appearance and flows into a compact black capability-overview zone, followed by a dense-to-sparse halftone transition into filters and resource results on a warm off-white canvas. The title zone should establish hierarchy without occupying a full viewport. Doto is reserved for the hero display moment and primary count, Space Grotesk carries readable content, and Space Mono carries labels and data. Red is reserved for an active signal and status colors are used only for data.
+- The directory no longer uses a Skills-scoped black hero; shared Library navigation handles the knowledge-directory context, while Skills focuses on filters and resource results.
 
 ## Keep
 
@@ -96,6 +98,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 ## Remove / avoid
 
 - Page-level card chrome around the hero, overview or filter sidebar.
+- Independent Skills hero / overview section after switching from the shared knowledge-directory navigation.
 - Duplicate filter systems.
 - Task-search controls that do not improve resource discovery.
 - Result-count-only or empty toolbar chrome after search moves to the floating dock.
