@@ -1,5 +1,5 @@
 import { vocabularyTranslations } from "./vocabulary-i18n.js";
-import { navigationPatterns, navigationPrinciples } from "./vocabulary-navigation-data.js";
+import { navigationPatterns } from "./vocabulary-navigation-data.js";
 import { cardMediaPool, interactiveVariantIds, layoutCardMedia } from "./vocabulary-card-config.js";
 import { localizeVocabularyEntry, vocabularyCategories, vocabularyEntries as baseVocabularyEntries } from "./data/index.js";
 import { vocabularyComponentEntries } from "./vocabulary-component-data.js";
@@ -61,6 +61,20 @@ const state = {
 const $ = (selector) => document.querySelector(selector);
 const taxonomyNav = $("#taxonomyNav");
 const entryGrid = $("#entryGrid");
+const ENTRY_RENDER_CHUNK = 18;
+let visibleEntryCount = ENTRY_RENDER_CHUNK;
+const entryLoadSentinel = document.createElement("div");
+entryLoadSentinel.className = "entry-load-sentinel";
+entryLoadSentinel.setAttribute("aria-hidden", "true");
+entryGrid.after(entryLoadSentinel);
+const entryLoadObserver = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
+  if (!entries.some((entry) => entry.isIntersecting) || entryGrid.hidden) return;
+  const total = filteredEntries().length;
+  if (visibleEntryCount >= total) return;
+  visibleEntryCount = Math.min(total, visibleEntryCount + ENTRY_RENDER_CHUNK);
+  renderEntries({ preserveLimit: true });
+}, { rootMargin: "500px 0px" }) : null;
+entryLoadObserver?.observe(entryLoadSentinel);
 const resultsHeading = $(".results-heading");
 const resultsEyebrow = $("#resultsEyebrow");
 const resultsTitle = $("#resultsTitle");
@@ -114,15 +128,13 @@ function navigationPreviewMarkup(type) {
 }
 
 function renderNavigationDeepDive() {
-  const principles = $("#navigationPrinciples");
   const grid = $("#navigationPatternGrid");
   const matrix = $("#navigationMatrixTable");
-  if (!navigationDeepDive || !principles || !grid || !matrix) return;
+  if (!navigationDeepDive || !grid || !matrix) return;
 
   navigationDeepDive.hidden = !showsNavigationDeepDive();
   if (navigationDeepDive.hidden) return;
 
-  principles.innerHTML = navigationPrinciples.map((item) => `<article><span>${item.number}</span><div><h3>${escapeHtml(navText(item.title))}</h3><p>${escapeHtml(navText(item.body))}</p></div></article>`).join("");
   grid.innerHTML = navigationPatterns.map((pattern) => `<article class="navigation-pattern-card">
     <div class="navigation-pattern-preview">${navigationPreviewMarkup(pattern.preview)}<span>${pattern.number}</span></div>
     <div class="navigation-pattern-body">
@@ -309,8 +321,9 @@ function handleEntryGridClick(event) {
   setCardFlipped(card, !card?.classList.contains("is-flipped"));
 }
 
-function renderEntries() {
+function renderEntries({ preserveLimit = false } = {}) {
   const list = filteredEntries();
+  if (!preserveLimit) visibleEntryCount = ENTRY_RENDER_CHUNK;
   const navigationMode = showsNavigationDeepDive();
   const stylesMode = state.category === "styles";
   const displayedCount = stylesMode ? 20 : list.length;
@@ -324,7 +337,9 @@ function renderEntries() {
   resultsSummary.hidden = navigationMode || stylesMode;
   if (styleCoverGallery) styleCoverGallery.hidden = !stylesMode || Boolean(state.query.trim());
   entryGrid.hidden = navigationMode || stylesMode;
-  entryGrid.innerHTML = navigationMode || stylesMode ? "" : list.map(cardMarkup).join("");
+  const visibleEntries = list.slice(0, visibleEntryCount);
+  entryGrid.innerHTML = navigationMode || stylesMode ? "" : visibleEntries.map(cardMarkup).join("");
+  entryLoadSentinel.hidden = navigationMode || stylesMode || visibleEntries.length >= list.length;
   emptyState.hidden = navigationMode || stylesMode || list.length > 0;
   resultCount.textContent = stylesMode
     ? tr("20 种", "20 styles")

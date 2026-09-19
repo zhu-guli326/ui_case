@@ -31,6 +31,41 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
   } = helpers;
   const { track, copyCloneCommand, syncDirectoryStateToUrl } = actions;
 
+  const videoObserver = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const video = entry.target;
+      if (!entry.isIntersecting) {
+        video.pause();
+        return;
+      }
+      if (!video.src && video.dataset.src) {
+        video.src = video.dataset.src;
+        video.load();
+      }
+    });
+  }, { rootMargin: "240px 0px", threshold: 0.01 }) : null;
+
+  function observeVideo(video) {
+    video.muted = true;
+    const play = () => {
+      if (!video.src && video.dataset.src) {
+        video.src = video.dataset.src;
+        video.load();
+      }
+      video.play().catch(() => {});
+    };
+    const pause = () => video.pause();
+    video.addEventListener("pointerenter", play);
+    video.addEventListener("pointerleave", pause);
+    video.closest("a")?.addEventListener("focus", play);
+    video.closest("a")?.addEventListener("blur", pause);
+    if (videoObserver) videoObserver.observe(video);
+    else if (video.dataset.src) {
+      video.src = video.dataset.src;
+      video.load();
+    }
+  }
+
   function renderRepositoryFilters() {
     if (state.activeDirectoryMode === "WEB") {
       if (categoryCount) categoryCount.textContent = String(designReferenceGroups.length);
@@ -126,6 +161,7 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
 
   function renderRepositories() {
     if (!repoList) return;
+    videoObserver?.disconnect();
     renderRepositoryToolbar();
     syncDirectoryStateToUrl();
     if (state.activeDirectoryMode === "WEB") {
@@ -162,8 +198,7 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
         cover.remove();
       }, { once: true });
       if (cover.tagName === "VIDEO") {
-        cover.muted = true;
-        cover.play?.().catch(() => {});
+        observeVideo(cover);
       }
     });
     if (!items.length) repoList.innerHTML = `<p class="repo-empty">${state.currentLanguage === "en" ? "No matching skills. Try another keyword or category." : "没有找到匹配的 Skill，请换个关键词或分类。"}</p>`;
@@ -199,8 +234,7 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
         preview.closest(".web-reference-card")?.classList.add("is-preview-missing");
       }, { once: true });
       if (preview.tagName === "VIDEO") {
-        preview.muted = true;
-        preview.play?.().catch(() => {});
+        observeVideo(preview);
       }
     });
     repoList.querySelectorAll("[data-design-reference]").forEach((link) => link.addEventListener("click", () => track("design_reference_open", { website: link.dataset.designReference })));

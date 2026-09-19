@@ -299,13 +299,6 @@ function installMotionAffordance(grid) {
     animateCardHover(card, event);
   });
 
-  grid.addEventListener("pointermove", (event) => {
-    if (!(event.target instanceof Element)) return;
-    const card = event.target.closest(".entry-card");
-    if (!card || !grid.contains(card)) return;
-    animateCardHover(card, event);
-  });
-
   grid.addEventListener("pointerout", (event) => {
     if (!(event.target instanceof Element)) return;
     const card = event.target.closest(".entry-card");

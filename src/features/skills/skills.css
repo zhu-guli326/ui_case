@@ -84,6 +84,8 @@ button { cursor: pointer; }
 /* Skill result cards */
 .repo-list { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; align-items: stretch; }
 .repo-row { display: flex; min-width: 0; overflow: hidden; flex-direction: column; border: 1px solid var(--ant-border); border-radius: var(--ant-radius); background: var(--ant-surface); box-shadow: var(--ant-shadow); transition: .18s ease; }
+.repo-row,
+.web-reference-group { content-visibility: auto; contain-intrinsic-size: auto 620px; }
 .repo-row:hover { border-color: #cfcfcf; box-shadow: 0 8px 24px rgba(0,0,0,.08); transform: translateY(-2px); }
 .repo-scene { position: relative; display: block; aspect-ratio: 16/10; overflow: hidden; border-bottom: 1px solid var(--ant-border); background: #f0f2f5; color: #fff; text-decoration: none; }
 .repo-browser-bar { position: relative; z-index: 3; display: flex; height: 28px; align-items: center; gap: 4px; padding: 0 9px; border-bottom: 1px solid var(--ant-border); background: #fafafa; color: #8c8c8c; }
@@ -206,13 +208,11 @@ body.skills-document {
   --ant-shadow:none;
   --nd-accent:#d71921;
   --nd-success:#4a9e5c;
-  background-color:#f4f3ee;
-  background-image:radial-gradient(circle,#ccc 1px,transparent 1px);
-  background-size:16px 16px;
+  background:#f5f6f7;
   color:#111;
   font-family:"Space Grotesk","DM Sans",system-ui,sans-serif;
 }
-body.skills-document .skills-page { background:rgba(244,243,238,.94); }
+body.skills-document .skills-page { background:transparent; }
 body.skills-document .hero-update-note { font-family:"Space Mono",monospace; letter-spacing:.04em; text-transform:uppercase; }
 body.skills-document .hero-update-note strong { color:var(--nd-success); }
 body.skills-document .filter-sidebar-head,

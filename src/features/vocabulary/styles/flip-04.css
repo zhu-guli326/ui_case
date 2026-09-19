@@ -33,8 +33,5 @@
 
 /* Code-rendered term previews. These are deliberately compact, non-interactive component specimens. */
 .vocabulary-preview { --vp-ink: #202a27; --vp-muted: #7a8580; --vp-line: #dfe5df; --vp-panel: #fff; --vp-soft: #f5f7f5; --vp-green: #21844f; --vp-lime: #c8ed83; display: block; position: relative; overflow: hidden; width: 100%; height: 100%; min-height: 0; background: var(--vp-panel); color: var(--vp-ink); font: 500 9px/1.35 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-.vocabulary-preview--hero, .vocabulary-preview--breadcrumbs, .vocabulary-preview--card, .vocabulary-preview--card-grid, .vocabulary-preview--list, .vocabulary-preview--media-tile, .vocabulary-preview--detail-panel, .vocabulary-preview--data-table, .vocabulary-preview--drawer { --vp-green: #276b8d; --vp-lime: #e6c76f; }
-.vocabulary-preview--button, .vocabulary-preview--checkbox, .vocabulary-preview--menu, .vocabulary-preview--modal, .vocabulary-preview--toast, .vocabulary-preview--skeleton { --vp-green: #8c4b31; --vp-lime: #f1c48d; }
-.vocabulary-preview--typography { --vp-green: #5d4c8d; --vp-lime: #ded5ff; }
 .vp-canvas { position: relative; width: 100%; height: 100%; min-height: 0; padding: 13px; }
 .vocabulary-preview * { box-sizing: border-box; }

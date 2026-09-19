@@ -76,7 +76,7 @@ The page should behave more like a visual directory + learning reference than a 
 - The visible card surface should remain a reliable toggle target, while explicit controls such as favorite, copy Prompt, state buttons and detail actions must keep their own independent behavior.
 - Respect `prefers-reduced-motion`: keep the same front/back state behavior but skip GSAP movement and decorative transitions.
 - Chinese and English content must switch through the global language system.
-- Selecting the Navigation category without a search query reveals the navigation-and-discovery comparison before the matching vocabulary cards.
+- Selecting the Navigation category without a search query reveals the visual navigation-and-discovery patterns directly, without an introductory text block, before the matching vocabulary cards.
 
 ## Keep
 

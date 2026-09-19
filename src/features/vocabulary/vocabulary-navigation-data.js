@@ -1,9 +1,3 @@
-export const navigationPrinciples = [
-  { number: "01", title: ["先分导航层级", "Define the scope"], body: ["全局导航连接产品主要区域；局部导航只切换当前对象或内容。", "Global navigation connects product areas; local navigation switches views within the current context."] },
-  { number: "02", title: ["再看入口数量", "Count destinations"], body: ["3–5 个移动端一级入口适合底部标签；大量桌面入口更适合分组侧栏。", "Three to five mobile destinations fit a bottom bar; many desktop destinations need a grouped sidebar."] },
-  { number: "03", title: ["最后决定位置", "Choose placement last"], body: ["位置由设备、切换频率和内容密度决定，不是由视觉偏好决定。", "Placement follows device, switching frequency, and content density—not visual taste."] },
-];
-
 export const navigationPatterns = [
   {
     number: "01", preview: "top", termId: "top-nav", name: ["顶部导航", "Top navigation"], en: "Navbar",

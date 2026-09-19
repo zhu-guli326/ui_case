@@ -117,7 +117,7 @@ function getSkillCoverMarkup(item) {
   const poster = getSkillCover(item);
   if (item.coverType === "video" && item.coverSrc) {
     const posterAttribute = item.coverImage ? ` poster="${escapeHtml(item.coverImage)}"` : "";
-    return `<video class="repo-cover-image" src="${escapeHtml(item.coverSrc)}"${posterAttribute} autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>`;
+    return `<video class="repo-cover-image" data-src="${escapeHtml(item.coverSrc)}"${posterAttribute} muted loop playsinline preload="none" aria-hidden="true"></video>`;
   }
   return `<img class="repo-cover-image" src="${escapeHtml(poster)}" alt="" loading="lazy" decoding="async">`;
 }
@@ -132,7 +132,7 @@ function getWebsitePreviewMarkup(item) {
   const poster = getWebsitePreviewPath(item);
   if (item.previewType === "video" && item.previewSrc) {
     const posterAttribute = item.previewImage ? ` poster="${escapeHtml(item.previewImage)}"` : "";
-    return `<video src="${escapeHtml(item.previewSrc)}"${posterAttribute} autoplay muted loop playsinline preload="metadata" aria-label="${escapeHtml(item.name)} ${state.currentLanguage === "en" ? "official website video preview" : "官网视频预览"}" data-web-preview></video>`;
+    return `<video data-src="${escapeHtml(item.previewSrc)}"${posterAttribute} muted loop playsinline preload="none" aria-label="${escapeHtml(item.name)} ${state.currentLanguage === "en" ? "official website video preview" : "官网视频预览"}" data-web-preview></video>`;
   }
   return `<img src="${escapeHtml(poster)}" alt="${escapeHtml(item.name)} ${state.currentLanguage === "en" ? "official website preview" : "官网页面预览"}" loading="lazy" decoding="async" data-web-preview>`;
 }
@@ -296,6 +296,19 @@ async function fetchRepositoryStats(item, previous = {}) {
   }
 }
 
+async function mapWithConcurrency(items, limit, mapper) {
+  const results = new Array(items.length);
+  let nextIndex = 0;
+  const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
+    while (nextIndex < items.length) {
+      const index = nextIndex++;
+      results[index] = await mapper(items[index], index);
+    }
+  });
+  await Promise.all(workers);
+  return results;
+}
+
 async function loadRepositoryData() {
   const cache = readRepositoryStatsCache();
   const cachedItems = cache?.items || {};
@@ -307,7 +320,7 @@ async function loadRepositoryData() {
   renderer.renderRepositories();
   if (cacheIsFresh) return;
 
-  const resolved = await Promise.all(repositories.map((item) => fetchRepositoryStats(item, cachedItems[item.slug])));
+  const resolved = await mapWithConcurrency(repositories, 4, (item) => fetchRepositoryStats(item, cachedItems[item.slug]));
   state.resolvedRepositories = resolved;
   const hasStats = resolved.some((item) => typeof item.stars === "number" || Boolean(item.starsLabel));
   state.repositoryStatsStatus = hasStats ? "ready" : "unavailable";

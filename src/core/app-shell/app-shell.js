@@ -417,11 +417,12 @@
   function prefetchPrimaryPages() {
     if (new URL(window.location.href).searchParams.get("embed") === "1") return;
     siteNavigationItems().forEach((item) => prefetchPage(resolveLocalHref(item.href)));
+    document.querySelectorAll("image2-knowledge-nav a[href]").forEach((link) => prefetchPage(link.href));
   }
 
   document.addEventListener("click", (event) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    const link = event.target.closest?.(".site-header a[href]");
+    const link = event.target.closest?.(".site-header a[href], image2-knowledge-nav a[href]");
     if (!link || link.target === "_blank") return;
     link.classList.add("is-navigating");
     link.setAttribute("aria-busy", "true");
@@ -432,11 +433,11 @@
     if (ENABLE_EMBEDDED_SHELL && navigateInShell(link.href)) event.preventDefault();
   });
   document.addEventListener("pointerover", (event) => {
-    const link = event.target.closest?.(".site-header a[href]");
+    const link = event.target.closest?.(".site-header a[href], image2-knowledge-nav a[href]");
     if (link) prefetchPage(link.href);
   }, { passive: true });
   document.addEventListener("focusin", (event) => {
-    const link = event.target.closest?.(".site-header a[href]");
+    const link = event.target.closest?.(".site-header a[href], image2-knowledge-nav a[href]");
     if (link) prefetchPage(link.href);
   });
 
