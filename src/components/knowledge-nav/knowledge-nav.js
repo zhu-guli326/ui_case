@@ -8,16 +8,28 @@ const destinations = [
 class KnowledgeNav extends HTMLElement {
   connectedCallback() {
     this.render = this.render.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.render();
+    this.addEventListener('click', this.handleClick);
     window.addEventListener('image2:languagechange', this.render);
     window.addEventListener('image2:directorychange', this.render);
     window.addEventListener('popstate', this.render);
   }
 
   disconnectedCallback() {
+    this.removeEventListener('click', this.handleClick);
     window.removeEventListener('image2:languagechange', this.render);
     window.removeEventListener('image2:directorychange', this.render);
     window.removeEventListener('popstate', this.render);
+  }
+
+  handleClick(event) {
+    const link = event.target.closest?.('[data-knowledge-mode]');
+    if (!link || location.pathname.split('/').pop() !== 'skills.html') return;
+    event.preventDefault();
+    window.dispatchEvent(new CustomEvent('image2:directorymoderequest', {
+      detail: { mode: link.dataset.knowledgeMode },
+    }));
   }
 
   render() {
@@ -36,9 +48,9 @@ class KnowledgeNav extends HTMLElement {
           const copy = item[lang];
           const current = item.id === active;
           return `<section class="knowledge-directory-group${current ? ' is-current' : ''}">
-            <a href="${href(item.href)}"${current ? ' aria-current="page"' : ''}><strong>${copy[0]}</strong></a>
+            <a href="${href(item.href)}"${item.id === 'WEB' || item.id === 'SKILL' ? ` data-knowledge-mode="${item.id}"` : ''}${current ? ' aria-current="page"' : ''}><strong>${copy[0]}</strong></a>
             <p>${copy[1]}</p>
-            ${item.links.map((link, index) => `<a href="${href(link)}"><span>${copy[index + 2]}</span></a>`).join('')}
+            ${item.links.map((link, index) => `<a href="${href(link)}"${item.id === 'WEB' || item.id === 'SKILL' ? ` data-knowledge-mode="${item.id}"` : ''}><span>${copy[index + 2]}</span></a>`).join('')}
           </section>`;
         }).join('')}
       </nav>

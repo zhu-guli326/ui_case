@@ -67,6 +67,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 ## Interaction rules
 
 - Keep the same shared four-destination knowledge navigation visible when moving between Library, Skills (SKILL / WEB), and Vocabulary. Highlight the current destination, including changes made with the Skills mode controls. During cross-page navigation, keep the global header and knowledge navigation visually stationary; only the content below transitions. Shared implementation: src/components/knowledge-nav/knowledge-nav.js and knowledge-nav.css.
+- Switching between Design Tools (WEB) and Design Skills (SKILL) from the shared knowledge navigation happens within the current Skills document. Update the URL, active state, filters and results without a full-page transition.
 
 - The knowledge-page shell is intentionally flat: page-level hero, overview and filter containers must not use card-style borders, rounded white panels or shadows.
 - The page no longer keeps an independent hero / overview section; the shared knowledge-directory navigation stays visible on this route above filters and results.

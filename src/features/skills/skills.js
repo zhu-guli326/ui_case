@@ -377,15 +377,25 @@ elements.repoSortButtons.forEach((button) => button.addEventListener("click", ()
   renderer.renderRepositories();
 }));
 
-elements.directoryModeButtons.forEach((button) => button.addEventListener("click", () => {
-  state.activeDirectoryMode = button.dataset.directoryMode;
+function selectDirectoryMode(mode) {
+  if (!validDirectoryModes.has(mode) || mode === state.activeDirectoryMode) return;
+  state.activeDirectoryMode = mode;
   state.activeCategories.clear();
   state.activeSourceOnly = false;
   state.activeSort = "CURATED";
   state.searchQuery = "";
   track("directory_mode_select", { mode: state.activeDirectoryMode });
   renderer.renderRepositories();
-}));
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelector("#directoryLayout")?.animate([
+      { opacity: 0.55, transform: "translateY(6px)" },
+      { opacity: 1, transform: "translateY(0)" },
+    ], { duration: 180, easing: "cubic-bezier(.2,.7,.2,1)" });
+  }
+}
+
+elements.directoryModeButtons.forEach((button) => button.addEventListener("click", () => selectDirectoryMode(button.dataset.directoryMode)));
+window.addEventListener("image2:directorymoderequest", (event) => selectDirectoryMode(event.detail?.mode));
 
 if (elements.repoList) {
   if (window.image2I18n) {
