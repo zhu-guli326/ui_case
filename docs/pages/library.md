@@ -82,6 +82,8 @@ A user should be able to find a relevant case, understand what makes it useful, 
 
 ## Remove / avoid
 
+- Retired `brands.html` design-lab and comparison actions. Keep the existing Launcher entry for starting from a case.
+
 - Page-level card chrome around the hero, overview or filter sidebar.
 - A knowledge-library dropdown in the global header.
 - Style-count and GitHub-Star statistics in the hero.

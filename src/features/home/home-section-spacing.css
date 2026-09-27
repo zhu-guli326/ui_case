@@ -1,4 +1,4 @@
-@import url("./home-cta-canonical.css?v=20260903-cta-2");
+@import url("./home-cta-canonical.css");
 
 /* Keep adjacent homepage sections visually connected.
  * GSAP moves inner content only; these rules remove the large static black gaps

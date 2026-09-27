@@ -32,8 +32,6 @@ export function createLibraryDetailController({
     previewDialogApply,
     previewDialogStartTask,
     previewDialogMoreActionsSummary,
-    previewDialogComponents,
-    previewDialogCompare,
     previewDialogOpenLive,
     previewMediaStatus,
     previewMediaStatusText,
@@ -49,7 +47,6 @@ export function createLibraryDetailController({
     withPreviewVersion,
     getEmbeddedDemoUrl,
     getStyleProfiles,
-    labUrlForGuide,
     taskUrlForGuide
   } = helpers;
   const { track, copyStyleMode, applyCaseToProject, projectPatchForGuide } = actions;
@@ -372,10 +369,6 @@ export function createLibraryDetailController({
     previewDialogStartTask.textContent = isEnglish ? "Start designing from this case" : "基于此案例开始设计";
     previewDialogMoreActionsSummary.textContent = isEnglish ? "More actions" : "更多操作";
     previewDialogMoreActionsSummary.closest("details").open = false;
-    previewDialogComponents.href = labUrlForGuide(sourceGuide);
-    previewDialogComponents.textContent = isEnglish ? "Open in design lab" : "在实验室中打开";
-    previewDialogCompare.href = labUrlForGuide(sourceGuide, "compare");
-    previewDialogCompare.textContent = isEnglish ? "Compare with current project" : "与当前方案对比";
     previewMediaStage.style.setProperty("--preview-media-bg", guide.preview);
     previewDialogOpenLive.hidden = !guide.liveDemo;
     if (guide.liveDemo) previewDialogOpenLive.href = guide.liveDemo;
@@ -485,8 +478,6 @@ export function createLibraryDetailController({
     previewDialogApply.addEventListener("click", () => {
       if (!activePreviewGuide) return;
       applyCaseToProject(activePreviewGuide.id, true);
-      previewDialogComponents.href = labUrlForGuide(activePreviewGuide);
-      previewDialogCompare.href = labUrlForGuide(activePreviewGuide, "compare");
     });
     previewDialogStartTask.addEventListener("click", () => {
       if (activePreviewGuide) window.image2Project?.save?.({ ...projectPatchForGuide(activePreviewGuide), taskIntent: "rebuild" });

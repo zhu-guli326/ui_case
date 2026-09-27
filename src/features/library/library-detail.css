@@ -221,7 +221,6 @@
   display:inline-flex !important; align-items:center; justify-content:center;
   border:1px solid #d9d9d3 !important; background:#fff !important; color:#30302c !important;
 }
-.preview-dialog-footer .preview-dialog-lab-link { display:none !important; }
 .preview-dialog-more-actions { width:100% !important; margin-top:0 !important; padding-top:0 !important; border-top:0 !important; text-align:right; }
 .preview-dialog-more-actions > summary {
   display:inline-flex !important; min-height:30px; align-items:center; color:#85857f !important;

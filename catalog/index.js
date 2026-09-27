@@ -63,6 +63,7 @@ export const styleGuides = [
     "name": "Vestra",
     "style": "编辑式时尚电商",
     "video": "./assets/cases/fashion-shopping-app/screen-only/demo.mp4",
+    "liveDemo": "./demo/fashion/index.html",
     "poster": "./assets/cases/fashion-shopping-app/screen-only/hero.png",
     "previewImage": "./assets/cases/fashion-shopping-app/screen-only/hero.png",
     "preview": "#eadfe0",
@@ -407,6 +408,7 @@ export const styleGuides = [
     "name": "ArtMuse",
     "style": "当代美术馆导览",
     "video": "./assets/cases/museum-app/museum-app-demo.mp4",
+    "liveDemo": "./demo/artmuse-ios/index.html",
     "poster": "./assets/cases/museum-app/video-frames/01-home.png",
     "videoSequence": {
       "duration": 8,
@@ -484,6 +486,7 @@ export const styleGuides = [
     "name": "Today",
     "style": "报刊感新闻阅读",
     "video": "./assets/cases/news-app/screen-only/demo.mp4",
+    "liveDemo": "./demo/news/index.html",
     "poster": "./assets/cases/news-app/screen-only/headlines.png",
     "previewImage": "./assets/cases/news-app/screen-only/headlines.png",
     "preview": "#e1e0d7",

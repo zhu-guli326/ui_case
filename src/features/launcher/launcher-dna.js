@@ -391,14 +391,6 @@ function installEvents() {
   window.addEventListener("image2:languagechange", () => { applyTokens(); updateDirectionCaseLink(); });
 }
 
-function installSectionDropdowns() {
-  const sections = $$(".dna-controls > details");
-  sections.forEach((section) => section.addEventListener("toggle", () => {
-    if (!section.open) return;
-    sections.forEach((other) => { if (other !== section) other.open = false; });
-  }));
-}
-
 window.image2I18n?.addTranslations({
   "dna.heroTitle": { zh: "界面设计 DNA", en: "Interface DNA" },
   "dna.heroLede": { zh: "选一个喜欢的方向，边调边看，把满意的设计带进开发。", en: "Choose a direction, refine it live, and take your design into development." },
@@ -423,6 +415,5 @@ window.image2I18n?.addTranslations({
 
 restoreDna();
 installEvents();
-installSectionDropdowns();
 applyTokens();
 updateDirectionCaseLink();

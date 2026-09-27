@@ -63,8 +63,6 @@ const elements = {
   previewDialogApply: document.querySelector("#previewDialogApply"),
   previewDialogStartTask: document.querySelector("#previewDialogStartTask"),
   previewDialogMoreActionsSummary: document.querySelector("#previewDialogMoreActionsSummary"),
-  previewDialogComponents: document.querySelector("#previewDialogComponents"),
-  previewDialogCompare: document.querySelector("#previewDialogCompare"),
   previewDialogOpenLive: document.querySelector("#previewDialogOpenLive"),
   previewMediaStatus: document.querySelector("#previewMediaStatus"),
   previewMediaStatusText: document.querySelector("#previewMediaStatusText"),
@@ -164,13 +162,6 @@ function projectPatchForGuide(guide) {
     sourceCaseDemo: guide.liveDemo || "",
     lastStep: "library"
   };
-}
-
-function labUrlForGuide(guide, view = "single") {
-  const project = { ...(window.image2Project?.read?.() || {}), ...projectPatchForGuide(guide), view };
-  const url = new URL("./brands.html", window.location.href);
-  ["template", "system", "brand", "theme", "device", "view"].forEach((key) => project[key] && url.searchParams.set(key, project[key]));
-  return window.image2I18n?.localizeUrl?.(url.href) || url.href;
 }
 
 function taskUrlForGuide(guide) {
@@ -329,7 +320,6 @@ const detail = createLibraryDetailController({
     withPreviewVersion,
     getEmbeddedDemoUrl,
     getStyleProfiles,
-    labUrlForGuide,
     taskUrlForGuide
   },
   actions: { track, copyStyleMode, applyCaseToProject, projectPatchForGuide }

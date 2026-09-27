@@ -395,7 +395,11 @@ function selectDirectoryMode(mode) {
 }
 
 elements.directoryModeButtons.forEach((button) => button.addEventListener("click", () => selectDirectoryMode(button.dataset.directoryMode)));
-window.addEventListener("image2:directorymoderequest", (event) => selectDirectoryMode(event.detail?.mode));
+window.addEventListener("image2:directorymoderequest", (event) => {
+  if (!validDirectoryModes.has(event.detail?.mode)) return;
+  selectDirectoryMode(event.detail.mode);
+  event.preventDefault();
+});
 
 if (elements.repoList) {
   if (window.image2I18n) {

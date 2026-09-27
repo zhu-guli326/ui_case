@@ -24,12 +24,15 @@ class KnowledgeNav extends HTMLElement {
   }
 
   handleClick(event) {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const link = event.target.closest?.('[data-knowledge-mode]');
-    if (!link || location.pathname.split('/').pop() !== 'skills.html') return;
-    event.preventDefault();
-    window.dispatchEvent(new CustomEvent('image2:directorymoderequest', {
+    if (!link || link.target === '_blank' || location.pathname.split('/').pop() !== 'skills.html') return;
+    const request = new CustomEvent('image2:directorymoderequest', {
+      cancelable: true,
       detail: { mode: link.dataset.knowledgeMode },
-    }));
+    });
+    // Only suppress native navigation after the directory has handled the request.
+    if (!window.dispatchEvent(request)) event.preventDefault();
   }
 
   render() {

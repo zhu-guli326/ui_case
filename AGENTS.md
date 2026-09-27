@@ -92,6 +92,7 @@ Canonical shared files:
 ## 3. Single Source of Truth
 
 - Knowledge Library, Skills (SKILL / WEB) and Vocabulary share one persistent content-level navigation: `src/components/knowledge-nav/knowledge-nav.js` and `knowledge-nav.css`. Mount `<image2-knowledge-nav>` inside each page's `<main>`; preserve it across destination changes and highlight the active route / mode. This component does not replace or alter the global App Shell.
+- Each knowledge-directory column is clickable through its primary destination link, including its description and blank space. Secondary links retain independent targets. Skills mode switching may prevent native navigation only after the page runtime handles the request; modified clicks retain native browser behavior.
 
 - Each public page has one current production implementation on `main`.
 - `docs/pages/manifest.json` is the only route-to-requirement mapping; `docs/pages/README.md` explains the contract but does not duplicate the route list.

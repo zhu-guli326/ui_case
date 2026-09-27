@@ -208,7 +208,6 @@ body.capture-mode .project-toast { display: none; }
 .preview-dialog-primary-actions > * { min-width: 0; }
 .preview-dialog-footer .dialog-action-link { display: inline-flex; min-height: 40px; align-items: center; justify-content: center; padding: 0 12px; border: 1px solid var(--line-strong); border-radius: 20px; color: var(--ink); font-size: 11px; text-align: center; text-decoration: none; }
 .preview-dialog-footer .dialog-action-link:hover,.preview-dialog-footer .dialog-action-link:focus-visible { border-color: var(--dark); background: #f2f0ea; }
-.preview-dialog-footer .preview-dialog-lab-link { width: fit-content; font-size: 12px; }
 .preview-dialog-more-actions { width: 100%; padding-top: 8px; border-top: 1px solid var(--line); }
 .preview-dialog-more-actions > summary { color: var(--muted); font-size: 11px; font-weight: 750; cursor: pointer; }
 .preview-dialog-more-actions > div { display: flex; flex-wrap: wrap; align-items: center; gap: 9px 12px; padding-top: 12px; }

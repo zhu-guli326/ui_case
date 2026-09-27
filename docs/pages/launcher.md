@@ -47,6 +47,7 @@ The page header provides a visible Review & export action that opens the existin
 
 ## Interaction rules
 
+- The Visual direction, Foundation, and Save & reuse sections expand independently. Opening one must not collapse another; nested selectors must not change their parent section's open state.
 - Configuration changes should create immediate or clearly triggered visual feedback in the preview.
 - Avoid equal visual weight for every settings block.
 - Dropdowns, segmented controls, tabs, tooltips and drawers may reference Ant Design interaction patterns when useful.
