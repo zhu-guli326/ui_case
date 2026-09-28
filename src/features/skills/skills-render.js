@@ -31,6 +31,7 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
   } = helpers;
   const { track, copyCloneCommand, syncDirectoryStateToUrl } = actions;
 
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const videoObserver = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const video = entry.target;
@@ -42,8 +43,9 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
         video.src = video.dataset.src;
         video.load();
       }
+      if (!reducedMotion.matches) video.play().catch(() => {});
     });
-  }, { rootMargin: "240px 0px", threshold: 0.01 }) : null;
+  }, { threshold: 0.01 }) : null;
 
   function observeVideo(video) {
     video.muted = true;
@@ -54,7 +56,9 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
       }
       video.play().catch(() => {});
     };
-    const pause = () => video.pause();
+    const pause = () => {
+      if (reducedMotion.matches) video.pause();
+    };
     video.addEventListener("pointerenter", play);
     video.addEventListener("pointerleave", pause);
     video.closest("a")?.addEventListener("focus", play);
@@ -63,6 +67,7 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
     else if (video.dataset.src) {
       video.src = video.dataset.src;
       video.load();
+      if (!reducedMotion.matches) video.play().catch(() => {});
     }
   }
 

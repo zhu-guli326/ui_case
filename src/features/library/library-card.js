@@ -23,7 +23,7 @@ export function createLibraryCards({
     const isSearch = Boolean(searchInput.value.trim());
     document.querySelector(".catalog-bar .kicker").textContent = isSearch ? copy.searchResults : copy.featured;
     document.querySelector("#catalogTitle").textContent = isSearch ? copy.searchTitle : copy.startVisual;
-    gallery.innerHTML = guides.map((sourceGuide) => {
+    gallery.innerHTML = guides.map((sourceGuide, index) => {
       const guide = localizeRecord(sourceGuide);
       const mediaMode = guide.video ? "video" : "image";
       const openMode = guide.defaultPreviewMode || mediaMode;
@@ -38,7 +38,7 @@ export function createLibraryCards({
       return `
       <article class="demo-card" data-case-id="${guide.id}">
         <div class="demo-card-preview" style="--preview: ${guide.preview}">
-          <figure class="phone-frame phone-frame--card phone-preview-media${deviceArtClass}"><div class="phone-screen"><img class="phone-media" src="${referenceMatchedPoster}" alt="${window.image2I18n?.language === "en" ? `${guide.style} mobile interface thumbnail` : `${guide.style} 手机界面缩略图`}" decoding="async"></div><span class="media-hint">${copy.imagePreview}</span></figure>
+          <figure class="phone-frame phone-frame--card phone-preview-media${deviceArtClass}"><div class="phone-screen"><img class="phone-media" loading="${index < 3 ? "eager" : "lazy"}" fetchpriority="${index < 3 ? "high" : "low"}" src="${referenceMatchedPoster}" alt="${window.image2I18n?.language === "en" ? `${guide.style} mobile interface thumbnail` : `${guide.style} 手机界面缩略图`}" decoding="async"></div><span class="media-hint">${copy.imagePreview}</span></figure>
           <button class="preview-open-button" type="button" data-preview-id="${guide.id}" data-preview-mode="${openMode}" aria-label="${copy.openPreview}: ${guide.style}, ${openLabel}"><span>${openLabel}</span></button>
         </div>
         <div class="demo-card-body">

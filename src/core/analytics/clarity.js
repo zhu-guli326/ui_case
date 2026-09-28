@@ -33,7 +33,6 @@
     };
 
     loadStyle("./src/features/home/specular-button.css");
-    loadStyle("./src/features/home/discovery-asset-paths.css");
     loadScript("./src/features/home/specular-button.js");
     loadScript("./src/features/home/featured-carousel-autoplay.js");
   }

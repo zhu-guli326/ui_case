@@ -75,6 +75,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Filters must remain understandable and compact.
 - Avoid large unused gutters; the directory should use available desktop width effectively.
 - Cards should prioritize the actual resource and its visual evidence over decorative chrome.
+- Video previews play muted and loop while visible, and pause outside the viewport. Respect reduced-motion preferences by keeping automatic playback off; pointer hover or keyboard focus can explicitly preview the video.
 - A flipped card state should reveal additional useful content rather than repeat the front.
 - Resources that cannot meaningfully flip should not fake a flip interaction.
 - Source-code availability should remain visible and filterable.

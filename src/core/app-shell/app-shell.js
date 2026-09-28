@@ -404,6 +404,7 @@
   }
 
   function prefetchPage(value) {
+    if (navigator.connection?.saveData || /(^|-)2g$/.test(navigator.connection?.effectiveType || "")) return;
     const url = routableUrl(value);
     if (!url || url.href === window.location.href || prefetchedPages.has(url.href)) return;
     prefetchedPages.add(url.href);
@@ -540,8 +541,8 @@
     if ("requestIdleCallback" in window) window.requestIdleCallback(prefetchPrimaryPages, { timeout: 1600 });
     else window.setTimeout(prefetchPrimaryPages, 350);
   };
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", schedulePrefetch, { once: true });
-  else schedulePrefetch();
+  if (document.readyState === "complete") schedulePrefetch();
+  else window.addEventListener("load", schedulePrefetch, { once: true });
 
   if (new URL(window.location.href).searchParams.get("embed") === "1" && window.parent !== window) {
     const parentRoute = new URL(window.location.href);

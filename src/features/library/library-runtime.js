@@ -66,14 +66,11 @@ function normalizeCardImage(image, caseId) {
 }
 
 function enhanceCards() {
-  [...document.querySelectorAll("#demoGallery .demo-card")].forEach((card, index) => {
+  [...document.querySelectorAll("#demoGallery .demo-card")].forEach((card) => {
     const caseId = card.dataset.caseId || "";
     const image = card.querySelector(".phone-preview-media img");
     if (image) {
       normalizeCardImage(image, caseId);
-      image.loading = index < 3 ? "eager" : "lazy";
-      image.fetchPriority = index < 3 ? "high" : "low";
-      image.decoding = "async";
       image.dataset.caseId = caseId;
       image.dataset.fallbackQueue = JSON.stringify(fallbackCandidates(caseId));
       if (!image.dataset.failedSources) image.dataset.failedSources = "[]";
