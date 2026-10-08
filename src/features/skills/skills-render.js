@@ -74,6 +74,17 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
     return designReferenceWebsites.length + (window.image2SkillsDesignSystemCount || 0);
   }
 
+  // Skill mode reveals results in batches so the cover wall stays scannable.
+  // The batch follows the query, so a new filter or search starts from the top
+  // while a background GitHub stats refresh keeps the revealed count.
+  const SKILL_BATCH_SIZE = 24;
+  let skillBatchSignature = "";
+  let skillBatchCount = SKILL_BATCH_SIZE;
+
+  function skillBatchKey() {
+    return [state.activeSort, state.searchQuery.trim(), [...state.activeCategories].sort().join(",")].join("|");
+  }
+
   function renderRepositoryFilters() {
     if (state.activeDirectoryMode === "WEB") {
       if (categoryCount) categoryCount.textContent = String(designReferenceGroups.length);
@@ -169,8 +180,15 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
       return;
     }
     const items = getFilteredRepositories();
+    const batchKey = skillBatchKey();
+    if (batchKey !== skillBatchSignature) {
+      skillBatchSignature = batchKey;
+      skillBatchCount = SKILL_BATCH_SIZE;
+    }
+    const visibleItems = items.slice(0, skillBatchCount);
+    const hiddenCount = items.length - visibleItems.length;
     repoList.classList.remove("is-web-list");
-    repoList.innerHTML = items.map((item, index) => `
+    repoList.innerHTML = visibleItems.map((item, index) => `
       <article class="repo-row repo-card-${index % 6}" data-category="${escapeHtml(item.category)}">
         <a class="repo-scene" data-category="${escapeHtml(item.category)}" href="${escapeHtml(buildSkillDetailHref(item.slug))}" aria-label="${state.currentLanguage === "en" ? "View skill details" : "查看 Skill 详情"}: ${escapeHtml(item.title)}">
           <span class="repo-browser-bar" aria-hidden="true"><i></i><i></i><i></i><b>${escapeHtml(getSkillBrowserLabel(item))}</b><em>${skillIcon("external-link")}</em></span>
@@ -189,9 +207,18 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
           <div class="repo-footer"><div class="repo-stats"><span title="GitHub Stars"><i aria-hidden="true">${skillIcon("star")}</i><small>GitHub Stars</small><b>${escapeHtml(item.starsLabel || formatNumber(item.stars))}</b></span><small>${formatDate(item.updatedAt)}</small></div><div class="repo-actions"><button class="repo-copy-btn" type="button" data-copy-invoke="${item.slug}" title="${state.currentLanguage === "en" ? "Copy the Codex clone command" : "复制 Codex 调用命令"}"><span>${state.currentLanguage === "en" ? "Copy command" : "复制调用"}</span><b aria-hidden="true">${skillIcon("plus")}</b></button></div></div>
         </div>
       </article>
-    `).join("");
+    `).join("") + (hiddenCount > 0 ? `
+      <div class="repo-more">
+        <button type="button" data-repo-more><span>${state.currentLanguage === "en" ? "Load more skills" : "加载更多 Skill"}</span><b>${hiddenCount}</b></button>
+      </div>
+    ` : "");
     repoList.querySelectorAll("[data-skill-detail]").forEach((link) => link.addEventListener("click", () => track("skill_detail_open", { repository: link.dataset.skillDetail })));
     repoList.querySelectorAll("[data-copy-invoke]").forEach((button) => button.addEventListener("click", () => copyCloneCommand(button)));
+    repoList.querySelector("[data-repo-more]")?.addEventListener("click", () => {
+      skillBatchCount += SKILL_BATCH_SIZE;
+      track("skill_load_more", { visible: Math.min(skillBatchCount, items.length) });
+      renderRepositories();
+    });
     repoList.querySelectorAll(".repo-cover-image").forEach((cover) => {
       cover.addEventListener("error", () => {
         cover.closest(".repo-row")?.classList.add("is-cover-missing");

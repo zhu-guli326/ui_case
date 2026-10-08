@@ -124,6 +124,11 @@ button { cursor: pointer; }
 .repo-copy-btn b .skills-icon { width: 13px; height: 13px; }
 .repo-copy-btn:hover, .repo-copy-btn.is-copied { border-color: var(--ant-primary); background: var(--ant-primary); color: #fff; }
 .repo-empty { grid-column: 1/-1; margin: 0; padding: 64px 20px; border: 1px dashed #d9d9d9; border-radius: var(--ant-radius); background: #fff; color: var(--ant-text-secondary); font-size: 13px; text-align: center; }
+.repo-more { grid-column: 1/-1; display: grid; place-items: center; margin-top: 4px; }
+.repo-more button { display: inline-flex; min-height: 44px; align-items: center; gap: 10px; padding: 0 22px; border: 1px solid var(--ant-border); border-radius: 999px; background: var(--ant-surface); color: var(--ant-text); font-size: 13px; font-weight: 600; }
+.repo-more button b { min-width: 22px; padding: 2px 7px; border-radius: 999px; background: var(--ant-fill); color: var(--ant-text-tertiary); font-size: 11px; font-weight: 600; }
+.repo-more button:hover { border-color: var(--directory-primary); color: var(--directory-primary); }
+.repo-more button:focus-visible { outline: 2px solid var(--directory-primary); outline-offset: 3px; }
 
 /* Website mode. The WEB list is a natural-height masonry flow owned by
  * skills-web-masonry.css, which flattens the group wrappers and hides their

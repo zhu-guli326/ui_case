@@ -60,7 +60,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 
 1. Persistent shared knowledge-directory navigation, followed by mode / filter controls
 2. Lightweight sorting controls
-3. Resource list / visual cards
+3. Resource list / visual cards, revealed in progressive batches with an explicit load-more action in Skill mode
 4. Focused inspector / flipped detail when useful
 5. Direct action: visit, copy prompt, inspect source availability, etc.
 6. Persistent bottom-centered floating search for Skill / Web resource discovery
@@ -78,6 +78,8 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Narrow screens keep the same categories visible without turning the rail into a full-height list: categories sit in compact multi-column rows rather than one long column.
 - Avoid large unused gutters; the directory should use available desktop width effectively.
 - Skill cards keep a readable minimum width. The grid drops a column before cards become too narrow, so a wider window never produces narrower cards.
+- Skill mode reveals the directory in batches, starting with 24 cards and offering an explicit load-more action with the remaining count. The revealed batch follows the query: a new search, filter or sort starts from the first batch again, while background data refreshes keep the batch the user already revealed.
+- Web mode keeps its full masonry flow instead of batching, because its cards are much taller and the list is shorter.
 - Skill card descriptions clamp to two lines; the remaining detail stays on the skill detail page rather than pushing the cover wall taller.
 - Cards should prioritize the actual resource and its visual evidence over decorative chrome.
 - Video previews play muted and loop while visible, and pause outside the viewport. Respect reduced-motion preferences by keeping automatic playback off; pointer hover or keyboard focus can explicitly preview the video.
@@ -114,6 +116,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Result-count-only or empty toolbar chrome after search moves to the floating dock.
 - A dedicated full-width row for sorting, or a sort control that stays visible while it cannot affect the list.
 - Forcing an extra card column at the cost of readable card width or readable descriptions.
+- Rendering the entire Skill cover wall at once when the curated list keeps growing.
 - Large empty margins that reduce browsing efficiency.
 - Repeated buttons or repeated resource metadata.
 - Recreating Library or Vocabulary inside this page.

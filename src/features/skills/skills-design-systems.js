@@ -98,8 +98,8 @@ function ensureFilterButtons() {
     facetList.appendChild(button);
   }
   const count = $("#categoryCount");
-  const coreCount = $$("#repoFacets [data-repo-filter]").length;
-  if (count && coreCount) count.textContent = String(coreCount + 1);
+  const filterCount = $$("#repoFacets .repo-subfilter").length;
+  if (count && filterCount) count.textContent = String(filterCount);
 }
 
 function syncFilterVisuals() {
