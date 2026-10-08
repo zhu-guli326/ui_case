@@ -10,4 +10,4 @@ A polished 4:3 presentation board for a premium mobile food-label scanner app. V
 
 Premium studio product photography for a modern food ingredient scanner app. A small unbranded matte white paper tub filled with three sculpted scoops of pale green Granny Smith apple sorbet, surrounded by one whole glossy green apple, two crisp apple wedges, and one curled peel ribbon. Clean architectural composition, generous negative space, seamless very pale cool gray background, realistic sorbet crystals and restrained chartreuse accents. The tub front is completely blank. No text, logo, label, watermark, phone, interface or packaging clutter.
 
-Active output: `assets/apple-sorbet-youtoken-v2.png`
+Active output: `assets/apple-sorbet-youtoken-v2.webp`

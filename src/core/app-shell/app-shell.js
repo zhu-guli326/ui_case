@@ -15,7 +15,7 @@
     const probe = new Image();
     probe.onload = () => window.location.replace(target);
     probe.onerror = () => document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", revealLocalPreviewHelp, { once: true }) : revealLocalPreviewHelp();
-    probe.src = `http://127.0.0.1:4174/assets/readme/hero.png?preview=${Date.now()}`;
+    probe.src = `http://127.0.0.1:4174/assets/readme/hero.webp?preview=${Date.now()}`;
   }
 
   const STORAGE_KEY = "image2-ui-language";

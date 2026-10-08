@@ -2,8 +2,8 @@
   "styleId": "relay-music",
   "workflow": {
     "referenceImage": "assets/reference-overview.png",
-    "effectImage": "assets/relay-effect-board.png",
-    "decompositionSource": "assets/relay-effect-board.png",
+    "effectImage": "assets/relay-effect-board.webp",
+    "decompositionSource": "assets/relay-effect-board.webp",
     "generationChannel": "native-image2",
     "generationSource": "system-imagegen",
     "effectImageReviewed": true
@@ -17,40 +17,40 @@
     {
       "id": "artist-nova-ray-hero",
       "type": "photo-slot",
-      "path": "assets/artist-nova-ray-hero.png",
-      "sourceSheet": "assets/artist-nova-ray-hero-v2.png",
+      "path": "assets/artist-nova-ray-hero.webp",
+      "sourceSheet": "assets/artist-nova-ray-hero-v2.webp",
       "dimensions": "1122x1402",
       "uiLocation": "Artist profile hero"
     },
     {
       "id": "album-afterimage",
       "type": "thumbnail",
-      "path": "assets/album-afterimage.png",
-      "sourceSheet": "assets/album-cover-sheet.png",
+      "path": "assets/album-afterimage.webp",
+      "sourceSheet": "assets/album-cover-sheet.webp",
       "dimensions": "624x624",
       "uiLocation": "Now Playing and track rows"
     },
     {
       "id": "album-eclipse",
       "type": "thumbnail",
-      "path": "assets/album-eclipse.png",
-      "sourceSheet": "assets/album-cover-sheet.png",
+      "path": "assets/album-eclipse.webp",
+      "sourceSheet": "assets/album-cover-sheet.webp",
       "dimensions": "624x624",
       "uiLocation": "Track rows and Top tracks"
     },
     {
       "id": "album-crystal",
       "type": "thumbnail",
-      "path": "assets/album-crystal.png",
-      "sourceSheet": "assets/album-cover-sheet.png",
+      "path": "assets/album-crystal.webp",
+      "sourceSheet": "assets/album-cover-sheet.webp",
       "dimensions": "624x624",
       "uiLocation": "Track rows and mini-player"
     },
     {
       "id": "album-coral-wave",
       "type": "thumbnail",
-      "path": "assets/album-coral-wave.png",
-      "sourceSheet": "assets/album-cover-sheet.png",
+      "path": "assets/album-coral-wave.webp",
+      "sourceSheet": "assets/album-cover-sheet.webp",
       "dimensions": "624x624",
       "uiLocation": "Track rows and playlists"
     },
@@ -58,20 +58,20 @@
       "id": "fictional-artist-avatars",
       "type": "thumbnail-set",
       "paths": [
-        "assets/avatar-ava-kline.png",
-        "assets/avatar-mira-sol.png",
-        "assets/avatar-iori-vale.png",
-        "assets/avatar-elias-north.png",
-        "assets/avatar-zen-cole.png"
+        "assets/avatar-ava-kline.webp",
+        "assets/avatar-mira-sol.webp",
+        "assets/avatar-iori-vale.webp",
+        "assets/avatar-elias-north.webp",
+        "assets/avatar-zen-cole.webp"
       ],
-      "sourceSheet": "assets/fictional-artist-avatar-sheet.png",
+      "sourceSheet": "assets/fictional-artist-avatar-sheet.webp",
       "dimensions": "388x388 each",
       "uiLocation": "Discover artist rail"
     },
     {
       "id": "live-session-poster",
       "type": "photo-slot",
-      "path": "assets/live-session-poster.png",
+      "path": "assets/live-session-poster.webp",
       "dimensions": "1536x1024",
       "uiLocation": "Discover live-session feature"
     }

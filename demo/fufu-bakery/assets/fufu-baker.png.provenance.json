@@ -1,8 +1,8 @@
 {
-  "asset": "fufu-baker.png",
+  "asset": "fufu-baker.webp",
   "channel": "youtoken-gpt-image-2",
   "operation": "image edit",
-  "reference": "reference-overview.png",
+  "reference": "reference-overview.webp",
   "purpose": "Reusable dog baker illustration for the welcome, shop, and member views.",
   "constraints": [
     "No readable text",

@@ -1,16 +1,16 @@
 const tracks = [
-  { id: "afterimage", title: "Afterimage", artist: "Nova Ray", album: "Signal Skin", art: "./assets/album-afterimage.png", duration: 252, accent: "#143fca" },
-  { id: "eclipse", title: "Black Iris", artist: "Mira Sol", album: "Nocturne Index", art: "./assets/album-eclipse.png", duration: 226, accent: "#152555" },
-  { id: "glasshouse", title: "Glasshouse", artist: "Iori Vale", album: "Cold Mineral", art: "./assets/album-crystal.png", duration: 198, accent: "#667685" },
-  { id: "slow-bloom", title: "Slow Bloom", artist: "Elias North", album: "Soft Voltage", art: "./assets/album-coral-wave.png", duration: 241, accent: "#c55f52" },
+  { id: "afterimage", title: "Afterimage", artist: "Nova Ray", album: "Signal Skin", art: "./assets/album-afterimage.webp", duration: 252, accent: "#143fca" },
+  { id: "eclipse", title: "Black Iris", artist: "Mira Sol", album: "Nocturne Index", art: "./assets/album-eclipse.webp", duration: 226, accent: "#152555" },
+  { id: "glasshouse", title: "Glasshouse", artist: "Iori Vale", album: "Cold Mineral", art: "./assets/album-crystal.webp", duration: 198, accent: "#667685" },
+  { id: "slow-bloom", title: "Slow Bloom", artist: "Elias North", album: "Soft Voltage", art: "./assets/album-coral-wave.webp", duration: 241, accent: "#c55f52" },
 ];
 
 const artists = [
-  { name: "Nova Ray", meta: "1.8M monthly listeners", avatar: "./assets/avatar-ava-kline.png" },
-  { name: "Mira Sol", meta: "932K monthly listeners", avatar: "./assets/avatar-mira-sol.png" },
-  { name: "Iori Vale", meta: "706K monthly listeners", avatar: "./assets/avatar-iori-vale.png" },
-  { name: "Elias North", meta: "514K monthly listeners", avatar: "./assets/avatar-elias-north.png" },
-  { name: "Zen Cole", meta: "1.1M monthly listeners", avatar: "./assets/avatar-zen-cole.png" },
+  { name: "Nova Ray", meta: "1.8M monthly listeners", avatar: "./assets/avatar-ava-kline.webp" },
+  { name: "Mira Sol", meta: "932K monthly listeners", avatar: "./assets/avatar-mira-sol.webp" },
+  { name: "Iori Vale", meta: "706K monthly listeners", avatar: "./assets/avatar-iori-vale.webp" },
+  { name: "Elias North", meta: "514K monthly listeners", avatar: "./assets/avatar-elias-north.webp" },
+  { name: "Zen Cole", meta: "1.1M monthly listeners", avatar: "./assets/avatar-zen-cole.webp" },
 ];
 
 const state = {

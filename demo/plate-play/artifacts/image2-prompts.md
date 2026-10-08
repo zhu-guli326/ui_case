@@ -6,7 +6,7 @@ The active chef illustration was generated through the Youtoken `gpt-image-2` en
 
 Square editorial spot illustration for a playful contemporary recipe app. A waist-up joyful chef in a tomato-red jacket and compact peach chef hat whisks batter in a wide cream bowl. The complete hat, hands, whisk and bowl fit inside a balanced square with sparse blue herb, pink oven mitt, black skillet and starburst motifs. Chunky near-black hand-inked contours, flat screen-printed color shapes, subtle dry ink texture and sophisticated European cookbook energy. No text, logo, phone, interface, sticker or watermark.
 
-Active output: `assets/chef-illustration-youtoken-v3.png`
+Active output: `assets/chef-illustration-youtoken-v3.webp`
 
 ## Pasta primavera
 

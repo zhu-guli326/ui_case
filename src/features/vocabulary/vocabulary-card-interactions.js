@@ -73,84 +73,46 @@ function setCardFaceState(card, flipped, { moveFocus = true } = {}) {
   });
 }
 
-function finishCardMotion(card) {
-  if (card?.isConnected) delete card.dataset.flipBusy;
-}
-
-function toggleCard(card, { moveFocus = true } = {}) {
+async function toggleCard(card, { moveFocus = true } = {}) {
   if (!card || card.dataset.flipBusy === "true") return;
   card.dataset.flipBusy = "true";
-
   const flipped = !card.classList.contains("is-flipped");
-  const outgoing = card.querySelector(flipped ? ".entry-card-front .entry-card-body" : ".entry-card-back-shell");
-  const incoming = card.querySelector(flipped ? ".entry-card-back-shell" : ".entry-card-front .entry-card-body");
   const gsap = gsapInstance || window.gsap;
+  if (gsap) gsap.killTweensOf(card);
+  card.style.removeProperty("transform");
 
-  if (!gsap || reducedMotion.matches || !outgoing || !incoming) {
-    setCardFaceState(card, flipped, { moveFocus });
-    window.setTimeout(() => finishCardMotion(card), 140);
-    return;
-  }
-
-  const direction = flipped ? 1 : -1;
-  gsap.killTweensOf([card, outgoing, incoming]);
-
-  const timeline = gsap.timeline({
-    defaults: { overwrite: "auto" },
-    onComplete: () => {
-      gsap.set(card, { clearProps: "transform" });
-      gsap.set([outgoing, incoming], { clearProps: "opacity,visibility,transform" });
-      finishCardMotion(card);
-      if (!moveFocus) return;
+  try {
+    if (!reducedMotion.matches && typeof card.animate === "function") {
+      const outgoing = card.animate([
+        { transform: "perspective(1000px) rotateY(0deg) translateY(0)" },
+        { transform: "perspective(1000px) rotateY(-88deg) translateY(-6px) scale(.98)" },
+      ], { duration: 260, easing: "cubic-bezier(.45,0,.7,.55)", fill: "forwards" });
+      await outgoing.finished;
+      outgoing.cancel();
+      if (!card.isConnected) return;
+      setCardFaceState(card, flipped, { moveFocus: false });
+      const incoming = card.animate([
+        { transform: "perspective(1000px) rotateY(88deg) translateY(-6px) scale(.98)" },
+        { transform: "perspective(1000px) rotateY(0deg) translateY(0) scale(1)" },
+      ], { duration: 300, easing: "cubic-bezier(.2,.7,.2,1)", fill: "forwards" });
+      await incoming.finished;
+      incoming.cancel();
+    } else {
+      setCardFaceState(card, flipped, { moveFocus: false });
+    }
+  } catch {
+    if (card.isConnected) setCardFaceState(card, flipped, { moveFocus: false });
+  } finally {
+    delete card.dataset.flipBusy;
+    if (moveFocus && card.isConnected) {
       requestAnimationFrame(() => {
         const target = flipped
           ? card.querySelector(".entry-card-back .entry-variant-back, .entry-card-back [data-flip-card]")
           : card.querySelector(".entry-card-front .entry-flip-tag, .entry-card-front [data-flip-card]");
         target?.focus({ preventScroll: true });
       });
-    },
-  });
-
-  timeline
-    .to(outgoing, {
-      autoAlpha: 0.32,
-      y: -4,
-      scale: 0.99,
-      duration: 0.13,
-      ease: "power2.in",
-    }, 0)
-    .to(card, {
-      y: -2,
-      scale: 0.985,
-      rotationY: direction * 7,
-      transformPerspective: 900,
-      duration: 0.15,
-      ease: "power2.in",
-    }, 0)
-    .call(() => {
-      setCardFaceState(card, flipped, { moveFocus: false });
-      gsap.set(incoming, { autoAlpha: 0, y: 10, scale: 0.99 });
-    })
-    .to(card, {
-      scale: 1.012,
-      rotationY: direction * -2.5,
-      duration: 0.18,
-      ease: "power3.out",
-    })
-    .to(incoming, {
-      autoAlpha: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.3,
-      ease: "power3.out",
-    }, "<")
-    .to(card, {
-      y: 0,
-      scale: 1,
-      rotationY: 0,
-      duration: 0.24,
-      ease: "power3.out",
-    }, "-=0.1");
+    }
+  }
 }
 
 function syncVariantState(button) {

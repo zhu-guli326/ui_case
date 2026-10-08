@@ -14,10 +14,10 @@ for (const guide of styleGuides) {
 
 const guideById = new Map(styleGuides.map((guide) => [guide.id, guide]));
 const canonicalCardScreens = Object.freeze({
-  "relay-music": "./demo/relay-music/screenshots/library-preview-2x.png",
-  "signal-grid": "./demo/signal-grid/screenshots/library-preview-2x.png",
-  mimo: "./demo/mimo-activities/screenshots/library-preview-2x.png",
-  loy: "./demo/loy-wellness/screenshots/01-home.png"
+  "relay-music": "./demo/relay-music/screenshots/library-preview-2x.webp",
+  "signal-grid": "./demo/signal-grid/screenshots/library-preview-2x.webp",
+  mimo: "./demo/mimo-activities/screenshots/library-preview-2x.webp",
+  loy: "./demo/loy-wellness/screenshots/01-home.webp"
 });
 
 function absolute(src) {
@@ -33,7 +33,7 @@ function preferredCardSource(id) {
   const guide = guideById.get(id);
   if (!guide) return "";
   const livePreview = guide.liveDemo
-    ? guide.liveDemo.replace(/index\.html$/, "screenshots/library-preview-2x.png")
+    ? guide.liveDemo.replace(/index\.html$/, "screenshots/library-preview-2x.webp")
     : "";
   return canonicalCardScreens[id] || livePreview || guide.previewImage || guide.poster || "";
 }

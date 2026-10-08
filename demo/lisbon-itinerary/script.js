@@ -69,7 +69,7 @@ function createDiscoveryView() {
       <button type="button" data-discovery-filter="After dark">After dark</button>
     </div>
     <article class="discover-feature">
-      <img src="assets/lisbon-coast-hero.png" alt="Red kayak beside cobalt water and limestone cliffs">
+      <img src="assets/lisbon-coast-hero.webp" alt="Red kayak beside cobalt water and limestone cliffs">
       <div class="discover-feature-scrim"></div>
       <p class="discover-location">LEFKADA, GREECE</p>
       <div class="discover-feature-copy">

@@ -6,12 +6,12 @@ This demo recreates the three-screen real-estate mobile UI reference as a clicka
 
 The following bitmap assets were generated through the configured local image API path and saved into `assets/`:
 
-- `house-card-gen.png`
-- `house-wide-gen.png`
-- `room-thumbnails-gen.png`
-- `avatar-gen.png`
+- `house-card-gen.webp`
+- `house-wide-gen.webp`
+- `room-thumbnails-gen.webp`
+- `avatar-gen.webp`
 
-The right AR-tour screen currently uses `interior-stairs-temp.png`, a generated house exterior image, because repeated attempts to generate a dedicated interior staircase asset returned upstream `502` errors. The screen is still wired as a generated-asset slot and can be replaced with a staircase image later without changing the UI code.
+The right AR-tour screen currently uses `interior-stairs-temp.webp`, a generated house exterior image, because repeated attempts to generate a dedicated interior staircase asset returned upstream `502` errors. The screen is still wired as a generated-asset slot and can be replaced with a staircase image later without changing the UI code.
 
 ## Run
 

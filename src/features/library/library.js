@@ -18,8 +18,8 @@ const libraryMedia = Object.freeze({
   fashion: Object.freeze({ liveDemo: "./demo/fashion/index.html" }),
   news: Object.freeze({ liveDemo: "./demo/news/index.html" }),
   "signal-grid": Object.freeze({
-    previewImage: "./demo/signal-grid/screenshots/library-preview-2x.png",
-    poster: "./demo/signal-grid/screenshots/library-preview-2x.png"
+    previewImage: "./demo/signal-grid/screenshots/library-preview-2x.webp",
+    poster: "./demo/signal-grid/screenshots/library-preview-2x.webp"
   })
 });
 
@@ -111,7 +111,7 @@ function getPreviewModes(guide) {
 
 function getCanonicalLivePreview(guide) {
   if (!guide?.liveDemo) return "";
-  return guide.liveDemo.replace(/index\.html$/, "screenshots/library-preview-2x.png");
+  return guide.liveDemo.replace(/index\.html$/, "screenshots/library-preview-2x.webp");
 }
 
 function getCardPoster(guide) {

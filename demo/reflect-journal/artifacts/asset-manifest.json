@@ -5,7 +5,7 @@
       "type": "background-visual",
       "implementation": "youtoken-gpt-image-2",
       "slot": "Reflect home hero, journal card, collection and article photo",
-      "source": "assets/morning-stillness.png",
+      "source": "assets/morning-stillness.webp",
       "alt": "Misty path through meadow grass in early morning"
     }
   ],

@@ -5,7 +5,7 @@
       "type": "lifestyle-product-photograph",
       "implementation": "youtoken-gpt-image-2",
       "slot": "landing hero",
-      "source": "assets/outdoor-backpack.png",
+      "source": "assets/outdoor-backpack.webp",
       "alt": "Charcoal travel backpack in an alpine landscape"
     },
     {
@@ -13,7 +13,7 @@
       "type": "studio-product-photograph",
       "implementation": "youtoken-gpt-image-2",
       "slot": "catalog and product detail",
-      "source": "assets/chestnut-leather-backpack.png",
+      "source": "assets/chestnut-leather-backpack.webp",
       "alt": "Chestnut leather backpack"
     }
   ],

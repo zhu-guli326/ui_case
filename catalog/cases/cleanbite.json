@@ -8,7 +8,7 @@
   "poster": "./demo/cleanbite-scanner/mobile-preview.png",
   "preview": "#d4ff70",
   "reference": "荧光青柠展板上的双手机，把会员选择和食品营养拆解放进强对比的黑白层级",
-  "referenceImage": "./demo/cleanbite-scanner/assets/cleanbite-effect-board.png",
+  "referenceImage": "./demo/cleanbite-scanner/assets/cleanbite-effect-board.webp",
   "prompt": "食品扫描 App 视觉参考：荧光青柠绿色外部展板、黑色 iOS 机身、白与浅绿页面、黑色信息面板和圆形营养构成图；产品图只承担真实食品包装与苹果主体，所有价格、权益、百分比、状态栏、返回、分享、收藏、tab、按钮和图表标签均由代码呈现；不把新的 UI glyph 或可交互文字生成进图片。",
   "summary": "用会员方案与营养分析双屏组织一次清楚的食品扫描体验，让亮绿负责选择，黑色负责结论。",
   "bestFor": "食品扫描、营养分析、健康订阅、配料透明工具",

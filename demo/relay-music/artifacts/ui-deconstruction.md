@@ -2,10 +2,10 @@
 
 ## Workflow Record
 
-- Original reference: `../assets/reference-overview.png`.
-- Generated complete effect image: `../assets/relay-effect-board.png` (`1448 x 1086`).
+- Original reference: `../assets/reference-overview.webp`.
+- Generated complete effect image: `../assets/relay-effect-board.webp` (`1448 x 1086`).
 - Effect-image review: passed. The board contains three complete, coherent screens with a clear center-player hierarchy, reusable charcoal/cobalt/coral visual language, and enough readable structure for implementation.
-- Decomposition source: `relay-effect-board.png` only. The original reference is retained as a fidelity check for device staging, density, and editorial music tone; it is not the implementation decomposition source.
+- Decomposition source: `relay-effect-board.webp` only. The original reference is retained as a fidelity check for device staging, density, and editorial music tone; it is not the implementation decomposition source.
 - Generation channel: `native-image2`, `source=system-imagegen`.
 
 ## Visual System
@@ -27,7 +27,7 @@
 5. Two editorial playlist tiles.
 6. Persistent bottom navigation.
 
-Image assets: `artist-nova-ray-hero.png` and four independent album covers.
+Image assets: `artist-nova-ray-hero.webp` and four independent album covers.
 
 Code UI: status bar, display name, metadata, sheet, headings, rows, buttons, playlist tiles, icons, and navigation.
 
@@ -40,7 +40,7 @@ Code UI: status bar, display name, metadata, sheet, headings, rows, buttons, pla
 5. Translucent transport dock with shuffle, previous, pause/play, next, and repeat.
 6. Keyboard- and pointer-operable progress slider with elapsed and duration labels.
 
-Image asset: `album-afterimage.png`.
+Image asset: `album-afterimage.webp`.
 
 Code UI: cobalt background, all labels, icons, playback state, controls, slider, timing, and favorite state.
 
@@ -52,7 +52,7 @@ Code UI: cobalt background, all labels, icons, playback state, controls, slider,
 4. Ranked `Top tracks` list.
 5. Persistent mini-player above bottom navigation.
 
-Image assets: five cropped fictional portraits, `live-session-poster.png`, and album covers.
+Image assets: five cropped fictional portraits, `live-session-poster.webp`, and album covers.
 
 Code UI: artist names, headings, live metadata, play overlay, rankings, mini-player, navigation, and playback overlay.
 

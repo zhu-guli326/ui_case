@@ -293,34 +293,6 @@ function cardMarkup(entry) {
   </article>`;
 }
 
-function setCardFlipped(card, flipped, { moveFocus = true } = {}) {
-  if (!card) return;
-  const front = card.querySelector(".entry-card-front");
-  const back = card.querySelector(".entry-card-back");
-  if (!front || !back) return;
-  card.classList.toggle("is-flipped", flipped);
-  front.setAttribute("aria-hidden", String(flipped));
-  back.setAttribute("aria-hidden", String(!flipped));
-  front.inert = flipped;
-  back.inert = !flipped;
-  card.querySelectorAll("[data-flip-card]").forEach((button) => button.setAttribute("aria-pressed", String(flipped)));
-  if (!moveFocus) return;
-  requestAnimationFrame(() => {
-    const target = flipped
-      ? back.querySelector("[data-flip-card]")
-      : front.querySelector("[data-flip-card]");
-    target?.focus({ preventScroll: true });
-  });
-}
-
-function handleEntryGridClick(event) {
-  const flipButton = event.target.closest("[data-flip-card]");
-  if (!flipButton || !entryGrid.contains(flipButton)) return;
-  event.stopPropagation();
-  const card = flipButton.closest(".entry-card");
-  setCardFlipped(card, !card?.classList.contains("is-flipped"));
-}
-
 function renderEntries({ preserveLimit = false } = {}) {
   const list = filteredEntries();
   if (!preserveLimit) visibleEntryCount = ENTRY_RENDER_CHUNK;
@@ -576,7 +548,6 @@ function showToast(message) {
 
 $("#vocabularySearch").value = state.query;
 $("#sortSelect").value = state.sort;
-entryGrid.addEventListener("click", handleEntryGridClick);
 $("#vocabularySearch").addEventListener("input", (event) => { state.query = event.target.value; syncUrlState(); renderNavigationDeepDive(); renderEntries(); });
 $("#sortSelect").addEventListener("change", (event) => { state.sort = event.target.value; syncUrlState({ historyMode: "push" }); renderEntries(); });
 $("#clearSearch").addEventListener("click", () => { state.query = ""; state.category = "all"; $("#vocabularySearch").value = ""; syncUrlState({ historyMode: "push" }); render(); $("#vocabularySearch").focus(); });

@@ -2,10 +2,10 @@
 
 ## Workflow Record
 
-- Original reference: `../assets/reference-overview.png` (`2048 x 1536`).
-- Generated complete effect image: `../assets/softly-effect-board.png` (`1448 x 1086`).
+- Original reference: `../assets/reference-overview.webp` (`2048 x 1536`).
+- Generated complete effect image: `../assets/softly-effect-board.webp` (`1448 x 1086`).
 - Effect-image review: passed. The effect image has three complete devices, a clear dominant center composition, coherent paper/character styling, readable hierarchy, and sufficient state detail for implementation.
-- Decomposition source: `softly-effect-board.png` only.
+- Decomposition source: `softly-effect-board.webp` only.
 - The original reference is used only to check device staging, softness, and information density. It is not the implementation decomposition source.
 - Generation channel: `native-image2`, `source=system-imagegen`.
 
@@ -31,7 +31,7 @@
 
 Code UI: phone chrome, cards, all questions, orbit decoration, heading, body copy, and actions.
 
-Image asset: `softly-mascot.png`, reused as the small medallion.
+Image asset: `softly-mascot.webp`, reused as the small medallion.
 
 ### Screen B: Reflections
 
@@ -43,7 +43,7 @@ Image asset: `softly-mascot.png`, reused as the small medallion.
 
 Code UI: all text, paper card, arrows, statistics, topic chips, navigation, selected state, and card transition.
 
-Image asset: `mara-avatar.png`.
+Image asset: `mara-avatar.webp`.
 
 ### Screen C: Mood Check-In
 
@@ -56,7 +56,7 @@ Image asset: `mara-avatar.png`.
 
 Code UI: navigation, progress ring, heading, waveform, labels, selection, confirmation, and feedback.
 
-Image asset: `softly-mascot.png`.
+Image asset: `softly-mascot.webp`.
 
 ## Interaction Map
 
@@ -82,9 +82,9 @@ Image asset: `softly-mascot.png`.
 
 ### Image-generated
 
-- Complete effect image: `softly-effect-board.png`.
-- Transparent original lavender character: `softly-mascot.png`.
-- Original fictional Mara avatar: `mara-avatar.png`.
+- Complete effect image: `softly-effect-board.webp`.
+- Transparent original lavender character: `softly-mascot.webp`.
+- Original fictional Mara avatar: `mara-avatar.webp`.
 
 Generated implementation assets contain no UI text, logo, watermark, status bar, button, or navigation glyph.
 

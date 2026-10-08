@@ -5,7 +5,7 @@
       "type": "vehicle-product-photograph",
       "implementation": "youtoken-gpt-image-2",
       "slot": "dashboard and charging views",
-      "source": "assets/graphite-ev-rear.png",
+      "source": "assets/graphite-ev-rear.webp",
       "alt": "Graphite electric car charging"
     },
     {
@@ -13,7 +13,7 @@
       "type": "map-background-texture",
       "implementation": "youtoken-gpt-image-2",
       "slot": "route view",
-      "source": "assets/night-street-grid.png",
+      "source": "assets/night-street-grid.webp",
       "alt": "Dark city street grid map"
     }
   ],

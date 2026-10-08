@@ -3,16 +3,16 @@
   "source": "youtoken-image-api",
   "reference": "assets/reference-overview.png",
   "effectImage": {
-    "path": "assets/fufu-line-effect-board.png",
+    "path": "assets/fufu-line-effect-board.webp",
     "generatedAt": "2026-08-13T09:46:32Z",
     "reviewed": true,
     "purpose": "Complete three-screen visual effect image generated and reviewed before UI decomposition"
   },
   "generatedAssets": [
     {
-      "path": "assets/fufu-friends-lineup.png",
+      "path": "assets/fufu-friends-lineup.webp",
       "generatedAt": "2026-08-13T09:52:19Z",
-      "derivedFrom": "assets/fufu-line-effect-board.png",
+      "derivedFrom": "assets/fufu-line-effect-board.webp",
       "promptSummary": "Original blue hand-drawn trio of dog bakers on paper white, with no text or UI."
     }
   ]

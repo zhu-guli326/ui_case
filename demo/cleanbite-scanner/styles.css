@@ -245,23 +245,6 @@ button, input { font: inherit; }
 .phone button:focus-visible, .trial:focus-within { outline: 3px solid #fff; outline-offset: 3px; }
 
 
-.embed-mode { overflow: hidden; }
-
-.embed-mode body { width: 410px; min-width: 410px; height: 846px; overflow: hidden; }
-
-.embed-mode .stage { display: block; width: 410px; min-height: 846px; padding: 0; }
-
-.embed-mode .stage-heading, .embed-mode .phone-pricing, .embed-mode .mobile-switch { display: none; }
-
-.embed-mode .phone-grid { display: block; margin: 0; transform: none; }
-
-.embed-mode .phone { display: block; width: 410px; height: 846px; border-radius: 0; transform: none; }
-
-.embed-mode .phone.phone-pricing { display: none; }
-
-.embed-mode .screen { border-radius: 44px; }
-
-
 @media (max-height: 900px) and (min-width: 981px) {
   .stage-heading { display: none; }
 
@@ -307,17 +290,25 @@ button, input { font: inherit; }
 
   .mobile-switch { bottom: 10px; }
 
-  .embed-mode body { width: 390px; min-width: 390px; height: 844px; }
-
-  .embed-mode .stage { width: 390px; min-height: 844px; padding: 0; }
-
-  .embed-mode .phone-grid { width: 390px; margin: 0; transform: none; }
-
-  .embed-mode .phone { width: 390px; height: 844px; padding: 7px; border-width: 4px; border-radius: 0; }
-
-  .embed-mode .screen { border-radius: 42px; }
-
 }
+
+/* Library embeds use one 390 × 844 screen and scale it to the iframe viewport. */
+.embed-mode { width: 100%; height: 100%; overflow: hidden; }
+.embed-mode body {
+  width: 390px;
+  min-width: 390px;
+  height: 844px;
+  min-height: 0;
+  overflow: hidden;
+  transform: scale(var(--embed-scale, 1));
+  transform-origin: top left;
+}
+.embed-mode .stage { display: block; width: 390px; height: 844px; min-height: 0; padding: 0; overflow: hidden; }
+.embed-mode .stage-heading, .embed-mode .mobile-switch { display: none; }
+.embed-mode .phone-grid { display: block; width: 390px; margin: 0; zoom: 1; transform: none; }
+.embed-mode .phone { display: block; width: 390px; height: 844px; border-radius: 0; transform: none; }
+.embed-mode .phone.phone-pricing { display: none; }
+.embed-mode .screen { border-radius: 0; }
 
 
 @media (prefers-reduced-motion: reduce) {

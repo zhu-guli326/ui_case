@@ -8,7 +8,7 @@
   "poster": "./demo/moodly-health/mobile-preview.png",
   "preview": "#f4dced",
   "reference": "云朵、柔粉角色和干净的情绪滑杆，让每日情绪记录像一次轻量对话",
-  "referenceImage": "./demo/moodly-health/assets/moodly-mascot.png",
+  "referenceImage": "./demo/moodly-health/assets/moodly-mascot.webp",
   "prompt": "柔粉情绪签到 App 视觉参考：高留白白色手机、粉色立体圆脸角色、少量薄荷与蜜桃辅助色、绵软白云和细弧线；所有标题、关闭、进度、滑杆、箭头、状态栏和按钮由代码呈现，不生成文字、logo、水印、UI glyph 或伪文字。",
   "summary": "一张有表情的柔粉角色图配合离散情绪滑杆，让用户在很短的时间里完成一次清楚、安静的自我记录。",
   "bestFor": "情绪记录、心理健康、日常反思、儿童陪伴",

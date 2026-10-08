@@ -6,31 +6,31 @@ import {
 } from "../../../library-preview-config.mjs";
 
 const LEGACY_NOTEBOOK_CARD_PREVIEW = "marble-note/screenshots/library-preview-reference-v2.png";
-const CANONICAL_NOTEBOOK_CARD_PREVIEW = "marble-note/screenshots/library-preview-2x.png";
+const CANONICAL_NOTEBOOK_CARD_PREVIEW = "marble-note/screenshots/library-preview-2x.webp";
 
 const CARD_SCREEN_ONLY_OVERRIDES = Object.freeze({
-  fashion: "./assets/cases/fashion-shopping-app/screen-only/hero.png",
-  museum: "./assets/cases/museum-app/video-frames/01-home.png",
-  news: "./assets/cases/news-app/screen-only/headlines.png",
-  "signal-grid": "./demo/signal-grid/screenshots/library-preview-2x.png",
-  "still-form": "./demo/still-form/screenshots/library-preview-2x.png",
+  fashion: "./assets/cases/fashion-shopping-app/screen-only/hero.webp",
+  museum: "./assets/cases/museum-app/video-frames/01-home.webp",
+  news: "./assets/cases/news-app/screen-only/headlines.webp",
+  "signal-grid": "./demo/signal-grid/screenshots/library-preview-2x.webp",
+  "still-form": "./demo/still-form/screenshots/library-preview-2x.webp",
 });
 
 const DETAIL_IMAGE_OVERRIDES = Object.freeze({
   fashion: Object.freeze({
-    "hero-screen.png": "./assets/cases/fashion-shopping-app/screen-only/hero.png",
-    "catalog-screen.png": "./assets/cases/fashion-shopping-app/screen-only/catalog.png",
-    "favorites-screen.png": "./assets/cases/fashion-shopping-app/screen-only/favorites.png",
+    "hero-screen.webp": "./assets/cases/fashion-shopping-app/screen-only/hero.webp",
+    "catalog-screen.webp": "./assets/cases/fashion-shopping-app/screen-only/catalog.webp",
+    "favorites-screen.webp": "./assets/cases/fashion-shopping-app/screen-only/favorites.webp",
   }),
   museum: Object.freeze({
-    "home-screen.png": "./assets/cases/museum-app/video-frames/01-home.png",
-    "exhibitions-screen.png": "./assets/cases/museum-app/video-frames/02-exhibitions.png",
-    "detail-screen.png": "./assets/cases/museum-app/video-frames/03-detail.png",
+    "home-screen.webp": "./assets/cases/museum-app/video-frames/01-home.webp",
+    "exhibitions-screen.webp": "./assets/cases/museum-app/video-frames/02-exhibitions.webp",
+    "detail-screen.webp": "./assets/cases/museum-app/video-frames/03-detail.webp",
   }),
   news: Object.freeze({
-    "headlines-screen.png": "./assets/cases/news-app/screen-only/headlines.png",
-    "feed-screen.png": "./assets/cases/news-app/screen-only/feed.png",
-    "discover-screen.png": "./assets/cases/news-app/screen-only/discover.png",
+    "headlines-screen.webp": "./assets/cases/news-app/screen-only/headlines.webp",
+    "feed-screen.webp": "./assets/cases/news-app/screen-only/feed.webp",
+    "discover-screen.webp": "./assets/cases/news-app/screen-only/discover.webp",
   }),
 });
 

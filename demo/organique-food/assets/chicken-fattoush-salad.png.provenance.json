@@ -2,7 +2,7 @@
   "channel": "youtoken-gpt-image-2",
   "action": "edit",
   "reference": "/var/folders/l7/4hlsdlq943jfvrclvf0wmmgc0000gn/T/codex-clipboard-d07291ce-fb21-4aa9-9c9e-c18e9cb8c27b.png",
-  "output": "assets/chicken-fattoush-salad.png",
+  "output": "assets/chicken-fattoush-salad.webp",
   "model": "gpt-image-2",
   "size_requested": "1024x1024",
   "quality": "medium",

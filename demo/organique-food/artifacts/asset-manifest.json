@@ -5,7 +5,7 @@
       "type": "food-product-photograph",
       "implementation": "youtoken-gpt-image-2",
       "slot": "meal chooser, weekly plan, confirmation",
-      "source": "assets/chicken-fattoush-salad.png",
+      "source": "assets/chicken-fattoush-salad.webp",
       "alt": "Chicken salad with lentils, tomatoes, cucumber and greens"
     }
   ],

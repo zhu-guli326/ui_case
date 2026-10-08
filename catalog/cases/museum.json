@@ -5,19 +5,19 @@
   "style": "当代美术馆导览",
   "video": "./assets/cases/museum-app/museum-app-demo.mp4",
   "liveDemo": "./demo/artmuse-ios/index.html",
-  "poster": "./assets/cases/museum-app/video-frames/01-home.png",
+  "poster": "./assets/cases/museum-app/video-frames/01-home.webp",
   "videoSequence": {
     "duration": 8,
     "frames": [
-      { "at": 0, "src": "./assets/cases/museum-app/video-frames/01-home.png", "label": "首页" },
-      { "at": 2.65, "src": "./assets/cases/museum-app/video-frames/02-exhibitions.png", "label": "展览列表" },
-      { "at": 5.3, "src": "./assets/cases/museum-app/video-frames/03-detail.png", "label": "展览详情" }
+      { "at": 0, "src": "./assets/cases/museum-app/video-frames/01-home.webp", "label": "首页" },
+      { "at": 2.65, "src": "./assets/cases/museum-app/video-frames/02-exhibitions.webp", "label": "展览列表" },
+      { "at": 5.3, "src": "./assets/cases/museum-app/video-frames/03-detail.webp", "label": "展览详情" }
     ]
   },
-  "previewImage": "./assets/cases/museum-app/library-preview-generated-v2-standard.png",
+  "previewImage": "./assets/cases/museum-app/library-preview-generated-v2-standard.webp",
   "preview": "#dce3d6",
   "reference": "画廊导视与展览画册的安静秩序",
-  "referenceImage": "./assets/style-references/artmuse-reference.png",
+  "referenceImage": "./assets/style-references/artmuse-reference.webp",
   "prompt": "当代美术馆导览 App 视觉参考：纸张白、低饱和展签色、细线、大量留白，像展览画册和展墙导视；内容优先，图片保留白边，排版克制清晰；无高饱和主色、无厚重阴影、无密集信息流、无复杂装饰。",
   "summary": "纸张白、低饱和展签色、细线和大量留白，让内容先于界面被看见。",
   "bestFor": "展览、文化内容、精品零售、品牌故事",

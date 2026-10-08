@@ -2,7 +2,7 @@
   "channel": "youtoken-gpt-image-2",
   "action": "generate",
   "request_id": "ededca9f-3fb5-43d1-b78a-8e7569222f4a",
-  "output": "assets/apple-sorbet-youtoken-v2.png",
+  "output": "assets/apple-sorbet-youtoken-v2.webp",
   "model": "gpt-image-2",
   "size_requested": "1536x1024",
   "size_actual": "1122x1402",

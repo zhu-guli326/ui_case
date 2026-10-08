@@ -462,6 +462,12 @@ export function createLibraryDetailController({
     });
     previewDialogImage.addEventListener("error", () => { if (activePreviewGuide) showPreviewImageError(previewDialogImage, activePreviewGuide); });
     previewDialogSequence.addEventListener("error", () => { if (activePreviewGuide) showPreviewImageError(previewDialogSequence, activePreviewGuide); });
+    window.addEventListener("message", (event) => {
+      if (event.origin !== window.location.origin || event.source !== previewDialogDemo.contentWindow) return;
+      if (event.data?.type !== "ondesign-fithub-ready" || activePreviewGuide?.id !== "fithub" || previewDialogDemo.hidden) return;
+      window.clearTimeout(previewLoadTimer);
+      previewMediaStatus.hidden = true;
+    });
     previewDialogDemo.addEventListener("load", () => {
       window.clearTimeout(previewLoadTimer);
       if (activePreviewGuide && !previewDialogDemo.hidden) previewMediaStatus.hidden = true;

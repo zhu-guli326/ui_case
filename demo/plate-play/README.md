@@ -2,8 +2,8 @@
 
 An illustrated recipe app demo built from the supplied food-app reference.
 
-- Local reference: `assets/reference-overview.png`
-- Local visual assets: `assets/chef-illustration-youtoken-v3.png`, `assets/pasta-primavera-generated.png`, and `assets/miso-ramen-generated.png`
+- Local reference: `assets/reference-overview.webp`
+- Local visual assets: `assets/chef-illustration-youtoken-v3.webp`, `assets/pasta-primavera-generated.webp`, and `assets/miso-ramen-generated.webp`
 - Design direction: fluorescent lime, soft pink, tomato red, peach, and playful outlined food illustrations.
 - All readable UI, navigation, state, and controls are HTML/CSS/JS.
 

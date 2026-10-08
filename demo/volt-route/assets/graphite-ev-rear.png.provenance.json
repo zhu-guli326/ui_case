@@ -2,7 +2,7 @@
   "channel": "youtoken-gpt-image-2",
   "action": "edit",
   "reference": "/var/folders/l7/4hlsdlq943jfvrclvf0wmmgc0000gn/T/codex-clipboard-a1b63ce5-b3f5-4d07-8156-b97a0e06a102.png",
-  "output": "assets/graphite-ev-rear.png",
+  "output": "assets/graphite-ev-rear.webp",
   "model": "gpt-image-2",
   "size_requested": "1024x1024",
   "quality": "medium",

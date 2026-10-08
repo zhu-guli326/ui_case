@@ -58,13 +58,13 @@ try {
   });
 
   await page.waitForTimeout(900);
-  await capture(page, "01-home.png");
+  await capture(page, "01-home.webp");
 
   await touchAndClick(page, page.locator('[data-screen="home"] .visit-grid button[data-go="exhibitions"]'), 1200);
-  await capture(page, "02-exhibitions.png");
+  await capture(page, "02-exhibitions.webp");
 
   await touchAndClick(page, page.locator('[data-screen="exhibitions"] .exhibit-card:first-child button[data-go="detail"]'), 1400);
-  await capture(page, "03-detail.png");
+  await capture(page, "03-detail.webp");
 
   await touchAndClick(page, page.locator('[data-screen="detail"] [data-toggle="favorite"]'), 1000);
   await page.waitForTimeout(500);

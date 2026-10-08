@@ -3,34 +3,34 @@
   "source": "system-imagegen",
   "reference": "assets/reference-overview.png",
   "effectImage": {
-    "path": "assets/relay-effect-board.png",
+    "path": "assets/relay-effect-board.webp",
     "generatedAt": "2026-08-11T11:33:18.908Z",
     "reviewed": true,
     "purpose": "Complete visual effect image created before UI decomposition"
   },
   "generatedAssets": [
     {
-      "path": "assets/artist-nova-ray-hero.png",
+      "path": "assets/artist-nova-ray-hero.webp",
       "generatedAt": "2026-08-11T12:01:09.421Z",
-      "derivedFrom": "assets/relay-effect-board.png",
+      "derivedFrom": "assets/relay-effect-board.webp",
       "promptSummary": "Fictional androgynous electronic musician, metallic silver jacket, charcoal studio, cobalt rim light, vertical editorial portrait, no text or UI."
     },
     {
-      "path": "assets/album-cover-sheet.png",
+      "path": "assets/album-cover-sheet.webp",
       "generatedAt": "2026-08-11T12:02:23.213Z",
-      "derivedFrom": "assets/relay-effect-board.png",
+      "derivedFrom": "assets/relay-effect-board.webp",
       "promptSummary": "Aligned 2x2 sheet of original cobalt chrome, black iris, silver mineral, and coral paper abstract album covers, no text or UI."
     },
     {
-      "path": "assets/fictional-artist-avatar-sheet.png",
+      "path": "assets/fictional-artist-avatar-sheet.webp",
       "generatedAt": "2026-08-11T12:02:47.096Z",
-      "derivedFrom": "assets/relay-effect-board.png",
+      "derivedFrom": "assets/relay-effect-board.webp",
       "promptSummary": "Five distinct fictional adult musician portraits in a coherent dark editorial cobalt/coral series, no text or UI."
     },
     {
-      "path": "assets/live-session-poster.png",
+      "path": "assets/live-session-poster.webp",
       "generatedAt": "2026-08-11T12:03:32.579Z",
-      "derivedFrom": "assets/relay-effect-board.png",
+      "derivedFrom": "assets/relay-effect-board.webp",
       "promptSummary": "Fictional electronic performer at a microphone in cobalt light and silver haze, landscape still, no text or UI."
     }
   ]

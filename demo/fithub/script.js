@@ -6,6 +6,7 @@ const phoneWidth = 390;
 const phoneHeight = 844;
 if (q.has("embed")) {
   document.documentElement.classList.add("embed-mode");
+  window.parent.postMessage({ type: "ondesign-fithub-ready" }, window.location.origin);
   const fit = () =>
     document.documentElement.style.setProperty(
       "--embed-scale",

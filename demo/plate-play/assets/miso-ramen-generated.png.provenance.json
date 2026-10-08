@@ -1,8 +1,8 @@
 {
   "channel": "youtoken-gpt-image-2",
   "action": "edit",
-  "reference": "assets/reference-overview.png",
-  "output": "assets/miso-ramen-generated.png",
+  "reference": "assets/reference-overview.webp",
+  "output": "assets/miso-ramen-generated.webp",
   "model": "gpt-image-2",
   "size_requested": "1024x1024",
   "quality": "high",

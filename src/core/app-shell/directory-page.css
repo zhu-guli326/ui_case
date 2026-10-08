@@ -323,18 +323,14 @@ body.vocabulary-page .taxonomy-link.is-selected { border-color: transparent; bac
 body.library-page .category-link.is-active::before,
 body.vocabulary-page .taxonomy-link.is-selected::before { border-color: var(--directory-primary); background: var(--directory-primary); box-shadow: inset 0 0 0 3px #fff; }
 
-body.vocabulary-page .taxonomy-note,
 body.library-page .library-filter-note,
 body.library-page .sidebar-skills,
 body.library-page .sidebar-resources,
 body.library-page .sidebar-social,
 body.library-page .sidebar-note { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--directory-border); }
-body.vocabulary-page .taxonomy-note strong,
 body.library-page .library-filter-note strong,
 body.library-page .sidebar-skills-heading p,
 body.library-page .sidebar-social p { font-size: 10px; font-weight: 600; }
-body.vocabulary-page .taxonomy-note p,
-body.vocabulary-page .taxonomy-note span,
 body.library-page .library-filter-note p,
 body.library-page .library-filter-note span,
 body.library-page .sidebar-skills > a,
@@ -402,8 +398,7 @@ body.library-page .demo-card-body { background: var(--directory-surface); }
   body.library-page .sidebar-resources,
   body.library-page .sidebar-social,
   body.library-page .sidebar-note,
-  body.library-page .library-filter-note,
-  body.vocabulary-page .taxonomy-note { display: none; }
+  body.library-page .library-filter-note { display: none; }
 }
 
 @media (max-width:620px) {

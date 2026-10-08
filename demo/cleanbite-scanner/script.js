@@ -63,5 +63,12 @@ document.querySelectorAll("[data-tab]").forEach((button) => {
 mobileButtons.forEach((button) => button.addEventListener("click", () => focusPhone(button.dataset.mobileView)));
 document.querySelector("[data-scan]").addEventListener("click", () => say("Scanner ready for another label."));
 
-if (params.has("embed")) document.documentElement.classList.add("embed-mode");
+if (params.has("embed")) {
+  document.documentElement.classList.add("embed-mode");
+  const fitEmbeddedScreen = () => {
+    document.documentElement.style.setProperty("--embed-scale", String(Math.min(window.innerWidth / 390, window.innerHeight / 844)));
+  };
+  fitEmbeddedScreen();
+  window.addEventListener("resize", fitEmbeddedScreen);
+}
 if (params.get("view") === "pricing") focusPhone("pricing");

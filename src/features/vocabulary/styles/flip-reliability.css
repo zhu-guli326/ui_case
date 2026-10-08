@@ -10,6 +10,9 @@
   transform-origin: 50% 50%;
 }
 
+.entry-card[data-flip-busy="true"] { z-index: 2; }
+.entry-card[data-flip-busy="true"] .entry-card-face { transition: none; }
+
 .entry-card-inner,
 .entry-card.is-flipped .entry-card-inner,
 .entry-card.is-static .entry-card-inner {

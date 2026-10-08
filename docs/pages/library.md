@@ -71,6 +71,7 @@ A user should be able to find a relevant case, understand what makes it useful, 
 - A case with a working local interactive demo must keep `可点击 Demo / Interactive demo` as a selectable preview mode in the detail dialog. Adding a video or generated screenshot must not silently remove the interactive state.
 - Opening a case with a working local interactive demo defaults to that clickable demo. Cases without one open in the screenshot preview; users can still select screenshots or video explicitly.
 - The embedded FuFu Bakery demo opens on its browsable shop home rather than its welcome screen; the standalone demo may still show the welcome screen.
+- The embedded Plate Play demo lets users open the recipe list from the home call to action or illustration, open the matching recipe detail, and return through visible navigation or browser history.
 - If a legacy case stores its video/screenshots outside the live-demo folder, Library runtime may restore the canonical `liveDemo` route explicitly. `ArtMuse / 当代美术馆导览` must point to `./demo/artmuse-ios/index.html` and remain clickable in the embedded phone preview.
 
 ## Keep

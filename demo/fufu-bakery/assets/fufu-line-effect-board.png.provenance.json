@@ -1,9 +1,9 @@
 {
-  "asset": "fufu-line-effect-board.png",
+  "asset": "fufu-line-effect-board.webp",
   "channel": "youtoken-gpt-image-2",
   "source": "youtoken-image-api",
   "operation": "image edit",
-  "reference": "reference-overview.png",
+  "reference": "reference-overview.webp",
   "generatedAt": "2026-08-13T09:46:32Z",
   "reviewed": true,
   "purpose": "Complete three-screen visual effect image generated and reviewed before UI decomposition.",

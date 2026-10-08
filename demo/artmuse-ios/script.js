@@ -1,5 +1,14 @@
 const phones = Array.from(document.querySelectorAll(".phone"));
 const stage = document.querySelector(".stage");
+const isEmbedded = new URLSearchParams(window.location.search).has("embed");
+if (isEmbedded) {
+  document.documentElement.classList.add("embed-mode");
+  const fitEmbeddedScreen = () => {
+    document.documentElement.style.setProperty("--embed-scale", String(Math.min(window.innerWidth / 390, window.innerHeight / 844)));
+  };
+  fitEmbeddedScreen();
+  window.addEventListener("resize", fitEmbeddedScreen);
+}
 const toast = document.querySelector(".toast");
 let toastTimer = null;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");

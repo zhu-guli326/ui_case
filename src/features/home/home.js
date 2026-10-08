@@ -25,7 +25,7 @@ const discoveryTabs = [...(discoveryStrip?.querySelectorAll(".template-filters a
 const discoveryCards = [...(discoveryStrip?.querySelectorAll(".template-grid .template-card") || [])];
 const DISCOVERY_PREVIEWS = [
   {
-    src: "./assets/cases/fashion-shopping-app/hero-screen.png",
+    src: "./assets/cases/fashion-shopping-app/hero-screen.webp",
     ratio: "9 / 16",
     maxWidth: "390px",
     fit: "cover",
@@ -34,7 +34,7 @@ const DISCOVERY_PREVIEWS = [
     alt: { zh: "ONDesign 案例库中的 Fashion Shopping App 移动端界面", en: "Fashion Shopping App mobile UI from the ONDesign case library" },
   },
   {
-    src: "./assets/home/case-product-designer-20260831.png",
+    src: "./assets/home/case-product-designer-20260831.webp",
     ratio: "16 / 9",
     maxWidth: "1120px",
     fit: "cover",
@@ -43,7 +43,7 @@ const DISCOVERY_PREVIEWS = [
     alt: { zh: "ONDesign 收录的真实 Web 设计案例", en: "A real web design case featured in ONDesign" },
   },
   {
-    src: "./assets/skills/repositories/leonxlnx-taste-skill-detail.png",
+    src: "./assets/skills/repositories/leonxlnx-taste-skill-detail.webp",
     ratio: "3 / 4",
     maxWidth: "640px",
     fit: "cover",
@@ -61,7 +61,7 @@ const DISCOVERY_PREVIEWS = [
     alt: { zh: "ONDesign Start Designing / Design DNA 实际工作流预览", en: "ONDesign Start Designing and Design DNA workflow preview" },
   },
   {
-    src: "./assets/vocabulary/generated-v2/content-display-sheet.png",
+    src: "./assets/vocabulary/generated-v2/content-display-sheet.webp",
     ratio: "3 / 4",
     maxWidth: "640px",
     fit: "cover",
@@ -315,7 +315,7 @@ function renderDiscovery(index) {
 const CAPABILITY_FIGURES = [
   {
     stage: "01 · DEFINE",
-    image: "./assets/home/figures/steve-jobs.png",
+    image: "./assets/home/figures/steve-jobs.webp",
     alt: { zh: "史蒂夫·乔布斯像素人物肖像", en: "Pixel portrait of Steve Jobs" },
     name: { zh: "DEFINE", en: "DEFINE" },
     person: { zh: "史蒂夫·乔布斯", en: "Steve Jobs" },
@@ -323,7 +323,7 @@ const CAPABILITY_FIGURES = [
   },
   {
     stage: "02 · CREATE",
-    image: "./assets/home/figures/leonardo-da-vinci.png",
+    image: "./assets/home/figures/leonardo-da-vinci.webp",
     alt: { zh: "达·芬奇像素人物肖像", en: "Pixel portrait of Leonardo da Vinci" },
     name: { zh: "CREATE", en: "CREATE" },
     person: { zh: "达·芬奇", en: "Leonardo da Vinci" },
@@ -331,7 +331,7 @@ const CAPABILITY_FIGURES = [
   },
   {
     stage: "03 · BUILD",
-    image: "./assets/home/figures/bill-gates.png",
+    image: "./assets/home/figures/bill-gates.webp",
     alt: { zh: "比尔·盖茨像素人物肖像", en: "Pixel portrait of Bill Gates" },
     name: { zh: "BUILD", en: "BUILD" },
     person: { zh: "比尔·盖茨", en: "Bill Gates" },
@@ -339,7 +339,7 @@ const CAPABILITY_FIGURES = [
   },
   {
     stage: "04 · ITERATE",
-    image: "./assets/home/figures/thomas-edison.png",
+    image: "./assets/home/figures/thomas-edison.webp",
     alt: { zh: "爱迪生像素人物肖像", en: "Pixel portrait of Thomas Edison" },
     name: { zh: "ITERATE", en: "ITERATE" },
     person: { zh: "爱迪生", en: "Thomas Edison" },

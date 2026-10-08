@@ -14,7 +14,7 @@
       "type": "illustration-asset",
       "implementation": "youtoken-gpt-image-2",
       "slot": "network scan hero inside the app",
-      "source": "assets/network-orb.png",
+      "source": "assets/network-orb.webp",
       "alt": "Abstract wireframe network globe",
       "generated": true
     }

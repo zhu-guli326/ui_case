@@ -46,7 +46,7 @@ h1 em,h2 em,.detail-title em { color:var(--red); font-style:normal; }
 
 .lede { max-width:235px; margin:18px 0 18px; font-size:15px; line-height:1.35; }
 
-.chef-card { position:relative; height:286px; overflow:hidden; border:2px solid var(--ink); border-radius:24px; background:#fff1b9; box-shadow:4px 4px 0 var(--ink); }
+.chef-card { position:relative; display:block; width:100%; height:286px; overflow:hidden; padding:0; border:2px solid var(--ink); border-radius:24px; background:#fff1b9; box-shadow:4px 4px 0 var(--ink); text-align:left; }
 
 .chef-card img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
 

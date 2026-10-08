@@ -31,13 +31,13 @@ export function localizeCase(guide, language = "zh") {
 }
 
 export function caseThumbnail(guide) {
-  if (!guide) return "./assets/readme/hero.png";
-  return guide.previewImage || guide.poster || guide.referenceImage || guide.effectImage || "./assets/readme/hero.png";
+  if (!guide) return "./assets/readme/hero.webp";
+  return guide.previewImage || guide.poster || guide.referenceImage || guide.effectImage || "./assets/readme/hero.webp";
 }
 
 export function caseOverviewImage(guide) {
-  if (!guide) return "./assets/readme/hero.png";
-  return guide.effectImage || guide.referenceImage || guide.previewImage || guide.poster || "./assets/readme/hero.png";
+  if (!guide) return "./assets/readme/hero.webp";
+  return guide.effectImage || guide.referenceImage || guide.previewImage || guide.poster || "./assets/readme/hero.webp";
 }
 
 export function projectPatchForGuide(guide) {

@@ -10,6 +10,6 @@
 ## network-orb
 
 - Purpose: central network-scan visual for the Signal Grid prototype.
-- Output: `assets/network-orb.png`, 1254x1254 PNG.
+- Output: `assets/network-orb.webp`, 1254x1254 PNG.
 - Channel: `youtoken-gpt-image-2` image edit using the supplied telecommunications reference.
 - Constraints: no text, numbers, logo, devices, UI, icons, status bar, navigation, arrows, menu, buttons or labels.

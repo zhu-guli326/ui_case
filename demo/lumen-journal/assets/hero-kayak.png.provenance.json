@@ -2,7 +2,7 @@
   "channel": "image2 fallback",
   "source": "youtoken-gpt-image-2",
   "action": "generate",
-  "output": "demo/lumen-journal/assets/hero-kayak.png",
+  "output": "demo/lumen-journal/assets/hero-kayak.webp",
   "model": "gpt-image-2",
   "size_requested": "1536x1024",
   "quality": "medium",

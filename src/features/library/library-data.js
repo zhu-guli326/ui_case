@@ -1,36 +1,36 @@
 export const previewImageSets = Object.freeze({
   museum: [
-    { src: "./assets/cases/museum-app/home-screen.png", label: { zh: "首页", en: "Home" } },
-    { src: "./assets/cases/museum-app/exhibitions-screen.png", label: { zh: "展览列表", en: "Exhibitions" } },
-    { src: "./assets/cases/museum-app/detail-screen.png", label: { zh: "展览详情", en: "Exhibition detail" } }
+    { src: "./assets/cases/museum-app/home-screen.webp", label: { zh: "首页", en: "Home" } },
+    { src: "./assets/cases/museum-app/exhibitions-screen.webp", label: { zh: "展览列表", en: "Exhibitions" } },
+    { src: "./assets/cases/museum-app/detail-screen.webp", label: { zh: "展览详情", en: "Exhibition detail" } }
   ],
   fashion: [
-    { src: "./assets/cases/fashion-shopping-app/hero-screen.png", label: { zh: "品牌首页", en: "Brand home" } },
-    { src: "./assets/cases/fashion-shopping-app/catalog-screen.png", label: { zh: "商品目录", en: "Catalog" } },
-    { src: "./assets/cases/fashion-shopping-app/favorites-screen.png", label: { zh: "收藏页", en: "Favorites" } }
+    { src: "./assets/cases/fashion-shopping-app/hero-screen.webp", label: { zh: "品牌首页", en: "Brand home" } },
+    { src: "./assets/cases/fashion-shopping-app/catalog-screen.webp", label: { zh: "商品目录", en: "Catalog" } },
+    { src: "./assets/cases/fashion-shopping-app/favorites-screen.webp", label: { zh: "收藏页", en: "Favorites" } }
   ],
-  fufu: [{ src: "./demo/fufu-bakery/screenshots/library-preview-2x.png", label: { zh: "烘焙首页", en: "Bakery home" } }],
-  organique: [{ src: "./demo/organique-food/screenshots/library-preview-2x.png", label: { zh: "选择餐食", en: "Choose meals" } }],
-  "plate-play": [{ src: "./demo/plate-play/screenshots/library-preview-2x.png", label: { zh: "食谱首页", en: "Recipes home" } }],
-  fithub: [{ src: "./demo/fithub/screenshots/library-preview-2x.png", label: { zh: "训练发现", en: "Discover" } }],
-  "still-form": [{ src: "./demo/still-form/screenshots/library-preview-2x.png", label: { zh: "系列目录", en: "Collection" } }],
+  fufu: [{ src: "./demo/fufu-bakery/screenshots/library-preview-2x.webp", label: { zh: "烘焙首页", en: "Bakery home" } }],
+  organique: [{ src: "./demo/organique-food/screenshots/library-preview-2x.webp", label: { zh: "选择餐食", en: "Choose meals" } }],
+  "plate-play": [{ src: "./demo/plate-play/screenshots/library-preview-2x.webp", label: { zh: "食谱首页", en: "Recipes home" } }],
+  fithub: [{ src: "./demo/fithub/screenshots/library-preview-2x.webp", label: { zh: "训练发现", en: "Discover" } }],
+  "still-form": [{ src: "./demo/still-form/screenshots/library-preview-2x.webp", label: { zh: "系列目录", en: "Collection" } }],
   news: [
-    { src: "./assets/cases/news-app/headlines-screen.png", label: { zh: "头条页", en: "Headlines" } },
-    { src: "./assets/cases/news-app/feed-screen.png", label: { zh: "新闻流", en: "News feed" } },
-    { src: "./assets/cases/news-app/discover-screen.png", label: { zh: "发现页", en: "Discover" } }
+    { src: "./assets/cases/news-app/headlines-screen.webp", label: { zh: "头条页", en: "Headlines" } },
+    { src: "./assets/cases/news-app/feed-screen.webp", label: { zh: "新闻流", en: "News feed" } },
+    { src: "./assets/cases/news-app/discover-screen.webp", label: { zh: "发现页", en: "Discover" } }
   ],
-  "signal-grid": [{ src: "./demo/signal-grid/screenshots/library-preview-2x.png", label: { zh: "扫描页", en: "Scan" } }],
-  "volt-route": [{ src: "./demo/volt-route/screenshots/library-preview-2x.png", label: { zh: "车辆状态", en: "Vehicle status" } }],
-  moe: [{ src: "./demo/moe-habits/screenshots/library-preview-2x.png", label: { zh: "习惯首页", en: "Habits home" } }],
-  moodly: [{ src: "./demo/moodly-health/screenshots/library-preview-2x.png", label: { zh: "情绪签到", en: "Mood check-in" } }],
-  reflect: [{ src: "./demo/reflect-journal/screenshots/library-preview-2x.png", label: { zh: "日记首页", en: "Journal home" } }],
-  mimo: [{ src: "./demo/mimo-activities/screenshots/library-preview-2x.png", label: { zh: "日程轮播", en: "Schedule carousel" } }]
+  "signal-grid": [{ src: "./demo/signal-grid/screenshots/library-preview-2x.webp", label: { zh: "扫描页", en: "Scan" } }],
+  "volt-route": [{ src: "./demo/volt-route/screenshots/library-preview-2x.webp", label: { zh: "车辆状态", en: "Vehicle status" } }],
+  moe: [{ src: "./demo/moe-habits/screenshots/library-preview-2x.webp", label: { zh: "习惯首页", en: "Habits home" } }],
+  moodly: [{ src: "./demo/moodly-health/screenshots/library-preview-2x.webp", label: { zh: "情绪签到", en: "Mood check-in" } }],
+  reflect: [{ src: "./demo/reflect-journal/screenshots/library-preview-2x.webp", label: { zh: "日记首页", en: "Journal home" } }],
+  mimo: [{ src: "./demo/mimo-activities/screenshots/library-preview-2x.webp", label: { zh: "日程轮播", en: "Schedule carousel" } }]
 });
 
 export const canonicalCardScreens = Object.freeze({
-  "relay-music": "./demo/relay-music/screenshots/library-preview-2x.png",
-  "signal-grid": "./demo/signal-grid/screenshots/library-preview-2x.png",
-  mimo: "./demo/mimo-activities/screenshots/library-preview-2x.png"
+  "relay-music": "./demo/relay-music/screenshots/library-preview-2x.webp",
+  "signal-grid": "./demo/signal-grid/screenshots/library-preview-2x.webp",
+  mimo: "./demo/mimo-activities/screenshots/library-preview-2x.webp"
 });
 
 export const fittedCardPreviewIds = new Set(["museum", "fashion", "news"]);

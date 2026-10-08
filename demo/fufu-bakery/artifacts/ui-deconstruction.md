@@ -2,10 +2,10 @@
 
 ## Workflow Record
 
-- Original reference: `../assets/reference-overview.png`.
-- Generated complete effect image: `../assets/fufu-line-effect-board.png` (`1536 x 1024`).
+- Original reference: `../assets/reference-overview.webp`.
+- Generated complete effect image: `../assets/fufu-line-effect-board.webp` (`1536 x 1024`).
 - Effect-image review: passed. The board has three complete devices, sparse paper-white compositions, visibly uneven black linework, controlled yellow-blue accents, and enough hierarchy to guide implementation.
-- Decomposition source: `fufu-line-effect-board.png` only.
+- Decomposition source: `fufu-line-effect-board.webp` only.
 - Generation channel: `youtoken-gpt-image-2` image edit.
 
 ## Screen Anatomy
@@ -39,9 +39,9 @@
 
 ## Image Assets
 
-- `fufu-line-effect-board.png`: review-only complete effect image.
-- `fufu-baker.png`: reusable dog baker illustration.
-- `fufu-friends-lineup.png`: member-screen blue dog trio.
+- `fufu-line-effect-board.webp`: review-only complete effect image.
+- `fufu-baker.webp`: reusable dog baker illustration.
+- `fufu-friends-lineup.webp`: member-screen blue dog trio.
 
 Generated assets contain no final text, logos, status bar, button, or navigation glyphs.
 

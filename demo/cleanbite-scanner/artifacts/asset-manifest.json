@@ -5,7 +5,7 @@
       "type": "complete-effect-image",
       "implementation": "youtoken-gpt-image-2",
       "slot": "library style-profile visual",
-      "source": "assets/cleanbite-effect-board.png",
+      "source": "assets/cleanbite-effect-board.webp",
       "size": "1536x1024",
       "generated": true
     },
@@ -14,7 +14,7 @@
       "type": "generated-product-photography",
       "implementation": "youtoken-gpt-image-2",
       "slot": "analysis product hero",
-      "source": "assets/apple-sorbet-youtoken-v2.png",
+      "source": "assets/apple-sorbet-youtoken-v2.webp",
       "size": "1122x1402",
       "alt": "Apple sorbet tub with green apples and fresh apple wedges",
       "generated": true

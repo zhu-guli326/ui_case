@@ -2,8 +2,8 @@
   "styleId": "softly-reflections",
   "workflow": {
     "referenceImage": "assets/reference-overview.png",
-    "effectImage": "assets/softly-effect-board.png",
-    "decompositionSource": "assets/softly-effect-board.png",
+    "effectImage": "assets/softly-effect-board.webp",
+    "decompositionSource": "assets/softly-effect-board.webp",
     "effectImageReviewed": true,
     "generationChannel": "native-image2",
     "generationSource": "system-imagegen"
@@ -17,8 +17,8 @@
     {
       "id": "softly-mascot",
       "type": "foreground-cutout",
-      "path": "assets/softly-mascot.png",
-      "source": "assets/softly-mascot-chroma.png",
+      "path": "assets/softly-mascot.webp",
+      "source": "assets/softly-mascot-chroma.webp",
       "dimensions": "1254x1254",
       "postProcessing": "chroma-key removal, soft matte, despill",
       "uiLocations": ["Welcome medallion", "Mood Check-In hero", "Completion state"]
@@ -26,7 +26,7 @@
     {
       "id": "mara-avatar",
       "type": "illustration",
-      "path": "assets/mara-avatar.png",
+      "path": "assets/mara-avatar.webp",
       "dimensions": "1254x1254",
       "postProcessing": "circular CSS crop",
       "uiLocations": ["Reflection card avatar", "Profile state"]

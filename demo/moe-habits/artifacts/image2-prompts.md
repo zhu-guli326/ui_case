@@ -4,7 +4,7 @@
 
 - Purpose: reusable illustration asset for the home, task, and completion screens.
 - Slot: square illustration crop, displayed with `object-fit: cover` and an off-white blend.
-- Output: `assets/moe-mascots.png`, 1254x1254 PNG.
+- Output: `assets/moe-mascots.webp`, 1254x1254 PNG.
 - Channel: `youtoken-gpt-image-2` via image edit using the supplied reference image.
 
 Prompt:
