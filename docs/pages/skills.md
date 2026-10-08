@@ -80,7 +80,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Skill cards keep a readable minimum width. The grid drops a column before cards become too narrow, so a wider window never produces narrower cards.
 - Skill mode reveals the directory in batches, starting with 24 cards and offering an explicit load-more action with the remaining count. The revealed batch follows the query: a new search, filter or sort starts from the first batch again, while background data refreshes keep the batch the user already revealed.
 - Web mode keeps its full masonry flow instead of batching, because its cards are much taller and the list is shorter.
-- Skill card descriptions clamp to two lines; the remaining detail stays on the skill detail page rather than pushing the cover wall taller.
+- Skill card descriptions clamp to two lines, and every card reserves that same two-line height so cards in a row share one height and the cover wall keeps a single bottom edge. The remaining detail stays on the skill detail page rather than pushing the cover wall taller.
 - Cards should prioritize the actual resource and its visual evidence over decorative chrome.
 - Video previews play muted and loop while visible, and pause outside the viewport. Respect reduced-motion preferences by keeping automatic playback off; pointer hover or keyboard focus can explicitly preview the video.
 - WEB video previews keep their source aspect ratio and use the available card width without a fixed preview height or crop. The desktop WEB list gives previews two broad columns; narrow screens use one column.

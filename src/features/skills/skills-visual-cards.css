@@ -49,6 +49,9 @@
   line-height: 1.45;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  /* Every card reserves two description lines, so cards in one row share a
+   * single height and the cover wall keeps one bottom edge. */
+  min-height: calc(2 * 1.45em);
 }
 
 /* Secondary repository metadata belongs in the detail view, not the cover wall. */
