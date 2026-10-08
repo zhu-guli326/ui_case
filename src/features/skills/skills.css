@@ -33,12 +33,14 @@ button { cursor: pointer; }
  * at the top right of the results, where its three labels keep one line. */
 .sidebar-mode-filter { display: grid; gap: 10px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--ant-border); }
 .sidebar-mode-filter > p { margin: 0; color: var(--ant-text); font-size: 13px; font-weight: 600; }
-.repo-sort-row { display: flex; min-height: 34px; align-items: center; justify-content: flex-end; margin: 0 0 12px; }
+.repo-sort-row { display: flex; min-height: 32px; align-items: center; justify-content: flex-end; margin: 0 0 10px; }
 /* WEB mode has no sort dimension; the runtime marks the row hidden, and this
  * rule keeps that attribute authoritative over the flex display above. */
 .repo-sort-row[hidden] { display: none !important; }
-.repo-sort { display: inline-flex; padding: 3px; gap: 2px; border: 1px solid var(--ant-border); border-radius: 8px; background: #edf0ed; }
-.repo-sort button { min-height: 32px; padding: 0 13px; border: 0; border-radius: 5px; background: transparent; color: var(--ant-text-secondary); font-size: 12px; }
+/* Sizing stays content-driven so the control remains a compact pill in its
+ * top-right corner even if the row's own layout changes. */
+.repo-sort { display: inline-flex; width: fit-content; padding: 3px; gap: 2px; border: 1px solid var(--ant-border); border-radius: 8px; background: #edf0ed; }
+.repo-sort button { min-height: 30px; padding: 0 12px; border: 0; border-radius: 5px; background: transparent; color: var(--ant-text-secondary); font-size: 12px; white-space: nowrap; }
 .repo-sort button:hover { background: color-mix(in srgb, var(--directory-primary) 12%, #fff); color: var(--directory-primary); }
 .repo-sort button:focus-visible { outline: 2px solid var(--directory-primary); outline-offset: 2px; }
 .repo-sort button.is-active { background: var(--directory-primary); color: #fff; font-weight: 600; box-shadow: none; }
