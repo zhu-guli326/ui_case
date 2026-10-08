@@ -1,25 +1,54 @@
 /* Image-first Skill cards.
- * This file owns the SKILL grid: Skill directory cards are for visual browsing
+ * This file owns the SKILL wall: Skill directory cards are for visual browsing
  * first, and operational metadata stays in the detail view instead of
- * competing with the cover. The WEB list is owned by skills-web-masonry.css.
+ * competing with the cover. Cards are sized by their own media and flow in
+ * staggered columns rather than forming a uniform row grid. The WEB list is
+ * owned by skills-web-masonry.css.
  */
 
 .repo-list:not(.is-web-list) {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: block;
+  column-count: 4;
+  column-gap: 18px;
 }
 
+/* Cards keep their natural height and move up independently, so the wall never
+ * reads as a set of identical boxes. */
 .repo-list:not(.is-web-list) .repo-row {
-  align-self: start;
+  display: inline-flex;
+  width: 100%;
+  margin: 0 0 18px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  vertical-align: top;
 }
 
+/* Page-level messages span the whole flow instead of one column. */
+.repo-list:not(.is-web-list) .repo-more,
+.repo-list:not(.is-web-list) .repo-empty {
+  column-span: all;
+}
+
+/* The scene follows its media instead of framing it at a fixed ratio. */
 .repo-list:not(.is-web-list) .repo-scene {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: auto;
 }
 
+/* Image covers keep their intrinsic ratio. The height cap only trims unusually
+ * tall artwork, which then crops from the top like the rest of the wall. */
 .repo-list:not(.is-web-list) .repo-cover-image {
-  height: calc(100% - 28px);
+  width: 100%;
+  height: auto;
+  max-height: 420px;
   object-fit: cover;
   object-position: top center;
+}
+
+/* A video cover carries the ratio recorded in the catalog data, so the card
+ * has its final height before the recording loads its metadata. */
+.repo-list:not(.is-web-list) video.repo-cover-image {
+  aspect-ratio: var(--cover-ratio, 16 / 9);
+  object-fit: contain;
 }
 
 .repo-list:not(.is-web-list) .repo-card-body {
@@ -49,9 +78,6 @@
   line-height: 1.45;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  /* Every card reserves two description lines, so cards in one row share a
-   * single height and the cover wall keeps one bottom edge. */
-  min-height: calc(2 * 1.45em);
 }
 
 /* Secondary repository metadata belongs in the detail view, not the cover wall. */
@@ -63,22 +89,18 @@
 /* One column count per width, so a wider window never produces narrower cards. */
 @media (max-width: 1679px) {
   .repo-list:not(.is-web-list) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-count: 3;
   }
 }
 
 @media (max-width: 1180px) {
   .repo-list:not(.is-web-list) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-count: 2;
   }
 }
 
 @media (max-width: 720px) {
   .repo-list:not(.is-web-list) {
-    grid-template-columns: 1fr;
-  }
-
-  .repo-list:not(.is-web-list) .repo-scene {
-    aspect-ratio: 16 / 10;
+    column-count: 1;
   }
 }

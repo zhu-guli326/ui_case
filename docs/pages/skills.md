@@ -77,10 +77,11 @@ Category wording can be refined, but the structure should remain intuitive and s
 - The desktop filter sidebar is a narrow rail that leaves more width for visual resource cards while keeping category labels and counts readable. It stays sticky next to the results and scrolls inside its own capped height, so every filter remains reachable instead of being cropped or scrolled out of the page.
 - Narrow screens keep the same categories visible without turning the rail into a full-height list: categories sit in compact multi-column rows rather than one long column.
 - Avoid large unused gutters; the directory should use available desktop width effectively.
-- Skill cards keep a readable minimum width. The grid drops a column before cards become too narrow, so a wider window never produces narrower cards.
+- Skill cards keep a readable minimum width. The flow drops a column before cards become too narrow, so a wider window never produces narrower cards.
+- The Skill wall is a staggered column flow with free card sizes: cards keep their own media-driven height and move up independently, so the wall never reads as a set of identical boxes. Image covers keep their intrinsic ratio; a cover height cap only trims unusually tall artwork. Video covers carry the ratio recorded in the catalog data, so a card has its final height before the recording loads its metadata.
 - Skill mode reveals the directory in batches, starting with 24 cards and offering an explicit load-more action with the remaining count. The revealed batch follows the query: a new search, filter or sort starts from the first batch again, while background data refreshes keep the batch the user already revealed.
 - Web mode keeps its full masonry flow instead of batching, because its cards are much taller and the list is shorter.
-- Skill card descriptions clamp to two lines, and every card reserves that same two-line height so cards in a row share one height and the cover wall keeps a single bottom edge. The remaining detail stays on the skill detail page rather than pushing the cover wall taller.
+- Skill card descriptions clamp to two lines; the remaining detail stays on the skill detail page rather than pushing the cover wall taller.
 - Cards should prioritize the actual resource and its visual evidence over decorative chrome.
 - Video previews play muted and loop while visible, and pause outside the viewport. Respect reduced-motion preferences by keeping automatic playback off; pointer hover or keyboard focus can explicitly preview the video.
 - WEB video previews keep their source aspect ratio and use the available card width without a fixed preview height or crop. The desktop WEB list gives previews two broad columns; narrow screens use one column.

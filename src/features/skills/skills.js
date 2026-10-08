@@ -113,7 +113,8 @@ function getSkillCoverMarkup(item) {
   const poster = getSkillCover(item);
   if (item.coverType === "video" && item.coverSrc) {
     const posterAttribute = item.coverImage ? ` poster="${escapeHtml(item.coverImage)}"` : "";
-    return `<video class="repo-cover-image" data-src="${escapeHtml(item.coverSrc)}"${posterAttribute} muted loop playsinline preload="none" aria-hidden="true"></video>`;
+    const ratioAttribute = item.coverRatio ? ` style="--cover-ratio:${Number(item.coverRatio)}"` : "";
+    return `<video class="repo-cover-image"${ratioAttribute} data-src="${escapeHtml(item.coverSrc)}"${posterAttribute} muted loop playsinline preload="none" aria-hidden="true"></video>`;
   }
   return `<img class="repo-cover-image" src="${escapeHtml(poster)}" alt="" loading="lazy" decoding="async">`;
 }
