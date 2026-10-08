@@ -88,7 +88,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Resources that cannot meaningfully flip should not fake a flip interaction.
 - Source-code availability should remain visible and filterable.
 - The primary search field is detached from the content toolbar and remains centered at the bottom of the viewport.
-- Keep sorting accessible as a lightweight utility control inside the filter rail, next to the mode switch. Sorting must not take a dedicated full-width row above the results. Do not display GitHub sync status, result fractions or a reset button here.
+- Keep sorting accessible as a lightweight utility control at the top right of the results area, above the first card row. It stays a page-owned control row so it never competes with the search-only shared toolbar, and it must not sit inside the narrow filter rail, where its labels are forced to wrap. Do not display GitHub sync status, result fractions or a reset button here.
 - Sorting applies to the Skill list only; WEB mode hides the sort control instead of showing a control that has no effect.
 - The SKILL and WEB mode badges show the complete resource count of their mode, including curated groups contributed by a separate responsibility module.
 - Result-count-only or empty toolbar chrome should not remain after search moves to the floating dock.
@@ -114,7 +114,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Duplicate filter systems.
 - Task-search controls that do not improve resource discovery.
 - Result-count-only or empty toolbar chrome after search moves to the floating dock.
-- A dedicated full-width row for sorting, or a sort control that stays visible while it cannot affect the list.
+- A sort control inside the filter rail or in a full-width toolbar band, or a sort control that stays visible while it cannot affect the list.
 - Forcing an extra card column at the cost of readable card width or readable descriptions.
 - Rendering the entire Skill cover wall at once when the curated list keeps growing.
 - Large empty margins that reduce browsing efficiency.

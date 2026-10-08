@@ -29,17 +29,16 @@ button { cursor: pointer; }
 .hero-update-note strong { color: var(--ant-primary); font-size: 13px; }
 .hero-update-note small { color: var(--ant-text-tertiary); font-size: 10px; }
 
-/* Skills sidebar controls. Mode, sort and category filters share one rail so
- * the page does not need a separate toolbar band above the results. */
+/* Mode switching owns the filter rail. Sorting stays a compact utility control
+ * at the top right of the results, where its three labels keep one line. */
 .sidebar-mode-filter { display: grid; gap: 10px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--ant-border); }
-.sidebar-mode-filter > p,
-.sidebar-sort > p { margin: 0; color: var(--ant-text); font-size: 13px; font-weight: 600; }
-.sidebar-sort { display: grid; gap: 10px; }
-/* WEB mode has no sort dimension; the runtime marks the whole block hidden, and
- * this rule keeps that attribute authoritative over the grid display above. */
-.sidebar-sort[hidden] { display: none !important; }
-.repo-sort { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); padding: 3px; gap: 2px; border: 1px solid var(--ant-border); border-radius: 8px; background: #edf0ed; }
-.repo-sort button { min-height: 32px; padding: 0 6px; border: 0; border-radius: 5px; background: transparent; color: var(--ant-text-secondary); font-size: 12px; }
+.sidebar-mode-filter > p { margin: 0; color: var(--ant-text); font-size: 13px; font-weight: 600; }
+.repo-sort-row { display: flex; min-height: 34px; align-items: center; justify-content: flex-end; margin: 0 0 12px; }
+/* WEB mode has no sort dimension; the runtime marks the row hidden, and this
+ * rule keeps that attribute authoritative over the flex display above. */
+.repo-sort-row[hidden] { display: none !important; }
+.repo-sort { display: inline-flex; padding: 3px; gap: 2px; border: 1px solid var(--ant-border); border-radius: 8px; background: #edf0ed; }
+.repo-sort button { min-height: 32px; padding: 0 13px; border: 0; border-radius: 5px; background: transparent; color: var(--ant-text-secondary); font-size: 12px; }
 .repo-sort button:hover { background: color-mix(in srgb, var(--directory-primary) 12%, #fff); color: var(--directory-primary); }
 .repo-sort button:focus-visible { outline: 2px solid var(--directory-primary); outline-offset: 2px; }
 .repo-sort button.is-active { background: var(--directory-primary); color: #fff; font-weight: 600; box-shadow: none; }

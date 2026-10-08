@@ -41,21 +41,21 @@
         <label class="repo-search search-field"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><input id="repoSearch" type="search" autocomplete="off" data-i18n-placeholder="skills.repoSearch" placeholder="搜索名称、用途或仓库" data-i18n-attr="aria-label:skills.repoSearch"></label>
       </div>
 
+      <div class="repo-sort-row" id="repoSortGroup">
+        <div class="repo-sort" id="repoSort" aria-label="排序方式" data-i18n-attr="aria-label:skills.sortLabel">
+          <button class="is-active" type="button" data-repo-sort="CURATED" data-i18n="skills.sortCurated">精选</button>
+          <button type="button" data-repo-sort="STARS" data-i18n="skills.sortStars">Stars</button>
+          <button type="button" data-repo-sort="UPDATED" data-i18n="skills.sortUpdated">最近更新</button>
+        </div>
+      </div>
+
       <div class="directory-layout" id="directoryLayout">
-        <aside class="filter-sidebar directory-sidebar" id="filterSidebar" aria-label="Skill 筛选与排序">
+        <aside class="filter-sidebar directory-sidebar" id="filterSidebar" aria-label="Skill 分类筛选">
           <div class="sidebar-mode-filter">
             <p data-i18n="skills.directoryModeLabel">浏览类型</p>
             <div class="directory-mode-tabs">
               <button class="is-active" type="button" data-directory-mode="SKILL"><span>Skill</span><b>54</b></button>
               <button type="button" data-directory-mode="WEB"><span data-i18n="skills.webMode">设计网站</span><b>28</b></button>
-            </div>
-            <div class="sidebar-sort" id="repoSortGroup">
-              <p data-i18n="skills.sortLabel">排序</p>
-              <div class="repo-sort" id="repoSort" aria-label="排序方式">
-                <button class="is-active" type="button" data-repo-sort="CURATED" data-i18n="skills.sortCurated">精选</button>
-                <button type="button" data-repo-sort="STARS" data-i18n="skills.sortStars">Stars</button>
-                <button type="button" data-repo-sort="UPDATED" data-i18n="skills.sortUpdated">最近更新</button>
-              </div>
             </div>
           </div>
           <header class="filter-sidebar-head"><p data-i18n="skills.filters">分类筛选</p><small id="categoryCount">14</small></header>

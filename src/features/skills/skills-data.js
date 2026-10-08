@@ -141,7 +141,7 @@ export const skillsTranslations = {
   "skills.taskRailLabel": { zh: "按任务探索", en: "Explore by task" },
   "skills.directoryModeLabel": { zh: "浏览类型", en: "Browse type" },
   "skills.webMode": { zh: "设计网站", en: "Design Sites" },
-  "skills.sortLabel": { zh: "排序", en: "Sort" },
+  "skills.sortLabel": { zh: "排序方式", en: "Sort order" },
   "skills.sortCurated": { zh: "精选", en: "Curated" },
   "skills.sortStars": { zh: "Stars", en: "Stars" },
   "skills.sortUpdated": { zh: "最近更新", en: "Latest" },
