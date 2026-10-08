@@ -1,6 +1,6 @@
 # Skills Page Requirements
 
-Last updated: 2026-09-01
+Last updated: 2026-10-08
 
 ## Page identity
 
@@ -74,8 +74,11 @@ Category wording can be refined, but the structure should remain intuitive and s
 - The page no longer keeps an independent hero / overview section; the shared knowledge-directory navigation stays visible on this route above filters and results.
 - Skill and Web resource cards remain cards because they represent real independent resources; flattening the page shell must not remove their preview, hover, flip or direct actions.
 - Filters must remain understandable and compact.
-- The desktop filter sidebar is a narrow rail that leaves more width for visual resource cards while keeping category labels and counts readable.
+- The desktop filter sidebar is a narrow rail that leaves more width for visual resource cards while keeping category labels and counts readable. It stays sticky next to the results and scrolls inside its own capped height, so every filter remains reachable instead of being cropped or scrolled out of the page.
+- Narrow screens keep the same categories visible without turning the rail into a full-height list: categories sit in compact multi-column rows rather than one long column.
 - Avoid large unused gutters; the directory should use available desktop width effectively.
+- Skill cards keep a readable minimum width. The grid drops a column before cards become too narrow, so a wider window never produces narrower cards.
+- Skill card descriptions clamp to two lines; the remaining detail stays on the skill detail page rather than pushing the cover wall taller.
 - Cards should prioritize the actual resource and its visual evidence over decorative chrome.
 - Video previews play muted and loop while visible, and pause outside the viewport. Respect reduced-motion preferences by keeping automatic playback off; pointer hover or keyboard focus can explicitly preview the video.
 - WEB video previews keep their source aspect ratio and use the available card width without a fixed preview height or crop. The desktop WEB list gives previews two broad columns; narrow screens use one column.
@@ -83,7 +86,9 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Resources that cannot meaningfully flip should not fake a flip interaction.
 - Source-code availability should remain visible and filterable.
 - The primary search field is detached from the content toolbar and remains centered at the bottom of the viewport.
-- Keep sorting accessible as a lightweight utility control. Do not display GitHub sync status, result fractions or a reset button in this toolbar.
+- Keep sorting accessible as a lightweight utility control inside the filter rail, next to the mode switch. Sorting must not take a dedicated full-width row above the results. Do not display GitHub sync status, result fractions or a reset button here.
+- Sorting applies to the Skill list only; WEB mode hides the sort control instead of showing a control that has no effect.
+- The SKILL and WEB mode badges show the complete resource count of their mode, including curated groups contributed by a separate responsibility module.
 - Result-count-only or empty toolbar chrome should not remain after search moves to the floating dock.
 - On desktop pointer devices, the floating search stays icon-sized while idle and expands only on hover or keyboard/input focus; this compact resting state must not block page content.
 - Touch layouts should remain directly usable without requiring hover.
@@ -107,6 +112,8 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Duplicate filter systems.
 - Task-search controls that do not improve resource discovery.
 - Result-count-only or empty toolbar chrome after search moves to the floating dock.
+- A dedicated full-width row for sorting, or a sort control that stays visible while it cannot affect the list.
+- Forcing an extra card column at the cost of readable card width or readable descriptions.
 - Large empty margins that reduce browsing efficiency.
 - Repeated buttons or repeated resource metadata.
 - Recreating Library or Vocabulary inside this page.

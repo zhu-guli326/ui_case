@@ -6,7 +6,7 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
     categoryCount,
     repoSortButtons,
     directoryModeButtons,
-    repoSort,
+    repoSortGroup,
     repoInspector
   } = elements;
 
@@ -66,6 +66,12 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
       video.load();
       if (!reducedMotion.matches) video.play().catch(() => {});
     }
+  }
+
+  // The WEB directory is the curated website list plus the design-system group
+  // published by skills-design-systems.js, so the mode badge matches the list.
+  function getWebResourceCount() {
+    return designReferenceWebsites.length + (window.image2SkillsDesignSystemCount || 0);
   }
 
   function renderRepositoryFilters() {
@@ -135,9 +141,11 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
       button.classList.toggle("is-active", isActive);
       button.setAttribute("aria-pressed", String(isActive));
       const count = button.querySelector("b");
-      if (count) count.textContent = button.dataset.directoryMode === "WEB" ? String(designReferenceWebsites.length) : String(getRepositoryItems().length);
+      if (count) count.textContent = button.dataset.directoryMode === "WEB" ? String(getWebResourceCount()) : String(getRepositoryItems().length);
     });
-    if (repoSort) repoSort.hidden = isWebMode;
+    // Sorting only applies to the Skill list, so the whole sidebar block hides
+    // in WEB mode instead of keeping a control that has no effect.
+    if (repoSortGroup) repoSortGroup.hidden = isWebMode;
     if (repoSearch) {
       repoSearch.value = state.searchQuery;
       repoSearch.placeholder = isWebMode

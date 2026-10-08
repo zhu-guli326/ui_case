@@ -22,6 +22,13 @@ let designSystemsOnly = false;
 let rendering = false;
 let scheduled = 0;
 
+// The Skills runtime renders the WEB mode badge from the curated website count,
+// so this module publishes the size of the group it adds to that directory.
+function publishResourceCount() {
+  window.image2SkillsDesignSystemCount = designSystems.length;
+  window.dispatchEvent(new CustomEvent("image2:skillsresourcechange"));
+}
+
 function isWebMode() {
   return $("[data-directory-mode='WEB']")?.classList.contains("is-active");
 }
@@ -180,6 +187,7 @@ function installEvents() {
 
 function init() {
   installEvents();
+  publishResourceCount();
   scheduleRender();
 }
 

@@ -1,7 +1,6 @@
-/* WEB mode: natural-height masonry flow.
- * Cards keep their native preview ratio and move upward independently,
- * avoiding row-height gaps created by the regular CSS grid.
- */
+/* WEB mode owns this flow: cards keep their native preview ratio and move
+ * upward independently, avoiding the row-height gaps a regular CSS grid would
+ * create. The picture ratio comes from each website's own preview asset. */
 body.skills-document .repo-list.is-web-list {
   display: block;
   column-count: 2;
@@ -30,44 +29,7 @@ body.skills-document .repo-list.is-web-list .repo-empty {
   column-span: all;
 }
 
-/* Keep the flat shell, but do not remove real controls. Search remains the
- * shared floating dock; sorting, sync state and reset stay in a light row. */
-body.skills-document.directory-page .repo-toolbar.directory-toolbar {
-  height: auto !important;
-  min-height: 42px !important;
-  display: flex !important;
-  justify-content: flex-end !important;
-  align-items: center !important;
-  margin: 0 0 14px !important;
-  padding: 0 !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  overflow: visible !important;
-}
-
-body.skills-document.directory-page .repo-toolbar.directory-toolbar > .repo-toolbar-actions {
-  display: flex !important;
-  justify-self: auto !important;
-  gap: 12px !important;
-}
-
 @media (max-width: 820px) {
-  body.skills-document .repo-list.is-web-list {
-    column-count: 1;
-  }
-  body.skills-document.directory-page .repo-toolbar.directory-toolbar,
-  body.skills-document.directory-page .repo-toolbar.directory-toolbar > .repo-toolbar-actions {
-    width: 100% !important;
-  }
-  body.skills-document.directory-page .repo-toolbar.directory-toolbar > .repo-toolbar-actions {
-    flex-wrap: wrap !important;
-    justify-content: flex-end !important;
-  }
-}
-
-@media (max-width: 620px) {
   body.skills-document .repo-list.is-web-list {
     column-count: 1;
   }

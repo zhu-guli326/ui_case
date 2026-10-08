@@ -1,12 +1,11 @@
 /* Image-first Skill cards.
- * Skill directory cards are for visual browsing first; operational metadata
- * remains available in detail views instead of competing with the cover.
+ * This file owns the SKILL grid: Skill directory cards are for visual browsing
+ * first, and operational metadata stays in the detail view instead of
+ * competing with the cover. The WEB list is owned by skills-web-masonry.css.
  */
 
 .repo-list:not(.is-web-list) {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
-  align-items: start;
 }
 
 .repo-list:not(.is-web-list) .repo-row {
@@ -46,10 +45,10 @@
   overflow: hidden;
   margin: 0;
   color: var(--ant-text-secondary);
-  font-size: 11px;
-  line-height: 1.5;
+  font-size: 12px;
+  line-height: 1.45;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
 }
 
 /* Secondary repository metadata belongs in the detail view, not the cover wall. */
@@ -58,19 +57,20 @@
   display: none;
 }
 
-@media (max-width: 1280px) {
+/* One column count per width, so a wider window never produces narrower cards. */
+@media (max-width: 1679px) {
   .repo-list:not(.is-web-list) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1180px) {
   .repo-list:not(.is-web-list) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 720px) {
   .repo-list:not(.is-web-list) {
     grid-template-columns: 1fr;
   }
