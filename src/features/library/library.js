@@ -23,11 +23,10 @@ const libraryMedia = Object.freeze({
   })
 });
 
-const styleGuides = catalogStyleGuides.map((guide) => ({
-  ...guide,
-  ...libraryMedia[guide.id],
-  defaultPreviewMode: "image"
-}));
+const styleGuides = catalogStyleGuides.map((guide) => {
+  const caseGuide = { ...guide, ...libraryMedia[guide.id] };
+  return { ...caseGuide, defaultPreviewMode: caseGuide.liveDemo ? "live" : "image" };
+});
 
 const elements = {
   gallery: document.querySelector("#demoGallery"),

@@ -20,14 +20,11 @@ const elements = {
   repoList: document.querySelector("#repoList"),
   repoSearch: document.querySelector("#repoSearch"),
   repoFacets: document.querySelector("#repoFacets"),
-  repoCount: document.querySelector("#repoCount"),
-  repoSyncStatus: document.querySelector("#repoSyncStatus"),
   categoryCount: document.querySelector("#categoryCount"),
   repoSortButtons: document.querySelectorAll("[data-repo-sort]"),
   directoryModeButtons: document.querySelectorAll("[data-directory-mode]"),
   repoSort: document.querySelector("#repoSort"),
-  repoInspector: document.querySelector("#repoInspector"),
-  repoClearFilters: document.querySelector("#repoClearFilters")
+  repoInspector: document.querySelector("#repoInspector")
 };
 
 const track = (name, properties) => window.image2Analytics?.track(name, properties);
@@ -40,7 +37,6 @@ const state = {
   searchQuery: "",
   activeSourceOnly: false,
   selectedSlug: repositories[0].slug,
-  repositoryStatsStatus: "loading",
   repositoryStatsUpdatedAt: null
 };
 const validDirectoryModes = new Set(["SKILL", "WEB"]);
@@ -197,19 +193,6 @@ function getFilteredWebsites() {
   });
 }
 
-function formatSyncTime(timestamp) {
-  if (!timestamp) return state.currentLanguage === "en" ? "Live data" : "实时数据";
-  const elapsedMinutes = Math.max(0, Math.floor((Date.now() - timestamp) / 60000));
-  if (state.currentLanguage === "en") {
-    if (elapsedMinutes < 1) return "just synced";
-    if (elapsedMinutes < 60) return `synced ${elapsedMinutes}m ago`;
-    return `synced ${Math.floor(elapsedMinutes / 60)}h ago`;
-  }
-  if (elapsedMinutes < 1) return "刚刚同步";
-  if (elapsedMinutes < 60) return `${elapsedMinutes} 分钟前同步`;
-  return `${Math.floor(elapsedMinutes / 60)} 小时前同步`;
-}
-
 function copyToClipboard(button, value) {
   const span = button.querySelector("span");
   const originalLabel = span ? span.textContent : "";
@@ -260,7 +243,6 @@ const renderer = createSkillsRenderer({
     getSkillVisual,
     formatNumber,
     formatDate,
-    formatSyncTime,
     buildSkillDetailHref,
     getWebsitePreviewMarkup
   },
@@ -316,14 +298,12 @@ async function loadRepositoryData() {
   const cacheIsFresh = Boolean(cacheIsComplete && cache?.savedAt && Date.now() - cache.savedAt < repositoryStatsCacheTtl);
   state.resolvedRepositories = applyRepositoryStats(repositories, cachedItems);
   state.repositoryStatsUpdatedAt = cache?.savedAt || null;
-  state.repositoryStatsStatus = cacheIsFresh ? "ready" : "loading";
   renderer.renderRepositories();
   if (cacheIsFresh) return;
 
   const resolved = await mapWithConcurrency(repositories, 4, (item) => fetchRepositoryStats(item, cachedItems[item.slug]));
   state.resolvedRepositories = resolved;
   const hasStats = resolved.some((item) => typeof item.stars === "number" || Boolean(item.starsLabel));
-  state.repositoryStatsStatus = hasStats ? "ready" : "unavailable";
   state.repositoryStatsUpdatedAt = hasStats ? Date.now() : (cache?.savedAt || null);
   const items = Object.fromEntries(resolved.map((item) => [item.slug, {
     description: item.description,
@@ -350,14 +330,6 @@ function renderPage(language = "zh") {
 
 if (elements.repoSearch) elements.repoSearch.addEventListener("input", () => {
   state.searchQuery = elements.repoSearch.value;
-  renderer.renderRepositories();
-});
-
-if (elements.repoClearFilters) elements.repoClearFilters.addEventListener("click", () => {
-  state.activeCategories.clear();
-  state.activeSourceOnly = false;
-  state.activeSort = "CURATED";
-  state.searchQuery = "";
   renderer.renderRepositories();
 });
 

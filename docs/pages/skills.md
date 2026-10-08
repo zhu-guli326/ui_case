@@ -10,6 +10,7 @@ Last updated: 2026-09-01
 - Shared knowledge-directory geometry and floating search: `src/core/app-shell/directory-page.css`
 - Shared knowledge-page cleanup: `src/core/app-shell/knowledge-directory-cleanup.css`
 - Supported top-level modes: `SKILL` and `WEB`
+- The `WEB` mode keeps its URL and runtime key, while the sidebar displays `设计网站 / Design Sites` to describe its content.
 
 ## Page goal
 
@@ -58,7 +59,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 ## Information structure
 
 1. Persistent shared knowledge-directory navigation, followed by mode / filter controls
-2. Lightweight utility row for useful actions such as sort / reset / sync status
+2. Lightweight sorting controls
 3. Resource list / visual cards
 4. Focused inspector / flipped detail when useful
 5. Direct action: visit, copy prompt, inspect source availability, etc.
@@ -73,14 +74,16 @@ Category wording can be refined, but the structure should remain intuitive and s
 - The page no longer keeps an independent hero / overview section; the shared knowledge-directory navigation stays visible on this route above filters and results.
 - Skill and Web resource cards remain cards because they represent real independent resources; flattening the page shell must not remove their preview, hover, flip or direct actions.
 - Filters must remain understandable and compact.
+- The desktop filter sidebar is a narrow rail that leaves more width for visual resource cards while keeping category labels and counts readable.
 - Avoid large unused gutters; the directory should use available desktop width effectively.
 - Cards should prioritize the actual resource and its visual evidence over decorative chrome.
 - Video previews play muted and loop while visible, and pause outside the viewport. Respect reduced-motion preferences by keeping automatic playback off; pointer hover or keyboard focus can explicitly preview the video.
+- WEB video previews keep their source aspect ratio and use the available card width without a fixed preview height or crop. The desktop WEB list gives previews two broad columns; narrow screens use one column.
 - A flipped card state should reveal additional useful content rather than repeat the front.
 - Resources that cannot meaningfully flip should not fake a flip interaction.
 - Source-code availability should remain visible and filterable.
 - The primary search field is detached from the content toolbar and remains centered at the bottom of the viewport.
-- Useful secondary controls such as sorting, reset and sync/status indicators should remain accessible; style them as a lightweight, borderless utility row instead of hiding them or wrapping them in another card.
+- Keep sorting accessible as a lightweight utility control. Do not display GitHub sync status, result fractions or a reset button in this toolbar.
 - Result-count-only or empty toolbar chrome should not remain after search moves to the floating dock.
 - On desktop pointer devices, the floating search stays icon-sized while idle and expands only on hover or keyboard/input focus; this compact resting state must not block page content.
 - Touch layouts should remain directly usable without requiring hover.
@@ -92,7 +95,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 
 - `SKILL` and `WEB` modes unless explicitly changed by product requirements.
 - Source-code filtering.
-- Sort / reset / sync-state controls when they provide real directory functionality.
+- Sorting and background GitHub statistics refresh.
 - URL state.
 - Existing responsibility split between data, filtering and rendering.
 - Direct links to the original resource.

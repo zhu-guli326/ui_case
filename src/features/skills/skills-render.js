@@ -3,8 +3,6 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
     repoList,
     repoSearch,
     repoFacets,
-    repoCount,
-    repoSyncStatus,
     categoryCount,
     repoSortButtons,
     directoryModeButtons,
@@ -25,7 +23,6 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
     getSkillVisual,
     formatNumber,
     formatDate,
-    formatSyncTime,
     buildSkillDetailHref,
     getWebsitePreviewMarkup
   } = helpers;
@@ -133,8 +130,6 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
   function renderRepositoryToolbar() {
     renderRepositoryFilters();
     const isWebMode = state.activeDirectoryMode === "WEB";
-    const filteredCount = isWebMode ? getFilteredWebsites().length : getFilteredRepositories().length;
-    const totalCount = isWebMode ? designReferenceWebsites.length : getRepositoryItems().length;
     directoryModeButtons.forEach((button) => {
       const isActive = button.dataset.directoryMode === state.activeDirectoryMode;
       button.classList.toggle("is-active", isActive);
@@ -143,19 +138,11 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
       if (count) count.textContent = button.dataset.directoryMode === "WEB" ? String(designReferenceWebsites.length) : String(getRepositoryItems().length);
     });
     if (repoSort) repoSort.hidden = isWebMode;
-    if (repoSyncStatus) repoSyncStatus.hidden = isWebMode;
     if (repoSearch) {
       repoSearch.value = state.searchQuery;
       repoSearch.placeholder = isWebMode
         ? (state.currentLanguage === "en" ? "Search website, purpose or domain" : "搜索网站、用途或域名")
         : (state.currentLanguage === "en" ? "Search name, purpose or repository" : "搜索名称、用途或仓库");
-    }
-    if (repoCount) repoCount.textContent = state.currentLanguage === "en" ? `${filteredCount} of ${totalCount}` : `${filteredCount} / ${totalCount}`;
-    if (repoSyncStatus && !isWebMode) {
-      const prefix = state.currentLanguage === "en" ? "Latest GitHub Stars" : "GitHub 最新 Stars";
-      if (state.repositoryStatsStatus === "loading") repoSyncStatus.textContent = `${prefix} · ${state.currentLanguage === "en" ? "syncing…" : "正在同步…"}`;
-      else if (state.repositoryStatsStatus === "unavailable") repoSyncStatus.textContent = `${prefix} · ${state.currentLanguage === "en" ? "temporarily unavailable" : "暂时无法更新"}`;
-      else repoSyncStatus.textContent = `${prefix} · ${formatSyncTime(state.repositoryStatsUpdatedAt)}`;
     }
     repoSortButtons.forEach((button) => {
       const isActive = button.dataset.repoSort === state.activeSort;

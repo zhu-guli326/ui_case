@@ -15,25 +15,4 @@
     document.head.append(clarity);
   }
 
-  if (document.body?.classList.contains("project-home") || /(?:^|\/)learn\.html$/.test(location.pathname)) {
-    const loadStyle = (href) => {
-      if (document.querySelector(`link[href="${href}"]`)) return;
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = href;
-      document.head.append(link);
-    };
-
-    const loadScript = (src) => {
-      if (document.querySelector(`script[src="${src}"]`)) return;
-      const script = document.createElement("script");
-      script.src = src;
-      script.defer = true;
-      document.head.append(script);
-    };
-
-    loadStyle("./src/features/home/specular-button.css");
-    loadScript("./src/features/home/specular-button.js");
-    loadScript("./src/features/home/featured-carousel-autoplay.js");
-  }
 })(window, document);

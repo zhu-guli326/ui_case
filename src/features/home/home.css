@@ -1,4 +1,5 @@
 @import url("./home-foundation.css");
+@import url("./specular-button.css");
 
 /* Discovery visibility guard: custom preview hosts must still respect tab state. */
 #templates .template-grid .template-card.home-vocab-host[hidden],

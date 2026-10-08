@@ -51,5 +51,5 @@ document.querySelectorAll("[data-add]").forEach((button) => button.addEventListe
 }));
 
 const initialView = previewParams.get("view");
-showView(["home", "menu", "member"].includes(initialView) ? initialView : "welcome");
+showView(["home", "menu", "member"].includes(initialView) ? initialView : (previewParams.has("embed") ? "home" : "welcome"));
 window.scrollTo(0, 0);
