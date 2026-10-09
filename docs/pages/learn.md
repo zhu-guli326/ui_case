@@ -35,6 +35,7 @@ A visitor should quickly understand:
 - Present a clear path into `launcher.html` / Start Designing.
 - Provide entry points into deeper learning or library content where appropriate.
 - Support Chinese and English content with equivalent structure.
+- Provide a concise social sharing preview for the public Home URL, with a title, description and image that reflect the current page.
 
 ## Information structure
 
