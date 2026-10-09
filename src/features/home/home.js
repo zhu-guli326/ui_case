@@ -399,7 +399,7 @@ function renderCapabilityFigures(language) {
 function applyLanguage(event) {
   const language = currentLanguage(event);
   document.documentElement.lang = language === "en" ? "en" : "zh-CN";
-  document.title = language === "en" ? "ONDesign · Find references. Build with AI." : "ONDesign · 看参考，拆设计，交给 AI 做";
+  document.title = language === "en" ? "ONDesign — Design, Build, Create with AI" : "ONDesign · 不止于灵感，更进一步";
 
   const description = document.querySelector('meta[name="description"]');
   if (description) {
