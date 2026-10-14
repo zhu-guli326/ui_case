@@ -10,7 +10,7 @@ Last updated: 2026-10-08
 - Shared knowledge-directory geometry and floating search: `src/core/app-shell/directory-page.css`
 - Shared knowledge-page cleanup: `src/core/app-shell/knowledge-directory-cleanup.css`
 - Supported top-level modes: `SKILL` and `WEB`
-- The `WEB` mode keeps its URL and runtime key, while the sidebar displays `设计网站 / Design Sites` to describe its content.
+- The `WEB` mode keeps its URL and runtime key. It is reached through the shared knowledge navigation, which names it `设计工具 / Design Tools`; the filter rail carries no mode switch of its own.
 
 ## Page goal
 
@@ -58,7 +58,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 
 ## Information structure
 
-1. Persistent shared knowledge-directory navigation, followed by mode / filter controls
+1. Persistent shared knowledge-directory navigation, followed by filter controls
 2. Lightweight sorting controls
 3. Resource list / visual cards, revealed in progressive batches with an explicit load-more action in Skill mode
 4. Focused inspector / flipped detail when useful
@@ -68,7 +68,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 ## Interaction rules
 
 - Keep the same shared four-destination knowledge navigation visible when moving between Library, Skills (SKILL / WEB), and Vocabulary. Highlight the current destination, including changes made with the Skills mode controls. During cross-page navigation, keep the global header and knowledge navigation visually stationary; only the content below transitions. Shared implementation: src/components/knowledge-nav/knowledge-nav.js and knowledge-nav.css.
-- Switching between Design Tools (WEB) and Design Skills (SKILL) from the shared knowledge navigation happens within the current Skills document. Update the URL, active state, filters and results without a full-page transition.
+- Mode switching happens only through the shared knowledge navigation: requesting Design Tools (WEB) or Design Skills (SKILL) switches the directory inside the current Skills document and updates the URL, active state, filters and results without a full-page transition. The runtime reads the mode from the URL as the single source of truth.
 
 - The knowledge-page shell is intentionally flat: page-level hero, overview and filter containers must not use card-style borders, rounded white panels or shadows.
 - The page no longer keeps an independent hero / overview section; the shared knowledge-directory navigation stays visible on this route above filters and results.
@@ -89,10 +89,8 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Resources that cannot meaningfully flip should not fake a flip interaction.
 - Source-code availability should remain visible and filterable.
 - The primary search field is detached from the content toolbar and remains centered at the bottom of the viewport.
-- The browse-type switch uses one full-width row per mode, with the mode label on the left and its count on the right. The rail is too narrow for a two-column switch to hold bilingual labels with counts, so a two-column version wraps the label and breaks the row rhythm. Both rows share one height, and the active row uses the page's primary color.
 - Keep sorting accessible as a lightweight utility control at the top right of the results area, above the first card row. It stays a page-owned control row so it never competes with the search-only shared toolbar, and it must not sit inside the narrow filter rail, where its labels are forced to wrap. Do not display GitHub sync status, result fractions or a reset button here.
 - Sorting applies to the Skill list only; WEB mode hides the sort control instead of showing a control that has no effect.
-- The SKILL and WEB mode badges show the complete resource count of their mode, including curated groups contributed by a separate responsibility module.
 - Result-count-only or empty toolbar chrome should not remain after search moves to the floating dock.
 - On desktop pointer devices, the floating search stays icon-sized while idle and expands only on hover or keyboard/input focus; this compact resting state must not block page content.
 - Touch layouts should remain directly usable without requiring hover.
@@ -119,6 +117,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 - A sort control inside the filter rail or in a full-width toolbar band, or a sort control that stays visible while it cannot affect the list.
 - Forcing an extra card column at the cost of readable card width or readable descriptions.
 - Rendering the entire Skill cover wall at once when the curated list keeps growing.
+- A second mode switch inside the filter rail, or a mode badge that only exists to decorate one. The shared knowledge navigation already owns mode selection.
 - Large empty margins that reduce browsing efficiency.
 - Repeated buttons or repeated resource metadata.
 - Recreating Library or Vocabulary inside this page.

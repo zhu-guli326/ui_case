@@ -22,7 +22,6 @@ const elements = {
   repoFacets: document.querySelector("#repoFacets"),
   categoryCount: document.querySelector("#categoryCount"),
   repoSortButtons: document.querySelectorAll("[data-repo-sort]"),
-  directoryModeButtons: document.querySelectorAll("[data-directory-mode]"),
   repoSortGroup: document.querySelector("#repoSortGroup"),
   repoInspector: document.querySelector("#repoInspector")
 };
@@ -367,10 +366,8 @@ function selectDirectoryMode(mode) {
   }
 }
 
-elements.directoryModeButtons.forEach((button) => button.addEventListener("click", () => selectDirectoryMode(button.dataset.directoryMode)));
-// The WEB directory also lists the curated design-system group owned by
-// skills-design-systems.js, which publishes its size when it loads.
-window.addEventListener("image2:skillsresourcechange", () => renderer.renderRepositories());
+// Mode switching comes from the shared knowledge navigation, which requests the
+// mode inside this document so the page never reloads to change directory type.
 window.addEventListener("image2:directorymoderequest", (event) => {
   if (!validDirectoryModes.has(event.detail?.mode)) return;
   selectDirectoryMode(event.detail.mode);

@@ -29,10 +29,9 @@ button { cursor: pointer; }
 .hero-update-note strong { color: var(--ant-primary); font-size: 13px; }
 .hero-update-note small { color: var(--ant-text-tertiary); font-size: 10px; }
 
-/* Mode switching owns the filter rail. Sorting stays a compact utility control
- * at the top right of the results, where its three labels keep one line. */
-.sidebar-mode-filter { display: grid; gap: 10px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--ant-border); }
-.sidebar-mode-filter > p { margin: 0; color: var(--ant-text); font-size: 13px; font-weight: 600; }
+/* Sorting stays a compact utility control at the top right of the results,
+ * where its three labels keep one line. Mode switching lives in the shared
+ * knowledge navigation instead of a second control inside the rail. */
 .repo-sort-row { display: flex; min-height: 32px; align-items: center; justify-content: flex-end; margin: 0 0 10px; }
 /* WEB mode has no sort dimension; the runtime marks the row hidden, and this
  * rule keeps that attribute authoritative over the flex display above. */
@@ -44,15 +43,6 @@ button { cursor: pointer; }
 .repo-sort button:hover { background: color-mix(in srgb, var(--directory-primary) 12%, #fff); color: var(--directory-primary); }
 .repo-sort button:focus-visible { outline: 2px solid var(--directory-primary); outline-offset: 2px; }
 .repo-sort button.is-active { background: var(--directory-primary); color: #fff; font-weight: 600; box-shadow: none; }
-/* Browse-type switch. The rail is only about 200px wide, so each option is its
- * own full-width row: bilingual labels keep their counts on one line, both
- * rows share one height, and the row reads like the category list below. */
-.directory-mode-tabs { display: grid; gap: 2px; padding: 3px; border: 1px solid var(--ant-border); border-radius: 10px; background: transparent; }
-.directory-mode-tabs button { display: flex; min-height: 40px; align-items: center; justify-content: space-between; gap: 10px; padding: 0 12px; border: 0; border-radius: 8px; background: transparent; color: var(--ant-text-secondary); font-size: 13px; font-weight: 500; text-align: left; white-space: nowrap; }
-.directory-mode-tabs button b { color: var(--ant-text-tertiary); font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; }
-.directory-mode-tabs button:hover { background: var(--ant-fill); color: var(--ant-text); }
-.directory-mode-tabs button.is-active { background: var(--ant-primary); color: #fff; font-weight: 600; box-shadow: none; }
-.directory-mode-tabs button.is-active b { color: rgba(255,255,255,.75); }
 .repo-facets { display: grid; gap: 14px; }
 .facet-group { display: grid; gap: 6px; }
 .facet-group h3 { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0; color: var(--ant-text-tertiary); font-size: 10px; font-weight: 600; letter-spacing: .04em; }
@@ -203,8 +193,6 @@ body.skills-document .hero-update-note { font-family:"Space Mono",monospace; let
 body.skills-document .hero-update-note strong { color:var(--nd-success); }
 body.skills-document .repo-category,
 body.skills-document .repo-stats { font-family:"Space Mono",monospace; letter-spacing:.06em; text-transform:uppercase; }
-body.skills-document .sidebar-mode-filter { border-color:var(--directory-border); }
-body.skills-document .sidebar-mode-filter>p { color:var(--directory-text); }
 body.skills-document .facet-group h3,
 body.skills-document .facet-group h3 b { color:var(--directory-tertiary); }
 body.skills-document .repo-subfilter { color:var(--directory-secondary); }

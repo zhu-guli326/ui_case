@@ -22,15 +22,10 @@ let designSystemsOnly = false;
 let rendering = false;
 let scheduled = 0;
 
-// The Skills runtime renders the WEB mode badge from the curated website count,
-// so this module publishes the size of the group it adds to that directory.
-function publishResourceCount() {
-  window.image2SkillsDesignSystemCount = designSystems.length;
-  window.dispatchEvent(new CustomEvent("image2:skillsresourcechange"));
-}
-
 function isWebMode() {
-  return $("[data-directory-mode='WEB']")?.classList.contains("is-active");
+  // The page mirrors its directory mode into the URL, which is the state this
+  // module can read now that the filter rail carries no mode switch.
+  return new URLSearchParams(window.location.search).get("mode") === "WEB";
 }
 
 function sourceOnlyActive() {
@@ -173,7 +168,7 @@ function installEvents() {
       scheduleRender();
       return;
     }
-    if (event.target.closest("[data-repo-filter], [data-directory-mode], [data-source-filter]")) {
+    if (event.target.closest("[data-repo-filter], [data-source-filter]")) {
       designSystemsOnly = false;
       scheduleRender();
     }
@@ -187,7 +182,6 @@ function installEvents() {
 
 function init() {
   installEvents();
-  publishResourceCount();
   scheduleRender();
 }
 
