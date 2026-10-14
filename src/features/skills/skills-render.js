@@ -220,16 +220,19 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
   function renderDesignReferences() {
     const items = getFilteredWebsites();
     repoList.classList.add("is-web-list");
-    const groups = designReferenceGroups.map((group) => ({ ...group, items: items.filter((item) => item.group === group.key) })).filter((group) => group.items.length);
-    repoList.innerHTML = groups.map((group) => `
+    // Entries with a recording lead the wall: a moving preview shows what a
+    // site actually does, so it is the strongest first impression. The sort is
+    // stable, so the curated order still decides everything else.
+    const ordered = [...items].sort((a, b) => Number(b.previewType === "video") - Number(a.previewType === "video"));
+    const groupLabels = new Map(designReferenceGroups.map((group) => [group.key, state.currentLanguage === "en" ? group.en : group.zh]));
+    repoList.innerHTML = `
       <section class="web-reference-group">
-        <header><div><span>${escapeHtml(group.key)}</span><h3>${escapeHtml(state.currentLanguage === "en" ? group.en : group.zh)}</h3></div><p>${escapeHtml(state.currentLanguage === "en" ? group.descriptionEn : group.descriptionZh)}</p><b>${String(group.items.length).padStart(2, "0")}</b></header>
         <div class="web-reference-grid">
-          ${group.items.map((site, index) => `
+          ${ordered.map((site, index) => `
             <article class="web-reference-card">
               <a class="web-reference-visual" href="${site.url}" target="_blank" rel="noreferrer" data-design-reference="${escapeHtml(site.domain)}" aria-label="${escapeHtml(site.name)}">
                 ${getWebsitePreviewMarkup(site)}
-                <span class="web-reference-top"><span>${escapeHtml(state.currentLanguage === "en" ? group.en : group.zh)}</span><b>${String(index + 1).padStart(2, "0")}</b></span>
+                <span class="web-reference-top"><span>${escapeHtml(groupLabels.get(site.group) || "")}</span><b>${String(index + 1).padStart(2, "0")}</b></span>
               </a>
               <div class="web-reference-body">
                 <a class="web-reference-title" href="${site.url}" target="_blank" rel="noreferrer" data-design-reference="${escapeHtml(site.domain)}"><span>${escapeHtml(site.name)}</span><i aria-hidden="true">${skillIcon("external-link")}</i></a>
@@ -241,7 +244,7 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
           `).join("")}
         </div>
       </section>
-    `).join("");
+    `;
     repoList.querySelectorAll("[data-web-preview]").forEach((preview) => {
       preview.addEventListener("error", () => {
         preview.closest(".web-reference-card")?.classList.add("is-preview-missing");

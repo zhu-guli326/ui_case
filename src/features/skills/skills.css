@@ -141,6 +141,9 @@ button { cursor: pointer; }
 .web-reference-system-preview strong { position: relative; z-index: 1; font-size: clamp(30px, 5vw, 64px); font-weight: 760; letter-spacing: -.05em; }
 .web-reference-system-preview span { position: absolute; z-index: 1; left: 18px; bottom: 16px; font-size: 11px; font-weight: 760; letter-spacing: .12em; text-transform: uppercase; opacity: .55; }
 .repo-subfilter[data-awesome-design-systems] { white-space: nowrap; }
+/* The WEB flow flattens group wrappers with `display: contents`, so an explicit
+ * rule is what lets `hidden` remove a group from the wall. */
+body.skills-document .repo-list.is-web-list .web-reference-group[hidden] { display: none !important; }
 .web-reference-top { position: absolute; z-index: 2; top: 10px; right: 10px; left: 10px; display: flex; align-items: center; justify-content: space-between; }
 .web-reference-top span, .web-reference-top b, .web-source-badge { display: inline-flex; min-height: 24px; align-items: center; padding: 0 8px; border-radius: 4px; background: rgba(255,255,255,.92); color: var(--ant-primary); font-size: 9px; font-weight: 600; }
 .web-reference-top b { min-width: 26px; justify-content: center; color: var(--ant-text-secondary); }

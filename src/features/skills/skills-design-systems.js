@@ -130,7 +130,8 @@ function render() {
         <b>${String(items.length).padStart(2, "0")}</b>
       </header>
       <div class="web-reference-grid">${items.map((item, index) => cardMarkup(item, index, groupLabel)).join("")}</div>`;
-    repoList.prepend(section);
+    // The group follows the website list, which leads with its video previews.
+    repoList.append(section);
   }
 
   $$(":scope > .web-reference-group", repoList).forEach((group) => {
