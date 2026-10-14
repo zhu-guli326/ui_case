@@ -50,6 +50,7 @@ The Web directory filters by what a visitor is trying to do, in words that do no
 - 页面区块 / Page sections
 - 创意网站 / Creative sites
 - 动效与动画 / Motion
+- 个人作品集 / Personal portfolios
 - 设计系统 / Design systems
 - 有源代码 / Source code
 
