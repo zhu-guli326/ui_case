@@ -41,20 +41,19 @@ A user should be able to quickly understand what a resource is, what kind of ref
 
 ## Resource categories
 
-The Web directory may support overlapping multi-select classifications such as:
+The Web directory filters by what a visitor is trying to do, in words that do not assume design vocabulary:
 
-- 真实网站
-- 单页展示
-- 组件 / Demo
-- 灵感参考
-- 设计系统
-- 页面设计
-- 组件设计
-- 动效与交互
-- 视觉优化
-- 有源代码 / 无源代码
+- 设计灵感 / Design inspiration
+- 工具与素材 / Tools & assets
+- 真实产品界面 / Real product UI
+- 现成组件 / Ready-made components
+- 页面局部 / Section references
+- 创意网站 / Creative sites
+- 动效与动画 / Motion
+- 设计系统 / Design systems
+- 有源代码 / Source code
 
-Category wording can be refined, but the structure should remain intuitive and should not force one resource into only one narrow bucket.
+Category wording can be refined, but three rules hold: the structure stays intuitive and never forces one resource into one narrow bucket, a label states what the visitor will find rather than naming an internal taxonomy, and a category with no resources is removed instead of shown as an empty filter.
 
 ## Information structure
 

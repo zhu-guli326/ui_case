@@ -1,12 +1,11 @@
 export const designReferenceGroups = [
-  { key: "DIRECTION", zh: "整体方向", en: "Direction", descriptionZh: "建立视觉方向、版式语言与页面整体节奏。", descriptionEn: "Set visual direction, layout language and overall page rhythm." },
-  { key: "DIRECTORY", zh: "资源目录", en: "Resource directories", descriptionZh: "集中检索设计工具、素材、模板与可复用资源，减少分散寻找的时间。", descriptionEn: "Search curated design tools, assets, templates and reusable resources in one place." },
-  { key: "PRODUCT", zh: "产品 UI", en: "Product UI", descriptionZh: "拆解真实产品流程、功能结构与交互模式。", descriptionEn: "Study real product flows, feature structures and interaction patterns." },
-  { key: "COMPONENT", zh: "组件资源", en: "Component libraries", descriptionZh: "寻找可直接组合、定制并交给 AI Coding 使用的界面组件与设计系统基础。", descriptionEn: "Find composable, customizable UI components and design-system foundations for AI-assisted coding." },
-  { key: "DETAIL", zh: "局部细节", en: "UI details", descriptionZh: "研究导航、首屏、CTA、页脚与微交互细节。", descriptionEn: "Study navigation, heroes, CTAs, footers and interaction details." },
-  { key: "EXPERIMENT", zh: "创意网页", en: "Creative web", descriptionZh: "收集动效强、交互大胆的网页案例，适合研究滚动叙事、转场和创意表达。", descriptionEn: "Find web examples with bold motion, interaction and creative expression." },
-  { key: "MOTION", zh: "动效与交互", en: "Motion & interaction", descriptionZh: "收集界面动画组件、页面转场、状态反馈与动效开发工具。", descriptionEn: "Explore interface animation components, page transitions, state feedback and motion development tools." },
-  { key: "PRESENTATION", zh: "演示工具", en: "Presentation tools", descriptionZh: "快速生成可编辑 PPT 或零代码在线演示。", descriptionEn: "Create editable decks or no-code online presentations quickly." }
+  { key: "DIRECTION", zh: "设计灵感", en: "Design inspiration", descriptionZh: "先看别人怎么排版、配色和组织页面，找到方向再动手。", descriptionEn: "See how others lay out, color and pace a page before you start." },
+  { key: "DIRECTORY", zh: "工具与素材", en: "Tools & assets", descriptionZh: "设计工具、素材和模板集中在一处，不用到处搜。", descriptionEn: "Design tools, assets and templates collected in one place." },
+  { key: "PRODUCT", zh: "真实产品界面", en: "Real product UI", descriptionZh: "真实 App 与网站的界面截图、流程和交互模式。", descriptionEn: "Screens, flows and interaction patterns from real apps and sites." },
+  { key: "COMPONENT", zh: "现成组件", en: "Ready-made components", descriptionZh: "复制就能用的界面组件，也可以交给 AI Coding 直接生成。", descriptionEn: "Components you can copy into a project or hand to an AI coding tool." },
+  { key: "DETAIL", zh: "页面局部", en: "Section references", descriptionZh: "导航、首屏、按钮、页脚这类单独一块怎么做，可以直接参考。", descriptionEn: "How a navbar, hero, CTA or footer is built on its own." },
+  { key: "EXPERIMENT", zh: "创意网站", en: "Creative sites", descriptionZh: "滚动叙事、转场和大胆交互的网站案例。", descriptionEn: "Sites with bold scrolling, transitions and interaction ideas." },
+  { key: "MOTION", zh: "动效与动画", en: "Motion", descriptionZh: "动效组件、页面转场和现成动画库，拿来就能动起来。", descriptionEn: "Motion components, page transitions and ready animation libraries." }
 ];
 
 export const designReferenceWebsites = [
