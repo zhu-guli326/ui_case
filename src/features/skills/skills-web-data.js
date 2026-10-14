@@ -1,9 +1,9 @@
 export const designReferenceGroups = [
   { key: "DIRECTION", zh: "设计灵感", en: "Design inspiration", descriptionZh: "先看别人怎么排版、配色和组织页面，找到方向再动手。", descriptionEn: "See how others lay out, color and pace a page before you start." },
-  { key: "DIRECTORY", zh: "工具与素材", en: "Tools & assets", descriptionZh: "设计工具、素材和模板集中在一处，不用到处搜。", descriptionEn: "Design tools, assets and templates collected in one place." },
+  { key: "DIRECTORY", zh: "工具和素材", en: "Tools & assets", descriptionZh: "设计工具、素材和模板集中在一处，不用到处搜。", descriptionEn: "Design tools, assets and templates collected in one place." },
   { key: "PRODUCT", zh: "真实产品界面", en: "Real product UI", descriptionZh: "真实 App 与网站的界面截图、流程和交互模式。", descriptionEn: "Screens, flows and interaction patterns from real apps and sites." },
   { key: "COMPONENT", zh: "现成组件", en: "Ready-made components", descriptionZh: "复制就能用的界面组件，也可以交给 AI Coding 直接生成。", descriptionEn: "Components you can copy into a project or hand to an AI coding tool." },
-  { key: "DETAIL", zh: "页面局部", en: "Section references", descriptionZh: "导航、首屏、按钮、页脚这类单独一块怎么做，可以直接参考。", descriptionEn: "How a navbar, hero, CTA or footer is built on its own." },
+  { key: "DETAIL", zh: "页面区块", en: "Page sections", descriptionZh: "导航、首屏、按钮、页脚这类单独一块怎么做，可以直接参考。", descriptionEn: "How a single navbar, hero, button or footer is built." },
   { key: "EXPERIMENT", zh: "创意网站", en: "Creative sites", descriptionZh: "滚动叙事、转场和大胆交互的网站案例。", descriptionEn: "Sites with bold scrolling, transitions and interaction ideas." },
   { key: "MOTION", zh: "动效与动画", en: "Motion", descriptionZh: "动效组件、页面转场和现成动画库，拿来就能动起来。", descriptionEn: "Motion components, page transitions and ready animation libraries." }
 ];

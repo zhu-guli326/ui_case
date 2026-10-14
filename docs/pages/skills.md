@@ -44,10 +44,10 @@ A user should be able to quickly understand what a resource is, what kind of ref
 The Web directory filters by what a visitor is trying to do, in words that do not assume design vocabulary:
 
 - 设计灵感 / Design inspiration
-- 工具与素材 / Tools & assets
+- 工具和素材 / Tools & assets
 - 真实产品界面 / Real product UI
 - 现成组件 / Ready-made components
-- 页面局部 / Section references
+- 页面区块 / Page sections
 - 创意网站 / Creative sites
 - 动效与动画 / Motion
 - 设计系统 / Design systems
