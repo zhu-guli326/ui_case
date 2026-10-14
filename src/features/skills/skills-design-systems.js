@@ -45,28 +45,13 @@ function visibleSystems() {
   });
 }
 
-function installStyle() {
-  if ($("#awesome-design-systems-style")) return;
-  const style = document.createElement("style");
-  style.id = "awesome-design-systems-style";
-  style.textContent = `
-    .web-reference-system-preview{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(145deg,var(--surface,#fff),color-mix(in srgb,var(--accent,#18a957) 9%,#fff));color:var(--text,#1b1b1b);overflow:hidden}
-    .web-reference-system-preview::after{content:"";position:absolute;inset:12%;border:1px solid color-mix(in srgb,currentColor 12%,transparent);border-radius:28px}
-    .web-reference-system-preview strong{position:relative;z-index:1;font-size:clamp(30px,5vw,64px);font-weight:760;letter-spacing:-.05em}
-    .web-reference-system-preview span{position:absolute;left:18px;bottom:16px;z-index:1;font-size:11px;font-weight:760;letter-spacing:.12em;text-transform:uppercase;opacity:.55}
-    .awesome-design-systems-group header p a{color:inherit;text-underline-offset:3px}
-    .repo-subfilter[data-awesome-design-systems]{white-space:nowrap}
-  `;
-  document.head.appendChild(style);
-}
-
 function cardMarkup(item, index, groupLabel) {
   const lang = LANG();
   const description = lang === "en" ? item.en : item.zh;
   const focus = lang === "en" ? item.focusEn : item.focusZh;
   return `
     <article class="web-reference-card">
-      <a class="web-reference-visual" href="${esc(item.url)}" target="_blank" rel="noreferrer" data-design-reference="${esc(item.domain)}" aria-label="${esc(item.name)}" style="--preview-ratio:${item.previewImage ? "16 / 9" : "3 / 2"}">
+      <a class="web-reference-visual" href="${esc(item.url)}" target="_blank" rel="noreferrer" data-design-reference="${esc(item.domain)}" aria-label="${esc(item.name)}">
         ${item.previewImage ? `<img src="${esc(item.previewImage)}" alt="${esc(item.name)} ${lang === "en" ? "official website preview" : "官网预览"}" loading="lazy" decoding="async">` : `<div class="web-reference-system-preview"><strong>${esc(item.sample)}</strong><span>${esc(item.name)}</span></div>`}
         <span class="web-reference-top"><span>${esc(groupLabel)}</span><b>${String(index + 1).padStart(2, "0")}</b></span>
       </a>
@@ -113,7 +98,6 @@ function syncFilterVisuals() {
 function render() {
   if (rendering) return;
   rendering = true;
-  installStyle();
   const repoList = $("#repoList");
   if (!repoList || !isWebMode()) {
     $(".awesome-design-systems-group")?.remove();

@@ -133,6 +133,14 @@ button { cursor: pointer; }
 .web-reference-visual { position: relative; display: block; overflow: hidden; border-bottom: 1px solid var(--ant-border); background: #f0f2f5; text-decoration: none; }
 .web-reference-visual img, .web-reference-visual video { position: static; display: block; width: 100%; height: auto; object-fit: contain; object-position: top center; transition: transform .25s ease; }
 .web-reference-card:hover .web-reference-visual img, .web-reference-card:hover .web-reference-visual video { transform: scale(1.02); }
+/* Design-system entries without an official screenshot use a generated tile.
+ * The tile is in flow with its own ratio, so the card gets a real preview area
+ * the same way a screenshot or a recording does. */
+.web-reference-system-preview { position: relative; display: grid; place-items: center; aspect-ratio: 16 / 9; overflow: hidden; background: linear-gradient(145deg, var(--ant-surface), color-mix(in srgb, var(--directory-primary) 9%, #fff)); color: var(--ant-text); }
+.web-reference-system-preview::after { position: absolute; inset: 12%; border: 1px solid color-mix(in srgb, currentColor 12%, transparent); border-radius: 28px; content: ""; }
+.web-reference-system-preview strong { position: relative; z-index: 1; font-size: clamp(30px, 5vw, 64px); font-weight: 760; letter-spacing: -.05em; }
+.web-reference-system-preview span { position: absolute; z-index: 1; left: 18px; bottom: 16px; font-size: 11px; font-weight: 760; letter-spacing: .12em; text-transform: uppercase; opacity: .55; }
+.repo-subfilter[data-awesome-design-systems] { white-space: nowrap; }
 .web-reference-top { position: absolute; z-index: 2; top: 10px; right: 10px; left: 10px; display: flex; align-items: center; justify-content: space-between; }
 .web-reference-top span, .web-reference-top b, .web-source-badge { display: inline-flex; min-height: 24px; align-items: center; padding: 0 8px; border-radius: 4px; background: rgba(255,255,255,.92); color: var(--ant-primary); font-size: 9px; font-weight: 600; }
 .web-reference-top b { min-width: 26px; justify-content: center; color: var(--ant-text-secondary); }

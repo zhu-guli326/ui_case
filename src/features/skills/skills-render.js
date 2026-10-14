@@ -227,7 +227,7 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
         <div class="web-reference-grid">
           ${group.items.map((site, index) => `
             <article class="web-reference-card">
-              <a class="web-reference-visual" href="${site.url}" target="_blank" rel="noreferrer" data-design-reference="${escapeHtml(site.domain)}" aria-label="${escapeHtml(site.name)}" style="--preview-ratio:${escapeHtml(site.previewRatio || "3 / 2")}">
+              <a class="web-reference-visual" href="${site.url}" target="_blank" rel="noreferrer" data-design-reference="${escapeHtml(site.domain)}" aria-label="${escapeHtml(site.name)}">
                 ${getWebsitePreviewMarkup(site)}
                 <span class="web-reference-top"><span>${escapeHtml(state.currentLanguage === "en" ? group.en : group.zh)}</span><b>${String(index + 1).padStart(2, "0")}</b></span>
               </a>

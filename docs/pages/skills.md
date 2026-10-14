@@ -84,7 +84,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Skill card descriptions clamp to two lines; the remaining detail stays on the skill detail page rather than pushing the cover wall taller.
 - Cards should prioritize the actual resource and its visual evidence over decorative chrome.
 - Video previews play muted and loop while visible, and pause outside the viewport. Respect reduced-motion preferences by keeping automatic playback off; pointer hover or keyboard focus can explicitly preview the video.
-- WEB video previews keep their source aspect ratio and use the available card width without a fixed preview height or crop. The desktop WEB list gives previews two broad columns; narrow screens use one column.
+- WEB video previews keep their source aspect ratio and use the available card width without a fixed preview height or crop. The preview area is produced by the preview itself, so an entry without an official screenshot gets a generated tile with its own ratio instead of an empty strip. The desktop WEB list gives previews two broad columns; narrow screens use one column.
 - A flipped card state should reveal additional useful content rather than repeat the front.
 - Resources that cannot meaningfully flip should not fake a flip interaction.
 - Source-code availability should remain visible and filterable.
