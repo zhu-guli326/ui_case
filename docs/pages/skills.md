@@ -89,6 +89,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 - Resources that cannot meaningfully flip should not fake a flip interaction.
 - Source-code availability should remain visible and filterable.
 - The primary search field is detached from the content toolbar and remains centered at the bottom of the viewport.
+- The browse-type switch uses one full-width row per mode, with the mode label on the left and its count on the right. The rail is too narrow for a two-column switch to hold bilingual labels with counts, so a two-column version wraps the label and breaks the row rhythm. Both rows share one height, and the active row uses the page's primary color.
 - Keep sorting accessible as a lightweight utility control at the top right of the results area, above the first card row. It stays a page-owned control row so it never competes with the search-only shared toolbar, and it must not sit inside the narrow filter rail, where its labels are forced to wrap. Do not display GitHub sync status, result fractions or a reset button here.
 - Sorting applies to the Skill list only; WEB mode hides the sort control instead of showing a control that has no effect.
 - The SKILL and WEB mode badges show the complete resource count of their mode, including curated groups contributed by a separate responsibility module.
