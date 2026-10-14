@@ -43,6 +43,17 @@ button { cursor: pointer; }
 .repo-sort button:hover { background: color-mix(in srgb, var(--directory-primary) 12%, #fff); color: var(--directory-primary); }
 .repo-sort button:focus-visible { outline: 2px solid var(--directory-primary); outline-offset: 2px; }
 .repo-sort button.is-active { background: var(--directory-primary); color: #fff; font-weight: 600; box-shadow: none; }
+/* Browse-type switch. Two options share one row, and each label keeps its
+ * count on that same row: the type scale and padding below are the largest
+ * that still fit the rail's two columns on one line. */
+.sidebar-mode-filter { display: grid; gap: 8px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--ant-border); }
+.sidebar-mode-filter > p { margin: 0; color: var(--ant-text); font-size: 13px; font-weight: 600; }
+.directory-mode-tabs { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); padding: 3px; gap: 2px; border: 1px solid var(--ant-border); border-radius: 10px; background: transparent; }
+.directory-mode-tabs button { display: flex; min-height: 38px; min-width: 0; align-items: center; justify-content: space-between; gap: 6px; padding: 0 8px; border: 0; border-radius: 8px; background: transparent; color: var(--ant-text-secondary); font-size: 12px; font-weight: 500; white-space: nowrap; }
+.directory-mode-tabs button b { color: var(--ant-text-tertiary); font-size: 10px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.directory-mode-tabs button:hover { background: var(--ant-fill); color: var(--ant-text); }
+.directory-mode-tabs button.is-active { background: var(--ant-primary); color: #fff; font-weight: 600; }
+.directory-mode-tabs button.is-active b { color: rgba(255,255,255,.75); }
 .repo-facets { display: grid; gap: 14px; }
 .facet-group { display: grid; gap: 6px; }
 .facet-group h3 { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0; color: var(--ant-text-tertiary); font-size: 10px; font-weight: 600; letter-spacing: .04em; }
@@ -204,6 +215,8 @@ body.skills-document .hero-update-note { font-family:"Space Mono",monospace; let
 body.skills-document .hero-update-note strong { color:var(--nd-success); }
 body.skills-document .repo-category,
 body.skills-document .repo-stats { font-family:"Space Mono",monospace; letter-spacing:.06em; text-transform:uppercase; }
+body.skills-document .sidebar-mode-filter { border-color:var(--directory-border); }
+body.skills-document .sidebar-mode-filter>p { color:var(--directory-text); }
 body.skills-document .facet-group h3,
 body.skills-document .facet-group h3 b { color:var(--directory-tertiary); }
 body.skills-document .repo-subfilter { color:var(--directory-secondary); }

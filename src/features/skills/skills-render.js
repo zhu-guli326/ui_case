@@ -5,6 +5,7 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
     repoFacets,
     categoryCount,
     repoSortButtons,
+    directoryModeButtons,
     repoSortGroup,
     repoInspector
   } = elements;
@@ -65,6 +66,12 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
       video.load();
       if (!reducedMotion.matches) video.play().catch(() => {});
     }
+  }
+
+  // The WEB directory is the curated website list plus the design-system group
+  // published by skills-design-systems.js, so the mode count matches the list.
+  function getWebResourceCount() {
+    return designReferenceWebsites.length + (window.image2SkillsDesignSystemCount || 0);
   }
 
   // Skill mode reveals results in batches so the cover wall stays scannable.
@@ -140,6 +147,13 @@ export function createSkillsRenderer({ elements, data, state, helpers, actions }
   function renderRepositoryToolbar() {
     const isWebMode = state.activeDirectoryMode === "WEB";
     renderRepositoryFilters();
+    directoryModeButtons.forEach((button) => {
+      const isActive = button.dataset.directoryMode === state.activeDirectoryMode;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
+      const count = button.querySelector("b");
+      if (count) count.textContent = button.dataset.directoryMode === "WEB" ? String(getWebResourceCount()) : String(getRepositoryItems().length);
+    });
     // Sorting only applies to the Skill list, so the row hides in WEB mode
     // instead of keeping a control that has no effect.
     if (repoSortGroup) repoSortGroup.hidden = isWebMode;

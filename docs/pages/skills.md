@@ -10,7 +10,7 @@ Last updated: 2026-10-08
 - Shared knowledge-directory geometry and floating search: `src/core/app-shell/directory-page.css`
 - Shared knowledge-page cleanup: `src/core/app-shell/knowledge-directory-cleanup.css`
 - Supported top-level modes: `SKILL` and `WEB`
-- The `WEB` mode keeps its URL and runtime key. It is reached through the shared knowledge navigation, which names it `设计工具 / Design Tools`; the filter rail carries no mode switch of its own.
+- The `WEB` mode keeps its URL and runtime key. The shared knowledge navigation names it `设计工具 / Design Tools` and switches to it inside the current document, and the filter rail repeats that choice as a compact `浏览类型` / `Browse type` switch.
 
 ## Page goal
 
@@ -68,7 +68,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 ## Interaction rules
 
 - Keep the same shared four-destination knowledge navigation visible when moving between Library, Skills (SKILL / WEB), and Vocabulary. Highlight the current destination, including changes made with the Skills mode controls. During cross-page navigation, keep the global header and knowledge navigation visually stationary; only the content below transitions. Shared implementation: src/components/knowledge-nav/knowledge-nav.js and knowledge-nav.css.
-- Mode switching happens only through the shared knowledge navigation: requesting Design Tools (WEB) or Design Skills (SKILL) switches the directory inside the current Skills document and updates the URL, active state, filters and results without a full-page transition. The runtime reads the mode from the URL as the single source of truth.
+- Mode switching happens through the shared knowledge navigation or the rail switch, and both drive the same request: requesting Design Tools (WEB) or Design Skills (SKILL) switches the directory inside the current Skills document and updates the URL, active state, filters and results without a full-page transition. The runtime reads the mode from the URL as the single source of truth.
 
 - The knowledge-page shell is intentionally flat: page-level hero, overview and filter containers must not use card-style borders, rounded white panels or shadows.
 - The page no longer keeps an independent hero / overview section; the shared knowledge-directory navigation stays visible on this route above filters and results.
@@ -118,7 +118,7 @@ Category wording can be refined, but the structure should remain intuitive and s
 - A sort control inside the filter rail or in a full-width toolbar band, or a sort control that stays visible while it cannot affect the list.
 - Forcing an extra card column at the cost of readable card width or readable descriptions.
 - Rendering the entire Skill cover wall at once when the curated list keeps growing.
-- A second mode switch inside the filter rail, or a mode badge that only exists to decorate one. The shared knowledge navigation already owns mode selection.
+- A mode switch that is not one row: its two options share a single row, each option keeps its label and count on that row, and the option widths stay equal, so a label that cannot fit on one line is the wrong copy rather than a reason to wrap or stack.
 - Large empty margins that reduce browsing efficiency.
 - Repeated buttons or repeated resource metadata.
 - Recreating Library or Vocabulary inside this page.

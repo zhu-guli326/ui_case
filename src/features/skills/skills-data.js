@@ -139,6 +139,10 @@ export const skillsTranslations = {
   "skills.repoSearch": { zh: "搜索名称、用途或仓库", en: "Search name, purpose or repository" },
   "skills.filters": { zh: "分类筛选", en: "Categories" },
   "skills.taskRailLabel": { zh: "按任务探索", en: "Explore by task" },
+  "skills.directoryModeLabel": { zh: "浏览类型", en: "Browse type" },
+  // The rail's switch has two narrow columns, so English uses the short label
+  // that fits on one line next to its count.
+  "skills.webMode": { zh: "设计网站", en: "Sites" },
   "skills.sortLabel": { zh: "排序方式", en: "Sort order" },
   "skills.sortCurated": { zh: "精选", en: "Curated" },
   "skills.sortStars": { zh: "Stars", en: "Stars" },
