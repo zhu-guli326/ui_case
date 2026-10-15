@@ -118,7 +118,11 @@ body.dna-page .preview-stage { padding: 14px; border: 1px solid #e1e5e0; border-
 body.dna-page .preview-browser { border: 1px solid #dfe4da; border-radius: 10px; box-shadow: 0 4px 16px rgb(28 45 23 / 4%); }
 body.dna-page .browser-bar { height: 32px; }
 body.dna-page .preview-page { min-height: 280px; max-height: calc(100dvh - 390px); overflow: auto; scrollbar-width: thin; }
-body.dna-page .preview-dock { min-height: 44px; gap: 12px; padding-inline: 14px; }
+body.dna-page .preview-dock { min-height: 44px; gap: 12px; padding-inline: 14px; flex-wrap: wrap; }
+body.dna-page .preview-dock > button { min-width: 0; max-width: 220px; }
+body.dna-page #dockFont { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+body.dna-page .preview-dock :is(.dock-palette, p) { flex-shrink: 0; white-space: nowrap; }
+body.dna-page .preview-stage.is-mobile .dock-divider { display: none; }
 body.dna-page :where(button, select, summary, textarea):focus-visible { outline: 2px solid #18a957; outline-offset: 3px; }
 @media (min-width: 1440px) { body.dna-page .dna-workspace { grid-template-columns: 384px minmax(0, 1fr); gap: 28px; } }
 @media (max-width: 1100px) { body.dna-page .dna-workspace { grid-template-columns: 328px minmax(0, 1fr); gap: 18px; } body.dna-page .preview-picker > span { display: none; } }

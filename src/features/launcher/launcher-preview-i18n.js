@@ -10,6 +10,12 @@
     ['联系', 'Contact'],
     ['联系我们', 'Contact us'],
     ['查看项目 →', 'View projects →'],
+    ['查看项目', 'View projects'],
+    ['服务', 'Services'],
+    ['菜单预览', 'Menu preview'],
+    ['作品集管理', 'Manage portfolio'],
+    ['发布设置', 'Publish settings'],
+    ['首页 / 作品 /', 'Home / Work /'],
     ['让每一个页面，都拥有同一种气质。', 'Give every page a consistent design character.'],
     ['清晰的颜色、字体、形状与间距，让设计不再从头开始。', 'Clear color, typography, shape, and spacing keep every page from starting over.'],
     ['01视觉方向', '01 Visual direction'],
@@ -136,6 +142,8 @@
   const previewPlaceholderTranslations = new Map([
     ['你的名字或团队', 'Your name or team'],
   ]);
+  const originalText = new WeakMap();
+  const originalPlaceholders = new WeakMap();
 
   const fontGroupLabels = {
     zh: {
@@ -209,40 +217,36 @@
     document.querySelector('.dna-controls')?.setAttribute('aria-label', isEnglish ? 'Interface DNA controls' : '界面 DNA 设置');
     document.querySelector('[data-choice-group="palette"]')?.setAttribute('aria-label', isEnglish ? 'Color palette' : '颜色方案');
     document.querySelector('.direction-grid')?.setAttribute('aria-label', isEnglish ? 'Interface style' : '界面风格');
+    document.querySelector('[data-preview-picker]')?.setAttribute('aria-label', isEnglish ? 'Choose a preview page or component' : '选择预览页面或组件');
+    document.querySelector('.device-switch')?.setAttribute('aria-label', isEnglish ? 'Preview device' : '预览设备');
+    document.querySelector('.preview-dock')?.setAttribute('aria-label', isEnglish ? 'Current Design DNA' : '当前设计 DNA');
   }
 
   function translatePreviewSamples() {
     if (!previewRoot) return;
 
-    if (!previewRoot.dataset.originalHtml) previewRoot.dataset.originalHtml = previewRoot.innerHTML;
-    if (language() === 'zh') {
-      if (previewRoot.dataset.translated === 'true') {
-        previewRoot.innerHTML = previewRoot.dataset.originalHtml;
-        previewRoot.dataset.translated = 'false';
-      }
-      return;
-    }
-
-    if (previewRoot.dataset.translated === 'true') return;
-
+    const isEnglish = language() === 'en';
     const walker = document.createTreeWalker(previewRoot, NodeFilter.SHOW_TEXT);
     let node;
     while ((node = walker.nextNode())) {
-      const original = node.nodeValue;
+      const original = originalText.get(node) ?? node.nodeValue;
       const trimmed = original.trim();
       const translated = previewTranslations.get(trimmed);
       if (!translated) continue;
+      originalText.set(node, original);
       const leading = original.match(/^\s*/)?.[0] || '';
       const trailing = original.match(/\s*$/)?.[0] || '';
-      node.nodeValue = `${leading}${translated}${trailing}`;
+      const value = isEnglish ? `${leading}${translated}${trailing}` : original;
+      if (node.nodeValue !== value) node.nodeValue = value;
     }
 
     previewRoot.querySelectorAll('[placeholder]').forEach((element) => {
-      const translated = previewPlaceholderTranslations.get(element.getAttribute('placeholder') || '');
-      if (translated) element.setAttribute('placeholder', translated);
+      const original = originalPlaceholders.get(element) ?? element.getAttribute('placeholder');
+      const translated = previewPlaceholderTranslations.get(original);
+      if (!translated) return;
+      originalPlaceholders.set(element, original);
+      element.setAttribute('placeholder', isEnglish ? translated : original);
     });
-
-    previewRoot.dataset.translated = 'true';
   }
 
   function sync() {

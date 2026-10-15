@@ -242,7 +242,7 @@ function renderDock() {
   const token = effectiveTokens();
   const colors = [token.accent, token.surface, token.canvas, token.ink];
   $$("#dockPalette i").forEach((item, index) => { item.style.background = colors[index]; });
-  if ($("#dockFont")) $("#dockFont").textContent = token.fontName;
+  if ($("#dockFont")) { $("#dockFont").textContent = token.fontName; $("#dockFont").title = token.fontName; }
   if ($("#dockRadius")) $("#dockRadius").textContent = `${Math.round(token.radius)}px ${LANG() === "en" ? "radius" : "圆角"}`;
   if ($("#dockDensity")) $("#dockDensity").textContent = `${L().density[state.density]}${LANG() === "en" ? " density" : "密度"}`;
 }

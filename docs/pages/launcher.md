@@ -60,6 +60,7 @@ The page header provides a visible Review & export action that opens the existin
 - Referencing Ant Design does **not** mean redesigning Launcher as an admin dashboard.
 - Keep the shared ONDesign App Shell unchanged unless the user explicitly requests a global navigation change.
 - Chinese and English versions must follow the global language state and keep equivalent functionality and geometry.
+- Changing language updates preview copy in place and preserves the selected preview, device mode and entered sample values.
 - The exported clipboard text must exactly match the reviewed prompt, including the current name, visual system, component system, official component documentation and manual refinements. Renaming or changing either system marks the DNA as modified.
 - Reloading a saved DNA retains the project description, custom name and manual typography, radius and spacing refinements when restoring the same visual system.
 
