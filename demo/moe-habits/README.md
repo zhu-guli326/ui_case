@@ -6,7 +6,7 @@ The default screen is the dark welcome page. `Start today` opens the routine; op
 
 The generated illustration is stored in `assets/moe-mascots.webp` and is a Youtoken `gpt-image-2` asset. Text, navigation, buttons, status information, and icons are code-rendered.
 
-Rendered frames are in `screenshots/01-intro.png` through `screenshots/04-celebration.png`. The four-step video is `moe-habits-demo.mp4`, and `mobile-preview.webp` is the library-card poster.
+Rendered frames are in `screenshots/01-intro.png` through `screenshots/04-celebration.png`. The four-step video is `moe-habits-demo.mp4`, and `screenshots/library-preview-2x.webp` is the library-card poster.
 
 Rebuild the video as a real browser interaction recording at `780x1688` with:
 

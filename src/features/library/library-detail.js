@@ -43,8 +43,7 @@ export function createLibraryDetailController({
     localizeRecord,
     getPreviewDevice,
     getPreviewModes,
-    getPreviewPoster,
-    withPreviewVersion,
+    getCardPoster,
     getEmbeddedDemoUrl,
     getStyleProfiles,
     taskUrlForGuide
@@ -70,10 +69,10 @@ export function createLibraryDetailController({
       ...image,
       label: typeof image.label === "object" ? image.label[window.image2I18n?.language === "en" ? "en" : "zh"] : image.label,
       alt: image.alt || `${guide.style}: ${typeof image.label === "object" ? image.label.en : image.label}`,
-      src: withPreviewVersion(image.src)
+      src: image.src
     }));
     return [{
-      src: getPreviewPoster(guide),
+      src: getCardPoster(guide),
       label: currentCopy().modes.image,
       alt: window.image2I18n?.language === "en" ? `${guide.style} mobile screen` : `${guide.style} 手机效果图`
     }];
@@ -139,7 +138,7 @@ export function createLibraryDetailController({
     if (nextFrameIndex === previewSequenceFrameIndex) return;
     previewSequenceFrameIndex = nextFrameIndex;
     const frame = activeVideoSequence.frames[nextFrameIndex];
-    previewDialogSequence.src = withPreviewVersion(frame.src);
+    previewDialogSequence.src = frame.src;
     previewDialogSequence.alt = activePreviewGuide ? `${localizeRecord(activePreviewGuide).style}: ${frame.label}` : frame.label;
   }
 
@@ -298,7 +297,7 @@ export function createLibraryDetailController({
         playPreviewSequence();
       } else {
         previewDialogVideo.hidden = false;
-        previewDialogVideo.poster = guide.poster || helpers.getCardPoster(guide);
+        previewDialogVideo.poster = getCardPoster(guide);
         previewDialogVideo.muted = true;
         previewDialogVideo.src = guide.video;
         previewVideoProgress.value = "0";

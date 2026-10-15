@@ -5,7 +5,7 @@
   "style": "编辑式有机餐食",
   "video": "./demo/organique-food/organique-food-demo.mp4",
   "liveDemo": "./demo/organique-food/index.html",
-  "poster": "./demo/organique-food/mobile-preview.webp",
+  "poster": "./demo/organique-food/screenshots/library-preview-2x.webp",
   "preview": "#ede8d5",
   "reference": "暗黑展陈、香槟金排版与奶油色餐食 App 的编辑感构图",
   "referenceImage": "./demo/organique-food/assets/chicken-fattoush-salad.webp",
@@ -53,5 +53,6 @@
   },
   "styleProfileIds": [
     "editorial-commerce"
-  ]
+  ],
+  "previewImage": "./demo/organique-food/screenshots/library-preview-2x.webp"
 }

@@ -5,7 +5,7 @@
   "style": "柔粉情绪签到",
   "video": "./demo/moodly-health/moodly-demo.mp4",
   "liveDemo": "./demo/moodly-health/index.html",
-  "poster": "./demo/moodly-health/mobile-preview.png",
+  "poster": "./demo/moodly-health/screenshots/library-preview-2x.webp",
   "preview": "#f4dced",
   "reference": "云朵、柔粉角色和干净的情绪滑杆，让每日情绪记录像一次轻量对话",
   "referenceImage": "./demo/moodly-health/assets/moodly-mascot.webp",
@@ -53,5 +53,6 @@
   },
   "styleProfileIds": [
     "soft-lifestyle"
-  ]
+  ],
+  "previewImage": "./demo/moodly-health/screenshots/library-preview-2x.webp"
 }

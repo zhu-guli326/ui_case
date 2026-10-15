@@ -5,7 +5,7 @@
   "style": "当代美术馆导览",
   "video": "./assets/cases/museum-app/museum-app-demo.mp4",
   "liveDemo": "./demo/artmuse-ios/index.html",
-  "poster": "./assets/cases/museum-app/video-frames/01-home.webp",
+  "poster": "./demo/artmuse-ios/screenshots/library-preview-2x.webp",
   "videoSequence": {
     "duration": 8,
     "frames": [
@@ -14,7 +14,7 @@
       { "at": 5.3, "src": "./assets/cases/museum-app/video-frames/03-detail.webp", "label": "展览详情" }
     ]
   },
-  "previewImage": "./assets/cases/museum-app/library-preview-generated-v2-standard.webp",
+  "previewImage": "./demo/artmuse-ios/screenshots/library-preview-2x.webp",
   "preview": "#dce3d6",
   "reference": "画廊导视与展览画册的安静秩序",
   "referenceImage": "./assets/style-references/artmuse-reference.webp",

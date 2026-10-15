@@ -1,10 +1,8 @@
-import { getLibraryPreviewDevice, getLibraryPreviewProfile, libraryPreviewAssetVersion } from "./library-preview-config.mjs";
+import { getLibraryPreviewDevice, getLibraryPreviewProfile } from "./library-preview-config.mjs";
 import { searchGuides } from "./library-search.mjs";
 import { styleGuides as catalogStyleGuides, styleProfiles } from "../../../catalog/index.js";
 import {
   previewImageSets,
-  canonicalCardScreens,
-  fittedCardPreviewIds,
   featuredCaseOrder,
   libraryCopy,
   infoPanels,
@@ -14,18 +12,8 @@ import { normalizeTag, getFilteredGuides as filterGuides } from "./library-filte
 import { createLibraryCards } from "./library-card.js";
 import { createLibraryDetailController } from "./library-detail.js";
 
-const libraryMedia = Object.freeze({
-  fashion: Object.freeze({ liveDemo: "./demo/fashion/index.html" }),
-  news: Object.freeze({ liveDemo: "./demo/news/index.html" }),
-  "signal-grid": Object.freeze({
-    previewImage: "./demo/signal-grid/screenshots/library-preview-2x.webp",
-    poster: "./demo/signal-grid/screenshots/library-preview-2x.webp"
-  })
-});
-
 const styleGuides = catalogStyleGuides.map((guide) => {
-  const caseGuide = { ...guide, ...libraryMedia[guide.id] };
-  return { ...caseGuide, defaultPreviewMode: caseGuide.liveDemo ? "live" : "image" };
+  return { ...guide, defaultPreviewMode: guide.liveDemo ? "live" : "image" };
 });
 
 const elements = {
@@ -109,29 +97,8 @@ function getPreviewModes(guide) {
   return ["image", guide.video && "video", guide.liveDemo && "live"].filter(Boolean);
 }
 
-function getCanonicalLivePreview(guide) {
-  if (!guide?.liveDemo) return "";
-  return guide.liveDemo.replace(/index\.html$/, "screenshots/library-preview-2x.webp");
-}
-
 function getCardPoster(guide) {
-  const canonicalScreen = canonicalCardScreens[guide?.id];
-  if (canonicalScreen) return `${canonicalScreen}?v=${libraryPreviewAssetVersion}`;
-  const livePreview = getCanonicalLivePreview(guide);
-  if (livePreview) return `${livePreview}?v=${libraryPreviewAssetVersion}`;
   return guide.previewImage || guide.poster;
-}
-
-function getPreviewPoster(guide) {
-  const livePreview = getCanonicalLivePreview(guide);
-  if (livePreview) return `${livePreview}?v=${libraryPreviewAssetVersion}`;
-  if (guide.previewImage) return guide.previewImage;
-  return guide.poster;
-}
-
-function withPreviewVersion(src) {
-  const separator = src.includes("?") ? "&" : "?";
-  return `${src}${separator}v=${libraryPreviewAssetVersion}`;
 }
 
 function readTagFromUrl() {
@@ -314,9 +281,7 @@ const detail = createLibraryDetailController({
     getPreviewDevice,
     getPreviewProfile: getLibraryPreviewProfile,
     getPreviewModes,
-    getPreviewPoster,
     getCardPoster,
-    withPreviewVersion,
     getEmbeddedDemoUrl,
     getStyleProfiles,
     taskUrlForGuide
@@ -332,7 +297,6 @@ const cards = createLibraryCards({
     localizeRecord,
     getFilteredGuides,
     getCardPoster,
-    fittedCardPreviewIds,
     getStyleProfiles,
     normalizeTag
   },

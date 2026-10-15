@@ -1,81 +1,14 @@
 import { styleGuides } from "../../../catalog/index.js";
 
 const RUNTIME_VERSION = "20260901-library-runtime-v2";
-const restoredLiveDemos = Object.freeze({
-  museum: "./demo/artmuse-ios/index.html",
-  fashion: "./demo/fashion/index.html",
-  news: "./demo/news/index.html"
-});
-
-for (const guide of styleGuides) {
-  const restoredLiveDemo = restoredLiveDemos[guide.id];
-  if (!guide.liveDemo && restoredLiveDemo) guide.liveDemo = restoredLiveDemo;
-}
-
-const guideById = new Map(styleGuides.map((guide) => [guide.id, guide]));
-const canonicalCardScreens = Object.freeze({
-  "relay-music": "./demo/relay-music/screenshots/library-preview-2x.webp",
-  "signal-grid": "./demo/signal-grid/screenshots/library-preview-2x.webp",
-  mimo: "./demo/mimo-activities/screenshots/library-preview-2x.webp",
-  loy: "./demo/loy-wellness/screenshots/01-home.webp"
-});
-
-function absolute(src) {
-  try { return new URL(src, window.location.href).href; }
-  catch { return src || ""; }
-}
-
-function unique(values) {
-  return [...new Set(values.filter(Boolean).map(absolute))];
-}
-
-function preferredCardSource(id) {
-  const guide = guideById.get(id);
-  if (!guide) return "";
-  const livePreview = guide.liveDemo
-    ? guide.liveDemo.replace(/index\.html$/, "screenshots/library-preview-2x.webp")
-    : "";
-  return canonicalCardScreens[id] || livePreview || guide.previewImage || guide.poster || "";
-}
-
-function fallbackCandidates(id) {
-  const guide = guideById.get(id);
-  return unique([
-    preferredCardSource(id),
-    guide?.previewImage,
-    guide?.poster,
-    guide?.referenceImage
-  ]);
-}
-
 function refreshGalleryIfEmpty() {
   const search = document.querySelector("#styleSearch");
   if (!search || document.querySelector("#demoGallery .demo-card")) return;
   search.dispatchEvent(new Event("input", { bubbles: true }));
 }
 
-function normalizeCardImage(image, caseId) {
-  const preferred = preferredCardSource(caseId);
-  if (!image || !preferred) return;
-  const current = absolute(image.getAttribute("src") || "");
-  const target = absolute(preferred);
-  if (!target || current === target || current.startsWith(`${target}?`) || current.startsWith(`${target}&`)) return;
-  image.src = preferred;
-  image.dataset.previewSourceNormalized = "representative-screen";
-  image.closest(".phone-preview-media")?.classList.remove("is-unavailable");
-}
-
 function enhanceCards() {
   [...document.querySelectorAll("#demoGallery .demo-card")].forEach((card) => {
-    const caseId = card.dataset.caseId || "";
-    const image = card.querySelector(".phone-preview-media img");
-    if (image) {
-      normalizeCardImage(image, caseId);
-      image.dataset.caseId = caseId;
-      image.dataset.fallbackQueue = JSON.stringify(fallbackCandidates(caseId));
-      if (!image.dataset.failedSources) image.dataset.failedSources = "[]";
-    }
-
     const preview = card.querySelector(".demo-card-preview");
     if (preview && !preview.dataset.backgroundPreviewBound) {
       preview.dataset.backgroundPreviewBound = "true";
@@ -85,30 +18,6 @@ function enhanceCards() {
       });
     }
   });
-}
-
-function installImageRecovery() {
-  document.addEventListener("error", (event) => {
-    const image = event.target;
-    if (!(image instanceof HTMLImageElement) || !image.closest("#demoGallery")) return;
-    const card = image.closest(".demo-card");
-    if (!card) return;
-
-    const current = absolute(image.currentSrc || image.src);
-    let queue = [];
-    let failed = [];
-    try { queue = JSON.parse(image.dataset.fallbackQueue || "[]"); } catch {}
-    try { failed = JSON.parse(image.dataset.failedSources || "[]"); } catch {}
-    if (!queue.length) queue = fallbackCandidates(card.dataset.caseId);
-    if (current && !failed.includes(current)) failed.push(current);
-    image.dataset.failedSources = JSON.stringify(failed);
-
-    const next = queue.find((src) => src && src !== current && !failed.includes(src));
-    if (!next) return;
-    event.stopImmediatePropagation();
-    image.src = next;
-    image.closest(".phone-preview-media")?.classList.remove("is-unavailable");
-  }, true);
 }
 
 function installVideoRecovery() {
@@ -200,7 +109,6 @@ function boot() {
     }).observe(gallery, { childList: true, subtree: true });
   }
 
-  installImageRecovery();
   installVideoRecovery();
   installIframeHealthCheck();
 

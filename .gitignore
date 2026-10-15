@@ -16,6 +16,9 @@ tmp/
 *.patch
 demo/*/screenshots/*
 !demo/*/screenshots/library-preview-2x.png
+!demo/*/screenshots/library-preview-2x.webp
+!demo/artmuse-ios/screenshots/exhibitions.webp
+!demo/artmuse-ios/screenshots/detail.webp
 demo/*/.image2-ui/
 demo/*/node_modules/
 demo/*/dist/

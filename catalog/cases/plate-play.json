@@ -5,7 +5,7 @@
   "style": "高彩插画食谱",
   "video": "./demo/plate-play/plate-play-demo.mp4",
   "liveDemo": "./demo/plate-play/index.html",
-  "poster": "./demo/plate-play/mobile-preview.png",
+  "poster": "./demo/plate-play/screenshots/library-preview-2x.webp",
   "effectImage": "./demo/plate-play/assets/reference-overview.webp",
   "preview": "#f2b9d1",
   "reference": "浅粉展板、荧光黄绿手机界面与番茄红厨师插画，像一本活泼的厨房图画书",
@@ -54,5 +54,6 @@
   },
   "styleProfileIds": [
     "soft-lifestyle"
-  ]
+  ],
+  "previewImage": "./demo/plate-play/screenshots/library-preview-2x.webp"
 }

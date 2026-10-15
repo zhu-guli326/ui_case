@@ -5,7 +5,7 @@
   "style": "极简训练规划",
   "video": "./demo/fithub/fithub-demo.mp4",
   "liveDemo": "./demo/fithub/index.html",
-  "poster": "./demo/fithub/mobile-preview.webp",
+  "poster": "./demo/fithub/screenshots/library-preview-2x.webp",
   "preview": "#d9d9d7",
   "reference": "白色手机、黑色细线、淡紫统计卡和醒目黄操作构成极简训练管理体验",
   "referenceImage": "./demo/fithub/assets/reference-overview.webp",
@@ -53,5 +53,6 @@
   },
   "styleProfileIds": [
     "minimal-tech"
-  ]
+  ],
+  "previewImage": "./demo/fithub/screenshots/library-preview-2x.webp"
 }

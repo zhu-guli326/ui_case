@@ -5,7 +5,7 @@
   "style": "透视日程卡片",
   "video": "./demo/mimo-activities/mimo-activities-demo.mp4",
   "liveDemo": "./demo/mimo-activities/index.html",
-  "poster": "./demo/mimo-activities/mobile-preview.webp",
+  "poster": "./demo/mimo-activities/screenshots/library-preview-2x.webp",
   "preview": "#878ae0",
   "reference": "紫雾背景里的日程卡片轮播，中心任务聚焦，两侧任务带透视退场",
   "referenceImage": "./demo/mimo-activities/assets/reference-carousel.webp",
@@ -53,5 +53,6 @@
   },
   "styleProfileIds": [
     "soft-lifestyle"
-  ]
+  ],
+  "previewImage": "./demo/mimo-activities/screenshots/library-preview-2x.webp"
 }

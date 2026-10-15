@@ -1,92 +1,8 @@
 import {
   getLibraryPreviewProfile,
   getPreviewMediaPresentation,
-  previewContractVersion,
   standardPreviewDevice,
-} from "../../../library-preview-config.mjs";
-
-const LEGACY_NOTEBOOK_CARD_PREVIEW = "marble-note/screenshots/library-preview-reference-v2.png";
-const CANONICAL_NOTEBOOK_CARD_PREVIEW = "marble-note/screenshots/library-preview-2x.webp";
-
-const CARD_SCREEN_ONLY_OVERRIDES = Object.freeze({
-  fashion: "./assets/cases/fashion-shopping-app/screen-only/hero.webp",
-  museum: "./assets/cases/museum-app/video-frames/01-home.webp",
-  news: "./assets/cases/news-app/screen-only/headlines.webp",
-  "signal-grid": "./demo/signal-grid/screenshots/library-preview-2x.webp",
-  "still-form": "./demo/still-form/screenshots/library-preview-2x.webp",
-});
-
-const DETAIL_IMAGE_OVERRIDES = Object.freeze({
-  fashion: Object.freeze({
-    "hero-screen.webp": "./assets/cases/fashion-shopping-app/screen-only/hero.webp",
-    "catalog-screen.webp": "./assets/cases/fashion-shopping-app/screen-only/catalog.webp",
-    "favorites-screen.webp": "./assets/cases/fashion-shopping-app/screen-only/favorites.webp",
-  }),
-  museum: Object.freeze({
-    "home-screen.webp": "./assets/cases/museum-app/video-frames/01-home.webp",
-    "exhibitions-screen.webp": "./assets/cases/museum-app/video-frames/02-exhibitions.webp",
-    "detail-screen.webp": "./assets/cases/museum-app/video-frames/03-detail.webp",
-  }),
-  news: Object.freeze({
-    "headlines-screen.webp": "./assets/cases/news-app/screen-only/headlines.webp",
-    "feed-screen.webp": "./assets/cases/news-app/screen-only/feed.webp",
-    "discover-screen.webp": "./assets/cases/news-app/screen-only/discover.webp",
-  }),
-});
-
-const DETAIL_VIDEO_OVERRIDES = Object.freeze({
-  fashion: "./assets/cases/fashion-shopping-app/screen-only/demo.mp4",
-  news: "./assets/cases/news-app/screen-only/demo.mp4",
-});
-
-function normalizeGalleryCardSource(image, caseId = "") {
-  if (!image) return false;
-  const src = image.getAttribute("src") || "";
-
-  const caseOverride = CARD_SCREEN_ONLY_OVERRIDES[caseId];
-  if (caseOverride && src !== caseOverride && !src.includes("/screen-only/")) {
-    image.setAttribute("src", caseOverride);
-    image.dataset.previewSourceNormalized = "screen-only";
-    return true;
-  }
-
-  if (src.includes(LEGACY_NOTEBOOK_CARD_PREVIEW)) {
-    image.setAttribute("src", src.replace(LEGACY_NOTEBOOK_CARD_PREVIEW, CANONICAL_NOTEBOOK_CARD_PREVIEW));
-    image.dataset.previewSourceNormalized = "true";
-    return true;
-  }
-
-  return false;
-}
-
-function normalizeDetailScreenSource(image, caseId) {
-  if (!image || !caseId) return false;
-  const src = image.getAttribute("src") || "";
-  const mapped = DETAIL_IMAGE_OVERRIDES[caseId];
-  if (!mapped) return false;
-
-  for (const [legacyName, canonical] of Object.entries(mapped)) {
-    if (!src.includes(legacyName)) continue;
-    image.setAttribute("src", canonical);
-    image.dataset.previewSourceNormalized = "screen-only";
-    return true;
-  }
-  return false;
-}
-
-function normalizeDetailVideoSource(video, caseId) {
-  if (!video || !caseId) return false;
-  const canonical = DETAIL_VIDEO_OVERRIDES[caseId];
-  if (!canonical) return false;
-
-  const src = video.getAttribute("src") || "";
-  if (!src || src === canonical || src.includes("/screen-only/demo.mp4")) return false;
-  video.setAttribute("src", canonical);
-  video.dataset.previewSourceNormalized = "screen-only";
-  video.load();
-  if (!video.hidden) video.play().catch(() => {});
-  return true;
-}
+} from "../../features/library/library-preview-config.mjs";
 
 function getCardCaseId(frame) {
   return frame?.closest("[data-case-id]")?.dataset.caseId || "";
@@ -105,7 +21,6 @@ function setFramePresentation(frame, width, height, { forceDevice = false, caseI
 
   frame.classList.toggle("is-artboard-preview", isArtboard);
   frame.dataset.mediaPresentation = presentation;
-  frame.dataset.previewContract = previewContractVersion;
   if (caseId) frame.dataset.previewCaseId = caseId;
   if (profile) {
     frame.dataset.frameOwner = profile.frameOwner;
@@ -119,13 +34,12 @@ function setFramePresentation(frame, width, height, { forceDevice = false, caseI
   }
 }
 
-function bindImageToFrame(image, frame, resolveCaseId = () => "", { normalizeDetailSource = false } = {}) {
+function bindImageToFrame(image, frame, resolveCaseId = () => "") {
   if (!image || !frame || image.dataset.adaptivePreviewBound === "true") return;
   image.dataset.adaptivePreviewBound = "true";
 
   const sync = () => {
     const caseId = resolveCaseId();
-    if (normalizeDetailSource && normalizeDetailScreenSource(image, caseId)) return;
     if (!image.naturalWidth || !image.naturalHeight) return;
     setFramePresentation(frame, image.naturalWidth, image.naturalHeight, { caseId });
   };
@@ -141,8 +55,6 @@ function bindGalleryCards() {
   const bindCurrentCards = () => {
     gallery.querySelectorAll(".phone-frame--card").forEach((frame) => {
       const image = frame.querySelector("img.phone-media");
-      const caseId = getCardCaseId(frame);
-      normalizeGalleryCardSource(image, caseId);
       bindImageToFrame(image, frame, () => getCardCaseId(frame));
     });
   };
@@ -161,12 +73,11 @@ function installDetailPresentation() {
   if (!frame) return;
 
   const resolveCaseId = () => getDetailCaseId();
-  bindImageToFrame(image, frame, resolveCaseId, { normalizeDetailSource: true });
+  bindImageToFrame(image, frame, resolveCaseId);
   bindImageToFrame(sequence, frame, resolveCaseId);
 
   const syncVideo = () => {
     const caseId = resolveCaseId();
-    if (normalizeDetailVideoSource(video, caseId)) return;
     if (!video || !video.videoWidth || !video.videoHeight) return;
     setFramePresentation(frame, video.videoWidth, video.videoHeight, { caseId });
   };
@@ -174,8 +85,6 @@ function installDetailPresentation() {
 
   const syncVisibleMode = () => {
     const caseId = resolveCaseId();
-    if (image && !image.hidden) normalizeDetailScreenSource(image, caseId);
-    if (video && !video.hidden) normalizeDetailVideoSource(video, caseId);
 
     const profile = getLibraryPreviewProfile(caseId);
     if (profile) {
@@ -219,7 +128,6 @@ function installDetailPresentation() {
 }
 
 function installDevicePreview() {
-  document.documentElement.dataset.previewContract = previewContractVersion;
   bindGalleryCards();
   installDetailPresentation();
 }

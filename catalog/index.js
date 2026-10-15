@@ -7,7 +7,7 @@ export const styleGuides = [
     "style": "荧光食品扫描",
     "video": "./demo/cleanbite-scanner/cleanbite-demo.mp4",
     "liveDemo": "./demo/cleanbite-scanner/index.html",
-    "poster": "./demo/cleanbite-scanner/mobile-preview.png",
+    "poster": "./demo/cleanbite-scanner/screenshots/library-preview-2x.webp",
     "preview": "#d4ff70",
     "reference": "荧光青柠展板上的双手机，把会员选择和食品营养拆解放进强对比的黑白层级",
     "referenceImage": "./demo/cleanbite-scanner/assets/cleanbite-effect-board.webp",
@@ -55,7 +55,8 @@ export const styleGuides = [
     },
     "styleProfileIds": [
       "minimal-tech"
-    ]
+    ],
+    "previewImage": "./demo/cleanbite-scanner/screenshots/library-preview-2x.webp"
   },
   {
     "id": "fashion",
@@ -122,7 +123,7 @@ export const styleGuides = [
     "style": "极简训练规划",
     "video": "./demo/fithub/fithub-demo.mp4",
     "liveDemo": "./demo/fithub/index.html",
-    "poster": "./demo/fithub/mobile-preview.webp",
+    "poster": "./demo/fithub/screenshots/library-preview-2x.webp",
     "preview": "#d9d9d7",
     "reference": "白色手机、黑色细线、淡紫统计卡和醒目黄操作构成极简训练管理体验",
     "referenceImage": "./demo/fithub/assets/reference-overview.webp",
@@ -170,7 +171,8 @@ export const styleGuides = [
     },
     "styleProfileIds": [
       "minimal-tech"
-    ]
+    ],
+    "previewImage": "./demo/fithub/screenshots/library-preview-2x.webp"
   },
   {
     "id": "fufu",
@@ -179,7 +181,7 @@ export const styleGuides = [
     "style": "可爱线条手绘烘焙",
     "video": "./demo/fufu-bakery/fufu-bakery-demo.mp4",
     "liveDemo": "./demo/fufu-bakery/index.html",
-    "poster": "./demo/fufu-bakery/mobile-preview.webp",
+    "poster": "./demo/fufu-bakery/screenshots/library-preview-2x.webp",
     "preview": "#e9e4cc",
     "effectImage": "./demo/fufu-bakery/assets/fufu-line-effect-board.webp",
     "reference": "不规则黑色线稿、狗狗烘焙师与大片纸白，只用黄蓝两色留下像手帐一样轻松的烘焙节奏",
@@ -228,7 +230,8 @@ export const styleGuides = [
     },
     "styleProfileIds": [
       "soft-lifestyle"
-    ]
+    ],
+    "previewImage": "./demo/fufu-bakery/screenshots/library-preview-2x.webp"
   },
   {
     "id": "mimo",
@@ -237,7 +240,7 @@ export const styleGuides = [
     "style": "透视日程卡片",
     "video": "./demo/mimo-activities/mimo-activities-demo.mp4",
     "liveDemo": "./demo/mimo-activities/index.html",
-    "poster": "./demo/mimo-activities/mobile-preview.webp",
+    "poster": "./demo/mimo-activities/screenshots/library-preview-2x.webp",
     "preview": "#878ae0",
     "reference": "紫雾背景里的日程卡片轮播，中心任务聚焦，两侧任务带透视退场",
     "referenceImage": "./demo/mimo-activities/assets/reference-carousel.webp",
@@ -285,7 +288,8 @@ export const styleGuides = [
     },
     "styleProfileIds": [
       "soft-lifestyle"
-    ]
+    ],
+    "previewImage": "./demo/mimo-activities/screenshots/library-preview-2x.webp"
   },
   {
     "id": "moe",
@@ -352,7 +356,7 @@ export const styleGuides = [
     "style": "柔粉情绪签到",
     "video": "./demo/moodly-health/moodly-demo.mp4",
     "liveDemo": "./demo/moodly-health/index.html",
-    "poster": "./demo/moodly-health/mobile-preview.png",
+    "poster": "./demo/moodly-health/screenshots/library-preview-2x.webp",
     "preview": "#f4dced",
     "reference": "云朵、柔粉角色和干净的情绪滑杆，让每日情绪记录像一次轻量对话",
     "referenceImage": "./demo/moodly-health/assets/moodly-mascot.webp",
@@ -400,7 +404,8 @@ export const styleGuides = [
     },
     "styleProfileIds": [
       "soft-lifestyle"
-    ]
+    ],
+    "previewImage": "./demo/moodly-health/screenshots/library-preview-2x.webp"
   },
   {
     "id": "museum",
@@ -409,7 +414,7 @@ export const styleGuides = [
     "style": "当代美术馆导览",
     "video": "./assets/cases/museum-app/museum-app-demo.mp4",
     "liveDemo": "./demo/artmuse-ios/index.html",
-    "poster": "./assets/cases/museum-app/video-frames/01-home.webp",
+    "poster": "./demo/artmuse-ios/screenshots/library-preview-2x.webp",
     "videoSequence": {
       "duration": 8,
       "frames": [
@@ -430,7 +435,7 @@ export const styleGuides = [
         }
       ]
     },
-    "previewImage": "./assets/cases/museum-app/library-preview-generated-v2-standard.webp",
+    "previewImage": "./demo/artmuse-ios/screenshots/library-preview-2x.webp",
     "preview": "#dce3d6",
     "reference": "画廊导视与展览画册的安静秩序",
     "referenceImage": "./assets/style-references/artmuse-reference.webp",
@@ -593,7 +598,8 @@ export const styleGuides = [
     },
     "styleProfileIds": [
       "soft-lifestyle"
-    ]
+    ],
+    "previewImage": "./demo/marble-note/screenshots/library-preview-2x.webp"
   },
   {
     "id": "organique",
@@ -602,7 +608,7 @@ export const styleGuides = [
     "style": "编辑式有机餐食",
     "video": "./demo/organique-food/organique-food-demo.mp4",
     "liveDemo": "./demo/organique-food/index.html",
-    "poster": "./demo/organique-food/mobile-preview.webp",
+    "poster": "./demo/organique-food/screenshots/library-preview-2x.webp",
     "preview": "#ede8d5",
     "reference": "暗黑展陈、香槟金排版与奶油色餐食 App 的编辑感构图",
     "referenceImage": "./demo/organique-food/assets/chicken-fattoush-salad.webp",
@@ -650,7 +656,8 @@ export const styleGuides = [
     },
     "styleProfileIds": [
       "editorial-commerce"
-    ]
+    ],
+    "previewImage": "./demo/organique-food/screenshots/library-preview-2x.webp"
   },
   {
     "id": "plate-play",
@@ -659,7 +666,7 @@ export const styleGuides = [
     "style": "高彩插画食谱",
     "video": "./demo/plate-play/plate-play-demo.mp4",
     "liveDemo": "./demo/plate-play/index.html",
-    "poster": "./demo/plate-play/mobile-preview.png",
+    "poster": "./demo/plate-play/screenshots/library-preview-2x.webp",
     "effectImage": "./demo/plate-play/assets/reference-overview.webp",
     "preview": "#f2b9d1",
     "reference": "浅粉展板、荧光黄绿手机界面与番茄红厨师插画，像一本活泼的厨房图画书",
@@ -708,7 +715,8 @@ export const styleGuides = [
     },
     "styleProfileIds": [
       "soft-lifestyle"
-    ]
+    ],
+    "previewImage": "./demo/plate-play/screenshots/library-preview-2x.webp"
   },
   {
     "id": "reflect",
@@ -717,7 +725,7 @@ export const styleGuides = [
     "style": "雾野反思日记",
     "video": "./demo/reflect-journal/reflect-demo.mp4",
     "liveDemo": "./demo/reflect-journal/index.html",
-    "poster": "./demo/reflect-journal/mobile-preview.webp",
+    "poster": "./demo/reflect-journal/screenshots/library-preview-2x.webp",
     "preview": "#c7dbd7",
     "reference": "雾蓝草地、半透明层次与衬线标题，像一本可以慢慢翻阅的晨间自然日记",
     "referenceImage": "./demo/reflect-journal/assets/morning-stillness.webp",
@@ -765,7 +773,8 @@ export const styleGuides = [
     },
     "styleProfileIds": [
       "soft-lifestyle"
-    ]
+    ],
+    "previewImage": "./demo/reflect-journal/screenshots/library-preview-2x.webp"
   },
   {
     "id": "relay-music",
@@ -774,7 +783,7 @@ export const styleGuides = [
     "style": "编辑式音乐发现",
     "video": "./demo/relay-music/relay-music-demo.mp4",
     "liveDemo": "./demo/relay-music/index.html",
-    "poster": "./demo/relay-music/assets/relay-effect-board.webp",
+    "poster": "./demo/relay-music/screenshots/library-preview-2x.webp",
     "preview": "#aeb4b8",
     "reference": "冷灰展板上的三屏音乐产品，用人物摄影、钴蓝播放器与深色发现流建立清晰主次",
     "referenceImage": "./demo/relay-music/assets/reference-overview.webp",
@@ -822,7 +831,8 @@ export const styleGuides = [
     },
     "styleProfileIds": [
       "editorial-commerce"
-    ]
+    ],
+    "previewImage": "./demo/relay-music/screenshots/library-preview-2x.webp"
   },
   {
     "id": "signal-grid",
@@ -879,7 +889,8 @@ export const styleGuides = [
     },
     "styleProfileIds": [
       "minimal-tech"
-    ]
+    ],
+    "previewImage": "./demo/signal-grid/screenshots/library-preview-2x.webp"
   },
   {
     "id": "softly-reflections",
@@ -888,7 +899,7 @@ export const styleGuides = [
     "style": "柔和反思与情绪签到",
     "video": "./demo/softly-reflections/softly-reflections-demo.mp4",
     "liveDemo": "./demo/softly-reflections/index.html",
-    "poster": "./demo/softly-reflections/assets/softly-effect-board.webp",
+    "poster": "./demo/softly-reflections/screenshots/library-preview-2x.webp",
     "preview": "#e5e0fb",
     "reference": "深靛网格展板上的三屏情绪产品，用纸卡、编辑式衬线与淡紫 3D 角色组织一次安静的自我对话",
     "referenceImage": "./demo/softly-reflections/assets/reference-overview.webp",
@@ -936,7 +947,8 @@ export const styleGuides = [
     },
     "styleProfileIds": [
       "soft-lifestyle"
-    ]
+    ],
+    "previewImage": "./demo/softly-reflections/screenshots/library-preview-2x.webp"
   },
   {
     "id": "still-form",
@@ -945,7 +957,7 @@ export const styleGuides = [
     "style": "可持续服饰电商",
     "video": "./demo/still-form/still-form-demo.mp4",
     "liveDemo": "./demo/still-form/index.html",
-    "poster": "./demo/still-form/mobile-preview.webp",
+    "poster": "./demo/still-form/screenshots/library-preview-2x.webp",
     "preview": "#b6b5a0",
     "reference": "灰绿展板、深棕中性色与大幅天然面料摄影，让可持续服饰体验安静而明确",
     "referenceImage": "./demo/still-form/assets/reference-overview.webp",
@@ -993,7 +1005,8 @@ export const styleGuides = [
     },
     "styleProfileIds": [
       "editorial-commerce"
-    ]
+    ],
+    "previewImage": "./demo/still-form/screenshots/library-preview-2x.webp"
   },
   {
     "id": "volt-route",
@@ -1002,7 +1015,7 @@ export const styleGuides = [
     "style": "暗色电车充电导航",
     "video": "./demo/volt-route/volt-route-demo.mp4",
     "liveDemo": "./demo/volt-route/index.html",
-    "poster": "./demo/volt-route/mobile-preview.webp",
+    "poster": "./demo/volt-route/screenshots/library-preview-2x.webp",
     "preview": "#b5c0b2",
     "reference": "雾灰绿展板上的三台深色手机，银灰车身、荧光绿充电状态和夜间路线形成克制的高科技感",
     "referenceImage": "./demo/volt-route/assets/reference-overview.webp",
@@ -1050,7 +1063,8 @@ export const styleGuides = [
     },
     "styleProfileIds": [
       "minimal-tech"
-    ]
+    ],
+    "previewImage": "./demo/volt-route/screenshots/library-preview-2x.webp"
   }
 ];
 export const styleProfiles = [

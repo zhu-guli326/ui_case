@@ -122,29 +122,6 @@
   background: transparent !important;
 }
 
-/* Some legacy card assets are wide artboards / multi-device compositions.
- * Never shrink the entire composition into a tiny object. Crop it to the same
- * canonical viewport so the central product screen has the same visual scale
- * as every other case. Detail view can still show the full composition. */
-.demo-card-preview > .phone-frame.has-wide-device-art .phone-media,
-.demo-card-preview > .phone-frame.is-artboard-preview .phone-media,
-.demo-card-preview > .phone-frame.has-wide-device-art img,
-.demo-card-preview > .phone-frame.is-artboard-preview img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: center center !important;
-}
-
-/* Fitted canonical screens must not inherit old per-case transforms. */
-.demo-card-preview > .phone-frame.has-fitted-device-art .phone-media {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: contain !important;
-  object-position: center center !important;
-  transform: none !important;
-}
-
 .media-hint {
   display: none !important;
 }

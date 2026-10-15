@@ -53,5 +53,6 @@
   },
   "styleProfileIds": [
     "minimal-tech"
-  ]
+  ],
+  "previewImage": "./demo/signal-grid/screenshots/library-preview-2x.webp"
 }

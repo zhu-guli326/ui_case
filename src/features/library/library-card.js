@@ -10,7 +10,6 @@ export function createLibraryCards({
     localizeRecord,
     getFilteredGuides,
     getCardPoster,
-    fittedCardPreviewIds,
     getStyleProfiles,
     normalizeTag
   } = helpers;
@@ -29,8 +28,6 @@ export function createLibraryCards({
       const openMode = guide.defaultPreviewMode || mediaMode;
       const openLabel = copy.modes[openMode];
       const poster = getCardPoster(guide);
-      const referenceMatchedPoster = poster;
-      const deviceArtClass = fittedCardPreviewIds.has(guide.id) ? " has-fitted-device-art" : "";
       const previewActionButtons = [
         guide.video ? `<button class="style-details-button" type="button" data-preview-id="${guide.id}" data-preview-mode="video">${copy.video}</button>` : "",
         guide.liveDemo ? `<button class="style-details-button" type="button" data-preview-id="${guide.id}" data-preview-mode="live">${copy.clickable}</button>` : ""
@@ -38,7 +35,7 @@ export function createLibraryCards({
       return `
       <article class="demo-card" data-case-id="${guide.id}">
         <div class="demo-card-preview" style="--preview: ${guide.preview}">
-          <figure class="phone-frame phone-frame--card phone-preview-media${deviceArtClass}"><div class="phone-screen"><img class="phone-media" loading="${index < 3 ? "eager" : "lazy"}" fetchpriority="${index < 3 ? "high" : "low"}" src="${referenceMatchedPoster}" alt="${window.image2I18n?.language === "en" ? `${guide.style} mobile interface thumbnail` : `${guide.style} 手机界面缩略图`}" decoding="async"></div><span class="media-hint">${copy.imagePreview}</span></figure>
+          <figure class="phone-frame phone-frame--card phone-preview-media"><div class="phone-screen"><img class="phone-media" loading="${index < 3 ? "eager" : "lazy"}" fetchpriority="${index < 3 ? "high" : "low"}" src="${poster}" alt="${window.image2I18n?.language === "en" ? `${guide.style} mobile interface thumbnail` : `${guide.style} 手机界面缩略图`}" decoding="async"></div><span class="media-hint">${copy.imagePreview}</span></figure>
           <button class="preview-open-button" type="button" data-preview-id="${guide.id}" data-preview-mode="${openMode}" aria-label="${copy.openPreview}: ${guide.style}, ${openLabel}"><span>${openLabel}</span></button>
         </div>
         <div class="demo-card-body">

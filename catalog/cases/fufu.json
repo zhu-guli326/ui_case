@@ -5,7 +5,7 @@
   "style": "可爱线条手绘烘焙",
   "video": "./demo/fufu-bakery/fufu-bakery-demo.mp4",
   "liveDemo": "./demo/fufu-bakery/index.html",
-  "poster": "./demo/fufu-bakery/mobile-preview.webp",
+  "poster": "./demo/fufu-bakery/screenshots/library-preview-2x.webp",
   "preview": "#e9e4cc",
   "effectImage": "./demo/fufu-bakery/assets/fufu-line-effect-board.webp",
   "reference": "不规则黑色线稿、狗狗烘焙师与大片纸白，只用黄蓝两色留下像手帐一样轻松的烘焙节奏",
@@ -54,5 +54,6 @@
   },
   "styleProfileIds": [
     "soft-lifestyle"
-  ]
+  ],
+  "previewImage": "./demo/fufu-bakery/screenshots/library-preview-2x.webp"
 }

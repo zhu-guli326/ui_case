@@ -3,6 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const publicEntries = fs.readdirSync(root, { withFileTypes: true })
@@ -225,6 +226,31 @@ try {
   const catalog = await import(`${new URL("../catalog/index.js", import.meta.url).href}?check=${Date.now()}`);
   for (const key of ["styleGuides", "styleProfiles", "brandProfiles", "componentReferences"]) {
     if (!Array.isArray(catalog[key])) failures.push(`catalog/index.js must export array ${key}`);
+  }
+  const covers = [];
+  for (const guide of catalog.styleGuides || []) {
+    const cover = guide.previewImage;
+    if (typeof cover !== "string" || !cover.startsWith("./") || /[?#]/.test(cover)) {
+      failures.push(`Case ${guide.id} must declare an explicit local previewImage without cache query strings.`);
+      continue;
+    }
+    const relative = cover.slice(2);
+    const absolute = path.resolve(root, relative);
+    if (!absolute.startsWith(`${root}${path.sep}`) || !fs.existsSync(absolute)) {
+      failures.push(`Case ${guide.id} cover is missing: ${cover}`);
+      continue;
+    }
+    covers.push(relative);
+  }
+  if (covers.length) {
+    const ignored = spawnSync("git", ["check-ignore", "--stdin"], {
+      cwd: root, input: `${covers.join("\n")}\n`, encoding: "utf8"
+    });
+    if (ignored.status === 0) {
+      for (const cover of ignored.stdout.trim().split(/\r?\n/)) failures.push(`Case cover is excluded from publishing by Git ignore rules: ${cover}`);
+    } else if (ignored.status !== 1) {
+      failures.push(`Could not verify case cover publishability: ${ignored.error?.message || ignored.stderr}`);
+    }
   }
 } catch (error) {
   failures.push(`catalog/index.js could not be imported: ${error.message}`);

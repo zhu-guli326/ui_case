@@ -53,5 +53,6 @@
   },
   "styleProfileIds": [
     "soft-lifestyle"
-  ]
+  ],
+  "previewImage": "./demo/marble-note/screenshots/library-preview-2x.webp"
 }

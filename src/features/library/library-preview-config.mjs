@@ -1,6 +1,3 @@
-export const previewContractVersion = "20260820-cover-capture-v1";
-export const libraryPreviewAssetVersion = previewContractVersion;
-
 export const standardPreviewDevice = Object.freeze({ width: 390, height: 844 });
 export const standardCanonicalPreview = Object.freeze({ width: 780, height: 1688 });
 export const standardPreviewDetailWidth = 300;

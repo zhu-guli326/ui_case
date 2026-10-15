@@ -5,7 +5,7 @@
   "style": "编辑式音乐发现",
   "video": "./demo/relay-music/relay-music-demo.mp4",
   "liveDemo": "./demo/relay-music/index.html",
-  "poster": "./demo/relay-music/assets/relay-effect-board.webp",
+  "poster": "./demo/relay-music/screenshots/library-preview-2x.webp",
   "preview": "#aeb4b8",
   "reference": "冷灰展板上的三屏音乐产品，用人物摄影、钴蓝播放器与深色发现流建立清晰主次",
   "referenceImage": "./demo/relay-music/assets/reference-overview.webp",
@@ -53,5 +53,6 @@
   },
   "styleProfileIds": [
     "editorial-commerce"
-  ]
+  ],
+  "previewImage": "./demo/relay-music/screenshots/library-preview-2x.webp"
 }

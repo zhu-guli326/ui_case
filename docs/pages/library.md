@@ -1,6 +1,6 @@
 # Library Page Requirements
 
-Last updated: 2026-09-01
+Last updated: 2026-10-15
 
 ## Page identity
 
@@ -58,6 +58,9 @@ A user should be able to find a relevant case, understand what makes it useful, 
 - Hero statistics show only the total case count. Do not show style count or GitHub Stars in this area.
 - The case-count number uses the global numeric typography tokens (`--font-number`, tabular numerals).
 - Cards should be easy to scan and should not all be forced into an identical media ratio when that harms the source material.
+- Each case's catalog `previewImage` explicitly identifies its representative single-screen cover. Production covers must be included in Git and the published files; never infer their paths from a demo URL.
+- Card covers must show the matching interface at a readable scale. Reference boards and multi-phone compositions belong in reference/detail content and must not be used as silent fallbacks for missing single-screen covers. A failed cover shows an unavailable state while retaining the demo action.
+- FuFu Bakery and Moe card covers show their functional home screens, so browsing reveals the bakery actions and habit list rather than only onboarding artwork.
 - Detail views should add information rather than repeat the card.
 - Avoid excessive blank space on desktop browsing views.
 - Keep the desktop directory compact (roughly 220–250px tall) so real case previews appear in the first viewport. Use a two-column directory on small screens, with clearly differentiated destination titles and secondary links.

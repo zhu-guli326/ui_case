@@ -5,7 +5,7 @@
   "style": "柔和反思与情绪签到",
   "video": "./demo/softly-reflections/softly-reflections-demo.mp4",
   "liveDemo": "./demo/softly-reflections/index.html",
-  "poster": "./demo/softly-reflections/assets/softly-effect-board.webp",
+  "poster": "./demo/softly-reflections/screenshots/library-preview-2x.webp",
   "preview": "#e5e0fb",
   "reference": "深靛网格展板上的三屏情绪产品，用纸卡、编辑式衬线与淡紫 3D 角色组织一次安静的自我对话",
   "referenceImage": "./demo/softly-reflections/assets/reference-overview.webp",
@@ -53,5 +53,6 @@
   },
   "styleProfileIds": [
     "soft-lifestyle"
-  ]
+  ],
+  "previewImage": "./demo/softly-reflections/screenshots/library-preview-2x.webp"
 }

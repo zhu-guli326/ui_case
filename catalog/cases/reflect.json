@@ -5,7 +5,7 @@
   "style": "雾野反思日记",
   "video": "./demo/reflect-journal/reflect-demo.mp4",
   "liveDemo": "./demo/reflect-journal/index.html",
-  "poster": "./demo/reflect-journal/mobile-preview.webp",
+  "poster": "./demo/reflect-journal/screenshots/library-preview-2x.webp",
   "preview": "#c7dbd7",
   "reference": "雾蓝草地、半透明层次与衬线标题，像一本可以慢慢翻阅的晨间自然日记",
   "referenceImage": "./demo/reflect-journal/assets/morning-stillness.webp",
@@ -53,5 +53,6 @@
   },
   "styleProfileIds": [
     "soft-lifestyle"
-  ]
+  ],
+  "previewImage": "./demo/reflect-journal/screenshots/library-preview-2x.webp"
 }

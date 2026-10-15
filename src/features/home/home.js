@@ -25,7 +25,7 @@ const discoveryTabs = [...(discoveryStrip?.querySelectorAll(".template-filters a
 const discoveryCards = [...(discoveryStrip?.querySelectorAll(".template-grid .template-card") || [])];
 const DISCOVERY_PREVIEWS = [
   {
-    src: "./assets/cases/fashion-shopping-app/hero-screen.webp",
+    src: "./assets/cases/fashion-shopping-app/screen-only/hero.webp",
     ratio: "9 / 16",
     maxWidth: "390px",
     fit: "cover",

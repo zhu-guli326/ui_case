@@ -5,7 +5,7 @@
   "style": "可持续服饰电商",
   "video": "./demo/still-form/still-form-demo.mp4",
   "liveDemo": "./demo/still-form/index.html",
-  "poster": "./demo/still-form/mobile-preview.webp",
+  "poster": "./demo/still-form/screenshots/library-preview-2x.webp",
   "preview": "#b6b5a0",
   "reference": "灰绿展板、深棕中性色与大幅天然面料摄影，让可持续服饰体验安静而明确",
   "referenceImage": "./demo/still-form/assets/reference-overview.webp",
@@ -53,5 +53,6 @@
   },
   "styleProfileIds": [
     "editorial-commerce"
-  ]
+  ],
+  "previewImage": "./demo/still-form/screenshots/library-preview-2x.webp"
 }
