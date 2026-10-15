@@ -1,4 +1,7 @@
+import { accentForeground } from "./design-system-usage.js";
+
 const STORAGE_KEY = "ondesign:interface-dna:v3";
+let savedFoundation = null;
 const LANG = () => (window.image2I18n?.language === "en" ? "en" : "zh");
 
 const fallbackPalettes = {
@@ -53,6 +56,7 @@ const state = {
   radius: "14",
   spacing: "10",
   device: "desktop",
+  project: "",
   designSystem: null,
   designSystemBase: null,
   overrides: { font: false, radius: false, spacing: false },
@@ -64,7 +68,6 @@ const directionDefaults = {
   vivid: { palette: "coral", font: "noto-sans-sc", radius: "28", spacing: "10", density: "compact" },
   future: { palette: "blue", font: "ibm-plex-mono", radius: "14", spacing: "14", density: "balanced" },
 };
-const directionCases = { restrained: "fithub", editorial: "organique", vivid: "plate-play", future: "volt-route" };
 
 function currentRootToken(name, fallback = "") {
   return document.documentElement.style.getPropertyValue(name).trim() || getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
@@ -103,6 +106,7 @@ function applyTokens() {
   const token = effectiveTokens();
   const root = document.documentElement;
   root.style.setProperty("--dna-accent", token.accent);
+  root.style.setProperty("--dna-on-accent", accentForeground(token.accent));
   root.style.setProperty("--dna-accent-soft", token.accentSoft || `color-mix(in srgb, ${token.accent} 12%, ${token.surface})`);
   root.style.setProperty("--dna-canvas", token.canvas);
   root.style.setProperty("--dna-surface", token.surface);
@@ -153,7 +157,7 @@ function syncChoiceGroups() {
       option.value = "__design-system__";
       select.prepend(option);
     }
-    option.textContent = `${LANG() === "en" ? "Design System" : "设计规范"} · ${state.designSystemBase.fontName}`;
+    option.textContent = state.designSystemBase.fontName;
     select.value = "__design-system__";
   } else if (select && [...select.options].some((option) => option.value === state.font)) {
     select.value = state.font;
@@ -205,6 +209,7 @@ function dnaText() {
   const name = $("#dnaName")?.value.trim() || (LANG() === "en" ? "Untitled interface DNA" : "未命名界面 DNA");
   if (LANG() === "en") return [
     `Interface DNA: ${name}`,
+    ...(state.project.trim() ? [`Project: ${state.project.trim()}`] : []),
     `Design system: ${state.designSystem?.name || "Custom foundation"}`,
     `Direction: ${L().style[state.style]}`,
     `Colors: accent ${token.accent}; canvas ${token.canvas}; surface ${token.surface}; ink ${token.ink}; muted ${token.muted}`,
@@ -216,6 +221,7 @@ function dnaText() {
   ].join("\n");
   return [
     `界面设计 DNA：${name}`,
+    ...(state.project.trim() ? [`项目：${state.project.trim()}`] : []),
     `设计规范：${state.designSystem?.name || "自定义基础"}`,
     `设计方向：${L().style[state.style]}`,
     `颜色：主色 ${token.accent}；画布 ${token.canvas}；表面 ${token.surface}；文字 ${token.ink}；次级文字 ${token.muted}`,
@@ -253,7 +259,7 @@ function renderAll() {
 
 function markModified() {
   const chip = $("#dna-save .dna-section-value");
-  if (chip) chip.dataset.state = "modified";
+  if (chip) { chip.dataset.state = "modified"; chip.textContent = L().modified; }
 }
 
 function selectStyle(button) {
@@ -277,10 +283,7 @@ function selectInGroup(group, button) {
 }
 
 function updateDirectionCaseLink() {
-  const caseId = directionCases[state.style];
   const language = document.documentElement.lang.startsWith("zh") ? "zh" : "en";
-  const link = $("[data-direction-case-link]");
-  if (link && caseId) link.href = `./library.html?case=${caseId}&lang=${language}`;
   $$("[data-direction-card-case]").forEach((caseLink) => { caseLink.href = `./library.html?case=${caseLink.dataset.directionCardCase}&lang=${language}`; });
 }
 
@@ -303,9 +306,14 @@ function captureDesignSystem(event) {
     radius: Number(detail.radius ?? px(currentRootToken("--dna-radius"), 8)),
     spacing: px(currentRootToken("--dna-space"), 16),
   };
-  state.overrides = { font: false, radius: false, spacing: false };
+  const restoring = detail.restored && savedFoundation?.slug === state.designSystem.slug;
+  state.overrides = restoring ? savedFoundation.overrides : { font: false, radius: false, spacing: false };
   if ($("#dnaName") && (!$("#dnaName").value || /Web DNA|克制绿/.test($("#dnaName").value))) $("#dnaName").value = `${state.designSystem.name} · Web DNA`;
   markModified();
+  if (restoring) {
+    const chip = $("#dna-save .dna-section-value");
+    if (chip) chip.dataset.state = "saved";
+  }
   applyTokens();
 }
 
@@ -319,7 +327,7 @@ function toast(message) {
 }
 
 async function copyDna() {
-  try { await navigator.clipboard.writeText(dnaText()); toast(L().copied); }
+  try { await navigator.clipboard.writeText($("#dnaPrompt").textContent); toast(L().copied); }
   catch { toast(L().copyFail); }
 }
 
@@ -328,6 +336,7 @@ function saveDna() {
     name: $("#dnaName")?.value.trim() || "",
     updatedAt: new Date().toISOString(),
     style: state.style,
+    project: state.project,
     density: state.density,
     palette: state.palette,
     font: state.font,
@@ -347,7 +356,9 @@ function restoreDna() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
     if (!saved) return;
-    ["style", "density", "palette", "font", "radius", "spacing"].forEach((key) => { if (saved[key] != null) state[key] = String(saved[key]); });
+    savedFoundation = { slug: saved.designSystem?.slug, overrides: { font: !!saved.overrides?.font, radius: !!saved.overrides?.radius, spacing: !!saved.overrides?.spacing } };
+    ["style", "density", "palette", "font", "radius", "spacing", "project"].forEach((key) => { if (saved[key] != null) state[key] = String(saved[key]); });
+    if ($("#dnaProject")) $("#dnaProject").value = state.project;
     if (saved.name && $("#dnaName")) $("#dnaName").value = saved.name;
   } catch { try { localStorage.removeItem(STORAGE_KEY); } catch {} }
 }
@@ -386,12 +397,17 @@ function installEvents() {
   });
   $("#saveDna")?.addEventListener("click", saveDna);
   $("#copyDna")?.addEventListener("click", copyDna);
+  $("#dnaName")?.addEventListener("input", () => { markModified(); renderPrompt(); });
+  $("#dnaProject")?.addEventListener("input", (event) => { state.project = event.target.value; markModified(); renderPrompt(); });
+  window.addEventListener("ondesign:componentsystemchange", markModified);
   window.addEventListener("ondesign:designsystemapply", captureDesignSystem);
-  window.addEventListener("ondesign:designsystemchange", captureDesignSystem);
   window.addEventListener("image2:languagechange", () => { applyTokens(); updateDirectionCaseLink(); });
 }
 
 window.image2I18n?.addTranslations({
+  "dna.previewSync": { zh: "更改会自动同步到预览", en: "Changes sync to the preview automatically" },
+  "dna.projectLabel": { zh: "你想设计什么？（选填）", en: "What are you designing? (optional)" },
+  "dna.projectPlaceholder": { zh: "例如：为独立设计师做一个简洁的作品集网站。", en: "e.g. A minimal portfolio website for an independent designer." },
   "dna.heroTitle": { zh: "界面设计 DNA", en: "Interface DNA" },
   "dna.heroLede": { zh: "选一个喜欢的方向，边调边看，把满意的设计带进开发。", en: "Choose a direction, refine it live, and take your design into development." },
   "dna.confirmExport": { zh: "确认并导出", en: "Review & export" },
@@ -409,11 +425,46 @@ window.image2I18n?.addTranslations({
   "dna.previewTitle": { zh: "实时预览", en: "Live preview" }, "dna.deviceDesktop": { zh: "桌面", en: "Desktop" }, "dna.deviceMobile": { zh: "移动", en: "Mobile" }, "dna.pickerLabel": { zh: "预览内容", en: "Preview" },
   "dna.compLanding": { zh: "落地页", en: "Landing" }, "dna.compNav": { zh: "导航", en: "Nav" }, "dna.compCards": { zh: "卡片组", en: "Cards" }, "dna.compForm": { zh: "表单", en: "Form" }, "dna.compPricing": { zh: "定价", en: "Pricing" }, "dna.compDash": { zh: "数据后台", en: "Dashboard" }, "dna.pageArticle": { zh: "文章页", en: "Article" }, "dna.pageProduct": { zh: "商品详情", en: "Product" }, "dna.pageSettings": { zh: "设置页", en: "Settings" }, "dna.groupPages": { zh: "页面", en: "Pages" }, "dna.groupComponents": { zh: "组件", en: "Components" },
   "dna.unsaved": { zh: "未保存", en: "Not saved" }, "dna.saved": { zh: "已保存", en: "Saved" }, "dna.modified": { zh: "有未保存修改", en: "Unsaved changes" },
-  "dna.hintPre": { zh: "方向已绑定案例库真实案例效果，", en: "Each direction is bound to a real case-library demo — " }, "dna.hintLink": { zh: "在案例库中打开当前方向的案例", en: "open the current direction's case in the library" },
   "footer.learn": { zh: "学习路径", en: "Learning path" }, "footer.vocabulary": { zh: "UI 词典", en: "UI vocabulary" }, "footer.library": { zh: "案例库", en: "Case library" },
 });
 
+function installCaseLibrary() {
+  const dialog = $("[data-case-library-dialog]");
+  const frame = $("[data-case-library-frame]");
+  const fullLink = $("[data-case-library-full]");
+  if (!dialog || !frame) return;
+  let activeCase = "";
+  const sync = () => {
+    const english = LANG() === "en";
+    const params = new URLSearchParams({ lang: LANG() });
+    if (activeCase) params.set("case", activeCase);
+    const url = `./library.html?${params}`;
+    if (dialog.open && frame.getAttribute("src") !== url) frame.src = url;
+    if (fullLink) { fullLink.href = url; fullLink.textContent = english ? "Open full library ↗" : "打开完整案例库 ↗"; }
+    $("[data-case-more-label]").textContent = english ? "View more cases" : "查看更多案例";
+    $("[data-case-library-title]").textContent = english ? "Choose a reference" : "选择参考案例";
+    $("[data-case-library-subtitle]").textContent = english ? "Explore the screens and try the demo." : "查看真实界面，试用可点击 Demo。";
+    $("[data-case-library-close]").setAttribute("aria-label", english ? "Close" : "关闭");
+  };
+  const open = (caseId = "") => {
+    activeCase = caseId;
+    if (!dialog.open) dialog.showModal();
+    sync();
+  };
+  $("[data-case-library-open]")?.addEventListener("click", () => open());
+  $$("[data-direction-card-case]").forEach((link) => link.addEventListener("click", (event) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    open(link.dataset.directionCardCase);
+  }));
+  $("[data-case-library-close]")?.addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
+  window.addEventListener("image2:languagechange", sync);
+  sync();
+}
+
 restoreDna();
 installEvents();
+installCaseLibrary();
 applyTokens();
 updateDirectionCaseLink();

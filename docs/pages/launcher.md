@@ -1,13 +1,13 @@
 # Launcher Page Requirements
 
-Last updated: 2026-09-02
+Last updated: 2026-10-15
 
 ## Page identity
 
 - Public route: `launcher.html`
 - Product role: Start Designing / Design DNA configurator
 - Canonical implementation: `src/features/launcher/launcher-dna.css`, `src/features/launcher/launcher-dna.js`
-- `src/features/launcher/launcher-dna.css` is the single static style entry point. It imports the base Launcher chrome, Design System picker, Foundation refinement and workspace/Preview boundary styles.
+- `src/features/launcher/launcher-dna.css` is the single static style entry point. `launcher-inspector.css` owns the configuration column and workspace geometry; picker and component preview styles retain their own responsibilities.
 - Related responsibilities: `launcher-design-systems.js`, `design-systems-catalog.js`, `design-system-usage.js`, `launcher-preview-i18n.js`
 
 ## Page goal
@@ -45,6 +45,12 @@ The preview should have more visual weight than configuration controls.
 
 The page header provides a visible Review & export action that opens the existing Save & reuse section. Desktop settings use a compact column so the live preview has the majority of the workspace width.
 
+- Visual direction includes one optional, short project description. Its current value is included in the reviewed/exported prompt and browser save.
+- Desktop keeps the configuration column scrollable independently and the preview visible beside it. On small screens the workspace stacks naturally without nested configuration scrolling.
+- The preview toolbar states that changes sync automatically, and the current design summary stays directly beneath the preview.
+- Direction cards use the verified case-library single-screen thumbnails. Full interactive case browsing loads only when the user opens More cases; the right-hand preview remains live and editable.
+- Visual direction and Foundation are initially expanded; Save & reuse opens through its header or the review action. Each section continues to expand independently.
+
 ## Interaction rules
 
 - The Visual direction, Foundation, and Save & reuse sections expand independently. Opening one must not collapse another; nested selectors must not change their parent section's open state.
@@ -54,6 +60,8 @@ The page header provides a visible Review & export action that opens the existin
 - Referencing Ant Design does **not** mean redesigning Launcher as an admin dashboard.
 - Keep the shared ONDesign App Shell unchanged unless the user explicitly requests a global navigation change.
 - Chinese and English versions must follow the global language state and keep equivalent functionality and geometry.
+- The exported clipboard text must exactly match the reviewed prompt, including the current name, visual system, component system, official component documentation and manual refinements. Renaming or changing either system marks the DNA as modified.
+- Reloading a saved DNA retains the project description, custom name and manual typography, radius and spacing refinements when restoring the same visual system.
 
 ### Global App Shell and workspace boundary
 
@@ -70,6 +78,7 @@ The page header provides a visible Review & export action that opens the existin
 - External colors must be normalized into semantic `canvas / surface / ink / muted / accent` roles before they are applied. Never fall back to an arbitrary first/brand color for a missing surface token.
 - Launcher must infer a Light or Dark preview mode from normalized canvas/surface tokens, then choose the matching text hierarchy.
 - Preview text contrast must remain readable after normalization: primary text should target at least 4.5:1 against the active surface and muted/supporting text at least 3:1, with contrast-safe fallbacks when upstream tokens are incomplete or mismatched.
+- Component previews inherit the selected visual system's semantic text and surface colors. Primary action labels and selected checkbox marks use a contrast-safe foreground against the accent; component structure must not force light input surfaces into a dark preview.
 - A selected Design System must remain visually recognizable through semantic accent and surface language. Brand accent colors are functional signals (primary actions, active states, selected tabs, links, highlights), not arbitrary full-page fills.
 - Spotify: near-black surfaces + Spotify Green functional accent.
 - Shopify: light neutral product/admin surfaces + Shopify Green functional accent. Do not inherit dark storefront/marketing tokens into the generic Launcher product preview.

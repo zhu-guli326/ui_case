@@ -40,7 +40,7 @@ function fieldMarkup() {
       <div class="cs-list" data-cs-list role="radiogroup"></div>
     </div>
     <div class="cs-live">
-      <div class="cs-live-head"><a target="_blank" rel="noopener noreferrer" data-cs-docs>${t("查看官方组件 ↗", "Official components ↗")}</a></div>
+      <div class="cs-live-head"><span class="cs-live-label">${t("组件预览", "Component preview")}</span><a target="_blank" rel="noopener noreferrer" data-cs-docs>${t("官方文档 ↗", "Docs ↗")}</a></div>
       <div class="cs-live-row">
         <button class="cs-demo-button" type="button">${t("主按钮", "Primary")}</button>
         <label class="cs-demo-input"><span>${t("输入框", "Input")}</span><input type="text" value="ONDesign" aria-label="Component input preview"></label>
@@ -110,7 +110,8 @@ function updateField() {
   image.addEventListener("error", () => logo.classList.add("is-fallback"), { once:true });
   const docs = $("[data-cs-docs]", field);
   docs.href = docsFor(current);
-  docs.textContent = t("查看官方组件 ↗", "Official components ↗");
+  docs.textContent = t("官方文档 ↗", "Docs ↗");
+  $(".cs-live-label", field).textContent = t("组件预览", "Component preview");
   $(".cs-demo-button", field).textContent = t("主按钮", "Primary");
   $(".cs-demo-input span", field).textContent = t("输入框", "Input");
   $(".cs-demo-tag", field).textContent = t("标签", "Tag");

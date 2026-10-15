@@ -165,6 +165,10 @@ const readableColor = (background, preferred, minimum, lightFallback, darkFallba
   return lightRatio >= darkRatio ? lightFallback : darkFallback;
 };
 
+export function accentForeground(background) {
+  return readableColor(background, "#ffffff", 4.5, "#ffffff", "#000000");
+}
+
 function normalizeLauncherColors(sourceColors = {}) {
   const colors = { ...sourceColors };
 

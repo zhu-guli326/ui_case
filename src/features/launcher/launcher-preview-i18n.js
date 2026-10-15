@@ -2,13 +2,6 @@
   const previewRoot = document.querySelector('.preview-page');
   const language = () => (window.image2I18n?.language === 'en' || document.documentElement.lang.startsWith('en') ? 'en' : 'zh');
 
-  const directionPreviewSizes = {
-    fithub: [390, 844],
-    organique: [390, 844],
-    'plate-play': [390, 844],
-    'volt-route': [390, 844],
-  };
-
   const previewTranslations = new Map([
     ['首页', 'Home'],
     ['作品', 'Work'],
@@ -157,18 +150,6 @@
     },
   };
 
-  function syncDirectionPreviewSizes() {
-    document.querySelectorAll('.direction-live').forEach((wrap) => {
-      const [width, height] = directionPreviewSizes[wrap.dataset.demo] || [390, 844];
-      const frame = wrap.querySelector('iframe');
-      wrap.style.aspectRatio = `${width} / ${height}`;
-      if (!frame) return;
-      frame.style.width = `${width}px`;
-      frame.style.height = `${height}px`;
-      wrap.style.setProperty('--demo-scale', String(wrap.clientWidth ? wrap.clientWidth / width : 1));
-    });
-  }
-
   function syncDocumentLanguageMeta() {
     const isEnglish = language() === 'en';
     document.title = isEnglish ? 'Interface DNA · ONDesign' : '界面设计 DNA · ONDesign';
@@ -230,69 +211,6 @@
     document.querySelector('.direction-grid')?.setAttribute('aria-label', isEnglish ? 'Interface style' : '界面风格');
   }
 
-  function buildLibraryUrl(caseId = '') {
-    const params = new URLSearchParams({ lang: language() });
-    if (caseId) params.set('case', caseId);
-    return `./library.html?${params.toString()}`;
-  }
-
-  function currentCaseIdFromLink(link) {
-    if (link?.dataset.directionCardCase) return link.dataset.directionCardCase;
-    try {
-      return new URL(link?.getAttribute('href') || '', window.location.href).searchParams.get('case') || '';
-    } catch {
-      return '';
-    }
-  }
-
-  function openCaseLibrary(caseId = '') {
-    const dialog = document.querySelector('[data-case-library-dialog]');
-    const frame = document.querySelector('[data-case-library-frame]');
-    const fullLink = document.querySelector('[data-case-library-full]');
-    if (!dialog) return;
-    dialog.dataset.caseId = caseId;
-    const url = buildLibraryUrl(caseId);
-    if (frame) frame.src = url;
-    if (fullLink) fullLink.href = url;
-    if (typeof dialog.showModal === 'function') {
-      if (!dialog.open) dialog.showModal();
-    } else {
-      dialog.setAttribute('open', '');
-    }
-  }
-
-  function installCaseDialogLinks() {
-    document.querySelectorAll('[data-direction-case-link], [data-direction-card-case]').forEach((link) => {
-      if (link.dataset.caseDialogBound === 'true') return;
-      link.dataset.caseDialogBound = 'true';
-      link.removeAttribute('target');
-      link.addEventListener('click', (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        openCaseLibrary(currentCaseIdFromLink(link));
-      });
-    });
-  }
-
-  function syncLanguageLinks() {
-    const lang = language();
-    document.querySelectorAll('.direction-live iframe').forEach((frame) => {
-      const current = frame.getAttribute('src') || '';
-      const path = current.split('?')[0];
-      const next = `${path}?embed=1&lang=${lang}`;
-      if (current !== next) frame.setAttribute('src', next);
-    });
-    document.querySelectorAll('a[href*="library.html?case="]').forEach((link) => {
-      link.href = buildLibraryUrl(currentCaseIdFromLink(link));
-    });
-    const dialog = document.querySelector('[data-case-library-dialog]');
-    if (dialog?.dataset.caseId) {
-      const url = buildLibraryUrl(dialog.dataset.caseId);
-      document.querySelector('[data-case-library-frame]')?.setAttribute('src', url);
-      document.querySelector('[data-case-library-full]')?.setAttribute('href', url);
-    }
-  }
-
   function translatePreviewSamples() {
     if (!previewRoot) return;
 
@@ -332,15 +250,9 @@
     syncFontSelectLanguage();
     syncStaticLauncherCopy();
     syncControlAriaLabels();
-    installCaseDialogLinks();
-    syncLanguageLinks();
-    syncDirectionPreviewSizes();
     translatePreviewSamples();
   }
 
-  window.addEventListener('resize', () => {
-    syncDirectionPreviewSizes();
-  });
   window.addEventListener('image2:languagechange', sync);
   window.addEventListener('load', sync, { once: true });
 

@@ -8,6 +8,7 @@ import {
   designSystemUsage,
   designSystemUsageLabel,
   normalizeDesignSystemForLauncher,
+  accentForeground,
 } from "./design-system-usage.js";
 
 const STORAGE_KEY = "ondesign:design-system-preset:v2";
@@ -440,6 +441,7 @@ function applyDesignSystem(entry, spec, { silent = false } = {}) {
   const spacing = Math.max(4, pxNumber(spacingValue(spec), 16));
   const root = document.documentElement;
   root.style.setProperty("--dna-accent", palette.accent);
+  root.style.setProperty("--dna-on-accent", accentForeground(palette.accent));
   root.style.setProperty("--dna-accent-soft", `color-mix(in srgb, ${palette.accent} 12%, ${palette.surface})`);
   root.style.setProperty("--dna-canvas", palette.canvas);
   root.style.setProperty("--dna-surface", palette.surface);
@@ -454,8 +456,6 @@ function applyDesignSystem(entry, spec, { silent = false } = {}) {
 
   const prompt = document.querySelector("#dnaPrompt");
   if (prompt) prompt.textContent = promptSnapshot;
-  const name = document.querySelector("#dnaName");
-  if (name) name.value = `${entry.name} · Web DNA`;
   const rulesChip = document.querySelector('[data-section-value="rules"]');
   if (rulesChip) rulesChip.textContent = `${entry.name} · ${primaryFont(spec)}`;
   const dockFont = document.querySelector("#dockFont");
@@ -470,7 +470,7 @@ function applyDesignSystem(entry, spec, { silent = false } = {}) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ slug: entry.slug })); } catch {}
 
   window.dispatchEvent(new CustomEvent("ondesign:designsystemapply", {
-    detail: { slug: entry.slug, name: entry.name, radius, radiusSource: radiusValue(spec), scope: designSystemUsage(entry).scope },
+    detail: { slug: entry.slug, name: entry.name, radius, radiusSource: radiusValue(spec), scope: designSystemUsage(entry).scope, restored: silent },
   }));
   if (!silent) window.dispatchEvent(new CustomEvent("ondesign:designsystemchange", { detail: { slug: entry.slug, name: entry.name, radius, scope: designSystemUsage(entry).scope } }));
 }
@@ -479,22 +479,17 @@ function updateTrigger() {
   if (!trigger) return;
   const strong = trigger.querySelector("strong");
   const small = trigger.querySelector("small");
-  const swatches = trigger.querySelectorAll(".ds-trigger-swatches i");
   const brandLogo = trigger.querySelector(".ds-trigger-logo");
   if (!selectedEntry || !selectedSpec) {
     if (strong) strong.textContent = txt("选择设计规范", "Choose a design system");
     if (small) small.textContent = txt("先选基础规范，再微调 Token", "Choose a foundation, then fine-tune tokens");
     setBrandLogo(brandLogo, null);
-    swatches.forEach((node) => { node.style.background = "#eee"; });
     return;
   }
   if (strong) strong.textContent = selectedEntry.name;
   if (small) small.textContent = `${designSystemUsageLabel(selectedEntry, lang())} · ${primaryFont(selectedSpec)} · ${radiusValue(selectedSpec)} · ${spacingValue(selectedSpec)}`;
   setBrandLogo(brandLogo, selectedEntry);
-  const palette = paletteFor(selectedSpec);
-  [palette.accent, palette.surface, palette.canvas, palette.ink].forEach((color, index) => {
-    if (swatches[index]) swatches[index].style.background = color;
-  });
+
 }
 
 async function restoreSelection() {

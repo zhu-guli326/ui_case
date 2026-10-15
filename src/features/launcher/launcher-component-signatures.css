@@ -70,8 +70,8 @@ body[data-component-system] [data-preview-stage] .v-form .v-check input[type="ch
   content: "";
   width: 7px;
   height: 4px;
-  border-left: 2px solid #fff;
-  border-bottom: 2px solid #fff;
+  border-left: 2px solid var(--dna-on-accent, #fff);
+  border-bottom: 2px solid var(--dna-on-accent, #fff);
   transform: rotate(-45deg) scale(0);
   transform-origin: center;
   transition: transform .12s ease;
@@ -101,9 +101,9 @@ body[data-component-system="antd"] [data-preview-stage] .v-form label > span { f
 body[data-component-system="antd"] [data-preview-stage] .v-form :is(input:not([type="checkbox"]), select) {
   min-height: 40px !important;
   padding: 0 12px !important;
-  border: 1px solid #d9d9d9 !important;
+  border: 1px solid color-mix(in srgb, var(--dna-ink) 18%, transparent) !important;
   border-radius: 6px !important;
-  background: #fff !important;
+  background: var(--dna-surface) !important;
   box-shadow: none !important;
 }
 body[data-component-system="antd"] [data-preview-stage] .v-form :is(input:not([type="checkbox"]), select):focus {
