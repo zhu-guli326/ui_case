@@ -106,7 +106,7 @@
   object-fit:cover !important; object-position:center !important;
 }
 #previewMediaFrame:not(.is-artboard-preview) iframe.phone-media {
-  position:absolute !important; top:50% !important; left:50% !important; inset:auto !important;
+  position:absolute !important; inset:50% auto auto 50% !important;
   display:block !important; width:var(--preview-source-width,390px) !important;
   height:var(--preview-source-height,844px) !important; max-width:none !important; max-height:none !important;
   border:0 !important; border-radius:0 !important; background:#fff !important;
@@ -114,16 +114,6 @@
   transform-origin:center !important;
 }
 
-/* Live demos own a responsive 390 x 844 document. Let the iframe fill the
- * actual phone viewport instead of rendering a fixed canvas and scaling it;
- * the latter crops the left half when the dialog narrows. */
-#previewMediaFrame:not(.is-artboard-preview):not(.is-source-video) iframe.phone-media {
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  transform: none !important;
-  transform-origin: center center !important;
-}
 #previewMediaFrame.is-artboard-preview {
   width:min(620px,calc(100% - 44px)) !important; max-width:calc(100% - 44px) !important;
   aspect-ratio:var(--adaptive-media-ratio,4 / 3) !important; border-radius:16px !important; background:transparent !important;

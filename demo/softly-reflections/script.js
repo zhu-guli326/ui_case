@@ -178,5 +178,8 @@ renderWeek();
 renderWaveform();
 
 const params = new URLSearchParams(window.location.search);
-if (params.has("embed")) document.documentElement.classList.add("embed-mode");
+if (params.has("embed")) {
+  document.documentElement.classList.add("embed-mode");
+  focusPhone("reflections");
+}
 if (params.get("view") && ["welcome", "reflections", "mood"].includes(params.get("view"))) focusPhone(params.get("view"));

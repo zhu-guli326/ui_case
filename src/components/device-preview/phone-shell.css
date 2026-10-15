@@ -62,8 +62,9 @@
 
 /*
  * Shared screen safe areas.
- * Cases may choose typography, color and horizontal padding, but the status-bar
- * box itself always begins at the screen origin and occupies one 44px safe row.
+ * Cases may choose typography, color, horizontal padding and whether the bar
+ * overlays the screen or occupies a row. Normalize its 44px safe area without
+ * turning an authored overlay into an extra row above full-height content.
  */
 .iphone-frame > .screen > .statusbar,
 .iphone-frame > .screen > .status-bar,
@@ -71,7 +72,6 @@
 .iphone-frame > .s > .statusbar,
 .iphone-frame > .s > .status-bar,
 .iphone-frame > .s > .status {
-  position: relative !important;
   z-index: 30;
   box-sizing: border-box;
   top: 0 !important;

@@ -385,11 +385,11 @@ button:focus-visible, input:focus-visible { outline: 3px solid #5447b7; outline-
 
 .embed-mode .phone { display: none; }
 
-.embed-mode .phone-reflections { display: block; width: 390px; height: 844px; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; transform: none; }
+.embed-mode .phone.is-focused { display: block; width: 390px; height: 844px; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; transform: none; }
 
-.embed-mode .phone-reflections::before, .embed-mode .phone-reflections::after { display: none; }
+.embed-mode .phone::before, .embed-mode .phone::after { display: none; }
 
-.embed-mode .phone-reflections .screen { border-radius: 0; }
+.embed-mode .phone .screen { border-radius: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }

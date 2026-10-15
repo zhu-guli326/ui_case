@@ -104,7 +104,7 @@ export function createLibraryDetailController({
   function updateEmbeddedPreviewScale() {
     if (!activePreviewGuide || previewDialogDemo.hidden) return;
     const { width, height } = getPreviewDevice(activePreviewGuide, "live");
-    const scale = Math.min(previewPhoneScreen.clientWidth / width, previewPhoneScreen.clientHeight / height) * 1.04;
+    const scale = Math.min(previewPhoneScreen.clientWidth / width, previewPhoneScreen.clientHeight / height);
     previewMediaFrame.style.setProperty("--preview-embed-scale", String(scale));
   }
 
