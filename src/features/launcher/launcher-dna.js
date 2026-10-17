@@ -7,7 +7,7 @@ const LANG = () => (window.image2I18n?.language === "en" ? "en" : "zh");
 const fallbackPalettes = {
   sage: { label: "鼠尾草绿", labelEn: "Sage green", colors: ["#18a957", "#e7f5ec", "#f6f5f1", "#fffefa", "#24231f", "#77746d"] },
   ink: { label: "墨黑灰", labelEn: "Ink black", colors: ["#111111", "#e8e8e4", "#f5f4f0", "#ffffff", "#252724", "#747474"] },
-  blue: { label: "深海蓝", labelEn: "Deep blue", colors: ["#2457e6", "#e7edff", "#f2f5ff", "#ffffff", "#17213c", "#65708c"] },
+  blue: { label: "午夜蓝", labelEn: "Midnight blue", colors: ["#93a8ff", "#242d4a", "#0f1422", "#171e30", "#f3f5ff", "#b4bed5"] },
   coral: { label: "暖珊瑚", labelEn: "Warm coral", colors: ["#e4573d", "#fff0e8", "#fff7f2", "#ffffff", "#321d18", "#8b6d63"] },
 };
 
@@ -50,7 +50,7 @@ const px = (value, fallback) => { const match = String(value || "").match(/-?\d+
 
 const state = {
   style: "restrained",
-  density: "balanced",
+  density: "loose",
   palette: "sage",
   font: "system-sans",
   radius: "14",
@@ -62,12 +62,14 @@ const state = {
   overrides: { font: false, radius: false, spacing: false },
 };
 
-const directionDefaults = {
-  restrained: { palette: "sage", font: "system-sans", radius: "14", spacing: "10", density: "balanced" },
-  editorial: { palette: "ink", font: "noto-serif-sc", radius: "0", spacing: "6", density: "compact" },
-  vivid: { palette: "coral", font: "noto-sans-sc", radius: "28", spacing: "10", density: "compact" },
-  future: { palette: "blue", font: "ibm-plex-mono", radius: "14", spacing: "14", density: "balanced" },
+const directionProfiles = {
+  restrained: { defaults: { palette: "sage", font: "system-sans", radius: "14", spacing: "10", density: "loose" }, composition: { zh: "均衡分栏、适度标题、轻分隔与留白", en: "Balanced columns, moderate headings, quiet dividers and whitespace" } },
+  editorial: { defaults: { palette: "ink", font: "noto-serif-sc", radius: "0", spacing: "6", density: "balanced" }, composition: { zh: "纵向叙事、通栏大标题、宽幅图片与报刊分隔", en: "Vertical story, full-width headline, panoramic image and editorial rules" } },
+  vivid: { defaults: { palette: "coral", font: "noto-sans-sc", radius: "28", spacing: "10", density: "compact" }, composition: { zh: "非对称分栏、重字重、突出主行动与紧凑节奏", en: "Asymmetric columns, bold headings, prominent primary action and compact rhythm" } },
+  future: { defaults: { palette: "blue", font: "ibm-plex-mono", radius: "14", spacing: "14", density: "balanced" }, composition: { zh: "居中主视觉、宽幅图片、细线网格与精确对齐", en: "Centered hero, wide image, fine grid and precise alignment" } },
 };
+const directionComposition = () => directionProfiles[state.style].composition[LANG()];
+const densityScale = () => ({ loose: 1.35, balanced: 1, compact: .7 }[state.density] || 1);
 
 function currentRootToken(name, fallback = "") {
   return document.documentElement.style.getPropertyValue(name).trim() || getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
@@ -92,13 +94,12 @@ function fallbackBase() {
 
 function effectiveTokens() {
   const base = state.designSystemBase || fallbackBase();
-  const densityScale = { loose: 1.2, balanced: 1, compact: .82 }[state.density] || 1;
   return {
     ...base,
     fontStack: state.designSystemBase && !state.overrides.font ? base.fontStack : fontById(state.font).stack,
     fontName: state.designSystemBase && !state.overrides.font ? base.fontName : fontName(state.font),
     radius: state.designSystemBase && !state.overrides.radius ? base.radius : Number(state.radius),
-    spacing: (state.designSystemBase && !state.overrides.spacing ? base.spacing : Number(state.spacing)) * densityScale,
+    spacing: (state.designSystemBase && !state.overrides.spacing ? base.spacing : Number(state.spacing)) * densityScale(),
   };
 }
 
@@ -115,6 +116,7 @@ function applyTokens() {
   root.style.setProperty("--dna-radius", `${Math.max(0, token.radius)}px`);
   root.style.setProperty("--ds-radius", `${Math.max(0, token.radius)}px`);
   root.style.setProperty("--dna-space", `${Math.max(4, token.spacing)}px`);
+  root.style.setProperty("--dna-density-scale", String(densityScale()));
   root.style.setProperty("--dna-display", token.fontStack);
   root.style.setProperty("--dna-body", token.fontStack);
   root.style.setProperty("--ant-primary", token.accent);
@@ -128,6 +130,7 @@ function applyTokens() {
   root.style.setProperty("--ant-border-secondary", `color-mix(in srgb, ${token.ink} 8%, ${token.surface})`);
   root.style.setProperty("--ant-radius", `${Math.max(0, token.radius)}px`);
   document.body.dataset.style = state.style;
+  document.body.dataset.density = state.density;
   if (state.designSystem?.slug) document.body.dataset.designSystem = state.designSystem.slug;
   renderAll();
 }
@@ -175,6 +178,11 @@ function renderSectionValues() {
   const direction = $('[data-section-value="direction"]');
   const rules = $('[data-section-value="rules"]');
   if (direction) direction.textContent = `${L().style[state.style]} · ${L().density[state.density]}`;
+  const caption = $("#previewDirection");
+  const feedback = `${L().style[state.style]} · ${L().density[state.density]} · ${directionComposition()}`;
+  if (caption) caption.textContent = feedback;
+  const directionFeedback = $("#directionFeedback");
+  if (directionFeedback) directionFeedback.textContent = feedback;
   if (rules) {
     const token = effectiveTokens();
     rules.textContent = state.designSystem
@@ -212,6 +220,7 @@ function dnaText() {
     ...(state.project.trim() ? [`Project: ${state.project.trim()}`] : []),
     `Design system: ${state.designSystem?.name || "Custom foundation"}`,
     `Direction: ${L().style[state.style]}`,
+    `Composition: ${directionComposition()}`,
     `Colors: accent ${token.accent}; canvas ${token.canvas}; surface ${token.surface}; ink ${token.ink}; muted ${token.muted}`,
     `Typography: ${token.fontName}${state.overrides.font ? " (override)" : ""}`,
     `Radius: ${Math.round(token.radius)}px${state.overrides.radius ? " (override)" : ""}`,
@@ -224,6 +233,7 @@ function dnaText() {
     ...(state.project.trim() ? [`项目：${state.project.trim()}`] : []),
     `设计规范：${state.designSystem?.name || "自定义基础"}`,
     `设计方向：${L().style[state.style]}`,
+    `构图要求：${directionComposition()}`,
     `颜色：主色 ${token.accent}；画布 ${token.canvas}；表面 ${token.surface}；文字 ${token.ink}；次级文字 ${token.muted}`,
     `字体：${token.fontName}${state.overrides.font ? "（已微调）" : ""}`,
     `圆角：${Math.round(token.radius)}px${state.overrides.radius ? "（已微调）" : ""}`,
@@ -264,20 +274,25 @@ function markModified() {
 
 function selectStyle(button) {
   const style = button.dataset.style;
-  if (!style) return;
+  const profile = directionProfiles[style];
+  if (!profile) return;
   state.style = style;
-  const defaults = directionDefaults[style];
-  if (!state.designSystemBase && defaults) Object.assign(state, defaults);
+  state.density = profile.defaults.density;
+  if (!state.designSystemBase) {
+    state.palette = profile.defaults.palette;
+    ["font", "radius", "spacing"].forEach((key) => { if (!state.overrides[key]) state[key] = profile.defaults[key]; });
+  }
   markModified();
   applyTokens();
   updateDirectionCaseLink();
+  if ($(".preview-page")) $(".preview-page").scrollTop = 0;
 }
 
 function selectInGroup(group, button) {
   const value = button.dataset.value;
   if (!value) return;
   state[group] = value;
-  if (state.designSystemBase && (group === "radius" || group === "spacing")) state.overrides[group] = true;
+  if (group === "radius" || group === "spacing") state.overrides[group] = true;
   markModified();
   applyTokens();
 }
@@ -357,6 +372,7 @@ function restoreDna() {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
     if (!saved) return;
     savedFoundation = { slug: saved.designSystem?.slug, overrides: { font: !!saved.overrides?.font, radius: !!saved.overrides?.radius, spacing: !!saved.overrides?.spacing } };
+    state.overrides = { ...savedFoundation.overrides };
     ["style", "density", "palette", "font", "radius", "spacing", "project"].forEach((key) => { if (saved[key] != null) state[key] = String(saved[key]); });
     if ($("#dnaProject")) $("#dnaProject").value = state.project;
     if (saved.name && $("#dnaName")) $("#dnaName").value = saved.name;
@@ -372,7 +388,7 @@ function installEvents() {
   $("[data-font-select]")?.addEventListener("change", (event) => {
     if (event.target.value === "__design-system__") return;
     state.font = event.target.value;
-    if (state.designSystemBase) state.overrides.font = true;
+    state.overrides.font = true;
     markModified();
     applyTokens();
     window.dispatchEvent(new CustomEvent("ondesign:fontchange", { detail: { id: state.font, name: fontName(state.font) } }));
@@ -394,6 +410,7 @@ function installEvents() {
       view.hidden = !active;
       view.classList.toggle("is-active", active);
     });
+    if ($(".preview-page")) $(".preview-page").scrollTop = 0;
   });
   $("#saveDna")?.addEventListener("click", saveDna);
   $("#copyDna")?.addEventListener("click", copyDna);
@@ -405,8 +422,8 @@ function installEvents() {
 }
 
 window.image2I18n?.addTranslations({
-  "dna.previewSync": { zh: "更改会自动同步到预览", en: "Changes sync to the preview automatically" },
   "dna.projectLabel": { zh: "你想设计什么？（选填）", en: "What are you designing? (optional)" },
+  "dna.viewPreview": { zh: "查看预览 ↓", en: "View preview ↓" },
   "dna.projectPlaceholder": { zh: "例如：为独立设计师做一个简洁的作品集网站。", en: "e.g. A minimal portfolio website for an independent designer." },
   "dna.heroTitle": { zh: "界面设计 DNA", en: "Interface DNA" },
   "dna.heroLede": { zh: "选一个喜欢的方向，边调边看，把满意的设计带进开发。", en: "Choose a direction, refine it live, and take your design into development." },

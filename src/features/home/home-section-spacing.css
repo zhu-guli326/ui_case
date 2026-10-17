@@ -107,7 +107,7 @@ body.project-home #capabilities .capability-grid p > span:nth-child(2) {
 
   body.project-home #capabilities .capability-grid > a > img {
     transform: translate3d(0, 0, 18px) scale(1.001);
-    transform-origin: center;
+    transform-origin: center top;
     transition: filter .35s ease;
     will-change: transform;
   }

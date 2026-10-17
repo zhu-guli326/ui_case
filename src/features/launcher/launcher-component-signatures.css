@@ -88,8 +88,8 @@ body[data-component-system] [data-preview-stage] .v-form .v-check input[type="ch
 
 /* Ant Design — outlined, balanced enterprise controls. */
 body[data-component-system="antd"] [data-preview-stage] .v-form {
-  gap: 16px !important;
-  padding: 26px !important;
+  gap: calc(16px * var(--dna-density-scale, 1)) !important;
+  padding: calc(26px * var(--dna-density-scale, 1)) !important;
   border: 1px solid #e5e7eb !important;
   border-radius: 8px !important;
   background: var(--dna-surface) !important;
@@ -120,8 +120,8 @@ body[data-component-system="antd"] [data-preview-stage] .v-form .v-check input {
 
 /* shadcn/ui — monochrome, compact, subtle ring/shadow. */
 body[data-component-system="shadcn"] [data-preview-stage] .v-form {
-  gap: 18px !important;
-  padding: 26px !important;
+  gap: calc(18px * var(--dna-density-scale, 1)) !important;
+  padding: calc(26px * var(--dna-density-scale, 1)) !important;
   border: 1px solid color-mix(in srgb, var(--dna-ink) 12%, transparent) !important;
   border-radius: 12px !important;
   background: var(--dna-surface) !important;
@@ -151,8 +151,8 @@ body[data-component-system="shadcn"] [data-preview-stage] .v-form .v-check input
 
 /* Arco — dense, filled, square enterprise controls. */
 body[data-component-system="arco"] [data-preview-stage] .v-form {
-  gap: 11px !important;
-  padding: 18px !important;
+  gap: calc(11px * var(--dna-density-scale, 1)) !important;
+  padding: calc(18px * var(--dna-density-scale, 1)) !important;
   border: 1px solid color-mix(in srgb, var(--dna-ink) 8%, transparent) !important;
   border-radius: 3px !important;
   background: color-mix(in srgb, var(--dna-canvas) 78%, var(--dna-surface)) !important;
@@ -179,8 +179,8 @@ body[data-component-system="arco"] [data-preview-stage] .v-form .v-check input {
 
 /* Semi — soft filled surfaces, borderless fields, rounder controls. */
 body[data-component-system="semi"] [data-preview-stage] .v-form {
-  gap: 17px !important;
-  padding: 27px !important;
+  gap: calc(17px * var(--dna-density-scale, 1)) !important;
+  padding: calc(27px * var(--dna-density-scale, 1)) !important;
   border: 0 !important;
   border-radius: 16px !important;
   background: color-mix(in srgb, var(--dna-canvas) 72%, var(--dna-surface)) !important;
@@ -208,8 +208,8 @@ body[data-component-system="semi"] [data-preview-stage] .v-form .v-check input {
 
 /* TDesign — distinctly compact, high-density, squared controls. */
 body[data-component-system="tdesign"] [data-preview-stage] .v-form {
-  gap: 10px !important;
-  padding: 18px !important;
+  gap: calc(10px * var(--dna-density-scale, 1)) !important;
+  padding: calc(18px * var(--dna-density-scale, 1)) !important;
   border: 1px solid color-mix(in srgb, var(--dna-ink) 10%, transparent) !important;
   border-radius: 4px !important;
   background: var(--dna-surface) !important;
@@ -242,8 +242,8 @@ body[data-component-system="tdesign"] [data-preview-stage] .v-form > small { fon
 
 /* Material UI — taller outlined fields, floating-label feel, elevation. */
 body[data-component-system="mui"] [data-preview-stage] .v-form {
-  gap: 20px !important;
-  padding: 30px !important;
+  gap: calc(20px * var(--dna-density-scale, 1)) !important;
+  padding: calc(30px * var(--dna-density-scale, 1)) !important;
   border: 0 !important;
   border-radius: 7px !important;
   background: var(--dna-surface) !important;
@@ -281,8 +281,8 @@ body[data-component-system="mui"] [data-preview-stage] .v-form .v-check input { 
 
 /* Element Plus — clean outlined fields with inset hairline. */
 body[data-component-system="element"] [data-preview-stage] .v-form {
-  gap: 16px !important;
-  padding: 24px !important;
+  gap: calc(16px * var(--dna-density-scale, 1)) !important;
+  padding: calc(24px * var(--dna-density-scale, 1)) !important;
   border: 1px solid #ebeef5 !important;
   border-radius: 8px !important;
   background: var(--dna-surface) !important;
@@ -310,8 +310,8 @@ body[data-component-system="element"] [data-preview-stage] .v-form .v-check inpu
 
 /* Radix UI — minimal transparent surfaces with explicit focus rings. */
 body[data-component-system="radix"] [data-preview-stage] .v-form {
-  gap: 15px !important;
-  padding: 22px !important;
+  gap: calc(15px * var(--dna-density-scale, 1)) !important;
+  padding: calc(22px * var(--dna-density-scale, 1)) !important;
   border: 0 !important;
   border-radius: 10px !important;
   background: transparent !important;

@@ -1,6 +1,6 @@
 # Launcher Page Requirements
 
-Last updated: 2026-10-15
+Last updated: 2026-10-17
 
 ## Page identity
 
@@ -8,6 +8,7 @@ Last updated: 2026-10-15
 - Product role: Start Designing / Design DNA configurator
 - Canonical implementation: `src/features/launcher/launcher-dna.css`, `src/features/launcher/launcher-dna.js`
 - `src/features/launcher/launcher-dna.css` is the single static style entry point. `launcher-inspector.css` owns the configuration column and workspace geometry; picker and component preview styles retain their own responsibilities.
+- `launcher-preview-layout.css` owns the four visual-direction compositions inside the live preview.
 - Related responsibilities: `launcher-design-systems.js`, `design-systems-catalog.js`, `design-system-usage.js`, `launcher-preview-i18n.js`
 
 ## Page goal
@@ -47,7 +48,7 @@ The page header provides a visible Review & export action that opens the existin
 
 - Visual direction includes one optional, short project description. Its current value is included in the reviewed/exported prompt and browser save.
 - Desktop keeps the configuration column scrollable independently and the preview visible beside it. On small screens the workspace stacks naturally without nested configuration scrolling.
-- The preview toolbar states that changes sync automatically, and the current design summary stays directly beneath the preview.
+- The preview toolbar identifies the current direction and its composition; changes sync immediately, and the current design summary stays directly beneath the preview.
 - Direction cards use the verified case-library single-screen thumbnails. Full interactive case browsing loads only when the user opens More cases; the right-hand preview remains live and editable.
 - Visual direction and Foundation are initially expanded; Save & reuse opens through its header or the review action. Each section continues to expand independently.
 
@@ -55,6 +56,13 @@ The page header provides a visible Review & export action that opens the existin
 
 - The Visual direction, Foundation, and Save & reuse sections expand independently. Opening one must not collapse another; nested selectors must not change their parent section's open state.
 - Configuration changes should create immediate or clearly triggered visual feedback in the preview.
+- All nine page/component previews respond to direction and density. Density changes page padding, section gaps and row/card spacing, including Article, Product and Settings; it must not only update the selection label. Component-system anatomy and manual token refinements remain intact.
+- The direction panel shows the current composition and density and provides a View preview action, so users can reach the updated result when the preview is below the controls on small screens. The preview caption includes current density.
+- Each visual direction changes the preview composition even after a visual system has been selected: Restrained uses balanced columns and quiet spacing; Editorial uses a vertical story, large headline and panoramic imagery; Vivid uses asymmetric columns, heavier hierarchy and a prominent primary action; Futuristic uses a centered hero and fine grid framing. These treatments apply inside the preview only and also distinguish the surrounding presentation of component samples.
+- Narrow and mobile previews retain direction-specific heading size, weight, leading and image treatment. Collapsing columns must not reset all directions to the same heading size. Heading scales follow the preview width, not the outer editor viewport.
+- Direction changes must be apparent in the first visible preview area, including the sample navigation, hero surface and image treatment. Editorial uses a masthead and monochrome photography; Vivid uses accent-soft feature blocks and a strong primary action; Futuristic uses centered alignment and a framed grid. Cards, forms, pricing and settings use distinct content arrangements rather than only changing an outer border. These use the selected visual system's existing semantic colors and preserve its component anatomy.
+- Switching direction or preview content returns the preview's internal scroll to the top, keeps the selected preview/device and retains sample input values. This exposes the new composition immediately instead of leaving users at an unrelated scroll position.
+- Direction changes apply the direction's density and, without a selected visual system, its default palette and unmodified typography/radius/spacing. Selected visual-system tokens, component behavior and explicit manual refinements remain intact. The preview caption and exported prompt describe the actual composition as well as naming it.
 - Avoid equal visual weight for every settings block.
 - Dropdowns, segmented controls, tabs, tooltips and drawers may reference Ant Design interaction patterns when useful.
 - Referencing Ant Design does **not** mean redesigning Launcher as an admin dashboard.
