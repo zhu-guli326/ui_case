@@ -1,6 +1,6 @@
 # Launcher Page Requirements
 
-Last updated: 2026-10-17
+Last updated: 2026-10-29
 
 ## Page identity
 
@@ -49,7 +49,8 @@ The page header provides a visible Review & export action that opens the existin
 - Visual direction includes one optional, short project description. Its current value is included in the reviewed/exported prompt and browser save.
 - Desktop keeps the configuration column scrollable independently and the preview visible beside it. On small screens the workspace stacks naturally without nested configuration scrolling.
 - The preview toolbar identifies the current direction and its composition; changes sync immediately, and the current design summary stays directly beneath the preview.
-- Direction cards use the verified case-library single-screen thumbnails. Full interactive case browsing loads only when the user opens More cases; the right-hand preview remains live and editable.
+- Direction cards use the verified case-library single-screen thumbnails. Each card shows the direction name and its short traits; the case name is the label and tooltip of the card's open-case link rather than truncated card copy. Full interactive case browsing loads only when the user opens More cases; the right-hand preview remains live and editable.
+- The page header is the title, one lede line and the Review & export action; no extra kicker repeats the title.
 - Visual direction and Foundation are initially expanded; Save & reuse opens through its header or the review action. Each section continues to expand independently.
 
 ## Interaction rules
@@ -58,6 +59,8 @@ The page header provides a visible Review & export action that opens the existin
 - Configuration changes should create immediate or clearly triggered visual feedback in the preview.
 - All nine page/component previews respond to direction and density. Density changes page padding, section gaps and row/card spacing, including Article, Product and Settings; it must not only update the selection label. Component-system anatomy and manual token refinements remain intact.
 - The direction panel shows the current composition and density and provides a View preview action, so users can reach the updated result when the preview is below the controls on small screens. The preview caption includes current density.
+- On stacked layouts (preview below the controls), a floating preview shortcut showing the current direction and density appears while the settings are on screen and the preview is not. On side-by-side layouts the preview is already visible, so neither the floating shortcut nor the inline View preview action is shown.
+- In Save & reuse, Copy prompt is the primary action because the prompt is the export; Save this DNA (browser storage) is secondary. The DNA summary is a single-column label/value list so long values never split mid-word in either language.
 - Each visual direction changes the preview composition even after a visual system has been selected: Restrained uses balanced columns and quiet spacing; Editorial uses a vertical story, large headline and panoramic imagery; Vivid uses asymmetric columns, heavier hierarchy and a prominent primary action; Futuristic uses a centered hero and fine grid framing. These treatments apply inside the preview only and also distinguish the surrounding presentation of component samples.
 - Narrow and mobile previews retain direction-specific heading size, weight, leading and image treatment. Collapsing columns must not reset all directions to the same heading size. Heading scales follow the preview width, not the outer editor viewport.
 - Direction changes must be apparent in the first visible preview area, including the sample navigation, hero surface and image treatment. Editorial uses a masthead and monochrome photography; Vivid uses accent-soft feature blocks and a strong primary action; Futuristic uses centered alignment and a framed grid. Cards, forms, pricing and settings use distinct content arrangements rather than only changing an outer border. These use the selected visual system's existing semantic colors and preserve its component anatomy.
@@ -130,6 +133,8 @@ The page header provides a visible Review & export action that opens the existin
 - Duplicate design-system runtimes or alternate Launcher implementations.
 - Any rule that allows selected Design System colors or typography to leak from Preview into Launcher editor/App Shell chrome.
 - JavaScript-only loading of required Launcher chrome styles.
+- Render-blocking web-font stylesheets. Google Fonts presets load on demand only when applied to the Preview (their stacks keep local fallbacks), because the font host is unreachable for many visitors in mainland China and a blocking stylesheet blanks the whole page.
+- Full-resolution case media in the Preview. Sample images use web-sized copies under `assets/launcher/preview/`; images in hidden preview views load lazily.
 - Placeholder swatch bars that can be mistaken for tofu / missing glyphs.
 
 ## Modification boundary

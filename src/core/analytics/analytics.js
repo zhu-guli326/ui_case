@@ -53,16 +53,4 @@
     previewRuntime.src = "./src/components/device-preview/device-preview.js";
     document.head.append(previewRuntime);
   }
-
-  if (/\/launcher\.html$/.test(location.pathname)) {
-    const launcherPreviewLab = document.createElement("script");
-    launcherPreviewLab.src = "./src/features/launcher/launcher-preview-lab.js";
-    launcherPreviewLab.defer = true;
-    document.head.append(launcherPreviewLab);
-
-    const launcherStability = document.createElement("script");
-    launcherStability.src = "./src/features/launcher/launcher-stability.js";
-    launcherStability.defer = true;
-    document.head.append(launcherStability);
-  }
 })();
