@@ -68,7 +68,6 @@ button:focus-visible, input:focus-visible, a:focus-visible {
   gap: 24px;
   padding: 26px 0 22px;
 }
-.dna-kicker { margin: 0 0 10px; color: var(--dna-accent); font-size: 11px; font-weight: 850; letter-spacing: 1.25px; }
 .dna-hero h1 { margin: 0; font-family: var(--font-sans-cjk); font-size: clamp(26px, 3vw, 36px); font-weight: 850; letter-spacing: -.03em; line-height: 1.05; }
 .dna-lede { max-width: 620px; margin: 10px 0 0; color: var(--dna-muted); font-size: 14px; line-height: 1.65; }
 .dna-hero-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 10px; }
@@ -827,7 +826,6 @@ body.dna-page { font-size: 14px; }
   padding: 18px 0;
   border-bottom: 1px solid var(--ant-border-secondary);
 }
-.dna-kicker { margin-bottom: 6px; color: var(--ant-primary); font-size: 10px; letter-spacing: .12em; }
 .dna-hero h1 { color: var(--ant-text); font-size: 26px; font-weight: 650; letter-spacing: -.02em; line-height: 1.35; }
 .dna-lede { max-width: 720px; margin-top: 4px; color: var(--ant-text-secondary); font-size: 13px; line-height: 1.6; }
 .dna-hero-actions { z-index: 40; }

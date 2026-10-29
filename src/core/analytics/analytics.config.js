@@ -4,18 +4,6 @@ window.IMAGE2_ANALYTICS = {
   site: "image2-ui-library"
 };
 
-// Launcher live-preview copy follows the global language switch.
-// Typography stays simple: choose a font family only. The extended library
-// adds concrete system and Google Fonts choices without exposing low-level
-// weight / tracking / slant controls.
-if (/\/launcher\.html$/i.test(window.location.pathname)) {
-  const source = document.currentScript?.src || window.location.href;
-  const launcherI18nUrl = new URL("../../features/launcher/launcher-preview-i18n.js", source);
-  const launcherFontLibraryUrl = new URL("../../features/launcher/launcher-font-library.js", source);
-  import(launcherI18nUrl.href).catch(() => {});
-  import(launcherFontLibraryUrl.href).catch(() => {});
-}
-
 // Skills Web mode includes a curated Design Systems group sourced from the
 // Awesome / Awesome Design Systems ecosystem, kept separate from Skill repos.
 if (/\/skills\.html$/i.test(window.location.pathname)) {

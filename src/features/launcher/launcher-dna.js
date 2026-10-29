@@ -20,19 +20,19 @@ const FONT_PRESETS = [
   { id: "fangsong", group: "system", zh: "仿宋", en: "Fangsong", descZh: "STFangsong · FangSong", descEn: "STFangsong · FangSong", stack: '"Fangsong SC","STFangsong",FangSong,"SimSun",serif' },
   { id: "yuan", group: "system", zh: "圆体", en: "Rounded CJK", descZh: "Yuanti SC · YouYuan", descEn: "Yuanti SC · YouYuan", stack: '"Yuanti SC",YouYuan,"PingFang SC","Microsoft YaHei",sans-serif' },
   { id: "geometric", group: "system", zh: "几何无衬线", en: "Geometric sans", descZh: "Futura · Century Gothic", descEn: "Futura · Century Gothic", stack: 'Futura,"Century Gothic","Avenir Next","Trebuchet MS",sans-serif' },
-  { id: "noto-sans-sc", group: "google-cjk", zh: "Noto Sans SC", en: "Noto Sans SC", descZh: "Google Fonts · 中文无衬线", descEn: "Google Fonts · CJK sans", stack: '"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif' },
-  { id: "noto-serif-sc", group: "google-cjk", zh: "Noto Serif SC", en: "Noto Serif SC", descZh: "Google Fonts · 中文衬线", descEn: "Google Fonts · CJK serif", stack: '"Noto Serif SC","Songti SC","SimSun",serif' },
-  { id: "zcool-qingke", group: "google-cjk", zh: "ZCOOL QingKe HuangYou", en: "ZCOOL QingKe HuangYou", descZh: "Google Fonts · 中文标题", descEn: "Google Fonts · CJK display", stack: '"ZCOOL QingKe HuangYou","Noto Sans SC","Microsoft YaHei",sans-serif' },
-  { id: "zcool-xiaowei", group: "google-cjk", zh: "ZCOOL XiaoWei", en: "ZCOOL XiaoWei", descZh: "Google Fonts · 中文衬线", descEn: "Google Fonts · CJK serif", stack: '"ZCOOL XiaoWei","Noto Serif SC","Songti SC",serif' },
-  { id: "ma-shan-zheng", group: "google-cjk", zh: "Ma Shan Zheng", en: "Ma Shan Zheng", descZh: "Google Fonts · 中文手写", descEn: "Google Fonts · CJK handwriting", stack: '"Ma Shan Zheng","Kaiti SC",KaiTi,cursive' },
-  { id: "long-cang", group: "google-cjk", zh: "Long Cang", en: "Long Cang", descZh: "Google Fonts · 中文书写", descEn: "Google Fonts · CJK handwriting", stack: '"Long Cang","Kaiti SC",KaiTi,cursive' },
-  { id: "liu-jian-mao-cao", group: "google-cjk", zh: "Liu Jian Mao Cao", en: "Liu Jian Mao Cao", descZh: "Google Fonts · 中文草书", descEn: "Google Fonts · CJK cursive", stack: '"Liu Jian Mao Cao","Kaiti SC",KaiTi,cursive' },
-  { id: "zhi-mang-xing", group: "google-cjk", zh: "Zhi Mang Xing", en: "Zhi Mang Xing", descZh: "Google Fonts · 中文行书", descEn: "Google Fonts · CJK running script", stack: '"Zhi Mang Xing","Kaiti SC",KaiTi,cursive' },
-  { id: "inter", group: "google-latin", zh: "Inter", en: "Inter", descZh: "Google Fonts · UI 无衬线", descEn: "Google Fonts · UI sans", stack: 'Inter,"Noto Sans SC",system-ui,sans-serif' },
-  { id: "manrope", group: "google-latin", zh: "Manrope", en: "Manrope", descZh: "Google Fonts · 几何无衬线", descEn: "Google Fonts · geometric sans", stack: 'Manrope,"Noto Sans SC",system-ui,sans-serif' },
-  { id: "space-grotesk", group: "google-latin", zh: "Space Grotesk", en: "Space Grotesk", descZh: "Google Fonts · 科技无衬线", descEn: "Google Fonts · tech sans", stack: '"Space Grotesk","Noto Sans SC",system-ui,sans-serif' },
-  { id: "playfair-display", group: "google-latin", zh: "Playfair Display", en: "Playfair Display", descZh: "Google Fonts · 编辑衬线", descEn: "Google Fonts · editorial serif", stack: '"Playfair Display","Noto Serif SC",Georgia,serif' },
-  { id: "ibm-plex-mono", group: "google-latin", zh: "IBM Plex Mono", en: "IBM Plex Mono", descZh: "Google Fonts · 编程等宽", descEn: "Google Fonts · developer mono", stack: '"IBM Plex Mono",ui-monospace,Consolas,monospace' },
+  { id: "noto-sans-sc", group: "google-cjk", zh: "Noto Sans SC", en: "Noto Sans SC", descZh: "Google Fonts · 中文无衬线", descEn: "Google Fonts · CJK sans", stack: '"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif', css: "Noto+Sans+SC:wght@400;500;600;700" },
+  { id: "noto-serif-sc", group: "google-cjk", zh: "Noto Serif SC", en: "Noto Serif SC", descZh: "Google Fonts · 中文衬线", descEn: "Google Fonts · CJK serif", stack: '"Noto Serif SC","Songti SC","SimSun",serif', css: "Noto+Serif+SC:wght@400;500;600;700" },
+  { id: "zcool-qingke", group: "google-cjk", zh: "ZCOOL QingKe HuangYou", en: "ZCOOL QingKe HuangYou", descZh: "Google Fonts · 中文标题", descEn: "Google Fonts · CJK display", stack: '"ZCOOL QingKe HuangYou","Noto Sans SC","Microsoft YaHei",sans-serif', css: "ZCOOL+QingKe+HuangYou" },
+  { id: "zcool-xiaowei", group: "google-cjk", zh: "ZCOOL XiaoWei", en: "ZCOOL XiaoWei", descZh: "Google Fonts · 中文衬线", descEn: "Google Fonts · CJK serif", stack: '"ZCOOL XiaoWei","Noto Serif SC","Songti SC",serif', css: "ZCOOL+XiaoWei" },
+  { id: "ma-shan-zheng", group: "google-cjk", zh: "Ma Shan Zheng", en: "Ma Shan Zheng", descZh: "Google Fonts · 中文手写", descEn: "Google Fonts · CJK handwriting", stack: '"Ma Shan Zheng","Kaiti SC",KaiTi,cursive', css: "Ma+Shan+Zheng" },
+  { id: "long-cang", group: "google-cjk", zh: "Long Cang", en: "Long Cang", descZh: "Google Fonts · 中文书写", descEn: "Google Fonts · CJK handwriting", stack: '"Long Cang","Kaiti SC",KaiTi,cursive', css: "Long+Cang" },
+  { id: "liu-jian-mao-cao", group: "google-cjk", zh: "Liu Jian Mao Cao", en: "Liu Jian Mao Cao", descZh: "Google Fonts · 中文草书", descEn: "Google Fonts · CJK cursive", stack: '"Liu Jian Mao Cao","Kaiti SC",KaiTi,cursive', css: "Liu+Jian+Mao+Cao" },
+  { id: "zhi-mang-xing", group: "google-cjk", zh: "Zhi Mang Xing", en: "Zhi Mang Xing", descZh: "Google Fonts · 中文行书", descEn: "Google Fonts · CJK running script", stack: '"Zhi Mang Xing","Kaiti SC",KaiTi,cursive', css: "Zhi+Mang+Xing" },
+  { id: "inter", group: "google-latin", zh: "Inter", en: "Inter", descZh: "Google Fonts · UI 无衬线", descEn: "Google Fonts · UI sans", stack: 'Inter,"Noto Sans SC",system-ui,sans-serif', css: "Inter:wght@400;500;600;700" },
+  { id: "manrope", group: "google-latin", zh: "Manrope", en: "Manrope", descZh: "Google Fonts · 几何无衬线", descEn: "Google Fonts · geometric sans", stack: 'Manrope,"Noto Sans SC",system-ui,sans-serif', css: "Manrope:wght@400;500;600;700" },
+  { id: "space-grotesk", group: "google-latin", zh: "Space Grotesk", en: "Space Grotesk", descZh: "Google Fonts · 科技无衬线", descEn: "Google Fonts · tech sans", stack: '"Space Grotesk","Noto Sans SC",system-ui,sans-serif', css: "Space+Grotesk:wght@400;500;600;700" },
+  { id: "playfair-display", group: "google-latin", zh: "Playfair Display", en: "Playfair Display", descZh: "Google Fonts · 编辑衬线", descEn: "Google Fonts · editorial serif", stack: '"Playfair Display","Noto Serif SC",Georgia,serif', css: "Playfair+Display:wght@400;500;600;700" },
+  { id: "ibm-plex-mono", group: "google-latin", zh: "IBM Plex Mono", en: "IBM Plex Mono", descZh: "Google Fonts · 编程等宽", descEn: "Google Fonts · developer mono", stack: '"IBM Plex Mono",ui-monospace,Consolas,monospace', css: "IBM+Plex+Mono:wght@400;500;600;700" },
 ];
 window.ONDesignFontPresets = FONT_PRESETS;
 
@@ -45,6 +45,19 @@ const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const fontById = (id) => FONT_PRESETS.find((font) => font.id === id) || FONT_PRESETS[0];
 const fontName = (id) => LANG() === "en" ? fontById(id).en : fontById(id).zh;
+
+// Web fonts are requested only when a preset is actually applied to the preview.
+// An injected stylesheet never blocks first paint, and every stack ends in local
+// fallbacks, so an unreachable font host only changes the preview typeface.
+function ensureFontLoaded(id) {
+  const preset = fontById(id);
+  if (!preset.css || document.querySelector(`link[data-font-preset="${preset.id}"]`)) return;
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = `https://fonts.googleapis.com/css2?family=${preset.css}&display=swap`;
+  link.dataset.fontPreset = preset.id;
+  document.head.append(link);
+}
 const paletteName = (key) => LANG() === "en" ? fallbackPalettes[key].labelEn : fallbackPalettes[key].label;
 const px = (value, fallback) => { const match = String(value || "").match(/-?\d+(?:\.\d+)?/); return match ? Number(match[0]) : fallback; };
 
@@ -106,6 +119,7 @@ function effectiveTokens() {
 function applyTokens() {
   const token = effectiveTokens();
   const root = document.documentElement;
+  if (!state.designSystemBase || state.overrides.font) ensureFontLoaded(state.font);
   root.style.setProperty("--dna-accent", token.accent);
   root.style.setProperty("--dna-on-accent", accentForeground(token.accent));
   root.style.setProperty("--dna-accent-soft", token.accentSoft || `color-mix(in srgb, ${token.accent} 12%, ${token.surface})`);
@@ -178,6 +192,8 @@ function renderSectionValues() {
   const direction = $('[data-section-value="direction"]');
   const rules = $('[data-section-value="rules"]');
   if (direction) direction.textContent = `${L().style[state.style]} · ${L().density[state.density]}`;
+  const jumpValue = $("[data-preview-jump-value]");
+  if (jumpValue) jumpValue.textContent = `${L().style[state.style]} · ${L().density[state.density]}`;
   const caption = $("#previewDirection");
   const feedback = `${L().style[state.style]} · ${L().density[state.density]} · ${directionComposition()}`;
   if (caption) caption.textContent = feedback;
@@ -430,16 +446,16 @@ window.image2I18n?.addTranslations({
   "dna.confirmExport": { zh: "确认并导出", en: "Review & export" },
   "dna.directionTitle": { zh: "视觉方向", en: "Visual direction" },
   "dna.directionDesc": { zh: "先确定整体气质，密度随之匹配。", en: "Set the overall temperament first; density follows." },
-  "dna.dirRestrained": { zh: "克制", en: "Restrained" }, "dna.dirRestrainedDesc": { zh: "留白、秩序、柔和 · 案例「极简训练规划」", en: "Whitespace, order, softness · Case: FitHub" },
-  "dna.dirEditorial": { zh: "编辑感", en: "Editorial" }, "dna.dirEditorialDesc": { zh: "字体、网格、对比 · 案例「编辑式有机餐食」", en: "Typography, grid, contrast · Case: Organique Food" },
-  "dna.dirVivid": { zh: "活力", en: "Vivid" }, "dna.dirVividDesc": { zh: "高对比、丰富、直接 · 案例「高彩插画食谱」", en: "High contrast, rich, direct · Case: Plate Play" },
-  "dna.dirFuture": { zh: "未来感", en: "Futuristic" }, "dna.dirFutureDesc": { zh: "深邃、精致、氛围 · 案例「暗色电车充电导航」", en: "Deep, precise, atmospheric · Case: Volt Route" },
+  "dna.dirRestrained": { zh: "克制", en: "Restrained" }, "dna.dirRestrainedDesc": { zh: "留白、秩序、柔和", en: "Whitespace, order, softness" }, "dna.caseFithub": { zh: "案例：极简训练规划", en: "Case: FitHub" },
+  "dna.dirEditorial": { zh: "编辑感", en: "Editorial" }, "dna.dirEditorialDesc": { zh: "字体、网格、对比", en: "Typography, grid, contrast" }, "dna.caseOrganique": { zh: "案例：编辑式有机餐食", en: "Case: Organique Food" },
+  "dna.dirVivid": { zh: "活力", en: "Vivid" }, "dna.dirVividDesc": { zh: "高对比、丰富、直接", en: "High contrast, rich, direct" }, "dna.casePlatePlay": { zh: "案例：高彩插画食谱", en: "Case: Plate Play" },
+  "dna.dirFuture": { zh: "未来感", en: "Futuristic" }, "dna.dirFutureDesc": { zh: "深邃、精致、氛围", en: "Deep, precise, atmospheric" }, "dna.caseVoltRoute": { zh: "案例：暗色电车充电导航", en: "Case: Volt Route" },
   "dna.densityLegend": { zh: "界面密度", en: "Density" }, "dna.densityLoose": { zh: "宽松", en: "Loose" }, "dna.densityBalanced": { zh: "平衡", en: "Balanced" }, "dna.densityCompact": { zh: "紧凑", en: "Compact" },
   "dna.rulesTitle": { zh: "基础规范", en: "Foundation" }, "dna.rulesDesc": { zh: "设计规范、字体、圆角与间距。", en: "Design system, typography, radius and spacing." }, "dna.fontLegend": { zh: "字体", en: "Typography" },
   "dna.radiusLegend": { zh: "圆角", en: "Radius" }, "dna.radiusSharp": { zh: "直角", en: "Sharp" }, "dna.radiusModerate": { zh: "适中", en: "Moderate" }, "dna.radiusRounded": { zh: "圆润", en: "Rounded" },
   "dna.spacingLegend": { zh: "间距", en: "Spacing" }, "dna.spacingCompact": { zh: "紧凑", en: "Compact" }, "dna.spacingBalanced": { zh: "平衡", en: "Balanced" }, "dna.spacingRelaxed": { zh: "宽松", en: "Relaxed" },
   "dna.saveTitle": { zh: "保存并复用", en: "Save & reuse" }, "dna.saveDesc": { zh: "命名、检查并复制这套 DNA。", en: "Name, review and copy this DNA." }, "dna.nameField": { zh: "规范名称", en: "Preset name" }, "dna.promptLabel": { zh: "生成的提示词", en: "Generated prompt" }, "dna.saveThis": { zh: "保存这套 DNA", en: "Save this DNA" }, "dna.copyPrompt": { zh: "复制提示词", en: "Copy prompt" },
-  "dna.previewTitle": { zh: "实时预览", en: "Live preview" }, "dna.deviceDesktop": { zh: "桌面", en: "Desktop" }, "dna.deviceMobile": { zh: "移动", en: "Mobile" }, "dna.pickerLabel": { zh: "预览内容", en: "Preview" },
+  "dna.previewTitle": { zh: "实时预览", en: "Live preview" }, "dna.jumpToPreview": { zh: "看预览", en: "Preview" }, "dna.deviceDesktop": { zh: "桌面", en: "Desktop" }, "dna.deviceMobile": { zh: "移动", en: "Mobile" }, "dna.pickerLabel": { zh: "预览内容", en: "Preview" },
   "dna.compLanding": { zh: "落地页", en: "Landing" }, "dna.compNav": { zh: "导航", en: "Nav" }, "dna.compCards": { zh: "卡片组", en: "Cards" }, "dna.compForm": { zh: "表单", en: "Form" }, "dna.compPricing": { zh: "定价", en: "Pricing" }, "dna.compDash": { zh: "数据后台", en: "Dashboard" }, "dna.pageArticle": { zh: "文章页", en: "Article" }, "dna.pageProduct": { zh: "商品详情", en: "Product" }, "dna.pageSettings": { zh: "设置页", en: "Settings" }, "dna.groupPages": { zh: "页面", en: "Pages" }, "dna.groupComponents": { zh: "组件", en: "Components" },
   "dna.unsaved": { zh: "未保存", en: "Not saved" }, "dna.saved": { zh: "已保存", en: "Saved" }, "dna.modified": { zh: "有未保存修改", en: "Unsaved changes" },
   "footer.learn": { zh: "学习路径", en: "Learning path" }, "footer.vocabulary": { zh: "UI 词典", en: "UI vocabulary" }, "footer.library": { zh: "案例库", en: "Case library" },
@@ -480,8 +496,25 @@ function installCaseLibrary() {
   sync();
 }
 
+// On stacked layouts the preview sits below a long settings column. While the
+// settings are on screen and the preview is not, keep one shortcut to it.
+function installPreviewJump() {
+  const jump = $("[data-preview-jump]");
+  const canvas = $(".dna-canvas");
+  const controls = $(".dna-controls");
+  if (!jump || !canvas || !controls || !("IntersectionObserver" in window)) return;
+  const stacked = window.matchMedia("(max-width: 860px)");
+  let canvasInView = false;
+  let controlsInView = false;
+  const sync = () => { jump.hidden = !(stacked.matches && controlsInView && !canvasInView); };
+  new IntersectionObserver((entries) => { canvasInView = entries.at(-1).isIntersecting; sync(); }, { rootMargin: "0px 0px -25% 0px" }).observe(canvas);
+  new IntersectionObserver((entries) => { controlsInView = entries.at(-1).isIntersecting; sync(); }).observe(controls);
+  stacked.addEventListener("change", sync);
+}
+
 restoreDna();
 installEvents();
 installCaseLibrary();
+installPreviewJump();
 applyTokens();
 updateDirectionCaseLink();

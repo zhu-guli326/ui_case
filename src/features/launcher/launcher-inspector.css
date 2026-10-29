@@ -46,7 +46,7 @@ body.dna-page .direction-card { min-height: 104px; grid-template-columns: 48px m
 body.dna-page .direction-card > .direction-reference { width: 48px; height: 104px; }
 body.dna-page .direction-reference img { display: block; width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; }
 body.dna-page .direction-card > span:last-child { padding: 12px 18px 12px 10px; gap: 5px; }
-body.dna-page .direction-card small { font-size: 10px; line-height: 1.6; }
+body.dna-page .direction-card small { font-size: 10px; line-height: 1.6; word-break: keep-all; }
 body.dna-page .direction-card.is-selected { box-shadow: 0 0 0 1px #18a957; }
 body.dna-page .direction-more-row { margin: 8px 0 14px; }
 body.dna-page .direction-more-button { font-size: 12px; font-weight: 500; }
@@ -106,9 +106,14 @@ body.dna-page #dna-rules .rule-pair .rule-field { padding: 0; border: 0; }
 body.dna-page #dna-save .dna-section-body { padding: 18px; }
 body.dna-page .dna-name-field { margin-bottom: 14px; }
 body.dna-page .dna-name-field input { border-radius: 8px; min-height: 42px; }
-body.dna-page .dna-summary { border: 0; background: #f8faf5; border-radius: 10px; padding: 10px 12px; }
-body.dna-page .dna-summary > div { gap: 14px; padding-block: 8px; font-size: 11px; }
-body.dna-page .dna-summary dd { overflow-wrap: anywhere; text-align: right; }
+body.dna-page .dna-summary { grid-template-columns: 1fr; border: 0; background: #f8faf5; border-radius: 10px; padding: 4px 12px; }
+body.dna-page .dna-summary > div {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-block: 8px; font-size: 11px;
+  border-right: 0; border-bottom: 1px solid var(--ant-border-secondary);
+}
+body.dna-page .dna-summary > div:last-child { border-bottom: 0; }
+body.dna-page .dna-summary dt { flex-shrink: 0; }
+body.dna-page .dna-summary dd { min-width: 0; overflow-wrap: break-word; text-align: right; }
 body.dna-page .dna-prompt { max-height: 260px; overflow: auto; padding: 12px; border-radius: 9px; font-size: 11px; line-height: 1.8; }
 body.dna-page .save-actions { grid-template-columns: 1fr; }
 body.dna-page .save-actions button { min-height: 40px; border-radius: 8px; }
@@ -130,6 +135,20 @@ body.dna-page #dockFont { min-width: 0; overflow: hidden; text-overflow: ellipsi
 body.dna-page .preview-dock :is(.dock-palette, p) { flex-shrink: 0; white-space: nowrap; }
 body.dna-page .preview-stage.is-mobile .dock-divider { display: none; }
 body.dna-page :where(button, select, summary, textarea):focus-visible { outline: 2px solid #18a957; outline-offset: 3px; }
+
+/* Stacked layouts: one floating shortcut from the settings to the live preview. */
+body.dna-page .dna-preview-jump {
+  position: fixed; z-index: var(--ds-z-sticky); left: 50%; bottom: calc(var(--ds-space-4) + env(safe-area-inset-bottom, 0px));
+  display: inline-flex; align-items: center; gap: var(--ds-space-2); max-width: calc(100vw - 32px);
+  min-height: var(--ds-control-height-lg); padding: 0 var(--ds-space-4);
+  border: 0; border-radius: var(--ds-radius-pill); background: var(--ds-color-text); color: var(--ds-color-text-inverse);
+  box-shadow: var(--ds-shadow-lg); font-size: var(--ds-font-size-sm); font-weight: var(--ds-font-weight-semibold);
+  white-space: nowrap; cursor: pointer; transform: translateX(-50%);
+}
+body.dna-page .dna-preview-jump[hidden] { display: none; }
+body.dna-page .dna-preview-jump b { overflow: hidden; font-weight: var(--ds-font-weight-regular); opacity: .72; text-overflow: ellipsis; }
+body.dna-page .dna-preview-jump svg { width: 16px; height: 16px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+@media (min-width: 861px) { body.dna-page .direction-feedback button { display: none; } }
 @media (min-width: 1440px) { body.dna-page .dna-workspace { grid-template-columns: 384px minmax(0, 1fr); gap: 28px; } }
 @media (max-width: 1100px) { body.dna-page .dna-workspace { grid-template-columns: 328px minmax(0, 1fr); gap: 18px; } body.dna-page .preview-picker > span { display: none; } }
 @media (max-width: 860px) {
@@ -138,6 +157,7 @@ body.dna-page :where(button, select, summary, textarea):focus-visible { outline:
   body.dna-page .dna-canvas { position: static; }
   body.dna-page .preview-page { max-height: 560px; }
   body.dna-page .ds-option-meta { max-width: none; }
+  body.dna-page .dna-toast { bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
 }
 @media (max-width: 540px) {
   body.dna-page .dna-hero { flex-wrap: wrap; gap: 14px; padding-top: 14px; }
