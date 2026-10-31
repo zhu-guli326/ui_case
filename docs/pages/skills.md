@@ -1,6 +1,6 @@
 # Skills Page Requirements
 
-Last updated: 2026-10-08
+Last updated: 2026-10-31
 
 ## Page identity
 
@@ -66,6 +66,8 @@ Category wording can be refined, but three rules hold: the structure stays intui
 6. Persistent bottom-centered floating search for Skill / Web resource discovery
 
 ## Interaction rules
+
+- Do not promote or link to the unlisted Launcher backup from the footer.
 
 - Keep the same shared four-destination knowledge navigation visible when moving between Library, Skills (SKILL / WEB), and Vocabulary. Highlight the current destination, including changes made with the Skills mode controls. During cross-page navigation, keep the global header and knowledge navigation visually stationary; only the content below transitions. Shared implementation: src/components/knowledge-nav/knowledge-nav.js and knowledge-nav.css.
 - Mode switching happens through the shared knowledge navigation or the rail switch, and both drive the same request: requesting Design Tools (WEB) or Design Skills (SKILL) switches the directory inside the current Skills document and updates the URL, active state, filters and results without a full-page transition. The runtime reads the mode from the URL as the single source of truth.

@@ -1,6 +1,6 @@
 # Library Page Requirements
 
-Last updated: 2026-10-15
+Last updated: 2026-10-31
 
 ## Page identity
 
@@ -45,7 +45,7 @@ A user should be able to find a relevant case, understand what makes it useful, 
 - Chinese category labels should stay short: `全部 / 文化 / 电商 / 阅读 / 旅行 / 工具 / 健康`.
 - The case-list heading should be `从一个喜欢的界面开始。`; avoid redundant kicker copy such as `精选案例 / 从画面开始`.
 - Detail explanation should use conversational copy: `为什么它看起来舒服？` with `色彩、排版、组件、动效` as the supporting scope.
-- Primary detail actions should be `用这个风格` and `从这个案例开始`.
+- Keep `用这个风格`, copy and demo actions. Remove the action into Start Designing while Launcher is retained as an unlisted backup.
 - English should preserve the same tone and hierarchy rather than translating older product-documentation wording literally.
 
 ## Interaction rules

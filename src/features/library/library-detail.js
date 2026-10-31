@@ -30,7 +30,6 @@ export function createLibraryDetailController({
     previewExpand,
     previewDialogCopy,
     previewDialogApply,
-    previewDialogStartTask,
     previewDialogMoreActionsSummary,
     previewDialogOpenLive,
     previewMediaStatus,
@@ -45,10 +44,9 @@ export function createLibraryDetailController({
     getPreviewModes,
     getCardPoster,
     getEmbeddedDemoUrl,
-    getStyleProfiles,
-    taskUrlForGuide
+    getStyleProfiles
   } = helpers;
-  const { track, copyStyleMode, applyCaseToProject, projectPatchForGuide } = actions;
+  const { track, copyStyleMode, applyCaseToProject } = actions;
 
   let activePreviewGuide = null;
   let previewLoadTimer = 0;
@@ -364,8 +362,6 @@ export function createLibraryDetailController({
     previewDialogApply.dataset.applyCase = guide.id;
     previewDialogCopy.textContent = copy.copyFull;
     previewDialogApply.textContent = copy.applyProject;
-    previewDialogStartTask.href = taskUrlForGuide(sourceGuide);
-    previewDialogStartTask.textContent = isEnglish ? "Start designing from this case" : "基于此案例开始设计";
     previewDialogMoreActionsSummary.textContent = isEnglish ? "More actions" : "更多操作";
     previewDialogMoreActionsSummary.closest("details").open = false;
     previewMediaStage.style.setProperty("--preview-media-bg", guide.preview);
@@ -483,9 +479,6 @@ export function createLibraryDetailController({
     previewDialogApply.addEventListener("click", () => {
       if (!activePreviewGuide) return;
       applyCaseToProject(activePreviewGuide.id, true);
-    });
-    previewDialogStartTask.addEventListener("click", () => {
-      if (activePreviewGuide) window.image2Project?.save?.({ ...projectPatchForGuide(activePreviewGuide), taskIntent: "rebuild" });
     });
     previewDialog.addEventListener("click", (event) => {
       const lightboxBackdrop = previewDialog.classList.contains("is-lightbox") && (event.target === previewDialogContent || event.target === previewMediaStage);

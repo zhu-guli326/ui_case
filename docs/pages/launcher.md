@@ -1,11 +1,12 @@
 # Launcher Page Requirements
 
-Last updated: 2026-10-17
+Last updated: 2026-10-31
 
 ## Page identity
 
 - Public route: `launcher.html`
-- Product role: Start Designing / Design DNA configurator
+- Product role: unlisted backup of Start Designing / Design DNA configurator
+- Publication status: withdrawn from public navigation, Home, Library actions and sitemap on 2026-10-31. Preserve the original route, source, assets and functionality for backup access. Set `noindex, nofollow` on this route; do not promote it again without an explicit request.
 - Canonical implementation: `src/features/launcher/launcher-dna.css`, `src/features/launcher/launcher-dna.js`
 - `src/features/launcher/launcher-dna.css` is the single static style entry point. `launcher-inspector.css` owns the configuration column and workspace geometry; picker and component preview styles retain their own responsibilities.
 - `launcher-preview-layout.css` owns the four visual-direction compositions inside the live preview.

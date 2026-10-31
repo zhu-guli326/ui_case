@@ -66,7 +66,7 @@ The global framework is fixed across public pages. Page features own page conten
 - Primary navigation and all navigation item ordering/copy.
 - One Knowledge Library navigation link to `library.html`, covering Cases, UI Vocabulary and Design Skills/Tools; no dropdown or separate global links for these destinations.
 - GitHub / X / Xiaohongshu links and GitHub star display.
-- `Start Designing` global entry.
+- Start Designing is unlisted at the user's request (2026-10-31). Keep Launcher source and its direct URL as a backup; do not restore public navigation, promotional links or sitemap inclusion without an explicit request. This retention is an explicit exception to the default archive/cleanup rules.
 - Chinese / English language switch.
 - Shared header geometry, spacing, responsive behavior, active state, hover state and sticky behavior.
 - Shared footer styling and global design tokens.

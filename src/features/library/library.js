@@ -48,7 +48,6 @@ const elements = {
   previewExpand: document.querySelector("#previewExpand"),
   previewDialogCopy: document.querySelector("#previewDialogCopy"),
   previewDialogApply: document.querySelector("#previewDialogApply"),
-  previewDialogStartTask: document.querySelector("#previewDialogStartTask"),
   previewDialogMoreActionsSummary: document.querySelector("#previewDialogMoreActionsSummary"),
   previewDialogOpenLive: document.querySelector("#previewDialogOpenLive"),
   previewMediaStatus: document.querySelector("#previewMediaStatus"),
@@ -128,14 +127,6 @@ function projectPatchForGuide(guide) {
     sourceCaseDemo: guide.liveDemo || "",
     lastStep: "library"
   };
-}
-
-function taskUrlForGuide(guide) {
-  const url = new URL("./launcher.html", window.location.href);
-  url.searchParams.set("intent", "rebuild");
-  url.searchParams.set("source", "library");
-  url.searchParams.set("case", guide.id);
-  return window.image2I18n?.localizeUrl?.(url.href) || url.href;
 }
 
 function applyCaseToProject(id, announce = false) {
@@ -283,10 +274,9 @@ const detail = createLibraryDetailController({
     getPreviewModes,
     getCardPoster,
     getEmbeddedDemoUrl,
-    getStyleProfiles,
-    taskUrlForGuide
+    getStyleProfiles
   },
-  actions: { track, copyStyleMode, applyCaseToProject, projectPatchForGuide }
+  actions: { track, copyStyleMode, applyCaseToProject }
 });
 
 const cards = createLibraryCards({

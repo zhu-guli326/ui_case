@@ -1,6 +1,6 @@
 # Learn / Home Page Requirements
 
-Last updated: 2026-09-03
+Last updated: 2026-10-31
 
 ## Page identity
 
@@ -32,7 +32,7 @@ A visitor should quickly understand:
 - Explain the Design DNA concept.
 - Show before/after or without/with-rules comparisons.
 - Show concrete examples of design-system decisions such as typography, spacing, color, components and layout.
-- Present a clear path into `launcher.html` / Start Designing.
+- Guide users to the case library and design resources; do not link to the unlisted Launcher backup.
 - Provide entry points into deeper learning or library content where appropriate.
 - Support Chinese and English content with equivalent structure.
 - Provide a concise social sharing preview for the public Home URL, with a title, description and image that reflect the current page.
@@ -48,7 +48,7 @@ Preferred narrative order:
 5. Idea-to-demo workflow: image2 to ui / DEFINE → CREATE → BUILD → ITERATE
 6. What defines Design DNA: style / structure / components / specifications
 7. Examples: from idea to interface
-8. One focused Start Designing CTA
+8. One focused case-library CTA
 
 The page may evolve visually, but it should preserve a clear story from problem → method → proof → action.
 
@@ -129,7 +129,7 @@ The old template gallery is no longer a template catalog. It is a compact “看
 - `设计 Skill`: show four real Skill visual previews at once, each in a `3:4` frame. Desktop keeps all four visible in one row; narrow screens may use a compact `2×2` arrangement.
 - Approved Home Skill examples for this four-card group: `frontend-slides`, `react-three-fiber`, `video-shotcraft`, and `mono-color`.
 - Preserve each Skill source image without distortion or extra copy/overlay additions; the four-card group remains a lightweight preview rather than a second Skills catalog.
-- `设计工具`: use a real ONDesign workflow/demo preview that represents Start Designing / Design DNA usage; present it in a `3:4` frame.
+- `设计工具`: use a real ONDesign workflow/demo preview and link to `skills.html?mode=WEB`; present it in a `3:4` frame.
 - `UI 词库`: use a real Vocabulary sheet/card asset showing actual UI terms or components; present it in a `3:4` frame.
 - The preview image should use `object-fit: cover` or a controlled crop only when needed to preserve the required frame ratio; do not distort the source image.
 
@@ -149,7 +149,7 @@ The live design-system explainer keeps the central product workspace and the fou
 ### Final CTA
 
 - Do not use a full-screen creator quote / self-attribution section before the final CTA unless an explicit later content decision restores it.
-- Keep only one focused final action into Start Designing unless an explicit later content decision changes the CTA structure.
+- Keep only one focused final action into the case library unless an explicit later content decision changes the CTA structure.
 - Do not render the small `FOUND SOMETHING YOU LIKE?` eyebrow above the final CTA headline; the headline should be the first visual element in the CTA copy block.
 - The CTA headline should type once when it enters the viewport, character by character, then remain fully visible and stable. The typing caret may blink briefly after completion but must not loop the sentence.
 - Preserve bilingual text. A language switch should restart the CTA headline in the selected language when the CTA is visible.
@@ -165,7 +165,7 @@ The live design-system explainer keeps the central product workspace and the fou
 - Chinese typography and English typography may use different spacing / line-height treatment where needed.
 - Maintain ONDesign's green brand direction unless a global design decision changes it.
 - Do not turn the page into a catalog grid; catalogs belong to Library / Vocabulary / Skills.
-- Keep the primary Start Designing path obvious without adding configuration controls that belong to Launcher.
+- Keep the primary case-library path obvious without adding configuration controls that belong to Launcher.
 - Keep desktop vertical rhythm compact enough that adjacent sections feel connected. Avoid large blank bands created by section padding; default content sections should generally sit in a roughly 64–88px vertical-padding range, with only intentional hero/editorial moments allowed to exceed it.
 - Section headings, supporting copy and tab/filter groups should use compact internal spacing so the page stays relaxed without feeling empty.
 
@@ -195,7 +195,7 @@ The Home page should feel calm while static and expressive while scrolling. Moti
 
 - Strong first-screen value proposition.
 - Visual storytelling.
-- Clear Start Designing path.
+- Clear path to cases and reusable resources.
 - Bilingual support.
 - Shared global App Shell.
 

@@ -105,7 +105,7 @@ The font system is global; interaction states are not visually identical. Font f
 - Default primary navigation: `14px`, medium (`500`) weight, body font family, normal letter spacing, Ant Design-like body line-height.
 - Hover / focus: keep the same `500` weight and all typography metrics; use the global interaction color/state only.
 - Current page: same family / size / tracking / line-height, semibold (`600`) and ONDesign green.
-- Primary workflow entry (`Start Designing` / `开始设计`): semibold (`600`) even when idle; when current it also uses ONDesign green.
+- Start Designing is withdrawn from public navigation; its page and source remain an unlisted backup.
 - Chinese navigation: always `0` letter spacing; never use monospace or Latin negative tracking.
 - English navigation: use the same body-family navigation treatment for consistency; no decorative tracking in application chrome.
 - Language switch labels: same body font; selected state may use a stronger weight.

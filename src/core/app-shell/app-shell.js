@@ -171,9 +171,8 @@
       return `<a href="${resolveLocalHref(item.href)}"${className}${current}${external}${ariaLabel}>${label}</a>`;
     };
     const resources = resourceNavigationItems();
-    const start = renderLink({ href: "./launcher.html", key: "nav.launcher", className: "site-nav-start" });
     const libraryLinks = renderLink({ href: "./library.html", key: "nav.library", className: "site-nav-library" });
-    nav.innerHTML = `<div class="site-nav-community">${siteNavigationItems().map(renderLink).join("")}${libraryLinks}${resources.map(renderLink).join("")}${start}</div><div class="site-nav-utility" data-language-switch></div>`;
+    nav.innerHTML = `<div class="site-nav-community">${siteNavigationItems().map(renderLink).join("")}${libraryLinks}${resources.map(renderLink).join("")}</div><div class="site-nav-utility" data-language-switch></div>`;
   }
 
   function renderSiteHeader(target) {

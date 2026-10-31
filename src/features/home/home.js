@@ -57,7 +57,7 @@ const DISCOVERY_PREVIEWS = [
     maxWidth: "640px",
     fit: "cover",
     position: "center top",
-    route: "./launcher.html",
+    route: "./skills.html?mode=WEB",
     alt: { zh: "ONDesign Start Designing / Design DNA 实际工作流预览", en: "ONDesign Start Designing and Design DNA workflow preview" },
   },
   {
