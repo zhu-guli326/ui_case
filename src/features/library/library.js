@@ -4,9 +4,7 @@ import { styleGuides as catalogStyleGuides, styleProfiles } from "../../../catal
 import {
   previewImageSets,
   featuredCaseOrder,
-  libraryCopy,
-  infoPanels,
-  infoPanelsEnglish
+  libraryCopy
 } from "./library-data.js";
 import { normalizeTag, getFilteredGuides as filterGuides } from "./library-filter.js";
 import { createLibraryCards } from "./library-card.js";
@@ -20,10 +18,13 @@ const elements = {
   gallery: document.querySelector("#demoGallery"),
   searchInput: document.querySelector("#styleSearch"),
   categoryNav: document.querySelector("#categoryNav"),
-  categoryTotal: document.querySelector("#categoryTotal"),
-
+  clearFilters: document.querySelector("#clearFilters"),
   resultCount: document.querySelector("#resultCount"),
   emptyState: document.querySelector("#emptyState"),
+  spotlightHost: document.querySelector("#caseSpotlight"),
+  wallSection: document.querySelector("#caseWall"),
+  wallTitle: document.querySelector("#wallTitle"),
+  wallHint: document.querySelector("#wallHint"),
   previewDialog: document.querySelector("#previewDialog"),
   previewDialogContent: document.querySelector("#previewDialog .preview-dialog-content"),
   previewDialogTitle: document.querySelector("#previewDialogTitle"),
@@ -53,14 +54,11 @@ const elements = {
   previewMediaStatus: document.querySelector("#previewMediaStatus"),
   previewMediaStatusText: document.querySelector("#previewMediaStatusText"),
   previewMediaRetry: document.querySelector("#previewMediaRetry"),
-  infoDialog: document.querySelector("#infoDialog"),
-  infoDialogContent: document.querySelector("#infoDialogContent"),
   toast: document.querySelector("#projectToast")
 };
 
 let activeCategory = "all";
 let activeTag = "";
-let activeInfoPanelId = "";
 let toastTimer = 0;
 const track = (name, properties) => window.image2Analytics?.track(name, properties);
 
@@ -77,15 +75,26 @@ const localizeRecord = (record) => {
   };
 };
 
+function syncCategoryChips() {
+  elements.categoryNav.querySelectorAll("[data-filter]").forEach((item) => {
+    const isActive = item.dataset.filter === activeCategory;
+    item.classList.toggle("is-active", isActive);
+    item.setAttribute("aria-pressed", String(isActive));
+  });
+}
+
 function updateCatalogCounts() {
   const copy = currentCopy();
   const counts = {};
   for (const guide of styleGuides) counts[guide.category] = (counts[guide.category] || 0) + 1;
-  if (elements.categoryTotal) elements.categoryTotal.textContent = copy.count(styleGuides.length).replace("个案例", "条").replace(" cases", "");
+  elements.caseTotal.textContent = styleGuides.length;
   elements.categoryNav.querySelector('[data-filter="all"] b').textContent = styleGuides.length;
   elements.categoryNav.querySelectorAll("[data-filter]:not([data-filter=all])").forEach((item) => {
-    item.querySelector("b").textContent = counts[item.dataset.filter] || 0;
+    const count = counts[item.dataset.filter] || 0;
+    item.querySelector("b").textContent = count;
+    item.hidden = count === 0;
   });
+  elements.categoryNav.setAttribute("aria-label", copy.filterLabel);
 }
 
 function getPreviewDevice(guide, mode) {
@@ -98,6 +107,13 @@ function getPreviewModes(guide) {
 
 function getCardPoster(guide) {
   return guide.previewImage || guide.poster;
+}
+
+function getPreviewScreens(guide) {
+  const screens = previewImageSets[guide.id];
+  if (screens?.length) return screens;
+  const poster = getCardPoster(guide);
+  return poster ? [{ src: poster, label: { zh: "主界面", en: "Main screen" } }] : [];
 }
 
 function readTagFromUrl() {
@@ -287,36 +303,46 @@ const cards = createLibraryCards({
     localizeRecord,
     getFilteredGuides,
     getCardPoster,
-    getStyleProfiles,
+    getPreviewScreens,
     normalizeTag
   },
   actions: {
-    applyCaseToProject,
     openPreview: detail.openPreview,
     setTagFilter,
     track
   }
 });
 
-function setTagFilter(tag, { push = true } = {}) {
-  activeTag = tag;
-  activeCategory = "all";
-  elements.categoryNav.querySelectorAll("[data-filter]").forEach((item) => item.classList.toggle("is-active", item.dataset.filter === "all"));
+function updateUrlTag(tag, push = true) {
   const url = new URL(window.location.href);
   if (tag) url.searchParams.set("tag", tag);
   else url.searchParams.delete("tag");
-  if (push) window.history.pushState({ tag }, "", url);
-  cards.renderDemoGallery();
-  elements.gallery?.scrollIntoView({ block: "start" });
+  const method = push ? "pushState" : "replaceState";
+  window.history[method]({ tag }, "", url);
 }
 
-function openInfoPanel(id) {
-  activeInfoPanelId = id;
-  const panel = (window.image2I18n?.language === "en" ? infoPanelsEnglish : infoPanels)[id];
-  if (!panel) return;
-  elements.infoDialogContent.innerHTML = `<p class="kicker">${panel.eyebrow}</p><h2 id="infoDialogTitle">${panel.title}</h2><p>${panel.intro}</p><ol class="info-steps">${panel.steps.map((step, index) => `<li><b>0${index + 1}</b><div><strong>${step[0]}</strong><span>${step[1]}</span></div></li>`).join("")}</ol><p class="info-callout">${panel.callout}</p>`;
-  if (!elements.infoDialog.open) elements.infoDialog.showModal();
-  track("info_panel_open", { panel: id });
+function scrollToWall() {
+  const behavior = matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+  elements.wallSection?.scrollIntoView({ block: "start", behavior });
+}
+
+function setTagFilter(tag, { push = true } = {}) {
+  activeTag = tag === activeTag ? "" : tag;
+  activeCategory = "all";
+  syncCategoryChips();
+  updateUrlTag(activeTag, push);
+  cards.renderDemoGallery();
+  if (activeTag) scrollToWall();
+}
+
+function clearAllFilters({ push = true } = {}) {
+  activeCategory = "all";
+  activeTag = "";
+  elements.searchInput.value = "";
+  syncCategoryChips();
+  updateUrlTag("", push);
+  cards.renderDemoGallery();
+  elements.searchInput.focus({ preventScroll: true });
 }
 
 elements.categoryNav.addEventListener("click", (event) => {
@@ -324,10 +350,8 @@ elements.categoryNav.addEventListener("click", (event) => {
   if (!button) return;
   activeCategory = button.dataset.filter;
   activeTag = "";
-  const url = new URL(window.location.href);
-  url.searchParams.delete("tag");
-  window.history.pushState({ tag: "" }, "", url);
-  elements.categoryNav.querySelectorAll("[data-filter]").forEach((item) => item.classList.toggle("is-active", item === button));
+  updateUrlTag("", true);
+  syncCategoryChips();
   track("category_filter", { category: activeCategory });
   cards.renderDemoGallery();
 });
@@ -337,10 +361,8 @@ elements.searchInput.addEventListener("input", () => {
   if (elements.searchInput.value.trim() && (activeCategory !== "all" || activeTag)) {
     activeCategory = "all";
     activeTag = "";
-    const url = new URL(window.location.href);
-    url.searchParams.delete("tag");
-    window.history.replaceState({ tag: "" }, "", url);
-    elements.categoryNav.querySelectorAll("[data-filter]").forEach((item) => item.classList.toggle("is-active", item.dataset.filter === "all"));
+    updateUrlTag("", false);
+    syncCategoryChips();
   }
   cards.renderDemoGallery();
   window.clearTimeout(searchTimer);
@@ -350,8 +372,21 @@ elements.searchInput.addEventListener("input", () => {
   }, 600);
 });
 
+elements.clearFilters.addEventListener("click", () => clearAllFilters());
+document.querySelector("[data-clear-filters]")?.addEventListener("click", () => clearAllFilters());
+
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && !document.querySelector("dialog[open]")) {
+  const target = event.target;
+  const isTyping = target instanceof HTMLElement && (target.matches("input, textarea, select") || target.isContentEditable);
+  const dialogOpen = Boolean(document.querySelector("dialog[open]"));
+
+  if (event.key === "/" && !isTyping && !dialogOpen) {
+    event.preventDefault();
+    elements.searchInput.focus();
+    return;
+  }
+
+  if (event.key === "Escape" && !dialogOpen) {
     elements.searchInput.value = "";
     elements.searchInput.blur();
     cards.renderDemoGallery();
@@ -359,13 +394,11 @@ document.addEventListener("keydown", (event) => {
 });
 
 document.querySelectorAll("a[href*='github.com']").forEach((link) => link.addEventListener("click", () => track("github_click", { location: link.className || "stats" })));
-document.querySelectorAll("[data-info-panel]").forEach((button) => button.addEventListener("click", () => openInfoPanel(button.dataset.infoPanel)));
-elements.infoDialog.addEventListener("click", (event) => { if (event.target === elements.infoDialog) elements.infoDialog.close(); });
 
 window.addEventListener("popstate", () => {
   activeTag = readTagFromUrl();
   activeCategory = "all";
-  elements.categoryNav.querySelectorAll("[data-filter]").forEach((item) => item.classList.toggle("is-active", item.dataset.filter === "all"));
+  syncCategoryChips();
   cards.renderDemoGallery();
 });
 
@@ -375,22 +408,25 @@ function applyLibraryLanguage() {
   document.querySelector('meta[name="description"]')?.setAttribute("content", copy.description);
   document.documentElement.style.setProperty("--unavailable-label", `"${copy.unavailable}"`);
   document.querySelector(".skip-link").textContent = copy.skip;
-  elements.categoryNav.querySelectorAll("[data-filter]").forEach((button) => { button.querySelector("span").textContent = copy.categories[button.dataset.filter]; });
-  document.querySelector(".filter-sidebar-head p").textContent = copy.filterTitle;
-  const filterNote = document.querySelector(".library-filter-note");
-  filterNote.querySelector("strong").textContent = copy.filterHelpTitle;
-  filterNote.querySelector("p").textContent = copy.filterHelpBody;
-  filterNote.querySelector("span").textContent = copy.filterHelpAction;
+
+  document.querySelector("#catalogTitle").textContent = copy.pageTitle;
+  elements.categoryNav.setAttribute("aria-label", copy.filterLabel);
+  elements.categoryNav.querySelectorAll("[data-filter]").forEach((button) => {
+    button.querySelector("span").textContent = copy.categories[button.dataset.filter];
+  });
   elements.searchInput.placeholder = copy.search;
-  document.querySelector(".search-section").setAttribute("aria-label", copy.search);
-  document.querySelector(".catalog-bar .kicker").textContent = copy.featured;
-  document.querySelector("#catalogTitle").textContent = copy.startVisual;
-  elements.emptyState.textContent = copy.empty;
+  elements.searchInput.setAttribute("aria-label", copy.search);
+  elements.clearFilters.textContent = copy.clearFilters;
+  elements.wallTitle.textContent = copy.wallTitle;
+  elements.wallHint.textContent = copy.wallHint;
+  elements.emptyState.querySelector("p").textContent = copy.empty;
+  elements.emptyState.querySelector("button").textContent = copy.clearFilters;
+  elements.spotlightHost.setAttribute("aria-label", copy.spotlightLabel);
   document.querySelectorAll(".dialog-close").forEach((button) => button.setAttribute("aria-label", window.image2I18n?.language === "en" ? "Close dialog" : "关闭弹窗"));
+
   updateCatalogCounts();
   detail.applyLanguage();
   cards.renderDemoGallery();
-  if (elements.infoDialog.open && activeInfoPanelId) openInfoPanel(activeInfoPanelId);
 }
 
 window.image2I18n?.registerPage(applyLibraryLanguage);

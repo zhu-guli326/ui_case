@@ -1,6 +1,6 @@
 # Vocabulary Page Requirements
 
-Last updated: 2026-09-02
+Last updated: 2026-11-09
 
 ## Page identity
 
@@ -42,7 +42,7 @@ A user should be able to:
 
 Preferred structure:
 
-1. Persistent shared knowledge-directory navigation, followed by category navigation / filtering
+1. Persistent shared knowledge-directory navigation (whose UI 词典 group is highlighted as the current destination and introduces the page), followed by category navigation / filtering
 2. Lightweight utility row for useful secondary actions such as sort / share when needed
 3. Visual vocabulary list / cards
 4. Focused preview / example area
@@ -57,6 +57,7 @@ The page should behave more like a visual directory + learning reference than a 
 
 - The knowledge-page shell is intentionally flat: page-level hero, overview and filter containers must not use card-style borders, rounded white panels or shadows.
 - The page no longer keeps an independent hero or hero count; the shared knowledge-directory navigation stays visible on this route above vocabulary content.
+- The knowledge-directory navigation introduces the page; no separate masthead or hero is rendered on this route. The filter-driven results heading stays visually hidden and keeps updating for assistive technology.
 - Vocabulary items themselves may remain cards when the card represents a real interactive learning object or visual example.
 - A vocabulary item should reveal its meaning primarily through visuals.
 - Large example imagery / previews should receive more emphasis than long body copy.

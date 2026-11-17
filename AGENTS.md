@@ -91,7 +91,7 @@ Canonical shared files:
 
 ## 3. Single Source of Truth
 
-- Knowledge Library, Skills (SKILL / WEB) and Vocabulary share one persistent content-level navigation: `src/components/knowledge-nav/knowledge-nav.js` and `knowledge-nav.css`. Mount `<image2-knowledge-nav>` inside each page's `<main>`; preserve it across destination changes and highlight the active route / mode. This component does not replace or alter the global App Shell.
+- Knowledge Library, Skills (SKILL / WEB) and Vocabulary share one persistent content-level navigation: `src/components/knowledge-nav/knowledge-nav.js` and `knowledge-nav.css`. Mount `<image2-knowledge-nav>` inside each page's `<main>`; preserve it across destination changes and highlight the active route / mode. This component does not replace or alter the global App Shell. The knowledge-directory navigation introduces each knowledge page — do not add a separate page masthead or hero below it.
 - Each knowledge-directory column is clickable through its primary destination link, including its description and blank space. Secondary links retain independent targets. Skills mode switching may prevent native navigation only after the page runtime handles the request; modified clicks retain native browser behavior.
 
 - Each public page has one current production implementation on `main`.
@@ -189,6 +189,7 @@ The route-to-requirement mapping is not repeated here; resolve it through `docs/
 - Base styles: `src/features/library/library.css`.
 - Card styles: `src/features/library/library-cards.css`.
 - Detail styles: `src/features/library/library-detail.css`.
+- Spotlight controller: `src/features/library/library-spotlight.js`.
 - Use `library-data.js`, `library-filter.js`, `library-card.js`, `library-detail.js`, `library-search.mjs`, `library-preview-config.mjs`, and `library-runtime.js` by responsibility.
 - Do not recreate historical fixes, overrides, redesigns or compatibility layers.
 

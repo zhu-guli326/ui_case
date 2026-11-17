@@ -36,46 +36,48 @@
   <script type="module" src="./src/components/knowledge-nav/knowledge-nav.js"></script>
 </head>
 <body class="library-page directory-page">
-  <a class="skip-link" href="#demoGallery">跳到案例列表</a>
+  <a class="skip-link" href="#caseWall">跳到案例墙</a>
   <image2-site-header data-site-header></image2-site-header>
 
-  <main class="directory-page-main">
+  <main class="directory-page-main library-main">
     <image2-knowledge-nav></image2-knowledge-nav>
 
-    <section class="directory-section" aria-labelledby="catalogTitle">
-      <section class="search-section directory-toolbar" aria-label="搜索案例">
-        <label class="search-field" for="styleSearch">
-          <span class="search-icon" aria-hidden="true"></span>
-          <input id="styleSearch" type="search" autocomplete="off" placeholder="搜索案例名称、使用场景或风格...">
-          <kbd>Esc</kbd>
-        </label>
-        <p id="resultCount" class="directory-result-count" aria-live="polite">19 个案例</p>
-      </section>
+    <h1 class="visually-hidden" id="catalogTitle">案例库</h1>
 
-      <div class="library-browser directory-layout">
-        <aside class="library-filter directory-sidebar" aria-label="分类筛选">
-          <div class="filter-sidebar-head">
-            <p>分类筛选</p>
-            <small id="categoryTotal">19 条</small>
-          </div>
-          <nav class="category-nav" id="categoryNav" aria-label="想看哪一类？">
-            <button class="category-link is-active" type="button" data-filter="all"><span>全部案例</span><b>19</b></button>
-            <button class="category-link" type="button" data-filter="culture"><span>文化内容</span><b>1</b></button>
-            <button class="category-link" type="button" data-filter="commerce"><span>零售电商</span><b>5</b></button>
-            <button class="category-link" type="button" data-filter="editorial"><span>新闻阅读</span><b>1</b></button>
-            <button class="category-link" type="button" data-filter="travel"><span>旅行体验</span><b>2</b></button>
-            <button class="category-link" type="button" data-filter="creative"><span>创意工具</span><b>3</b></button>
-            <button class="category-link" type="button" data-filter="wellness"><span>健康陪伴</span><b>7</b></button>
-          </nav>
-          <div class="library-filter-note"><strong>先选一个方向？</strong><p>从场景开始看案例，再打开详情复制风格和提示词。</p><span>查看案例细节</span> <span aria-hidden="true">↗</span></div>
-        </aside>
-        <section class="catalog-section directory-content" aria-labelledby="catalogTitle">
-          <div class="catalog-bar">
-            <div><p class="kicker">案例</p><h2 id="catalogTitle">从一个喜欢的界面开始。</h2></div>
-          </div>
-          <div class="demo-gallery" id="demoGallery" aria-live="polite"></div>
-          <p class="empty-state" id="emptyState" hidden>没有找到匹配的案例。</p>
-        </section>
+    <div class="library-controls" id="libraryControls">
+      <nav class="library-filters" id="categoryNav" aria-label="按场景筛选">
+        <button class="library-filter is-active" type="button" data-filter="all" aria-pressed="true"><span>全部</span><b>18</b></button>
+        <button class="library-filter" type="button" data-filter="culture" aria-pressed="false"><span>文化</span><b>1</b></button>
+        <button class="library-filter" type="button" data-filter="commerce" aria-pressed="false"><span>电商</span><b>5</b></button>
+        <button class="library-filter" type="button" data-filter="editorial" aria-pressed="false"><span>阅读</span><b>1</b></button>
+        <button class="library-filter" type="button" data-filter="travel" aria-pressed="false" hidden><span>旅行</span><b>0</b></button>
+        <button class="library-filter" type="button" data-filter="creative" aria-pressed="false"><span>工具</span><b>4</b></button>
+        <button class="library-filter" type="button" data-filter="wellness" aria-pressed="false"><span>健康</span><b>7</b></button>
+      </nav>
+      <div class="library-controls-end">
+        <p class="library-result" id="resultCount" role="status" aria-live="polite">18 个案例</p>
+        <button class="library-clear" id="clearFilters" type="button" hidden>清除筛选</button>
+        <label class="library-search" for="styleSearch">
+          <span class="search-icon" aria-hidden="true"></span>
+          <input id="styleSearch" type="search" autocomplete="off" placeholder="搜索案例、场景或风格" aria-label="搜索案例、场景或风格">
+          <kbd>/</kbd>
+        </label>
+      </div>
+    </div>
+
+    <section class="library-spotlight" id="caseSpotlight" aria-label="主展台"></section>
+
+    <section class="library-wall" id="caseWall" tabindex="-1" aria-labelledby="wallTitle">
+      <div class="library-wall-head">
+        <div class="library-wall-title">
+          <h2 id="wallTitle">案例墙</h2>
+          <p id="wallHint">点击任意案例，查看设计细节与可点击 Demo。</p>
+        </div>
+      </div>
+      <div class="library-grid" id="demoGallery" aria-live="polite"></div>
+      <div class="library-empty" id="emptyState" hidden>
+        <p>没有找到匹配的案例。</p>
+        <button type="button" data-clear-filters>清除筛选</button>
       </div>
     </section>
   </main>
@@ -94,7 +96,7 @@
         </footer>
       </div>
       <div class="preview-media-stage" id="previewMediaStage">
-        <div class="preview-mode-head"><span class="preview-mode-caption">预览方式</span><div class="preview-mode-switch" id="previewModeSwitch" aria-label="预览方式"></div><span class="preview-mode-badge" id="previewModeBadge"></span></div>
+        <div class="preview-mode-head"><span class="preview-mode-caption">预览方式</span><div class="preview-mode-switch" id="previewModeSwitch" aria-label="预览方式"></div></div>
         <figure class="phone-frame phone-frame--detail preview-media-frame" id="previewMediaFrame"><div class="phone-screen" id="previewPhoneScreen"><img class="phone-media" id="previewDialogImage" width="390" height="844" decoding="async" alt="" hidden><img class="phone-media preview-video-sequence" id="previewDialogSequence" width="390" height="844" decoding="async" alt="" hidden><div class="preview-image-navigation" id="previewImageNavigation" aria-live="polite" hidden><button class="preview-image-step preview-image-previous" id="previewImagePrevious" type="button" aria-label="上一张效果图" title="上一张效果图">&#8592;</button><p><strong id="previewImageLabel"></strong><span id="previewImageCount"></span></p><button class="preview-image-step preview-image-next" id="previewImageNext" type="button" aria-label="下一张效果图" title="下一张效果图">&#8594;</button></div><video class="phone-media" id="previewDialogVideo" width="390" height="844" autoplay muted loop playsinline preload="metadata" hidden></video><iframe class="phone-media" id="previewDialogDemo" width="390" height="844" title="可点击 demo 预览" loading="eager" hidden></iframe><div class="preview-media-status" id="previewMediaStatus" role="status" aria-live="polite" hidden><span id="previewMediaStatusText"></span><button id="previewMediaRetry" type="button" hidden>重试</button></div><span class="interaction-cursor preview-cursor" id="previewCursor" aria-hidden="true" hidden><i></i></span></div></figure>
         <div class="preview-screen-rail" id="previewScreenRail" aria-label="案例页面" hidden></div>
         <div class="preview-media-toolbar" aria-label="媒体控制"><button class="media-icon-button" id="previewVideoToggle" type="button" aria-label="暂停视频" title="暂停视频"><span aria-hidden="true">&#10074;&#10074;</span></button><input class="video-progress" id="previewVideoProgress" type="range" min="0" max="0" value="0" step="0.05" aria-label="视频进度"><output class="video-time" id="previewVideoTime" for="previewVideoProgress">0:00 / 0:00</output><button class="media-icon-button" id="previewExpand" type="button" aria-label="全屏查看" title="全屏查看"><span aria-hidden="true">&#9974;</span></button></div>
@@ -102,7 +104,6 @@
     </div>
   </dialog>
 
-  <dialog class="info-dialog" id="infoDialog" aria-labelledby="infoDialogTitle"><form method="dialog" class="dialog-close-form"><button class="dialog-close" type="submit" aria-label="关闭说明">&#215;</button></form><div class="info-dialog-content" id="infoDialogContent"></div></dialog>
   <footer class="site-footer" data-site-footer>
     <div class="site-footer-inner">
       <p><strong>ONDesign</strong><span>AI × UI design learning studio</span></p>

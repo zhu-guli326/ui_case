@@ -23,7 +23,7 @@ button, input { font: inherit; }
 button { cursor: pointer; }
 .icon-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 .skills-icon { width: 1em; height: 1em; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+/* .visually-hidden lives in the shared shell (directory-page.css). */
 
 .hero-update-note { display: inline-flex; align-items: center; gap: 5px; color: var(--ant-text-tertiary); font-size: 10px; font-weight: 500; }
 .hero-update-note strong { color: var(--ant-primary); font-size: 13px; }

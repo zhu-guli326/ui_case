@@ -16,7 +16,7 @@ Existing aliases such as `--page`, `--surface`, `--accent`, and `--ant-*` remain
 
 ONDesign uses one shared component system across Chinese and English.
 
-- **Chinese (`zh-CN`)**: follows Ant Design hierarchy, density, typography rhythm, control sizing, neutral surfaces, border treatment, and interaction states. ONDesign green remains the primary brand color instead of Ant blue.
+- **Chinese (`zh-CN`)**: follows Ant Design hierarchy, density, typography rhythm, control sizing, neutral surfaces, border treatment, and interaction states. Interactive chrome is ink-first (black/white, `--ds-color-text`); ONDesign green is reserved for semantic success states and content artwork.
 - **English (`en`)**: uses the same colors, component geometry, spacing, radius, controls, elevation, and states. Only typography can be slightly more editorial: larger body copy, tighter heading line-height, and modest negative heading tracking.
 
 Language switching must not change component geometry or create a different visual system.
@@ -104,7 +104,7 @@ The font system is global; interaction states are not visually identical. Font f
 
 - Default primary navigation: `14px`, medium (`500`) weight, body font family, normal letter spacing, Ant Design-like body line-height.
 - Hover / focus: keep the same `500` weight and all typography metrics; use the global interaction color/state only.
-- Current page: same family / size / tracking / line-height, semibold (`600`) and ONDesign green.
+- Current page: same family / size / tracking / line-height, semibold (`600`) and ink (`--ds-color-text`).
 - Start Designing is withdrawn from public navigation; its page and source remain an unlisted backup.
 - Chinese navigation: always `0` letter spacing; never use monospace or Latin negative tracking.
 - English navigation: use the same body-family navigation treatment for consistency; no decorative tracking in application chrome.

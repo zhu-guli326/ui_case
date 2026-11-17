@@ -3,8 +3,8 @@
  * Design Picks itself. All three pages share the same geometry and controls.
  */
 body.directory-page {
-  --directory-primary: #18a957;
-  --directory-primary-bg: #eaf7ef;
+  --directory-primary: #1f1f1f;
+  --directory-primary-bg: #f1f0eb;
   --directory-text: #1f1f1f;
   --directory-secondary: #666;
   --directory-tertiary: #8c8c8c;
@@ -181,7 +181,7 @@ body.directory-page .search-field {
   background: #fff;
   box-shadow: none;
 }
-body.directory-page .search-field:focus-within { border-color: var(--directory-primary); box-shadow: 0 0 0 2px rgba(24,169,87,.12); }
+body.directory-page .search-field:focus-within { border-color: var(--directory-primary); box-shadow: 0 0 0 2px rgba(31,31,31,.12); }
 body.directory-page .search-field input { width: 100%; border: 0; outline: 0; background: transparent; color: var(--directory-text); font-size: 13px; }
 body.directory-page .search-field input::placeholder { color: #bfbfbf; }
 body.directory-page .search-field kbd { color: var(--directory-tertiary); font-size: 9px; }
@@ -531,4 +531,15 @@ body.library-page .stats-panel strong {
     border-right: 0 !important;
     border-bottom: 1px solid var(--directory-border) !important;
   }
+}
+
+/* Shared screen-reader-only utility ------------------------------------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

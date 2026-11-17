@@ -8,7 +8,7 @@
 
 .repo-list:not(.is-web-list) {
   display: block;
-  column-count: 4;
+  column-count: 3;
   column-gap: 18px;
 }
 
@@ -86,13 +86,9 @@
   display: none;
 }
 
-/* One column count per width, so a wider window never produces narrower cards. */
-@media (max-width: 1679px) {
-  .repo-list:not(.is-web-list) {
-    column-count: 3;
-  }
-}
-
+/* The Skill wall caps at three desktop columns. Wider windows grow the cards
+ * instead of adding a fourth column, so one screen stays a three-column wall.
+ * One column count per width, so a wider window never produces narrower cards. */
 @media (max-width: 1180px) {
   .repo-list:not(.is-web-list) {
     column-count: 2;

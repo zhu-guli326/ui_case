@@ -2,7 +2,7 @@ const destinations = [
   { id: 'WEB', href: './skills.html?mode=WEB', zh: ['设计工具', '发现让设计更进一步的好工具。', '动效网站', '灵感'], en: ['Design Tools', 'Find tools that take your work further.', 'Motion sites', 'Inspiration'], links: ['./skills.html?mode=WEB', './skills.html?mode=WEB'] },
   { id: 'SKILL', href: './skills.html', zh: ['设计 Skills', '把设计经验变成 AI 的能力。', '设计', '产品'], en: ['Design Skills', 'Turn design expertise into AI capabilities.', 'Design', 'Product'], links: ['./skills.html', './skills.html'] },
   { id: 'vocabulary', href: './vocabulary.html', zh: ['UI 词典', '看懂界面，也说清你的想法。', '导航页面', '页面布局'], en: ['UI Dictionary', 'Understand interfaces. Express your ideas.', 'Navigation', 'Page layout'], links: ['./vocabulary.html?category=navigation', './vocabulary.html?category=layout'] },
-  { id: 'library', href: './library.html', zh: ['案例库', '从真实界面中，找到下一个方向。', 'App 设计', 'Web 设计'], en: ['Case Library', 'Find your next direction in real interfaces.', 'App design', 'Web design'], links: ['./library.html?tag=APP设计', './library.html?tag=web设计'] },
+  { id: 'library', href: './library.html', zh: ['案例库', '从真实界面中，找到下一个方向。', 'App 设计', 'Web 设计', '个人作品', 'Maxime Guillon', 'Chris Pokrzywa'], en: ['Case Library', 'Find your next direction in real interfaces.', 'App design', 'Web design', 'Personal work', 'Maxime Guillon', 'Chris Pokrzywa'], links: ['./library.html?tag=APP设计', './library.html?tag=web设计', 'https://www.wildyriftian.com/', 'https://www.maximeguillon.com/', 'https://www.chrisp.design/'] },
 ];
 
 class KnowledgeNav extends HTMLElement {
@@ -53,7 +53,10 @@ class KnowledgeNav extends HTMLElement {
           return `<section class="knowledge-directory-group${current ? ' is-current' : ''}">
             <a href="${href(item.href)}"${item.id === 'WEB' || item.id === 'SKILL' ? ` data-knowledge-mode="${item.id}"` : ''}${current ? ' aria-current="page"' : ''}><strong>${copy[0]}</strong></a>
             <p>${copy[1]}</p>
-            ${item.links.map((link, index) => `<a href="${href(link)}"${item.id === 'WEB' || item.id === 'SKILL' ? ` data-knowledge-mode="${item.id}"` : ''}><span>${copy[index + 2]}</span></a>`).join('')}
+            ${item.links.map((link, index) => {
+              const external = /^https?:\/\//i.test(link);
+              return `<a href="${external ? link : href(link)}"${external ? ' target="_blank" rel="noopener noreferrer"' : ''}${item.id === 'WEB' || item.id === 'SKILL' ? ` data-knowledge-mode="${item.id}"` : ''}><span>${copy[index + 2]}</span></a>`;
+            }).join('')}
           </section>`;
         }).join('')}
       </nav>

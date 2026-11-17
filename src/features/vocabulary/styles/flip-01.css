@@ -45,10 +45,10 @@
 .entry-card-front .entry-visual { flex: 1 1 auto; min-height: 190px; height: auto; }
 .entry-card-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 10px; }
 .entry-card-meta > span:first-child { margin-right: auto; }
-.entry-flip-tag { position: relative; z-index: 3; padding: 4px 7px; border: 1px solid rgba(31,126,76,.18); border-radius: 999px; background: rgba(31,126,76,.07); color: var(--accent); font: 800 9px/1.2 inherit; letter-spacing: .02em; pointer-events: auto; cursor: pointer; }
-.entry-flip-tag:hover, .entry-flip-tag:focus-visible { border-color: var(--accent); background: rgba(31,126,76,.13); outline: none; }
+.entry-flip-tag { position: relative; z-index: 3; padding: 4px 7px; border: 1px solid rgba(31,31,31,.15); border-radius: 999px; background: rgba(255,255,255,.72); color: var(--ds-color-text-secondary); font: 800 9px/1.2 inherit; letter-spacing: .02em; pointer-events: auto; cursor: pointer; }
+.entry-flip-tag:hover, .entry-flip-tag:focus-visible { border-color: rgba(31,31,31,.42); background: #fff; outline: none; }
 .favorite-button { position: relative; z-index: 3; display: grid; width: 44px; height: 44px; flex: 0 0 44px; place-items: center; margin: -6px 0 -6px 0; border: 0; background: transparent; color: var(--quiet); font-size: 20px; line-height: 1; pointer-events: auto; }
-.favorite-button:hover, .favorite-button.is-favorite { color: var(--accent); }
+.favorite-button:hover, .favorite-button.is-favorite { color: var(--ds-color-text); }
 .entry-card h3 { display: -webkit-box; overflow: hidden; min-height: 31px; margin: 0; font-size: 25px; line-height: 1.16; letter-spacing: -.025em; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
-.entry-card h3 em { color: var(--accent); font-size: 12px; font-style: normal; font-weight: 600; }
+.entry-card h3 em { color: var(--ds-color-text-tertiary); font-size: 12px; font-style: normal; font-weight: 600; }
 .entry-ask { display: -webkit-box; overflow: hidden; min-height: 42px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.62; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }

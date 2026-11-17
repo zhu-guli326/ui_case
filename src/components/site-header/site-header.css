@@ -8,8 +8,8 @@
   --site-ink: #24231f;
   --site-muted: #77746d;
   --site-line: #ddd9d0;
-  --site-accent: #18a957;
-  --site-accent-soft: #e7f5ec;
+  --site-accent: #1f1f1f;
+  --site-accent-soft: #f1f0eb;
   --site-nav-active: #20231f;
   --site-nav-hover: #efeee9;
 }
@@ -37,7 +37,7 @@ body {
  * the shared chrome from legacy page-level overrides while those are removed.
  */
 .site-header {
-  --site-header-accent: #18a957;
+  --site-header-accent: #1f1f1f;
   position: sticky !important;
   z-index: 40;
   top: 8px !important;

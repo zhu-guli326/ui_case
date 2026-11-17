@@ -10,8 +10,11 @@
  * 3. Shared geometry/colors live here. Language-specific typography lives in
  *    typography.css and is loaded globally by site-shell.css immediately after
  *    this file. There must be no second Chinese/English typography definition.
- * 4. ONDesign green is the global primary brand color. Chinese typography
- *    follows an Ant Design-like CJK rhythm; English keeps a tighter Latin rhythm.
+ * 4. Interactive chrome is ink-first (--ds-color-text): buttons, active nav,
+ *    selected filters and focus rings stay black/white. ONDesign green is
+ *    reserved for semantic success states and content artwork.
+ *    Chinese typography follows an Ant Design-like CJK rhythm; English keeps a
+ *    tighter Latin rhythm.
  *
  * Legacy aliases (--page, --surface, --ant-*) are kept for existing pages.
  * New implementation should prefer --ds-* directly.
@@ -23,6 +26,9 @@
   /* ------------------------------------------------------------
    * 01 Brand + semantic color
    * ------------------------------------------------------------ */
+  /* Brand green — semantic success states and content artwork only.
+   * Interactive chrome (primary buttons, active nav, selected filters and
+   * focus rings) uses --ds-color-text instead. */
   --ds-color-primary: #18a957;
   --ds-color-primary-hover: #35b86d;
   --ds-color-primary-active: #128746;
@@ -96,7 +102,7 @@
   --ds-shadow-sm: 0 1px 2px rgba(0, 0, 0, .03), 0 1px 6px -1px rgba(0, 0, 0, .02);
   --ds-shadow-md: 0 6px 16px rgba(0, 0, 0, .08), 0 3px 6px -4px rgba(0, 0, 0, .12);
   --ds-shadow-lg: 0 12px 32px rgba(0, 0, 0, .12), 0 6px 16px rgba(0, 0, 0, .06);
-  --ds-focus-ring: 0 0 0 3px rgba(24, 169, 87, .12);
+  --ds-focus-ring: 0 0 0 3px rgba(31, 31, 31, .12);
 
   /* ------------------------------------------------------------
    * 06 Typography — shared size names only.

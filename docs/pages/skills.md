@@ -1,6 +1,6 @@
 # Skills Page Requirements
 
-Last updated: 2026-10-31
+Last updated: 2026-11-09
 
 ## Page identity
 
@@ -58,7 +58,7 @@ Category wording can be refined, but three rules hold: the structure stays intui
 
 ## Information structure
 
-1. Persistent shared knowledge-directory navigation, followed by filter controls
+1. Persistent shared knowledge-directory navigation (whose 设计 Skills group is highlighted as the current destination and introduces the page), followed by filter controls
 2. Lightweight sorting controls
 3. Resource list / visual cards, revealed in progressive batches with an explicit load-more action in Skill mode
 4. Focused inspector / flipped detail when useful
@@ -80,7 +80,8 @@ Category wording can be refined, but three rules hold: the structure stays intui
 - Narrow screens keep the same categories visible without turning the rail into a full-height list: categories sit in compact multi-column rows rather than one long column.
 - Avoid large unused gutters; the directory should use available desktop width effectively.
 - Skill cards keep a readable minimum width. The flow drops a column before cards become too narrow, so a wider window never produces narrower cards.
-- The Skill wall is a staggered column flow with free card sizes: cards keep their own media-driven height and move up independently, so the wall never reads as a set of identical boxes. Image covers keep their intrinsic ratio; a cover height cap only trims unusually tall artwork. Video covers carry the ratio recorded in the catalog data, so a card has its final height before the recording loads its metadata.
+- The Skill wall caps at three columns on desktop. Wider windows grow the cards instead of adding a fourth column, so one screen remains a three-column wall. It drops to two columns below 1180px and one below 720px.
+- The Skill wall is a staggered three-column flow with free card sizes: cards keep their own media-driven height and move up independently, so the wall never reads as a set of identical boxes. Image covers keep their intrinsic ratio; a cover height cap only trims unusually tall artwork. Video covers carry the ratio recorded in the catalog data, so a card has its final height before the recording loads its metadata.
 - Skill mode reveals the directory in batches, starting with 24 cards and offering an explicit load-more action with the remaining count. The revealed batch follows the query: a new search, filter or sort starts from the first batch again, while background data refreshes keep the batch the user already revealed.
 - Web mode keeps its full masonry flow instead of batching, because its cards are much taller and the list is shorter.
 - Website entries with a recording preview lead the Web wall, because a moving preview shows what a site actually does; the curated order still decides everything else, and the curated design-system group follows the website list.
@@ -100,6 +101,7 @@ Category wording can be refined, but three rules hold: the structure stays intui
 - The floating search uses the same shared geometry as Library and Vocabulary, while keeping Skills-specific placeholder text and filtering behavior.
 - Chinese and English modes should expose equivalent resources and functionality.
 - The directory no longer uses a Skills-scoped black hero; shared Library navigation handles the knowledge-directory context, while Skills focuses on filters and resource results.
+- The knowledge-directory navigation introduces the page; no separate masthead or hero is rendered on this route.
 
 ## Keep
 
@@ -119,6 +121,7 @@ Category wording can be refined, but three rules hold: the structure stays intui
 - Result-count-only or empty toolbar chrome after search moves to the floating dock.
 - A sort control inside the filter rail or in a full-width toolbar band, or a sort control that stays visible while it cannot affect the list.
 - Forcing an extra card column at the cost of readable card width or readable descriptions.
+- A fourth Skill column on very wide screens; the desktop wall stays at three columns.
 - Rendering the entire Skill cover wall at once when the curated list keeps growing.
 - A mode switch that is not one row: its two options share a single row, each option keeps its label and count on that row, and the option widths stay equal, so a label that cannot fit on one line is the wrong copy rather than a reason to wrap or stack.
 - Large empty margins that reduce browsing efficiency.

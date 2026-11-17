@@ -381,6 +381,8 @@ export function createLibraryDetailController({
     const copy = currentCopy();
     previewDialogTitle.textContent = copy.previewTitle;
     previewModeSwitch.setAttribute("aria-label", copy.previewType);
+    const modeCaption = document.querySelector(".preview-mode-caption");
+    if (modeCaption) modeCaption.textContent = copy.previewType;
     document.querySelector("#previewScreenRail")?.setAttribute("aria-label", window.image2I18n?.language === "en" ? "Case screens" : "案例页面");
     previewImagePrevious.setAttribute("aria-label", copy.previous);
     previewImagePrevious.title = copy.previous;

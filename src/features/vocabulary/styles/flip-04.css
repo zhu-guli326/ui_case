@@ -20,15 +20,15 @@
 .entry-card-back-insight div { display: flex; gap: 5px; margin-top: 8px; overflow: hidden; }
 .entry-card-back-insight i { overflow: hidden; max-width: 46%; padding: 5px 8px; border-radius: 999px; background: rgba(157,234,183,.2); color: #d5f9df; font-size: 11px; font-weight: 700; font-style: normal; text-overflow: ellipsis; white-space: nowrap; }
 .entry-card-back-actions { display: grid; grid-template-columns: 1fr; pointer-events: auto; }
-.entry-copy-prompt-button { position: relative; z-index: 3; display: flex; width: 100%; min-height: 38px; align-items: center; justify-content: center; gap: 7px; padding: 0 11px; border: 1px solid rgba(38,91,58,.17); border-radius: 10px; background: rgba(255,255,255,.72); color: #284e37; box-shadow: none; font-size: 10px; font-weight: 800; pointer-events: auto; cursor: pointer; }
+.entry-copy-prompt-button { position: relative; z-index: 3; display: flex; width: 100%; min-height: 38px; align-items: center; justify-content: center; gap: 7px; padding: 0 11px; border: 1px solid rgba(31,31,31,.16); border-radius: 10px; background: rgba(255,255,255,.72); color: var(--ds-color-text); box-shadow: none; font-size: 10px; font-weight: 800; pointer-events: auto; cursor: pointer; }
 .entry-copy-prompt-button { grid-column: 1 / -1; }
 .entry-copy-prompt-button b { font-size: 15px; line-height: 1; }
-.entry-copy-prompt-button:hover, .entry-copy-prompt-button:focus-visible { border-color: rgba(35,125,73,.45); background: rgba(255,255,255,.94); color: #173324; outline: 2px solid rgba(35,125,73,.12); outline-offset: 1px; }
-.entry-front-copy-button { position: relative; z-index: 3; display: flex; width: 100%; min-height: 40px; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; padding: 0 12px; border: 1px solid #cfdad2; border-radius: 999px; background: #fff; color: var(--accent); font-size: 11px; font-weight: 800; pointer-events: auto; cursor: pointer; }
-.entry-front-copy-button:hover, .entry-front-copy-button:focus-visible { border-color: var(--accent); background: #eef8f0; outline: none; }
+.entry-copy-prompt-button:hover, .entry-copy-prompt-button:focus-visible { border-color: rgba(31,31,31,.45); background: rgba(255,255,255,.94); color: #000; outline: 2px solid rgba(31,31,31,.1); outline-offset: 1px; }
+.entry-front-copy-button { position: relative; z-index: 3; display: flex; width: 100%; min-height: 40px; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; padding: 0 12px; border: 1px solid #cfdad2; border-radius: 999px; background: #fff; color: var(--ds-color-text); font-size: 11px; font-weight: 800; pointer-events: auto; cursor: pointer; }
+.entry-front-copy-button:hover, .entry-front-copy-button:focus-visible { border-color: var(--ds-color-text); background: #fff; outline: none; }
 .entry-front-copy-button b { font-size: 15px; font-weight: 600; line-height: 1; }
-.entry-detail-button { position: relative; z-index: 3; display: flex; width: 100%; min-height: 40px; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; padding: 0 12px; border: 1px solid var(--accent); border-radius: 999px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 850; pointer-events: auto; cursor: pointer; }
-.entry-detail-button:hover, .entry-detail-button:focus-visible { border-color: #102217; background: #102217; outline: none; }
+.entry-detail-button { position: relative; z-index: 3; display: flex; width: 100%; min-height: 40px; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; padding: 0 12px; border: 1px solid var(--ds-color-text); border-radius: 999px; background: var(--ds-color-text); color: #fff; font-size: 11px; font-weight: 850; pointer-events: auto; cursor: pointer; }
+.entry-detail-button:hover, .entry-detail-button:focus-visible { border-color: #000; background: #000; outline: none; }
 .entry-detail-button b { font-size: 15px; font-weight: 650; line-height: 1; }
 
 /* Code-rendered term previews. These are deliberately compact, non-interactive component specimens. */

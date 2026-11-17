@@ -53,7 +53,7 @@ a { color: inherit; }
 button, input, select { font: inherit; }
 button { cursor: pointer; }
 img { max-width: 100%; }
-:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--ds-color-text); outline-offset: 3px; }
 .vocab-topbar { position: sticky; top: 0; z-index: 20; display: grid; grid-template-columns: minmax(260px, 1fr) auto minmax(260px, 1fr); align-items: center; gap: 22px; min-height: 72px; padding: 12px max(24px, calc((100vw - var(--content-width)) / 2)); border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--page) 96%, transparent); backdrop-filter: blur(15px); }
 .brand { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); font-size: 16px; font-weight: 900; letter-spacing: .7px; text-decoration: none; white-space: nowrap; }
 .brand small { color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .9px; }

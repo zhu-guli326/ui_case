@@ -3,21 +3,8 @@ import { styleGuides } from "../../../catalog/index.js";
 const RUNTIME_VERSION = "20260901-library-runtime-v2";
 function refreshGalleryIfEmpty() {
   const search = document.querySelector("#styleSearch");
-  if (!search || document.querySelector("#demoGallery .demo-card")) return;
+  if (!search || document.querySelector("#demoGallery .wall-card")) return;
   search.dispatchEvent(new Event("input", { bubbles: true }));
-}
-
-function enhanceCards() {
-  [...document.querySelectorAll("#demoGallery .demo-card")].forEach((card) => {
-    const preview = card.querySelector(".demo-card-preview");
-    if (preview && !preview.dataset.backgroundPreviewBound) {
-      preview.dataset.backgroundPreviewBound = "true";
-      preview.addEventListener("click", (event) => {
-        if (event.target.closest("button,a,input,summary")) return;
-        preview.querySelector(".preview-open-button")?.click();
-      });
-    }
-  });
 }
 
 function installVideoRecovery() {
@@ -93,22 +80,7 @@ function installDialogMediaPolicy() {
 
 function boot() {
   window.setTimeout(refreshGalleryIfEmpty, 0);
-  enhanceCards();
   installDialogMediaPolicy();
-
-  const gallery = document.querySelector("#demoGallery");
-  if (gallery) {
-    let queued = false;
-    new MutationObserver(() => {
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(() => {
-        queued = false;
-        enhanceCards();
-      });
-    }).observe(gallery, { childList: true, subtree: true });
-  }
-
   installVideoRecovery();
   installIframeHealthCheck();
 

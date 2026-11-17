@@ -1,5 +1,5 @@
 /* --detail-* aliases follow src/core/app-shell/design-tokens.css. */
-:root { --detail-page:var(--page); --detail-surface:var(--surface); --detail-ink:var(--ink); --detail-muted:var(--muted); --detail-line:var(--line); --detail-green:var(--accent); --detail-dark:var(--dark); font-family:var(--font-sans-cjk); }
+:root { --detail-page:var(--page); --detail-surface:var(--surface); --detail-ink:var(--ink); --detail-muted:var(--muted); --detail-line:var(--line); --detail-green:var(--ds-color-text); --detail-dark:var(--dark); font-family:var(--font-sans-cjk); }
 * { box-sizing:border-box; } html { scroll-behavior:smooth; } body { margin:0; background:var(--detail-page); color:var(--detail-ink); } button { font:inherit; cursor:pointer; }
 .icon-sprite { position:absolute; width:0; height:0; overflow:hidden; }
 .detail-icon { width:1em; height:1em; flex:0 0 auto; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }

@@ -1,64 +1,101 @@
+import { createLibrarySpotlight } from "./library-spotlight.js";
+
 export function createLibraryCards({
   elements,
   getState,
   helpers,
   actions
 }) {
-  const { gallery, searchInput, resultCount, emptyState } = elements;
+  const { gallery, searchInput, resultCount, emptyState, clearFilters, spotlightHost } = elements;
   const {
     currentCopy,
     localizeRecord,
     getFilteredGuides,
     getCardPoster,
-    getStyleProfiles,
+    getPreviewScreens,
     normalizeTag
   } = helpers;
-  const { applyCaseToProject, openPreview, setTagFilter, track } = actions;
+  const { openPreview, setTagFilter, track } = actions;
+
+  const spotlight = createLibrarySpotlight({
+    host: spotlightHost,
+    localizeRecord,
+    getPreviewScreens,
+    openPreview,
+    getCopy: currentCopy
+  });
+
+  const isEnglish = () => window.image2I18n?.language === "en";
 
   function renderDemoGallery() {
     const copy = currentCopy();
     const guides = getFilteredGuides();
-    const { activeTag } = getState();
+    const { activeTag, activeCategory } = getState();
     const isSearch = Boolean(searchInput.value.trim());
-    document.querySelector(".catalog-bar .kicker").textContent = isSearch ? copy.searchResults : copy.featured;
-    document.querySelector("#catalogTitle").textContent = isSearch ? copy.searchTitle : copy.startVisual;
+
+    spotlight.render(guides);
+    clearFilters.hidden = !isSearch && !activeTag && activeCategory === "all";
+
     gallery.innerHTML = guides.map((sourceGuide, index) => {
       const guide = localizeRecord(sourceGuide);
       const mediaMode = guide.video ? "video" : "image";
       const openMode = guide.defaultPreviewMode || mediaMode;
       const openLabel = copy.modes[openMode];
-      const poster = getCardPoster(guide);
-      const previewActionButtons = [
-        guide.video ? `<button class="style-details-button" type="button" data-preview-id="${guide.id}" data-preview-mode="video">${copy.video}</button>` : "",
-        guide.liveDemo ? `<button class="style-details-button" type="button" data-preview-id="${guide.id}" data-preview-mode="live">${copy.clickable}</button>` : ""
-      ].join("");
+      const poster = getCardPoster(sourceGuide);
+      const category = copy.categories[sourceGuide.category] || "";
+      const uses = (guide.bestFor || "").split(/[、,]/).slice(0, 2).join(isEnglish() ? ", " : " · ");
+      const actionLabel = guide.liveDemo ? copy.openDemo : copy.openCase;
+      const tags = guide.tags.map((tag, tagIndex) => {
+        const stableTag = sourceGuide.tags[tagIndex] || tag;
+        const isActive = normalizeTag(stableTag) === normalizeTag(activeTag) || normalizeTag(tag) === normalizeTag(activeTag);
+        return `<a class="wall-tag${isActive ? " is-active" : ""}" href="./library.html?tag=${encodeURIComponent(stableTag)}" data-tag="${stableTag}" aria-current="${isActive ? "true" : "false"}">${tag}</a>`;
+      }).join("");
+
       return `
-      <article class="demo-card" data-case-id="${guide.id}">
-        <div class="demo-card-preview" style="--preview: ${guide.preview}">
-          <figure class="phone-frame phone-frame--card phone-preview-media"><div class="phone-screen"><img class="phone-media" loading="${index < 3 ? "eager" : "lazy"}" fetchpriority="${index < 3 ? "high" : "low"}" src="${poster}" alt="${window.image2I18n?.language === "en" ? `${guide.style} mobile interface thumbnail` : `${guide.style} 手机界面缩略图`}" decoding="async"></div><span class="media-hint">${copy.imagePreview}</span></figure>
-          <button class="preview-open-button" type="button" data-preview-id="${guide.id}" data-preview-mode="${openMode}" aria-label="${copy.openPreview}: ${guide.style}, ${openLabel}"><span>${openLabel}</span></button>
+      <article class="wall-card" data-case-id="${guide.id}" style="--case-tint: ${sourceGuide.preview || "#e7e8e2"}">
+        <div class="wall-frame">
+          <span class="wall-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+          <span class="wall-category" aria-hidden="true">${category}</span>
+          <figure class="phone-frame phone-frame--card wall-phone"><div class="phone-screen"><img class="phone-media" loading="${index < 6 ? "eager" : "lazy"}" fetchpriority="${index < 3 ? "high" : "low"}" src="${poster}" alt="${isEnglish() ? `${guide.style} — ${guide.name}` : `${guide.style} — ${guide.name} 手机界面`}" decoding="async"></div></figure>
+          <button class="wall-open" type="button" data-preview-id="${guide.id}" data-preview-mode="${openMode}" aria-label="${copy.openPreview}: ${guide.style}, ${openLabel}"></button>
         </div>
-        <div class="demo-card-body">
-          <button class="demo-card-details-hitarea" type="button" data-style-details="${guide.id}" aria-label="${copy.openDetails}: ${guide.style}"></button>
-          <div class="demo-card-meta"><span>${guide.name}</span><span>${guide.bestFor}</span></div>
+        <div class="wall-caption">
+          <p class="wall-name">${guide.name}</p>
           <h3>${guide.style}</h3>
-          <p class="demo-card-summary">${guide.summary}</p>
-          <div class="case-statuses" aria-label="${window.image2I18n?.language === "en" ? "Case status" : "案例状态"}"><span>Screenshot</span>${guide.liveDemo ? `<span class="is-live">Clickable</span><span>Code Ready</span>` : ""}</div>
-          <div class="style-tags" aria-label="${copy.styleKeywords}">${guide.tags.map((tag, index) => { const stableTag = sourceGuide.tags[index] || tag; return `<a class="style-tag${normalizeTag(stableTag) === normalizeTag(activeTag) ? " is-active" : ""}" href="./library.html?tag=${encodeURIComponent(stableTag)}" data-tag="${stableTag}" aria-pressed="${normalizeTag(stableTag) === normalizeTag(activeTag)}">${tag}</a>`; }).join("")}</div>
-          <div class="brand-links" aria-label="${copy.brands}">${getStyleProfiles(sourceGuide).map((profile) => `<span>${profile.name}</span>`).join("")}</div>
-          <div class="demo-card-footer"><small title="${copy.localReference}: ${guide.referenceImage}">${copy.localReference}: ${guide.reference}</small><div class="demo-card-actions">${previewActionButtons}<button class="style-details-button" type="button" data-style-details="${guide.id}">${copy.details}</button><button class="copy-style-button" type="button" data-apply-case="${guide.id}">${copy.applyProject}</button></div></div>
+          <p class="wall-use">${uses}</p>
+          <div class="wall-foot">
+            <div class="wall-tags" aria-label="${copy.styleKeywords}">${tags}</div>
+            <button class="wall-action" type="button" data-preview-id="${guide.id}" data-preview-mode="${openMode}">${actionLabel} <span aria-hidden="true">↗</span></button>
+          </div>
         </div>
       </article>`;
     }).join("");
-    resultCount.textContent = copy.count(guides.length);
+
+    let activeTagLabel = activeTag;
+    if (activeTag) {
+      for (const sourceGuide of guides) {
+        const localized = localizeRecord(sourceGuide);
+        const sourceIndex = (sourceGuide.tags || []).indexOf(activeTag);
+        if (sourceIndex >= 0) {
+          activeTagLabel = localized.tags?.[sourceIndex] || activeTag;
+          break;
+        }
+        const localizedIndex = (localized.tags || []).indexOf(activeTag);
+        if (localizedIndex >= 0) {
+          activeTagLabel = localized.tags[localizedIndex] || activeTag;
+          break;
+        }
+      }
+    }
+
+    resultCount.textContent = activeTag ? `${copy.count(guides.length)} · ${activeTagLabel}` : copy.count(guides.length);
     emptyState.hidden = guides.length !== 0;
-    gallery.querySelectorAll(".phone-preview-media img").forEach((image) => image.addEventListener("error", () => {
-      const media = image.closest(".phone-preview-media");
-      media?.classList.add("is-unavailable");
+
+    gallery.querySelectorAll(".wall-phone img").forEach((image) => image.addEventListener("error", () => {
+      image.closest(".wall-frame")?.classList.add("is-unavailable");
       image.remove();
     }, { once: true }));
-    gallery.querySelectorAll("[data-apply-case]").forEach((button) => button.addEventListener("click", () => applyCaseToProject(button.dataset.applyCase, true)));
-    gallery.querySelectorAll("[data-style-details]").forEach((button) => button.addEventListener("click", () => openPreview(button.dataset.styleDetails)));
+
     gallery.querySelectorAll("[data-preview-id]").forEach((button) => button.addEventListener("click", () => openPreview(button.dataset.previewId, button.dataset.previewMode)));
     gallery.querySelectorAll("[data-tag]").forEach((link) => link.addEventListener("click", (event) => {
       event.preventDefault();
